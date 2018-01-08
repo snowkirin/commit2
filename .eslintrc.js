@@ -24,6 +24,23 @@ module.exports = {
   },
   // add your custom rules here
   rules: {
+    //
+    // ECMAScript 6
+    //
+    // These rules are only relevant to ES6 environments and are off by default.
+    //
+    'no-var': 2, // require let or const instead of var (off by default)
+    'generator-star-spacing': [2, 'before'], // enforce the spacing around the * in generator functions (off by default)
+
+    //
+    'no-alert': 0,
+    'no-param-reassign': [
+      2,
+      { 'props': false }
+    ],
+    'no-console': 0,
+    'linebreak-style': 0,
+        
     // don't require .vue extension when importing
     'import/extensions': ['error', 'always', {
       js: 'never',
