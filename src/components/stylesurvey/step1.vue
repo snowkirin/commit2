@@ -38,7 +38,7 @@ export default {
       'setSelectedImage',
     ]),
     selectedImage(key) {
-      this.setSelectedImage(key);
+      this.setSelectedImage({ imgKey: key, cat: 1 });
     },
     nextStep() {
       this.$router.push({ path: '/stylesurvey/2' });

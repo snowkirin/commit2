@@ -5,22 +5,22 @@
       <p>스타일을 2가지 선택해주세요.</p>
     </div>
     <div class="ui two column row celled grid container">
-      <div class="eight wide column favoriteImage" v-for="myFavorite in myFavoriteList" @click="selectedImage(myFavorite.key)" v-bind:class="{ selected_dbb: myFavorite.selected }">
+      <div class="eight wide column favoriteImage" v-for="myFavorite in myFvList" @click="selectedImage(myFavorite.key)">
         <img class="ui massive rounded image centered" v-bind:src="myFavorite.image" >
-        <div class="middle">
-          <i class="empty big heart icon"></i>
+        <div class="middle" v-bind:class="{ 'show-middle': myFavorite.selected }">
+          <i class="heart red big icon"></i>
         </div>
       </div>
     </div>
 
     <div class="ui two column row grid container">
       <div class="eight wide column div-align-left">
-        <button class="Grey massive ui button">
+        <button class="Grey massive ui button" @click="prevStep()">
           Prev
         </button>
       </div>
       <div class="eight wide column div-align-right">
-        <button class="Grey massive ui button">
+        <button class="Grey massive ui button" @click="nextStep()">
           Next
         </button>
       </div>
@@ -36,16 +36,36 @@ export default {
   components: {
   },
   computed: mapGetters([
-    'myFavoriteList',
+    'myFvList',
+    'fvSelectedList',
   ]),
   methods: {
     ...mapActions([
+      'setSelectedImage',
+      'setSurveyView',
     ]),
+    selectedImage(key) {
+      if (!this.fvSelectedList.has(key)) {
+        if (this.fvSelectedList.size > 1) {
+          alert('이미 2가지 스타일을 고르셨어요.');
+        } else {
+          this.setSelectedImage({ imgKey: key, cat: 2 });
+        }
+      } else {
+        this.setSelectedImage({ imgKey: key, cat: 2 });
+      }
+    },
+    prevStep() {
+      this.$router.push({ path: '/stylesurvey/1' });
+      this.setSurveyView(this.$route.params.id);
+    },
+    nextStep() {
+      this.$router.push({ path: '/stylesurvey/3' });
+      this.setSurveyView(this.$route.params.id);
+    },
   },
   created() {
     this.$store.dispatch('setMyFavoriteList');
-
-    console.log(this.myFavoriteList);
   },
 };
 </script>
@@ -72,17 +92,20 @@ div.survey-step2 {
 
 .middle {
   transition: .5s ease;
-  opacity: 1;
   position: absolute;
-  top: 80%;
-  left: 75%;
+  opacity: 0;
+  top: 85%;
+  left: 80%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%)
 }
 
+.show-middle {
+  opacity: 1;
+}
+
 .favoriteImage:hover .image {
   opacity: 0.7;
-  border: 3px solid red;
 }
 
 @media screen and (min-width: 480px) {

@@ -1,7 +1,7 @@
 <template>
   <footer>
     <div class="footer-area">
-      © 2017 TRNT. All Rights Reserved.
+      © 2018 OnionGround. All Rights Reserved.
     </div>
   </footer>
 </template>

@@ -40,7 +40,7 @@ module.exports = {
     ],
     'no-console': 0,
     'linebreak-style': 0,
-        
+
     // don't require .vue extension when importing
     'import/extensions': ['error', 'always', {
       js: 'never',
@@ -53,7 +53,8 @@ module.exports = {
       ignorePropertyModificationsFor: [
         'state', // for vuex state
         'acc', // for reduce accumulators
-        'e' // for e.returnvalue
+        'e', // for e.returnvalue
+        'dataList'
       ]
     }],
     // allow optionalDependencies
