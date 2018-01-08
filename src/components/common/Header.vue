@@ -2,7 +2,7 @@
   <header>
     <div class="navbar-custom-header">
       <div class="navbar-main center">
-        <span class="navbar-main-title">Zuly</span>
+        <span id="zuly" class="navbar-main-title">Zuly</span>
       </div>
       <div class="navbar-links">
         <button class="navbar-toggle collapsed" type="button" @click="setGnb">

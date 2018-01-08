@@ -48,7 +48,11 @@
     <div class="wrapper">
       <iframe width="560" height="315" src="https://www.youtube.com/embed/grL6UtBeiiU" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
     </div>
-
+    <div>
+      <a href="#zuly" class="ui icon button">
+          <i class="toggle up icon"></i>
+      </a>
+    </div>
   </div>
 </template>
 

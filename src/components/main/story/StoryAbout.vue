@@ -24,6 +24,11 @@
         <h3>언제 어떻게 받아 보나요?</h3>
         <P class="borderBottom">정기 구독시 한 달에 2번 화요일 or 목요일 선택한 날짜에 스타일링된 의상을 받게 됩니다.</P>
       </div>
+      <div>
+        <a href="#zuly" class="ui icon button">
+            <i class="toggle up icon"></i>
+        </a>
+      </div>
     </div>
 </template>
 
