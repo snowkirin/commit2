@@ -15,11 +15,18 @@ export default {
 <style scoped>
 footer {
     display: table;
+<<<<<<< HEAD
+=======
+    bottom: 0;
+>>>>>>> first commit
     width: 100%;
     height: 60px;
     background-color: #FFFFFF;
     border-top: 1px solid;
+<<<<<<< HEAD
     margin-top: 20px;
+=======
+>>>>>>> first commit
 }
 
 .footer-area {

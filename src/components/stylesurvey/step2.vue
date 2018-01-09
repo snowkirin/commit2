@@ -78,6 +78,7 @@ div.survey-step2 {
   width: 100%;
 }
 
+<<<<<<< HEAD
 .div-align-left {
   text-align: left;
 }
@@ -118,5 +119,9 @@ div.survey-step2 {
   img {
     height: 180px !important;
   }
+=======
+img {
+  height: 200px !important;
+>>>>>>> first commit
 }
 </style>

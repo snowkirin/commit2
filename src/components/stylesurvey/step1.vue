@@ -8,6 +8,7 @@
         {{ myimage.text }}
       </div>
     </div>
+<<<<<<< HEAD
     <div class="ui two column row grid container">
       <div class="eight wide column div-align-left">
       </div>
@@ -16,6 +17,12 @@
           Next
         </button>
       </div>
+=======
+    <div class="step1-bottom">
+      <button class="Grey massive ui button" @click="nextStep()">
+        Next
+      </button>
+>>>>>>> first commit
     </div>
   </div>
 </div?>
@@ -38,7 +45,11 @@ export default {
       'setSelectedImage',
     ]),
     selectedImage(key) {
+<<<<<<< HEAD
       this.setSelectedImage({ imgKey: key, cat: 1 });
+=======
+      this.setSelectedImage(key);
+>>>>>>> first commit
     },
     nextStep() {
       this.$router.push({ path: '/stylesurvey/2' });

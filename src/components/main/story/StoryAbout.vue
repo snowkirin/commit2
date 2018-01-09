@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
     <div class="ui one column centered grid">
       <img class="ui centered image marginBottom" src="/src/assets/suzy.jpg" />
 
@@ -30,6 +31,11 @@
         </a>
       </div>
     </div>
+=======
+  <div class="zuly-story-about">
+    Story About
+  </div>
+>>>>>>> first commit
 </template>
 
 <script>
@@ -40,6 +46,7 @@ export default {
 };
 </script>
 
+<<<<<<< HEAD
 <style>
 .borderBottom {
   border-bottom: 2px solid #9E9E9E;
@@ -62,3 +69,7 @@ iframe{
   margin-bottom: 20px;
 }
 </style>
+=======
+<style scoped>
+</style>
+>>>>>>> first commit

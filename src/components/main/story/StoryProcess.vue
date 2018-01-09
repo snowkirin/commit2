@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div class="ui grid">
     <div class="two column row ">
       <div class="column">
@@ -53,16 +54,24 @@
           <i class="toggle up icon"></i>
       </a>
     </div>
+=======
+  <div class="zuly-story-process">
+    Story 345345435345345345345
+>>>>>>> first commit
   </div>
 </template>
 
 <script>
+<<<<<<< HEAD
 import { mapActions, mapGetters } from 'vuex';
 
+=======
+>>>>>>> first commit
 export default {
   name: 'story-process',
   components: {
   },
+<<<<<<< HEAD
   computed: mapGetters([
     'images',
   ]),
@@ -86,3 +95,10 @@ iframe{
   vertical-align: middle;
 }
 </style>
+=======
+};
+</script>
+
+<style scoped>
+</style>
+>>>>>>> first commit

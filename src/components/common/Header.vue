@@ -1,5 +1,6 @@
 <template>
   <header>
+<<<<<<< HEAD
     <div class="navbar-custom-header">
       <div class="navbar-main center">
         <span id="zuly" class="navbar-main-title">Zuly</span>
@@ -7,6 +8,16 @@
       <div class="navbar-links">
         <button class="navbar-toggle collapsed" type="button" @click="setGnb">
           <span class="sr-only">네비게이션 끄기/켜기</span>
+=======
+    <div style="margin-top: 15px;">
+      <span class="navbar-main-title">Zuly</span>
+    </div>
+
+    <div class="navbar-custom-header">
+      <div class="navbar-links">
+        <button class="navbar-toggle collapsed" type="button" @click="setGnb">
+          <span class="sr-only">모바일 메뉴</span>
+>>>>>>> first commit
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
@@ -51,7 +62,10 @@ export default {
 <style scoped>
 header {
   width: 100%;
+<<<<<<< HEAD
   height: 50px;
+=======
+>>>>>>> first commit
 }
 
 div.navbar-custom-header {
