@@ -1,0 +1,88 @@
+div.main {
+  margin: auto;
+  width: 1300px;
+}
+
+header {
+  height: 100px;
+  overflow: hidden;
+}
+
+header div.left {
+  width: auto;
+  float: left;
+  overflow: hidden;
+}
+
+header div.right {
+  width: 800px;
+  float: right;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.talign-center {
+  text-align: center;
+}
+
+.talign-left {
+  text-align: left;
+}
+
+.talign-right {
+  text-align: right;
+}
+
+.w100 {
+  width: 100%;
+}
+
+.mt5 {
+  margin-top: 5px;
+}
+
+.mt10 {
+  margin-top: 10px;
+}
+
+.mt20 {
+  margin-top: 20px;
+}
+
+.mt30 {
+  margin-top: 30px !important;
+}
+
+.mt40 {
+  margin-top: 30px !important;
+}
+
+.mt70 {
+  margin-top: 70px !important;
+}
+
+.ml40 {
+  margin-left: 40px !important;
+}
+
+.pd5 {
+  padding-top: 5px !important;
+}
+
+.pd120 {
+  padding-top: 120px !important;
+}
+
+.side-margin-50 {
+  margin: 0 50px 0 50px;
+}
+
+.side-margin-42 {
+  margin: 0 42px 0 42px;
+}
+
+.side-margin-5 {
+  margin: 0 8px 0 8px;
+}

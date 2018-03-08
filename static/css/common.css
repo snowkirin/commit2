@@ -1,0 +1,9 @@
+@import "layout.css";
+@import "fontInfo.css";
+@import "button.css";
+
+.Line {
+  width: 1200px;
+  height: 2px;
+  background-color: #e1e1e1;
+}
