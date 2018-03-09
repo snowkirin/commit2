@@ -1,12 +1,12 @@
 <template>
   <div class="main-about mt70">
     <div class="side-margin-50">
-      <div class="main-point-text tc-white pd120">
+      <div class="main-point-text tc-white pd120 en-font">
         ABOUT
       </div>
       <div class="main-about-title">
         가벼운 옷장, 아름다운 일상<br/>
-        놀라운 편리함 데일리룩 구독 서비스 ZULY
+        놀라운 편리함 데일리룩 구독 서비스 <span class="en-font">ZULY</span>
       </div>
       <div class="main-about-service pd5">
         <a href="#" class="tc-white">서비스 상세 소개</a>
@@ -29,24 +29,23 @@ export default {
 }
 
 .main-about-title {
-  font-size: 32px;
+  font-size: 36px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
   line-height: 1.26;
-  letter-spacing: -2.4px;
+  letter-spacing: -0.4px;
   text-align: left;
   color: #ffffff;
-  text-shadow: 0px -1px 0 rgba(0, 0, 0, 0.1);
 }
 
 .main-about-service {
   font-size: 18px;
-  font-weight: bold;
+  font-weight: normal;
   font-style: normal;
   font-stretch: normal;
   line-height: 2.56;
-  letter-spacing: -1.2px;
+  letter-spacing: -0.2px;
   text-align: left;
   color: #ffffff;
 }

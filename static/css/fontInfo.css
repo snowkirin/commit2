@@ -1,5 +1,12 @@
+@import url(https://cdn.rawgit.com/openhiun/hangul/14c0f6faa2941116bb53001d6a7dcd5e82300c3f/nanumbarungothic.css);
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
 * {
-  font-family: 'Malgun Gothic'
+  font-family: 'Nanum Barun Gothic', "맑은 고딕", "Malgun Gothic", "애플 SD 산돌고딕 Neo", "Apple SD Gothic Neo", sans-serif;
+}
+
+.en-font {
+  font-family: 'Open Sans', "맑은 고딕", "Malgun Gothic", "애플 SD 산돌고딕 Neo", "Apple SD Gothic Neo", sans-serif;
 }
 
 .main-point-text {
@@ -15,7 +22,7 @@
 
 .main-cs-tel {
   font-size: 36px;
-  font-weight: bold;
+  font-weight: 600;
   font-style: normal;
   font-stretch: normal;
   line-height: 1.33;
@@ -31,7 +38,7 @@
   font-style: normal;
   font-stretch: normal;
   line-height: 1.56;
-  letter-spacing: -1.2px;
+  letter-spacing: -0.2px;
   text-align: left;
   color: #212121;
   color: var(--black-two);
@@ -61,12 +68,12 @@
 
 .footer-info span.text {
   line-height: 1.25;
-  letter-spacing: -1.2px;
+  letter-spacing: -0.1px;
 }
 
 .menu-title {
   font-size: 22px;
-  font-weight: 510;
+  font-weight: 500;
   font-style: normal;
   font-stretch: normal;
   line-height: 1.33;

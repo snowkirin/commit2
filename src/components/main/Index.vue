@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main">
     <benefit></benefit>
     <about></about>
     <process></process>
@@ -28,4 +28,7 @@ export default {
 </script>
 
 <style scoped>
+div.main {
+  padding-bottom: 410px;
+}
 </style>

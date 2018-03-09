@@ -1,10 +1,10 @@
 <template>
-  <footer class="mt70">
+  <footer class="mt70 mb50">
     <div class="footer-area side-margin-50">
-      <div class="main-point-text">
+      <div class="main-point-text en-font">
         HELP
       </div>
-      <div class="main-cs-tel">
+      <div class="main-cs-tel en-font">
         1644-1107
       </div>
       <div class="main-cs-noti mt20">
@@ -17,10 +17,10 @@
       </div>
       <div class="footer-info mt10">
         <span class="text">
-          법인명(상호) : 주식 회사 어니언 그라운드(Onion Ground) │ 대표자(성명) : 김경규, 이시진 │ 개인정보보호책임자 : 김용주(admin@onionground.com)<br/>
+          법인명(상호) : 주식 회사 어니언 그라운드(<span class="en-font">Onion Ground</span>) │ 대표자(성명) : 김경규, 이시진 │ 개인정보보호책임자 : 김용주(<span class="en-font">admin@onionground.com</span>)<br/>
           사업자 등록 번호 : 729-81-00963 │ 서울 특별시 테헤란로 78길 14-6 동성빌딩 7층<br/>
-          입점 문의 및 마케팅 제휴 : sjsj00@onionground.com │ 기타 문의 : admin@onionground.com<br/>
-          © Onion Ground All Right RESERVED
+          입점 문의 및 마케팅 제휴 : <span class="en-font">sjsj00@onionground.com</span> │ 기타 문의 : <span class="en-font">admin@onionground.com</span><br/>
+          <span class="en-font">© Onion Ground All Right RESERVED</span>
         </span>
       </div>
     </div>

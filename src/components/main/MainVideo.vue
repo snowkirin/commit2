@@ -1,5 +1,5 @@
 <template>
-  <div class="main-video mt70">
+  <div class="main-video mt70 mb65">
   </div>
 </template>
 

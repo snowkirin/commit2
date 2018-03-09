@@ -1,14 +1,15 @@
 <template>
   <div class="side-margin-50 mt70">
     <div class="main-process d-flex">
-      <div class="main-point-text" style="line-height: 0;">
+      <div class="main-point-text en-font" style="line-height: 0;">
         FAQ
       </div>
       <div class="w100">
         <div class="w100">
           <div class="faq-line"></div>
           <div class="mt70 faq-question" @click="openFAQ">
-            Q&nbsp;&nbsp;&nbsp;&nbsp;요금제는 어떻게 되나요?
+            Q&nbsp;&nbsp;&nbsp;&nbsp;
+            요금제는 어떻게 되나요?
             <div class="faq-question-icon">
               <i class="fa fa-angle-up fa-lg"></i>
             </div>
@@ -125,12 +126,12 @@ export default {
 
 .faq-question {
   display: block;
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 500;
   font-style: normal;
   font-stretch: normal;
   line-height: 1.36;
-  letter-spacing: -2.8px;
+  letter-spacing: -0.2px;
   text-align: left;
   color: #212121;
   cursor: pointer;
@@ -153,12 +154,8 @@ export default {
   font-style: normal;
   font-stretch: normal;
   line-height: 1.56;
-  letter-spacing: -0.8px;
+  letter-spacing: -0.2px;
   text-align: left;
   color: #212121;
-}
-
-.faq-answer-text span {
-  font-weight: 600;
 }
 </style>
