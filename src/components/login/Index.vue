@@ -1,5 +1,5 @@
 <template>
-  <div class="login side-margin-50">
+  <div class="login subContent side-margin-50">
     <div class="login-title">로그인</div>
     <div class="loginLine mt25"></div>
     <div class="login-error" style="display: none;">
