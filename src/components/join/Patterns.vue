@@ -28,6 +28,13 @@
           <div class="btn-times"></div>
         </div>
       </div>
+      <div class="mt50">
+        <div style="width: 392px; float: right;">
+          <button class="button-login" @click="moveNext">
+            다음
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -54,6 +61,9 @@ export default {
         target.style.backgroundColor = '#FFFFFF';
         target.querySelector('.btn-times').classList.remove('on');
       };
+    },
+    moveNext() {
+      this.$router.push({ path: 'styling' });
     },
   },
   mounted() {

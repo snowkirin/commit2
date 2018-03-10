@@ -6,12 +6,12 @@
     </div>
     <div class="sizeLine mt25"></div>
     <div class="size-form mt40" style="width: 392px; margin: auto;">
+      <sizeSlider :height="1.5"></sizeSlider>
       <sizeSlider></sizeSlider>
-      <sizeSlider></sizeSlider>
-      <sizeSlider></sizeSlider>
+      <sizeSlider :height="1.5"></sizeSlider>
       <sizeSlider></sizeSlider>
       <div class="mt50">
-        <button class="button-login">
+        <button class="button-login" @click="moveNext">
           다음
         </button>
       </div>
@@ -26,6 +26,11 @@ export default {
   name: 'size',
   components: {
     SizeSlider,
+  },
+  methods: {
+    moveNext() {
+      this.$router.push({ path: 'clothes' });
+    },
   },
 };
 </script>

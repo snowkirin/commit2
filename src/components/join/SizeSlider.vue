@@ -4,7 +4,7 @@
     <div class="sizeBar divIB">
       <vue-slider
         :value="sliderOption.value"
-        :height="sliderOption.height"
+        :height="this.height"
         :style="sliderOption.paddingBottom"
         :bgStyle="sliderOption.bgStyle"
         :processStyle="sliderOption.processStyle"
@@ -35,6 +35,12 @@ export default {
   name: 'sizeSlider',
   components: {
     vueSlider,
+  },
+  props: {
+    height: {
+      type: Number,
+      default: 2,
+    },
   },
   data() {
     return {
