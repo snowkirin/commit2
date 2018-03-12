@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     moveNext() {
-      this.$router.push({ path: 'clothes' });
+      this.$router.push({ path: 'colors' });
     },
   },
 };

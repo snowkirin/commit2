@@ -5,13 +5,46 @@
       받고 싶지 않은 품목을 모두 선택해주세요.
     </div>
     <div class="patternsLine mt25"></div>
-    <div class="patterns-form mt40" style="width: 100%; margin: auto; word-spacing: 1em;">
+    <div class="patterns-form mt40" style="width: 100%; margin: auto; word-spacing: 0.4em;">
       <div class="patterns-card d-inlineblock">
         <div class="patterns-images">
           IMAGE
         </div>
         <div class="patterns-text">
           실루엣
+        </div>
+        <div class="patterns-btn">
+          <div class="btn-times"></div>
+        </div>
+      </div>
+      <div class="patterns-card d-inlineblock">
+        <div class="patterns-images">
+          IMAGE
+        </div>
+        <div class="patterns-text">
+          실루엣명이
+        </div>
+        <div class="patterns-btn">
+          <div class="btn-times"></div>
+        </div>
+      </div>
+      <div class="patterns-card d-inlineblock">
+        <div class="patterns-images">
+          IMAGE
+        </div>
+        <div class="patterns-text">
+          실루엣명이
+        </div>
+        <div class="patterns-btn">
+          <div class="btn-times"></div>
+        </div>
+      </div>
+      <div class="patterns-card d-inlineblock">
+        <div class="patterns-images">
+          IMAGE
+        </div>
+        <div class="patterns-text">
+          실루엣명이
         </div>
         <div class="patterns-btn">
           <div class="btn-times"></div>
@@ -90,8 +123,8 @@ export default {
 }
 
 .patterns-card {
-  width: 190px;
-  height: 190px;
+  width: 186px;
+  height: 186px;
   background-color: #FFFFFF;
   border: solid 2px #dadada;
   position: relative;
@@ -121,8 +154,8 @@ export default {
 }
 
 .patterns-btn {
-  width: 48px;
-  height: 48px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
   border: solid 2px #dadada;
   background-color: #FFFFFF;
@@ -148,7 +181,7 @@ div.btn-times:before, div.btn-times:after {
   height: 2px;
   background-color: #dadada;
   border-radius: 2px;
-  top: 23px;
+  top: 22px;
   box-shadow: 0 0 2px 0 #ccc;
 }
 
@@ -156,14 +189,14 @@ div.btn-times:before {
   -webkit-transform: rotate(45deg);
   -moz-transform: rotate(45deg);
   transform: rotate(45deg);
-  left: 9px;
+  left: 8px;
 }
 
 div.btn-times:after {
   -webkit-transform: rotate(-45deg);
   -moz-transform: rotate(-45deg);
   transform: rotate(-45deg);
-  right: 9px;
+  right: 8px;
 }
 
 .on:before, .on:after {

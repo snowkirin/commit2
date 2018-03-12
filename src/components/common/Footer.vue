@@ -37,26 +37,23 @@ export default {
       else target.classList.remove('tc-black');
     },
   },
-  watch: {
-    $route() {
-      this.pointTextEvt();
-    },
-  },
   mounted() {
-    this.pointTextEvt();
   },
 };
 </script>
 
 <style scoped>
+
+.main-point-text {
+  color: #212121;
+}
+
 footer {
   width: 100%;
-  background-color: #F5F5F5;
+  background-color: #FFFFFF;
 }
 
 .footer-area {
-  padding: 50px;
-  background-image: linear-gradient(to bottom, #F5F5F5 0%, #F5F5F5 100%), linear-gradient(to bottom, #F5F5F5 0%, #F5F5F5 100%);
-  background-clip: content-box, padding-box;
+  padding: 0 50px 50px 50px;
 }
 </style>

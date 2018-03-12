@@ -1,10 +1,10 @@
 <template>
-  <div class="process-main mt70">
+  <div class="process-main side-padding-50 mt70">
     <div class="main-process d-flex">
       <div class="main-point-text" style="line-height: 0; position: relative;">
         <span class="en-font" style="padding-top: 7px; position: absolute;">PROCESS</span>
       </div>
-      <div class="w100 d-flex">
+      <div class="main-process-info w100 d-flex">
         <div class="process-half-area">
           <div class="d-flex">
             <div class="process-icon">
@@ -33,10 +33,10 @@
             </div>
           </div>
         </div>
-        <div style="width: 2%;">
+        <div class="process-line" style="width: 2%;">
           <div class="line"></div>
         </div>
-        <div class="ml40" style="width:49%;">
+        <div class="process-half-area half-second ml40">
           <div class="d-flex">
             <div class="process-icon">
               <div class="thirdProcess"></div>
@@ -95,7 +95,7 @@ export default {
 
 .process-title {
   font-size: 27px;
-  font-weight: 500;
+  font-weight: 400;
   font-style: normal;
   font-stretch: normal;
   line-height: 1.36;

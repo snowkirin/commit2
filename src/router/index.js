@@ -12,6 +12,7 @@ const JoinPatterns = () => import('@/components/join/Patterns');
 const JoinStyling = () => import('@/components/join/Styling');
 const JoinRequirement = () => import('@/components/join/Requirement');
 const JoinSignUp = () => import('@/components/join/SignUp');
+const JoinColors = () => import('@/components/join/Colors');
 
 Vue.use(Router);
 
@@ -43,6 +44,7 @@ export default new Router({
             { path: 'styling', component: JoinStyling },
             { path: 'requirement', component: JoinRequirement },
             { path: 'signup', component: JoinSignUp },
+            { path: 'colors', component: JoinColors },
           ],
         },
       ],

@@ -17,7 +17,7 @@
           <div class="btn-times"></div>
         </div>
       </div>
-      <div class="styling-card d-inlineblock" style="margin-left:5px;">
+      <div class="styling-card d-inlineblock" style="margin-left:6.4px;">
         <div class="styling-images">
           IMAGE
         </div>

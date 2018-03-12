@@ -1,6 +1,6 @@
 <template>
   <header class="side-margin-42 pd30">
-    <div class="left">
+    <div class="left" style="padding-top: 12px;">
       <router-link to="/">
          <div class="logo"></div>
       </router-link>

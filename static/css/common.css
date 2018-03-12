@@ -2,9 +2,10 @@
 @import "fontInfo.css";
 @import "button.css";
 @import "form.css";
+@import "mobile-resp.css" screen and (max-width: 1024px);
 
 .Line {
-  width: 1200px;
+  width: 100%;
   height: 2px;
   background-color: #e1e1e1;
 }

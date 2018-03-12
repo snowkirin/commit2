@@ -54,7 +54,7 @@ export default {
 
 .login-title {
   font-size: 36px;
-  font-weight: 600;
+  font-weight: 400;
   font-style: normal;
   font-stretch: normal;
   line-height: 1.26;

@@ -1,5 +1,5 @@
 <template>
-  <div class="main-about mt70">
+  <div class="main-about side-padding-50 mt70">
     <div class="main-about-detail">
       <div class="main-point-text tc-white pd120 en-font">
         ABOUT
@@ -25,7 +25,9 @@ export default {
 .main-about {
   height: 420px;
   background-image: url('/static/img/main/img_about.png');
-  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  background-color: #cfcbc7;
 }
 
 .main-about-detail {
@@ -38,8 +40,8 @@ export default {
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
-  line-height: 1.26;
-  letter-spacing: -1.0px;
+  line-height: 1.3;
+  letter-spacing: -1.3px;
   text-align: left;
   color: #ffffff;
 }

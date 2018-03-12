@@ -1,5 +1,5 @@
 <template>
-  <div class="faq-main mt70">
+  <div class="faq-main side-padding-50 mt70">
     <div class="main-process d-flex">
       <div class="main-point-text" style="line-height: 0; position: relative;">
         <span class="en-font" style="padding-top: 6px; position: absolute;">FAQ</span>
@@ -132,7 +132,7 @@ export default {
 .faq-question {
   display: block;
   font-size: 27px;
-  font-weight: 500;
+  font-weight: 400;
   font-style: normal;
   font-stretch: normal;
   line-height: 1.36;

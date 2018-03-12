@@ -1,5 +1,5 @@
 <template>
-  <div class="benefit-main">
+  <div class="benefit-main side-padding-50">
     <div class="main-point-text en-font">
       BENEFIT
     </div>
@@ -53,8 +53,8 @@ export default {
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
-  line-height: 1.19;
-  letter-spacing: -3.9px;
+  line-height: 1.21;
+  letter-spacing: -4.5px;
   color: #212121;
 }
 

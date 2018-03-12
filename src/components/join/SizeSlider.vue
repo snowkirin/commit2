@@ -1,5 +1,5 @@
 <template>
-  <div class="sizeScroll mt55">
+  <div class="sizeScroll mt35">
     <span class="sizeText divIB">바지</span>
     <div class="sizeBar divIB">
       <vue-slider
@@ -114,6 +114,7 @@ export default {
   font-size: 17px;
   text-align: right;
   caret-color: black;
+  font-weight: 500;
 }
 
 .sizeDisplay {

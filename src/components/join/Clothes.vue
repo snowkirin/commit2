@@ -5,13 +5,46 @@
       받고 싶지 않은 품목을 모두 선택해주세요.
     </div>
     <div class="clothesLine mt25"></div>
-    <div class="clothes-form mt40" style="width: 100%; margin: auto; word-spacing: 1em;">
+    <div class="clothes-form mt40" style="width: 100%; margin: auto; word-spacing: 0.4em;">
       <div class="clothes-card d-inlineblock">
         <div class="clothes-images">
           IMAGE
         </div>
         <div class="clothes-text">
           실루엣
+        </div>
+        <div class="clothes-btn">
+          <div class="btn-times"></div>
+        </div>
+      </div>
+      <div class="clothes-card d-inlineblock">
+        <div class="clothes-images">
+          IMAGE
+        </div>
+        <div class="clothes-text">
+          실루엣명이
+        </div>
+        <div class="clothes-btn">
+          <div class="btn-times"></div>
+        </div>
+      </div>
+      <div class="clothes-card d-inlineblock">
+        <div class="clothes-images">
+          IMAGE
+        </div>
+        <div class="clothes-text">
+          실루엣명이
+        </div>
+        <div class="clothes-btn">
+          <div class="btn-times"></div>
+        </div>
+      </div>
+      <div class="clothes-card d-inlineblock">
+        <div class="clothes-images">
+          IMAGE
+        </div>
+        <div class="clothes-text">
+          실루엣명이
         </div>
         <div class="clothes-btn">
           <div class="btn-times"></div>
@@ -90,7 +123,7 @@ export default {
 }
 
 .clothes-card {
-  width: 190px;
+  width: 186px;
   height: 245px;
   background-color: #FFFFFF;
   border: solid 2px #dadada;
@@ -115,13 +148,13 @@ export default {
 }
 
 .clothes-btn {
-  width: 49px;
-  height: 49px;
+  width: 47px;
+  height: 47px;
   border: solid 2px #dadada;
   position: absolute;
   opacity: 1;
-  top: 10%;
-  left: 87%;
+  top: 9.8%;
+  left: 87.4%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }

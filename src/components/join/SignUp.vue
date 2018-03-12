@@ -2,15 +2,15 @@
   <div class="signup subContent side-margin-50">
     <div class="content-title mt20">정기구독/회원가입</div>
     <div class="signupLine mt25"></div>
-    <div class="signup-form mt40" style="width: 820px; margin: auto;">
-      <div class="signup-area mt40 d-inlinetable" style="margin-right: 32px;">
+    <div class="signup-form mt30" style="width: 820px; margin: auto;">
+      <div class="signup-area d-inlinetable" style="margin-right: 30px;">
         <div class="signup-title-detail">사용자 계정</div>
         <input type="text" name="" class="form-login-input mt20" placeholder="이름" />
         <input type="text" name="" class="form-login-input mt12" placeholder="휴대전화" />
         <input type="text" name="" class="form-login-input mt12" placeholder="이름" />
         <input type="text" name="" class="form-login-input mt12" placeholder="휴대전화" />
       </div>
-      <div class="signup-area mt40 d-inlinetable">
+      <div class="signup-area d-inlinetable">
         <div class="signup-title-detail">연락처 정보</div>
         <input type="text" name="" class="form-login-input mt20" placeholder="이름" />
         <input type="text" name="" class="form-login-input mt12" placeholder="휴대전화" />
