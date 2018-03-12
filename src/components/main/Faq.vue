@@ -4,7 +4,7 @@
       <div class="main-point-text" style="line-height: 0; position: relative;">
         <span class="en-font" style="padding-top: 6px; position: absolute;">FAQ</span>
       </div>
-      <div class="w100">
+      <div class="w100 faq-card">
         <div class="w100">
           <div class="faq-line"></div>
           <div class="mt70 faq-question" @click="openFAQ">

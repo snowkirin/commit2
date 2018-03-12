@@ -6,7 +6,7 @@
       </div>
       <div class="main-process-info w100 d-flex">
         <div class="process-half-area">
-          <div class="d-flex">
+          <div class="d-flex process-card">
             <div class="process-icon">
               <div class="firstProcess"></div>
             </div>
@@ -19,7 +19,7 @@
               </div>
             </div>
           </div>
-          <div class="d-flex mt60">
+          <div class="d-flex process-card mt60">
             <div class="process-icon">
               <div class="secondProcess"></div>
             </div>
@@ -37,7 +37,7 @@
           <div class="line"></div>
         </div>
         <div class="process-half-area half-second ml40">
-          <div class="d-flex">
+          <div class="d-flex process-card">
             <div class="process-icon">
               <div class="thirdProcess"></div>
             </div>
@@ -50,7 +50,7 @@
               </div>
             </div>
           </div>
-          <div class="d-flex mt60">
+          <div class="d-flex process-card mt60">
             <div class="process-icon">
               <div class="fourthProcess"></div>
             </div>
