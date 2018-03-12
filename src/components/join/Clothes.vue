@@ -1,6 +1,6 @@
 <template>
   <div class="clothes subContent side-margin-50">
-    <div class="clothes-title mt20">티셔츠/스웻셔츠</div>
+    <div class="content-title mt20">티셔츠/스웻셔츠</div>
     <div class="explain mt20">
       받고 싶지 않은 품목을 모두 선택해주세요.
     </div>
@@ -81,18 +81,6 @@ export default {
   width: 1000px;
   text-align: center;
   margin: auto;
-}
-
-.clothes-title {
-  font-size: 36px;
-  font-weight: 600;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.26;
-  letter-spacing: -0.4px;
-  text-align: center;
-  color: #212121;
-  text-shadow: 0px 1px 0 rgba(0, 0, 0, 0.1);
 }
 
 .clothesLine {

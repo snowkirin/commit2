@@ -1,6 +1,6 @@
 <template>
   <div class="size subContent side-margin-50">
-    <div class="size-title mt20">사이즈</div>
+    <div class="content-title mt20">사이즈</div>
     <div class="explain mt20">
       다음 질문들은 스타일리스트가 체형을 정확히 파악하여 연출하는데 도움이 됩니다.
     </div>
@@ -40,18 +40,6 @@ export default {
   width: 820px;
   text-align: center;
   margin: auto;
-}
-
-.size-title {
-  font-size: 36px;
-  font-weight: 600;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.26;
-  letter-spacing: -0.4px;
-  text-align: center;
-  color: #212121;
-  text-shadow: 0px 1px 0 rgba(0, 0, 0, 0.1);
 }
 
 .sizeLine {

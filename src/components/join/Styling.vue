@@ -1,6 +1,6 @@
 <template>
   <div class="styling subContent side-margin-50">
-    <div class="styling-title mt20">평소에 즐겨입는 스타일링을 선택해주세요.</div>
+    <div class="content-title mt20">평소에 즐겨입는 스타일링을 선택해주세요.</div>
     <div class="explain mt20">
       당신의 이미지는 무엇입니까?
     </div>
@@ -81,18 +81,6 @@ export default {
   width: 1000px;
   text-align: center;
   margin: auto;
-}
-
-.styling-title {
-  font-size: 36px;
-  font-weight: 600;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.26;
-  letter-spacing: -0.4px;
-  text-align: center;
-  color: #212121;
-  text-shadow: 0px 1px 0 rgba(0, 0, 0, 0.1);
 }
 
 .stylingLine {

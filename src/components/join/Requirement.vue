@@ -1,6 +1,6 @@
 <template>
   <div class="requirement subContent side-margin-50">
-    <div class="requirement-title mt20">요구사항</div>
+    <div class="content-title mt20">요구사항</div>
     <div class="explain mt20">
       개인적인 체형/옷에 대해 별도로 요청 사항 작성해주세요.
     </div>
@@ -38,18 +38,6 @@ export default {
   width: 820px;
   text-align: center;
   margin: auto;
-}
-
-.requirement-title {
-  font-size: 36px;
-  font-weight: 600;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.26;
-  letter-spacing: -0.4px;
-  text-align: center;
-  color: #212121;
-  text-shadow: 0px 1px 0 rgba(0, 0, 0, 0.1);
 }
 
 .requirementLine {

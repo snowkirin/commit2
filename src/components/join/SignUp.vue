@@ -1,23 +1,26 @@
 <template>
   <div class="signup subContent side-margin-50">
-    <div class="signup-title mt20">정기구독/회원가입</div>
+    <div class="content-title mt20">정기구독/회원가입</div>
     <div class="signupLine mt25"></div>
     <div class="signup-form mt40" style="width: 820px; margin: auto;">
       <div class="signup-area mt40 d-inlinetable" style="margin-right: 32px;">
         <div class="signup-title-detail">사용자 계정</div>
-        <input type="text" name="" class="form-login-input mt10" placeholder="이름" />
-        <input type="text" name="" class="form-login-input mt10" placeholder="휴대전화" />
-        <input type="text" name="" class="form-login-input mt10" placeholder="이름" />
-        <input type="text" name="" class="form-login-input mt10" placeholder="휴대전화" />
+        <input type="text" name="" class="form-login-input mt20" placeholder="이름" />
+        <input type="text" name="" class="form-login-input mt12" placeholder="휴대전화" />
+        <input type="text" name="" class="form-login-input mt12" placeholder="이름" />
+        <input type="text" name="" class="form-login-input mt12" placeholder="휴대전화" />
       </div>
       <div class="signup-area mt40 d-inlinetable">
         <div class="signup-title-detail">연락처 정보</div>
-        <input type="text" name="" class="form-login-input mt10" placeholder="이름" />
-        <input type="text" name="" class="form-login-input mt10" placeholder="휴대전화" />
-        <input type="text" name="" class="form-login-input mt10" placeholder="이름" />
-        <input type="text" name="" class="form-login-input mt10" placeholder="휴대전화" />
-        <input type="text" name="" class="form-login-input mt10" placeholder="이름" />
-        <div class="signup-chk-area mt10">
+        <input type="text" name="" class="form-login-input mt20" placeholder="이름" />
+        <input type="text" name="" class="form-login-input mt12" placeholder="휴대전화" />
+        <div class="inputGroup">
+          <input type="text" name="" class="form-login-group mt12" placeholder="우편번호" style="width: 75%;"/>
+          <button class="button-login" style="width: 25%;">주소찾기</button>
+        </div>
+        <input type="text" name="" class="form-login-input mt12" placeholder="휴대전화" />
+        <input type="text" name="" class="form-login-input mt12" placeholder="이름" />
+        <div class="signup-chk-area mt15">
           <label class="container">
             <input type="checkbox">
             <span class="checkmark"></span>
@@ -26,7 +29,7 @@
             *개인정보의 수집 및 이용에 대한 동의
           </div>
         </div>
-        <div class="signup-chk-area mt10">
+        <div class="signup-chk-area mt12">
           <label class="container">
             <input type="checkbox">
             <span class="checkmark"></span>
@@ -34,6 +37,13 @@
           <div class="checkboxText">
             *이용약관
           </div>
+        </div>
+      </div>
+      <div class="mt30">
+        <div style="width: 392px; float: right;">
+          <button class="button-login" @click="moveNext">
+            다음
+          </button>
         </div>
       </div>
     </div>
@@ -67,18 +77,6 @@ export default {
   margin: auto;
 }
 
-.signup-title {
-  font-size: 36px;
-  font-weight: 600;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.26;
-  letter-spacing: -0.4px;
-  text-align: center;
-  color: #212121;
-  text-shadow: 0px 1px 0 rgba(0, 0, 0, 0.1);
-}
-
 .signupLine {
   height: 1px;
   opacity: 0.2;
@@ -108,5 +106,9 @@ export default {
   text-align: left;
   display: table-cell;
   vertical-align: bottom;
+}
+
+.mt12 {
+  margin-top: 12px;
 }
 </style>

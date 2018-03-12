@@ -50,7 +50,7 @@ export default {
 <style scoped>
 .logo {
   width: 99px;
-  height: 40px;
+  height: 30px;
   background-image: url('/static/img/logo/ZULY-BI.png');
   background-size: 100% 100%;
 }

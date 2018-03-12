@@ -100,3 +100,14 @@
 .tc-black {
   color: #212121 !important;
 }
+
+.content-title {
+  font-size: 36px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  letter-spacing: -0.4px;
+  text-align: center;
+  color: #212121;
+  text-shadow: 0px 1px 0 rgba(0, 0, 0, 0.1);
+}

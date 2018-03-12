@@ -49,7 +49,7 @@ export default {
 }
 
 .benefit-title {
-  font-size: 61px;
+  font-size: 62px;
   font-weight: 300;
   font-style: normal;
   font-stretch: normal;
