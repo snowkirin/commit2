@@ -17,7 +17,7 @@
           <div class="btn-times"></div>
         </div>
       </div>
-      <div class="styling-card d-inlineblock">
+      <div class="styling-card d-inlineblock" style="margin-left:5px;">
         <div class="styling-images">
           IMAGE
         </div>
@@ -90,7 +90,7 @@ export default {
 }
 
 .styling-card {
-  width: 494px;
+  width: 490px;
   height: 245px;
   background-color: #FFFFFF;
   border: solid 2px #dadada;

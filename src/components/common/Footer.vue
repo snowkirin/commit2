@@ -1,5 +1,5 @@
 <template>
-  <footer class="mt70 mb50">
+  <footer class="mt70">
     <div class="footer-area">
       <div class="main-point-text en-font">
         HELP
@@ -51,10 +51,12 @@ export default {
 <style scoped>
 footer {
   width: 100%;
+  background-color: #F5F5F5;
 }
 
 .footer-area {
-  width: 1300px;
-  margin: auto;
+  padding: 50px;
+  background-image: linear-gradient(to bottom, #F5F5F5 0%, #F5F5F5 100%), linear-gradient(to bottom, #F5F5F5 0%, #F5F5F5 100%);
+  background-clip: content-box, padding-box;
 }
 </style>

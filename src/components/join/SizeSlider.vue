@@ -1,5 +1,5 @@
 <template>
-  <div class="sizeScroll mt30">
+  <div class="sizeScroll mt55">
     <span class="sizeText divIB">바지</span>
     <div class="sizeBar divIB">
       <vue-slider
@@ -96,7 +96,7 @@ export default {
   font-style: normal;
   font-stretch: normal;
   line-height: 2.67;
-  letter-spacing: -0.2px;
+  letter-spacing: -2px;
   color: #212121;
   width: 32px;
 }
@@ -136,6 +136,14 @@ export default {
   position: absolute;
   top: 15px;
   left: -6px;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.5;
+  letter-spacing: -0.4px;
+  text-align: left;
+  color: #797979;
 }
 
 input:focus{
