@@ -39,7 +39,7 @@ export default {
   font-style: normal;
   font-stretch: normal;
   line-height: 1.26;
-  letter-spacing: -0.4px;
+  letter-spacing: -1.0px;
   text-align: left;
   color: #ffffff;
 }

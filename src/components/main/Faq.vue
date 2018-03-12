@@ -131,12 +131,12 @@ export default {
 
 .faq-question {
   display: block;
-  font-size: 26px;
+  font-size: 27px;
   font-weight: 500;
   font-style: normal;
   font-stretch: normal;
   line-height: 1.36;
-  letter-spacing: -0.2px;
+  letter-spacing: -2.2px;
   text-align: left;
   color: #212121;
   cursor: pointer;
@@ -159,7 +159,7 @@ export default {
   font-style: normal;
   font-stretch: normal;
   line-height: 1.56;
-  letter-spacing: -0.2px;
+  letter-spacing: -0.8px;
   text-align: left;
   color: #212121;
 }
