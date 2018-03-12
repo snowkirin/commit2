@@ -1,8 +1,8 @@
 <template>
   <div class="process-main mt70">
     <div class="main-process d-flex">
-      <div class="main-point-text en-font" style="line-height: 0;">
-        PROCESS
+      <div class="main-point-text" style="line-height: 0; position: relative;">
+        <span class="en-font" style="padding-top: 7px; position: absolute;">PROCESS</span>
       </div>
       <div class="w100 d-flex">
         <div style="width:49%;">
@@ -89,7 +89,7 @@ export default {
 
 .line {
   width: 1px;
-  height: 351px;
+  height: 98%;
   background-color: #dadada;
 }
 

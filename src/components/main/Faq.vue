@@ -1,8 +1,8 @@
 <template>
   <div class="faq-main mt70">
     <div class="main-process d-flex">
-      <div class="main-point-text en-font" style="line-height: 0;">
-        FAQ
+      <div class="main-point-text" style="line-height: 0; position: relative;">
+        <span class="en-font" style="padding-top: 6px; position: absolute;">FAQ</span>
       </div>
       <div class="w100">
         <div class="w100">
@@ -75,7 +75,7 @@
               <i class="fa fa-angle-down fa-lg"></i>
             </div>
           </div>
-          <div class="mt40 faq-text-line"></div>
+          <div class="mt40 faq-text-line last-line"></div>
           <div class="faq-answer">
             <div class="faq-answer-text">
             </div>
@@ -162,5 +162,9 @@ export default {
   letter-spacing: -0.2px;
   text-align: left;
   color: #212121;
+}
+
+.last-line {
+  background-color: #FFFFFF;
 }
 </style>
