@@ -1,12 +1,12 @@
 <template>
   <div class="styling subContent side-margin-50">
-    <div class="styling-title">평소에 즐겨입는 스타일링을 선택해주세요.</div>
-    <div class="explain mt10">
+    <div class="styling-title mt20">평소에 즐겨입는 스타일링을 선택해주세요.</div>
+    <div class="explain mt20">
       당신의 이미지는 무엇입니까?
     </div>
     <div class="stylingLine mt25"></div>
     <div class="styling-form mt40" style="width: 100%; margin: auto;">
-      <div class="styling-card divIB">
+      <div class="styling-card d-inlineblock">
         <div class="styling-images">
           IMAGE
         </div>
@@ -17,7 +17,7 @@
           <div class="btn-times"></div>
         </div>
       </div>
-      <div class="styling-card divIB">
+      <div class="styling-card d-inlineblock">
         <div class="styling-images">
           IMAGE
         </div>
@@ -26,6 +26,13 @@
         </div>
         <div class="styling-btn">
           <div class="btn-times"></div>
+        </div>
+      </div>
+      <div class="mt50">
+        <div style="width: 392px; float: right;">
+          <button class="button-login" @click="moveNext">
+            다음
+          </button>
         </div>
       </div>
     </div>
@@ -55,6 +62,9 @@ export default {
         target.querySelector('.btn-times').classList.remove('on');
       };
     },
+    moveNext() {
+      this.$router.push({ path: 'requirement' });
+    },
   },
   mounted() {
     const stylingCard = document.querySelectorAll('.styling-card');
@@ -83,21 +93,6 @@ export default {
   text-align: center;
   color: #212121;
   text-shadow: 0px 1px 0 rgba(0, 0, 0, 0.1);
-}
-
-.explain {
-  font-size: 18px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 2.11;
-  letter-spacing: -0.2px;
-  text-align: center;
-  color: #212121;
-}
-
-.divIB {
-  display: inline-block;
 }
 
 .stylingLine {

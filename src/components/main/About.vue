@@ -1,12 +1,12 @@
 <template>
   <div class="main-about mt70">
-    <div class="side-margin-50">
+    <div class="main-about-detail">
       <div class="main-point-text tc-white pd120 en-font">
         ABOUT
       </div>
       <div class="main-about-title">
-        가벼운 옷장, 아름다운 일상<br/>
-        놀라운 편리함 데일리룩 구독 서비스 <span class="en-font">ZULY</span>
+        놀라운 편리함, 포기 할 수 없는 아름다움<br/>
+        데일리룩 구독 서비스 <span class="en-font">ZULY</span>
       </div>
       <div class="main-about-service pd5">
         <a href="#" class="tc-white">서비스 상세 소개</a>
@@ -26,6 +26,11 @@ export default {
   height: 420px;
   background-image: url('/static/img/main/img_about.png');
   background-size: 100% 100%;
+}
+
+.main-about-detail {
+  width: 1300px;
+  margin: auto;
 }
 
 .main-about-title {

@@ -3,6 +3,7 @@
     <span class="sizeText divIB">바지</span>
     <div class="sizeBar divIB">
       <vue-slider
+        v-model="sliderOption.value"
         :value="sliderOption.value"
         :height="this.height"
         :style="sliderOption.paddingBottom"
@@ -22,7 +23,7 @@
       </vue-slider>
     </div>
     <div class="sizeInput divIB">
-      <input type="text" name="" value="175" />
+      <input type="text" name="" v-model="sliderOption.value" maxlength="3" @keydown="validate" />
       <span class="sizeDisplay">cm</span>
     </div>
   </div>
@@ -62,6 +63,22 @@ export default {
       },
     };
   },
+  methods: {
+    validate(evt) {
+      const allowKeyCode = [8, 37, 38, 39, 40, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105];
+      const theEvent = evt || window.event;
+      let key = theEvent.keyCode || theEvent.which;
+      if (allowKeyCode.includes(key)) return true;
+      key = String.fromCharCode(key);
+      const regex = /[0-9]|\./;
+      if (!regex.test(key)) {
+        theEvent.returnValue = false;
+        if (theEvent.preventDefault) theEvent.preventDefault();
+      }
+
+      return false;
+    },
+  },
 };
 </script>
 
@@ -85,23 +102,24 @@ export default {
 }
 
 .sizeBar {
-  width: 264px;
-  margin-left: 30px;
+  width: 262px;
+  margin-left: 20px;
   padding-bottom: 5px;
 }
 
 .sizeInput input {
-  width: 50px;
+  width: 45px;
   box-shadow: none;
   border: none;
   font-size: 17px;
   text-align: right;
+  caret-color: black;
 }
 
 .sizeDisplay {
   position: absolute;
-  padding-left: 55px;
-  margin-top: -18px;
+  margin-left: 48px;
+  margin-top: -17px;
 }
 
 .custom-tooltip {
@@ -118,5 +136,10 @@ export default {
   position: absolute;
   top: 15px;
   left: -6px;
+}
+
+input:focus{
+  color: black;
+  outline: none;
 }
 </style>

@@ -12,3 +12,13 @@
 .no-deco-a {
   text-decoration: none;
 }
+
+.explain {
+  font-size: 18px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  letter-spacing: -0.2px;
+  text-align: center;
+  color: #212121;
+}

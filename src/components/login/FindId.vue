@@ -105,4 +105,8 @@ export default {
 .findId-wait span {
   color: #ec4b1a;
 }
+
+.inputGroup input {
+  vertical-align: bottom;
+}
 </style>

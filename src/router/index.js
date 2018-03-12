@@ -10,6 +10,8 @@ const JoinSize = () => import('@/components/join/Size');
 const JoinClothes = () => import('@/components/join/Clothes');
 const JoinPatterns = () => import('@/components/join/Patterns');
 const JoinStyling = () => import('@/components/join/Styling');
+const JoinRequirement = () => import('@/components/join/Requirement');
+const JoinSignUp = () => import('@/components/join/SignUp');
 
 Vue.use(Router);
 
@@ -39,6 +41,8 @@ export default new Router({
             { path: 'clothes', component: JoinClothes },
             { path: 'patterns', component: JoinPatterns },
             { path: 'styling', component: JoinStyling },
+            { path: 'requirement', component: JoinRequirement },
+            { path: 'signup', component: JoinSignUp },
           ],
         },
       ],

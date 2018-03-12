@@ -1,12 +1,12 @@
 <template>
   <div class="clothes subContent side-margin-50">
-    <div class="clothes-title">티셔츠/스웻셔츠</div>
-    <div class="explain mt10">
+    <div class="clothes-title mt20">티셔츠/스웻셔츠</div>
+    <div class="explain mt20">
       받고 싶지 않은 품목을 모두 선택해주세요.
     </div>
     <div class="clothesLine mt25"></div>
     <div class="clothes-form mt40" style="width: 100%; margin: auto; word-spacing: 1em;">
-      <div class="clothes-card divIB">
+      <div class="clothes-card d-inlineblock">
         <div class="clothes-images">
           IMAGE
         </div>
@@ -17,7 +17,7 @@
           <div class="btn-times"></div>
         </div>
       </div>
-      <div class="clothes-card divIB">
+      <div class="clothes-card d-inlineblock">
         <div class="clothes-images">
           IMAGE
         </div>
@@ -93,21 +93,6 @@ export default {
   text-align: center;
   color: #212121;
   text-shadow: 0px 1px 0 rgba(0, 0, 0, 0.1);
-}
-
-.explain {
-  font-size: 18px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 2.11;
-  letter-spacing: -0.2px;
-  text-align: center;
-  color: #212121;
-}
-
-.divIB {
-  display: inline-block;
 }
 
 .clothesLine {

@@ -1,7 +1,7 @@
 <template>
   <div class="login subContent side-margin-50">
-    <div class="login-title">로그인</div>
-    <div class="loginLine mt25"></div>
+    <div class="login-title mt20">로그인</div>
+    <div class="loginLine mt20"></div>
     <div class="login-error" style="display: none;">
       입력된 아이디는 가입되지 않은 계정입니다.
     </div>
@@ -22,9 +22,9 @@
           로그인
         </button>
       </div>
-      <div class="w100 mt40" style="display: table;">
+      <div class="login-menu w100 mt40" style="display: table;">
         <div class="loginMenu loginMenuSide">
-          회원가입
+          <router-link to="/join/size" class="no-deco-a">회원가입</router-link>
         </div>
         <div class="loginMenu loginMenuCenter">
           <router-link to="/findid" class="no-deco-a">아이디찾기</router-link>
@@ -81,6 +81,10 @@ export default {
   vertical-align: bottom;
 }
 
+.login-menu {
+  table-layout: fixed;
+}
+
 .loginMenu {
   font-size: 16px;
   font-weight: normal;
@@ -92,7 +96,7 @@ export default {
 }
 
 .loginMenuSide {
-  width: 33%;
+  width: 129px;
   display: table-cell;
 }
 

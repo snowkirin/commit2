@@ -1,5 +1,5 @@
 <template>
-  <div class="side-margin-50 mt70">
+  <div class="process-main mt70">
     <div class="main-process d-flex">
       <div class="main-point-text en-font" style="line-height: 0;">
         PROCESS
@@ -78,6 +78,11 @@ export default {
 </script>
 
 <style scoped>
+.process-main {
+  width: 1300px;
+  margin: auto;
+}
+
 .main-point-text {
   width: 200px;
 }

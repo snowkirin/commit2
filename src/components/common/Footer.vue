@@ -1,6 +1,6 @@
 <template>
   <footer class="mt70 mb50">
-    <div class="footer-area side-margin-50">
+    <div class="footer-area">
       <div class="main-point-text en-font">
         HELP
       </div>
@@ -30,8 +30,31 @@
 <script>
 export default {
   name: 'zuly-footer',
+  methods: {
+    pointTextEvt() {
+      const target = document.querySelector('footer .main-point-text');
+      if (this.$route.path !== '/') target.classList.add('tc-black');
+      else target.classList.remove('tc-black');
+    },
+  },
+  watch: {
+    $route() {
+      this.pointTextEvt();
+    },
+  },
+  mounted() {
+    this.pointTextEvt();
+  },
 };
 </script>
 
 <style scoped>
+footer {
+  width: 100%;
+}
+
+.footer-area {
+  width: 1300px;
+  margin: auto;
+}
 </style>

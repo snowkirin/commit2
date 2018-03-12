@@ -1,5 +1,5 @@
 <template>
-  <div class="side-margin-50">
+  <div class="benefit-main">
     <div class="main-point-text en-font">
       BENEFIT
     </div>
@@ -43,6 +43,11 @@ export default {
 </script>
 
 <style scoped>
+.benefit-main {
+  width: 1300px;
+  margin: auto;
+}
+
 .benefit-title {
   font-size: 61px;
   font-weight: 300;

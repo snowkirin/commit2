@@ -3,13 +3,17 @@ html, body {
   margin: 0px;
 }
 
+body {
+  overflow-y: scroll;
+}
+
 div#app {
   height: 100%;
 }
 
 div.main {
   margin: auto;
-  width: 1300px;
+  width: 100%;
   min-height: 100%;
   position: relative;
 }
@@ -42,6 +46,14 @@ footer {
 
 .d-flex {
   display: flex;
+}
+
+.d-inlineblock {
+  display: inline-block;
+}
+
+.d-inlinetable {
+  display: inline-table;
 }
 
 .talign-center {
