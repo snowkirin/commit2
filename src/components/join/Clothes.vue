@@ -1,39 +1,17 @@
 <template>
-  <div class="clothes subContent side-margin-50">
+  <div class="clothes subContent mauto">
     <div class="content-title mt20">티셔츠/스웻셔츠</div>
     <div class="explain mt20">
       받고 싶지 않은 품목을 모두 선택해주세요.
     </div>
     <div class="clothesLine mt25"></div>
-    <div class="clothes-form mt40" style="width: 100%; margin: auto; word-spacing: 0.4em;">
+    <div class="clothes-form w100 mt40 mauto" style="word-spacing: 0.4em;">
       <div class="clothes-card d-inlineblock">
         <div class="clothes-images">
           IMAGE
         </div>
         <div class="clothes-text">
           실루엣
-        </div>
-        <div class="clothes-btn">
-          <div class="btn-times"></div>
-        </div>
-      </div>
-      <div class="clothes-card d-inlineblock">
-        <div class="clothes-images">
-          IMAGE
-        </div>
-        <div class="clothes-text">
-          실루엣명이
-        </div>
-        <div class="clothes-btn">
-          <div class="btn-times"></div>
-        </div>
-      </div>
-      <div class="clothes-card d-inlineblock">
-        <div class="clothes-images">
-          IMAGE
-        </div>
-        <div class="clothes-text">
-          실루엣명이
         </div>
         <div class="clothes-btn">
           <div class="btn-times"></div>
@@ -110,12 +88,6 @@ export default {
 </script>
 
 <style scoped>
-.clothes {
-  width: 1000px;
-  text-align: center;
-  margin: auto;
-}
-
 .clothesLine {
   height: 1px;
   opacity: 0.2;

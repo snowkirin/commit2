@@ -56,4 +56,14 @@ footer {
 .footer-area {
   padding: 0 50px 50px 50px;
 }
+
+.main-cs-tel {
+  font-weight: 600;
+  line-height: 1.33;
+  text-align: left;
+}
+
+.main-cs-noti {
+  line-height: 1.56;
+}
 </style>

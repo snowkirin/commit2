@@ -1,36 +1,46 @@
 <template>
-  <div class="colors subContent side-margin-50">
+  <div class="colors subContent mauto">
     <div class="content-title mt20">색상 선택</div>
     <div class="explain mt20">
       다음 질문들은 스타일리스트가 체형을 정확히 파악하여 연출하는데 도움이 됩니다.
     </div>
     <div class="colorsLine mt25"></div>
-    <div class="colors-form d-flex mt30" style="width: 820px; margin: auto;">
+    <div class="colors-form d-flex mt30 w100">
       <div class="colors-area">
         <div class="colors-title-detail">선호 색상</div>
         <div class="colors-card-list mt20">
           <div class="colors-card"><span class="colors-card-text">블랙</span></div>
+          <div class="colors-block"></div>
           <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-        </div>
-        <div class="colors-card-list mt12">
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
+          <div class="colors-block"></div>
           <div class="colors-card"><span class="colors-card-text">블랙</span></div>
         </div>
         <div class="colors-card-list mt12">
           <div class="colors-card"><span class="colors-card-text">블랙</span></div>
+          <div class="colors-block"></div>
           <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-        </div>
-        <div class="colors-card-list mt12">
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
+          <div class="colors-block"></div>
           <div class="colors-card"><span class="colors-card-text">블랙</span></div>
         </div>
         <div class="colors-card-list mt12">
           <div class="colors-card"><span class="colors-card-text">블랙</span></div>
+          <div class="colors-block"></div>
           <div class="colors-card"><span class="colors-card-text">블랙</span></div>
+          <div class="colors-block"></div>
+          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
+        </div>
+        <div class="colors-card-list mt12">
+          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
+          <div class="colors-block"></div>
+          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
+          <div class="colors-block"></div>
+          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
+        </div>
+        <div class="colors-card-list mt12">
+          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
+          <div class="colors-block"></div>
+          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
+          <div class="colors-block"></div>
           <div class="colors-card"><span class="colors-card-text">선택없음</span></div>
         </div>
       </div>
@@ -41,27 +51,37 @@
         <div class="colors-title-detail">기피 색상</div>
         <div class="colors-card-list mt20">
           <div class="colors-card"><span class="colors-card-text">블랙</span></div>
+          <div class="colors-block"></div>
           <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-        </div>
-        <div class="colors-card-list mt12">
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
+          <div class="colors-block"></div>
           <div class="colors-card"><span class="colors-card-text">블랙</span></div>
         </div>
         <div class="colors-card-list mt12">
           <div class="colors-card"><span class="colors-card-text">블랙</span></div>
+          <div class="colors-block"></div>
           <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-        </div>
-        <div class="colors-card-list mt12">
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
+          <div class="colors-block"></div>
           <div class="colors-card"><span class="colors-card-text">블랙</span></div>
         </div>
         <div class="colors-card-list mt12">
           <div class="colors-card"><span class="colors-card-text">블랙</span></div>
+          <div class="colors-block"></div>
           <div class="colors-card"><span class="colors-card-text">블랙</span></div>
+          <div class="colors-block"></div>
+          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
+        </div>
+        <div class="colors-card-list mt12">
+          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
+          <div class="colors-block"></div>
+          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
+          <div class="colors-block"></div>
+          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
+        </div>
+        <div class="colors-card-list mt12">
+          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
+          <div class="colors-block"></div>
+          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
+          <div class="colors-block"></div>
           <div class="colors-card"><span class="colors-card-text">선택없음</span></div>
         </div>
       </div>
@@ -101,9 +121,7 @@ export default {
 }
 
 .colors {
-  width: 820px;
   text-align: center;
-  margin: auto;
 }
 
 .colorsLine {
@@ -142,7 +160,6 @@ export default {
   font-stretch: normal;
   letter-spacing: -0.5px;
   color: #333333;
-  margin-right: 6.8px;
 }
 
 .colors-card-text {
@@ -152,5 +169,10 @@ export default {
 
 .mt12 {
   margin-top: 12px;
+}
+
+.colors-block {
+  display: inline-block;
+  width: 1.1%;
 }
 </style>

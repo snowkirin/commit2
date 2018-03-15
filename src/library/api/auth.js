@@ -1,8 +1,9 @@
 import axios from 'axios';
 
 const API_URL = process.env.API_URL;
+const API_MESSAGE_URL = process.env.API_MESSAGE_URL;
 
-const checkEmail = () => axios.post('http://localhost:4000/api/v1.0/auth/email', {
+const checkEmail = () => axios.post(`${API_MESSAGE_URL}/auth/email`, {
   email: 'wonyong@onionground.com',
 });
 
@@ -32,7 +33,27 @@ const localLogin = ({
   password,
 }, {
   withCredentials: true,
-});
+}).then(result => result).catch(err => err.response);
+
+// 폰인증
+const authPhone = ({
+  email,
+  phone,
+}) => axios.post(`${API_URL}/auth/phone`, {
+  email,
+  phone,
+}).then(result => result).catch(err => err.response);
+
+const authPhoneCheck = ({
+  authId,
+  authNumber,
+}) => axios.patch(`${API_URL}/auth/phone`, {
+  authId,
+  authNumber,
+}, {
+  withCredentials: true,
+}).then(result => result).catch(err => err.response);
+
 
 // 로그아웃
 const logout = () => axios.post(`${API_URL}/auth/logout`, { withCredentials: true });
@@ -46,4 +67,6 @@ export default {
   localLogin,
   logout,
   loginStatusCheck,
+  authPhone,
+  authPhoneCheck,
 };

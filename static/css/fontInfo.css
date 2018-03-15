@@ -20,26 +20,28 @@
   color: #fa4132;
 }
 
-.main-cs-tel {
+.main-about-title,
+.main-cs-tel,
+.login-title,
+.content-title {
   font-size: 36px;
-  font-weight: 600;
   font-style: normal;
   font-stretch: normal;
-  line-height: 1.33;
-  letter-spacing: normal;
+  letter-spacing: -1.2px;
   text-align: left;
   color: #212121;
-  color: var(--black-two);
 }
 
-.main-cs-noti {
+.main-cs-noti,
+.explain,
+.faq-answer-text,
+.process-text,
+.main-about-service {
   font-size: 18px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
-  line-height: 1.56;
   letter-spacing: -0.8px;
-  text-align: left;
   color: #212121;
 }
 
@@ -60,7 +62,7 @@
 }
 
 .footer-info span.title {
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: -0.8px;
   color: #212121;
 }
@@ -100,13 +102,66 @@
   color: #212121 !important;
 }
 
+.process-title, .faq-question {
+  font-size: 27px;
+  font-weight: 400;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.36;
+  letter-spacing: -2.3px;
+  text-align: left;
+  color: #212121;
+}
+
 .content-title {
-  font-size: 36px;
+  font-weight: 400;
+  line-height: 1;
+  text-align: center;
+  text-shadow: 0px 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.inputIconLabel {
+  display: inline-table;
+  position: relative;
+  width: 100%;
+}
+
+.inputIconLabel input {
+  padding-left: 2.271429em !important;
+}
+
+.inputIconLabel i {
+  position: absolute;
+  width: 2.071429em;
+  right: auto;
+  left: 1px;
+  top: 0;
+  line-height: 1;
+  text-align: center;
+  height: 100%;
+}
+
+.inputIconLabel i::before {
+  text-align: center;
+  left: 0;
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  margin-top: -.5em;
+  opacity: 0.5;
+}
+
+span.error {
+  font-size: 14px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
   letter-spacing: -0.4px;
-  text-align: center;
-  color: #212121;
-  text-shadow: 0px 1px 0 rgba(0, 0, 0, 0.1);
+  color: #ec4b1a;
+  padding: 12px 0 2px;
+  display: inline-block;
+}
+
+.error input {
+  border: 1px solid #ec4b1a;
 }

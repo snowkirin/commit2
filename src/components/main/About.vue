@@ -35,24 +35,15 @@ export default {
   margin: auto;
 }
 
-.main-about-title {
-  font-size: 36px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.3;
-  letter-spacing: -1.3px;
+.main-about-service {
+  line-height: 2.56;
+  letter-spacing: -0.2px;
   text-align: left;
   color: #ffffff;
 }
 
-.main-about-service {
-  font-size: 18px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 2.56;
-  letter-spacing: -0.2px;
+.main-about-title {
+  letter-spacing: -1.3px;
   text-align: left;
   color: #ffffff;
 }

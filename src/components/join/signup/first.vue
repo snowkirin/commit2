@@ -1,0 +1,356 @@
+<template>
+  <div class="signup subContent mauto">
+    <div class="content-title mt20">정기구독/회원가입</div>
+    <div class="signupLine mt25"></div>
+
+    <div class="w100 mt30 mauto">
+      <div class="signup-area d-inlinetable" style="margin-right: 30px;">
+        <div class="signup-title-detail">사용자 계정</div>
+        <div class="field" :class="{ error: errors.has('name') }">
+          <input type="text" name="name" class="form-login-input mt20" placeholder="이름" v-validate="'required'" />
+          <span class="error" v-show="errors.has('name')">이름을 입력해주세요.</span>
+        </div>
+        <div class="field" :class="{ error: errors.has('email') }">
+          <input type="text" name="email" class="form-login-input mt12" placeholder="이메일" v-validate="'required|email'" />
+          <span class="error" v-show="errors.has('email')">이메일을 정확하게 입력해주세요.</span>
+        </div>
+        <div class="field" :class="{ error: errors.has('password') }">
+          <input type="password" name="password" class="form-login-input mt12" placeholder="비밀번호 8자리 이상, 대문자/숫자/특수문자 포함" v-validate="{ required: true, regex: pwdRegex }" @keyup="pwdCheck(errors.has('password'))" />
+          <span class="error" v-show="errors.has('password')">{{ pwdMsg }}</span>
+        </div>
+        <div class="field" :class="{ error: errors.has('password_confirm') }">
+          <input type="password" name="password_confirm" class="form-login-input mt12" placeholder="비밀번호 확인" v-validate="'required|confirmed:password'" @change="pwdConfirm(errors.has('passwordConfirmation'))" />
+          <span class="error" v-show="errors.has('password_confirm')">비밀번호가 일치하지 않습니다.</span>
+        </div>
+      </div>
+      <div class="signup-area d-inlinetable">
+        <div class="signup-title-detail">연락처 정보</div>
+        <div class="field" :class="{ error: errors.has('phone') }">
+          <div class="inputGroup">
+            <input type="text" name="phone" class="form-login-group mt20" placeholder="휴대전화" style="width: 72%;" v-validate="'required'" />
+            <div style="display: inline-table; width: 3%;"></div>
+            <button id="phoneVerify" class="button-grey" style="width: 25%;" @click="phoneVerify">인증</button>
+          </div>
+          <span class="error" v-show="errors.has('phone')">휴대전화를 입력해주세요.</span>
+        </div>
+        <div class="field" :class="{ error: errors.has('phone_auth_number') }">
+          <div class="inputGroup">
+            <input type="text" name="phone_auth_number" class="form-login-group mt12" placeholder="인증번호" style="width: 72%;" v-validate="'required'" />
+            <div style="display: inline-table; width: 3%;"></div>
+            <button id="authKeyConfirm" class="button-grey" style="width: 25%;" @click="authKeyConfirm">확인</button>
+          </div>
+          <span class="error" v-show="authErr">{{ authErrMessage }}</span>
+        </div>
+        <div class="field datepicker">
+          <datepicker name="ann" class="mt12" input-class="form-login-input" placeholder="기념일을 입력하시면, 기념일날 할인 쿠폰 지급" language="ko" format="MM.dd"></datepicker>
+        </div>
+        <div class="field" :class="{ error: errors.has('zipcode') }">
+          <div class="inputGroup">
+            <input type="text" name="zipcode" class="form-login-group mt12" placeholder="우편번호" style="width: 72%;" v-validate="'required'" />
+            <div style="display: inline-table; width: 3%;"></div>
+            <button class="button-grey" style="width: 25%;" @click="openDaumPopup">주소찾기</button>
+          </div>
+        </div>
+        <div class="field" :class="{ error: errors.has('address') }">
+          <input type="text" name="address" class="form-login-input mt12" placeholder="주소" v-validate="'required'" />
+          <span class="error" v-show="errors.has('address')">주소가 입력되지 않았습니다.</span>
+        </div>
+        <div class="field" :class="{ error: errors.has('detail_address') }">
+          <input type="text" name="detail_address" class="form-login-input mt12" placeholder="상세주소" v-validate="'required'" />
+          <span class="error" v-show="errors.has('detail_address')">상세주소가 입력되지 않았습니다.</span>
+        </div>
+        <div class="signup-chk-area mt15" @click="checkBoxEvt">
+          <label class="container">
+            <input type="checkbox" name="private_flag" value="Y" />
+            <span class="checkmark"></span>
+          </label>
+          <div class="checkboxText">
+            개인정보의 수집 및 이용에 대한 동의
+            <span @click="viewModal('private')">자세히 보기</span>
+          </div>
+        </div>
+        <div class="signup-chk-area mt12" @click="checkBoxEvt">
+          <label class="container">
+            <input type="checkbox" name="use_flag" value="Y" />
+            <span class="checkmark"></span>
+          </label>
+          <div class="checkboxText">
+            이용약관
+            <span @click="viewModal('use')">자세히 보기</span>
+          </div>
+        </div>
+      </div>
+      <div class="mt30">
+        <div class="next-btn" style="width: 392px; float: right;">
+          <button class="button-login" @click="validateBeforeSubmit">
+            다음
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <custom-modal ref="private" dataId="private" title="개인 정보 관리 지침" :content="privateText"></custom-modal>
+    <custom-modal ref="use" dataId="use" title="이용약관"></custom-modal>
+  </div>
+</template>
+
+<script>
+import { mapGetters, mapActions } from 'vuex';
+import Datepicker from 'vuejs-datepicker';
+import CustomModal from '@/components/common/CustomModal';
+import PrivateText from '@/info/private';
+
+export default {
+  name: 'signUp-first',
+  components: {
+    Datepicker,
+    CustomModal,
+  },
+  data() {
+    return {
+      pwdRegex: /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/,
+      pwdMsg: '비밀번호를 입력해주세요.',
+      isPwd: false,
+      isPwdConfirm: false,
+      authErr: false,
+      authErrMessage: '',
+      privateText: PrivateText.text,
+    };
+  },
+  computed: mapGetters({
+    isLogin: 'login/isLogin',
+    phoneAuthKey: 'signup/getPhoneAuthKey',
+    phoneAuth: 'signup/getPhoneAuth',
+  }),
+  methods: {
+    ...mapActions({
+      setFirstData: 'signup/setFirstData',
+      actPhoneVerify: 'signup/phoneVerify',
+      actPhoneCheckVerify: 'signup/phoneCheckVerify',
+    }),
+    viewModal(ref) {
+      this.$refs[ref].openModal();
+    },
+    pwdCheck(isBoolean) {
+      const pwd = document.querySelector('input[name=password]');
+
+      let checkBoolean = isBoolean;
+      if (pwd.value === '') {
+        if (!checkBoolean) checkBoolean = !checkBoolean;
+        this.pwdMsg = '비밀번호를 입력해주세요.';
+      } else {
+        this.pwdMsg = '비밀번호가 안전하지 않습니다. (최소 8자리 이상, 대문자/숫자/특수문자 포함)';
+      }
+
+      if (checkBoolean) this.isPwd = false;
+      else this.isPwd = true;
+    },
+    pwdConfirm(isBoolean) {
+      if (isBoolean) this.isPwdConfirm = false;
+      else this.isPwdConfirm = true;
+    },
+    checkBoxEvt(evt) {
+      const chkbox = evt.path[1].querySelector('input[type=checkbox]');
+      if (chkbox) chkbox.checked = !chkbox.checked;
+    },
+    async phoneVerify() {
+      const email = document.querySelector('input[name=email]');
+      const phone = document.querySelector('input[name=phone]');
+
+      if (!this.$common.InputDataValidation(email, '이메일을 먼저 입력해주세요.', true)) return;
+
+      this.$validator.validate('phone', phone.value).then((result) => {
+        if (result) {
+          if (this.$common.phoneValidation(phone.value)) {
+            this.actPhoneVerify({
+              email: email.value,
+              phone: phone.value.split('-').join(''),
+            });
+
+            this.startTimer();
+            this.authErr = true;
+
+            return true;
+          }
+
+          alert('올바른 휴대폰번호를 입력해주세요.');
+        }
+
+        phone.focus();
+        return false;
+      });
+    },
+    async authKeyConfirm() {
+      const phoneAuthNumber = document.querySelector('input[name=phone_auth_number]');
+
+      if (!this.phoneAuthKey) {
+        alert('먼저 휴대전화를 입력하고 인증버튼을 눌러주세요.');
+        return false;
+      }
+
+      if (!this.$common.InputDataValidation(phoneAuthNumber, '인증번호를 입력해주세요.', true)) return false;
+
+      await this.actPhoneCheckVerify({
+        authNumber: phoneAuthNumber.value,
+      });
+
+      if (this.phoneAuth) {
+        const phone = document.querySelector('input[name=phone]');
+
+        alert('인증되었습니다.');
+        document.querySelector('#phoneVerify').disabled = true;
+        document.querySelector('#authKeyConfirm').disabled = true;
+        phone.disabled = true;
+        phoneAuthNumber.disabled = true;
+        phone.style.border = '1px solid #2bbf10';
+        phoneAuthNumber.style.border = '1px solid #2bbf10';
+        this.authErr = false;
+      } else alert('인증번호를 다시 확인하시고 진행해주세요.');
+
+      return true;
+    },
+    validateBeforeSubmit() {
+      this.$validator.validateAll().then((result) => {
+        if (result) {
+          if (this.phoneAuth) {
+            const signup = {
+              name: document.querySelector('input[name=name]').value,
+              email: document.querySelector('input[name=email]').value,
+              password: document.querySelector('input[name=password]').value,
+              phone: document.querySelector('input[name=phone]').value,
+              ann: document.querySelector('input[name=ann]').value,
+              zipcode: document.querySelector('input[name=zipcode]').value,
+              addr: document.querySelector('input[name=address]').value,
+              addrDetail: document.querySelector('input[name=detail_address]').value,
+            };
+
+            this.setFirstData(signup);
+            this.$localStorage.set('signup-cache', JSON.stringify(signup));
+
+            this.$router.push({ path: '/join/signup/2' });
+            return;
+          }
+
+          alert('휴대전화 인증을 진행해주세요.');
+          return;
+        }
+
+        alert('에러메시지를 확인하시고 입력후 버튼을 눌러주세요.');
+      });
+    },
+    openDaumPopup() {
+      const zipcode = document.querySelector('input[name=zipcode]');
+      const address = document.querySelector('input[name=address]');
+      const detailAddress = document.querySelector('input[name=detail_address]');
+
+      const daum = window.daum;
+
+      const width = 500;
+      const height = 600;
+
+
+      daum.postcode.load(() => {
+        new window.daum.Postcode({
+          width,
+          height,
+          oncomplete: (data) => {
+            zipcode.value = data.zonecode;
+
+            if (data.userSelectedType === 'R') address.value = data.roadAddress;
+            else address.value = data.jibunAddress;
+
+            this.$validator.validate('zipcode');
+            this.$validator.validate('address');
+
+            detailAddress.focus();
+          },
+        }).open({
+          top: (window.screen.height / 2) - (height / 2),
+          left: (window.screen.width / 2) - (width / 2),
+        });
+      });
+    },
+    startTimer() {
+      const timer = Date.parse(new Date(new Date().getTime() + (3 * 60 * 1000))) / 1000;
+      let minutes;
+      let seconds;
+
+      if (window.interval) clearInterval(window.interval);
+
+      const interval = setInterval(() => {
+        const currentTime = Date.parse(new Date()) / 1000;
+        const printTimer = timer - currentTime;
+
+        minutes = parseInt(printTimer / 60, 10);
+        seconds = parseInt(printTimer % 60, 10);
+
+        minutes = (minutes < 10) ? `0${minutes}` : minutes;
+        seconds = (seconds < 10) ? `0${seconds}` : seconds;
+
+        this.authErrMessage = `메시지를 확인하시고 인증번호를 입력해주세요.  ${minutes}:${seconds}`;
+
+        if (printTimer <= 0) {
+          clearInterval(interval);
+        }
+      }, 1000);
+
+      window.interval = interval;
+    },
+  },
+  created() {
+    const htmlScript = document.createElement('script');
+    htmlScript.setAttribute('src', 'http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false');
+    document.head.appendChild(htmlScript);
+  },
+  mounted() {
+    if (this.$localStorage.get('signup-cache')) {
+      const cacheData = JSON.parse(this.$localStorage.get('signup-cache'));
+      console.log(cacheData);
+    }
+  },
+};
+</script>
+
+<style scoped>
+.signupLine {
+  height: 1px;
+  opacity: 0.2;
+  background-color: #212121;
+}
+
+.signup-area {
+  width: 392px;
+}
+
+.signup-title-detail {
+  font-size: 16px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #212121;
+}
+
+.signup-chk-area {
+  height: 24px;
+  display: table;
+  cursor: pointer;
+}
+
+.checkboxText {
+  text-align: left;
+  display: table-cell;
+  vertical-align: bottom;
+  letter-spacing: -2px;
+}
+
+.checkboxText span {
+  color: #566b9c;
+  text-decoration: underline;
+}
+
+.field {
+  text-align: left;
+}
+</style>

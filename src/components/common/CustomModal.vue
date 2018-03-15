@@ -15,6 +15,11 @@
 <script>
 export default {
   name: 'custom-modal',
+  data() {
+    return {
+      modal: null,
+    };
+  },
   props: {
     dataId: {
       type: String,
@@ -27,13 +32,27 @@ export default {
       type: String,
       default: '',
     },
+    width: {
+      type: String,
+      default: '705',
+    },
+    height: {
+      type: String,
+      default: '635',
+    },
   },
   methods: {
     openModal() {
+      this.modal.style.display = 'block';
     },
     closeModal() {
-      document.querySelector('.custom-modal').style.display = 'none';
+      this.modal.style.display = 'none';
     },
+  },
+  mounted() {
+    this.modal = document.querySelector(`div.custom-modal[data-id="${this.dataId}"]`);
+    this.modal.style.width = this.width;
+    this.modal.style.height = this.height;
   },
 };
 </script>
@@ -53,6 +72,7 @@ export default {
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.17);
   border: solid 1px #212121;
   border: solid 1px var(--black-two);
+  display:none;
 }
 
 .custom-modal-title {

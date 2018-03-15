@@ -1,11 +1,11 @@
 <template>
-  <div class="patterns subContent side-margin-50">
+  <div class="patterns subContent mauto">
     <div class="content-title mt20">기피 패턴</div>
     <div class="explain mt20">
       받고 싶지 않은 품목을 모두 선택해주세요.
     </div>
     <div class="patternsLine mt25"></div>
-    <div class="patterns-form mt40" style="width: 100%; margin: auto; word-spacing: 0.4em;">
+    <div class="patterns-form w100 mt40 mauto" style="word-spacing: 0.4em;">
       <div class="patterns-card d-inlineblock">
         <div class="patterns-images">
           IMAGE
@@ -110,12 +110,6 @@ export default {
 </script>
 
 <style scoped>
-.patterns {
-  width: 1000px;
-  text-align: center;
-  margin: auto;
-}
-
 .patternsLine {
   height: 1px;
   opacity: 0.2;

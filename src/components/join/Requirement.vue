@@ -1,11 +1,11 @@
 <template>
-  <div class="requirement subContent side-margin-50">
+  <div class="requirement subContent mauto">
     <div class="content-title mt20">요구사항</div>
     <div class="explain mt20">
       개인적인 체형/옷에 대해 별도로 요청 사항 작성해주세요.
     </div>
     <div class="requirementLine mt25"></div>
-    <div class="requirement-form mt40" style="width: 392px; margin: auto;">
+    <div class="content-form mt40 mauto">
       <div class="mt40">
         <textarea class="requirement-textarea">요구사항을 적어주세요.</textarea>
       </div>
@@ -34,12 +34,6 @@ export default {
 </script>
 
 <style scoped>
-.requirement {
-  width: 820px;
-  text-align: center;
-  margin: auto;
-}
-
 .requirementLine {
   height: 1px;
   opacity: 0.2;

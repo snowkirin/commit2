@@ -6,11 +6,11 @@
       입력된 아이디는 가입되지 않은 계정입니다.
     </div>
     <div class="login-form mt40">
-      <input type="text" name="" class="form-login-input" placeholder="아이디 (이메일 주소)를 입력하세요." />
-      <input type="text" name="" class="form-login-input mt10" placeholder="비밀번호" />
-      <div class="login-chk-area mt10">
+      <input type="text" name="email" class="form-login-input" placeholder="아이디 (이메일 주소)를 입력하세요." />
+      <input type="password" name="password" class="form-login-input mt10" placeholder="비밀번호" />
+      <div class="login-chk-area mt10" @click="checkboxEvt">
         <label class="container">
-          <input type="checkbox">
+          <input type="checkbox" name="sess_forever" value="Y">
           <span class="checkmark"></span>
         </label>
         <div class="checkboxText">
@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="mt20">
-        <button class="button-login">
+        <button class="button-login" @click="login">
           로그인
         </button>
       </div>
@@ -38,9 +38,44 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
+
 export default {
   name: 'login',
-  components: {
+  computed: mapGetters({
+    isLogin: 'login/isLogin',
+  }),
+  methods: {
+    ...mapActions({
+      doLogin: 'login/doLogin',
+    }),
+    checkboxEvt() {
+      const sess = document.querySelector('input[name=sess_forever]');
+      sess.checked = !sess.checked;
+    },
+    async login() {
+      const email = document.querySelector('input[name=email]');
+      const password = document.querySelector('input[name=password]');
+
+      if (!this.$common.InputDataValidation(email, '이메일을 입력해주세요.', true, true)) return;
+      if (!this.$common.InputDataValidation(password, '패스워드를 입력해주세요.', true)) return;
+
+      await this.doLogin({
+        email: email.value,
+        password: password.value,
+      });
+
+      if (!this.isLogin) email.focus();
+      else {
+        this.$session.start();
+        this.$router.push({ path: '/' });
+      }
+    },
+  },
+  beforeCreate() {
+    if (this.$session.exists()) {
+      this.$router.push({ path: '/' });
+    }
   },
 };
 </script>
@@ -53,14 +88,9 @@ export default {
 }
 
 .login-title {
-  font-size: 36px;
   font-weight: 400;
-  font-style: normal;
-  font-stretch: normal;
   line-height: 1.26;
-  letter-spacing: -0.4px;
   text-align: center;
-  color: #212121;
   text-shadow: 0px 1px 0 rgba(0, 0, 0, 0.1);
 }
 
@@ -73,6 +103,7 @@ export default {
 .login-chk-area {
   height: 24px;
   display: table;
+  cursor: pointer;
 }
 
 .checkboxText {

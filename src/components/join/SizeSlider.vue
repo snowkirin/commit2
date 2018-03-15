@@ -23,7 +23,7 @@
       </vue-slider>
     </div>
     <div class="sizeInput divIB">
-      <input type="text" name="" v-model="sliderOption.value" maxlength="3" @keydown="validate" />
+      <input type="text" name="" v-model="sliderOption.value" maxlength="3" @keydown="$common.NumberValidateEvt" />
       <span class="sizeDisplay">cm</span>
     </div>
   </div>
@@ -64,20 +64,6 @@ export default {
     };
   },
   methods: {
-    validate(evt) {
-      const allowKeyCode = [8, 37, 38, 39, 40, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105];
-      const theEvent = evt || window.event;
-      let key = theEvent.keyCode || theEvent.which;
-      if (allowKeyCode.includes(key)) return true;
-      key = String.fromCharCode(key);
-      const regex = /[0-9]|\./;
-      if (!regex.test(key)) {
-        theEvent.returnValue = false;
-        if (theEvent.preventDefault) theEvent.preventDefault();
-      }
-
-      return false;
-    },
   },
 };
 </script>

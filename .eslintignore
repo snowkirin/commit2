@@ -1,5 +1,6 @@
 /build/
 /config/
 /dist/
+/src/info/
 /*.js
 /test/unit/coverage/

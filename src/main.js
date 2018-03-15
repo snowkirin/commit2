@@ -1,13 +1,30 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+import 'es6-promise/auto';
+
 import Vue from 'vue';
+import VueSession from 'vue-session';
+import VueLocalStorage from 'vue-localstorage';
+import VeeValidate, { Validator } from 'vee-validate';
+import ko from 'vee-validate/dist/locale/ko';
+import VueCommon from '@/library/VueCommon';
 import App from './App';
 import router from './router';
 import store from './store';
 
 Vue.config.productionTip = false;
 
-/* eslint-disable no-new */
+Vue.use(VueLocalStorage);
+Vue.use(VueLocalStorage, {
+  name: 'zuly',
+  bind: true,
+});
+
+Vue.use(VueSession);
+Vue.use(VueCommon);
+
+Vue.use(VeeValidate);
+Validator.localize('ko', ko);
+
+// eslint-disable-line no-new
 new Vue({
   el: '#app',
   router,

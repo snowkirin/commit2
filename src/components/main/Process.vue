@@ -93,17 +93,6 @@ export default {
   background-color: #dadada;
 }
 
-.process-title {
-  font-size: 27px;
-  font-weight: 400;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.36;
-  letter-spacing: -2.3px;
-  text-align: left;
-  color: #212121;
-}
-
 .process-half-area {
   position: relative;
   width: 49%;
@@ -111,14 +100,7 @@ export default {
 }
 
 .process-text {
-  font-size: 18px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
   line-height: 1.56;
-  letter-spacing: -0.8px;
-  text-align: left;
-  color: #212121;
 }
 
 .process-text a {
@@ -135,7 +117,6 @@ export default {
   width: 89px;
   height: 89px;
 }
-
 
 .secondProcess {
   background: url('/static/img/icons/zuly_icon.png') no-repeat -539px -341px;

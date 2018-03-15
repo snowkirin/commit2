@@ -1,5 +1,5 @@
 <template>
-  <div class="styling subContent side-margin-50">
+  <div class="styling subContent mauto">
     <div class="content-title mt20">평소에 즐겨입는 스타일링을 선택해주세요.</div>
     <div class="explain mt20">
       당신의 이미지는 무엇입니까?
@@ -77,12 +77,6 @@ export default {
 </script>
 
 <style scoped>
-.styling {
-  width: 1000px;
-  text-align: center;
-  margin: auto;
-}
-
 .stylingLine {
   height: 1px;
   opacity: 0.2;
@@ -90,7 +84,7 @@ export default {
 }
 
 .styling-card {
-  width: 490px;
+  width: 489px;
   height: 245px;
   background-color: #FFFFFF;
   border: solid 2px #dadada;

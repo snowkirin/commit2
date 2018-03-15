@@ -1,3 +1,16 @@
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #797979;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #797979;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #797979;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: #797979;
+}
+
 .form-login-input {
   width: 100%;
   height: 60px;
@@ -10,7 +23,7 @@
   line-height: 2.67;
   letter-spacing: -0.2px;
   text-align: left;
-  color: #797979;
+  color: #212121;
   padding-left: 10px;
   box-sizing: border-box;
 }

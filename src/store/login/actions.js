@@ -3,7 +3,7 @@ import types from './mutation-types';
 
 const doLogin = async ({ commit }, loginInfo) => {
   try {
-    const result = await Auth.adminLogin({
+    const result = await Auth.localLogin({
       ...loginInfo,
     });
 

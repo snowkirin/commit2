@@ -11,8 +11,11 @@ const JoinClothes = () => import('@/components/join/Clothes');
 const JoinPatterns = () => import('@/components/join/Patterns');
 const JoinStyling = () => import('@/components/join/Styling');
 const JoinRequirement = () => import('@/components/join/Requirement');
-const JoinSignUp = () => import('@/components/join/SignUp');
 const JoinColors = () => import('@/components/join/Colors');
+const JoinSignUp = () => import('@/components/join/SignUp');
+const JoinSignUpFirst = () => import('@/components/join/signup/first');
+const JoinSignUpSecond = () => import('@/components/join/signup/second');
+
 
 Vue.use(Router);
 
@@ -43,7 +46,14 @@ export default new Router({
             { path: 'patterns', component: JoinPatterns },
             { path: 'styling', component: JoinStyling },
             { path: 'requirement', component: JoinRequirement },
-            { path: 'signup', component: JoinSignUp },
+            {
+              path: 'signup',
+              component: JoinSignUp,
+              children: [
+                { path: '1', component: JoinSignUpFirst, alias: '' },
+                { path: '2', component: JoinSignUpSecond },
+              ],
+            },
             { path: 'colors', component: JoinColors },
           ],
         },
