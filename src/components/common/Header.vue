@@ -1,5 +1,5 @@
 <template>
-  <header class="side-margin-42 pd30">
+  <header class="side-margin-50 pd30">
     <div class="left" style="padding-top: 12px;">
       <router-link to="/">
          <div class="logo"></div>
@@ -37,7 +37,8 @@ export default {
   },
   methods: {
     headerLineEvt() {
-      if (this.$route.path !== '/') this.headerLine = true;
+      if (this.$route.path.indexOf('closet') !== -1) this.headerLine = false;
+      else if (this.$route.path !== '/') this.headerLine = true;
       else this.headerLine = false;
     },
   },

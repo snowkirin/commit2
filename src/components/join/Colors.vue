@@ -8,82 +8,54 @@
     <div class="colors-form d-flex mt30 w100">
       <div class="colors-area">
         <div class="colors-title-detail">선호 색상</div>
-        <div class="colors-card-list mt20">
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-          <div class="colors-block"></div>
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-          <div class="colors-block"></div>
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-        </div>
-        <div class="colors-card-list mt12">
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-          <div class="colors-block"></div>
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-          <div class="colors-block"></div>
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-        </div>
-        <div class="colors-card-list mt12">
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-          <div class="colors-block"></div>
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-          <div class="colors-block"></div>
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-        </div>
-        <div class="colors-card-list mt12">
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-          <div class="colors-block"></div>
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-          <div class="colors-block"></div>
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-        </div>
-        <div class="colors-card-list mt12">
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-          <div class="colors-block"></div>
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-          <div class="colors-block"></div>
-          <div class="colors-card"><span class="colors-card-text">선택없음</span></div>
-        </div>
+        <template v-for="(colors, k) in this.printColors">
+          <div class="colors-card-list" v-bind:class="{ mt20: (k === 0), mt12: (k !== 0) }" v-bind:key="k">
+            <template v-for="(color, dk) in colors">
+              <div
+                class="colors-card"
+                v-on:mouseover="cardMouseOver"
+                v-on:mouseout="cardMouseOut"
+                v-bind:key="'dk_card_'+ dk"
+                data-type="prefer"
+                :data-selected="color.selected"
+                :data-color="color.code"
+                :style="(color.selected) ? { backgroundColor: `#${color.code}`, color: color.textColor } : { backgroundColor: '#FFFFFF' }"
+                @click="colorPick($event, 'prefer', color.id)"
+              >
+                <span class="colors-card-text" :data-color="color.code" v-on:mouseover="textMouseOver" v-on:mouseout="textMouseOut" >
+                  {{ color.text }}
+                </span>
+              </div>
+              <div v-if="colors[dk+1]" class="colors-block" v-bind:key="'dk_block_'+ dk"></div>
+            </template>
+          </div>
+        </template>
       </div>
       <div style="width: 3%; position: relative;">
         <div class="line"></div>
       </div>
       <div class="colors-area">
         <div class="colors-title-detail">기피 색상</div>
-        <div class="colors-card-list mt20">
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-          <div class="colors-block"></div>
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-          <div class="colors-block"></div>
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-        </div>
-        <div class="colors-card-list mt12">
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-          <div class="colors-block"></div>
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-          <div class="colors-block"></div>
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-        </div>
-        <div class="colors-card-list mt12">
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-          <div class="colors-block"></div>
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-          <div class="colors-block"></div>
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-        </div>
-        <div class="colors-card-list mt12">
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-          <div class="colors-block"></div>
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-          <div class="colors-block"></div>
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-        </div>
-        <div class="colors-card-list mt12">
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-          <div class="colors-block"></div>
-          <div class="colors-card"><span class="colors-card-text">블랙</span></div>
-          <div class="colors-block"></div>
-          <div class="colors-card"><span class="colors-card-text">선택없음</span></div>
-        </div>
+        <template v-for="(colors, k) in this.printColors">
+          <div class="colors-card-list" v-bind:class="{ mt20: (k === 0), mt12: (k !== 0) }" v-bind:key="k">
+            <template v-for="(color, dk) in colors">
+              <div class="colors-card"
+                v-on:mouseover="cardMouseOver"
+                v-on:mouseout="cardMouseOut"
+                v-bind:key="'dk_card_'+ dk"
+                :data-selected="color.selected"
+                :data-color="color.code"
+                :style="(color.selected) ? { backgroundColor: `#${color.code}`, color: color.textColor } : { backgroundColor: '#FFFFFF' }"
+                @click="colorPick($event, 'except')"
+              >
+                <span class="colors-card-text" v-on:mouseover="textMouseOver" v-on:mouseout="textMouseOut">
+                  {{ color.text }}
+                </span>
+              </div>
+              <div v-if="colors[dk+1]" class="colors-block" v-bind:key="'dk_block_'+ dk"></div>
+            </template>
+          </div>
+        </template>
       </div>
     </div>
 
@@ -98,16 +70,104 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
+
 export default {
   name: 'colors',
-  components: {
+  computed: {
+    ...mapGetters({
+      colors: 'signup/getColors',
+      prefer: 'signup/getPreferColors',
+    }),
+    printColors() {
+      const rtn = [];
+      let data = [];
+      const dataLength = Object.keys(this.colors).length;
+
+      for (let i = 0; i < dataLength; i += 1) {
+        data.push({ id: i, ...this.colors[i] });
+
+        if ((i + 1) % 3 === 0) {
+          rtn.push(data);
+          data = [];
+        }
+      }
+
+      if (data.length > 0) rtn.push(data);
+
+      return rtn;
+    },
   },
   methods: {
+    ...mapActions({
+      setColors: 'signup/setColors',
+      pickColors: 'signup/pickColors',
+    }),
+    cardMouseOver(evt) {
+      const obj = evt;
+      const title = obj.target.querySelector('.colors-card-text');
+      const color = obj.target.getAttribute('data-color');
+      const selected = obj.target.getAttribute('data-selected');
+      const textColor = (color === 'FFFFFF') ? '212121' : 'FFFFFF';
+
+      if (!selected === 'true') {
+        if (obj.target) obj.target.style.backgroundColor = `#${color}`;
+        if (title) {
+          title.style.backgroundColor = `#${obj.target.getAttribute('data-color')}`;
+          title.style.color = `#${textColor}`;
+        }
+      }
+    },
+    cardMouseOut(evt) {
+      const obj = evt;
+      const title = obj.target.querySelector('.colors-card-text');
+      const selected = obj.target.getAttribute('data-selected');
+
+      if (!selected === 'true') {
+        if (obj.target) obj.target.style.backgroundColor = '#FFFFFF';
+        if (title) {
+          title.style.backgroundColor = '#FFFFFF';
+          title.style.color = '#212121';
+        }
+      }
+    },
+    textMouseOver(evt) {
+      const obj = evt;
+      const parent = obj.target.parentNode;
+      const color = parent.getAttribute('data-color');
+      const selected = parent.getAttribute('data-selected');
+      const textColor = (color === 'FFFFFF') ? '212121' : 'FFFFFF';
+
+      if (!selected === 'true') {
+        parent.style.backgroundColor = `#${color}`;
+        obj.target.style.backgroundColor = `#${color}`;
+        obj.target.style.color = `#${textColor}`;
+      }
+    },
+    textMouseOut(evt) {
+      const obj = evt;
+      const parent = obj.target.parentNode;
+      const selected = parent.getAttribute('data-selected');
+
+      if (!selected === 'true') {
+        parent.style.backgroundColor = '#FFFFFF';
+        obj.target.style.backgroundColor = '#FFFFFF';
+        obj.target.style.color = '#212121';
+      }
+    },
+    colorPick(evt, type, id) {
+      this.pickColors({
+        type,
+        id,
+        color: evt.target.getAttribute('data-color'),
+      });
+    },
     moveNext() {
       this.$router.push({ path: 'clothes' });
     },
   },
   mounted() {
+    this.setColors();
   },
 };
 </script>
@@ -115,7 +175,7 @@ export default {
 <style scoped>
 .line {
   width: 1px;
-  height: 98%;
+  height: 100%;
   background-color: #dadada;
   margin: auto;
 }
@@ -160,6 +220,7 @@ export default {
   font-stretch: normal;
   letter-spacing: -0.5px;
   color: #333333;
+  cursor: pointer;
 }
 
 .colors-card-text {
@@ -173,6 +234,6 @@ export default {
 
 .colors-block {
   display: inline-block;
-  width: 1.1%;
+  width: 2.5%;
 }
 </style>

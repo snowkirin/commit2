@@ -15,6 +15,8 @@ const JoinColors = () => import('@/components/join/Colors');
 const JoinSignUp = () => import('@/components/join/SignUp');
 const JoinSignUpFirst = () => import('@/components/join/signup/first');
 const JoinSignUpSecond = () => import('@/components/join/signup/second');
+const Closet = () => import('@/components/closet/Index');
+const ClosetTomorrow = () => import('@/components/closet/detail/Tomorrow');
 
 
 Vue.use(Router);
@@ -55,6 +57,15 @@ export default new Router({
               ],
             },
             { path: 'colors', component: JoinColors },
+          ],
+        },
+        {
+          path: '/closet',
+          name: 'Closet',
+          component: Closet,
+          children: [
+            { path: '', component: ClosetTomorrow },
+            { path: 'tomorrow', component: ClosetTomorrow },
           ],
         },
       ],

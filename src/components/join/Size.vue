@@ -6,10 +6,10 @@
     </div>
     <div class="sizeLine mt25"></div>
     <div class="content-form mauto mt40">
-      <sizeSlider></sizeSlider>
-      <sizeSlider></sizeSlider>
-      <sizeSlider></sizeSlider>
-      <sizeSlider></sizeSlider>
+      <sizeSlider ref="bust" :dataId="0"></sizeSlider>
+      <sizeSlider ref="waist" :dataId="1"></sizeSlider>
+      <sizeSlider ref="heap" :dataId="2"></sizeSlider>
+      <sizeSlider ref="tall" :dataId="3"></sizeSlider>
       <div class="mt50">
         <button class="button-login" @click="moveNext">
           다음
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import SizeSlider from '@/components/join/SizeSlider';
 
 export default {
@@ -28,7 +29,19 @@ export default {
     SizeSlider,
   },
   methods: {
+    ...mapActions({
+      setSizeData: 'signup/setSizeData',
+    }),
+    saveSize() {
+      this.setSizeData({
+        bust: this.$refs.bust.sliderOption.value,
+        waist: this.$refs.waist.sliderOption.value,
+        heap: this.$refs.heap.sliderOption.value,
+        tall: this.$refs.tall.sliderOption.value,
+      });
+    },
     moveNext() {
+      this.saveSize();
       this.$router.push({ path: 'colors' });
     },
   },

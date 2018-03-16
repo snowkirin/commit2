@@ -1,7 +1,7 @@
 <template>
   <div class="sizeScroll mt35">
     <span class="sizeText divIB">바지</span>
-    <div class="sizeBar divIB">
+    <div class="sizeBar divIB" :data-id="dataId">
       <vue-slider
         v-model="sliderOption.value"
         :value="sliderOption.value"
@@ -38,6 +38,10 @@ export default {
     vueSlider,
   },
   props: {
+    dataId: {
+      type: Number,
+      default: 0,
+    },
     height: {
       type: Number,
       default: 2,
@@ -64,6 +68,12 @@ export default {
     };
   },
   methods: {
+  },
+  mounted() {
+    const pieceWise = document.querySelector(`div[data-id="${this.dataId}"] .vue-slider-piecewise`);
+
+    pieceWise.style.paddingBottom = '13px';
+    pieceWise.style.cursor = 'pointer';
   },
 };
 </script>
