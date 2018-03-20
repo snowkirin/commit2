@@ -31,6 +31,37 @@ const setColors = ({ commit }) => {
   commit(types.SET_COLORS, colors);
 };
 
+const setClothes = ({ commit }) => {
+  const clothes = [
+    { id: 1, title: '이미지1', src: 'IMAGE SRC' },
+    { id: 2, title: '이미지2', src: 'IMAGE SRC' },
+    { id: 3, title: '이미지3', src: 'IMAGE SRC' },
+    { id: 4, title: '이미지4', src: 'IMAGE SRC' },
+    { id: 5, title: '이미지5', src: 'IMAGE SRC' },
+    { id: 6, title: '이미지6', src: 'IMAGE SRC' },
+    { id: 7, title: '이미지7', src: 'IMAGE SRC' },
+  ];
+
+  commit(types.SET_CLOTHES, clothes);
+};
+
+const setPatterns = ({ commit }) => {
+  const patterns = [
+    { id: 1, title: '이미지1', src: 'IMAGE SRC' },
+    { id: 2, title: '이미지2', src: 'IMAGE SRC' },
+    { id: 3, title: '이미지3', src: 'IMAGE SRC' },
+  ];
+
+  commit(types.SET_PATTERNS, patterns);
+};
+
+const setMaterial = ({ commit }) => {
+  const material = [
+  ];
+
+  commit(types.SET_MATERIAL, material);
+};
+
 const setRequirement = ({ commit }, data) => {
   const rtn = (data === '요구사항을 적어주세요.') ? '' : data;
   commit(types.SET_REQUIREMENT, rtn);
@@ -43,10 +74,23 @@ const pickColors = ({ state, commit }, data) => {
   else {
     commit(types.PICK_COLORS, {
       type: data.type,
-      id: data.id,
       colors: [...new Set([...state.colors[data.type], data.color])],
     });
   }
+};
+
+const pickClothes = ({ state, commit }, id) => {
+  const isClothe = state.clothes.indexOf(id);
+
+  if (isClothe > -1) commit(types.PICK_REMOVE_CLOTHES, isClothe);
+  else commit(types.PICK_CLOTHES, [...new Set([...state.clothes, id])]);
+};
+
+const pickPatterns = ({ state, commit }, id) => {
+  const isPattern = state.patterns.indexOf(id);
+
+  if (isPattern > -1) commit(types.PICK_REMOVE_PATTERN, isPattern);
+  else commit(types.PICK_PATTERN, [...new Set([...state.patterns, id])]);
 };
 
 const phoneVerify = async ({ commit }, data) => {
@@ -84,4 +128,9 @@ export default {
   setColors,
   pickColors,
   setRequirement,
+  setClothes,
+  pickClothes,
+  setPatterns,
+  setMaterial,
+  pickPatterns,
 };

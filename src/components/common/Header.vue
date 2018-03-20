@@ -8,7 +8,9 @@
     <div class="right talign-right">
       <ul style="display: inline-flex; list-style: none;">
         <li>
-          <a href="#" class="menu-title">나만의 옷장</a>
+          <router-link to="/closet" class="menu-title">
+            나만의 옷장
+          </router-link>
         </li>
         <li style="margin: 0 15px 0 15px;">
           <span style="display: inline-block; width:4px; height:4px; background-color: #212121; opacity: 0.5;"></span>

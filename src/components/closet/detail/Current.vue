@@ -1,0 +1,383 @@
+<template>
+  <div class="current mt44">
+    <div class="main-point-text closet-title">현재의 옷장</div>
+    <div class="closet-title-text mt20">
+      현재 대여중인 의상이 마음에 드신다면?<br/>
+      반납 없이 구매할 수 있습니다.<br/>
+      구매까지 남은 기간  D-3 입니다.<br/>
+    </div>
+    <div class="closet-feedback mt50">
+      <div class="closet-feedback-content">
+        ZULY 이용에 대한 이야기를 들려주세요.<br/>
+        소중한 의견을 바탕으로  두번째  스타일링이 진행됩니다.<br/>
+        <button class="button-survey mt30" style="width: 15%;">서베이 시작하기</button>
+      </div>
+      <div class="custom-btn" @click="closeSurvey">
+        <div class="btn-times"></div>
+      </div>
+    </div>
+    <div class="closet-styling-tip mt30">
+      <div class="closet-styling-rotate-text">
+        ZULY STYLE
+      </div>
+      <div class="closet-styling-image-first">
+      </div>
+      <div class="closet-styling-image-second">
+      </div>
+      <div class="closet-styling-image-title first-title">
+        #TIP
+        <div class="third-line"></div>
+      </div>
+      <div class="closet-styling-image-title second-title">
+        TODAY'S STYLE
+      </div>
+    </div>
+    <div class="closet-styling-tip-text">
+      ASDFASDF
+      <div class="closet-styling-tip-stylist mt30">
+        - 담당 스타일리스트 한영진님
+      </div>
+    </div>
+    <div class="mt30" style="display: flex;">
+      <div class="current-closet-item">
+        <div class="closet-item-card mt35">
+          <div class="item-checkbox">
+            <label class="container">
+              <input type="checkbox" name="sess_forever" value="Y">
+              <span class="checkmark" style="width: 40px; height: 40px;"></span>
+            </label>
+          </div>
+          <div class="item-image"></div>
+          <div class="item-content">
+            <div style="padding-top: 45px;">
+              <span style="font-weight: 600;">[지방시]</span><br/>
+              <span style="line-height: 2;">니트 티셔츠 7258240016</span>
+              <p>
+                <span class="normal-price">240,000원</span><br/>
+                <span style="line-height: 1.8;">혜택가 168,000원 <span class="normal-price-percent">(20%↓)</span></span>
+              </p>
+              <p>
+                상품 상세보기
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="closet-item-card mt35">
+          <div class="item-checkbox">
+            <label class="container">
+              <input type="checkbox" name="sess_forever" value="Y">
+              <span class="checkmark" style="width: 40px; height: 40px;"></span>
+            </label>
+          </div>
+          <div class="item-image"></div>
+          <div class="item-content">
+            <div style="padding-top: 45px;">
+              <span style="font-weight: 600;">[지방시]</span><br/>
+              <span style="line-height: 2;">니트 티셔츠 7258240016</span>
+              <p>
+                <span class="normal-price">240,000원</span><br/>
+                <span style="line-height: 1.8;">혜택가 168,000원 <span class="normal-price-percent">(20%↓)</span></span>
+              </p>
+              <p>
+                상품 상세보기
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="display: inline-block; width: 1.3%;"></div>
+      <div class="current-closet-item-buy">
+        <div class="item-buy-title mt30">최종결제 금액확인</div>
+        <div class="mt30" style="height: 1px; background-color: #212121; opacity: 0.5;"></div>
+        <div class="mt50 item-buy-row">
+          <div class="item-buy-row-title">주문 수량</div>
+          <div class="item-buy-row-right">1</div>
+        </div>
+        <div class="mt50 item-buy-row">
+          <div class="item-buy-row-title">총 상품금액</div>
+          <div class="item-buy-row-right">223,500원</div>
+        </div>
+        <div class="mt30 item-buy-row" style="background-color: #f5f5f5; padding: 31px 23px; margin-left: 2px;">
+          <div class="item-buy-row-title">최종 결제 금액</div>
+          <div class="item-buy-row-right"><span>205,200</span>원</div>
+        </div>
+        <div style="margin: 23px;">
+          <button class="button-login">
+            205,200원 등록된 카드로 결제하기
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+
+export default {
+  name: 'current',
+  methods: {
+    closeSurvey() {
+      document.querySelector('.closet-feedback').style.display = 'none';
+    },
+  },
+};
+</script>
+
+<style scoped>
+.closet-feedback {
+  height: 330px;
+  background: url('/static/img/closet/img_feedback.png');
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  position: relative;
+}
+
+.closet-feedback-content {
+  position: relative;
+  top: 30%;
+  font-size: 27px;
+  line-height: 1.3;
+  letter-spacing: -1.6px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.closet-title-text {
+  font-size: 36px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  letter-spacing: -3.8px;
+  text-align: left;
+}
+
+.custom-btn {
+  cursor: pointer;
+  width: 48px;
+  height: 48px;
+  position: absolute;
+  opacity: 1;
+  top: 8%;
+  left: 97.5%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+div.btn-times {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 6px;
+}
+
+div.btn-times:before, div.btn-times:after {
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 2px;
+  background-color: #FFFFFF;
+  border-radius: 2px;
+  top: 23px;
+  box-shadow: 0 0 2px 0 #ccc;
+}
+
+div.btn-times:before {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  transform: rotate(45deg);
+  left: 9px;
+}
+
+div.btn-times:after {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  right: 9px;
+}
+
+.closet-styling-tip {
+  height: 600px;
+  background-color: #dbdbdb;
+  position: relative;
+}
+
+.closet-styling-rotate-text {
+  position: absolute;
+  top: 63.7%;
+  left: 14.5%;
+  width: 79px;
+  font-size: 14px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+  -webkit-transform: rotate(-270deg);
+  -moz-transform: rotate(-270deg);
+  -ms-transform: rotate(-270deg);
+  -o-transform: rotate(-270deg);
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+
+.closet-styling-image-first {
+  width: 352px;
+  height: 400px;
+  background-color: #FFFFFF;
+  position: absolute;
+  left: 19.3%;
+  top: 9.8%;
+}
+
+.closet-styling-image-second {
+  width: 352px;
+  height: 400px;
+  background-color: #FFFFFF;
+  position: absolute;
+  left: 51.3%;
+  top: 25.3%;
+}
+
+.closet-styling-image-title {
+  font-size: 64px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 0.41;
+  letter-spacing: normal;
+  color: #212121;
+}
+
+.first-title {
+  position: absolute;
+  left: 20.5%;
+  top: 75.3%;
+}
+
+.second-title {
+  position: absolute;
+  left: 23.7%;
+  top: 86.2%;
+}
+
+.third-line {
+  height: 4px;
+  background-color: #212121;
+  position: relative;
+  left: 153.5px;
+  top: -7.5px;
+}
+
+.closet-styling-tip-text {
+  background-color: #dbdbdb;
+  text-align: left;
+  word-wrap:break-word;
+  padding: 0 19.4% 60px 23.9%;
+}
+
+.closet-styling-tip-stylist {
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 1;
+  letter-spacing: -1px;
+  color: #797979;
+}
+
+.current-closet-item {
+  display: inline-block;
+  width: 58%;
+  background-color: #ffffff;
+  border: solid 2px #e9e9e9;
+}
+
+.current-closet-item-buy {
+  display: inline-block;
+  width: 40%;
+  border: solid 2px #212121;
+}
+
+.item-buy-title {
+  text-align: center;
+  font-size: 27px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  color: #212121;
+}
+
+.item-buy-row {
+  display: flex;
+  padding-left: 23px;
+  padding-right: 23px;
+}
+
+.item-buy-row-title {
+  width: 40%;
+  font-size: 18px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  letter-spacing: -0.8px;
+  line-height: 1;
+  color: #797979;
+}
+
+.item-buy-row-right {
+  width: 60%;
+  font-size: 22px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: right;
+  color: #212121;
+}
+
+.item-buy-row-right span {
+  color: #f45649;
+}
+
+.closet-item-card {
+  padding-left: 22px;
+  font-size: 18px;
+  line-height: 1;
+  color: #212121;
+}
+
+.closet-item-card:last-of-type {
+  margin-bottom: 35px;
+}
+
+.item-image {
+  width: 189px;
+  height: 237px;
+  border: solid 2px #e9e9e9;
+  display: inline-block;
+  margin-left: 52px;
+}
+
+.item-content {
+  vertical-align: top;
+  display: inline-block;
+  margin-left: 21px;
+}
+
+.container .checkmark:after {
+  left: 14px !important;
+  top: 8px !important;
+  width: 10px !important;
+  height: 15px !important;
+}
+
+.normal-price {
+  color: #797979;
+}
+
+.normal-price-percent {
+  color: #f45649;
+  letter-spacing: -0.7px;
+}
+</style>

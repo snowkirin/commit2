@@ -6,6 +6,12 @@
 @import "mobile-resp.css" screen and (max-width: 640px);
 
 
+.vertical-line {
+  width: 1px;
+  background-color: #797979;
+  margin: 0 10px;
+}
+
 .Line {
   width: 100%;
   height: 2px;
@@ -22,9 +28,24 @@
   text-decoration: none;
 }
 
+.dotted-line {
+  background-color: #d4d4d4;
+  border-bottom-style: dotted;
+  border-bottom-color: #f7f7f7;
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s;
+}
+
+.scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: #dadada;
 }

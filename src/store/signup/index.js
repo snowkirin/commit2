@@ -10,15 +10,17 @@ export default {
       prefer: [],
       except: [],
     },
+    clothes: [],
+    patterns: [],
     requirement: '',
     phoneAuth: false,
     phoneAuthKey: null,
     phoneAuthCnt: 0,
     surveyStorage: {
-      colors: {},
-      cloth: {},
-      patterns: {},
-      material: {},
+      colors: [],
+      cloths: [],
+      patterns: [],
+      material: [],
     },
   },
   mutations: {
@@ -38,11 +40,9 @@ export default {
       state.phoneAuthCnt += 1;
     },
     [types.SET_COLORS](state, colors) {
-      state.surveyStorage.colors = { ...colors };
+      state.surveyStorage.colors = [...colors];
     },
     [types.PICK_COLORS](state, data) {
-      state.surveyStorage.colors[data.id].selected = true;
-      state.surveyStorage.colors = { ...state.surveyStorage.colors };
       state.colors[data.type] = [...data.colors];
     },
     [types.PICK_REMOVE_COLORS](state, data) {
@@ -50,6 +50,27 @@ export default {
     },
     [types.SET_REQUIREMENT](state, data) {
       state.requirement = data;
+    },
+    [types.SET_CLOTHES](state, clothes) {
+      state.surveyStorage.clothes = [...clothes];
+    },
+    [types.PICK_CLOTHES](state, clothes) {
+      state.clothes = [...clothes];
+    },
+    [types.PICK_REMOVE_CLOTHES](state, idx) {
+      state.clothes.splice(idx, 1);
+    },
+    [types.SET_PATTERNS](state, patterns) {
+      state.surveyStorage.patterns = [...patterns];
+    },
+    [types.SET_MATERIAL](state, material) {
+      state.surveyStorage.material = [...material];
+    },
+    [types.PICK_PATTERN](state, patterns) {
+      state.patterns = [...patterns];
+    },
+    [types.PICK_REMOVE_PATTERN](state, idx) {
+      state.patterns.splice(idx, 1);
     },
   },
   actions,
@@ -60,5 +81,10 @@ export default {
     getPreferColors: state => state.colors.prefer,
     getExceptColors: state => state.colors.except,
     getRequirement: state => state.requirement,
+    getClothes: state => state.surveyStorage.clothes,
+    getSelectClothes: state => state.clothes,
+    getPatterns: state => state.surveyStorage.patterns,
+    getMaterial: state => state.surveyStorage.material,
+    getSelectPatterns: state => state.patterns,
   },
 };

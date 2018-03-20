@@ -20,4 +20,7 @@ export default {
 </script>
 
 <style scoped>
+.closet {
+  padding-bottom: 410px;
+}
 </style>

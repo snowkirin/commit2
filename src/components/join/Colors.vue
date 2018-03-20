@@ -8,26 +8,21 @@
     <div class="colors-form d-flex mt30 w100">
       <div class="colors-area">
         <div class="colors-title-detail">선호 색상</div>
-        <template v-for="(colors, k) in this.printColors">
-          <div class="colors-card-list" v-bind:class="{ mt20: (k === 0), mt12: (k !== 0) }" v-bind:key="k">
-            <template v-for="(color, dk) in colors">
-              <div
-                class="colors-card"
-                v-on:mouseover="cardMouseOver"
-                v-on:mouseout="cardMouseOut"
-                v-bind:key="'dk_card_'+ dk"
-                data-type="prefer"
-                :data-selected="color.selected"
-                :data-color="color.code"
-                :style="(color.selected) ? { backgroundColor: `#${color.code}`, color: color.textColor } : { backgroundColor: '#FFFFFF' }"
-                @click="colorPick($event, 'prefer', color.id)"
-              >
-                <span class="colors-card-text" :data-color="color.code" v-on:mouseover="textMouseOver" v-on:mouseout="textMouseOut" >
-                  {{ color.text }}
-                </span>
-              </div>
-              <div v-if="colors[dk+1]" class="colors-block" v-bind:key="'dk_block_'+ dk"></div>
-            </template>
+        <template v-for="(color, k) in colors">
+          <div class="colors-card"
+            v-bind:key="k"
+            v-on:mouseover="cardMouseOver"
+            v-on:mouseout="cardMouseOut"
+            :style="(prefer.indexOf(color.code) > -1 ?
+            {
+              backgroundColor: `#${color.code}`,
+              color: (color.code === 'FFFFFF') ? '#212121' : '#FFFFFF',
+            } : {} )"
+            :data-selected="(prefer.indexOf(color.code) > -1 ? true : false)"
+            :data-color="color.code"
+            @click="colorPick($event, 'prefer')"
+          >
+            {{ color.text }}
           </div>
         </template>
       </div>
@@ -36,24 +31,21 @@
       </div>
       <div class="colors-area">
         <div class="colors-title-detail">기피 색상</div>
-        <template v-for="(colors, k) in this.printColors">
-          <div class="colors-card-list" v-bind:class="{ mt20: (k === 0), mt12: (k !== 0) }" v-bind:key="k">
-            <template v-for="(color, dk) in colors">
-              <div class="colors-card"
-                v-on:mouseover="cardMouseOver"
-                v-on:mouseout="cardMouseOut"
-                v-bind:key="'dk_card_'+ dk"
-                :data-selected="color.selected"
-                :data-color="color.code"
-                :style="(color.selected) ? { backgroundColor: `#${color.code}`, color: color.textColor } : { backgroundColor: '#FFFFFF' }"
-                @click="colorPick($event, 'except')"
-              >
-                <span class="colors-card-text" v-on:mouseover="textMouseOver" v-on:mouseout="textMouseOut">
-                  {{ color.text }}
-                </span>
-              </div>
-              <div v-if="colors[dk+1]" class="colors-block" v-bind:key="'dk_block_'+ dk"></div>
-            </template>
+        <template v-for="(color, k) in colors">
+          <div class="colors-card"
+            v-bind:key="k"
+            v-on:mouseover="cardMouseOver"
+            v-on:mouseout="cardMouseOut"
+            :style="(except.indexOf(color.code) > -1 ?
+            {
+              backgroundColor: `#${color.code}`,
+              color: (color.code === 'FFFFFF') ? '#212121' : '#FFFFFF'
+            } : {} )"
+            :data-selected="(except.indexOf(color.code) > -1 ? true : false)"
+            :data-color="color.code"
+            @click="colorPick($event, 'except')"
+          >
+            {{ color.text }}
           </div>
         </template>
       </div>
@@ -78,25 +70,8 @@ export default {
     ...mapGetters({
       colors: 'signup/getColors',
       prefer: 'signup/getPreferColors',
+      except: 'signup/getExceptColors',
     }),
-    printColors() {
-      const rtn = [];
-      let data = [];
-      const dataLength = Object.keys(this.colors).length;
-
-      for (let i = 0; i < dataLength; i += 1) {
-        data.push({ id: i, ...this.colors[i] });
-
-        if ((i + 1) % 3 === 0) {
-          rtn.push(data);
-          data = [];
-        }
-      }
-
-      if (data.length > 0) rtn.push(data);
-
-      return rtn;
-    },
   },
   methods: {
     ...mapActions({
@@ -110,7 +85,7 @@ export default {
       const selected = obj.target.getAttribute('data-selected');
       const textColor = (color === 'FFFFFF') ? '212121' : 'FFFFFF';
 
-      if (!selected === 'true') {
+      if (selected !== 'true') {
         if (obj.target) obj.target.style.backgroundColor = `#${color}`;
         if (title) {
           title.style.backgroundColor = `#${obj.target.getAttribute('data-color')}`;
@@ -123,42 +98,17 @@ export default {
       const title = obj.target.querySelector('.colors-card-text');
       const selected = obj.target.getAttribute('data-selected');
 
-      if (!selected === 'true') {
-        if (obj.target) obj.target.style.backgroundColor = '#FFFFFF';
+      if (selected !== 'true') {
+        if (obj.target) obj.target.style.backgroundColor = '#F4F4F4';
         if (title) {
-          title.style.backgroundColor = '#FFFFFF';
+          title.style.backgroundColor = '#F4F4F4';
           title.style.color = '#212121';
         }
       }
     },
-    textMouseOver(evt) {
-      const obj = evt;
-      const parent = obj.target.parentNode;
-      const color = parent.getAttribute('data-color');
-      const selected = parent.getAttribute('data-selected');
-      const textColor = (color === 'FFFFFF') ? '212121' : 'FFFFFF';
-
-      if (!selected === 'true') {
-        parent.style.backgroundColor = `#${color}`;
-        obj.target.style.backgroundColor = `#${color}`;
-        obj.target.style.color = `#${textColor}`;
-      }
-    },
-    textMouseOut(evt) {
-      const obj = evt;
-      const parent = obj.target.parentNode;
-      const selected = parent.getAttribute('data-selected');
-
-      if (!selected === 'true') {
-        parent.style.backgroundColor = '#FFFFFF';
-        obj.target.style.backgroundColor = '#FFFFFF';
-        obj.target.style.color = '#212121';
-      }
-    },
-    colorPick(evt, type, id) {
+    colorPick(evt, type) {
       this.pickColors({
         type,
-        id,
         color: evt.target.getAttribute('data-color'),
       });
     },
@@ -202,6 +152,7 @@ export default {
   letter-spacing: normal;
   text-align: left;
   color: #212121;
+  margin-bottom: 15px;
 }
 
 .colors-card-list {
@@ -210,17 +161,19 @@ export default {
 .colors-card {
   width: 118px;
   height: 56px;
+  line-height: 56px;
   display: inline-block;
   vertical-align: middle;
-  background-color: #FFFFFF;
-  border: solid 2px #dadada;
+  background-color: #f4f4f4;
   font-size: 18px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
   letter-spacing: -0.5px;
-  color: #333333;
+  color: #212121;
   cursor: pointer;
+  margin: 12px 10px 0 0;
+  float: left;
 }
 
 .colors-card-text {

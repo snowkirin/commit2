@@ -5,62 +5,27 @@
       받고 싶지 않은 품목을 모두 선택해주세요.
     </div>
     <div class="patternsLine mt25"></div>
-    <div class="patterns-form w100 mt40 mauto" style="word-spacing: 0.4em;">
-      <div class="patterns-card d-inlineblock">
-        <div class="patterns-images">
-          IMAGE
+    <div class="patterns-form w100 mt40 mauto">
+      <template v-for="(pattern, k) in printPatterns">
+        <div
+          v-bind:key="k"
+          class="patterns-card d-inlineblock"
+          :data-id="pattern.id"
+          :data-selected="pattern.selected"
+          :class="{ 'card-oncolor': pattern.selected }"
+          @click="pickPatterns(pattern.id)"
+        >
+          <div class="patterns-images">
+            {{ pattern.src }}
+          </div>
+          <div class="patterns-text">
+            {{ pattern.title }}
+          </div>
+          <div class="patterns-btn" :class="{ 'card-btn-oncolor': pattern.selected }">
+            <div class="btn-times" :class="{ 'on': pattern.selected }"></div>
+          </div>
         </div>
-        <div class="patterns-text">
-          실루엣
-        </div>
-        <div class="patterns-btn">
-          <div class="btn-times"></div>
-        </div>
-      </div>
-      <div class="patterns-card d-inlineblock">
-        <div class="patterns-images">
-          IMAGE
-        </div>
-        <div class="patterns-text">
-          실루엣명이
-        </div>
-        <div class="patterns-btn">
-          <div class="btn-times"></div>
-        </div>
-      </div>
-      <div class="patterns-card d-inlineblock">
-        <div class="patterns-images">
-          IMAGE
-        </div>
-        <div class="patterns-text">
-          실루엣명이
-        </div>
-        <div class="patterns-btn">
-          <div class="btn-times"></div>
-        </div>
-      </div>
-      <div class="patterns-card d-inlineblock">
-        <div class="patterns-images">
-          IMAGE
-        </div>
-        <div class="patterns-text">
-          실루엣명이
-        </div>
-        <div class="patterns-btn">
-          <div class="btn-times"></div>
-        </div>
-      </div>
-      <div class="patterns-card d-inlineblock">
-        <div class="patterns-images">
-          IMAGE
-        </div>
-        <div class="patterns-text">
-          실루엣명이
-        </div>
-        <div class="patterns-btn">
-          <div class="btn-times"></div>
-        </div>
-      </div>
+      </template>
       <div class="mt50">
         <div style="width: 392px; float: right;">
           <button class="button-login" @click="moveNext">
@@ -73,31 +38,64 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
+
 export default {
   name: 'patterns',
+  computed: {
+    ...mapGetters({
+      patterns: 'signup/getPatterns',
+      selectedPatterns: 'signup/getSelectPatterns',
+    }),
+    printPatterns() {
+      const rtn = this.patterns;
+
+      for (let i = 0; i < rtn.length; i += 1) {
+        if (this.selectedPatterns.indexOf(rtn[i].id) > -1) rtn[i].selected = true;
+        else rtn[i].selected = false;
+      }
+
+      return rtn;
+    },
+  },
   components: {
   },
   methods: {
+    ...mapActions({
+      setPatterns: 'signup/setPatterns',
+      pickPatterns: 'signup/pickPatterns',
+    }),
     cardHoverEvt(obj) {
       const target = obj;
 
       target.onmouseover = () => {
-        target.querySelector('.patterns-btn').style.cssText = 'background-color: #fb5143; border: solid 2px #fb5143;';
-        target.style.border = 'solid 2px #fb5143';
-        target.style.backgroundColor = '#ebebeb';
-        target.querySelector('.btn-times').classList.add('on');
+        if (target.getAttribute('data-selected') !== 'true') {
+          target.classList.remove('card-offcolor');
+          target.querySelector('.patterns-btn').classList.remove('card-btn-offcolor');
+
+          target.classList.add('card-oncolor');
+          target.querySelector('.patterns-btn').classList.add('card-btn-oncolor');
+          target.querySelector('.btn-times').classList.add('on');
+        }
       };
 
       target.onmouseout = () => {
-        target.querySelector('.patterns-btn').style.cssText = 'background-color: #FFFFFF; border: solid 2px #dadada;';
-        target.style.border = 'solid 2px #dadada';
-        target.style.backgroundColor = '#FFFFFF';
-        target.querySelector('.btn-times').classList.remove('on');
+        if (target.getAttribute('data-selected') !== 'true') {
+          target.classList.remove('card-oncolor');
+          target.querySelector('.patterns-btn').classList.remove('card-btn-oncolor');
+
+          target.classList.add('card-offcolor');
+          target.querySelector('.patterns-btn').classList.add('card-btn-offcolor');
+          target.querySelector('.btn-times').classList.remove('on');
+        }
       };
     },
     moveNext() {
       this.$router.push({ path: 'styling' });
     },
+  },
+  created() {
+    this.setPatterns();
   },
   mounted() {
     const patternsCard = document.querySelectorAll('.patterns-card');
@@ -123,6 +121,8 @@ export default {
   border: solid 2px #dadada;
   position: relative;
   border-radius: 50%;
+  margin: 12px 10px 0 0;
+  cursor: pointer;
 }
 
 .patterns-images {
@@ -196,5 +196,25 @@ div.btn-times:after {
 .on:before, .on:after {
   background-color: #FFFFFF !important;
   box-shadow: unset !important;
+}
+
+.card-oncolor {
+  background-color: #ebebeb;
+  border: solid 2px #fb5143;
+}
+
+.card-offcolor {
+  background-color: #FFFFFF;
+  border: solid 2px #dadada;
+}
+
+.card-btn-oncolor {
+  background-color: #fb5143;
+  border: solid 2px #fb4143;
+}
+
+.card-btn-offcolor {
+  background-color: #FFFFFF;
+  border: solid 2px #dadada;
 }
 </style>

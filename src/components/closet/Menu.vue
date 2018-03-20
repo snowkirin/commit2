@@ -1,14 +1,30 @@
 <template>
   <div class="closet-menu mt30">
-    <div class="menu" data-id="tomorrow">내일의옷장</div>
-    <div class="menu" data-id="current">현재의옷장</div>
-    <div class="menu" data-id="past">과거의옷장</div>
+    <router-link to="/closet/tomorrow">
+      <div class="menu" data-id="tomorrow">
+        내일의옷장
+      </div>
+    </router-link>
+    <router-link to="/closet/current">
+      <div class="menu" data-id="current">
+        현재의옷장
+      </div>
+    </router-link>
+    <router-link to="/closet/past">
+      <div class="menu" data-id="past">
+        과거의옷장
+      </div>
+    </router-link>
     <div class="menu" data-id="style-info">스타일정보</div>
     <div class="menu" data-id="mypage">나의정보관리</div>
     <div class="menu" data-id="payment">지불정보</div>
     <div class="menu" data-id="coupon">쿠폰</div>
-    <div class="menu" data-id="cs">문의내역</div>
-    <div class="menu" data-id="noti">공지사항</div>
+    <router-link to="/closet/cs">
+      <div class="menu" data-id="cs">문의내역</div>
+    </router-link>
+    <router-link to="/closet/notice">
+      <div class="menu" data-id="notice">공지사항</div>
+    </router-link>
   </div>
 </template>
 
@@ -16,6 +32,9 @@
 
 export default {
   name: 'closet-menu',
+  watch: {
+    $route: 'activeMenuEvt',
+  },
   methods: {
     hoverEvt(target) {
       const obj = target;
@@ -35,13 +54,20 @@ export default {
         this.hoverEvt(menu[i]);
       }
     },
+    activeMenuEvt() {
+      if (document.querySelector('div.current_active')) document.querySelector('div.current_active').classList.remove('current_active');
+      if (this.$route.path === '/closet' || this.$route.path === '/closet/tomorrow') {
+        document.querySelector('div.menu[data-id="tomorrow"]').classList.add('current_active');
+      } else {
+        document.querySelector(`div.menu[data-id="${this.$route.path.replace('/closet/', '')}"]`).classList.add('current_active');
+      }
+
+      document.querySelector('div.current_active').parentNode.style.color = '#212121';
+    },
   },
   mounted() {
     this.menuEvt();
-
-    if (this.$route.path === '/closet' || this.$route.path === '/closet/tomorrow') {
-      document.querySelector('div.menu[data-id="tomorrow"]').classList.add('current_active');
-    }
+    this.activeMenuEvt();
   },
 };
 </script>
@@ -64,6 +90,11 @@ export default {
   margin-right: 20px;
   height: 91%;
   cursor: pointer;
+}
+
+.menu a {
+  color: #797979;
+  text-decoration: none;
 }
 
 .current_active, .closet_active {

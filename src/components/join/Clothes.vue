@@ -5,40 +5,27 @@
       받고 싶지 않은 품목을 모두 선택해주세요.
     </div>
     <div class="clothesLine mt25"></div>
-    <div class="clothes-form w100 mt40 mauto" style="word-spacing: 0.4em;">
-      <div class="clothes-card d-inlineblock">
-        <div class="clothes-images">
-          IMAGE
+    <div class="clothes-form w100 mauto" style="margin-top: 23px;">
+      <template v-for="(clothe, k) in printClothes">
+        <div
+          v-bind:key="k"
+          class="clothes-card d-inlineblock"
+          :data-id="clothe.id"
+          :data-selected="clothe.selected"
+          :class="{ 'card-oncolor': clothe.selected }"
+          @click="pickClothes(clothe.id)"
+        >
+          <div class="clothes-images">
+            {{ clothe.src }}
+          </div>
+          <div class="clothes-text">
+            {{ clothe.title }}
+          </div>
+          <div class="clothes-btn" :class="{ 'card-btn-oncolor': clothe.selected }">
+            <div class="btn-times" :class="{ 'on': clothe.selected }"></div>
+          </div>
         </div>
-        <div class="clothes-text">
-          실루엣
-        </div>
-        <div class="clothes-btn">
-          <div class="btn-times"></div>
-        </div>
-      </div>
-      <div class="clothes-card d-inlineblock">
-        <div class="clothes-images">
-          IMAGE
-        </div>
-        <div class="clothes-text">
-          실루엣명이
-        </div>
-        <div class="clothes-btn">
-          <div class="btn-times"></div>
-        </div>
-      </div>
-      <div class="clothes-card d-inlineblock">
-        <div class="clothes-images">
-          IMAGE
-        </div>
-        <div class="clothes-text">
-          실루엣명이
-        </div>
-        <div class="clothes-btn">
-          <div class="btn-times"></div>
-        </div>
-      </div>
+      </template>
       <div class="mt50">
         <div style="width: 392px; float: right;">
           <button class="button-login" @click="moveNext">
@@ -51,31 +38,62 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
+
 export default {
   name: 'clothes',
-  components: {
+  computed: {
+    ...mapGetters({
+      clothes: 'signup/getClothes',
+      selectedClothes: 'signup/getSelectClothes',
+    }),
+    printClothes() {
+      const rtn = this.clothes;
+
+      for (let i = 0; i < rtn.length; i += 1) {
+        if (this.selectedClothes.indexOf(rtn[i].id) > -1) rtn[i].selected = true;
+        else rtn[i].selected = false;
+      }
+
+      return rtn;
+    },
   },
   methods: {
+    ...mapActions({
+      setClothes: 'signup/setClothes',
+      pickClothes: 'signup/pickClothes',
+    }),
     cardHoverEvt(obj) {
       const target = obj;
 
       target.onmouseover = () => {
-        target.querySelector('.clothes-btn').style.cssText = 'background-color: #fb5143; border: solid 2px #fb5143;';
-        target.style.border = 'solid 2px #fb5143';
-        target.style.backgroundColor = '#ebebeb';
-        target.querySelector('.btn-times').classList.add('on');
+        if (target.getAttribute('data-selected') !== 'true') {
+          target.classList.remove('card-offcolor');
+          target.querySelector('.clothes-btn').classList.remove('card-btn-offcolor');
+
+          target.classList.add('card-oncolor');
+          target.querySelector('.clothes-btn').classList.add('card-btn-oncolor');
+          target.querySelector('.btn-times').classList.add('on');
+        }
       };
 
       target.onmouseout = () => {
-        target.querySelector('.clothes-btn').style.cssText = 'background-color: #FFFFFF; border: solid 2px #dadada;';
-        target.style.border = 'solid 2px #dadada';
-        target.style.backgroundColor = '#FFFFFF';
-        target.querySelector('.btn-times').classList.remove('on');
+        if (target.getAttribute('data-selected') !== 'true') {
+          target.classList.remove('card-oncolor');
+          target.querySelector('.clothes-btn').classList.remove('card-btn-oncolor');
+
+          target.classList.add('card-offcolor');
+          target.querySelector('.clothes-btn').classList.add('card-btn-offcolor');
+          target.querySelector('.btn-times').classList.remove('on');
+        }
       };
     },
     moveNext() {
       this.$router.push({ path: 'patterns' });
     },
+  },
+  created() {
+    this.setClothes();
   },
   mounted() {
     const clothesCard = document.querySelectorAll('.clothes-card');
@@ -100,6 +118,8 @@ export default {
   background-color: #FFFFFF;
   border: solid 2px #dadada;
   position: relative;
+  margin: 17px 10px 0 0;
+  cursor: pointer;
 }
 
 .clothes-images {
@@ -166,5 +186,25 @@ div.btn-times:after {
 .on:before, .on:after {
   background-color: #FFFFFF !important;
   box-shadow: unset !important;
+}
+
+.card-oncolor {
+  background-color: #ebebeb;
+  border: solid 2px #fb5143;
+}
+
+.card-offcolor {
+  background-color: #FFFFFF;
+  border: solid 2px #dadada;
+}
+
+.card-btn-oncolor {
+  background-color: #fb5143;
+  border: solid 2px #fb4143;
+}
+
+.card-btn-offcolor {
+  background-color: #FFFFFF;
+  border: solid 2px #dadada;
 }
 </style>

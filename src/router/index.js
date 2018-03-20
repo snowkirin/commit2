@@ -17,7 +17,10 @@ const JoinSignUpFirst = () => import('@/components/join/signup/first');
 const JoinSignUpSecond = () => import('@/components/join/signup/second');
 const Closet = () => import('@/components/closet/Index');
 const ClosetTomorrow = () => import('@/components/closet/detail/Tomorrow');
-
+const ClosetCurrent = () => import('@/components/closet/detail/Current');
+const ClosetPast = () => import('@/components/closet/detail/past');
+const ClosetCustomerService = () => import('@/components/closet/detail/CustomerService');
+const ClosetNotice = () => import('@/components/closet/detail/notice');
 
 Vue.use(Router);
 
@@ -32,10 +35,9 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Index',
       component: Index,
       children: [
-        { path: '/', component: Main },
+        { path: '/', name: 'IndexMain', component: Main },
         { path: '/login', component: Login },
         { path: '/findid', component: FindId },
         {
@@ -61,11 +63,14 @@ export default new Router({
         },
         {
           path: '/closet',
-          name: 'Closet',
           component: Closet,
           children: [
-            { path: '', component: ClosetTomorrow },
+            { path: '', name: 'ClosetTomorrow', component: ClosetTomorrow },
             { path: 'tomorrow', component: ClosetTomorrow },
+            { path: 'current', component: ClosetCurrent },
+            { path: 'past', component: ClosetPast },
+            { path: 'cs', component: ClosetCustomerService },
+            { path: 'notice', component: ClosetNotice },
           ],
         },
       ],

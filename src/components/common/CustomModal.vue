@@ -2,25 +2,38 @@
 <div class="custom-modal" :data-id="dataId">
   <div class="custom-modal-title">
     {{ title }}
+    <div v-if="this.modalType === 'csView'" class="csView">(상담사 업무시간 : 오전 10시~오후 5시)</div>
     <div class="custom-modal-btn" @click="closeModal">
       <div class="btn-times"></div>
     </div>
   </div>
   <div class="custom-modal-content scroll">
+    <component v-bind:is="modalType"></component>
     {{ content }}
   </div>
 </div>
 </template>
 
 <script>
+import PastView from '@/components/common/modal/PastView';
+import CsView from '@/components/common/modal/CsView';
+
 export default {
   name: 'custom-modal',
+  components: {
+    PastView,
+    CsView,
+  },
   data() {
     return {
       modal: null,
     };
   },
   props: {
+    modalType: {
+      type: String,
+      default: '',
+    },
     dataId: {
       type: String,
     },
@@ -51,9 +64,17 @@ export default {
   },
   mounted() {
     this.modal = document.querySelector(`div.custom-modal[data-id="${this.dataId}"]`);
-    this.modal.style.width = this.width;
-    this.modal.style.height = this.height;
+    this.modal.style.width = `${this.width}px`;
+    this.modal.style.height = `${this.height}px`;
+
+    if (this.modalType === 'csView') {
+      this.modal.style.border = 'solid 1px #212121';
+      this.modal.style.backgroundColor = '#f5f5f5';
+      this.modal.querySelector('.custom-modal-title').style.cssText = 'border-bottom: 1px solid #212121; background-color: #FFFFFF;';
+      this.modal.querySelector('.custom-modal-content').style.height = '68.5%';
+    }
   },
+
 };
 </script>
 
@@ -86,6 +107,7 @@ export default {
   letter-spacing: -0.7px;
   text-align: left;
   color: #212121;
+  box-sizing: border-box;
 }
 
 .custom-modal-content {
@@ -107,7 +129,7 @@ export default {
   background-color: #FFFFFF;
   position: absolute;
   opacity: 1;
-  top: 6%;
+  top: 7.4%;
   left: 95%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
@@ -157,5 +179,13 @@ div.btn-times:after {
 .scroll::-webkit-scrollbar-thumb {
   border-radius: 4px;
   background-color: #dadada;
+}
+
+.csView {
+  display: inline-block;
+  font-size: 18px;
+  line-height: 1;
+  letter-spacing: -0.5px;
+  color: #808080;
 }
 </style>
