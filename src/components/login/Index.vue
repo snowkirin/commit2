@@ -27,10 +27,10 @@
           <router-link to="/join/size" class="no-deco-a">회원가입</router-link>
         </div>
         <div class="loginMenu loginMenuCenter">
-          <router-link to="/findid" class="no-deco-a">아이디찾기</router-link>
+          <router-link to="/find/id" class="no-deco-a">아이디찾기</router-link>
         </div>
         <div class="loginMenu loginMenuSide">
-          비밀번호찾기
+          <router-link to="/find/password" class="no-deco-a">비밀번호찾기</router-link>
         </div>
       </div>
     </div>

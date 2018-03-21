@@ -1,12 +1,12 @@
 <template>
   <div class="findId subContent side-margin-50">
-    <div class="findId-title">아이디찾기</div>
+    <div class="findId-title">비밀번호 찾기</div>
     <div class="mt10">
-      가입 당시 입력한 휴대전화 번호를 통해 아이디를 찾을 수 있습니다.
+      가입 당시 입력한 아이디, 휴대전화 번호를 통해 비밀번호를 찾을 수 있습니다.
     </div>
     <div class="findIdLine mt25"></div>
     <div class="findId-form mt40" style="width: 392px; margin: auto;">
-      <input type="text" name="name" class="form-login-input mt10" placeholder="이름" v-validate="'required'" />
+      <input type="text" name="email" class="form-login-input mt10" placeholder="아이디" v-validate="'required'" />
       <input type="text" name="phone" class="form-login-input mt10" placeholder="휴대전화" v-validate="'required'" />
       <div class="inputGroup">
         <input type="text" name="phone_auth_number" class="form-login-group mt10" placeholder="인증번호" style="width: 75%;"/>
@@ -27,7 +27,7 @@
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
-  name: 'findId',
+  name: 'findPwd',
   data() {
     return {
       authErr: false,
@@ -92,7 +92,7 @@ export default {
 
       if (this.phoneAuth) {
         alert('인증되었습니다.');
-        this.$router.push({ path: '/find/success', query: { type: 'findid' } });
+        this.$router.push({ path: '/findid/success' });
       } else alert('인증번호를 다시 확인하시고 진행해주세요.');
 
       return true;

@@ -7,9 +7,8 @@
       <div class="btn-times"></div>
     </div>
   </div>
-  <div class="custom-modal-content scroll">
+  <div class="custom-modal-content scroll" v-html="content">
     <component v-bind:is="modalType"></component>
-    {{ content }}
   </div>
 </div>
 </template>

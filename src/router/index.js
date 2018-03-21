@@ -5,6 +5,8 @@ const Index = () => import('@/components/Index');
 const Main = () => import('@/components/main/Index');
 const Login = () => import('@/components/login/Index');
 const FindId = () => import('@/components/login/FindId');
+const FindPwd = () => import('@/components/login/FindPwd');
+const Success = () => import('@/components/login/Success');
 const Join = () => import('@/components/join/Index');
 const JoinSize = () => import('@/components/join/Size');
 const JoinClothes = () => import('@/components/join/Clothes');
@@ -21,6 +23,8 @@ const ClosetCurrent = () => import('@/components/closet/detail/Current');
 const ClosetPast = () => import('@/components/closet/detail/past');
 const ClosetCustomerService = () => import('@/components/closet/detail/CustomerService');
 const ClosetNotice = () => import('@/components/closet/detail/notice');
+const ClosetMypageSecurity = () => import('@/components/closet/detail/MypageSecurity');
+const ClosetMypage = () => import('@/components/closet/detail/Mypage');
 
 Vue.use(Router);
 
@@ -39,7 +43,9 @@ export default new Router({
       children: [
         { path: '/', name: 'IndexMain', component: Main },
         { path: '/login', component: Login },
-        { path: '/findid', component: FindId },
+        { path: '/find/id', component: FindId },
+        { path: '/find/success', component: Success },
+        { path: '/find/password', component: FindPwd },
         {
           path: '/join',
           name: 'Join',
@@ -71,6 +77,8 @@ export default new Router({
             { path: 'past', component: ClosetPast },
             { path: 'cs', component: ClosetCustomerService },
             { path: 'notice', component: ClosetNotice },
+            { path: 'security', component: ClosetMypageSecurity },
+            { path: 'mypage', component: ClosetMypage },
           ],
         },
       ],

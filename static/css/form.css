@@ -103,3 +103,64 @@
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+
+.form-input-radio {
+  display: inline-block;
+  position: relative;
+  padding-top: 2px;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-size: 18px;
+  line-height: 1;
+  letter-spacing: -0.5px;
+  color: #212121;
+}
+
+.form-input-radio input {
+  position: absolute;
+  opacity: 0;
+}
+
+/* Create a custom radio button */
+.checkmark-radio {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 22px;
+  width: 22px;
+  background-color: #FFFFFF;
+  border: solid 1px #999999;
+  border-radius: 50%;
+}
+
+.form-input-radio:hover input ~ .checkmark-radio {
+  background-color: #eee;
+}
+
+.form-input-radio input:checked ~ .checkmark-radio {
+  background-color: #FFFFFF;
+}
+
+.checkmark-radio:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.form-input-radio input:checked ~ .checkmark-radio:after {
+  display: block;
+}
+
+.form-input-radio .checkmark-radio:after {
+  top: 6px;
+  left: 6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #212121;
+}

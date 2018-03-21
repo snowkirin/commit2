@@ -16,7 +16,9 @@
       </div>
     </router-link>
     <div class="menu" data-id="style-info">스타일정보</div>
-    <div class="menu" data-id="mypage">나의정보관리</div>
+    <router-link to="/closet/security">
+      <div class="menu" data-id="mypage">나의정보관리</div>
+    </router-link>
     <div class="menu" data-id="payment">지불정보</div>
     <div class="menu" data-id="coupon">쿠폰</div>
     <router-link to="/closet/cs">
@@ -58,6 +60,8 @@ export default {
       if (document.querySelector('div.current_active')) document.querySelector('div.current_active').classList.remove('current_active');
       if (this.$route.path === '/closet' || this.$route.path === '/closet/tomorrow') {
         document.querySelector('div.menu[data-id="tomorrow"]').classList.add('current_active');
+      } else if (this.$route.path === '/closet/security') {
+        document.querySelector('div.menu[data-id="mypage"]').classList.add('current_active');
       } else {
         document.querySelector(`div.menu[data-id="${this.$route.path.replace('/closet/', '')}"]`).classList.add('current_active');
       }

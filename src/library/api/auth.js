@@ -54,6 +54,23 @@ const authPhoneCheck = ({
   withCredentials: true,
 }).then(result => result).catch(err => err.response);
 
+// 아이디찾기
+const authFindId = ({
+  name,
+  phone,
+}) => axios.post(`${API_URL}/auth/findId`, {
+  name,
+  phone,
+}).then(result => result).catch(err => err.response);
+
+// 아이디찾기 인증
+const finalAuthFindId = ({
+  authId,
+  authNumber,
+}) => axios.post(`${API_URL}/auth/findId/auth`, {
+  authId,
+  authNumber,
+}).then(result => result).catch(err => err.response);
 
 // 로그아웃
 const logout = () => axios.post(`${API_URL}/auth/logout`, { withCredentials: true });
@@ -69,4 +86,6 @@ export default {
   loginStatusCheck,
   authPhone,
   authPhoneCheck,
+  authFindId,
+  finalAuthFindId,
 };
