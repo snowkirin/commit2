@@ -7,6 +7,7 @@ const Login = () => import('@/components/login/Index');
 const FindId = () => import('@/components/login/FindId');
 const FindPwd = () => import('@/components/login/FindPwd');
 const Success = () => import('@/components/login/Success');
+const PwdSuccess = () => import('@/components/login/PwdSuccess');
 const Join = () => import('@/components/join/Index');
 const JoinSize = () => import('@/components/join/Size');
 const JoinClothes = () => import('@/components/join/Clothes');
@@ -44,8 +45,9 @@ export default new Router({
         { path: '/', name: 'IndexMain', component: Main },
         { path: '/login', component: Login },
         { path: '/find/id', component: FindId },
-        { path: '/find/success', component: Success },
+        { path: '/find/id/complete', component: Success },
         { path: '/find/password', component: FindPwd },
+        { path: '/find/password/complete', component: PwdSuccess },
         {
           path: '/join',
           name: 'Join',

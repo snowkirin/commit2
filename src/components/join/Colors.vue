@@ -17,7 +17,10 @@
             {
               backgroundColor: `#${color.code}`,
               color: (color.code === 'FFFFFF') ? '#212121' : '#FFFFFF',
-            } : {} )"
+              margin: ((k+1) % 3 === 2) ? '12px 12px 0 12px' : null,
+            } : {
+              margin: ((k+1) % 3 === 2) ? '12px 12px 0 12px' : null,
+            } )"
             :data-selected="(prefer.indexOf(color.code) > -1 ? true : false)"
             :data-color="color.code"
             @click="colorPick($event, 'prefer')"
@@ -26,7 +29,7 @@
           </div>
         </template>
       </div>
-      <div style="width: 3%; position: relative;">
+      <div style="width: 8%; position: relative;">
         <div class="line"></div>
       </div>
       <div class="colors-area">
@@ -39,8 +42,11 @@
             :style="(except.indexOf(color.code) > -1 ?
             {
               backgroundColor: `#${color.code}`,
-              color: (color.code === 'FFFFFF') ? '#212121' : '#FFFFFF'
-            } : {} )"
+              color: (color.code === 'FFFFFF') ? '#212121' : '#FFFFFF',
+              margin: ((k+1) % 3 === 2) ? '12px 12px 0 12px' : null,
+            } : {
+              margin: ((k+1) % 3 === 2) ? '12px 12px 0 12px' : null,
+            } )"
             :data-selected="(except.indexOf(color.code) > -1 ? true : false)"
             :data-color="color.code"
             @click="colorPick($event, 'except')"
@@ -172,7 +178,7 @@ export default {
   letter-spacing: -0.5px;
   color: #212121;
   cursor: pointer;
-  margin: 12px 10px 0 0;
+  margin-top: 12px;
   float: left;
 }
 

@@ -92,7 +92,7 @@ export default {
 
       if (this.phoneAuth) {
         alert('인증되었습니다.');
-        this.$router.push({ path: '/find/success', query: { type: 'findid' } });
+        this.$router.push({ path: '/find/id/complete' });
       } else alert('인증번호를 다시 확인하시고 진행해주세요.');
 
       return true;

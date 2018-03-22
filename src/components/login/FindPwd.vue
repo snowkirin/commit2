@@ -35,19 +35,19 @@ export default {
     };
   },
   computed: mapGetters({
-    phoneAuth: 'common/getPhoneAuth',
-    phoneAuthkey: 'common/getPhoneAuthKey',
+    phoneAuth: 'common/getPhoneAuthPwd',
+    phoneAuthkey: 'common/getPhoneAuthKeyPwd',
   }),
   methods: {
     ...mapActions({
-      actPhoneVerify: 'common/phoneVerify',
-      actPhoneCheckVerify: 'common/phoneCheckVerify',
+      actPhoneVerify: 'common/phonePasswordVerify',
+      actPhoneCheckVerify: 'common/phonePasswordCheckVerify',
     }),
     async phoneVerify() {
-      const name = document.querySelector('input[name=name]');
+      const email = document.querySelector('input[name=email]');
       const phone = document.querySelector('input[name=phone]');
 
-      if (!this.$common.InputDataValidation(name, '이름을 입력해주세요.', true)) return;
+      if (!this.$common.InputDataValidation(email, '이메일을 입력해주세요.', true, true)) return;
 
       await this.$validator.validate('phone', phone.value).then(async (result) => {
         let resultMsg = true;
@@ -55,7 +55,7 @@ export default {
         if (result) {
           if (this.$common.phoneValidation(phone.value)) {
             await this.actPhoneVerify({
-              name: name.value,
+              email: email.value,
               phone: phone.value.split('-').join(''),
             });
 
@@ -71,7 +71,7 @@ export default {
         return false;
       });
 
-      if (this.$store.getters['common/getPhoneAuthKey'] > 0) {
+      if (this.$store.getters['common/getPhoneAuthKeyPwd'] > 0) {
         this.startTimer();
         this.authErr = true;
       }
@@ -79,7 +79,7 @@ export default {
     async authKeyConfirm() {
       const phoneAuthNumber = document.querySelector('input[name=phone_auth_number]');
 
-      if (!this.$store.getters['common/getPhoneAuthKey']) {
+      if (!this.$store.getters['common/getPhoneAuthKeyPwd']) {
         alert('먼저 휴대전화를 입력하고 인증버튼을 눌러주세요.');
         return false;
       }
@@ -92,7 +92,7 @@ export default {
 
       if (this.phoneAuth) {
         alert('인증되었습니다.');
-        this.$router.push({ path: '/findid/success' });
+        this.$router.push({ path: '/find/password/complete' });
       } else alert('인증번호를 다시 확인하시고 진행해주세요.');
 
       return true;

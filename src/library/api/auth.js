@@ -63,13 +63,31 @@ const authFindId = ({
   phone,
 }).then(result => result).catch(err => err.response);
 
+// 비밀번호찾기
+const authFindPwd = ({
+  email,
+  phone,
+}) => axios.post(`${API_URL}/auth/findPwd`, {
+  email,
+  phone,
+}).then(result => result).catch(err => err.response);
+
 // 아이디찾기 인증
-const finalAuthFindId = ({
+const finalAuth = ({
   authId,
   authNumber,
-}) => axios.post(`${API_URL}/auth/findId/auth`, {
+}) => axios.post(`${API_URL}/auth/find/auth`, {
   authId,
   authNumber,
+}).then(result => result).catch(err => err.response);
+
+// 비밀번호찾기 변경
+const findPwdComplete = ({
+  authId,
+  password,
+}) => axios.post(`${API_URL}/auth/password/complete`, {
+  authId,
+  password,
 }).then(result => result).catch(err => err.response);
 
 // 로그아웃
@@ -87,5 +105,7 @@ export default {
   authPhone,
   authPhoneCheck,
   authFindId,
-  finalAuthFindId,
+  authFindPwd,
+  finalAuth,
+  findPwdComplete,
 };
