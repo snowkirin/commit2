@@ -7,7 +7,7 @@
       <div class="main-cs-tel en-font">
         1644-1107
       </div>
-      <div class="main-cs-noti mt20">
+      <div class="main-cs-noti mt5">
         평일 오전 10 시 ~ 오후 5시 / 점심 시간 오후 12시30분 ~ 오후 1시 30분<br/>
         고객 센터가 종료된 오후 5시 이후와 일요일, 공휴일에는 <a href="#">나의 옷장 문의 게시판</a>을 이용해 주세요.
       </div>

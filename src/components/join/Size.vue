@@ -1,7 +1,7 @@
 <template>
   <div class="size subContent mauto">
-    <div class="content-title mt20">사이즈</div>
-    <div class="explain mt20">
+    <div class="content-title mt30">사이즈</div>
+    <div class="explain mt15">
       제공되는 스타일을 위해 필요한 정보입니다.
     </div>
     <div class="sizeLine mt25"></div>

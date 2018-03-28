@@ -1,7 +1,7 @@
 <template>
   <div class="colors subContent mauto">
-    <div class="content-title mt20">색상 선택</div>
-    <div class="explain mt20">
+    <div class="content-title mt30">색상 선택</div>
+    <div class="explain mt15">
       스타일링을 위한 색상 선택에 활용됩니다.
     </div>
     <div class="colorsLine mt25"></div>
@@ -57,7 +57,7 @@
       </div>
     </div>
 
-    <div class="mt30">
+    <div class="mt40">
       <div style="width: 392px; float: right;">
         <button class="button-login" @click="moveNext">
           다음

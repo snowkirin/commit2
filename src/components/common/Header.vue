@@ -63,6 +63,10 @@ export default {
 </script>
 
 <style scoped>
+.side-margin-50 {
+  margin: 0 50px 0 53px;
+}
+
 .logo {
   width: 99px;
   height: 30px;

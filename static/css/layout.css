@@ -23,7 +23,7 @@ div.subContent {
 }
 
 header {
-  height: 100px;
+  height: 93px;
   overflow: hidden;
 }
 
@@ -138,6 +138,12 @@ footer {
 .ml40 {
   margin-left: 40px !important;
 }
+
+
+.mb15 {
+  margin-bottom: 15px;
+}
+
 
 .mb35 {
   margin-bottom: 35px;

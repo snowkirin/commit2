@@ -108,6 +108,7 @@ export default {
   font-size: 36px;
   line-height: 1.4;
   letter-spacing: normal;
+  letter-spacing: -2.8px;
   color: #212121;
   text-align: center;
 }
