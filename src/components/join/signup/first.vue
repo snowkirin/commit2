@@ -1,6 +1,6 @@
 <template>
   <div class="signup subContent mauto">
-    <div class="content-title mt20">정기구독/회원가입</div>
+    <div class="content-title mt30">정기구독/회원가입</div>
     <div class="signupLine mt25"></div>
 
     <div class="w100 mt30 mauto">
@@ -80,7 +80,7 @@
           </div>
         </div>
       </div>
-      <div class="mt30">
+      <div class="mt40">
         <div class="next-btn" style="width: 392px; float: right;">
           <button class="button-login" @click="validateBeforeSubmit">
             다음

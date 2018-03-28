@@ -1,7 +1,7 @@
 <template>
   <div class="clothes subContent mauto">
-    <div class="content-title mt20">티셔츠/스웻셔츠</div>
-    <div class="explain mt20">
+    <div class="content-title mt30">티셔츠/스웻셔츠</div>
+    <div class="explain mt15">
       받고 싶지 않은 스타일을 모두 선택해주세요.
     </div>
     <div class="clothesLine mt25"></div>

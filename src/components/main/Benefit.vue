@@ -54,7 +54,7 @@ export default {
   font-style: normal;
   font-stretch: normal;
   line-height: 1.21;
-  letter-spacing: -4.5px;
+  letter-spacing: -5.6px;
   color: #212121;
 }
 

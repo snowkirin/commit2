@@ -1,6 +1,6 @@
 <template>
   <div class="login subContent side-margin-50">
-    <div class="login-title mt20">로그인</div>
+    <div class="login-title mt30">로그인</div>
     <div class="loginLine mt20"></div>
     <div class="login-error" style="display: none;">
       입력된 아이디는 가입되지 않은 계정입니다.

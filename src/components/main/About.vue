@@ -22,6 +22,9 @@ export default {
 </script>
 
 <style scoped>
+.mt70 {
+    margin-top: 63px !important;
+}
 .main-about {
   height: 420px;
   background-image: url('/static/img/main/img_about.png');
@@ -43,7 +46,7 @@ export default {
 }
 
 .main-about-title {
-  letter-spacing: -1.3px;
+  letter-spacing: -2.2px;
   text-align: left;
   color: #ffffff;
 }

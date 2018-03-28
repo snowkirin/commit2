@@ -122,7 +122,7 @@
           </div>
         </div>
       </div>
-      <div class="mt30">
+      <div class="mt40">
         <div class="next-btn" style="width: 392px; float: right;">
           <button class="button-login" @click="finalSignup">
             결제
