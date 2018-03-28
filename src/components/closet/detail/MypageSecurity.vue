@@ -7,7 +7,7 @@
     </div>
     <div class="security-input">
       <div class="inputGroup">
-        <input type="password" name="password" class="form-login-group mt12" placeholder="비밀번호" style="width: 33%;" v-validate="'required'" />
+        <input type="password" name="password" class="form-login-group mt12" placeholder="비밀번호" style="width: 33%;" v-validate="'required'" @keydown="$common.submitEvt($event, passwordCheck)"/>
         <div style="display: inline-table; width: 1%;"></div>
         <button class="button-login" style="width: 10%;" @click="passwordCheck">확인</button>
       </div>
@@ -16,16 +16,26 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'mypageSecurity',
+  computed: {
+    ...mapGetters({
+      mypageAuth: 'mypage/getMypageAuth',
+    }),
+  },
   methods: {
-    passwordCheck() {
+    ...mapActions({
+      mypageSecurity: 'mypage/mypageSecurity',
+    }),
+    async passwordCheck() {
       const pwd = document.querySelector('input[name=password]');
 
-      if (!this.$common.InputDataValidation(pwd, '비밀번호를 입력해주세요.', true)) return false;
+      if (!this.$common.InputDataValidation(pwd, '비밀번호를 입력해주세요.', true)) return;
+      await this.mypageSecurity({ password: pwd.value });
 
-      return true;
+      if (this.mypageAuth) this.$router.push({ path: '/closet/mypage' });
     },
   },
 };
@@ -33,15 +43,6 @@ export default {
 
 <style scoped>
 .mypage {
-}
-
-.closet-title-text {
-  font-size: 36px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  letter-spacing: -3.8px;
-  text-align: left;
 }
 
 .security-input {

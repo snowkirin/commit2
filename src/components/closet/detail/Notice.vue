@@ -52,24 +52,6 @@ export default {
   padding-bottom: 410px;
 }
 
-.closet-title-text {
-  font-size: 36px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  letter-spacing: -3.8px;
-  text-align: left;
-}
-
-.closet-card-block {
-  display: inline-block;
-  width: 1.1%;
-}
-
-.closet-content {
-  border-top: solid 2px #212121;
-}
-
 .notice-rows {
   display: flex;
   justify-content: space-between;

@@ -9,13 +9,14 @@
     <div class="closet-feedback mt50">
       <div class="closet-feedback-content">
         ZULY 이용에 대한 이야기를 들려주세요.<br/>
-        소중한 의견을 바탕으로  두번째  스타일링이 진행됩니다.<br/>
-        <button class="button-survey mt30" style="width: 15%;">서베이 시작하기</button>
+        소중한 의견을 바탕으로 다음 스타일링이 진행됩니다.<br/>
+        <button class="button-survey mt30" style="width: 15%;">피드백 시작하기</button>
       </div>
       <div class="custom-btn" @click="closeSurvey">
         <div class="btn-times"></div>
       </div>
     </div>
+    <feedBack ref="feedback"></feedBack>
     <div class="closet-styling-tip mt30">
       <div class="closet-styling-rotate-text">
         ZULY STYLE
@@ -112,9 +113,13 @@
 </template>
 
 <script>
+import FeedBack from '@/components/closet/feedback/Index';
 
 export default {
   name: 'current',
+  components: {
+    FeedBack,
+  },
   methods: {
     closeSurvey() {
       document.querySelector('.closet-feedback').style.display = 'none';
@@ -140,15 +145,6 @@ export default {
   letter-spacing: -1.6px;
   text-align: center;
   color: #ffffff;
-}
-
-.closet-title-text {
-  font-size: 36px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  letter-spacing: -3.8px;
-  text-align: left;
 }
 
 .custom-btn {

@@ -16,7 +16,10 @@
           <span style="display: inline-block; width:4px; height:4px; background-color: #212121; opacity: 0.5;"></span>
         </li>
         <li>
-          <router-link to="/login" class="menu-title">
+          <span v-if="Authentication.authenticated" class="menu-title" @click="doLogout">
+            로그아웃
+          </span>
+          <router-link v-else to="/login" class="menu-title">
             로그인
           </router-link>
         </li>
@@ -27,6 +30,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'zuly-header',
   data() {
@@ -37,11 +42,18 @@ export default {
   watch: {
     $route: 'headerLineEvt',
   },
+  computed: mapGetters({
+    Authentication: 'login/Authentication',
+  }),
   methods: {
     headerLineEvt() {
       if (this.$route.path.indexOf('closet') !== -1) this.headerLine = false;
       else if (this.$route.path !== '/') this.headerLine = true;
       else this.headerLine = false;
+    },
+    doLogout() {
+      document.cookie = `access_token=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=${process.env.HOST}`;
+      this.$router.push({ path: '/login' });
     },
   },
   created() {
@@ -66,5 +78,9 @@ div.headerLine {
   width: 100%;
   height: 3px;
   background-color: #212121;
+}
+
+span.menu-title {
+  cursor: pointer;
 }
 </style>

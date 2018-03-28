@@ -2,7 +2,7 @@
   <div class="clothes subContent mauto">
     <div class="content-title mt20">티셔츠/스웻셔츠</div>
     <div class="explain mt20">
-      받고 싶지 않은 품목을 모두 선택해주세요.
+      받고 싶지 않은 스타일을 모두 선택해주세요.
     </div>
     <div class="clothesLine mt25"></div>
     <div class="clothes-form w100 mauto" style="margin-top: 23px;">
@@ -21,7 +21,7 @@
           <div class="clothes-text">
             {{ clothe.title }}
           </div>
-          <div class="clothes-btn" :class="{ 'card-btn-oncolor': clothe.selected }">
+          <div class="clothes-btn" v-show="clothe.selected" :class="{ 'card-btn-oncolor': clothe.selected }">
             <div class="btn-times" :class="{ 'on': clothe.selected }"></div>
           </div>
         </div>
@@ -115,11 +115,11 @@ export default {
 .clothes-card {
   width: 186px;
   height: 245px;
-  background-color: #FFFFFF;
-  border: solid 2px #dadada;
+  background-color: #f4f4f4;
   position: relative;
   margin: 17px 10px 0 0;
   cursor: pointer;
+  border: solid 2px #f4f4f4;
 }
 
 .clothes-images {
@@ -140,9 +140,8 @@ export default {
 }
 
 .clothes-btn {
-  width: 47px;
-  height: 47px;
-  border: solid 2px #dadada;
+  width: 49px;
+  height: 49px;
   position: absolute;
   opacity: 1;
   top: 9.8%;
@@ -189,22 +188,20 @@ div.btn-times:after {
 }
 
 .card-oncolor {
-  background-color: #ebebeb;
-  border: solid 2px #fb5143;
+  border: solid 2px #f45649;
+  opacity: 0.8;
+  background-color: #7a7979;
 }
 
 .card-offcolor {
-  background-color: #FFFFFF;
-  border: solid 2px #dadada;
+  background-color: #f4f4f4;
 }
 
 .card-btn-oncolor {
   background-color: #fb5143;
-  border: solid 2px #fb4143;
 }
 
 .card-btn-offcolor {
-  background-color: #FFFFFF;
-  border: solid 2px #dadada;
+  background-color: #f4f4f4;
 }
 </style>

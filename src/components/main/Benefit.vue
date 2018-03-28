@@ -5,13 +5,13 @@
     </div>
     <div class="benefit-title d-flex">
       <div style="width: 80%;">
-        지금, <span>체험단이 되어</span><br/>
-        <span>한달 간 새로운 패션을 무료</span>로<br/>
-        <span>경험<span class="special-title">(1+∞)</span></span> 해보세요.
+        쇼핑, 세탁, 보관 걱정 없는<br/>
+        나만의 옷장<br/>
+        지금 무료로 경험하세요.
       </div>
       <div style="width: 20%; position: relative;">
         <button class="button-main" style="bottom: 6px; right: 0; position: absolute;">
-          <span style="padding-left: 30px; font-weight: 400;">정기 구독 신청</span>
+          <span style="padding-left: 30px; font-weight: 400;">한달 무료 신청</span>
           <div class="d-inlineblock arrowIcon"></div>
         </button>
       </div>

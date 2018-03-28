@@ -7,7 +7,7 @@
     </div>
     <div class="login-form mt40">
       <input type="text" name="email" class="form-login-input" placeholder="아이디 (이메일 주소)를 입력하세요." />
-      <input type="password" name="password" class="form-login-input mt10" placeholder="비밀번호" />
+      <input type="password" name="password" class="form-login-input mt10" placeholder="비밀번호" @keydown="$common.submitEvt($event, login)" />
       <div class="login-chk-area mt10" @click="checkboxEvt">
         <label class="container">
           <input type="checkbox" name="sess_forever" value="Y">
@@ -66,16 +66,14 @@ export default {
       });
 
       if (!this.isLogin) email.focus();
-      else {
-        this.$session.start();
-        this.$router.push({ path: '/' });
-      }
+      else this.redirectCloset();
+    },
+    redirectCloset() {
+      if (this.$store.state.login.Authentication.authenticated) this.$router.push({ path: '/closet' });
     },
   },
-  beforeCreate() {
-    if (this.$session.exists()) {
-      this.$router.push({ path: '/' });
-    }
+  created() {
+    this.redirectCloset();
   },
 };
 </script>

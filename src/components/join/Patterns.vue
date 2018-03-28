@@ -2,7 +2,7 @@
   <div class="patterns subContent mauto">
     <div class="content-title mt20">기피 패턴</div>
     <div class="explain mt20">
-      받고 싶지 않은 품목을 모두 선택해주세요.
+      받고 싶지 않은 스타일을 모두 선택해주세요.
     </div>
     <div class="patternsLine mt25"></div>
     <div class="patterns-form w100 mt40 mauto">
@@ -91,7 +91,7 @@ export default {
       };
     },
     moveNext() {
-      this.$router.push({ path: 'styling' });
+      this.$router.push({ path: 'requirement' });
     },
   },
   created() {

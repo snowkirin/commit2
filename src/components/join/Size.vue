@@ -2,7 +2,7 @@
   <div class="size subContent mauto">
     <div class="content-title mt20">사이즈</div>
     <div class="explain mt20">
-      다음 질문들은 스타일리스트가 체형을 정확히 파악하여 연출하는데 도움이 됩니다.
+      제공되는 스타일을 위해 필요한 정보입니다.
     </div>
     <div class="sizeLine mt25"></div>
     <div class="content-form mauto mt40">
@@ -67,7 +67,7 @@ export default {
     },
     moveNext() {
       this.saveSize();
-      this.$router.push({ path: 'colors' });
+      this.$router.push({ path: 'styling' });
     },
   },
 };

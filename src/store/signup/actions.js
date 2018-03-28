@@ -67,6 +67,10 @@ const setRequirement = ({ commit }, data) => {
   commit(types.SET_REQUIREMENT, rtn);
 };
 
+const pickMood = ({ commit }, data) => {
+  commit(types.PICK_MOOD, data);
+};
+
 const pickColors = ({ state, commit }, data) => {
   const isColor = state.colors[data.type].indexOf(data.color);
 
@@ -133,4 +137,5 @@ export default {
   setPatterns,
   setMaterial,
   pickPatterns,
+  pickMood,
 };

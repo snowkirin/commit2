@@ -7,11 +7,11 @@
           <span>요금제 단일 상품 입니다.</span>
         </div>
         <div class="explain signup-payment-text" style="margin-top: 28px">
-          월 2회 스타일링 된 의류 세트 한벌 정기 배송<br/>
-          <span>(1회 배송 의류 리테일가 40만원 기준)</span><br/>
-          무료 세탁 서비스<br/>
+          월 2회 스타일링 된 의류 세트(2벌) 정기 배송<br/>
+          <span>(1회 배송 의류 리테일가<br/>40만원 기준 x 2 = 80만원)</span><br/>
+          무료 세탁<br/>
           무료 수거/배송 서비스<br/>
-          스타일링 TIP 제공으로 구성 되어 있습니다.<br/>
+          무료 전문 스타일링 및 스타일링 Tip 제공<br/>
         </div>
       </div>
       <div class="content-form d-inlinetable">
@@ -20,13 +20,37 @@
           월 2회 단일 78,000원 요금제
         </div>
         <div class="signup-payment-label mt40">배송일 지정</div>
-        <div class="w100 mt18">
-          <div class="signup-payment-btn explain signup-delivery" @click="selectDelivery" data-id="W">
-            화요일
+        <div class="w100 mt18" style="text-align: left;">
+          <div>
+            <label class="form-input-radio">
+              <input type="radio" name="delivery_day" value="0" v-validate="'required'" />월요일
+              <span class="checkmark-radio"></span>
+            </label>
+            <label class="form-input-radio" style="margin-left: 40px">
+              <input type="radio" name="delivery_day" value="1" />화요일
+              <span class="checkmark-radio"></span>
+            </label>
+            <label class="form-input-radio" style="margin-left: 40px">
+              <input type="radio" name="delivery_day" value="2" />수요일
+              <span class="checkmark-radio"></span>
+            </label>
           </div>
-          <div style="display: inline-block; width: 5px;"></div>
-          <div class="signup-payment-btn explain signup-delivery" @click="selectDelivery" data-id="T">
-            목요일
+          <div class="mt20">
+            <label class="form-input-radio">
+              <input type="radio" name="delivery_day" value="3" />목요일
+              <span class="checkmark-radio"></span>
+            </label>
+            <label class="form-input-radio" style="margin-left: 40px">
+              <input type="radio" name="delivery_day" value="4" />금요일
+              <span class="checkmark-radio"></span>
+            </label>
+          </div>
+          <div class="mt10 signup-payment-text">
+            <span>※ 신청 주에 수령을 원하시면 별도 연락 부탁드립니다.<br/>
+            (010-2712-6010)</span>
+          </div>
+          <div class="mt10">
+            <span class="error" v-show="errors.has('delivery_day')">배송일을 지정해주세요.</span>
           </div>
         </div>
         <div class="signup-payment-label mt40">카드 결제 정보</div>
@@ -100,7 +124,7 @@
       </div>
       <div class="mt30">
         <div class="next-btn" style="width: 392px; float: right;">
-          <button class="button-login">
+          <button class="button-login" @click="finalSignup">
             결제
           </button>
         </div>
@@ -154,6 +178,15 @@ export default {
 
       return true;
     },
+    finalSignup() {
+      this.$validator.validateAll().then((result) => {
+        if (result) {
+          return;
+        }
+
+        alert('에러메시지를 확인하시고 입력후 버튼을 눌러주세요.');
+      });
+    },
   },
 };
 </script>
@@ -192,7 +225,7 @@ export default {
 
 .signup-payment-label {
   font-size: 16px;
-  font-weight: normal;
+  font-weight: 600;
   font-style: normal;
   font-stretch: normal;
   letter-spacing: -0.4px;

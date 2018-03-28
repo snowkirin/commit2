@@ -82,6 +82,7 @@ export default new Router({
             { path: 'security', component: ClosetMypageSecurity },
             { path: 'mypage', component: ClosetMypage },
           ],
+          meta: { requiresAuth: true },
         },
       ],
     },

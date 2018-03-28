@@ -1,5 +1,12 @@
 <template>
   <div class="tomorrow mt44">
+    <div class="closet-card-none">
+      <div class="closet-card-none-content">
+        <div class="content-table mauto">
+          <span><b>D-2일 후</b><br/>옷장이 채워집니다.</span>
+        </div>
+      </div>
+    </div>
     <div class="main-point-text closet-title">내일의 옷장</div>
     <div class="closet-title-text mt20">
       2가지 데일리룩 후보 중 마음에 드는<br/>
@@ -70,18 +77,39 @@ export default {
 </script>
 
 <style scoped>
-.closet-title-text {
-  font-size: 36px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  letter-spacing: -3.8px;
-  text-align: left;
+.closet-card-none {
+  height: 500px;
+  background: url('/static/img/closet/img_feedback.png');
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  position: relative;
+
 }
 
-.closet-card-block {
-  display: inline-block;
-  width: 1.1%;
+.closet-card-none-content {
+  position: absolute;
+  width: 392px;
+  height: 160px;
+  background-color: #fafafa;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+}
+
+.content-table {
+  display: table;
+  height: 100%;
+}
+
+.content-table span {
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 36px;
+  line-height: 1.4;
+  letter-spacing: normal;
+  color: #212121;
+  text-align: center;
 }
 
 .closet-card-area {

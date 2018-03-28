@@ -3,16 +3,9 @@ const VueCommon = {};
 VueCommon.install = (Vue) => {
   const vue = Vue;
   vue.prototype.$common = {
-    // 공통 세션체크 함수
-    sessionCheck($router, $session) {
-      if (!$session.exists()) {
-        if (document.cookie.match(new RegExp('access_token=([^;]+)'))[1]) {
-          $session.start();
-        } else if ($router.history.current.name !== 'login') {
-          alert('로그인 연결이 끊겼습니다.\n로그인 페이지로 이동합니다.');
-          $router.push({ path: '/login' });
-        }
-      }
+    // 세션체크
+    sessionCheck($router, $store) {
+      if ($store.state.login.Authentication.authenticated) $router.push({ path: '/closet' });
     },
     appendJS(URL) {
       const htmlScript = document.createElement('script');
@@ -26,6 +19,11 @@ VueCommon.install = (Vue) => {
       link.href = URL;
       link.media = 'all';
       document.head.appendChild(link);
+    },
+
+    // 엔터키이벤트
+    submitEvt(evt, callback) {
+      if (evt.keyCode === 13) callback();
     },
 
     NumberValidateEvt(evt) {

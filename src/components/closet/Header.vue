@@ -1,7 +1,11 @@
 <template>
   <div class="closet-header">
-    <div class="closet-stylist-info f16">담당 스타일리스트 한영진님</div>
-    <div class="closet-my-info">성신혜님 옷장</div>
+    <div class="closet-stylist-info f16">
+      <span v-if="Authentication.userStylist">
+        담당 스타일리스트 {{ Authentication.userStylist }}님
+      </span>
+    </div>
+    <div class="closet-my-info">{{ Authentication.userName }}님 옷장</div>
     <div class="closet-noti-info">
       <div class="closet-line"></div>
       <div class="closet-noti-card">
@@ -30,9 +34,13 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'closet-header',
+  computed: mapGetters({
+    Authentication: 'login/Authentication',
+  }),
 };
 </script>
 
@@ -54,6 +62,7 @@ export default {
 
 .closet-stylist-info {
   padding: 28px 0 0 30px;
+  height: 23px;
 }
 
 .closet-my-info {

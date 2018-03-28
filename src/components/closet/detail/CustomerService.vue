@@ -15,96 +15,23 @@
         </div>
         <div class="greyLine"></div>
         <div class="cs-left-content scroll">
-          <div class="cs-left-data">
-            <div class="cs-left-data-title">
-              <div class="subject">배송전 취소신청</div>
-              <div class="date">18.03.20</div>
+          <template v-for="(inquiries, k) in inquiriesList">
+            <div v-bind:key="k" class="cs-left-data">
+              <div class="cs-left-data-title">
+                <div class="subject">{{ inquiries.subject }}</div>
+                <div class="date">
+                  {{ inquiries.inserted.substring(2, 10) }}
+                </div>
+              </div>
+              <div class="cs-left-data-text">
+              </div>
             </div>
-            <div class="cs-left-data-text">
-              심태민 고객님, 안녕하세요.
-              고객님의 내일을 행복하게 만들어드립니다..
-            </div>
-          </div>
-          <div class="cs-left-data">
-            <div class="cs-left-data-title">
-              <div class="subject">배송전 취소신청</div>
-              <div class="date">18.03.20</div>
-            </div>
-            <div class="cs-left-data-text">
-              심태민 고객님, 안녕하세요.
-              고객님의 내일을 행복하게 만들어드립니다..
-            </div>
-          </div>
+          </template>
         </div>
       </div>
       <div class="cs-right-area">
         <div class="cs-left-title" style="color: #797979;">이전 문의내역을 선택하시거나 새로운 1:1 채팅문의를 시작해 주세요.</div>
         <div class="greyLine"></div>
-        <div class="current-date-area mt30">03.20 화</div>
-        <div class="talk-content scroll">
-          <div class="talk-area">
-            <div class="talk-area-left">
-              <div class="admin-icon">
-                <div class="admin-icon-logo"></div>
-              </div>
-              <div class="balloon">
-                <div class="balloon-text">
-                  접수하신 문의내용을 확인중입니다.<br/>
-                  상담사가 확인 후 답변 드리겠습니다.
-                </div>
-                <div class="balloon-bottom">
-                  답변시 알림메세지 전송, 고객센터 > <br/>
-                  1:1채팅문의 > 나의 문의내역에서 답변 확인
-                </div>
-              </div>
-              <div class="talk-date">오전 10:40</div>
-            </div>
-          </div>
-          <div class="talk-area">
-            <div class="talk-area-right">
-              <div class="right-balloon">
-                <div class="balloon-text">asdfasdfasdfasdfasdfasdfasdf</div>
-              </div>
-              <div class="talk-date">오전 10:40</div>
-            </div>
-          </div>
-          <div class="talk-area">
-            <div class="talk-area-left">
-              <div class="admin-icon">
-                <div class="admin-icon-logo"></div>
-              </div>
-              <div class="balloon">
-                <div class="balloon-text">
-                  접수하신 문의내용을 확인중입니다.<br/>
-                  상담사가 확인 후 답변 드리겠습니다.
-                </div>
-                <div class="balloon-bottom">
-                  답변시 알림메세지 전송, 고객센터 > <br/>
-                  1:1채팅문의 > 나의 문의내역에서 답변 확인
-                </div>
-              </div>
-              <div class="talk-date">오전 10:40</div>
-            </div>
-          </div>
-          <div class="talk-area">
-            <div class="talk-area-left">
-              <div class="admin-icon">
-                <div class="admin-icon-logo"></div>
-              </div>
-              <div class="balloon">
-                <div class="balloon-text">
-                  접수하신 문의내용을 확인중입니다.<br/>
-                  상담사가 확인 후 답변 드리겠습니다.
-                </div>
-                <div class="balloon-bottom">
-                  답변시 알림메세지 전송, 고객센터 > <br/>
-                  1:1채팅문의 > 나의 문의내역에서 답변 확인
-                </div>
-              </div>
-              <div class="talk-date">오전 10:40</div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -113,6 +40,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 import CustomModal from '@/components/common/CustomModal';
 
 export default {
@@ -120,10 +48,21 @@ export default {
   components: {
     CustomModal,
   },
+  computed: {
+    ...mapGetters({
+      inquiriesList: 'mypage/inquiries/getInquiriesList',
+    }),
+  },
   methods: {
+    ...mapActions({
+      setInquiriesList: 'mypage/inquiries/setInquiriesList',
+    }),
     viewModal() {
       this.$refs.view.openModal();
     },
+  },
+  created() {
+    this.setInquiriesList();
   },
 };
 </script>
@@ -141,20 +80,6 @@ export default {
   display: flex;
   height: 700px;
   border: solid 2px #e9e9e9;
-}
-
-.closet-title-text {
-  font-size: 36px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  letter-spacing: -3.8px;
-  text-align: left;
-}
-
-.closet-card-block {
-  display: inline-block;
-  width: 1.1%;
 }
 
 .cs-left-area {
@@ -198,6 +123,7 @@ export default {
 }
 
 .cs-left-data {
+  width: 100%;
   margin-top: 30px;
   display: inline-block;
   border-bottom: 1px solid #d3d3d3;
@@ -375,7 +301,7 @@ export default {
 }
 
 .talk-area {
-  margin-top: 14px;
+  margin-top: 20px;
 }
 
 .talk-date {

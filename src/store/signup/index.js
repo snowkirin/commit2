@@ -12,13 +12,14 @@ export default {
     },
     clothes: [],
     patterns: [],
+    mood: null,
     requirement: '',
     phoneAuth: false,
     phoneAuthKey: null,
     phoneAuthCnt: 0,
     surveyStorage: {
       colors: [],
-      cloths: [],
+      clothes: [],
       patterns: [],
       material: [],
     },
@@ -72,6 +73,9 @@ export default {
     [types.PICK_REMOVE_PATTERN](state, idx) {
       state.patterns.splice(idx, 1);
     },
+    [types.PICK_MOOD](state, mood) {
+      state.mood = mood;
+    },
   },
   actions,
   getters: {
@@ -86,5 +90,6 @@ export default {
     getPatterns: state => state.surveyStorage.patterns,
     getMaterial: state => state.surveyStorage.material,
     getSelectPatterns: state => state.patterns,
+    getSelectMood: state => state.mood,
   },
 };

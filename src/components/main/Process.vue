@@ -11,11 +11,11 @@
               <div class="firstProcess"></div>
             </div>
             <div class="ml30">
-              <div class="process-title">1. 나의 정보를 입력</div>
+              <div class="process-title">1. 스타일 정보를 입력</div>
               <div class="process-text mt10">
-                당신에게 어울리는 데일리룩 2가지를<br/>
-                스타일리스트가 제안합니다.<br/>
-                <a href="#">스타일리스트 소개</a>
+                스타일리스트가 입력정보로<br/>
+                어울리는 옷을 제안합니다.<br/>
+                <a href="#" class="hide-area">스타일리스트 소개</a>
               </div>
             </div>
           </div>
@@ -24,11 +24,11 @@
               <div class="secondProcess"></div>
             </div>
             <div class="ml30">
-              <div class="process-title">2. 새벽 정기 배송/수거</div>
+              <div class="process-title">2. 정해진 날짜에 배송/수거</div>
               <div class="process-text mt10">
-                회원님이 잠든 사이 문 앞에서 선택된 스타일의<br/>
-                옷이 2주 단위로 새벽 배송/수거 됩니다.<br/>
-                <a href="#">지역별 배송 일자</a>
+                당신이 선택한 옷이<br/>
+                2주 단위로 배송/수거 됩니다.<br/>
+                <a href="#" class="hide-area">지역별 배송 일자</a>
               </div>
             </div>
           </div>
@@ -42,11 +42,11 @@
               <div class="thirdProcess"></div>
             </div>
             <div class="ml30">
-              <div class="process-title">3. 세탁/보관 문 앞</div>
+              <div class="process-title">3. 세탁/보관 걱정 없이 수거</div>
               <div class="process-text mt10">
-                2주간 편하게 입고, 문 앞에 걸어 두면 끝.<br/>
+                2주간 편하게 입고, 문 앞에 두면 끝.<br/>
                 더 입고 싶다면 반납 없이 구매도 가능합니다.<br/>
-                <a href="#">세탁 방법 소개</a>
+                <a href="#" class="hide-area">세탁 방법 소개</a>
               </div>
             </div>
           </div>
@@ -57,10 +57,9 @@
             <div class="ml30">
               <div class="process-title">4. 피드백 전달</div>
               <div class="process-text mt10">
-                나만의 스타일리스트에게<br/>
-                좋았던 점, 아쉬운 점을 이야기 해주세요<br/>
-                다음 스타일링에 반영합니다.<br/>
-                <a href="#">피드백 예시</a>
+                더 나은 스타일 제안을 위해 의견 주세요.<br/>
+                나를 이해하는 스타일이 제공 됩니다.<br/>
+                <a href="#" class="hide-area">피드백 예시</a>
               </div>
 
             </div>

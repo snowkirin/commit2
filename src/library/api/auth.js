@@ -1,11 +1,14 @@
 import axios from 'axios';
 
 const API_URL = process.env.API_URL;
-const API_MESSAGE_URL = process.env.API_MESSAGE_URL;
 
-const checkEmail = () => axios.post(`${API_MESSAGE_URL}/auth/email`, {
-  email: 'wonyong@onionground.com',
-});
+const mypagePwdCheck = ({
+  password,
+}) => axios.post(`${API_URL}/auth/password`, {
+  password,
+}, {
+  withCredentials: true,
+}).then(result => result).catch(err => err.response);
 
 // 자체 회원가입 호출
 const localJoin = ({
@@ -97,7 +100,7 @@ const logout = () => axios.post(`${API_URL}/auth/logout`, { withCredentials: tru
 const loginStatusCheck = () => axios.get(`${API_URL}/auth/checkLoginStatus`, { withCredentials: true });
 
 export default {
-  checkEmail,
+  mypagePwdCheck,
   localJoin,
   localLogin,
   logout,

@@ -1,6 +1,6 @@
 <template>
   <div class="requirement subContent mauto">
-    <div class="content-title mt20">요구사항</div>
+    <div class="content-title mt20">추가 요구사항</div>
     <div class="explain mt20">
       개인적인 체형/옷에 대해 별도로 요청 사항 작성해주세요.
     </div>

@@ -2,12 +2,12 @@
   <div class="colors subContent mauto">
     <div class="content-title mt20">색상 선택</div>
     <div class="explain mt20">
-      다음 질문들은 스타일리스트가 체형을 정확히 파악하여 연출하는데 도움이 됩니다.
+      스타일링을 위한 색상 선택에 활용됩니다.
     </div>
     <div class="colorsLine mt25"></div>
     <div class="colors-form d-flex mt30 w100">
       <div class="colors-area">
-        <div class="colors-title-detail">선호 색상</div>
+        <div class="colors-title-detail">선호 색상(손이 가는 옷 색)</div>
         <template v-for="(color, k) in colors">
           <div class="colors-card"
             v-bind:key="k"
@@ -33,7 +33,7 @@
         <div class="line"></div>
       </div>
       <div class="colors-area">
-        <div class="colors-title-detail">기피 색상</div>
+        <div class="colors-title-detail">기피 색상(손이 덜 가는 옷 색)</div>
         <template v-for="(color, k) in colors">
           <div class="colors-card"
             v-bind:key="k"

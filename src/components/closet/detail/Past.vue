@@ -2,7 +2,7 @@
   <div class="past mt44">
     <div class="main-point-text closet-title">과거의 옷장</div>
     <div class="closet-title-text mt20">
-      그 동안의 과거 옷장을 확인하실 수 있습니다.
+      그 동안의 옷장을 확인하실 수 있습니다.
     </div>
     <div class="closet-content mt50">
       <div class="past-content">
@@ -100,24 +100,6 @@ export default {
 </script>
 
 <style scoped>
-.closet-title-text {
-  font-size: 36px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  letter-spacing: -3.8px;
-  text-align: left;
-}
-
-.closet-card-block {
-  display: inline-block;
-  width: 1.1%;
-}
-
-.closet-content {
-  border-top: solid 2px #212121;
-}
-
 .past-content {
   padding: 30px 0;
   border-bottom: solid 2px #e9e9e9;

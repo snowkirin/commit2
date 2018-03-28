@@ -1,11 +1,12 @@
+@import url('https://fonts.googleapis.com/earlyaccess/notosanskr.css');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
 * {
-  font-family: 'Source Han Sans KR', "맑은 고딕", "Malgun Gothic", "애플 SD 산돌고딕 Neo", "Apple SD Gothic Neo", sans-serif;
+  font-family: "애플 SD 산돌고딕 Neo", "Apple SD Gothic Neo", 'Noto sans KR', "맑은 고딕", "Malgun Gothic", sans-serif;
 }
 
 .en-font {
-  font-family: 'Open Sans', "맑은 고딕", "Malgun Gothic", "애플 SD 산돌고딕 Neo", "Apple SD Gothic Neo", sans-serif;
+  font-family: "애플 SD 산돌고딕 Neo", "Apple SD Gothic Neo", 'Open Sans', "맑은 고딕", "Malgun Gothic", sans-serif;
 }
 
 .main-point-text {

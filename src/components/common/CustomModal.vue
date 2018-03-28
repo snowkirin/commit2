@@ -7,7 +7,7 @@
       <div class="btn-times"></div>
     </div>
   </div>
-  <div class="custom-modal-content scroll" v-html="content">
+  <div class="custom-modal-content scroll">
     <component v-bind:is="modalType"></component>
   </div>
 </div>
@@ -40,10 +40,6 @@ export default {
       type: String,
       default: '',
     },
-    content: {
-      type: String,
-      default: '',
-    },
     width: {
       type: String,
       default: '705',
@@ -70,7 +66,7 @@ export default {
       this.modal.style.border = 'solid 1px #212121';
       this.modal.style.backgroundColor = '#f5f5f5';
       this.modal.querySelector('.custom-modal-title').style.cssText = 'border-bottom: 1px solid #212121; background-color: #FFFFFF;';
-      this.modal.querySelector('.custom-modal-content').style.height = '68.5%';
+      this.modal.querySelector('.custom-modal-content').style.height = '66.5%';
     }
   },
 

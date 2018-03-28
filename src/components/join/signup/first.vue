@@ -89,22 +89,22 @@
       </div>
     </div>
 
-    <custom-modal ref="private" dataId="private" title="개인 정보 관리 지침" :content="privateText"></custom-modal>
-    <custom-modal ref="use" dataId="use" title="이용약관"></custom-modal>
+    <signup-modal ref="private" dataId="private" title="개인 정보 관리 지침" :content="privateText"></signup-modal>
+    <signup-modal ref="use" dataId="use" title="이용약관"></signup-modal>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import Datepicker from 'vuejs-datepicker';
-import CustomModal from '@/components/common/CustomModal';
+import SignupModal from '@/components/common/SignupModal';
 import PrivateText from '@/info/private';
 
 export default {
   name: 'signUp-first',
   components: {
     Datepicker,
-    CustomModal,
+    SignupModal,
   },
   data() {
     return {

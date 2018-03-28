@@ -21,7 +21,12 @@
               <i class="fa fa-caret-down fa-lg"></i>
             </div>
             <div class="custom-text">
-              {{ value }}cm
+              <template v-if="sizeTitle === '허리'">
+                {{ value }} inch
+              </template>
+              <template v-else>
+                {{ value }} cm
+              </template>
             </div>
           </div>
         </template>

@@ -2,6 +2,7 @@
 @import "fontInfo.css";
 @import "button.css";
 @import "form.css";
+@import "closet.css";
 @import "tablet-resp.css" screen and (max-width: 1024px);
 @import "mobile-resp.css" screen and (max-width: 640px);
 
@@ -48,4 +49,8 @@ input:-webkit-autofill:active {
 .scroll::-webkit-scrollbar-thumb {
   border-radius: 4px;
   background-color: #dadada;
+}
+
+.hide-area {
+  display: none;
 }

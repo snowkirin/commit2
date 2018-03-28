@@ -11,17 +11,17 @@
             Q&nbsp;&nbsp;&nbsp;&nbsp;
             요금제는 어떻게 되나요?
             <div class="faq-question-icon">
-              <i class="fa fa-angle-up fa-lg"></i>
+              <i class="fa fa-angle-down fa-lg"></i>
             </div>
           </div>
           <div class="mt40 faq-text-line"></div>
           <div class="faq-answer">
             <div class="faq-answer-text">
               <span>ZULY는 현재 78,000원 요금제 단일 상품 입니다.</span><br/>
-              - 월 2회 스타일링 된 의류 정기 배송 (1회 배송 의류 리테일가 40만원 기준)<br/>
-              - 무료 세탁 서비스<br/>
-              - 무료 수거/배송 서비스<br/>
-              - 스타일링 TIP 제공으로 구성 되어 있습니다.
+              - 월 2회(2주 단위) 1개의 스타일 2개의 옷<br/>
+              - 세탁 비용 무료<br/>
+              - 배송, 수거 비용 무료<br/>
+              - 전문 스타일리스트의 스타일링 서비스 및 제공된 옷의 활용 Tip 제공
             </div>
           </div>
         </div>
@@ -36,13 +36,16 @@
           <div class="mt40 faq-text-line"></div>
           <div class="faq-answer">
             <div class="faq-answer-text">
+              ZULY는 국내외 떠오르는 최고의 신진 디자이너 브랜드들을 엄선하여, ZULY의 최고의 스타일링 팀이 직접 고른 의상을 회원님에 제공합니다.<br/>
+              1회 제공되는 의류는 40만원 이상의 가격대의 제품으로 구성되어, 한달에 총 80만원대의 옷을 받게 됩니다.<br/>
+              스타일링 된 옷을 회원님께 보내기 전, 회원님이 간편하게 고를 수 있도록 2가지 스타일 후보를 제공합니다.
             </div>
           </div>
         </div>
         <div class="w100">
           <div class="mt40 faq-question" @click="openFAQ">
             Q&nbsp;&nbsp;&nbsp;&nbsp;
-            이용 중에 옷을 구매하고 싶으면 어떻게 하나요?
+            정말 고르지 않아도 나에게 어울리는 옷을 보내주나요?
             <div class="faq-question-icon">
               <i class="fa fa-angle-down fa-lg"></i>
             </div>
@@ -50,13 +53,15 @@
           <div class="mt40 faq-text-line"></div>
           <div class="faq-answer">
             <div class="faq-answer-text">
+              문 앞에 ZULY의 옷이 놓이기 3일 전까지 회원님만의 ZULY 옷장에 추천 스타일이 제공 됩니다. <br/>
+              해당 스타일은 가입 시 제공 된 정보와 구독 된 옷의 피드백을 통해 점점 더 회원님에게 맞춰지게 될 것입니다.
             </div>
           </div>
         </div>
         <div class="w100">
           <div class="mt40 faq-question" @click="openFAQ">
             Q&nbsp;&nbsp;&nbsp;&nbsp;
-            배송 및 수거는 어떻게 이뤄지나요?
+            옷만 이쁘게 입고 세탁/보관 걱정 없이 문 앞에 두면 되는건가요?
             <div class="faq-question-icon">
               <i class="fa fa-angle-down fa-lg"></i>
             </div>
@@ -64,6 +69,7 @@
           <div class="mt40 faq-text-line"></div>
           <div class="faq-answer">
             <div class="faq-answer-text">
+              ZULY는 정말 세탁/보관/배송 걱정 없이 회원님께서 편하게 입은 옷을 정해진 날 문 앞에 수거 바구니에 담아 두시면 ZULY가 다음번 스타일링 된 옷으로 바꿔 놔드립니다.
             </div>
           </div>
         </div>
@@ -78,6 +84,7 @@
           <div class="mt40 faq-text-line last-line"></div>
           <div class="faq-answer">
             <div class="faq-answer-text">
+              현재 체험단 운영 기간에는 서울 지역에 국한하여 서비스를 제공하고 있습니다.
             </div>
           </div>
         </div>
@@ -139,7 +146,6 @@ export default {
 }
 
 .faq-answer {
-  height: 188px;
   background-color: #f5f5f5;
   display: none;
 }
