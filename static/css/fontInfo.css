@@ -2,11 +2,11 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
 * {
-  font-family: "애플 SD 산돌고딕 Neo", "Apple SD Gothic Neo", 'Noto sans KR', "맑은 고딕", "Malgun Gothic", sans-serif;
+  font-family: 'Noto sans KR', '맑은 고딕', 'Malgun Gothic', sans-serif;
 }
 
 .en-font {
-  font-family: "애플 SD 산돌고딕 Neo", "Apple SD Gothic Neo", 'Open Sans', "맑은 고딕", "Malgun Gothic", sans-serif;
+  font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
 }
 
 .main-point-text {

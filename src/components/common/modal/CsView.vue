@@ -27,8 +27,11 @@
       </div>
       <template v-for="(inquiries, k) in newInquiries">
         <div v-bind:key="k" class="talk-area">
-          <div class="talk-area-right">
-            <div class="right-balloon">
+          <div v-bind:class="{ 'talk-area-right': (inquiries.type === 'q'), 'talk-area-left': (inquiries.type === 'a') }">
+            <div v-show="(inquiries.type === 'a')" class="admin-icon">
+              <div class="admin-icon-logo"></div>
+            </div>
+            <div v-bind:class="{ 'right-balloon': (inquiries.type === 'q'), 'balloon': (inquiries.type === 'a') }">
               <div class="balloon-text">
                 {{ inquiries.text }}
               </div>
@@ -42,7 +45,7 @@
     </div>
     <div class="talk-input-box">
       <div class="inputGroup">
-        <input type="text" name="message" class="form-login-group mt12" placeholder="문의유형을 먼저 선택해주세요." style="width: 82%;" disabled />
+        <input type="text" name="message" class="form-login-group mt12" placeholder="문의유형을 먼저 선택해주세요." style="width: 82%;" disabled @keydown="$common.submitEvt($event, sendMessage)" />
         <div style="display: inline-table; width: 2%;"></div>
         <button class="button-login" style="width: 15%;" @click="sendMessage">전송</button>
       </div>
@@ -95,16 +98,28 @@ export default {
         if (!this.$common.InputDataValidation(message, '문의내용을 입력해주세요.', true)) return;
 
         this.actSetNewInquiries({
+          type: 'q',
           text: message.value,
           regdate: this.$moment().format('A hh:mm'),
         });
 
-        this.modalScrollEvt();
+        message.value = '';
+        message.focus();
+
+        this.actSetNewInquiries({
+          type: 'a',
+          text: '질문해주신 내용을 확인 후, 휴대폰번호, 이메일을 통해서 답변드리겠습니다.',
+          regdate: this.$moment().format('A hh:mm'),
+        });
       } else alert('문의유형을 먼저 선택해주세요.');
     },
     modalScrollEvt() {
-      document.querySelector('.custom-modal-content').scrollTo(0, document.querySelector('.custom-modal-content').scrollHeight);
+      const modal = document.querySelector('.custom-modal-content');
+      modal.scrollTo(0, modal.scrollHeight);
     },
+  },
+  updated() {
+    this.modalScrollEvt();
   },
 };
 </script>

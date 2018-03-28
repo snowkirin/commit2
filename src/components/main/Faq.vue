@@ -151,7 +151,7 @@ export default {
 }
 
 .faq-answer-text {
-  padding: 30px 0 30px 30px;
+  padding: 30px 30px 30px 30px;
   line-height: 1.56;
 }
 

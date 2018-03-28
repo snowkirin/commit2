@@ -5,12 +5,16 @@ export default {
   namespaced: true,
   state: {
     selectInquiries: null,
+    inquiriesInfo: {},
     inquiriesList: [],
     newInquiries: [],
   },
   mutations: {
     [types.SET_INQUIRIES_LIST](state, data) {
       state.inquiriesList = [...data];
+    },
+    [types.SET_INQUIRIES_INFO](state, data) {
+      state.inquiriesInfo = { ...data };
     },
     [types.SELECT_INQUIRIES](state, data) {
       state.selectInquiries = data;
@@ -22,6 +26,7 @@ export default {
   actions,
   getters: {
     getInquiriesList: state => state.inquiriesList,
+    getInquiriesInfo: state => state.inquiriesInfo,
     getSelectInquiries: state => state.selectInquiries,
     getNewInquiries: state => state.newInquiries,
   },

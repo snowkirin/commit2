@@ -16,7 +16,12 @@
         <div class="greyLine"></div>
         <div class="cs-left-content scroll">
           <template v-for="(inquiries, k) in inquiriesList">
-            <div v-bind:key="k" class="cs-left-data">
+            <div
+              v-bind:key="k"
+              class="cs-left-data"
+              @click="viewInquiries(inquiries.id)"
+              v-bind:class="{ 'active-question': (showId === inquiries.id) }"
+            >
               <div class="cs-left-data-title">
                 <div class="subject">{{ inquiries.subject }}</div>
                 <div class="date">
@@ -32,6 +37,57 @@
       <div class="cs-right-area">
         <div class="cs-left-title" style="color: #797979;">이전 문의내역을 선택하시거나 새로운 1:1 채팅문의를 시작해 주세요.</div>
         <div class="greyLine"></div>
+        <template v-if="inquiriesInfo.first">
+          <div class="current-date-area mt30">{{ $moment(inquiriesInfo.first.inserted).format('MM.DD ddd') }}</div>
+          <div class="talk-content scroll">
+            <div class="talk-area">
+              <div class="talk-area-left">
+                <div class="admin-icon">
+                  <div class="admin-icon-logo"></div>
+                </div>
+                <div class="balloon">
+                  <div class="balloon-text">
+                    어떤 부분이 궁금하신가요?<br/>
+                    <div class="mt10">
+                      <div class="balloon-square-area" v-bind:class="{ 'balloon-square-active': (inquiriesInfo.first.inquiry_type.toString() === $const.INQUIRIES_SUBSCRIBE) }">구독문의</div>
+                      <div class="balloon-square-area" v-bind:class="{ 'balloon-square-active': (inquiriesInfo.first.inquiry_type.toString() === $const.INQUIRIES_ORDER) }">주문문의</div>
+                      <div class="balloon-square-area" v-bind:class="{ 'balloon-square-active': (inquiriesInfo.first.inquiry_type.toString() === $const.INQUIRIES_DELIVERY) }">배송문의</div>
+                    </div>
+                    <div style="margin-top: 5px;">
+                      <div class="balloon-square-area" v-bind:class="{ 'balloon-square-active': (inquiriesInfo.first.inquiry_type.toString() === $const.INQUIRIES_NORMAL) }">일반(기타)문의</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="talk-date">{{ $moment(inquiriesInfo.first.inserted).format("A hh:mm") }}</div>
+              </div>
+            </div>
+            <div class="talk-area">
+              <div class="talk-area-right">
+                <div class="right-balloon">
+                  <div class="balloon-text">
+                    {{ inquiriesInfo.first.subject }}
+                  </div>
+                </div>
+                <div class="talk-date">{{ $moment(inquiriesInfo.first.inserted).format("A hh:mm") }}</div>
+              </div>
+            </div>
+            <template v-for="(info, k) in inquiriesInfo.list">
+              <div v-bind:key="k" class="talk-area">
+                <div v-bind:class="{ 'talk-area-right': (info.content_type_name === '문의'), 'talk-area-left': (info.content_type_name === '답변') }">
+                  <div v-show="(info.content_type_name === '답변')" class="admin-icon">
+                    <div class="admin-icon-logo"></div>
+                  </div>
+                  <div v-bind:class="{ 'right-balloon': (info.content_type_name === '문의'), 'balloon': (info.content_type_name === '답변') }">
+                    <div class="balloon-text">
+                      {{ info.content }}
+                    </div>
+                  </div>
+                  <div class="talk-date">{{ $moment(info.inserted).format("A hh:mm") }}</div>
+                </div>
+              </div>
+            </template>
+          </div>
+        </template>
       </div>
     </div>
 
@@ -45,24 +101,39 @@ import CustomModal from '@/components/common/CustomModal';
 
 export default {
   name: 'customerService',
+  data() {
+    return {
+      showId: null,
+    };
+  },
   components: {
     CustomModal,
   },
   computed: {
     ...mapGetters({
       inquiriesList: 'mypage/inquiries/getInquiriesList',
+      inquiriesInfo: 'mypage/inquiries/getInquiriesInfo',
     }),
   },
   methods: {
     ...mapActions({
       setInquiriesList: 'mypage/inquiries/setInquiriesList',
+      setInquiriesInfo: 'mypage/inquiries/setInquiriesInfo',
     }),
+    viewInquiries(id) {
+      this.showId = id;
+      this.setInquiriesInfo(id);
+    },
     viewModal() {
       this.$refs.view.openModal();
     },
   },
   created() {
     this.setInquiriesList();
+  },
+  updated() {
+    const inquiriesHtml = document.querySelectorAll('.cs-left-data-title .subject');
+    for (let i = 0; i < inquiriesHtml.length; i += 1) this.$common.dotdotdot(inquiriesHtml[i], 18);
   },
 };
 </script>
@@ -127,9 +198,11 @@ export default {
   margin-top: 30px;
   display: inline-block;
   border-bottom: 1px solid #d3d3d3;
+  cursor: pointer;
 }
 
 .cs-left-data-title > .subject {
+  width: 80%;
   display: inline-block;
   font-size: 18px;
   line-height: 1;
@@ -311,5 +384,29 @@ export default {
   line-height: 1;
   color: #797979;
   letter-spacing: -0.4px;
+}
+
+
+.balloon-square-area {
+  display: inline-block;
+  text-align: center;
+  width: 160px;
+  height: 50px;
+  background-color: #ffffff;
+  border: solid 1px #e9e9e9;
+  font-size: 18px;
+  line-height: 50px;
+  letter-spacing: -0.5px;
+  color: #797979;
+  cursor: pointer;
+}
+
+.balloon-square-active {
+  background-color: #566b9c;
+  color: #ffffff;
+}
+
+.active-question {
+  background-color: #f0f3fc;
 }
 </style>

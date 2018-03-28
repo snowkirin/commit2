@@ -80,6 +80,17 @@ VueCommon.install = (Vue) => {
 
       return regPhone.test(phone);
     },
+
+    dotdotdot(obj, height) {
+      const target = obj;
+      const text = target.textContent;
+
+      for (let i = 0; i < text.length; i += 1) {
+        if (target.offsetHeight > height) {
+          target.textContent = `${text.substring(0, (text.length - i - 1))} ...`;
+        } else break;
+      }
+    },
   };
 };
 

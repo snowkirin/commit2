@@ -86,6 +86,9 @@
               </div>
             </div>
           </div>
+        </div>
+        <div class="mypage-content-center"></div>
+        <div class="mypage-content-right">
           <div class="myapge-content-row mt40">
             <div class="mypage-content-header">주소</div>
             <div class="mypage-content-data mt20">
@@ -110,9 +113,6 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="mypage-content-center"></div>
-        <div class="mypage-content-right">
           <div class="mypage-content-row">
             <div class="mypage-content-header">기념일</div>
             <div class="mypage-content-data mt20">
