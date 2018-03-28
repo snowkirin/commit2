@@ -30,25 +30,25 @@
           <div class="mypage-content-row">
             <div class="mypage-content-header">비밀번호 변경</div>
             <div class="mypage-content-data mt20">
-              <div class="field" :class="{ error: errors.has('ann') }">
-                <input type="text" name="ann" class="form-login-input" style="width: 60%;" placeholder="현재 비밀번호" v-validate="'required'" />
-                <span class="error" v-show="errors.has('ann')">기념일을 입력해주세요.</span>
+              <div class="field" :class="{ error: errors.has('cur_password') }">
+                <input type="password" name="cur_password" class="form-login-input" style="width: 60%;" placeholder="현재 비밀번호" v-validate="'required'" />
+                <span class="error" v-show="errors.has('cur_password')">현재 비밀번호를 입력해주세요.</span>
               </div>
             </div>
             <div class="mypage-content-data mt10">
-              <div class="field" :class="{ error: errors.has('ann') }">
-                <input type="text" name="ann" class="form-login-input" style="width: 60%;" placeholder="신규 비밀번호" v-validate="'required'" />
-                <span class="error" v-show="errors.has('ann')">기념일을 입력해주세요.</span>
+              <div class="field" :class="{ error: errors.has('new_password') }">
+                <input type="password" name="new_password" class="form-login-input" style="width: 60%;" placeholder="신규 비밀번호" v-validate="{ required: true, regex: pwdRegex }" @keyup="pwdCheck(errors.has('new_password'))" />
+                <span class="error" v-show="errors.has('new_password')">{{ pwdMsg }}</span>
               </div>
             </div>
             <div class="mypage-content-data mt10">
-              <div class="field" :class="{ error: errors.has('phone') }">
+              <div class="field" :class="{ error: errors.has('new_password_confirm') }">
                 <div class="inputGroup">
-                  <input type="text" name="phone" class="form-login-group" placeholder="신규 비밀번호 확인" style="width: 60%;" v-validate="'required'" />
+                  <input type="password" name="new_password_confirm" class="form-login-group" placeholder="신규 비밀번호 확인" style="width: 60%;" v-validate="'required|confirmed:new_password'" @change="pwdConfirm(errors.has('passwordConfirmation'))" />
                   <div style="display: inline-table; width: 1.5%;"></div>
-                  <button id="phoneVerify" class="button-grey" style="width: 25%;" >비밀번호 변경</button>
+                  <button class="button-grey" style="width: 25%;" @click="passwordChange">비밀번호 변경</button>
                 </div>
-                <span class="error" v-show="errors.has('phone')">신규 비밀번호를 입력해주세요.</span>
+                <span class="error" v-show="errors.has('new_password_confirm')">비밀번호가 일치하지 않습니다.</span>
               </div>
             </div>
           </div>
@@ -150,7 +150,7 @@
               </div>
             </div>
           </div>
-          <div class="mypage-content-row">
+          <div class="mypage-content-row mb50">
             <div class="mypage-content-header">공동 현관 번호 <span>(배송을 위해 공동현관 비밀번호 알려주세요)</span></div>
             <div class="mypage-content-data mt20">
               <div class="field">
@@ -158,7 +158,7 @@
               </div>
             </div>
           </div>
-          <div class="mypage-content-row">
+          <div class="mypage-content-row hide-area">
             <div class="mypage-content-header">카드 결제 정보</div>
             <div class="mypage-content-data mt20">
               <div class="field" :class="{ error: errors.has('cardNumber') }">
@@ -187,6 +187,10 @@
         </div>
       </div>
     </div>
+
+    <div class="mypage-modify-btn mt30">
+      <button class="button-login" style="float: right; width: 202px;">정보수정</button>
+    </div>
   </div>
 </template>
 
@@ -198,6 +202,12 @@ export default {
   data() {
     return {
       delivery_day: null,
+      pwdRegex: /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/,
+      pwdMsg: '신규 비밀번호를 입력해주세요.',
+      isPwd: false,
+      isPwdConfirm: false,
+      authErr: false,
+      authErrMessage: '',
     };
   },
   computed: {
@@ -225,6 +235,24 @@ export default {
 
       this.changeEmail(email.value);
     },
+    pwdCheck(isBoolean) {
+      const pwd = document.querySelector('input[name=new_password]');
+
+      let checkBoolean = isBoolean;
+      if (pwd.value === '') {
+        if (!checkBoolean) checkBoolean = !checkBoolean;
+        this.pwdMsg = '비밀번호를 입력해주세요.';
+      } else {
+        this.pwdMsg = '비밀번호가 안전하지 않습니다. (최소 8자리 이상, 대문자/숫자/특수문자 포함)';
+      }
+
+      if (checkBoolean) this.isPwd = false;
+      else this.isPwd = true;
+    },
+    pwdConfirm(isBoolean) {
+      if (isBoolean) this.isPwdConfirm = false;
+      else this.isPwdConfirm = true;
+    },
   },
   async created() {
     if (!this.mypageAuth) {
@@ -242,7 +270,8 @@ export default {
 </script>
 
 <style scoped>
-.mypage {
+.mypage-modify-btn {
+  height: 150px;
 }
 
 .mypage-content {

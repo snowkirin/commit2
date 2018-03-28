@@ -35,7 +35,7 @@
         </div>
       </div>
       <div class="cs-right-area">
-        <div class="cs-left-title" style="color: #797979;">이전 문의내역을 선택하시거나 새로운 1:1 채팅문의를 시작해 주세요.</div>
+        <div class="cs-left-title" style="color: #797979; font-weight: 400;">이전 문의내역을 선택하시거나 새로운 1:1 채팅문의를 시작해 주세요.</div>
         <div class="greyLine"></div>
         <template v-if="inquiriesInfo.first">
           <div class="current-date-area mt30">{{ $moment(inquiriesInfo.first.inserted).format('MM.DD ddd') }}</div>
