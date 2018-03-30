@@ -15,7 +15,9 @@
         과거의옷장
       </div>
     </router-link>
-    <div class="menu" data-id="style-info">스타일정보</div>
+    <router-link to="/closet/style">
+      <div class="menu" data-id="style">스타일정보</div>
+    </router-link>
     <router-link to="/closet/security">
       <div class="menu" data-id="mypage">나의정보관리</div>
     </router-link>

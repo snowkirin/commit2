@@ -21,36 +21,16 @@
         </div>
         <div class="signup-payment-label mt40">배송일 지정</div>
         <div class="w100 mt18" style="text-align: left;">
-          <div>
-            <label class="form-input-radio">
-              <input type="radio" name="delivery_day" value="0" v-validate="'required'" />월요일
-              <span class="checkmark-radio"></span>
-            </label>
-            <label class="form-input-radio" style="margin-left: 40px">
-              <input type="radio" name="delivery_day" value="1" />화요일
-              <span class="checkmark-radio"></span>
-            </label>
-            <label class="form-input-radio" style="margin-left: 40px">
-              <input type="radio" name="delivery_day" value="2" />수요일
-              <span class="checkmark-radio"></span>
-            </label>
-          </div>
-          <div class="mt20">
-            <label class="form-input-radio">
-              <input type="radio" name="delivery_day" value="3" />목요일
-              <span class="checkmark-radio"></span>
-            </label>
-            <label class="form-input-radio" style="margin-left: 40px">
-              <input type="radio" name="delivery_day" value="4" />금요일
-              <span class="checkmark-radio"></span>
-            </label>
+          <div class="day-name-group">
+            <div class="day-name" v-bind:class="{ 'day-name-active': deliveryDay === '0' }" data-id="0" @click="selectDay('0')">월</div>
+            <div class="day-name" v-bind:class="{ 'day-name-active': deliveryDay === '1' }" data-id="1" @click="selectDay('1')">화</div>
+            <div class="day-name" v-bind:class="{ 'day-name-active': deliveryDay === '2' }" data-id="2" @click="selectDay('2')">수</div>
+            <div class="day-name" v-bind:class="{ 'day-name-active': deliveryDay === '3' }" data-id="3" @click="selectDay('3')">목</div>
+            <div class="day-name" v-bind:class="{ 'day-name-active': deliveryDay === '4' }" data-id="4" @click="selectDay('4')">금</div>
           </div>
           <div class="mt10 signup-payment-text">
             <span>※ 신청 주에 수령을 원하시면 별도 연락 부탁드립니다.<br/>
             (010-2712-6010)</span>
-          </div>
-          <div class="mt10">
-            <span class="error" v-show="errors.has('delivery_day')">배송일을 지정해주세요.</span>
           </div>
         </div>
         <div class="signup-payment-label mt40">카드 결제 정보</div>
@@ -150,12 +130,8 @@ export default {
       const chkbox = evt.path[1].querySelector('input[type=checkbox]');
       if (chkbox) chkbox.checked = !chkbox.checked;
     },
-    selectDelivery(evt) {
-      const deliveryBtn = document.querySelector('.on');
-
-      if (deliveryBtn) deliveryBtn.classList.remove('on');
-      evt.target.classList.add('on');
-      this.deliveryDay = evt.target.getAttribute('data-id');
+    selectDay(day) {
+      this.deliveryDay = day;
     },
     checkCardExpiry(evt) {
       const cardReg = /^(0?[1-9]|1[0-2]|12)[/](1[9]|[2-9][0-9]|99)$/;
@@ -187,6 +163,30 @@ export default {
         alert('에러메시지를 확인하시고 입력후 버튼을 눌러주세요.');
       });
     },
+    dayHoverEvt(group, cnt, obj) {
+      const target = obj;
+
+      target.onmouseover = () => {
+        if (this.deliveryDay !== target.getAttribute('data-id')) {
+          target.classList.add('day-name-active');
+          if (group[cnt + 1]) group[cnt + 1].classList.add('day-name-active-left');
+        }
+      };
+
+      target.onmouseout = () => {
+        if (this.deliveryDay !== target.getAttribute('data-id')) {
+          target.classList.remove('day-name-active');
+          if (group[cnt + 1]) group[cnt + 1].classList.remove('day-name-active-left');
+        }
+      };
+    },
+  },
+  mounted() {
+    const dayName = document.querySelectorAll('.day-name');
+
+    for (let i = 0; i < dayName.length; i += 1) {
+      this.dayHoverEvt(dayName, i, dayName[i]);
+    }
   },
 };
 </script>

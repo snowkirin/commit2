@@ -7,6 +7,7 @@ VueCommon.install = (Vue) => {
     sessionCheck($router, $store) {
       if ($store.state.login.Authentication.authenticated) $router.push({ path: '/closet' });
     },
+
     appendJS(URL) {
       const htmlScript = document.createElement('script');
       htmlScript.setAttribute('src', URL);

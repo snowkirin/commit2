@@ -1,4 +1,5 @@
 import Auth from '@/library/api/auth';
+import Management from '@/library/api/management';
 import types from './mutation-types';
 
 const setFirstData = ({ commit }, data) => {
@@ -31,18 +32,21 @@ const setColors = ({ commit }) => {
   commit(types.SET_COLORS, colors);
 };
 
-const setClothes = ({ commit }) => {
-  const clothes = [
-    { id: 1, title: '이미지1', src: 'IMAGE SRC' },
-    { id: 2, title: '이미지2', src: 'IMAGE SRC' },
-    { id: 3, title: '이미지3', src: 'IMAGE SRC' },
-    { id: 4, title: '이미지4', src: 'IMAGE SRC' },
-    { id: 5, title: '이미지5', src: 'IMAGE SRC' },
-    { id: 6, title: '이미지6', src: 'IMAGE SRC' },
-    { id: 7, title: '이미지7', src: 'IMAGE SRC' },
-  ];
+const setClothes = async ({ commit }, data) => {
+  try {
+    const result = await Management.getSingupManagement({
+      groupName: data.text,
+    });
 
-  commit(types.SET_CLOTHES, clothes);
+    if (result.data.result) {
+      commit(types.SET_CLOTHES, {
+        type: data.type,
+        data: result.data.data,
+      });
+    } else alert('서비스에 문제가 발생하였습니다.\n새로고침 후 다시 시도해주세요');
+  } catch (e) {
+    console.error(e.message);
+  }
 };
 
 const setPatterns = ({ commit }) => {
@@ -83,11 +87,11 @@ const pickColors = ({ state, commit }, data) => {
   }
 };
 
-const pickClothes = ({ state, commit }, id) => {
-  const isClothe = state.clothes.indexOf(id);
+const pickClothes = ({ state, commit }, data) => {
+  const isClothe = state.selected[data.type].indexOf(data.id);
 
-  if (isClothe > -1) commit(types.PICK_REMOVE_CLOTHES, isClothe);
-  else commit(types.PICK_CLOTHES, [...new Set([...state.clothes, id])]);
+  if (isClothe > -1) commit(types.PICK_REMOVE_CLOTHES, { type: data.type, id: isClothe });
+  else commit(types.PICK_CLOTHES, { type: data.type, data: [...new Set([...state.selected[data.type], data.id])] });
 };
 
 const pickPatterns = ({ state, commit }, id) => {

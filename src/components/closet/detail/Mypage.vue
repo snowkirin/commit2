@@ -2,7 +2,7 @@
   <div class="mypage mt44">
     <div class="main-point-text closet-title">나의 정보관리</div>
     <div class="closet-title-text mt20">
-      나의 정보와 지불 방법을 변경 하실 수 있습니다.
+      나의 정보를 변경 하실 수 있습니다.
     </div>
     <div class="mypage-content mt50">
       <div class="mypage-content-area">
@@ -46,7 +46,7 @@
                 <div class="inputGroup">
                   <input type="password" name="new_password_confirm" class="form-login-group" placeholder="신규 비밀번호 확인" style="width: 60%;" v-validate="'required|confirmed:new_password'" @change="pwdConfirm(errors.has('passwordConfirmation'))" />
                   <div style="display: inline-table; width: 1.5%;"></div>
-                  <button class="button-grey" style="width: 25%;" @click="passwordChange">비밀번호 변경</button>
+                  <button class="button-grey" style="width: 25%;" @click="pwdChange">비밀번호 변경</button>
                 </div>
                 <span class="error" v-show="errors.has('new_password_confirm')">비밀번호가 일치하지 않습니다.</span>
               </div>
@@ -57,11 +57,10 @@
             <div class="mypage-content-data mt20">
               <div class="field">
                 <div class="inputGroup">
-                  <input type="text" name="phone" class="form-login-group" placeholder="휴대전화" style="width: 60%;" :value="mypageData.phone_no" disabled/>
+                  <input type="text" name="view_phone" class="form-login-group" placeholder="휴대전화" style="width: 60%;" :value="mypageData.phone_no" disabled/>
                   <div style="display: inline-table; width: 1.5%;"></div>
                   <button class="button-grey" style="width: 25%;" @click="displayEvt('phonearea')">휴대폰번호 변경</button>
                 </div>
-                <span class="error" v-show="errors.has('phone')">휴대전화를 입력해주세요.</span>
               </div>
             </div>
             <div class="hide-area" id="phonearea">
@@ -70,7 +69,7 @@
                   <div class="inputGroup">
                     <input type="text" name="phone" class="form-login-group" placeholder="휴대전화" style="width: 60%;" v-validate="'required'" />
                     <div style="display: inline-table; width: 1.5%;"></div>
-                    <button id="phoneVerify" class="button-grey" style="width: 25%;" >인증</button>
+                    <button id="phoneVerify" class="button-grey" style="width: 25%;" @click="phoneVerify">인증</button>
                   </div>
                   <span class="error" v-show="errors.has('phone')">휴대전화를 입력해주세요.</span>
                 </div>
@@ -80,8 +79,9 @@
                   <div class="inputGroup">
                     <input type="text" name="phone_auth_number" class="form-login-group" placeholder="인증번호" style="width: 60%;" v-validate="'required'" />
                     <div style="display: inline-table; width: 1.5%;"></div>
-                    <button id="authKeyConfirm" class="button-grey" style="width: 25%;" >확인</button>
+                    <button id="authKeyConfirm" class="button-grey" style="width: 25%;" @click="authKeyConfirm">확인</button>
                   </div>
+                  <span class="error" v-show="authErr">{{ authErrMessage }}</span>
                 </div>
               </div>
             </div>
@@ -96,7 +96,7 @@
                 <div class="inputGroup">
                   <input type="text" name="zipcode" class="form-login-group" placeholder="우편번호" style="width: 43.6%;" v-validate="'required'" :value="mypageData.zipcode" />
                   <div style="display: inline-table; width: 1.5%;"></div>
-                  <button class="button-grey" style="width: 15%;">주소찾기</button>
+                  <button class="button-grey" style="width: 15%;" @click="openDaumPopup">주소찾기</button>
                 </div>
               </div>
             </div>
@@ -117,36 +117,19 @@
             <div class="mypage-content-header">기념일</div>
             <div class="mypage-content-data mt20">
               <div class="field">
-                <input type="text" name="ann" class="form-login-input" style="width: 50%;" placeholder="기념일" :value="mypageData.memorial_day" />
+                <datepicker name="ann" class="mt12" input-class="form-login-input" placeholder="기념일" language="ko" format="MM.dd" :value="mypageData.memorial_day" style="width: 60%;"></datepicker>
               </div>
             </div>
           </div>
           <div class="mypage-content-row">
             <div class="mypage-content-header">배송일 지정</div>
             <div class="mypage-content-data mt30">
-              <div>
-                <label class="form-input-radio">
-                  <input type="radio" name="delivery_day" value="0" v-model="delivery_day" />월요일
-                  <span class="checkmark-radio"></span>
-                </label>
-                <label class="form-input-radio" style="margin-left: 40px">
-                  <input type="radio" name="delivery_day" value="1" v-model="delivery_day" />화요일
-                  <span class="checkmark-radio"></span>
-                </label>
-                <label class="form-input-radio" style="margin-left: 40px">
-                  <input type="radio" name="delivery_day" value="2" v-model="delivery_day" />수요일
-                  <span class="checkmark-radio"></span>
-                </label>
-              </div>
-              <div class="mt20">
-                <label class="form-input-radio">
-                  <input type="radio" name="delivery_day" value="3" v-model="delivery_day" />목요일
-                  <span class="checkmark-radio"></span>
-                </label>
-                <label class="form-input-radio" style="margin-left: 40px">
-                  <input type="radio" name="delivery_day" value="4" v-model="delivery_day" />금요일
-                  <span class="checkmark-radio"></span>
-                </label>
+              <div class="day-name-group" style="width: 60%;">
+                <div class="day-name" v-bind:class="{ 'day-name-active': delivery_day === 0 }" @click="selectDay(0)">월</div>
+                <div class="day-name" v-bind:class="{ 'day-name-active': delivery_day === 1 }" @click="selectDay(1)">화</div>
+                <div class="day-name" v-bind:class="{ 'day-name-active': delivery_day === 2 }" @click="selectDay(2)">수</div>
+                <div class="day-name" v-bind:class="{ 'day-name-active': delivery_day === 3 }" @click="selectDay(3)">목</div>
+                <div class="day-name" v-bind:class="{ 'day-name-active': delivery_day === 4 }" @click="selectDay(4)">금</div>
               </div>
             </div>
           </div>
@@ -154,7 +137,7 @@
             <div class="mypage-content-header">공동 현관 번호 <span>(배송을 위해 공동현관 비밀번호 알려주세요)</span></div>
             <div class="mypage-content-data mt20">
               <div class="field">
-                <input type="text" name="ann" class="form-login-input" style="width: 50%;" placeholder="공동 현관 번호" :value="mypageData.address_password" />
+                <input type="text" name="ann" class="form-login-input" style="width: 60%;" placeholder="공동 현관 번호" :value="mypageData.address_password" />
               </div>
             </div>
           </div>
@@ -196,9 +179,13 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import Datepicker from 'vuejs-datepicker';
 
 export default {
   name: 'mypage',
+  components: {
+    Datepicker,
+  },
   data() {
     return {
       delivery_day: null,
@@ -214,6 +201,10 @@ export default {
     ...mapGetters({
       mypageAuth: 'mypage/getMypageAuth',
       mypageData: 'mypage/getMypageData',
+      mypagePwdFlag: 'mypage/getMypagePwdFlag',
+      mypageEmailFlag: 'mypage/getMypageEmailFlag',
+      phoneAuthKey: 'mypage/getPhoneAuthKey',
+      phoneAuth: 'mypage/getPhoneAuth',
     }),
   },
   methods: {
@@ -221,19 +212,107 @@ export default {
       securityDestroyed: 'mypage/securityDestroyed',
       setMypage: 'mypage/setMypage',
       changeEmail: 'mypage/changeEmail',
+      changePwd: 'mypage/changePwd',
+      changeFlag: 'mypage/changeFlag',
+      actPhoneVerify: 'mypage/phoneVerify',
+      actPhoneCheckVerify: 'mypage/phoneCheckVerify',
     }),
+    selectDay(day) {
+      this.delivery_day = day;
+    },
+    async phoneVerify() {
+      const phone = document.querySelector('input[name=phone]');
+
+      this.$validator.validate('phone', phone.value).then((result) => {
+        if (result) {
+          if (this.$common.phoneValidation(phone.value)) {
+            this.actPhoneVerify({
+              phone: phone.value.split('-').join(''),
+            });
+
+            this.startTimer();
+            this.authErr = true;
+
+            return true;
+          }
+
+          alert('올바른 휴대폰번호를 입력해주세요.');
+        }
+
+        phone.focus();
+        return false;
+      });
+    },
+    async authKeyConfirm() {
+      const phoneAuthNumber = document.querySelector('input[name=phone_auth_number]');
+
+      if (!this.phoneAuthKey) {
+        alert('먼저 휴대전화를 입력하고 인증버튼을 눌러주세요.');
+        return false;
+      }
+
+      if (!this.$common.InputDataValidation(phoneAuthNumber, '인증번호를 입력해주세요.', true)) return false;
+
+      await this.actPhoneCheckVerify({
+        authNumber: phoneAuthNumber.value,
+      });
+
+      if (this.phoneAuth) {
+        const phone = document.querySelector('input[name=phone]');
+
+        alert('휴대폰번호 변경이 완료되었습니다.');
+        await this.setMypage();
+        phone.value = '';
+        phoneAuthNumber.value = '';
+        this.authErr = false;
+        this.displayEvt('phonearea');
+        this.changeFlag('phone');
+      } else alert('인증번호를 다시 확인하시고 진행해주세요.');
+
+      return true;
+    },
     displayEvt(id) {
       const target = document.getElementById(id);
 
       if (target.style.display === 'block') target.style.display = 'none';
       else target.style.display = 'block';
     },
-    actEmailChange() {
+    async actEmailChange() {
       const email = document.querySelector('input[name=changeEmail]');
 
       if (!this.$common.InputDataValidation(email, '변경할 이메일을 입력해주세요.', true, true)) return;
 
-      this.changeEmail(email.value);
+      await this.changeEmail(email.value);
+
+      if (this.mypageEmailFlag) {
+        alert('이메일 변경이 완료되었습니다.');
+        await this.setMypage();
+        email.value = '';
+        this.displayEvt('emailarea');
+        this.changeFlag('email');
+      }
+    },
+    async pwdChange() {
+      if (!await this.$validator.validate('cur_password')) return;
+      if (!await this.$validator.validate('new_password')) return;
+      if (!this.isPwdConfirm) return;
+
+      const curPwd = document.querySelector('input[name=cur_password]');
+      const newPwd = document.querySelector('input[name=new_password]');
+      const newPwdCf = document.querySelector('input[name=new_password_confirm]');
+
+      await this.changePwd({
+        curPassword: curPwd.value,
+        newPassword: newPwd.value,
+      });
+
+      if (this.mypagePwdFlag) {
+        alert('비밀번호 변경이 완료되었습니다.');
+        curPwd.value = '';
+        newPwd.value = '';
+        newPwdCf.value = '';
+        this.changeFlag('pwd');
+      }
     },
     pwdCheck(isBoolean) {
       const pwd = document.querySelector('input[name=new_password]');
@@ -253,12 +332,74 @@ export default {
       if (isBoolean) this.isPwdConfirm = false;
       else this.isPwdConfirm = true;
     },
+    openDaumPopup() {
+      const zipcode = document.querySelector('input[name=zipcode]');
+      const address = document.querySelector('input[name=address]');
+      const detailAddress = document.querySelector('input[name=detail_address]');
+
+      const daum = window.daum;
+
+      const width = 500;
+      const height = 600;
+
+
+      daum.postcode.load(() => {
+        new window.daum.Postcode({
+          width,
+          height,
+          oncomplete: (data) => {
+            zipcode.value = data.zonecode;
+
+            if (data.userSelectedType === 'R') address.value = data.roadAddress;
+            else address.value = data.jibunAddress;
+
+            this.$validator.validate('zipcode');
+            this.$validator.validate('address');
+
+            detailAddress.focus();
+          },
+        }).open({
+          top: (window.screen.height / 2) - (height / 2),
+          left: (window.screen.width / 2) - (width / 2),
+        });
+      });
+    },
+    startTimer() {
+      const timer = Date.parse(new Date(new Date().getTime() + (3 * 60 * 1000))) / 1000;
+      let minutes;
+      let seconds;
+
+      if (window.interval) clearInterval(window.interval);
+
+      const interval = setInterval(() => {
+        const currentTime = Date.parse(new Date()) / 1000;
+        const printTimer = timer - currentTime;
+
+        minutes = parseInt(printTimer / 60, 10);
+        seconds = parseInt(printTimer % 60, 10);
+
+        minutes = (minutes < 10) ? `0${minutes}` : minutes;
+        seconds = (seconds < 10) ? `0${seconds}` : seconds;
+
+        this.authErrMessage = `메시지를 확인하시고 인증번호를 입력해주세요.  ${minutes}:${seconds}`;
+
+        if (printTimer <= 0) {
+          clearInterval(interval);
+        }
+      }, 1000);
+
+      window.interval = interval;
+    },
   },
   async created() {
     if (!this.mypageAuth) {
       alert('잘못된 접근입니다.');
       this.$router.push({ path: '/closet/security' });
     } else {
+      const htmlScript = document.createElement('script');
+      htmlScript.setAttribute('src', 'http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false');
+      document.head.appendChild(htmlScript);
+
       await this.setMypage();
       this.delivery_day = this.mypageData.delivery_day;
     }

@@ -1,6 +1,9 @@
 <template>
   <div class="colors subContent mauto">
-    <div class="content-title mt30">색상 선택</div>
+    <div class="content-title mt30">
+      색상 선택
+      <styleMenu v-show="this.Authentication.authenticated" leftSize="60%"></styleMenu>
+    </div>
     <div class="explain mt15">
       스타일링을 위한 색상 선택에 활용됩니다.
     </div>
@@ -57,32 +60,35 @@
       </div>
     </div>
 
-    <div class="mt40">
-      <div style="width: 392px; float: right;">
-        <button class="button-login" @click="moveNext">
-          다음
-        </button>
-      </div>
-    </div>
+    <styleButton btnMarginTop="40px" customCss="float: right;"></styleButton>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import StyleMenu from '@/components/join/common/StyleMenu';
+import StyleButton from '@/components/join/common/StyleButton';
 
 export default {
   name: 'colors',
+  components: {
+    StyleMenu,
+    StyleButton,
+  },
   computed: {
     ...mapGetters({
       colors: 'signup/getColors',
       prefer: 'signup/getPreferColors',
       except: 'signup/getExceptColors',
+      Authentication: 'login/Authentication',
+      mypageStyleData: 'mypage/getMypageStyleData',
     }),
   },
   methods: {
     ...mapActions({
       setColors: 'signup/setColors',
       pickColors: 'signup/pickColors',
+      setMypageStyle: 'mypage/setMypageStyle',
     }),
     cardMouseOver(evt) {
       const obj = evt;
@@ -119,8 +125,34 @@ export default {
       });
     },
     moveNext() {
-      this.$router.push({ path: 'clothes' });
+      this.$router.push({ path: 'blouse' });
     },
+  },
+  async created() {
+    if (this.Authentication.authenticated) {
+      if (!this.mypageStyleData.bust_size) await this.setMypageStyle();
+
+      const getPreferColor = this.mypageStyleData.prefer_color_desc.split(',');
+      const getExceptColor = this.mypageStyleData.except_color_desc.split(',');
+
+      if (this.prefer.length <= 0) {
+        for (let i = 0; i < getPreferColor.length; i += 1) {
+          this.pickColors({
+            type: 'prefer',
+            color: getPreferColor[i],
+          });
+        }
+      }
+
+      if (this.except.length <= 0) {
+        for (let i = 0; i < getExceptColor.length; i += 1) {
+          this.pickColors({
+            type: 'except',
+            color: getExceptColor[i],
+          });
+        }
+      }
+    }
   },
   mounted() {
     this.setColors();

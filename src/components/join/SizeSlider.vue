@@ -64,11 +64,15 @@ export default {
     },
     height: {
       type: Number,
-      default: 2,
+      default: 1.5,
     },
     sizeTitle: {
       type: String,
       default: '',
+    },
+    customValue: {
+      type: Number,
+      default: 0,
     },
     customInterval: {
       type: Number,
@@ -89,9 +93,6 @@ export default {
       sliderOption: {
         value: 0,
         height: 2,
-        style: {
-          paddingBottom: '5px',
-        },
         bgStyle: {
           backgroundColor: '#212121',
         },
@@ -121,10 +122,18 @@ export default {
       document.querySelector(`div[data-id="${this.dataId}"] .custom-text`).style.color = '#797979';
       document.querySelector(`div[data-id="${this.dataId}"] .custom-text`).style.display = 'none';
     },
+    initSize() {
+      if (this.customValue > 0) this.sliderOption.value = this.customValue;
+      else this.sliderOption.value = this.customMinimum;
+    },
+  },
+  watch: {
+    customValue() {
+      this.initSize();
+    },
   },
   created() {
-    this.sliderOption.value = this.customMinimum;
-
+    this.initSize();
     window.addEventListener('mouseup', this.dragUp);
   },
   mounted() {

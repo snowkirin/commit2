@@ -23,7 +23,7 @@ export default {
   },
   data() {
     return {
-      viewFeed: 'finish',
+      viewFeed: 'TopSize',
     };
   },
 };

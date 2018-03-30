@@ -19,8 +19,25 @@ export default {
     phoneAuthCnt: 0,
     surveyStorage: {
       colors: [],
-      clothes: [],
-      patterns: [],
+      blouse: [],
+      tshirt: [],
+      skirt: [],
+      knitvest: [],
+      shirt: [],
+      pants: [],
+      onepiece: [],
+      pattern: [],
+      material: [],
+    },
+    selected: {
+      blouse: [],
+      tshirt: [],
+      skirt: [],
+      knitvest: [],
+      shirt: [],
+      pants: [],
+      onepiece: [],
+      pattern: [],
       material: [],
     },
   },
@@ -52,14 +69,14 @@ export default {
     [types.SET_REQUIREMENT](state, data) {
       state.requirement = data;
     },
-    [types.SET_CLOTHES](state, clothes) {
-      state.surveyStorage.clothes = [...clothes];
+    [types.SET_CLOTHES](state, data) {
+      state.surveyStorage[data.type] = [...data.data];
     },
-    [types.PICK_CLOTHES](state, clothes) {
-      state.clothes = [...clothes];
+    [types.PICK_CLOTHES](state, data) {
+      state.selected[data.type] = [...data.data];
     },
-    [types.PICK_REMOVE_CLOTHES](state, idx) {
-      state.clothes.splice(idx, 1);
+    [types.PICK_REMOVE_CLOTHES](state, data) {
+      state.selected[data.type].splice(data.id, 1);
     },
     [types.SET_PATTERNS](state, patterns) {
       state.surveyStorage.patterns = [...patterns];
@@ -85,8 +102,20 @@ export default {
     getPreferColors: state => state.colors.prefer,
     getExceptColors: state => state.colors.except,
     getRequirement: state => state.requirement,
-    getClothes: state => state.surveyStorage.clothes,
-    getSelectClothes: state => state.clothes,
+    getBlouse: state => state.surveyStorage.blouse,
+    getTshirt: state => state.surveyStorage.tshirt,
+    getSkirt: state => state.surveyStorage.skirt,
+    getKnitVest: state => state.surveyStorage.knitvest,
+    getShirt: state => state.surveyStorage.shirt,
+    getPants: state => state.surveyStorage.pants,
+    getOnePiece: state => state.surveyStorage.onepiece,
+    getSelectBlouse: state => state.selected.blouse,
+    getSelectTshirt: state => state.selected.tshirt,
+    getSelectSkirt: state => state.selected.skirt,
+    getSelectKnitVest: state => state.selected.knitvest,
+    getSelectShirt: state => state.selected.shirt,
+    getSelectPants: state => state.selected.pants,
+    getSelectOnePiece: state => state.selected.onepiece,
     getPatterns: state => state.surveyStorage.patterns,
     getMaterial: state => state.surveyStorage.material,
     getSelectPatterns: state => state.patterns,

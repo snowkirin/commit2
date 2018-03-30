@@ -10,7 +10,15 @@ const Success = () => import('@/components/login/Success');
 const PwdSuccess = () => import('@/components/login/PwdSuccess');
 const Join = () => import('@/components/join/Index');
 const JoinSize = () => import('@/components/join/Size');
-const JoinClothes = () => import('@/components/join/Clothes');
+
+const JoinBlouse = () => import('@/components/join/clothes/Blouse');
+const JoinTshirt = () => import('@/components/join/clothes/Tshirt');
+const JoinSkirt = () => import('@/components/join/clothes/Skirt');
+const JoinKintVest = () => import('@/components/join/clothes/KnitVest');
+const JoinShirt = () => import('@/components/join/clothes/Shirt');
+const JoinPants = () => import('@/components/join/clothes/Pants');
+const JoinOnePiece = () => import('@/components/join/clothes/OnePiece');
+
 const JoinPatterns = () => import('@/components/join/Patterns');
 const JoinStyling = () => import('@/components/join/Styling');
 const JoinRequirement = () => import('@/components/join/Requirement');
@@ -26,6 +34,7 @@ const ClosetCustomerService = () => import('@/components/closet/detail/CustomerS
 const ClosetNotice = () => import('@/components/closet/detail/notice');
 const ClosetMypageSecurity = () => import('@/components/closet/detail/MypageSecurity');
 const ClosetMypage = () => import('@/components/closet/detail/Mypage');
+const ClosetStyleInfo = () => import('@/components/closet/detail/StyleInfo');
 
 Vue.use(Router);
 
@@ -54,7 +63,13 @@ export default new Router({
           component: Join,
           children: [
             { path: 'size', component: JoinSize },
-            { path: 'clothes', component: JoinClothes },
+            { path: 'blouse', component: JoinBlouse },
+            { path: 'tshirt', component: JoinTshirt },
+            { path: 'skirt', component: JoinSkirt },
+            { path: 'knitvest', component: JoinKintVest },
+            { path: 'shirt', component: JoinShirt },
+            { path: 'pants', component: JoinPants },
+            { path: 'onepiece', component: JoinOnePiece },
             { path: 'patterns', component: JoinPatterns },
             { path: 'styling', component: JoinStyling },
             { path: 'requirement', component: JoinRequirement },
@@ -81,7 +96,11 @@ export default new Router({
             { path: 'notice', component: ClosetNotice },
             { path: 'security', component: ClosetMypageSecurity },
             { path: 'mypage', component: ClosetMypage },
+            { path: 'style', component: ClosetStyleInfo },
           ],
+          meta: {
+            requiresAuth: true,
+          },
         },
       ],
     },

@@ -1,6 +1,9 @@
 <template>
   <div class="styling subContent mauto">
-    <div class="content-title mt30">선호 스타일</div>
+    <div class="content-title mt30">
+      선호 스타일
+      <styleMenu v-show="this.Authentication.authenticated" leftSize="60%"></styleMenu>
+    </div>
     <div class="explain mt15">
       ZULY는 베이직 스타일을 기본으로 합니다.
     </div>
@@ -44,20 +47,22 @@
         <div class="circle-active"></div>
         <div class="circle-pick"></div>
       </div>
-      <div class="mauto" style="width: 392px; margin-top: 120px;">
-        <button class="button-login" @click="moveNext">
-          다음
-        </button>
-      </div>
+      <styleButton btnMarginTop="110px"></styleButton>
     </div>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import StyleMenu from '@/components/join/common/StyleMenu';
+import StyleButton from '@/components/join/common/StyleButton';
 
 export default {
   name: 'styling',
+  components: {
+    StyleMenu,
+    StyleButton,
+  },
   data() {
     return {
       activeCircle: null,
@@ -71,11 +76,14 @@ export default {
   computed: {
     ...mapGetters({
       selectMood: 'signup/getSelectMood',
+      Authentication: 'login/Authentication',
+      mypageStyleData: 'mypage/getMypageStyleData',
     }),
   },
   methods: {
     ...mapActions({
       pickMood: 'signup/pickMood',
+      setMypageStyle: 'mypage/setMypageStyle',
     }),
     selectStyle(data) {
       const imageTarget = document.querySelector('.circle-pick');
@@ -109,14 +117,18 @@ export default {
       }
     },
     pickClassEvt(main, sub1, sub2, outSub1, outSub2, imageTarget) {
-      main.querySelector('span.subject').classList.add('zuly-detail-circle-pick-subject');
-      main.classList.add('zuly-detail-circle-pick');
-      sub1.classList.add('zuly-detail-circle-pick', 'zuly-circle-pick-second');
-      sub2.classList.add('zuly-detail-circle-pick', 'zuly-circle-pick-second');
+      if (main) {
+        main.querySelector('span.subject').classList.add('zuly-detail-circle-pick-subject');
+        main.classList.add('zuly-detail-circle-pick');
+        sub1.classList.add('zuly-detail-circle-pick', 'zuly-circle-pick-second');
+        sub2.classList.add('zuly-detail-circle-pick', 'zuly-circle-pick-second');
 
-      outSub1.classList.add('zuly-circle-pick-deactive');
-      outSub2.classList.add('zuly-circle-pick-deactive');
-      this.changeCircleImage(main, imageTarget);
+        outSub1.classList.add('zuly-circle-pick-deactive');
+        outSub2.classList.add('zuly-circle-pick-deactive');
+        outSub1.querySelector('span.description').classList.add('zuly-circle-pick-none');
+        outSub2.querySelector('span.description').classList.add('zuly-circle-pick-none');
+        this.changeCircleImage(main, imageTarget);
+      }
     },
     removePick() {
       const circlePick = document.querySelectorAll('.zuly-detail-circle-pick');
@@ -134,6 +146,8 @@ export default {
     },
     circleHoverEvt(main, sub1, sub2, outSub1, outSub2) {
       const obj = main;
+      const outObj1 = outSub1;
+      const outObj2 = outSub2;
 
       obj.onmouseover = () => {
         this.removePick();
@@ -142,8 +156,10 @@ export default {
         sub1.classList.add('zuly-detail-circle-active', 'zuly-circle-active-second');
         sub2.classList.add('zuly-detail-circle-active', 'zuly-circle-active-second');
 
-        outSub1.classList.add('zuly-circle-deactive');
-        outSub2.classList.add('zuly-circle-deactive');
+        outObj1.classList.add('zuly-circle-deactive');
+        outObj2.classList.add('zuly-circle-deactive');
+        outObj1.querySelector('span.description').style.display = 'none';
+        outObj2.querySelector('span.description').style.display = 'none';
         this.changeCircleImage(main, this.activeCircle);
       };
 
@@ -154,8 +170,10 @@ export default {
         sub1.classList.remove('zuly-detail-circle-active', 'zuly-circle-active-second');
         sub2.classList.remove('zuly-detail-circle-active', 'zuly-circle-active-second');
 
-        outSub1.classList.remove('zuly-circle-deactive');
-        outSub2.classList.remove('zuly-circle-deactive');
+        outObj1.classList.remove('zuly-circle-deactive');
+        outObj2.classList.remove('zuly-circle-deactive');
+        outObj1.querySelector('span.description').style.display = 'inline-block';
+        outObj2.querySelector('span.description').style.display = 'inline-block';
         this.activeCircle.style.cssText = 'display: none;';
       };
     },
@@ -163,7 +181,11 @@ export default {
       this.$router.push({ path: 'colors' });
     },
   },
-  created() {
+  async created() {
+    if (this.Authentication.authenticated) {
+      if (!this.mypageStyleData.bust_size) await this.setMypageStyle();
+      this.selectStyle(this.mypageStyleData.moodCode.toString());
+    }
   },
   mounted() {
     this.activeCircle = document.querySelector('.circle-active');
@@ -318,6 +340,7 @@ div.btn-times:after {
   margin-top: 8px;
   font-size: 16px;
   line-height: 1.6;
+  color: #797979;
 }
 
 .circle-natural {
@@ -417,6 +440,10 @@ div.btn-times:after {
 .zuly-circle-pick-deactive {
   width: 144px;
   height: 144px;
+}
+
+.zuly-circle-pick-none {
+  display: none;
 }
 
 .circle-pick {

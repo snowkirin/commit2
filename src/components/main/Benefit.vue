@@ -24,19 +24,13 @@ export default {
   name: 'benefit',
   mounted() {
     const subscribeBtn = document.querySelector('.button-main');
-    const subscribeBtnTitle = document.querySelector('.button-main span');
-    const subscribeBtnIcon = document.querySelector('.button-main div');
 
     subscribeBtn.onmouseover = () => {
       subscribeBtn.style.backgroundColor = '#fb5143';
-      subscribeBtnIcon.style.marginLeft = '53px';
-      subscribeBtnTitle.innerHTML = '1개월 무료 체험';
     };
 
     subscribeBtn.onmouseout = () => {
       subscribeBtn.style.backgroundColor = '#212121';
-      subscribeBtnIcon.style.marginLeft = '65px';
-      subscribeBtnTitle.innerHTML = '정기 구독 신청';
     };
   },
 };
