@@ -125,37 +125,39 @@ export default {
       });
     },
     moveNext() {
+      this.$localStorage.set('S3', JSON.stringify({
+        prefer: this.prefer,
+        except: this.except,
+      }));
+
       this.$router.push({ path: 'blouse' });
+    },
+    fnPickColors(arr, type) {
+      for (let i = 0; i < arr.length; i += 1) {
+        this.pickColors({
+          type,
+          color: arr[i],
+        });
+      }
     },
   },
   async created() {
+    this.setColors();
+    let localStorage = this.$localStorage.get('S3');
+
     if (this.Authentication.authenticated) {
       if (!this.mypageStyleData.bust_size) await this.setMypageStyle();
 
       const getPreferColor = this.mypageStyleData.prefer_color_desc.split(',');
       const getExceptColor = this.mypageStyleData.except_color_desc.split(',');
 
-      if (this.prefer.length <= 0) {
-        for (let i = 0; i < getPreferColor.length; i += 1) {
-          this.pickColors({
-            type: 'prefer',
-            color: getPreferColor[i],
-          });
-        }
-      }
-
-      if (this.except.length <= 0) {
-        for (let i = 0; i < getExceptColor.length; i += 1) {
-          this.pickColors({
-            type: 'except',
-            color: getExceptColor[i],
-          });
-        }
-      }
+      if (this.prefer.length <= 0) this.fnPickColors(getPreferColor, 'prefer');
+      if (this.except.length <= 0) this.fnPickColors(getExceptColor, 'except');
+    } else if (localStorage) {
+      localStorage = JSON.parse(localStorage);
+      if (this.prefer.length <= 0) this.fnPickColors(localStorage.prefer, 'prefer');
+      if (this.except.length <= 0) this.fnPickColors(localStorage.except, 'except');
     }
-  },
-  mounted() {
-    this.setColors();
   },
 };
 </script>

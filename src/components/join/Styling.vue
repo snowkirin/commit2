@@ -178,14 +178,17 @@ export default {
       };
     },
     moveNext() {
+      this.$localStorage.set('S2', this.selectMood);
       this.$router.push({ path: 'colors' });
     },
   },
   async created() {
+    const localStorage = this.$localStorage.get('S2');
+
     if (this.Authentication.authenticated) {
       if (!this.mypageStyleData.bust_size) await this.setMypageStyle();
       this.selectStyle(this.mypageStyleData.moodCode.toString());
-    }
+    } else if (localStorage) this.selectStyle(localStorage);
   },
   mounted() {
     this.activeCircle = document.querySelector('.circle-active');

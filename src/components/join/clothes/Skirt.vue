@@ -80,6 +80,7 @@ export default {
       setMypageStyle: 'mypage/setMypageStyle',
     }),
     moveNext() {
+      this.$localStorage.set('S6', JSON.stringify(this.selected));
       this.$router.push({ path: 'knitvest' });
     },
   },
@@ -88,6 +89,8 @@ export default {
       type: 'skirt',
       text: '스커트',
     });
+
+    let localStorage = this.$localStorage.get('S6');
 
     if (this.Authentication.authenticated) {
       if (!this.mypageStyleData.bust_size) await this.setMypageStyle();
@@ -102,6 +105,13 @@ export default {
               break;
             }
           }
+        }
+      }
+    } else if (localStorage) {
+      localStorage = JSON.parse(localStorage);
+      if (this.selected.length <= 0) {
+        for (let i = 0; i < localStorage.length; i += 1) {
+          this.pickClothes({ type: 'skirt', id: localStorage[i] });
         }
       }
     }

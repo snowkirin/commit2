@@ -42,13 +42,13 @@
                 <i class="fa fa-credit-card fa-lg"></i>
               </div>
               <div style="display: inline-table; width: 3%;"></div>
-              <input type="text" name="cardExpiry" class="form-login-group" placeholder="MM/YY" style="width: 25%;" v-validate="'required'" @keyup="checkCardExpiry" />
+              <input type="text" name="cardExpiry" class="form-login-group" placeholder="MMYY" style="width: 25%;" v-validate="'required'" @keyup="checkCardExpiry" />
               <span class="error" v-show="(errors.has('cardNumber') || errors.has('cardExpiry'))">카드번호 & 유효기간을 입력해주세요.</span>
               <span class="error" v-show="cardVerify">{{ cardVerifyMsg }}</span>
             </div>
           </div>
           <div class="field mt12 talign-left" :class="{ error: errors.has('birthDay') }">
-            <input type="text" name="birthDay" class="form-login-input" placeholder="생년월일(YY/MM/DD)" v-validate="'required'" @keyup="checkBirthExpiry" />
+            <input type="text" name="birthDay" class="form-login-input" placeholder="생년월일(YYMMDD)" v-validate="'required'" @keyup="checkBirthExpiry" />
             <span class="error" v-show="errors.has('birthDay')">생년월일을 입력해주세요.</span>
             <span class="error" v-show="birthVerify">{{ birthVerifyMsg }}</span>
           </div>
@@ -66,14 +66,14 @@
         <div class="signup-payment-label mt40">개인 정보(배송을 위해 현관 비밀번호를 알려주세요)</div>
         <div class="w100 mt18">
           <div class="field mt12">
-            <input type="password" name="birthDay" class="form-login-input" placeholder="현관 비밀번호" />
+            <input type="password" name="lobbyPwd" class="form-login-input" placeholder="현관 비밀번호" />
           </div>
         </div>
         <div class="signup-payment-label mt40">쿠폰</div>
         <div class="w100 mt18">
-          <div class="field mt12" :class="{ error: errors.has('zipcode') }">
+          <div class="field mt12">
             <div class="inputGroup">
-              <input type="text" name="coupon" class="form-login-group" placeholder="쿠폰" style="width: 72%;" v-validate="'required'" />
+              <input type="text" name="coupon" class="form-login-group" placeholder="쿠폰" style="width: 72%;" />
               <div style="display: inline-table; width: 3%;"></div>
               <button class="button-grey" style="width: 25%;" @click="couponVerify">확인</button>
             </div>
@@ -114,6 +114,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: 'signUp-second',
   data() {
@@ -126,6 +128,9 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      signup: 'signup/signup',
+    }),
     checkBoxEvt(evt) {
       const chkbox = evt.path[1].querySelector('input[type=checkbox]');
       if (chkbox) chkbox.checked = !chkbox.checked;
@@ -134,17 +139,17 @@ export default {
       this.deliveryDay = day;
     },
     checkCardExpiry(evt) {
-      const cardReg = /^(0?[1-9]|1[0-2]|12)[/](1[9]|[2-9][0-9]|99)$/;
+      const cardReg = /^(0?[1-9]|1[0-2]|12)(1[9]|[2-9][0-9]|99)$/;
       if (!cardReg.test(evt.target.value)) {
         this.cardVerify = true;
-        this.cardVerifyMsg = '카드유효기간을 MM/YY(월/년) 형태로 입력해주세요. (ex: 03/23)';
+        this.cardVerifyMsg = '카드유효기간을 MMYY(월년) 형태로 입력해주세요. (ex: 0323)';
       } else this.cardVerify = false;
     },
     checkBirthExpiry(evt) {
-      const birthReg = /^([0-9][0-9]|99)[/](0?[1-9]|1[0-2]|12)[/](0?[1-9]|[12][0-9]|3[01])$/;
+      const birthReg = /^([0-9][0-9]|99)(0?[1-9]|1[0-2]|12)(0?[1-9]|[12][0-9]|3[01])$/;
       if (!birthReg.test(evt.target.value)) {
         this.birthVerify = true;
-        this.birthVerifyMsg = '생년월일을 YY/MM/DD(년/월/일) 형태로 입력해주세요. (ex: 85/12/11)';
+        this.birthVerifyMsg = '생년월일을 YYMMDD(년월일) 형태로 입력해주세요. (ex: 851211)';
       } else this.birthVerify = false;
     },
     couponVerify() {
@@ -155,8 +160,38 @@ export default {
       return true;
     },
     finalSignup() {
-      this.$validator.validateAll().then((result) => {
+      const privateFlag = document.querySelector('input[name=private_flag]:checked');
+
+      if (this.deliveryDay === '') {
+        alert('배송일을 선택해주세요.');
+        return;
+      }
+
+      if (!privateFlag) {
+        alert('구매진행에 동의해주세요.');
+        return;
+      }
+
+      this.$validator.validateAll().then(async (result) => {
         if (result) {
+          const cardExpiry = document.querySelector('input[name=cardExpiry]').value;
+          const lobbyPwd = document.querySelector('input[name=lobbyPwd]').value;
+
+          const signupRtn = await this.signup({
+            deliveryDay: this.deliveryDay,
+            cardNumber: document.querySelector('input[name=cardNumber]').value,
+            cardYearExpiry: `20${cardExpiry.substring(2, 4)}`,
+            cardMonthExpiry: cardExpiry.substring(0, 2),
+            userBirth: document.querySelector('input[name=birthDay]').value,
+            cardPassword: document.querySelector('input[name=cardPwd]').value,
+            lobbyPassword: lobbyPwd,
+            coupon: document.querySelector('input[name=coupon]').value,
+          });
+
+          if (signupRtn) {
+            alert('회원가입이 완료되었습니다.\n로그인 페이지로 이동합니다.');
+            this.$router.push({ path: '/login' });
+          }
           return;
         }
 

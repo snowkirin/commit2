@@ -80,6 +80,7 @@ export default {
       setMypageStyle: 'mypage/setMypageStyle',
     }),
     moveNext() {
+      this.$localStorage.set('S7', JSON.stringify(this.selected));
       this.$router.push({ path: 'shirt' });
     },
   },
@@ -88,6 +89,8 @@ export default {
       type: 'knitvest',
       text: '니트-베스트',
     });
+
+    let localStorage = this.$localStorage.get('S7');
 
     if (this.Authentication.authenticated) {
       if (!this.mypageStyleData.bust_size) await this.setMypageStyle();
@@ -102,6 +105,13 @@ export default {
               break;
             }
           }
+        }
+      }
+    } else if (localStorage) {
+      localStorage = JSON.parse(localStorage);
+      if (this.selected.length <= 0) {
+        for (let i = 0; i < localStorage.length; i += 1) {
+          this.pickClothes({ type: 'knitvest', id: localStorage[i] });
         }
       }
     }

@@ -10,8 +10,6 @@ export default {
       prefer: [],
       except: [],
     },
-    clothes: [],
-    patterns: [],
     mood: null,
     requirement: '',
     phoneAuth: false,
@@ -78,17 +76,14 @@ export default {
     [types.PICK_REMOVE_CLOTHES](state, data) {
       state.selected[data.type].splice(data.id, 1);
     },
-    [types.SET_PATTERNS](state, patterns) {
-      state.surveyStorage.patterns = [...patterns];
+    [types.SET_MANAGEMENT](state, data) {
+      state.surveyStorage[data.type] = [...data.data];
     },
-    [types.SET_MATERIAL](state, material) {
-      state.surveyStorage.material = [...material];
+    [types.PICK_MANAGEMENT](state, data) {
+      state.selected[data.type] = [...data.data];
     },
-    [types.PICK_PATTERN](state, patterns) {
-      state.patterns = [...patterns];
-    },
-    [types.PICK_REMOVE_PATTERN](state, idx) {
-      state.patterns.splice(idx, 1);
+    [types.PICK_REMOVE_MANAGEMENT](state, data) {
+      state.selected[data.type].splice(data.id, 1);
     },
     [types.PICK_MOOD](state, mood) {
       state.mood = mood;
@@ -109,6 +104,8 @@ export default {
     getShirt: state => state.surveyStorage.shirt,
     getPants: state => state.surveyStorage.pants,
     getOnePiece: state => state.surveyStorage.onepiece,
+    getPattern: state => state.surveyStorage.pattern,
+    getMaterial: state => state.surveyStorage.material,
     getSelectBlouse: state => state.selected.blouse,
     getSelectTshirt: state => state.selected.tshirt,
     getSelectSkirt: state => state.selected.skirt,
@@ -116,9 +113,8 @@ export default {
     getSelectShirt: state => state.selected.shirt,
     getSelectPants: state => state.selected.pants,
     getSelectOnePiece: state => state.selected.onepiece,
-    getPatterns: state => state.surveyStorage.patterns,
-    getMaterial: state => state.surveyStorage.material,
-    getSelectPatterns: state => state.patterns,
+    getSelectPattern: state => state.selected.pattern,
+    getSelectMaterial: state => state.selected.material,
     getSelectMood: state => state.mood,
   },
 };

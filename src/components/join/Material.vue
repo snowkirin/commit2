@@ -1,7 +1,7 @@
 <template>
   <div class="patterns subContent mauto">
     <div class="content-title mt30">
-      기피 패턴
+      기피 재질
       <styleMenu v-show="this.Authentication.authenticated" leftSize="59%"></styleMenu>
     </div>
     <div class="explain mt15">
@@ -16,7 +16,7 @@
           :data-id="data.code"
           :data-selected="data.selected"
           :class="{ 'card-oncolor': data.selected }"
-          @click="pickManagement({ type: 'pattern', id: data.code })"
+          @click="pickManagement({ type: 'material', id: data.code })"
         >
           <div class="patterns-images">
             {{ data.description }}
@@ -31,7 +31,7 @@
       </template>
     </div>
 
-    <styleButton customCss="float: right;"></styleButton>
+    <styleButton customCss="float: right;" :lastPage="true"></styleButton>
   </div>
 </template>
 
@@ -41,15 +41,15 @@ import StyleMenu from '@/components/join/common/StyleMenu';
 import StyleButton from '@/components/join/common/StyleButton';
 
 export default {
-  name: 'patterns',
+  name: 'material',
   components: {
     StyleMenu,
     StyleButton,
   },
   computed: {
     ...mapGetters({
-      dataList: 'signup/getPattern',
-      selected: 'signup/getSelectPattern',
+      dataList: 'signup/getMaterial',
+      selected: 'signup/getSelectMaterial',
       Authentication: 'login/Authentication',
       mypageStyleData: 'mypage/getMypageStyleData',
     }),
@@ -96,28 +96,28 @@ export default {
       };
     },
     moveNext() {
-      this.$localStorage.set('S11', JSON.stringify(this.selected));
-      this.$router.push({ path: 'material' });
+      this.$localStorage.set('S12', JSON.stringify(this.selected));
+      this.$router.push({ path: 'requirement' });
     },
   },
   async created() {
     this.setManagement({
-      type: 'pattern',
-      code: this.$const.MANAGEMENT_PATTERN,
+      type: 'material',
+      code: this.$const.MANAGEMENT_MATERIAL,
     });
 
-    let localStorage = this.$localStorage.get('S11');
+    let localStorage = this.$localStorage.get('S12');
 
     if (this.Authentication.authenticated) {
       if (!this.mypageStyleData.bust_size) await this.setMypageStyle();
 
-      const exceptData = this.mypageStyleData.except_pattern_code.split(',');
+      const exceptData = this.mypageStyleData.except_material_code.split(',');
 
       if (this.selected.length <= 0) {
         for (let i = 0; i < exceptData.length; i += 1) {
           for (let j = 0; j < this.dataList.length; j += 1) {
             if (exceptData[i] === this.dataList[j].code.toString()) {
-              this.pickManagement({ type: 'pattern', id: this.dataList[j].code });
+              this.pickManagement({ type: 'material', id: this.dataList[j].code });
               break;
             }
           }
@@ -127,7 +127,7 @@ export default {
       localStorage = JSON.parse(localStorage);
       if (this.selected.length <= 0) {
         for (let i = 0; i < localStorage.length; i += 1) {
-          this.pickClothes({ type: 'pattern', id: localStorage[i] });
+          this.pickClothes({ type: 'material', id: localStorage[i] });
         }
       }
     }

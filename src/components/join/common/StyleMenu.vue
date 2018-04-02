@@ -4,18 +4,18 @@
       <div class="arrow-down"></div>
     </div>
     <div class="content-menu-box">
-      <div class="content-menu-box-detail">사이즈</div>
-      <div class="content-menu-box-detail">선호 스타일</div>
-      <div class="content-menu-box-detail">색상</div>
-      <div class="content-menu-box-detail">블라우스</div>
-      <div class="content-menu-box-detail">티셔츠</div>
-      <div class="content-menu-box-detail">스커트</div>
-      <div class="content-menu-box-detail">니트/베스트</div>
-      <div class="content-menu-box-detail">셔츠</div>
-      <div class="content-menu-box-detail">팬츠</div>
-      <div class="content-menu-box-detail">원피스</div>
-      <div class="content-menu-box-detail">패턴</div>
-      <div class="content-menu-box-detail">재질</div>
+      <div class="content-menu-box-detail"><router-link to="/join/size" class="style-menu">사이즈</router-link></div>
+      <div class="content-menu-box-detail"><router-link to="/join/styling" class="style-menu">선호 스타일</router-link></div>
+      <div class="content-menu-box-detail"><router-link to="/join/colors" class="style-menu">색상</router-link></div>
+      <div class="content-menu-box-detail"><router-link to="/join/blouse" class="style-menu">블라우스</router-link></div>
+      <div class="content-menu-box-detail"><router-link to="/join/tshirt" class="style-menu">티셔츠</router-link></div>
+      <div class="content-menu-box-detail"><router-link to="/join/skirt" class="style-menu">스커트</router-link></div>
+      <div class="content-menu-box-detail"><router-link to="/join/knitvest" class="style-menu">니트/베스트</router-link></div>
+      <div class="content-menu-box-detail"><router-link to="/join/shirt" class="style-menu">셔츠</router-link></div>
+      <div class="content-menu-box-detail"><router-link to="/join/pants" class="style-menu">팬츠</router-link></div>
+      <div class="content-menu-box-detail"><router-link to="/join/onepiece" class="style-menu">원피스</router-link></div>
+      <div class="content-menu-box-detail"><router-link to="/join/patterns" class="style-menu">패턴</router-link></div>
+      <div class="content-menu-box-detail"><router-link to="/join/material" class="style-menu">재질</router-link></div>
     </div>
   </div>
 </template>
@@ -35,7 +35,7 @@ export default {
     stylingMenuOnoff() {
       const mnu = document.querySelector('.content-menu-box');
 
-      if (mnu.style.display === 'none') mnu.style.display = 'block';
+      if (mnu.style.display === 'none' || !mnu.style.display) mnu.style.display = 'block';
       else mnu.style.display = 'none';
     },
   },
@@ -43,4 +43,8 @@ export default {
 </script>
 
 <style scoped>
+.style-menu {
+  color: #212121;
+  text-decoration: none;
+}
 </style>

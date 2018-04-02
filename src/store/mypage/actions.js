@@ -74,6 +74,13 @@ const setMypageStyle = async ({ commit }) => {
   }
 };
 
+const setMypageCache = async ({ commit }, data) => {
+  commit(types.MYPAGE_LOAD, {
+    type: 'mypageStyle',
+    data,
+  });
+};
+
 const mypageSecurity = async ({ commit }, data) => {
   try {
     const result = await Auth.mypagePwdCheck({
@@ -126,6 +133,7 @@ export default {
   securityDestroyed,
   setMypage,
   setMypageStyle,
+  setMypageCache,
   phoneVerify,
   phoneCheckVerify,
 };

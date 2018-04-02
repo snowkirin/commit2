@@ -1,5 +1,6 @@
 import Auth from '@/library/api/auth';
 import Management from '@/library/api/management';
+import Closet from '@/library/api/closet';
 import types from './mutation-types';
 
 const setFirstData = ({ commit }, data) => {
@@ -49,21 +50,21 @@ const setClothes = async ({ commit }, data) => {
   }
 };
 
-const setPatterns = ({ commit }) => {
-  const patterns = [
-    { id: 1, title: '이미지1', src: 'IMAGE SRC' },
-    { id: 2, title: '이미지2', src: 'IMAGE SRC' },
-    { id: 3, title: '이미지3', src: 'IMAGE SRC' },
-  ];
+const setManagement = async ({ commit }, data) => {
+  try {
+    const result = await Management.getManagementCodes({
+      code: data.code,
+    });
 
-  commit(types.SET_PATTERNS, patterns);
-};
-
-const setMaterial = ({ commit }) => {
-  const material = [
-  ];
-
-  commit(types.SET_MATERIAL, material);
+    if (result.data.result) {
+      commit(types.SET_MANAGEMENT, {
+        type: data.type,
+        data: result.data.data,
+      });
+    } else alert('서비스에 문제가 발생하였습니다.\n새로고침 후 다시 시도해주세요');
+  } catch (e) {
+    console.error(e.message);
+  }
 };
 
 const setRequirement = ({ commit }, data) => {
@@ -94,11 +95,11 @@ const pickClothes = ({ state, commit }, data) => {
   else commit(types.PICK_CLOTHES, { type: data.type, data: [...new Set([...state.selected[data.type], data.id])] });
 };
 
-const pickPatterns = ({ state, commit }, id) => {
-  const isPattern = state.patterns.indexOf(id);
+const pickManagement = ({ state, commit }, data) => {
+  const isManagement = state.selected[data.type].indexOf(data.id);
 
-  if (isPattern > -1) commit(types.PICK_REMOVE_PATTERN, isPattern);
-  else commit(types.PICK_PATTERN, [...new Set([...state.patterns, id])]);
+  if (isManagement > -1) commit(types.PICK_REMOVE_MANAGEMENT, { type: data.type, id: isManagement });
+  else commit(types.PICK_MANAGEMENT, { type: data.type, data: [...new Set([...state.selected[data.type], data.id])] });
 };
 
 const phoneVerify = async ({ commit }, data) => {
@@ -128,6 +129,87 @@ const phoneCheckVerify = async ({ state, commit }, data) => {
   }
 };
 
+const signup = async ({ state }, data) => {
+  try {
+    let clothes = [];
+
+    if (state.selected.blouse.length > 0) clothes = [...new Set([...clothes, ...state.selected.blouse])];
+    if (state.selected.knitvest.length > 0) clothes = [...new Set([...clothes, ...state.selected.knitvest])];
+    if (state.selected.tshirt.length > 0) clothes = [...new Set([...clothes, ...state.selected.tshirt])];
+    if (state.selected.shirt.length > 0) clothes = [...new Set([...clothes, ...state.selected.shirt])];
+    if (state.selected.skirt.length > 0) clothes = [...new Set([...clothes, ...state.selected.skirt])];
+    if (state.selected.pants.length > 0) clothes = [...new Set([...clothes, ...state.selected.pants])];
+    if (state.selected.onepiece.length > 0) clothes = [...new Set([...clothes, ...state.selected.onepiece])];
+
+    const result = await Auth.localJoin({
+      sizeData: state.sizeData,
+      mood: state.mood,
+      prefer: state.colors.prefer,
+      except: state.colors.except,
+      clothes,
+      pattern: state.selected.pattern,
+      material: state.selected.material,
+      requirement: state.requirement,
+      name: state.firstData.name,
+      email: state.firstData.email,
+      password: state.firstData.password,
+      phone: state.firstData.phone,
+      ann: state.firstData.ann,
+      zipcode: state.firstData.zipcode,
+      addr: state.firstData.addr,
+      addrDetail: state.firstData.addrDetail,
+      deliveryDay: data.deliveryDay,
+      cardNumber: data.cardNumber,
+      cardYearExpiry: data.cardYearExpiry,
+      cardMonthExpiry: data.cardMonthExpiry,
+      userBirth: data.userBirth,
+      cardPassword: data.cardPassword,
+      lobbyPassword: data.lobbyPassword,
+      coupon: data.coupon,
+    });
+
+    if (result.data.paymentRtn) alert('유효한 카드가 아닙니다.\n카드정보를 확인하시고 다시 진행해주세요.');
+    if (result.data.result) return true;
+  } catch (e) {
+    console.error(e.message);
+  }
+
+  return false;
+};
+
+const saveExit = async ({ state }, origin) => {
+  let rtn = false;
+
+  try {
+    const result = await Closet.saveMypageStyle({
+      selected: state.selected,
+      selectedMood: state.mood,
+      selectedSize: state.sizeData,
+      selectedColor: state.colors,
+      originClothes: origin.except_clothes_code,
+      originColors: {
+        prefer: origin.prefer_color_desc,
+        except: origin.except_color_desc,
+      },
+      originMaterial: origin.except_material_code,
+      originPattern: origin.except_pattern_code,
+      originSize: {
+        bust: origin.bust_size,
+        hip: origin.hip_size,
+        tall: origin.tall_size,
+        waist: origin.waist_size,
+      },
+      originMood: origin.moodCode,
+    });
+
+    rtn = result;
+  } catch (e) {
+    console.error(e.message);
+  }
+
+  return rtn;
+};
+
 export default {
   setSizeData,
   setFirstData,
@@ -138,8 +220,9 @@ export default {
   setRequirement,
   setClothes,
   pickClothes,
-  setPatterns,
-  setMaterial,
-  pickPatterns,
+  setManagement,
+  pickManagement,
   pickMood,
+  signup,
+  saveExit,
 };

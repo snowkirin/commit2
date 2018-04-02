@@ -10,6 +10,10 @@ const getSingupManagement = ({
   },
 }).then(result => result).catch(err => err.response);
 
+const getManagementCodes = ({
+  code,
+}) => axios.get(`${API_URL}/code/${code}`).then(result => result).catch(err => err.response);
+
 const getNoticeList = () => axios.get(`${API_URL}/notices`, {
   params: {
     size: 9999,
@@ -19,5 +23,6 @@ const getNoticeList = () => axios.get(`${API_URL}/notices`, {
 
 export default {
   getSingupManagement,
+  getManagementCodes,
   getNoticeList,
 };

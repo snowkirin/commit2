@@ -10,6 +10,32 @@ const mypageStyle = () => axios.get(`${API_URL}/member/mypage/style`, {
   withCredentials: true,
 }).then(result => result).catch(err => err.response);
 
+const saveMypageStyle = ({
+  selected,
+  selectedMood,
+  selectedSize,
+  selectedColor,
+  originClothes,
+  originColors,
+  originMaterial,
+  originPattern,
+  originSize,
+  originMood,
+}) => axios.post(`${API_URL}/member/mypage/style`, {
+  selected,
+  selectedMood,
+  selectedSize,
+  selectedColor,
+  originClothes,
+  originColors,
+  originMaterial,
+  originPattern,
+  originSize,
+  originMood,
+}, {
+  withCredentials: true,
+}).then(result => result).catch(err => err.response);
+
 const setChangeEmail = ({
   changeEmail,
 }) => axios.patch(`${API_URL}/member/email`, {
@@ -49,6 +75,7 @@ const authPhoneCheck = ({
 export default {
   mypageInfo,
   mypageStyle,
+  saveMypageStyle,
   setChangeEmail,
   setChangePwd,
   authPhone,

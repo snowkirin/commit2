@@ -20,12 +20,14 @@ const JoinPants = () => import('@/components/join/clothes/Pants');
 const JoinOnePiece = () => import('@/components/join/clothes/OnePiece');
 
 const JoinPatterns = () => import('@/components/join/Patterns');
+const JoinMaterial = () => import('@/components/join/Material');
 const JoinStyling = () => import('@/components/join/Styling');
 const JoinRequirement = () => import('@/components/join/Requirement');
 const JoinColors = () => import('@/components/join/Colors');
 const JoinSignUp = () => import('@/components/join/SignUp');
 const JoinSignUpFirst = () => import('@/components/join/signup/first');
 const JoinSignUpSecond = () => import('@/components/join/signup/second');
+
 const Closet = () => import('@/components/closet/Index');
 const ClosetTomorrow = () => import('@/components/closet/detail/Tomorrow');
 const ClosetCurrent = () => import('@/components/closet/detail/Current');
@@ -71,6 +73,7 @@ export default new Router({
             { path: 'pants', component: JoinPants },
             { path: 'onepiece', component: JoinOnePiece },
             { path: 'patterns', component: JoinPatterns },
+            { path: 'material', component: JoinMaterial },
             { path: 'styling', component: JoinStyling },
             { path: 'requirement', component: JoinRequirement },
             {

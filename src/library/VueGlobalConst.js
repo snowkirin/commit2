@@ -12,6 +12,8 @@ VueGlobalConst.install = (Vue) => {
     STYLE_CLASSIC: '13503',
     STYLE_FEMININE: '13504',
     STYLE_MODERN: '13505',
+    MANAGEMENT_MATERIAL: '10200',
+    MANAGEMENT_PATTERN: '10300',
   };
 };
 

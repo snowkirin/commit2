@@ -7,7 +7,7 @@
     <div class="requirementLine mt25"></div>
     <div class="content-form mt40 mauto">
       <div class="mt40">
-        <textarea name="requirement" class="requirement-textarea" v-on:focus="requirementEvt">요구사항을 적어주세요.</textarea>
+        <textarea name="requirement" class="requirement-textarea" v-on:focus="requirementEvt" v-model="req"></textarea>
       </div>
       <div class="mt40">
         <button class="button-login" @click="moveNext">
@@ -23,6 +23,11 @@ import { mapActions } from 'vuex';
 
 export default {
   name: 'requirement',
+  data() {
+    return {
+      req: '요구사항을 적어주세요.',
+    };
+  },
   components: {
   },
   methods: {
@@ -34,11 +39,17 @@ export default {
       if (obj.target.value === '요구사항을 적어주세요.') obj.target.value = '';
     },
     moveNext() {
-      this.setRequirement(document.querySelector('textarea[name=requirement]').value);
+      const reqValue = document.querySelector('textarea[name=requirement]').value;
+
+      this.setRequirement();
+      this.$localStorage.set('S13', reqValue);
       this.$router.push({ path: 'signup' });
     },
   },
-  mounted() {
+  created() {
+    const localStorage = this.$localStorage.get('S13');
+
+    if (localStorage) this.req = localStorage;
   },
 };
 </script>

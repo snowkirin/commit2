@@ -15,7 +15,7 @@
           </div>
           <div class="style-content-row">
             <div class="style-content-header">선호 스타일</div>
-            <div class="style-content-data mt30">
+            <div class="style-content-data mt20">
               <div class="style-point-box">
                 {{ mypageStyleData.moodName }} {{ mypageStyleData.moodDesc }}
               </div>
@@ -23,7 +23,7 @@
           </div>
           <div class="style-content-row">
             <div class="style-content-header">선호 옷 색상</div>
-            <div class="style-content-data mt30">
+            <div class="style-content-data mt20">
               <template v-if="printPreferColors.length > 0">
                 <template v-for="(prefer, k) in printPreferColors">
                   <div v-bind:key="k" class="style-point-box">
@@ -40,7 +40,7 @@
           </div>
           <div class="style-content-row">
             <div class="style-content-header">기피 옷 색상</div>
-            <div class="style-content-data mt30">
+            <div class="style-content-data mt20">
               <template v-if="printExceptColors.length > 0">
                 <template v-for="(except, k) in printExceptColors">
                   <div v-bind:key="k" class="style-point-box">
@@ -60,7 +60,7 @@
         <div class="style-content-right">
           <div class="style-content-row">
             <div class="style-content-header">기피 복종</div>
-            <div class="style-content-data mt30">
+            <div class="style-content-data mt20">
               <template v-if="printClothes.length > 0">
                 <template v-for="(clothe, k) in printClothes">
                   <div v-bind:key="k" class="style-point-box">
@@ -77,7 +77,7 @@
           </div>
           <div class="style-content-row">
             <div class="style-content-header">기피 재질</div>
-            <div class="style-content-data mt30">
+            <div class="style-content-data mt20">
               <template v-if="printMaterial.length > 0">
                 <template v-for="(material, k) in printMaterial">
                   <div v-bind:key="k" class="style-point-box">
@@ -231,6 +231,7 @@ export default {
 
 .style-point-box {
   display: inline-block;
+  margin-top: 10px;
   margin-right: 10px;
   height: 20px;
   line-height: 20px;

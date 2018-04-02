@@ -42,7 +42,7 @@
         :customMinimum="80"
         :customMaximum="100"
       ></sizeSlider>
-      <styleButton></styleButton>
+      <styleButton currentLocation="size"></styleButton>
     </div>
   </div>
 </template>
@@ -70,6 +70,7 @@ export default {
     ...mapActions({
       setSizeData: 'signup/setSizeData',
       setMypageStyle: 'mypage/setMypageStyle',
+      setMypageCache: 'mypage/setMypageCache',
     }),
     loadSize(type) {
       let rtn = 0;
@@ -86,13 +87,16 @@ export default {
       if (mnu.style.display === 'none') mnu.style.display = 'block';
       else mnu.style.display = 'none';
     },
-    saveSize() {
-      this.setSizeData({
+    async saveSize() {
+      const saveData = {
         bust: this.$refs.bust.sliderOption.value,
         waist: this.$refs.waist.sliderOption.value,
         heap: this.$refs.hip.sliderOption.value,
         tall: this.$refs.tall.sliderOption.value,
-      });
+      };
+
+      await this.setSizeData();
+      this.$localStorage.set('S1', JSON.stringify(saveData));
     },
     moveNext() {
       this.saveSize();
@@ -100,8 +104,18 @@ export default {
     },
   },
   async created() {
+    let localStorage = this.$localStorage.get('S1');
+
     if (this.Authentication.authenticated) {
       if (!this.mypageStyleData.bust_size) await this.setMypageStyle();
+    } else if (localStorage) {
+      localStorage = JSON.parse(localStorage);
+      this.setMypageCache({
+        tall_size: localStorage.tall,
+        bust_size: localStorage.bust,
+        waist_size: localStorage.waist,
+        hip_size: localStorage.hip,
+      });
     }
   },
 };

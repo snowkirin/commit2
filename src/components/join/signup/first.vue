@@ -213,19 +213,35 @@ export default {
       this.$validator.validateAll().then((result) => {
         if (result) {
           if (this.phoneAuth) {
+            const name = document.querySelector('input[name=name]').value;
+            const email = document.querySelector('input[name=email]').value;
+            const phone = document.querySelector('input[name=phone]').value;
+            const ann = document.querySelector('input[name=ann]').value;
+            const zipcode = document.querySelector('input[name=zipcode]').value;
+            const addr = document.querySelector('input[name=address]').value;
+            const addrDetail = document.querySelector('input[name=detail_address]').value;
+
             const signup = {
-              name: document.querySelector('input[name=name]').value,
-              email: document.querySelector('input[name=email]').value,
+              name,
+              email,
               password: document.querySelector('input[name=password]').value,
-              phone: document.querySelector('input[name=phone]').value,
-              ann: document.querySelector('input[name=ann]').value,
-              zipcode: document.querySelector('input[name=zipcode]').value,
-              addr: document.querySelector('input[name=address]').value,
-              addrDetail: document.querySelector('input[name=detail_address]').value,
+              phone,
+              ann,
+              zipcode,
+              addr,
+              addrDetail,
             };
 
             this.setFirstData(signup);
-            this.$localStorage.set('signup-cache', JSON.stringify(signup));
+            this.$localStorage.set('S14', JSON.stringify({
+              name,
+              email,
+              phone,
+              ann,
+              zipcode,
+              addr,
+              addrDetail,
+            }));
 
             this.$router.push({ path: '/join/signup/2' });
             return;
@@ -303,9 +319,18 @@ export default {
     document.head.appendChild(htmlScript);
   },
   mounted() {
-    if (this.$localStorage.get('signup-cache')) {
-      const cacheData = JSON.parse(this.$localStorage.get('signup-cache'));
-      console.log(cacheData);
+    let localStorage = this.$localStorage.get('S14');
+
+    if (localStorage) {
+      localStorage = JSON.parse(localStorage);
+
+      document.querySelector('input[name=name]').value = localStorage.name;
+      document.querySelector('input[name=email]').value = localStorage.email;
+      document.querySelector('input[name=phone]').value = localStorage.phone;
+      document.querySelector('input[name=ann]').value = localStorage.ann;
+      document.querySelector('input[name=zipcode]').value = localStorage.zipcode;
+      document.querySelector('input[name=address]').value = localStorage.addr;
+      document.querySelector('input[name=detail_address]').value = localStorage.addrDetail;
     }
   },
 };

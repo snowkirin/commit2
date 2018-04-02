@@ -2,7 +2,7 @@
   <div class="clothes subContent mauto">
     <div class="content-title mt30">
       셔츠
-      <styleMenu v-show="this.Authentication.authenticated" leftSize="57%"></styleMenu>
+      <styleMenu v-show="this.Authentication.authenticated" leftSize="55%"></styleMenu>
     </div>
     <div class="explain mt15">
       받고 싶지 않은 스타일을 모두 선택해주세요.
@@ -80,6 +80,7 @@ export default {
       setMypageStyle: 'mypage/setMypageStyle',
     }),
     moveNext() {
+      this.$localStorage.set('S8', JSON.stringify(this.selected));
       this.$router.push({ path: 'pants' });
     },
   },
@@ -88,6 +89,8 @@ export default {
       type: 'shirt',
       text: '셔츠',
     });
+
+    let localStorage = this.$localStorage.get('S8');
 
     if (this.Authentication.authenticated) {
       if (!this.mypageStyleData.bust_size) await this.setMypageStyle();
@@ -102,6 +105,13 @@ export default {
               break;
             }
           }
+        }
+      }
+    } else if (localStorage) {
+      localStorage = JSON.parse(localStorage);
+      if (this.selected.length <= 0) {
+        for (let i = 0; i < localStorage.length; i += 1) {
+          this.pickClothes({ type: 'shirt', id: localStorage[i] });
         }
       }
     }
