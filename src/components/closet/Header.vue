@@ -1,29 +1,23 @@
 <template>
   <div class="closet-header">
-    <div class="closet-stylist-info f16">
-      <span v-if="Authentication.userStylist">
-        담당 스타일리스트 {{ Authentication.userStylist }}님
-      </span>
-    </div>
     <div class="closet-my-info">{{ Authentication.userName }}님 옷장</div>
     <div class="closet-noti-info">
-      <div class="closet-line"></div>
       <div class="closet-noti-card">
         <div class="f16 noti-text">미확인 공지사항</div>
-        <div class="f16 noti-count">
+        <div class="f16 noti-count noti-count-first">
           <span>2</span> 건
         </div>
       </div>
       <div class="closet-line"></div>
-      <div class="closet-noti-card">
+      <div class="closet-noti-card closet-mobile">
         <div class="f16 noti-text">사용 가능 쿠폰</div>
         <div class="f16 noti-count">
           <span>2</span> 개
         </div>
       </div>
-      <div class="closet-line"></div>
-      <div class="closet-noti-card">
-        <div class="f16 noti-text" style="width: 56%; display: inline-block;">내일의 옷장 선택</div>
+      <div class="closet-line closet-mobile"></div>
+      <div class="closet-noti-card noti-last-card">
+        <div class="f16 noti-text noti-last-text" style="width: 56%; display: inline-block;">내일의 옷장 선택</div>
         <div class="f16 noti-text-icon">변경가능</div>
         <div class="f16 noti-count">
           <span>D-5</span>
@@ -46,7 +40,7 @@ export default {
 
 <style scoped>
 .closet-header {
-  height: 265px;
+  height: 245px;
   background-color: #7984a1;
 }
 
@@ -66,7 +60,7 @@ export default {
 }
 
 .closet-my-info {
-  padding: 20px 0 0 30px;
+  padding: 30px 0 0 30px;
   line-height: 0.9;
   font-size: 55px;
   font-weight: normal;
@@ -87,7 +81,7 @@ export default {
 
 .closet-noti-info {
   width: 62.5%;
-  margin-top: 22px;
+  margin-top: 59px;
   margin-right: 10px;
   height: 95px;
   float: right;
@@ -102,7 +96,7 @@ export default {
 }
 
 .noti-text {
-  font-weight: 600;
+  font-weight: 500;
   padding-left: 16px;
 }
 
@@ -114,7 +108,7 @@ export default {
 
 .noti-count span {
   font-size: 48px;
-  font-weight: 300;
+  font-weight: 200;
   font-style: normal;
   font-stretch: normal;
   letter-spacing: -1.2px;
@@ -129,5 +123,59 @@ export default {
   border: 1px solid #FFFFFF;
   width: 28%;
   text-align:center;
+}
+
+@media screen and (max-width: 486px) {
+  .closet-my-info {
+    padding: 5% 3.172% 0 3.172% !important;
+    font-size: 40px;
+  }
+
+  .closet-noti-info {
+    padding: 0 3.172%;
+  }
+
+  .closet-noti-card {
+    width: 46%;
+  }
+
+  .closet-mobile {
+    display: none;
+  }
+
+  .noti-text {
+    padding-left: 0;
+  }
+
+  .noti-last-text {
+    width: 100% !important;
+  }
+
+  .noti-text-icon {
+    width: fit-content;
+    font-size: 12px;
+    width: 60px;
+    height: 20px;
+    line-height: 20px;
+    margin-top: 10px;
+  }
+
+  .noti-last-card {
+    padding-left: 16px;
+  }
+
+  .noti-count-first {
+    margin-top: 30px;
+  }
+
+  .noti-count {
+    position: relative;
+    bottom: 0;
+    right: 0;
+  }
+
+  .noti-count span {
+    font-size: 30px;
+  }
 }
 </style>

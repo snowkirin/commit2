@@ -15,9 +15,9 @@ const inquiriesInfo = ({
 const setNewInquiries = ({
   subject,
   email,
-  emailNoti,
-  cellPhone,
-  cellPhoneNoti,
+  email_noti: emailNoti,
+  cell_phone: cellPhone,
+  cell_phone_noti: cellPhoneNoti,
   inquiryType,
   content,
 }) => axios.post(`${API_URL}/inquiries`, {

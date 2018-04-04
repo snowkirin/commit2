@@ -22,6 +22,10 @@ VueCommon.install = (Vue) => {
       document.head.appendChild(link);
     },
 
+    numberWithCommas(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    },
+
     // 엔터키이벤트
     submitEvt(evt, callback) {
       if (evt.keyCode === 13) callback();

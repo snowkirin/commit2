@@ -21,6 +21,11 @@
   padding-left:2px;
 }
 
+.closet .main-point-text {
+  font-weight: 700;
+  line-height: 1;
+}
+
 .main-about-title,
 .main-cs-tel,
 .login-title,

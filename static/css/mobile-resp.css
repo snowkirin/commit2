@@ -1,20 +1,46 @@
-.footer-area {
-  padding: 0 5px 5px 5px !important;
+.main, header {
+  max-width: 100% !important;
+  min-width: 320px !important;
 }
 
-.benefit-main, .main-about-detail, .process-main, .faq-main {
-  width: 100% !important;
+.benefit-main,
+.main-about-detail,
+.process-main,
+.faq-main {
+  max-width: 100% !important;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+
+.benefit-main-title {
+  width: 100% !important;
+}
+
+.subContent {
+  max-width: 100% !important;
+  width: fit-content !important;
+}
+
+.benefit-btn-area {
+  width: 0 !important;
+}
+
+.header-menu {
+  width: 100%;
+  padding: 0;
 }
 
 .side-margin-42 {
   margin: 0 2px 0 10px;
 }
 
+.side-margin-50 {
+  margin: 0 4.8% !important;
+}
+
 .side-padding-50 {
-  padding: 0 10px 0 10px !important;
+  padding: 0 4.8% !important;
 }
 
 .pd30 {
@@ -22,7 +48,7 @@
 }
 
 .benefit-title {
-  font-size: 32px !important;
+  font-size: 36px !important;
 }
 
 .button-main {
@@ -50,6 +76,10 @@
 .main-process-info {
   display: block !important;
   margin-top: 40px !important;
+}
+
+.menu-title {
+  font-size: 20px !important;
 }
 
 .process-card {
@@ -92,4 +122,90 @@
 
 .ml30 {
   margin-left: 10px !important;
+}
+
+.content-form {
+  width: 100% !important;
+}
+
+.closet {
+  min-width: 320px !important;
+  width: 100% !important;
+}
+
+.closet-mobile-menu,
+.tomorrow,
+.requirement,
+.current {
+  padding: 0 4.8% !important;
+}
+
+.closet-noti-info {
+  width: 100% !important;
+  margin-top: 59px !important;
+  margin-right: 0 !important;
+  float: none !important;
+  padding: 0 30px;
+}
+
+.clothes-card {
+  width: 150px;
+  height: 210px;
+}
+
+.clothes-images {
+  height: 130px;
+}
+
+.clothes-text {
+  font-size: 14px;
+}
+
+.clothes-card:nth-child(2n+3) {
+  margin-right: 7.5px !important;
+  margin-top: 7.5px !important;
+}
+
+.clothes-btn {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  opacity: 1;
+  top: 9%;
+  left: 87.4%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+div.btn-times:before, div.btn-times:after {
+  content: '';
+  position: absolute;
+  width: 35px;
+  height: 2px;
+  background-color: #dadada;
+  border-radius: 2px;
+  top: 18px;
+  box-shadow: 0 0 2px 0 #ccc;
+}
+
+.patterns-card {
+  width: 145px !important;
+  height: 145px !important;
+}
+
+div.subContent {
+  padding-bottom: 100px;
+  box-sizing: border-box;
+}
+
+.main-about-title,
+.main-cs-tel,
+.login-title,
+.content-title {
+  font-size: 32px;
+}
+
+.login,
+.findId {
+  padding-bottom: 470px !important;
 }

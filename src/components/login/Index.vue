@@ -23,15 +23,17 @@
         </button>
       </div>
       <div class="login-menu w100 mt40" style="display: table;">
-        <div class="loginMenu loginMenuSide">
-          <router-link to="/join/size" class="no-deco-a">회원가입</router-link>
-        </div>
-        <div class="loginMenu loginMenuCenter">
-          <router-link to="/find/id" class="no-deco-a">아이디찾기</router-link>
-        </div>
-        <div class="loginMenu loginMenuSide">
-          <router-link to="/find/password" class="no-deco-a">비밀번호찾기</router-link>
-        </div>
+        <ul class="loginMenu">
+          <li class="loginMenu">
+            <router-link to="/join/size" class="no-deco-a">회원가입</router-link>
+          </li>
+          <li class="loginMenu loginMenuCenter">
+            <router-link to="/find/id" class="no-deco-a">아이디찾기</router-link>
+          </li>
+          <li class="loginMenu">
+            <router-link to="/find/password" class="no-deco-a">비밀번호찾기</router-link>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -124,16 +126,23 @@ export default {
   color: #212121;
 }
 
-.loginMenuSide {
-  width: 129px;
-  display: table-cell;
+ul.loginMenu {
+  display: flex;
+  text-align: center;
+  padding: 0;
 }
 
-.loginMenuCenter {
-  width: 34%;
-  border-left: 1px solid #999999;
-  border-right: 1px solid #999999;
-  display: table-cell;
+li.loginMenu {
+  display: inline-block;
+  padding: 0 10px 0 12px;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+li.loginMenuCenter {
+  border-left: 1px solid #999;
+  border-right: 1px solid #999;
 }
 
 .login-error {
@@ -145,5 +154,11 @@ export default {
   letter-spacing: -0.1px;
   text-align: left;
   color: #ec4b1a;
+}
+
+@media screen and (max-width: 486px) {
+  .loginMenu {
+    font-size: 14px;
+  }
 }
 </style>

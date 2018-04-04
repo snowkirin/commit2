@@ -31,6 +31,7 @@ export default {
 
 <style scoped>
 .feedBack {
+  display: none;
   height: 640px;
   background-color: #a8a8a8;
 }

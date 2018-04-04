@@ -1,10 +1,9 @@
 <template>
-  <div class="current mt44">
+  <div class="current mt40">
     <div class="main-point-text closet-title">현재의 옷장</div>
     <div class="closet-title-text mt20">
       현재 대여중인 의상이 마음에 드신다면?<br/>
       반납 없이 구매할 수 있습니다.<br/>
-      구매까지 남은 기간  D-3 입니다.<br/>
     </div>
     <div class="closet-feedback mt50">
       <div class="closet-feedback-content">
@@ -22,8 +21,28 @@
         ZULY STYLE
       </div>
       <div class="closet-styling-image-first">
+        <template v-if="currentCloset.products && currentCloset.products.length > 0">
+          <div class="image-area">
+            <div
+              class="image-area-detail"
+              v-bind:style="{
+                backgroundImage: `url(${API_IMAGE_URL}${currentCloset.products[0].image}`,
+              }"
+            ></div>
+          </div>
+        </template>
       </div>
       <div class="closet-styling-image-second">
+        <template v-if="currentCloset.products && currentCloset.products.length > 1">
+          <div class="image-area">
+            <div
+              class="image-area-detail"
+              v-bind:style="{
+                backgroundImage: `url(${API_IMAGE_URL}${currentCloset.products[1].image}`,
+              }"
+            ></div>
+          </div>
+        </template>
       </div>
       <div class="closet-styling-image-title first-title">
         #TIP
@@ -34,57 +53,44 @@
       </div>
     </div>
     <div class="closet-styling-tip-text">
-      ASDFASDF
-      <div class="closet-styling-tip-stylist mt30">
+      {{ currentCloset.styling_tip }}
+      <!-- div class="closet-styling-tip-stylist mt30">
         - 담당 스타일리스트 한영진님
-      </div>
+      </div -->
     </div>
-    <div class="mt30" style="display: flex;">
+    <div class="current-closet-item-list mt30" style="display: flex;">
       <div class="current-closet-item">
-        <div class="closet-item-card mt35">
-          <div class="item-checkbox">
-            <label class="container">
-              <input type="checkbox" name="sess_forever" value="Y">
-              <span class="checkmark" style="width: 40px; height: 40px;"></span>
-            </label>
-          </div>
-          <div class="item-image"></div>
-          <div class="item-content">
-            <div style="padding-top: 45px;">
-              <span style="font-weight: 600;">[지방시]</span><br/>
-              <span style="line-height: 2;">니트 티셔츠 7258240016</span>
-              <p>
-                <span class="normal-price">240,000원</span><br/>
-                <span style="line-height: 1.8;">혜택가 168,000원 <span class="normal-price-percent">(20%↓)</span></span>
-              </p>
-              <p>
-                상품 상세보기
-              </p>
+        <template v-for="(closet, k) in currentCloset.products">
+          <div v-bind:key="k" class="closet-item-card mt35">
+            <div class="item-checkbox">
+              <label class="container">
+                <input type="checkbox" name="product" :value="closet.id" @click="productEvt($event, k)">
+                <span class="checkmark" style="width: 40px; height: 40px;"></span>
+              </label>
+            </div>
+            <div class="thumnail-image-area">
+              <div
+                class="thumnail-image"
+                v-bind:style="{
+                  backgroundImage: `url(${API_IMAGE_URL}${closet.image}`,
+                }"
+              ></div>
+            </div>
+            <div class="item-content">
+              <div style="padding-top: 45px;">
+                <span style="font-weight: 600;">[{{ closet.brand_kor_name }}]</span><br/>
+                <span style="line-height: 2;">{{ closet.name }}</span>
+                <p>
+                  <span class="normal-price">{{ $common.numberWithCommas(closet.sale_price) }}원</span><br/>
+                  <span style="line-height: 1.8;">혜택가 {{ $common.numberWithCommas(closet.used_price) }}원 <span class="normal-price-percent">({{ closet.discount_rate }}%↓)</span></span>
+                </p>
+                <!-- p>
+                  상품 상세보기
+                </p -->
+              </div>
             </div>
           </div>
-        </div>
-        <div class="closet-item-card mt35">
-          <div class="item-checkbox">
-            <label class="container">
-              <input type="checkbox" name="sess_forever" value="Y">
-              <span class="checkmark" style="width: 40px; height: 40px;"></span>
-            </label>
-          </div>
-          <div class="item-image"></div>
-          <div class="item-content">
-            <div style="padding-top: 45px;">
-              <span style="font-weight: 600;">[지방시]</span><br/>
-              <span style="line-height: 2;">니트 티셔츠 7258240016</span>
-              <p>
-                <span class="normal-price">240,000원</span><br/>
-                <span style="line-height: 1.8;">혜택가 168,000원 <span class="normal-price-percent">(20%↓)</span></span>
-              </p>
-              <p>
-                상품 상세보기
-              </p>
-            </div>
-          </div>
-        </div>
+        </template>
       </div>
       <div style="display: inline-block; width: 1.3%;"></div>
       <div class="current-closet-item-buy">
@@ -92,19 +98,25 @@
         <div class="mt30" style="height: 1px; background-color: #212121; opacity: 0.5;"></div>
         <div class="mt50 item-buy-row">
           <div class="item-buy-row-title">주문 수량</div>
-          <div class="item-buy-row-right">1</div>
+          <div class="item-buy-row-right">
+            {{ orderCount }}
+          </div>
         </div>
         <div class="mt50 item-buy-row">
           <div class="item-buy-row-title">총 상품금액</div>
-          <div class="item-buy-row-right">223,500원</div>
+          <div class="item-buy-row-right">
+            {{ $common.numberWithCommas(productAmount) }}원
+          </div>
         </div>
         <div class="mt30 item-buy-row" style="background-color: #f5f5f5; padding: 31px 23px; margin-left: 2px;">
           <div class="item-buy-row-title">최종 결제 금액</div>
-          <div class="item-buy-row-right"><span>205,200</span>원</div>
+          <div class="item-buy-row-right">
+            <span>{{ $common.numberWithCommas(productAmount) }}</span>원
+          </div>
         </div>
         <div style="margin: 23px;">
           <button class="button-login">
-            205,200원 등록된 카드로 결제하기
+            {{ printBtnText }} 등록된 카드로 결제하기
           </button>
         </div>
       </div>
@@ -113,23 +125,77 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 import FeedBack from '@/components/closet/feedback/Index';
 
 export default {
   name: 'current',
+  data() {
+    return {
+      API_IMAGE_URL: process.env.API_IMAGE_URL,
+      orderCount: 0,
+      productAmount: 0,
+      paymentAmount: 0,
+      printBtnText: '',
+      buyProductArr: [],
+    };
+  },
   components: {
     FeedBack,
   },
+  computed: {
+    ...mapGetters({
+      currentCloset: 'mypage/closet/getCurrentCloset',
+    }),
+  },
   methods: {
+    ...mapActions({
+      setCurrentCloset: 'mypage/closet/setCurrentCloset',
+    }),
     closeSurvey() {
       document.querySelector('.closet-feedback').style.display = 'none';
     },
+    productEvt($evt, k) {
+      if ($evt.target.checked) {
+        this.buyProductArr.push(this.currentCloset.products[k]);
+      } else {
+        for (let i = 0; i < this.buyProductArr.length; i += 1) {
+          if (this.buyProductArr[i].id === this.currentCloset.products[k].id) {
+            this.buyProductArr.splice(i, 1);
+            break;
+          }
+        }
+      }
+
+      this.productCal();
+    },
+    productCal() {
+      this.orderCount = 0;
+      this.productAmount = 0;
+      this.paymentAmount = 0;
+      this.printBtnText = '';
+
+      for (let i = 0; i < this.buyProductArr.length; i += 1) {
+        this.productAmount += parseInt(this.buyProductArr[i].used_price, 10);
+      }
+
+      this.orderCount = this.buyProductArr.length;
+      this.paymentAmount = this.productAmount;
+
+      if (this.paymentAmount > 0) {
+        this.printBtnText = `${this.$common.numberWithCommas(this.paymentAmount)}원`;
+      }
+    },
+  },
+  created() {
+    this.setCurrentCloset();
   },
 };
 </script>
 
 <style scoped>
 .closet-feedback {
+  display: none;
   height: 330px;
   background: url('/static/img/closet/img_feedback.png');
   background-repeat: no-repeat;
@@ -201,7 +267,7 @@ div.btn-times:after {
   position: absolute;
   top: 63.7%;
   left: 14.5%;
-  width: 79px;
+  width: 81px;
   font-size: 14px;
   font-weight: 600;
   font-style: normal;
@@ -347,12 +413,43 @@ div.btn-times:after {
   margin-bottom: 35px;
 }
 
-.item-image {
-  width: 189px;
-  height: 237px;
-  border: solid 2px #e9e9e9;
+.image-area {
+  position: relative;
+  width: 352px;
+  height: 400px;
+  background-color: #f5f5f5;
+}
+
+.image-area-detail {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  width: 89%;
+  height: 91%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.thumnail-image-area {
+  position: relative;
   display: inline-block;
+  width: 190px;
+  height: 241px;
+  background-color: #f5f5f5;
+  border: solid 2px #e9e9e9;
   margin-left: 52px;
+}
+
+.thumnail-image {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  width: 190px;
+  height: 241px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 .item-content {
@@ -375,5 +472,82 @@ div.btn-times:after {
 .normal-price-percent {
   color: #f45649;
   letter-spacing: -0.7px;
+}
+
+@media screen and (max-width: 900px) {
+  .current-closet-item-list {
+   display: block !important;
+  }
+
+  .current-closet-item {
+    width: 100%;
+  }
+
+  .current-closet-item-buy {
+    margin-top: 20px;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 486px) {
+  .closet-styling-tip {
+    display: grid;
+    height: 900px;
+  }
+
+  .closet-styling-image-first,
+  .closet-styling-image-second {
+    width: 85% !important;
+    height: 400px !important;
+    margin-top: 35px !important;
+    position: unset;
+    display: block;
+    margin: 0 auto;
+    left: 0;
+    top: 0;
+  }
+
+  .image-area {
+    width: 100% !important;
+    height: 400px !important;
+    background-color: #FFFFFF;
+  }
+
+  .closet-styling-rotate-text {
+    top: 88%;
+    left: -6%;
+  }
+
+  .first-title {
+    left: 6.7%;
+    top: 96.3%;
+  }
+
+  .second-title {
+    left: 6.7%;
+    top: 101.2%;
+  }
+
+  .closet-styling-image-title {
+    font-size: 42px;
+  }
+
+  .closet-styling-tip-text {
+    padding: 60px 4.8%;
+  }
+
+  .thumnail-image,
+  .thumnail-image-area {
+    width: 100px;
+    height: 127px;
+  }
+
+  .item-content {
+    margin-left: 5px;
+  }
+
+  .item-content > div {
+    padding-top: 0 !important;
+  }
 }
 </style>

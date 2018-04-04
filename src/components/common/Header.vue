@@ -6,7 +6,7 @@
       </router-link>
     </div>
     <div class="right talign-right">
-      <ul style="display: inline-flex; list-style: none;">
+      <ul class="header-menu" style="display: inline-flex; list-style: none;">
         <li>
           <router-link to="/closet" class="menu-title">
             나만의 옷장
@@ -86,5 +86,19 @@ div.headerLine {
 
 span.menu-title {
   cursor: pointer;
+}
+
+@media screen and (max-width: 486px) {
+  div.right {
+    padding-right: 0;
+  }
+
+  div.headerLine {
+    display: inline-block;
+  }
+
+  .mt60 {
+    margin-top: 15px !important;
+  }
 }
 </style>

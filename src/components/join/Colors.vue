@@ -32,10 +32,10 @@
           </div>
         </template>
       </div>
-      <div style="width: 8%; position: relative;">
+      <div class="colors-area-line" style="width: 8%; position: relative;">
         <div class="line"></div>
       </div>
-      <div class="colors-area">
+      <div class="colors-area colors-area-last">
         <div class="colors-title-detail">기피 색상(손이 덜 가는 옷 색)</div>
         <template v-for="(color, k) in colors">
           <div class="colors-card"
@@ -148,8 +148,8 @@ export default {
     if (this.Authentication.authenticated) {
       if (!this.mypageStyleData.bust_size) await this.setMypageStyle();
 
-      const getPreferColor = this.mypageStyleData.prefer_color_desc.split(',');
-      const getExceptColor = this.mypageStyleData.except_color_desc.split(',');
+      const getPreferColor = this.mypageStyleData.prefer_color_desc ? this.mypageStyleData.prefer_color_desc.split(',') : [];
+      const getExceptColor = this.mypageStyleData.except_color_desc ? this.mypageStyleData.except_color_desc.split(',') : [];
 
       if (this.prefer.length <= 0) this.fnPickColors(getPreferColor, 'prefer');
       if (this.except.length <= 0) this.fnPickColors(getExceptColor, 'except');
@@ -228,5 +228,39 @@ export default {
 .colors-block {
   display: inline-block;
   width: 2.5%;
+}
+
+@media screen and (max-width: 486px) {
+  .colors {
+    padding: 0 4.8% 100px 4.8%;
+  }
+
+  .colors-form {
+    display: block;
+    width: fit-content;
+  }
+
+  .colors-area {
+    display: inline-block;
+    width: 100%;
+  }
+
+  .colors-card {
+    width: 30.8%;
+  }
+
+  .colors-area-line {
+    display: none;
+  }
+
+  .colors-area-last {
+    margin-top: 30px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .colors-card {
+    width: 30.4%;
+  }
 }
 </style>

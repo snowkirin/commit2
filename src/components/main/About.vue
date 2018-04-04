@@ -4,7 +4,12 @@
       <div class="main-point-text tc-white pd120 en-font">
         ABOUT
       </div>
-      <div class="main-about-title">
+      <div class="main-about-title" v-if="outerWidth <= 486">
+        놀라운 편리함,<br/>
+        포기 할 수 없는 아름다움<br/>
+        데일리룩 구독 서비스 <span class="en-font">ZULY</span>
+      </div>
+      <div class="main-about-title" v-else>
         놀라운 편리함, 포기 할 수 없는 아름다움<br/>
         데일리룩 구독 서비스 <span class="en-font">ZULY</span>
       </div>
@@ -18,13 +23,21 @@
 <script>
 export default {
   name: 'about',
+  data() {
+    return {
+      outerWidth: window.outerWidth,
+    };
+  },
+  methods: {
+  },
 };
 </script>
 
 <style scoped>
 .mt70 {
-    margin-top: 63px !important;
+  margin-top: 63px !important;
 }
+
 .main-about {
   height: 420px;
   background-image: url('/static/img/main/img_about.png');
@@ -36,6 +49,30 @@ export default {
 .main-about-detail {
   width: 1300px;
   margin: auto;
+}
+
+@media screen and (max-width: 486px) {
+  .mt70 {
+    margin-top: 35px !important;
+  }
+
+  .main-about {
+    display: table;
+    height: 300px;
+  }
+
+  .main-about-detail {
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  .main-about-title {
+    font-size: 27px !important;
+  }
+
+  .pd120 {
+    padding-top: 0 !important;
+  }
 }
 
 .main-about-service {

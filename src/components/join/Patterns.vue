@@ -101,7 +101,7 @@ export default {
     },
   },
   async created() {
-    this.setManagement({
+    await this.setManagement({
       type: 'pattern',
       code: this.$const.MANAGEMENT_PATTERN,
     });
@@ -127,7 +127,7 @@ export default {
       localStorage = JSON.parse(localStorage);
       if (this.selected.length <= 0) {
         for (let i = 0; i < localStorage.length; i += 1) {
-          this.pickClothes({ type: 'pattern', id: localStorage[i] });
+          this.pickManagement({ type: 'pattern', id: localStorage[i] });
         }
       }
     }

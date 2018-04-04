@@ -10,6 +10,20 @@ const mypageStyle = () => axios.get(`${API_URL}/member/mypage/style`, {
   withCredentials: true,
 }).then(result => result).catch(err => err.response);
 
+const mypagePastCloset = () => axios.get(`${API_URL}/subscriptions/past`, {
+  withCredentials: true,
+}).then(result => result).catch(err => err.response);
+
+const mypagePastClosetDetail = ({
+  pastId,
+}) => axios.get(`${API_URL}/subscriptions/past/${pastId}`, {
+  withCredentials: true,
+}).then(result => result).catch(err => err.response);
+
+const mypageCurrentCloset = () => axios.get(`${API_URL}/subscriptions/current`, {
+  withCredentials: true,
+}).then(result => result).catch(err => err.response);
+
 const saveMypageStyle = ({
   selected,
   selectedMood,
@@ -75,6 +89,9 @@ const authPhoneCheck = ({
 export default {
   mypageInfo,
   mypageStyle,
+  mypagePastCloset,
+  mypagePastClosetDetail,
+  mypageCurrentCloset,
   saveMypageStyle,
   setChangeEmail,
   setChangePwd,

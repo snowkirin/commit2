@@ -458,4 +458,39 @@ div.btn-times:after {
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
+
+@media screen and (max-width: 486px) {
+  .mt70 {
+    margin-top: 70px !important;
+  }
+
+  .zuly-circle-text {
+    font-size: 22px;
+  }
+
+  .zuly-style-circle {
+    width: 230px;
+    height: 230px;
+  }
+
+  .zuly-detail-circle {
+    width: 120px;
+    height: 120px;
+  }
+
+  .zuly-main-circle-active {
+    width: 120px !important;
+    height: 120px !important;
+  }
+
+  .zuly-circle-pick-second {
+    width: 110px !important;
+    height: 110px !important;
+  }
+
+  .zuly-circle-pick-deactive {
+    width: 80px !important;
+    height: 80px !important;
+  }
+}
 </style>

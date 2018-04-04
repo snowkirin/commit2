@@ -37,14 +37,20 @@ export default {
       else target.classList.remove('tc-black');
     },
   },
+  watch: {
+    $route() {
+      this.pointTextEvt();
+    },
+  },
   mounted() {
+    this.pointTextEvt();
   },
 };
 </script>
 
 <style scoped>
 
-.main-point-text {
+.tc-black {
   color: #212121;
 }
 
@@ -55,6 +61,12 @@ footer {
 
 .footer-area {
   padding: 0 50px 50px 50px;
+}
+
+@media screen and (max-width: 486px) {
+  .footer-area {
+    padding: 0 30px;
+  }
 }
 
 .main-cs-tel {

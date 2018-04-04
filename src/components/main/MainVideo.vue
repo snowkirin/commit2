@@ -16,5 +16,9 @@ export default {
   background-size: 100% 100%;
 }
 
-
+@media screen and (max-width: 486px) {
+  .main-video {
+    height: 300px;
+  }
+}
 </style>

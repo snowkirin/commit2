@@ -190,6 +190,11 @@ export default {
 
           if (signupRtn) {
             alert('회원가입이 완료되었습니다.\n로그인 페이지로 이동합니다.');
+
+            for (let i = 1; i <= 14; i += 1) {
+              this.$localStorage.remove(`S${i}`);
+            }
+
             this.$router.push({ path: '/login' });
           }
           return;
@@ -309,5 +314,21 @@ export default {
 
 .mt18 {
   margin-top: 18px;
+}
+
+@media screen and (max-width: 486px) {
+  .signup {
+    padding: 0 4.8% 470px 4.8% !important;
+  }
+
+  .next-btn {
+    position: fixed !important;
+    width: 100% !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    z-index: 999 !important;
+    margin-top: 0 !important;
+    float: none !important;
+  }
 }
 </style>

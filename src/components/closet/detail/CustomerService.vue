@@ -1,5 +1,5 @@
 <template>
-  <div class="customer-service mt44">
+  <div class="customer-service mt40">
     <div class="main-point-text closet-title">문의 신청 / 내역</div>
     <div class="closet-title-text mt20">
       고객님의 소중한 의견으로<br/>

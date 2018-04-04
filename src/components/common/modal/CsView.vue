@@ -79,6 +79,7 @@ export default {
     ...mapActions({
       actSelectInquiries: 'mypage/inquiries/selectInquiries',
       actSetNewInquiries: 'mypage/inquiries/setNewInquiries',
+      setSaveInquiries: 'mypage/inquiries/setSaveInquiries',
     }),
     selectInquiries($evt, target) {
       const inquiriesCat = document.querySelector('.balloon-square-active');
@@ -103,14 +104,21 @@ export default {
           regdate: this.$moment().format('A hh:mm'),
         });
 
+        const prevDataLength = this.newInquiries.length;
         message.value = '';
         message.focus();
 
-        this.actSetNewInquiries({
-          type: 'a',
-          text: '질문해주신 내용을 확인 후, 휴대폰번호, 이메일을 통해서 답변드리겠습니다.',
-          regdate: this.$moment().format('A hh:mm'),
-        });
+        setTimeout(() => {
+          if (this.newInquiries.length === prevDataLength) {
+            this.actSetNewInquiries({
+              type: 'a',
+              text: '감사합니다. 질문해주신 내용을 확인 후, 답변드리겠습니다.',
+              regdate: this.$moment().format('A hh:mm'),
+            });
+
+            if (this.newInquiries.length > 2) this.setSaveInquiries();
+          }
+        }, 3000);
       } else alert('문의유형을 먼저 선택해주세요.');
     },
     modalScrollEvt() {

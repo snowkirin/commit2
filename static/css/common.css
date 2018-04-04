@@ -4,8 +4,8 @@
 @import "form.css";
 @import "closet.css";
 @import "signup.css";
-@import "tablet-resp.css" screen and (max-width: 1024px);
-@import "mobile-resp.css" screen and (max-width: 640px);
+@import "tablet-resp.css" screen and (max-width: 1200px) and (min-width: 486px);
+@import "mobile-resp.css" screen and (max-width: 486px);
 
 
 .vertical-line {

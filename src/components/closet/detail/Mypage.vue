@@ -1,5 +1,5 @@
 <template>
-  <div class="mypage mt44">
+  <div class="mypage mt40">
     <div class="main-point-text closet-title">나의 정보관리</div>
     <div class="closet-title-text mt20">
       나의 정보를 변경 하실 수 있습니다.

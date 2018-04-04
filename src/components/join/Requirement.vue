@@ -41,7 +41,7 @@ export default {
     moveNext() {
       const reqValue = document.querySelector('textarea[name=requirement]').value;
 
-      this.setRequirement();
+      this.setRequirement(reqValue);
       this.$localStorage.set('S13', reqValue);
       this.$router.push({ path: 'signup' });
     },
@@ -74,5 +74,11 @@ export default {
   letter-spacing: -0.2px;
   text-align: left;
   color: #797979;
+}
+
+@media screen and (max-width: 486px) {
+  .requirement-textarea {
+    width: 86%;
+  }
 }
 </style>

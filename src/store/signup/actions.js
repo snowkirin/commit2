@@ -134,12 +134,19 @@ const signup = async ({ state }, data) => {
     let clothes = [];
 
     if (state.selected.blouse.length > 0) clothes = [...new Set([...clothes, ...state.selected.blouse])];
+    else clothes = [...clothes, 12857];
     if (state.selected.knitvest.length > 0) clothes = [...new Set([...clothes, ...state.selected.knitvest])];
+    else clothes = [...clothes, 12862];
     if (state.selected.tshirt.length > 0) clothes = [...new Set([...clothes, ...state.selected.tshirt])];
+    else clothes = [...clothes, 12861];
     if (state.selected.shirt.length > 0) clothes = [...new Set([...clothes, ...state.selected.shirt])];
+    else clothes = [...clothes, 12858];
     if (state.selected.skirt.length > 0) clothes = [...new Set([...clothes, ...state.selected.skirt])];
+    else clothes = [...clothes, 12859];
     if (state.selected.pants.length > 0) clothes = [...new Set([...clothes, ...state.selected.pants])];
+    else clothes = [...clothes, 12863];
     if (state.selected.onepiece.length > 0) clothes = [...new Set([...clothes, ...state.selected.onepiece])];
+    else clothes = [...clothes, 12860];
 
     const result = await Auth.localJoin({
       sizeData: state.sizeData,
@@ -147,8 +154,8 @@ const signup = async ({ state }, data) => {
       prefer: state.colors.prefer,
       except: state.colors.except,
       clothes,
-      pattern: state.selected.pattern,
-      material: state.selected.material,
+      pattern: (state.selected.pattern.length !== 0) ? state.selected.pattern : [10399],
+      material: (state.selected.material.length !== 0) ? state.selected.material : [10299],
       requirement: state.requirement,
       name: state.firstData.name,
       email: state.firstData.email,

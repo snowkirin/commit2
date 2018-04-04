@@ -26,7 +26,7 @@
             <div
               class="clothes-images"
               v-bind:style="{
-                backgroundImage: `url(http://dev-image.zuly.co.kr/common/items/${data.code}.png)`,
+                backgroundImage: (data.name !== '선택 없음') ? `url(http://dev-image.zuly.co.kr/common/items/${data.code}.png)` : '',
               }"
             >
             </div>

@@ -4,13 +4,13 @@
       BENEFIT
     </div>
     <div class="benefit-title d-flex">
-      <div style="width: 80%;">
+      <div class="benefit-main-title" style="width: 80%;">
         쇼핑, 세탁, 보관 걱정 없는<br/>
         나만의 옷장<br/>
         지금 무료로 경험하세요.
       </div>
-      <div style="width: 20%; position: relative;">
-        <button class="button-main" style="bottom: 6px; right: 0; position: absolute;">
+      <div class="benefit-btn-area" style="width: 20%; position: relative;">
+        <button class="button-main" style="bottom: 6px; right: 0; position: absolute;" @click="signup">
           <span style="padding-left: 30px; font-weight: 400;">한달 무료 신청</span>
           <div class="d-inlineblock arrowIcon"></div>
         </button>
@@ -22,6 +22,11 @@
 <script>
 export default {
   name: 'benefit',
+  methods: {
+    signup() {
+      this.$router.push({ path: '/join/size' });
+    },
+  },
   mounted() {
     const subscribeBtn = document.querySelector('.button-main');
 

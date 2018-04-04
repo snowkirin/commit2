@@ -5,6 +5,7 @@
         <span class="en-font" style="padding-top: 7px; position: absolute;">PROCESS</span>
       </div>
       <div class="main-process-info w100 d-flex">
+        <div class="mobile-process-line"></div>
         <div class="process-half-area">
           <div class="d-flex process-card">
             <div class="process-icon">
@@ -133,5 +134,13 @@ export default {
   background: url('/static/img/icons/zuly_icon.png') no-repeat -638px -341px;
   width: 89px;
   height: 89px;
+}
+
+@media screen and (max-width: 486px) {
+  .mobile-process-line {
+    height: 2px;
+    background-color: #212121;
+    margin-bottom: 55px;
+  }
 }
 </style>

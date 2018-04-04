@@ -23,7 +23,7 @@
           <span class="error" v-show="errors.has('password_confirm')">비밀번호가 일치하지 않습니다.</span>
         </div>
       </div>
-      <div class="signup-area d-inlinetable">
+      <div class="signup-area signup-area-last d-inlinetable">
         <div class="signup-title-detail">연락처 정보</div>
         <div class="field" :class="{ error: errors.has('phone') }">
           <div class="inputGroup">
@@ -312,6 +312,9 @@ export default {
 
       window.interval = interval;
     },
+    testEvt(evt) {
+      console.log(evt);
+    },
   },
   created() {
     const htmlScript = document.createElement('script');
@@ -332,6 +335,12 @@ export default {
       document.querySelector('input[name=address]').value = localStorage.addr;
       document.querySelector('input[name=detail_address]').value = localStorage.addrDetail;
     }
+  },
+  beforeMount() {
+    window.addEventListener('scroll', this.testEvt);
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.testEvt);
   },
 };
 </script>
@@ -377,5 +386,29 @@ export default {
 
 .field {
   text-align: left;
+}
+
+@media screen and (max-width: 486px) {
+  .signup {
+    padding: 0 4.8% 470px 4.8% !important;
+  }
+
+  .signup-area {
+    width: 100%;
+  }
+
+  .signup-area-last {
+    margin-top: 30px;
+  }
+
+  .next-btn {
+    position: fixed !important;
+    width: 100% !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    z-index: 999 !important;
+    margin-top: 0 !important;
+    float: none !important;
+  }
 }
 </style>

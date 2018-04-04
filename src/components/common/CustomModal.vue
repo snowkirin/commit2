@@ -1,5 +1,5 @@
 <template>
-<div class="custom-modal" :data-id="dataId">
+<div class="custom-modal" :data-id="this.modalType">
   <div class="custom-modal-title">
     {{ title }}
     <div v-if="this.modalType === 'csView'" class="csView">(상담사 업무시간 : 오전 10시~오후 5시)</div>
@@ -8,7 +8,7 @@
     </div>
   </div>
   <div class="custom-modal-content scroll">
-    <component v-bind:is="modalType"></component>
+    <component v-bind:is="modalType" :data-id="dataId"></component>
   </div>
 </div>
 </template>
@@ -58,7 +58,7 @@ export default {
     },
   },
   mounted() {
-    this.modal = document.querySelector(`div.custom-modal[data-id="${this.dataId}"]`);
+    this.modal = document.querySelector(`div.custom-modal[data-id="${this.modalType}"]`);
     this.modal.style.width = `${this.width}px`;
     this.modal.style.height = `${this.height}px`;
 

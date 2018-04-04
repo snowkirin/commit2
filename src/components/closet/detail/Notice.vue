@@ -1,5 +1,5 @@
 <template>
-  <div class="notice mt44">
+  <div class="notice mt40">
     <div class="main-point-text closet-title">공지사항</div>
     <div class="closet-title-text mt20">
       ZULY의 소식을 확인해보세요.

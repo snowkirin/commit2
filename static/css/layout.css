@@ -14,12 +14,11 @@ div#app {
 div.main {
   margin: auto;
   width: 100%;
-  min-height: 100%;
   position: relative;
 }
 
 div.subContent {
-  padding-bottom: 470px;
+  padding-bottom: 490px;
 }
 
 header {

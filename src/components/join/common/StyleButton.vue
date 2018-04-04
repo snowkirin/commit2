@@ -1,5 +1,5 @@
 <template>
-  <div class="mauto" :style="`width: ${btnSize}; margin-top: ${btnMarginTop}; ${customCss}`">
+  <div class="style-btn-area mauto" :style="`width: ${btnSize}; margin-top: ${btnMarginTop}; ${customCss}`">
     <template v-if="this.Authentication.authenticated">
       <template v-if="lastPage">
         <div style="width: 100%;">
@@ -85,4 +85,15 @@ export default {
 </script>
 
 <style scoped>
+@media screen and (max-width: 486px) {
+  .style-btn-area {
+    position: fixed !important;
+    width: 100% !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    z-index: 999 !important;
+    margin-top: 0 !important;
+    float: none !important;
+  }
+}
 </style>

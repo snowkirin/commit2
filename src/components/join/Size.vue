@@ -8,6 +8,9 @@
       제공되는 스타일을 위해 필요한 정보입니다.
     </div>
     <div class="sizeLine mt25"></div>
+    <div class="size-tt-text mauto mt40">
+      치수 측정
+    </div>
     <div class="content-form mauto mt40">
       <sizeSlider
         ref="tall"
@@ -91,11 +94,11 @@ export default {
       const saveData = {
         bust: this.$refs.bust.sliderOption.value,
         waist: this.$refs.waist.sliderOption.value,
-        heap: this.$refs.hip.sliderOption.value,
+        hip: this.$refs.hip.sliderOption.value,
         tall: this.$refs.tall.sliderOption.value,
       };
 
-      await this.setSizeData();
+      await this.setSizeData(saveData);
       this.$localStorage.set('S1', JSON.stringify(saveData));
     },
     moveNext() {
@@ -130,5 +133,22 @@ export default {
   height: 1px;
   opacity: 0.2;
   background-color: #212121;
+}
+
+.size-tt-text {
+  width: 392px;
+  text-align: left;
+  font-size: 16px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  letter-spacing: -0.4px;
+  color: #212121;
+}
+
+@media screen and (max-width: 486px) {
+  .size-tt-text {
+    width: 100%;
+  }
 }
 </style>

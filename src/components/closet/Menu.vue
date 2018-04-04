@@ -1,34 +1,36 @@
 <template>
-  <div class="closet-menu mt30">
-    <router-link to="/closet/tomorrow">
-      <div class="menu" data-id="tomorrow">
-        내일의옷장
-      </div>
-    </router-link>
-    <router-link to="/closet/current">
-      <div class="menu" data-id="current">
-        현재의옷장
-      </div>
-    </router-link>
-    <router-link to="/closet/past">
-      <div class="menu" data-id="past">
-        과거의옷장
-      </div>
-    </router-link>
-    <router-link to="/closet/style">
-      <div class="menu" data-id="style">스타일정보</div>
-    </router-link>
-    <router-link to="/closet/security">
-      <div class="menu" data-id="mypage">나의정보관리</div>
-    </router-link>
-    <div class="menu" data-id="payment">지불정보</div>
-    <div class="menu" data-id="coupon">쿠폰</div>
-    <router-link to="/closet/cs">
-      <div class="menu" data-id="cs">문의내역</div>
-    </router-link>
-    <router-link to="/closet/notice">
-      <div class="menu" data-id="notice">공지사항</div>
-    </router-link>
+  <div class="closet-mobile-menu">
+    <div class="closet-menu mt30">
+      <router-link to="/closet/tomorrow">
+        <div class="menu" data-id="tomorrow">
+          내일의옷장
+        </div>
+      </router-link>
+      <router-link to="/closet/current">
+        <div class="menu" data-id="current">
+          현재의옷장
+        </div>
+      </router-link>
+      <router-link to="/closet/past">
+        <div class="menu" data-id="past">
+          과거의옷장
+        </div>
+      </router-link>
+      <router-link to="/closet/style">
+        <div class="menu" data-id="style">스타일정보</div>
+      </router-link>
+      <router-link to="/closet/security">
+        <div class="menu" data-id="mypage">나의정보관리</div>
+      </router-link>
+      <div class="menu" data-id="payment">지불정보</div>
+      <div class="menu" data-id="coupon">쿠폰</div>
+      <router-link to="/closet/cs">
+        <div class="menu" data-id="cs">문의내역</div>
+      </router-link>
+      <router-link to="/closet/notice">
+        <div class="menu" data-id="notice">공지사항</div>
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -107,5 +109,25 @@ export default {
   font-weight: 600;
   color: #212121;
   border-bottom: 4px solid #212121;
+}
+
+@media screen and (max-width: 486px) {
+  .closet-mobile-menu {
+    position: relative;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .closet-menu {
+    white-space: nowrap !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    transition: -ms-transform 0.5s,-webkit-transform 0.5s,transform 0.5s !important;
+  }
+
+  .closet-menu::-webkit-scrollbar {
+    -webkit-appearance: none !important;
+    display: none !important;
+  }
 }
 </style>

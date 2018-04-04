@@ -1,8 +1,12 @@
 <template>
   <div class="sizeScroll mt35">
     <span class="sizeText divIB">{{ sizeTitle }}</span>
+    <i class="fa fa-exclamation-circle tooltip-group" @click="tooltipEvt"></i>
+    <div class="tooltipLocation tooltip-group">
+      <toolTip ref="tooltip"></toolTip>
+    </div>
     <span class="sizeDetailText" v-if="sizeTitle === '가슴'">(브래지어)</span>
-    <span class="sizeDetailText" v-else-if="sizeTitle === '힙'">(팬티)</span>
+    <span class="sizeDetailText hip-area" v-else-if="sizeTitle === '힙'">(팬티)</span>
     <div class="sizeBar divIB" :data-id="dataId">
       <vue-slider
         v-model="sliderOption.value"
@@ -32,15 +36,15 @@
         </template>
       </vue-slider>
     </div>
-    <div class="sizeInput divIB">
+    <div class="sizeInput divIB" :data-val="dataId">
       <template v-if="sizeTitle === '허리'">
-        <input type="text" name="" v-model="sliderOption.value" maxlength="3" @keydown="$common.NumberValidateEvt" style="margin-left: 12px;" />
+        <input type="text" name="cusInput" value="0" maxlength="3" @keydown="$common.NumberValidateEvt" style="margin-left: 12px;" @keyup="sizeKeyEvt" />
         <span class="sizeDisplay">
           inch
         </span>
       </template>
       <template v-else>
-        <input type="text" name="" v-model="sliderOption.value" maxlength="3" @keydown="$common.NumberValidateEvt" style="margin-left: 20px;" />
+        <input type="text" name="cusInput" value="0" maxlength="3" @keydown="$common.NumberValidateEvt" style="margin-left: 20px;" @keyup="sizeKeyEvt" />
         <span class="sizeDisplay" style="margin-left: 63px;">
           cm
         </span>
@@ -51,11 +55,13 @@
 
 <script>
 import vueSlider from 'vue-slider-component';
+import ToolTip from '@/components/join/common/ToolTip';
 
 export default {
   name: 'sizeSlider',
   components: {
     vueSlider,
+    ToolTip,
   },
   props: {
     dataId: {
@@ -106,6 +112,14 @@ export default {
     };
   },
   methods: {
+    sizeKeyEvt(evt) {
+      if (parseInt(evt.target.value, 10) >= this.customMinimum && parseInt(evt.target.value, 10) <= this.customMaximum) {
+        this.sliderOption.value = evt.target.value;
+      }
+    },
+    tooltipEvt() {
+      this.$refs.tooltip.toolTipEvt();
+    },
     dragStart() {
       this.dragPoint = true;
     },
@@ -121,6 +135,8 @@ export default {
       document.querySelector(`div[data-id="${this.dataId}"] i`).style.color = '#212121';
       document.querySelector(`div[data-id="${this.dataId}"] .custom-text`).style.color = '#797979';
       document.querySelector(`div[data-id="${this.dataId}"] .custom-text`).style.display = 'none';
+
+      document.querySelector(`div[data-val="${this.dataId}"] input[name=cusInput]`).value = this.sliderOption.value;
     },
     initSize() {
       if (this.customValue > 0) this.sliderOption.value = this.customValue;
@@ -141,6 +157,8 @@ export default {
 
     pieceWise.style.paddingBottom = '13px';
     pieceWise.style.cursor = 'pointer';
+
+    document.querySelector(`div[data-val="${this.dataId}"] input[name=cusInput]`).value = this.sliderOption.value;
   },
   destroyed() {
     window.removeEventListener('mouseup', this.dragUp);
@@ -224,5 +242,45 @@ export default {
 input:focus{
   color: black;
   outline: none;
+}
+
+.fa-exclamation-circle {
+  position: relative;
+  bottom: 2px;
+  left: 3px;
+  color: #aaaaaa;
+  cursor: pointer;
+}
+
+.tooltipLocation {
+  position: absolute;
+  z-index: 1;
+  left: 6%;
+  top: 88%;
+}
+
+@media screen and (max-width: 486px) {
+  .sizeBar {
+    width: 70%;
+    margin-left: 5px;
+    padding-bottom: 5px;
+  }
+
+  .sizeText {
+    display: block;
+  }
+
+  .sizeDetailText {
+    left: 12%;
+    top: 18%;
+  }
+
+  .hip-area {
+    left: 6%;
+  }
+
+  .tooltip-group {
+    display: none;
+  }
 }
 </style>

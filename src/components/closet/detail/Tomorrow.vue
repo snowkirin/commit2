@@ -1,5 +1,5 @@
 <template>
-  <div class="tomorrow mt44">
+  <div class="tomorrow mt40">
     <div class="closet-card-none">
       <div class="closet-card-none-content">
         <div class="content-table mauto">

@@ -1,100 +1,86 @@
 <template>
-  <div class="past mt44">
+  <div class="past mt40">
     <div class="main-point-text closet-title">과거의 옷장</div>
     <div class="closet-title-text mt20">
       그 동안의 옷장을 확인하실 수 있습니다.
     </div>
     <div class="closet-content mt50">
-      <div class="past-content">
-        <div class="content-first-number">
-          7th
-          <div class="vertical-line"></div>
-          18.03.20
-        </div>
-        <div class="content-second mt20">
-          <div class="content-second-thumnail">
-            IMAGE THUMNAIL
+      <template v-for="(past, k) in pastCloset">
+        <div v-bind:key="k" class="past-content">
+          <div class="content-first-number">
+            {{ ( k > 0 ) ? pastCloset.length - 1 : pastCloset.length }}th
+            <div class="vertical-line"></div>
+            {{ past.subscription_date }}
           </div>
-          <div class="content-second-text">
-            <div class="content-second-title">Styling Tip</div>
-            <div class="content-second-tip mt10">
-              대체로 여성스러운 스타일로 부드럽고 연한 파스텔 색상에 부드러운 디자인선, 유연한 소재나 문양을 선호한다. 실크, 시폰, 저지, 울 크레이프.. 제가 거의 매일 입다시피 해서 지인들은 ‘샌더 셔츠’라 부르기도 해요.
-              시스 마잔은 다양한 소재와 색을 활용해 남녀 모두를 위한 코듀로이 셔츠를 선보입니다.
+          <div class="content-second mt20">
+            <div class="content-second-thumnail">
+              <template v-for="(image, j) in past.images">
+                <div
+                  v-bind:key="j"
+                  class="thumnail-image-area"
+                >
+                  <div
+                    class="thumnail-image"
+                    v-bind:style="{
+                      backgroundImage: `url(${API_IMAGE_URL}${image}`,
+                    }"
+                  >
+
+                  </div>
+                </div>
+              </template>
             </div>
-          </div>
-          <div class="content-second-view">
-            <div class="content-second-view-cell" @click="viewModal">
-              구매정보 보기
+            <div class="content-second-text">
+              <div class="content-second-title">Styling Tip</div>
+              <div class="content-second-tip mt10">
+                {{ past.styling_tip }}
+              </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="past-content">
-        <div class="content-first-number">
-          7th
-          <div class="vertical-line"></div>
-          18.03.20
-        </div>
-        <div class="content-second mt20">
-          <div class="content-second-thumnail">
-            IMAGE THUMNAIL
-          </div>
-          <div class="content-second-text">
-            <div class="content-second-title">Styling Tip</div>
-            <div class="content-second-tip mt10">
-              대체로 여성스러운 스타일로 부드럽고 연한 파스텔 색상에 부드러운 디자인선, 유연한 소재나 문양을 선호한다. 실크, 시폰, 저지, 울 크레이프.. 제가 거의 매일 입다시피 해서 지인들은 ‘샌더 셔츠’라 부르기도 해요.
-              시스 마잔은 다양한 소재와 색을 활용해 남녀 모두를 위한 코듀로이 셔츠를 선보입니다.
-            </div>
-          </div>
-          <div class="content-second-view">
-            <div class="content-second-view-cell">
-              구매정보 보기
+            <div class="content-second-view">
+              <div class="content-second-view-cell" @click="viewModal(past.id)" v-show="past.is_sold === 'Y'">
+                구매정보 보기
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="past-content">
-        <div class="content-first-number">
-          7th
-          <div class="vertical-line"></div>
-          18.03.20
-        </div>
-        <div class="content-second mt20">
-          <div class="content-second-thumnail">
-            IMAGE THUMNAIL
-          </div>
-          <div class="content-second-text">
-            <div class="content-second-title">Styling Tip</div>
-            <div class="content-second-tip mt10">
-              대체로 여성스러운 스타일로 부드럽고 연한 파스텔 색상에 부드러운 디자인선, 유연한 소재나 문양을 선호한다. 실크, 시폰, 저지, 울 크레이프.. 제가 거의 매일 입다시피 해서 지인들은 ‘샌더 셔츠’라 부르기도 해요.
-              시스 마잔은 다양한 소재와 색을 활용해 남녀 모두를 위한 코듀로이 셔츠를 선보입니다.
-            </div>
-          </div>
-          <div class="content-second-view">
-            <div class="content-second-view-cell">
-              구매정보 보기
-            </div>
-          </div>
-        </div>
-      </div>
+      </template>
     </div>
 
-    <custom-modal ref="view" dataId="view" title="주문번호 12345" width="500" height="530" modalType="pastView"></custom-modal>
+    <custom-modal ref="view" :dataId="dataId" title="" width="500" height="530" modalType="pastView"></custom-modal>
   </div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 import CustomModal from '@/components/common/CustomModal';
 
 export default {
   name: 'past',
+  data() {
+    return {
+      API_IMAGE_URL: process.env.API_IMAGE_URL,
+      dataId: null,
+    };
+  },
   components: {
     CustomModal,
   },
+  computed: {
+    ...mapGetters({
+      pastCloset: 'mypage/closet/getPastCloset',
+    }),
+  },
   methods: {
-    viewModal() {
+    ...mapActions({
+      setPastCloset: 'mypage/closet/setPastCloset',
+    }),
+    viewModal(id) {
+      this.dataId = id.toString();
       this.$refs.view.openModal();
     },
+  },
+  created() {
+    this.setPastCloset();
   },
 };
 </script>
@@ -147,5 +133,26 @@ export default {
   color: #566b9c;
   text-decoration: underline;
   letter-spacing: -0.8px;
+}
+
+.thumnail-image-area {
+  position: relative;
+  display: inline-block;
+  width: 89px;
+  height: 112px;
+  background-color: #f5f5f5;
+  border: solid 1px #e9e9e9;
+  margin-right: 13px;
+}
+
+.thumnail-image {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  width: 81px;
+  height: 102px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 </style>
