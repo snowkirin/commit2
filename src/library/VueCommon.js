@@ -3,6 +3,10 @@ const VueCommon = {};
 VueCommon.install = (Vue) => {
   const vue = Vue;
   vue.prototype.$common = {
+    IMAGEURL() {
+      return process.env.API_IMAGE_URL;
+    },
+
     // 세션체크
     sessionCheck($router, $store) {
       if ($store.state.login.Authentication.authenticated) $router.push({ path: '/closet' });

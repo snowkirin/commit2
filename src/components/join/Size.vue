@@ -17,6 +17,7 @@
         :dataId="0"
         :customValue="loadSize('tall')"
         sizeTitle="키"
+        customTooltip="최근에 측정된 키를 입력해주세요."
       ></sizeSlider>
       <sizeSlider
         ref="bust"
@@ -26,6 +27,7 @@
         :customInterval="5"
         :customMinimum="75"
         :customMaximum="95"
+        customTooltip="평상시 착용 하시는 브래지어 사이즈에서 앞에 있는 숫자를 입력해 주세요. 예를 들어 지금 착용하신 브래지어에 80A 이라고 라벨에 적혀 있다면, 80 이라고 입력 해주세요."
       ></sizeSlider>
       <sizeSlider
         ref="waist"
@@ -35,6 +37,7 @@
         :customInterval="2"
         :customMinimum="24"
         :customMaximum="32"
+        customTooltip="즐겨 입으시는 바지의 인치를 입력 해주세요."
       ></sizeSlider>
       <sizeSlider
         ref="hip"
@@ -44,6 +47,7 @@
         :customInterval="5"
         :customMinimum="80"
         :customMaximum="100"
+        customTooltip="평상시 착용 하시는 팬티의 사이즈 숫자를 입력해 주세요. 예를 들어 지금 착용하신 팬티에 90 이라고 라벨에 적혀 있다면, 90이라고 입력 해주세요."
       ></sizeSlider>
       <styleButton currentLocation="size"></styleButton>
     </div>

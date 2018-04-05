@@ -9,7 +9,7 @@
           <div class="faq-line"></div>
           <div class="mt70 faq-question" @click="openFAQ">
             <div class="faq-question-subject">Q&nbsp;&nbsp;&nbsp;&nbsp;요금제는 어떻게 되나요?</div>
-            <div class="faq-question-icon">
+            <div class="faq-question-icon" @click="openFAQIcon">
               <i class="fa fa-angle-down fa-lg"></i>
             </div>
           </div>
@@ -27,7 +27,7 @@
         <div class="w100">
           <div class="mt40 faq-question" @click="openFAQ">
             <div class="faq-question-subject">Q&nbsp;&nbsp;&nbsp;&nbsp;회원이 되면 어떤 옷을 받는건가요?</div>
-            <div class="faq-question-icon">
+            <div class="faq-question-icon" @click="openFAQIcon">
               <i class="fa fa-angle-down fa-lg"></i>
             </div>
           </div>
@@ -43,7 +43,7 @@
         <div class="w100">
           <div class="mt40 faq-question" @click="openFAQ">
             <div class="faq-question-subject">Q&nbsp;&nbsp;&nbsp;&nbsp;정말 고르지 않아도 나에게 어울리는 옷을 보내주나요?</div>
-            <div class="faq-question-icon">
+            <div class="faq-question-icon" @click="openFAQIcon">
               <i class="fa fa-angle-down fa-lg"></i>
             </div>
           </div>
@@ -58,7 +58,7 @@
         <div class="w100">
           <div class="mt40 faq-question" @click="openFAQ">
             <div class="faq-question-subject">Q&nbsp;&nbsp;&nbsp;&nbsp;옷만 이쁘게 입고 세탁/보관 걱정 없이 문 앞에 두면 되는건가요?</div>
-            <div class="faq-question-icon">
+            <div class="faq-question-icon" @click="openFAQIcon">
               <i class="fa fa-angle-down fa-lg"></i>
             </div>
           </div>
@@ -72,7 +72,7 @@
         <div class="w100">
           <div class="mt40 faq-question" @click="openFAQ">
             <div class="faq-question-subject">Q&nbsp;&nbsp;&nbsp;&nbsp;서비스 지역의 제한은 있나요?</div>
-            <div class="faq-question-icon">
+            <div class="faq-question-icon" @click="openFAQIcon">
               <i class="fa fa-angle-down fa-lg"></i>
             </div>
           </div>
@@ -97,14 +97,33 @@ export default {
       const answer = obj.target.parentNode.parentNode.querySelector('.faq-answer');
       const icon = obj.target.parentNode.querySelector('i');
 
-      if (answer.style.display === 'none' || !answer.style.display) {
-        icon.classList.remove('fa-angle-down');
-        icon.classList.add('fa-angle-up');
-        answer.style.display = 'block';
-      } else {
-        icon.classList.remove('fa-angle-up');
-        icon.classList.add('fa-angle-down');
-        answer.style.display = 'none';
+      if (answer) {
+        if (answer.style.display === 'none' || !answer.style.display) {
+          icon.classList.remove('fa-angle-down');
+          icon.classList.add('fa-angle-up');
+          answer.style.display = 'block';
+        } else {
+          icon.classList.remove('fa-angle-up');
+          icon.classList.add('fa-angle-down');
+          answer.style.display = 'none';
+        }
+      }
+    },
+    openFAQIcon(evt) {
+      const obj = evt;
+      const answer = obj.target.parentNode.parentNode.parentNode.querySelector('.faq-answer');
+      const icon = obj.target;
+
+      if (answer) {
+        if (answer.style.display === 'none' || !answer.style.display) {
+          icon.classList.remove('fa-angle-down');
+          icon.classList.add('fa-angle-up');
+          answer.style.display = 'block';
+        } else {
+          icon.classList.remove('fa-angle-up');
+          icon.classList.add('fa-angle-down');
+          answer.style.display = 'none';
+        }
       }
     },
   },

@@ -19,7 +19,9 @@
             :style="(prefer.indexOf(color.code) > -1 ?
             {
               backgroundColor: `#${color.code}`,
-              color: (color.code === 'FFFFFF') ? '#212121' : '#FFFFFF',
+              color: (color.code === 'FFFFFF' || color.code === '') ? '#212121' : '#FFFFFF',
+              border: (color.code === 'FFFFFF' || color.code === '') ? (color.code === 'FFFFFF') ? '1px solid #e1e1e1' : '2px solid #212121' : null,
+              boxSizing: (color.code === 'FFFFFF' || color.code === '') ? 'border-box' : null,
               margin: ((k+1) % 3 === 2) ? '12px 12px 0 12px' : null,
             } : {
               margin: ((k+1) % 3 === 2) ? '12px 12px 0 12px' : null,
@@ -45,7 +47,9 @@
             :style="(except.indexOf(color.code) > -1 ?
             {
               backgroundColor: `#${color.code}`,
-              color: (color.code === 'FFFFFF') ? '#212121' : '#FFFFFF',
+              color: (color.code === 'FFFFFF' || color.code === '') ? '#212121' : '#FFFFFF',
+              border: (color.code === 'FFFFFF' || color.code === '') ? (color.code === 'FFFFFF') ? '1px solid #e1e1e1' : '2px solid #212121' : null,
+              boxSizing: (color.code === 'FFFFFF' || color.code === '') ? 'border-box' : null,
               margin: ((k+1) % 3 === 2) ? '12px 12px 0 12px' : null,
             } : {
               margin: ((k+1) % 3 === 2) ? '12px 12px 0 12px' : null,
@@ -201,7 +205,7 @@ export default {
 .colors-card {
   width: 118px;
   height: 56px;
-  line-height: 56px;
+  line-height: 52px;
   display: inline-block;
   vertical-align: middle;
   background-color: #f4f4f4;

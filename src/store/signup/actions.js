@@ -18,7 +18,6 @@ const setColors = ({ commit }) => {
     { code: 'ffd500', text: '노랑' },
     { code: '81bf48', text: '연두' },
     { code: '007438', text: '녹색' },
-    { code: '005566', text: '청록' },
     { code: '0066a2', text: '파랑' },
     { code: '282d57', text: '남색' },
     { code: '653179', text: '보라' },
@@ -28,6 +27,7 @@ const setColors = ({ commit }) => {
     { code: 'FFFFFF', text: '흰색' },
     { code: '797979', text: '회색' },
     { code: '000000', text: '검정' },
+    { code: '', text: '선택 없음' },
   ];
 
   commit(types.SET_COLORS, colors);

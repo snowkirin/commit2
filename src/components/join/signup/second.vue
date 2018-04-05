@@ -79,9 +79,9 @@
             </div>
           </div>
         </div>
-        <div class="signup-payment-label mt40">주문 합계</div>
+        <div class="signup-payment-label-normal mt40">주문 합계</div>
         <div class="greyLine mt20"></div>
-        <div class="signup-payment-label mt30" style="font-size: 18px">
+        <div class="signup-payment-label-normal mt30" style="font-size: 18px">
           월 2회 단일 요금제
           <span style="float: right;">￦78,000</span>
         </div>
@@ -103,7 +103,7 @@
         </div>
       </div>
       <div class="mt40">
-        <div class="next-btn" style="width: 392px; float: right;">
+        <div id="next-btn" class="next-btn" style="width: 392px; float: right;">
           <button class="button-login" @click="finalSignup">
             결제
           </button>
@@ -220,6 +220,13 @@ export default {
         }
       };
     },
+    btnFixedEvt() {
+      const btn = document.getElementById('next-btn');
+      btn.classList.remove('next-btn', 'next-btn-mobile');
+
+      if (window.scrollY > 800) btn.classList.add('next-btn');
+      else btn.classList.add('next-btn-mobile');
+    },
   },
   mounted() {
     const dayName = document.querySelectorAll('.day-name');
@@ -227,6 +234,12 @@ export default {
     for (let i = 0; i < dayName.length; i += 1) {
       this.dayHoverEvt(dayName, i, dayName[i]);
     }
+  },
+  beforeMount() {
+    window.addEventListener('scroll', this.btnFixedEvt);
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.btnFixedEvt);
   },
 };
 </script>
@@ -266,6 +279,16 @@ export default {
 .signup-payment-label {
   font-size: 16px;
   font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  letter-spacing: -0.4px;
+  text-align: left;
+  color: #212121;
+}
+
+.signup-payment-label-normal {
+  font-size: 16px;
+  font-weight: normal;
   font-style: normal;
   font-stretch: normal;
   letter-spacing: -0.4px;
@@ -322,6 +345,11 @@ export default {
   }
 
   .next-btn {
+    width: 100% !important;
+    float: none !important;
+  }
+
+  .next-btn-mobile {
     position: fixed !important;
     width: 100% !important;
     bottom: 0 !important;

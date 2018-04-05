@@ -27,10 +27,10 @@
           <li class="loginMenu">
             <router-link to="/join/size" class="no-deco-a">회원가입</router-link>
           </li>
-          <li class="loginMenu loginMenuCenter">
+          <li class="loginMenu loginMenuLine">
             <router-link to="/find/id" class="no-deco-a">아이디찾기</router-link>
           </li>
-          <li class="loginMenu">
+          <li class="loginMenu loginMenuLine">
             <router-link to="/find/password" class="no-deco-a">비밀번호찾기</router-link>
           </li>
         </ul>
@@ -134,15 +134,21 @@ ul.loginMenu {
 
 li.loginMenu {
   display: inline-block;
-  padding: 0 10px 0 12px;
   -webkit-box-flex: 1;
   -ms-flex: 1;
   flex: 1;
+  position: relative;
 }
 
-li.loginMenuCenter {
-  border-left: 1px solid #999;
-  border-right: 1px solid #999;
+.loginMenuLine::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  display: inline-block;
+  width: 1px;
+  height: 20px;
+  background: #212121;
+  top: 7px;
 }
 
 .login-error {

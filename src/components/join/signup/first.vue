@@ -66,7 +66,7 @@
           </label>
           <div class="checkboxText">
             개인정보의 수집 및 이용에 대한 동의
-            <span @click="viewModal('private')">자세히 보기</span>
+            <span style="margin-left: 5px;" @click="viewModal('private')">자세히 보기</span>
           </div>
         </div>
         <div class="signup-chk-area mt12" @click="checkBoxEvt">
@@ -76,7 +76,7 @@
           </label>
           <div class="checkboxText">
             이용약관
-            <span @click="viewModal('use')">자세히 보기</span>
+            <span style="margin-left: 5px;" @click="viewModal('use')">자세히 보기</span>
           </div>
         </div>
       </div>
@@ -251,7 +251,9 @@ export default {
           return;
         }
 
-        alert('에러메시지를 확인하시고 입력후 버튼을 눌러주세요.');
+        document.querySelectorAll('div.error')[0].setAttribute('tabindex', -1);
+        document.querySelectorAll('div.error')[0].focus();
+        document.querySelectorAll('div.error')[0].setAttribute('tabindex', null);
       });
     },
     openDaumPopup() {
@@ -316,7 +318,7 @@ export default {
       const btn = document.getElementById('next-btn');
       btn.classList.remove('next-btn', 'next-btn-mobile');
 
-      if (window.scrollY > 250) btn.classList.add('next-btn');
+      if (window.scrollY > 380) btn.classList.add('next-btn');
       else btn.classList.add('next-btn-mobile');
     },
   },

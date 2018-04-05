@@ -238,4 +238,19 @@ export default {
   background-color: #f4f4f4;
   padding: 5px 10px;
 }
+
+@media screen and (max-width: 486px) {
+  .style-content-area {
+    display: block;
+  }
+
+  .style-content-left,
+  .style-content-right {
+    width: 100%;
+  }
+
+  .style-content-right {
+    margin-bottom: 40px;
+  }
+}
 </style>

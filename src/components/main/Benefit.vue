@@ -73,11 +73,4 @@ export default {
   position: relative;
   bottom: 6px;
 }
-
-
-@media screen and (max-width: 486px) {
-  .benefit-main-title {
-    letter-spacing: -4.6px;
-  }
-}
 </style>

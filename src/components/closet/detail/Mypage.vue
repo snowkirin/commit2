@@ -59,7 +59,7 @@
                 <div class="inputGroup">
                   <input type="text" name="view_phone" class="form-login-group" placeholder="휴대전화" style="width: 60%;" :value="mypageData.phone_no" disabled/>
                   <div style="display: inline-table; width: 1.5%;"></div>
-                  <button class="button-grey" style="width: 25%;" @click="displayEvt('phonearea')">휴대폰번호 변경</button>
+                  <button id="changePhone" class="button-grey" style="width: 25%;" @click="displayEvt('phonearea')">휴대폰번호 변경</button>
                 </div>
               </div>
             </div>
@@ -96,7 +96,7 @@
                 <div class="inputGroup">
                   <input type="text" name="zipcode" class="form-login-group" placeholder="우편번호" style="width: 43.6%;" v-validate="'required'" :value="mypageData.zipcode" />
                   <div style="display: inline-table; width: 1.5%;"></div>
-                  <button class="button-grey" style="width: 15%;" @click="openDaumPopup">주소찾기</button>
+                  <button id="findAddr" class="button-grey" style="width: 15%;" @click="openDaumPopup">주소찾기</button>
                 </div>
               </div>
             </div>
@@ -455,5 +455,34 @@ export default {
 
 .mypage-content-header span {
   font-weight: normal;
+}
+
+@media screen and (max-width: 486px) {
+  .mypage-content-area {
+    display: block;
+  }
+
+  .mypage-content-left,
+  .mypage-content-right {
+    width: 100%;
+  }
+
+  .mypage-content-right {
+    margin-bottom: 40px;
+  }
+
+  input, vdp-datepicker {
+    width: 100% !important;
+  }
+
+  input[name=zipcode],
+  input[name=view_phone] {
+    width: 60% !important;
+  }
+
+  #findAddr,
+  #changePhone {
+    width: 38.6% !important;
+  }
 }
 </style>

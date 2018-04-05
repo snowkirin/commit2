@@ -138,7 +138,9 @@
 .tomorrow,
 .requirement,
 .current,
-.past {
+.past,
+.style,
+.mypage {
   padding: 0 4.8% !important;
 }
 

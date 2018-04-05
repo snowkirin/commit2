@@ -79,7 +79,7 @@ export default {
 <style scoped>
 .closet-card-none {
   height: 500px;
-  background: url('/static/img/closet/img_feedback.png');
+  background: url('/static/img/closet/img_none.png');
   background-repeat: no-repeat;
   background-position: 50% 0;
   position: relative;

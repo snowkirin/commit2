@@ -7,9 +7,9 @@
     </div>
     <div class="security-input">
       <div class="inputGroup">
-        <input type="password" name="password" class="form-login-group mt12" placeholder="비밀번호" style="width: 33%;" v-validate="'required'" @keydown="$common.submitEvt($event, passwordCheck)"/>
-        <div style="display: inline-table; width: 1%;"></div>
-        <button class="button-login" style="width: 10%;" @click="passwordCheck">확인</button>
+        <input id="pwdInput" type="password" name="password" class="form-login-group mt12" placeholder="비밀번호" style="width: 33%;" v-validate="'required'" @keydown="$common.submitEvt($event, passwordCheck)"/>
+        <div id="pwdIntv" style="display: inline-table; width: 1%;"></div>
+        <button id="pwdBtn" class="button-login" style="width: 10%;" @click="passwordCheck">확인</button>
       </div>
     </div>
   </div>
@@ -47,5 +47,19 @@ export default {
 
 .security-input {
   margin-top: 30px;
+}
+
+@media screen and (max-width: 486px) {
+  #pwdInput {
+    width: 50% !important;
+  }
+
+  #pwdIntv {
+    width: 2% !important;
+  }
+
+  #pwdBtn {
+    width: 25% !important;
+  }
 }
 </style>

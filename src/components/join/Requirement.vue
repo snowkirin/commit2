@@ -9,7 +9,7 @@
       <div class="mt40">
         <textarea name="requirement" class="requirement-textarea" v-on:focus="requirementEvt" v-model="req"></textarea>
       </div>
-      <div class="mt40">
+      <div class="req-btn-area mt40">
         <button class="button-login" @click="moveNext">
           다음
         </button>
