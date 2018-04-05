@@ -19,7 +19,13 @@
           @click="pickManagement({ type: 'pattern', id: data.code })"
         >
           <div class="patterns-images">
-            {{ data.description }}
+            <div
+              class="patterns-image"
+              v-bind:style="{
+                backgroundImage: (data.name !== '선택 없음') ? `url(http://dev-image.zuly.co.kr/common/patterns/${data.code}.png)` : '',
+              }"
+            >
+            </div>
           </div>
           <div class="patterns-text">
             {{ data.name }}
@@ -161,9 +167,20 @@ export default {
 }
 
 .patterns-images {
-  padding: 15px;
-  width: 160px;
+  position:relative;
+  width: 100%;
   height: 180px;
+}
+
+.patterns-image {
+  height: 186px;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border-radius: 100px;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
 }
 
 .patterns-text {

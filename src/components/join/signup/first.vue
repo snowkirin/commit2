@@ -81,7 +81,7 @@
         </div>
       </div>
       <div class="mt40">
-        <div class="next-btn" style="width: 392px; float: right;">
+        <div id="next-btn" class="next-btn" style="width: 392px; float: right;">
           <button class="button-login" @click="validateBeforeSubmit">
             다음
           </button>
@@ -312,8 +312,12 @@ export default {
 
       window.interval = interval;
     },
-    testEvt(evt) {
-      console.log(evt);
+    btnFixedEvt() {
+      const btn = document.getElementById('next-btn');
+      btn.classList.remove('next-btn', 'next-btn-mobile');
+
+      if (window.scrollY > 250) btn.classList.add('next-btn');
+      else btn.classList.add('next-btn-mobile');
     },
   },
   created() {
@@ -337,10 +341,10 @@ export default {
     }
   },
   beforeMount() {
-    window.addEventListener('scroll', this.testEvt);
+    window.addEventListener('scroll', this.btnFixedEvt);
   },
   destroyed() {
-    window.removeEventListener('scroll', this.testEvt);
+    window.removeEventListener('scroll', this.btnFixedEvt);
   },
 };
 </script>
@@ -402,6 +406,11 @@ export default {
   }
 
   .next-btn {
+    width: 100% !important;
+    float: none !important;
+  }
+
+  .next-btn-mobile {
     position: fixed !important;
     width: 100% !important;
     bottom: 0 !important;

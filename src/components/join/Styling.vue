@@ -99,6 +99,27 @@ export default {
     changeCircleImage(main, obj) {
       const target = obj;
 
+      if (window.outerWidth <= 486) {
+        if (main === this.unique) {
+          target.style.cssText = 'display: block; width: 118%; height: 100%; top: 43%; left: 58.5%; background-size: 95%;';
+          target.style.backgroundImage = 'url("/static/img/signup/hover_unique.png")';
+        } else if (main === this.natural) {
+          target.style.cssText = 'display: block; width: 118%; height: 100%; top: 43%; left: 40.3%; background-size: 95%;';
+          target.style.backgroundImage = 'url("/static/img/signup/hover_natural.png")';
+        } else if (main === this.classic) {
+          target.style.cssText = 'display: block; width: 100%; height: 122%; top: 55%; left: 27.3%; background-size: 86%;';
+          target.style.backgroundImage = 'url("/static/img/signup/hover_classic.png")';
+        } else if (main === this.modern) {
+          target.style.cssText = 'display: block; width: 100%; height: 122%; top: 55%; left: 72%; background-size: 86%;';
+          target.style.backgroundImage = 'url("/static/img/signup/hover_modern.png")';
+        } else if (main === this.feminine) {
+          target.style.cssText = 'display: block; width: 138%; height: 100%; top: 93%; left: 50%; background-size: 95%;';
+          target.style.backgroundImage = 'url("/static/img/signup/hover_feminine.png")';
+        }
+
+        return;
+      }
+
       if (main === this.unique) {
         target.style.cssText = 'display: block; width: 118%; height: 100%; top: 44%; left: 59.5%;';
         target.style.backgroundImage = 'url("/static/img/signup/hover_unique.png")';
@@ -106,10 +127,10 @@ export default {
         target.style.cssText = 'display: block; width: 118%; height: 100%; top: 44%; left: 40.3%;';
         target.style.backgroundImage = 'url("/static/img/signup/hover_natural.png")';
       } else if (main === this.classic) {
-        target.style.cssText = 'display: block; width: 100%; height: 122%; top: 55%; left: 26.3%';
+        target.style.cssText = 'display: block; width: 100%; height: 122%; top: 55%; left: 26.3%;';
         target.style.backgroundImage = 'url("/static/img/signup/hover_classic.png")';
       } else if (main === this.modern) {
-        target.style.cssText = 'display: block; width: 100%; height: 122%; top: 55%; left: 73.7%';
+        target.style.cssText = 'display: block; width: 100%; height: 122%; top: 55%; left: 73.7%;';
         target.style.backgroundImage = 'url("/static/img/signup/hover_modern.png")';
       } else if (main === this.feminine) {
         target.style.cssText = 'display: block; width: 138%; height: 100%; top: 96%; left: 50%;';
@@ -118,6 +139,8 @@ export default {
     },
     pickClassEvt(main, sub1, sub2, outSub1, outSub2, imageTarget) {
       if (main) {
+        this.removePick();
+
         main.querySelector('span.subject').classList.add('zuly-detail-circle-pick-subject');
         main.classList.add('zuly-detail-circle-pick');
         sub1.classList.add('zuly-detail-circle-pick', 'zuly-circle-pick-second');
@@ -132,7 +155,7 @@ export default {
     },
     removePick() {
       const circlePick = document.querySelectorAll('.zuly-detail-circle-pick');
-      const circlePickDeactive = document.querySelectorAll('.zuly-detail-circle-pick');
+      const circlePickDeactive = document.querySelectorAll('.zuly-circle-pick-deactive');
 
       if (circlePick.length > 0) {
         document.querySelector('.zuly-detail-circle-pick-subject').classList.remove('zuly-detail-circle-pick-subject');
@@ -140,7 +163,10 @@ export default {
 
         for (let i = 0; i < circlePick.length; i += 1) {
           circlePick[i].classList.remove('zuly-detail-circle-pick', 'zuly-circle-pick-second');
-          if (circlePickDeactive[i]) circlePickDeactive[i].classList.remove('zuly-circle-pick-deactive');
+        }
+
+        for (let i = 0; i < circlePickDeactive.length; i += 1) {
+          circlePickDeactive[i].classList.remove('zuly-circle-pick-deactive');
         }
       }
     },
@@ -474,23 +500,61 @@ div.btn-times:after {
   }
 
   .zuly-detail-circle {
-    width: 120px;
-    height: 120px;
+    width: 84px;
+    height: 84px;
   }
 
   .zuly-main-circle-active {
-    width: 120px !important;
-    height: 120px !important;
+    width: 84px !important;
+    height: 84px !important;
   }
 
   .zuly-circle-pick-second {
-    width: 110px !important;
-    height: 110px !important;
+    width: 74px !important;
+    height: 74px !important;
   }
 
   .zuly-circle-pick-deactive {
-    width: 80px !important;
-    height: 80px !important;
+    width: 67px !important;
+    height: 67px !important;
+  }
+
+  .zuly-detail-circle-pick-subject,
+  .zuly-detail-circle-active-subject {
+    font-size: 20px;
+  }
+
+  .zuly-detail-circle-text {
+    font-size: 14px;
+  }
+
+  .zuly-detail-circle-text span.description {
+    font-size: 10px;
+  }
+
+  .circle-feminine {
+    top: 89.5%;
+    left: 50%;
+  }
+
+  .circle-classic {
+    top: 64%;
+    left: 5%;
+  }
+
+  .circle-modern {
+    top: 64%;
+    left: 95%;
+  }
+
+  .circle-natural {
+    top: 13%;
+    left: 23.3%;
+  }
+
+  .circle-unique {
+    top: 13%;
+    left: 75.7%;
   }
 }
 </style>

@@ -550,4 +550,10 @@ div.btn-times:after {
     padding-top: 0 !important;
   }
 }
+
+@media screen and (max-width: 400px) {
+  .closet-styling-image-title {
+    font-size: 32px;
+  }
+}
 </style>

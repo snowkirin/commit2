@@ -183,4 +183,16 @@ div.btn-times:after {
   letter-spacing: -0.5px;
   color: #808080;
 }
+
+@media screen and (max-width: 486px) {
+  .custom-modal {
+    width: 80% !important;
+    height: 80% !important;
+  }
+
+  .custom-modal-btn {
+    top: 4.4%;
+    left: 92%;
+  }
+}
 </style>

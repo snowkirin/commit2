@@ -155,4 +155,18 @@ export default {
   background-position: center;
   background-size: cover;
 }
+
+@media screen and (max-width: 486px) {
+  .content-second {
+    display: block;
+  }
+
+  .content-second-text, .content-second-view {
+    width: 100%;
+  }
+
+  .content-second-view {
+    text-align: left;
+  }
+}
 </style>

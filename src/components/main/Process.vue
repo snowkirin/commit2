@@ -113,25 +113,25 @@ export default {
 }
 
 .firstProcess {
-  background: url('/static/img/icons/zuly_icon.png') no-repeat -340px -341px;
+  background: url('/static/img/icons/zuly_icon.png') no-repeat 37.322% 37.431%;
   width: 89px;
   height: 89px;
 }
 
 .secondProcess {
-  background: url('/static/img/icons/zuly_icon.png') no-repeat -539px -341px;
+  background: url('/static/img/icons/zuly_icon.png') no-repeat 59.166% 37.431%;
   width: 89px;
   height: 89px;
 }
 
 .thirdProcess {
-  background: url('/static/img/icons/zuly_icon.png') no-repeat -440px -341px;
+  background: url('/static/img/icons/zuly_icon.png') no-repeat 48.299% 37.431%;
   width: 89px;
   height: 89px;
 }
 
 .fourthProcess {
-  background: url('/static/img/icons/zuly_icon.png') no-repeat -638px -341px;
+  background: url('/static/img/icons/zuly_icon.png') no-repeat 70.033% 37.431%;
   width: 89px;
   height: 89px;
 }
@@ -141,6 +141,14 @@ export default {
     height: 2px;
     background-color: #212121;
     margin-bottom: 55px;
+  }
+
+  .firstProcess,
+  .secondProcess,
+  .thirdProcess,
+  .fourthProcess {
+    background-size: 900px 900px;
+    height: 89px;
   }
 }
 </style>

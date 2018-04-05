@@ -15,6 +15,7 @@
 
 .benefit-main-title {
   width: 100% !important;
+  letter-spacing: -4.6px;
 }
 
 .subContent {
@@ -136,7 +137,8 @@
 .closet-mobile-menu,
 .tomorrow,
 .requirement,
-.current {
+.current,
+.past {
   padding: 0 4.8% !important;
 }
 
@@ -208,4 +210,8 @@ div.subContent {
 .login,
 .findId {
   padding-bottom: 470px !important;
+}
+
+.footer-info:last-child {
+  margin-bottom: 110px;
 }

@@ -8,7 +8,7 @@
         </div>
         <div class="explain signup-payment-text" style="margin-top: 28px">
           월 2회 스타일링 된 의류 세트(2벌) 정기 배송<br/>
-          <span>(1회 배송 의류 리테일가<br/>40만원 기준 x 2 = 80만원)</span><br/>
+          <span>(1회 배송 의류 리테일가<br/>30만원 기준 x 2 = 60만원)</span><br/>
           무료 세탁<br/>
           무료 수거/배송 서비스<br/>
           무료 전문 스타일링 및 스타일링 Tip 제공<br/>
@@ -16,7 +16,7 @@
       </div>
       <div class="content-form d-inlinetable">
         <div class="signup-payment-label">요금제</div>
-        <div class="signup-payment-btn explain mt18">
+        <div class="signup-payment-btn explain mt18 day-name-active">
           월 2회 단일 78,000원 요금제
         </div>
         <div class="signup-payment-label mt40">배송일 지정</div>
