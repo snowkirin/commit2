@@ -9,8 +9,9 @@
       <input type="text" name="name" class="form-login-input mt10" placeholder="이름" v-validate="'required'" />
       <input type="text" name="phone" class="form-login-input mt10" placeholder="휴대전화" v-validate="'required'" />
       <div class="inputGroup">
-        <input type="text" name="phone_auth_number" class="form-login-group mt10" placeholder="인증번호" style="width: 75%;"/>
-        <button class="button-login" style="width: 25%;" @click="phoneVerify">인증</button>
+        <input type="text" name="phone_auth_number" class="form-login-group mt10" placeholder="인증번호" style="width: 72%;"/>
+        <div style="display: inline-table; width: 3%;"></div>
+        <button  class="button-grey" style="width: 25%;" @click="phoneVerify">인증</button>
       </div>
       <div class="findId-wait mt10" v-show="authErr" v-html="authErrMessage">
       </div>

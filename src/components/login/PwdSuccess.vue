@@ -1,7 +1,7 @@
 <template>
   <div class="findId subContent side-margin-50">
     <div class="findId-title">비밀번호 찾기</div>
-    <div class="mt10">
+    <div class="explain mt10">
       새로운 비밀번호를 입력하시고 변경버튼을 눌러주세요.
     </div>
     <div class="findIdLine mt25"></div>
