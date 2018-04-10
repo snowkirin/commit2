@@ -14,8 +14,11 @@
         의상을 선택해주세요.
       </div>
       <div class="closet-card-area mt50">
-        <div class="closet-card" @click="selectStyle(printStyleFirst)">
-          <div class="closet-card-title">01. 유니크 스타일</div>
+        <div class="closet-card" @click="selectStyle(printStyleFirst)" data-value="first">
+          <!-- div class="closet-card-title">01. 유니크 스타일</div-->
+          <div class="closet-card-title" v-show="isMobile">
+            <i class="fa fa-heart fa-lg"></i>
+          </div>
           <div class="closet-card-images">
             <template v-for="(image, k) in printStyleFirst.image">
               <div v-bind:key="k" class="thumnail-image-area">
@@ -47,8 +50,11 @@
           </div>
         </div>
         <div class="closet-card-block"></div>
-        <div class="closet-card" @click="selectStyle(printStyleSecond)">
-          <div class="closet-card-title">02. 모던 스타일</div>
+        <div class="closet-card" @click="selectStyle(printStyleSecond)" data-value="second">
+          <!-- div class="closet-card-title">02. 모던 스타일</div-->
+          <div class="closet-card-title" v-show="isMobile">
+            <i class="fa fa-heart fa-lg"></i>
+          </div>
           <div class="closet-card-images">
             <template v-for="(image, k) in printStyleSecond.image">
               <div v-bind:key="k" class="thumnail-image-area">
@@ -91,6 +97,7 @@ export default {
   name: 'tomorrow',
   data() {
     return {
+      isMobile: false,
       isShow: false,
       selected: {},
     };
@@ -99,6 +106,7 @@ export default {
     ...mapGetters({
       tomorrowCloset: 'mypage/closet/getTomorrowCloset',
       tomorrowNone: 'mypage/closet/getTomorrowNone',
+      tomorrowSelect: 'mypage/closet/getTomorrowSelect',
     }),
     printStyleFirst() {
       let firstStyle = {
@@ -107,23 +115,25 @@ export default {
         image: [],
         stylingTip: '',
         hashTag: '',
+        selected: false,
       };
 
       if (Array.isArray(this.tomorrowCloset.products)) {
         if (this.tomorrowCloset.products[0]) {
           firstStyle = this.setArrayData(firstStyle, {
-            prdId: this.tomorrowCloset.products[0].product_id,
+            prdId: this.tomorrowCloset.products[0].id,
             description: this.tomorrowCloset.products[0].description,
             image: this.tomorrowCloset.products[0].image,
           });
 
           firstStyle.stylingTip = this.tomorrowCloset.products[0].styling_tip;
           firstStyle.hashTag = this.tomorrowCloset.products[0].hashtag;
+          firstStyle.selected = (this.tomorrowCloset.products[0].selected);
         }
 
         if (this.tomorrowCloset.products[1]) {
           firstStyle = this.setArrayData(firstStyle, {
-            prdId: this.tomorrowCloset.products[1].product_id,
+            prdId: this.tomorrowCloset.products[1].id,
             description: this.tomorrowCloset.products[1].description,
             image: this.tomorrowCloset.products[1].image,
           });
@@ -139,23 +149,25 @@ export default {
         image: [],
         stylingTip: '',
         hashTag: '',
+        selected: false,
       };
 
       if (Array.isArray(this.tomorrowCloset.products)) {
         if (this.tomorrowCloset.products[2]) {
           secondStyle = this.setArrayData(secondStyle, {
-            prdId: this.tomorrowCloset.products[2].product_id,
+            prdId: this.tomorrowCloset.products[2].id,
             description: this.tomorrowCloset.products[2].description,
             image: this.tomorrowCloset.products[2].image,
           });
 
           secondStyle.stylingTip = this.tomorrowCloset.products[2].styling_tip;
           secondStyle.hashTag = this.tomorrowCloset.products[2].hashtag;
+          secondStyle.selected = (this.tomorrowCloset.products[2].selected);
         }
 
         if (this.tomorrowCloset.products[3]) {
           secondStyle = this.setArrayData(secondStyle, {
-            prdId: this.tomorrowCloset.products[3].product_id,
+            prdId: this.tomorrowCloset.products[3].id,
             description: this.tomorrowCloset.products[3].description,
             image: this.tomorrowCloset.products[3].image,
           });
@@ -182,11 +194,22 @@ export default {
 
       return rtn;
     },
-    selectStyle(style) {
-      this.setTomorrowSelect({
+    async selectStyle(style) {
+      await this.setTomorrowSelect({
         subscriptionId: this.tomorrowCloset.subscription_id,
-        products: [...style.productId],
+        products: [...this.parseIntProduct(...style.productId)],
       });
+
+      if (this.tomorrowSelect) await this.setTomorrowCloset();
+    },
+    parseIntProduct(...data) {
+      const rtn = [];
+
+      for (let i = 0; i < data.length; i += 1) {
+        rtn.push(parseInt(data[i], 10));
+      }
+
+      return rtn;
     },
     printArrText(desc) {
       let rtn = '';
@@ -204,15 +227,25 @@ export default {
         image: [...data.image, image],
         stylingTip: data.stylingTip,
         hashTag: data.hashTag,
+        selected: data.selected,
       };
     },
-    hoverEvt(target) {
+    styleOnOff(type, target, selected) {
       const obj = target;
 
-      obj.onmouseover = () => {
+      if (selected) {
+        const card = document.querySelectorAll('.closet-card');
+
+        for (let i = 0; i < card.length; i += 1) {
+          card[i].onmouseover = () => {};
+          card[i].onmouseout = () => {};
+        }
+      }
+
+      if (type) {
         obj.classList.add('closet-card-on');
-        obj.querySelector('.closet-card-title').classList.add('closet-card-title-on');
         obj.querySelector('.closet-card-images').classList.add('closet-card-active-color');
+        obj.querySelector('.closet-card-title i').style.color = 'red';
         obj.querySelector('.closet-card-active').style.display = 'block';
 
         const thumbImage = obj.querySelectorAll('.thumnail-image');
@@ -221,12 +254,10 @@ export default {
           thumbImage[i].style.height = '353px';
           thumbImage[i].style.opacity = '0.4';
         }
-      };
-
-      obj.onmouseout = () => {
+      } else {
         obj.classList.remove('closet-card-on');
-        obj.querySelector('.closet-card-title').classList.remove('closet-card-title-on');
         obj.querySelector('.closet-card-images').classList.remove('closet-card-active-color');
+        obj.querySelector('.closet-card-title i').style.color = 'black';
         obj.querySelector('.closet-card-active').style.display = 'none';
 
         const thumbImage = obj.querySelectorAll('.thumnail-image');
@@ -235,11 +266,29 @@ export default {
           thumbImage[i].style.height = '343px';
           thumbImage[i].style.opacity = '1';
         }
+      }
+    },
+    hoverEvt(target) {
+      const obj = target;
+
+      obj.onmouseover = () => {
+        this.styleOnOff(true, obj);
       };
+
+      obj.onmouseout = () => {
+        this.styleOnOff(false, obj);
+      };
+    },
+    mobileVisible() {
+      if (window.outerWidth <= 486) this.isMobile = true;
+      else this.isMobile = false;
     },
   },
   async created() {
     await this.setTomorrowCloset();
+
+    this.mobileVisible();
+    window.addEventListener('resize', this.mobileVisible);
   },
   mounted() {
     const card = document.querySelectorAll('.closet-card');
@@ -247,6 +296,13 @@ export default {
     for (let i = 0; i < card.length; i += 1) {
       this.hoverEvt(card[i]);
     }
+  },
+  updated() {
+    if (this.printStyleFirst.selected) this.styleOnOff(true, document.querySelector('[data-value="first"]'), true);
+    if (this.printStyleSecond.selected) this.styleOnOff(true, document.querySelector('[data-value="second"]'), true);
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.mobileVisible);
   },
 };
 </script>
@@ -266,6 +322,7 @@ export default {
 }
 
 .closet-card-title {
+  text-align: right;
   line-height: 0;
   font-size: 20px;
   font-weight: 600;
@@ -281,7 +338,7 @@ export default {
 }
 
 .closet-card-images {
-  margin: 30px 20px 0 20px;
+  margin: 20px 20px 0 20px;
 }
 
 .thumnail-image-area {
@@ -381,6 +438,14 @@ export default {
   .thumnail-image {
     width: 100% !important;
     height: 250px !important;
+  }
+
+  .closet-card-active {
+    top: 13% !important;
+  }
+
+  .closet-card-active i {
+    display: none !important;
   }
 }
 </style>

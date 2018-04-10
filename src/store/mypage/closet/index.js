@@ -11,13 +11,14 @@ export default {
     tomorrowNone: false,
     pastNone: false,
     currentNone: false,
+    tomorrowSelected: false,
   },
   mutations: {
     [types.SET_TOMORROW_CLOSET](state, data) {
       state.tomorrowCloset = { ...data };
     },
     [types.SET_TOMORROW_SELECT](state) {
-      console.log(state);
+      state.tomorrowSelected = true;
     },
     [types.SET_PAST_CLOSET](state, data) {
       state.pastCloset = [...data];
@@ -47,5 +48,6 @@ export default {
     getTomorrowNone: state => state.tomorrowNone,
     getPastNone: state => state.pastNone,
     getCurrentNone: state => state.currentNone,
+    getTomorrowSelect: state => state.tomorrowSelected,
   },
 };

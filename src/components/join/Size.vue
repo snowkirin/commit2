@@ -9,7 +9,10 @@
     </div>
     <div class="sizeLine mt25"></div>
     <div class="size-tt-text mauto mt40">
-      치수 측정
+      치수 측정 <i class="fa fa-exclamation-circle" @click="toolTipEvt"></i>
+    </div>
+    <div class="tooltipLocation tooltip-group">
+      <toolTip ref="mtooltip" :mobileSizeTip="true"></toolTip>
     </div>
     <div class="content-form mauto mt40">
       <sizeSlider
@@ -59,13 +62,20 @@ import { mapActions, mapGetters } from 'vuex';
 import SizeSlider from '@/components/join/SizeSlider';
 import StyleMenu from '@/components/join/common/StyleMenu';
 import StyleButton from '@/components/join/common/StyleButton';
+import ToolTip from '@/components/join/common/ToolTip';
 
 export default {
   name: 'size',
+  data() {
+    return {
+      clickCount: 0,
+    };
+  },
   components: {
     SizeSlider,
     StyleMenu,
     StyleButton,
+    ToolTip,
   },
   computed: {
     ...mapGetters({
@@ -79,6 +89,9 @@ export default {
       setMypageStyle: 'mypage/setMypageStyle',
       setMypageCache: 'mypage/setMypageCache',
     }),
+    toolTipEvt() {
+      this.$refs.mtooltip.toolTipEvt();
+    },
     loadSize(type) {
       let rtn = 0;
       if (type === 'tall') rtn = (this.mypageStyleData.tall_size) ? this.mypageStyleData.tall_size : 0;
@@ -130,6 +143,7 @@ export default {
 
 <style scoped>
 .size {
+  position: relative;
   text-align: center;
 }
 
@@ -150,9 +164,26 @@ export default {
   color: #212121;
 }
 
+.fa-exclamation-circle {
+  display: none;
+}
+
+.tooltipLocation {
+  position: absolute;
+  z-index: 5;
+  left: -1%;
+  top: 24%;
+}
+
 @media screen and (max-width: 486px) {
   .size-tt-text {
     width: 100%;
+  }
+
+  .fa-exclamation-circle {
+    display: inline-block;
+    color: #aaaaaa;
+    cursor: pointer;
   }
 }
 </style>

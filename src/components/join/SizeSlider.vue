@@ -3,7 +3,7 @@
     <span class="sizeText divIB">{{ sizeTitle }}</span>
     <i class="fa fa-exclamation-circle tooltip-group" @mouseover="toolTipEvt" @mouseleave="toolTipEvt"></i>
     <div class="tooltipLocation tooltip-group">
-      <toolTip ref="tooltip" :tooltipText="customTooltip"></toolTip>
+      <toolTip ref="tooltip" :tooltipText="customTooltip" :mobileSizeTip="false"></toolTip>
     </div>
     <span class="sizeDetailText" v-if="sizeTitle === '가슴'">(브래지어)</span>
     <span class="sizeDetailText hip-area" v-else-if="sizeTitle === '힙'">(팬티)</span>

@@ -19,8 +19,8 @@ const setTomorrowSelect = async ({ commit }, data) => {
       ...data,
     });
 
-    console.log(result);
-    commit(types.SET_TOMORROW_SELECT);
+    if (result.data.result) commit(types.SET_TOMORROW_SELECT);
+    else alert('시스템에 문제가 발생했습니다.\n잠시 후 다시 시도해주세요.');
   } catch (e) {
     console.error(e.message);
   }
