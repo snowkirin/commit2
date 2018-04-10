@@ -1,28 +1,31 @@
 <template>
   <div class="patterns subContent mauto">
-    <div class="content-title mt30">
+    <div class="content-title mt70">
       기피 패턴
       <styleMenu v-show="this.Authentication.authenticated" leftSize="59%"></styleMenu>
     </div>
-    <div class="explain mt15">
+    <div class="explain mt8">
       받고 싶지 않은 스타일을 모두 선택해주세요.
     </div>
     <div class="patternsLine mt25"></div>
-    <div class="patterns-form w100 mt40 mauto">
+    <div class="patterns-form w100 mauto" style="margin-top: 18px;">
       <template v-for="(data, k) in printDataList">
         <div
           v-bind:key="k"
           class="patterns-card d-inlineblock"
           :data-id="data.code"
           :data-selected="data.selected"
-          :class="{ 'card-oncolor': data.selected }"
+          :class="{ 'card-oncolor': data.selected, 'pattern-mobile': (k % 2 === 0) ? (k !== 0) ? true : false : false, }"
           @click="pickManagement({ type: 'pattern', id: data.code })"
+          v-bind:style="{
+            marginTop: ((k+1) % 6 === 0) ? '35px' : null,
+          }"
         >
           <div class="patterns-images">
             <div
               class="patterns-image"
               v-bind:style="{
-                backgroundImage: (data.name !== '선택 없음') ? `url(http://dev-image.zuly.co.kr/common/patterns/${data.code}.png)` : '',
+                backgroundImage: (data.name !== '선택 없음') ? `url(http://dev-image.zuly.co.kr/common/patterns/${data.code}.png)` : 'url(/static/img/signup/none_logo.png)',
               }"
             >
             </div>
@@ -30,14 +33,11 @@
           <div class="patterns-text">
             {{ data.name }}
           </div>
-          <div class="patterns-btn" :class="{ 'card-btn-oncolor': data.selected }">
-            <div class="btn-times" :class="{ 'on': data.selected }"></div>
-          </div>
         </div>
       </template>
     </div>
 
-    <styleButton customCss="float: right;"></styleButton>
+    <styleButton customCss="float: right;" currentNumber="10" btnMarginTop="60px" :lastPage="true"></styleButton>
   </div>
 </template>
 
@@ -103,7 +103,7 @@ export default {
     },
     moveNext() {
       this.$localStorage.set('S11', JSON.stringify(this.selected));
-      this.$router.push({ path: 'material' });
+      this.$router.push({ path: 'requirement' });
     },
   },
   async created() {
@@ -159,7 +159,7 @@ export default {
   width: 186px;
   height: 186px;
   background-color: #FFFFFF;
-  border: solid 2px #dadada;
+  border: solid 2px #FFFFFF;
   position: relative;
   border-radius: 50%;
   margin: 12px 10px 0 0;
@@ -181,9 +181,11 @@ export default {
   border-radius: 100px;
   -webkit-border-radius: 100px;
   -moz-border-radius: 100px;
+  background-color: #f4f4f4;
 }
 
 .patterns-text {
+  width: 100%;
   font-size: 18px;
   font-weight: normal;
   font-style: normal;
@@ -193,7 +195,7 @@ export default {
   color: #333333;
   position: absolute;
   opacity: 1;
-  top: 50%;
+  top: 110%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
@@ -268,5 +270,15 @@ div.btn-times:after {
 .card-btn-offcolor {
   background-color: #FFFFFF;
   border: solid 2px #dadada;
+}
+
+@media screen and (max-width: 486px) {
+  .patterns-image {
+    height: 145px !important;
+  }
+
+  .pattern-mobile {
+    margin-top: 40px !important;
+  }
 }
 </style>

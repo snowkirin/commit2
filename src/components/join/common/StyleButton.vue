@@ -25,7 +25,7 @@
     </template>
     <template v-else>
       <button class="button-login" @click="moveNext">
-        다음
+        다음 <span v-show="currentNumber !== ''">({{currentNumber}}/13)</span>
       </button>
     </template>
   </div>
@@ -38,6 +38,10 @@ export default {
   name: 'styleButton',
   props: {
     currentLocation: {
+      type: String,
+      default: '',
+    },
+    currentNumber: {
       type: String,
       default: '',
     },

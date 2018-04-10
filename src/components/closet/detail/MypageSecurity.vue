@@ -51,15 +51,15 @@ export default {
 
 @media screen and (max-width: 486px) {
   #pwdInput {
-    width: 50% !important;
+    width: 60% !important;
   }
 
   #pwdIntv {
-    width: 2% !important;
+    width: 1% !important;
   }
 
   #pwdBtn {
-    width: 25% !important;
+    width: 38.6% !important;
   }
 }
 </style>

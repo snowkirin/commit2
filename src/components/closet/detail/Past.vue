@@ -5,6 +5,9 @@
       그 동안의 옷장을 확인하실 수 있습니다.
     </div>
     <div class="closet-content mt50">
+      <div v-show="pastNone" class="past-content">
+        이력이 존재하지 않습니다.
+      </div>
       <template v-for="(past, k) in pastCloset">
         <div v-bind:key="k" class="past-content">
           <div class="content-first-number">
@@ -31,9 +34,8 @@
               </template>
             </div>
             <div class="content-second-text">
-              <div class="content-second-title">Styling Tip</div>
-              <div class="content-second-tip mt10">
-                {{ past.styling_tip }}
+              <div class="content-second-title">스타일 팁</div>
+              <div class="content-second-tip mt10" v-html="printStylingTip(past.styling_tip)">
               </div>
             </div>
             <div class="content-second-view">
@@ -68,6 +70,7 @@ export default {
   computed: {
     ...mapGetters({
       pastCloset: 'mypage/closet/getPastCloset',
+      pastNone: 'mypage/closet/getPastNone',
     }),
   },
   methods: {
@@ -77,6 +80,12 @@ export default {
     viewModal(id) {
       this.dataId = id.toString();
       this.$refs.view.openModal();
+    },
+    printStylingTip(data) {
+      let printData = data;
+      printData = printData.replace(new RegExp(/\r?\n/, 'g'), '<br/>');
+
+      return printData;
     },
   },
   created() {
@@ -149,8 +158,8 @@ export default {
   position: absolute;
   top: 50%; left: 50%;
   transform: translate(-50%,-50%);
-  width: 81px;
-  height: 102px;
+  width: 89px;
+  height: 112px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

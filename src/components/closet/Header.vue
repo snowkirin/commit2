@@ -62,8 +62,8 @@ export default {
 .closet-my-info {
   padding: 30px 0 0 30px;
   line-height: 0.9;
-  font-size: 55px;
-  font-weight: normal;
+  font-size: 60px;
+  font-weight: 300;
   font-style: normal;
   font-stretch: normal;
   letter-spacing: -3px;
@@ -85,6 +85,7 @@ export default {
   margin-right: 10px;
   height: 95px;
   float: right;
+  box-sizing: border-box;
 }
 
 .closet-noti-card {
@@ -127,16 +128,16 @@ export default {
 
 @media screen and (max-width: 486px) {
   .closet-my-info {
-    padding: 5% 3.172% 0 3.172% !important;
+    padding: 8% 4.8% 0 4.8% !important;
     font-size: 40px;
   }
 
   .closet-noti-info {
-    padding: 0 3.172%;
+    padding: 0 4.8%;
   }
 
   .closet-noti-card {
-    width: 46%;
+    width: 45%;
   }
 
   .closet-mobile {

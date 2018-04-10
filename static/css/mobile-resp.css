@@ -102,7 +102,7 @@
 }
 
 .process-title, .faq-question {
-  font-size: 24px !important;
+  font-size: 21px !important;
 }
 
 .faq-card {
@@ -140,11 +140,14 @@
 .current,
 .past,
 .style,
-.mypage {
+.mypage,
+.notice,
+.mobile-customer-service {
   padding: 0 4.8% !important;
 }
 
 .closet-noti-info {
+  box-sizing: border-box !important;
   width: 100% !important;
   margin-top: 59px !important;
   margin-right: 0 !important;

@@ -1,10 +1,10 @@
 <template>
   <div class="styling subContent mauto">
-    <div class="content-title mt30">
+    <div class="content-title mt70">
       선호 스타일
       <styleMenu v-show="this.Authentication.authenticated" leftSize="60%"></styleMenu>
     </div>
-    <div class="explain mt15">
+    <div class="explain mt8">
       ZULY는 베이직 스타일을 기본으로 합니다.
     </div>
     <div class="stylingLine mt25"></div>
@@ -47,7 +47,7 @@
         <div class="circle-active"></div>
         <div class="circle-pick"></div>
       </div>
-      <styleButton btnMarginTop="110px"></styleButton>
+      <styleButton btnMarginTop="110px" currentNumber="2"></styleButton>
     </div>
   </div>
 </template>
@@ -488,6 +488,10 @@ div.btn-times:after {
 @media screen and (max-width: 486px) {
   .mt70 {
     margin-top: 70px !important;
+  }
+
+  .content-title {
+    margin-top: 35px !important;
   }
 
   .zuly-circle-text {

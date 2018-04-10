@@ -1,6 +1,6 @@
 <template>
   <div class="signup subContent mauto">
-    <div class="content-title mt30">정기구독/회원가입</div>
+    <div class="content-title mt70">정기구독/회원가입</div>
     <div class="signupLine mt25"></div>
 
     <div class="w100 mt30 mauto">
@@ -59,7 +59,7 @@
           <input type="text" name="detail_address" class="form-login-input mt12" placeholder="상세주소" v-validate="'required'" />
           <span class="error" v-show="errors.has('detail_address')">상세주소가 입력되지 않았습니다.</span>
         </div>
-        <div class="signup-chk-area mt15" @click="checkBoxEvt">
+        <div class="signup-chk-area mt15">
           <label class="container">
             <input type="checkbox" name="private_flag" value="Y" />
             <span class="checkmark"></span>
@@ -69,7 +69,7 @@
             <span style="margin-left: 5px;" @click="viewModal('private')">자세히 보기</span>
           </div>
         </div>
-        <div class="signup-chk-area mt12" @click="checkBoxEvt">
+        <div class="signup-chk-area mt12">
           <label class="container">
             <input type="checkbox" name="use_flag" value="Y" />
             <span class="checkmark"></span>
@@ -83,7 +83,7 @@
       <div class="mt40">
         <div id="next-btn" class="next-btn" style="width: 392px; float: right;">
           <button class="button-login" @click="validateBeforeSubmit">
-            다음
+            다음 (12/13)
           </button>
         </div>
       </div>
@@ -108,7 +108,7 @@ export default {
   },
   data() {
     return {
-      pwdRegex: /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/,
+      pwdRegex: /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*?&^])[A-Za-z\d$@$!%*?&]{8,}/,
       pwdMsg: '비밀번호를 입력해주세요.',
       isPwd: false,
       isPwdConfirm: false,
@@ -151,7 +151,8 @@ export default {
     },
     checkBoxEvt(evt) {
       const chkbox = evt.path[1].querySelector('input[type=checkbox]');
-      if (chkbox) chkbox.checked = !chkbox.checked;
+      if (chkbox.checked) chkbox.checked = false;
+      else chkbox.checked = true;
     },
     async phoneVerify() {
       const email = document.querySelector('input[name=email]');

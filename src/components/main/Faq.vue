@@ -177,4 +177,28 @@ export default {
   display: inline-block;
   width: 85%;
 }
+
+.mobile-process-line {
+  height: 2px;
+  background-color: #212121;
+  margin-bottom: 42px;
+}
+
+.firstProcess,
+.secondProcess,
+.thirdProcess,
+.fourthProcess {
+  background-size: 900px 900px;
+  height: 89px;
+}
+
+@media screen and (max-width: 486px) {
+  .faq-question {
+    margin-top: 37px !important;
+  }
+
+  span.en-font {
+    padding-top: 13px !important;
+  }
+}
 </style>

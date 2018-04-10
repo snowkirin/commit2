@@ -1,10 +1,10 @@
 <template>
   <div class="colors subContent mauto">
-    <div class="content-title mt30">
+    <div class="content-title mt70">
       색상 선택
       <styleMenu v-show="this.Authentication.authenticated" leftSize="60%"></styleMenu>
     </div>
-    <div class="explain mt15">
+    <div class="explain mt8">
       스타일링을 위한 색상 선택에 활용됩니다.
     </div>
     <div class="colorsLine mt25"></div>
@@ -64,7 +64,7 @@
       </div>
     </div>
 
-    <styleButton btnMarginTop="40px" customCss="float: right;"></styleButton>
+    <styleButton btnMarginTop="40px" customCss="float: right;" currentNumber="3"></styleButton>
   </div>
 </template>
 

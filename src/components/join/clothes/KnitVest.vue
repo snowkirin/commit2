@@ -8,7 +8,7 @@
       받고 싶지 않은 스타일을 모두 선택해주세요.
     </div>
     <div class="clothesLine mt25"></div>
-    <div class="clothes-form w100 mauto" style="margin-top: 23px;">
+    <div class="clothes-form w100 mauto mt30">
       <template v-for="(data, k) in printData">
         <div
           v-bind:key="k"
@@ -40,7 +40,7 @@
         </div>
       </template>
     </div>
-    <styleButton customCss="float: right;"></styleButton>
+    <styleButton customCss="float: right;" currentNumber="7"></styleButton>
   </div>
 </template>
 

@@ -113,25 +113,37 @@ export default {
 }
 
 .firstProcess {
-  background: url('/static/img/icons/zuly_icon.png') no-repeat 37.322% 37.431%;
+  background: url('/static/img/icons/icon_1.png');
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  background-size: cover;
   width: 89px;
   height: 89px;
 }
 
 .secondProcess {
-  background: url('/static/img/icons/zuly_icon.png') no-repeat 59.166% 37.431%;
+  background: url('/static/img/icons/icon_2.png');
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  background-size: cover;
   width: 89px;
   height: 89px;
 }
 
 .thirdProcess {
-  background: url('/static/img/icons/zuly_icon.png') no-repeat 48.299% 37.431%;
+  background: url('/static/img/icons/icon_3.png');
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  background-size: cover;
   width: 89px;
   height: 89px;
 }
 
 .fourthProcess {
-  background: url('/static/img/icons/zuly_icon.png') no-repeat 70.033% 37.431%;
+  background: url('/static/img/icons/icon_4.png');
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  background-size: cover;
   width: 89px;
   height: 89px;
 }
@@ -140,15 +152,19 @@ export default {
   .mobile-process-line {
     height: 2px;
     background-color: #212121;
-    margin-bottom: 55px;
+    margin-bottom: 36px;
   }
 
   .firstProcess,
   .secondProcess,
   .thirdProcess,
   .fourthProcess {
-    background-size: 900px 900px;
-    height: 89px;
+    background-size: 75px 69px;
+    height: 69px;
+  }
+
+  span.en-font {
+    padding-top: 14px !important;
   }
 }
 </style>

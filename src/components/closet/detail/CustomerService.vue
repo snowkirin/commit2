@@ -195,7 +195,7 @@ export default {
 
 .cs-left-data {
   width: 100%;
-  margin-top: 30px;
+  padding-top: 30px;
   display: inline-block;
   border-bottom: 1px solid #d3d3d3;
   cursor: pointer;

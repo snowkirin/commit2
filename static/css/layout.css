@@ -22,7 +22,7 @@ div.subContent {
 }
 
 header {
-  height: 93px;
+  height: 69px;
   overflow: hidden;
 }
 
@@ -76,6 +76,10 @@ footer {
 
 .mt5 {
   margin-top: 5px;
+}
+
+.mt8 {
+  margin-top: 8px;
 }
 
 .mt10 {
@@ -162,6 +166,10 @@ footer {
 
 .pd5 {
   padding-top: 5px !important;
+}
+
+.pd20 {
+  padding-top: 20px !important;
 }
 
 .pd30 {

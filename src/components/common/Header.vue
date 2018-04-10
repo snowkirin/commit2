@@ -1,11 +1,11 @@
 <template>
-  <header class="side-margin-50 pd30">
-    <div class="left" style="padding-top: 12px;">
+  <header class="side-margin-50 pd20">
+    <div class="zuly-logo left" style="padding-top: 10px;">
       <router-link to="/">
          <div class="logo"></div>
       </router-link>
     </div>
-    <div class="right talign-right">
+    <div class="zuly-menu right talign-right">
       <ul class="header-menu" style="display: inline-flex; list-style: none;">
         <li>
           <router-link to="/closet" class="menu-title">
@@ -74,14 +74,16 @@ export default {
   background-size: 100% 100%;
 }
 
-div.right {
-  padding-right: 8px;
-}
-
 div.headerLine {
   width: 100%;
   height: 3px;
   background-color: #212121;
+}
+
+ul.header-menu {
+  padding: 0;
+  position: relative;
+  top: -6px;
 }
 
 span.menu-title {
@@ -89,16 +91,16 @@ span.menu-title {
 }
 
 @media screen and (max-width: 486px) {
-  div.right {
-    padding-right: 0;
-  }
-
   div.headerLine {
     display: inline-block;
   }
 
   .mt60 {
     margin-top: 15px !important;
+  }
+
+  .zuly-menu {
+    margin-top: 5px !important;
   }
 }
 </style>

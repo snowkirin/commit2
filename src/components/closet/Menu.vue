@@ -23,7 +23,9 @@
         <div class="menu" data-id="mypage">나의정보관리</div>
       </router-link>
       <div class="menu" data-id="payment">지불정보</div>
-      <div class="menu" data-id="coupon">쿠폰</div>
+      <router-link to="/closet/coupon">
+        <div class="menu" data-id="coupon">쿠폰</div>
+      </router-link>
       <router-link to="/closet/cs">
         <div class="menu" data-id="cs">문의내역</div>
       </router-link>
@@ -98,6 +100,7 @@ export default {
   margin-right: 20px;
   height: 91%;
   cursor: pointer;
+  line-height: 1;
 }
 
 .menu a {
@@ -111,7 +114,7 @@ export default {
   border-bottom: 4px solid #212121;
 }
 
-@media screen and (max-width: 486px) {
+@media screen and (max-width: 1024px) {
   .closet-mobile-menu {
     position: relative;
     overflow-y: hidden !important;
@@ -128,6 +131,10 @@ export default {
   .closet-menu::-webkit-scrollbar {
     -webkit-appearance: none !important;
     display: none !important;
+  }
+
+  .menu {
+    margin-right: 5px;
   }
 }
 </style>

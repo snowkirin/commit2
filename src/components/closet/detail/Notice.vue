@@ -131,4 +131,22 @@ export default {
   padding: 22px 30px;
   line-height: 1;
 }
+
+@media screen and (max-width: 486px) {
+  .notice {
+    width: fit-content !important;
+  }
+
+  .notice-number {
+    width: 15% !important;
+  }
+
+  .notice-subject {
+    width: 60% !important;
+  }
+
+  .notice-regdate {
+    width: 25% !important;
+  }
+}
 </style>

@@ -10,6 +10,20 @@ const mypageStyle = () => axios.get(`${API_URL}/member/mypage/style`, {
   withCredentials: true,
 }).then(result => result).catch(err => err.response);
 
+const mypageTomorrowCloset = () => axios.get(`${API_URL}/subscriptions/tomorrow`, {
+  withCredentials: true,
+}).then(result => result).catch(err => err.response);
+
+const mypageTomorrowSelect = ({
+  subscriptionId,
+  products,
+}) => axios.put(`${API_URL}/subscriptions/tomorrow`, {
+  subscription_id: subscriptionId,
+  products,
+}, {
+  withCredentials: true,
+}).then(result => result).catch(err => err.response);
+
 const mypagePastCloset = () => axios.get(`${API_URL}/subscriptions/past`, {
   withCredentials: true,
 }).then(result => result).catch(err => err.response);
@@ -89,6 +103,8 @@ const authPhoneCheck = ({
 export default {
   mypageInfo,
   mypageStyle,
+  mypageTomorrowCloset,
+  mypageTomorrowSelect,
   mypagePastCloset,
   mypagePastClosetDetail,
   mypageCurrentCloset,

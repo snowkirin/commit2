@@ -13,16 +13,16 @@
           </div>
           <div class="mypage-content-row" style="margin-top: 63px;">
             <div class="mypage-content-header">이메일</div>
-            <div class="mypage-content-data">
+            <div class="mypage-content-data mobile-v">
               {{ mypageData.email }}
-              <button class="button-grey" style="width: 25%; margin-left: 5px;" @click="displayEvt('emailarea')">이메일 변경</button>
+              <button id="changeEmail" class="button-grey" style="width: 25%; margin-left: 5px;" @click="displayEvt('emailarea')">이메일 변경</button>
             </div>
             <div class="mypage-content-data mt10 hide-area" id="emailarea">
               <div class="field">
                 <div class="inputGroup">
                   <input type="text" name="changeEmail" class="form-login-group" placeholder="변경할 이메일주소" style="width: 60%;" />
-                  <div style="display: inline-table; width: 1.5%;"></div>
-                  <button class="button-grey" style="width: 25%;" @click="actEmailChange" >변경</button>
+                  <div id="changeEmailConfirmWall" style="display: inline-table; width: 1.5%;"></div>
+                  <button id="changeEmailConfirm" class="button-grey" style="width: 25%;" @click="actEmailChange" >변경</button>
                 </div>
               </div>
             </div>
@@ -46,7 +46,7 @@
                 <div class="inputGroup">
                   <input type="password" name="new_password_confirm" class="form-login-group" placeholder="신규 비밀번호 확인" style="width: 60%;" v-validate="'required|confirmed:new_password'" @change="pwdConfirm(errors.has('passwordConfirmation'))" />
                   <div style="display: inline-table; width: 1.5%;"></div>
-                  <button class="button-grey" style="width: 25%;" @click="pwdChange">비밀번호 변경</button>
+                  <button id="changePwd" class="button-grey" style="width: 25%;" @click="pwdChange">비밀번호 변경</button>
                 </div>
                 <span class="error" v-show="errors.has('new_password_confirm')">비밀번호가 일치하지 않습니다.</span>
               </div>
@@ -171,9 +171,9 @@
       </div>
     </div>
 
-    <div class="mypage-modify-btn mt30">
+    <!-- div class="mypage-modify-btn mt30">
       <button class="button-login" style="float: right; width: 202px;">정보수정</button>
-    </div>
+    </div -->
   </div>
 </template>
 
@@ -471,18 +471,40 @@ export default {
     margin-bottom: 40px;
   }
 
-  input, vdp-datepicker {
+  input,
+  .vdp-datepicker,
+  .day-name-group {
     width: 100% !important;
   }
 
   input[name=zipcode],
-  input[name=view_phone] {
+  input[name=view_phone],
+  input[name=new_password_confirm] {
     width: 60% !important;
   }
 
   #findAddr,
-  #changePhone {
+  #changePhone,
+  #changePwd {
     width: 38.6% !important;
+  }
+
+  #changeEmail {
+    margin-left: 0 !important;
+    margin-top: 10px !important;
+    width: 38.6% !important;
+  }
+
+  #changeEmailConfirmWall {
+    display: none !important;
+  }
+
+  #changeEmailConfirm {
+    margin-top: 10px;
+  }
+
+  .mobile-v {
+    margin-top: 20px !important;
   }
 }
 </style>

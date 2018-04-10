@@ -1,14 +1,14 @@
 <template>
   <div class="clothes subContent mauto">
-    <div class="content-title mt30">
+    <div class="content-title mt70">
       스커트
       <styleMenu v-show="this.Authentication.authenticated" leftSize="57%"></styleMenu>
     </div>
-    <div class="explain mt15">
+    <div class="explain mt8">
       받고 싶지 않은 스타일을 모두 선택해주세요.
     </div>
     <div class="clothesLine mt25"></div>
-    <div class="clothes-form w100 mauto" style="margin-top: 23px;">
+    <div class="clothes-form w100 mauto mt30">
       <template v-for="(data, k) in printData">
         <div
           v-bind:key="k"
@@ -40,7 +40,7 @@
         </div>
       </template>
     </div>
-    <styleButton customCss="float: right;"></styleButton>
+    <styleButton customCss="float: right;" currentNumber="6"></styleButton>
   </div>
 </template>
 
@@ -81,7 +81,7 @@ export default {
     }),
     moveNext() {
       this.$localStorage.set('S6', JSON.stringify(this.selected));
-      this.$router.push({ path: 'knitvest' });
+      this.$router.push({ path: 'shirt' });
     },
   },
   async created() {

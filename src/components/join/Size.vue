@@ -1,10 +1,10 @@
 <template>
   <div class="size subContent mauto">
-    <div class="content-title mt30">
+    <div class="content-title mt70">
       사이즈
       <styleMenu v-show="this.Authentication.authenticated"></styleMenu>
     </div>
-    <div class="explain mt15">
+    <div class="explain mt8">
       제공되는 스타일을 위해 필요한 정보입니다.
     </div>
     <div class="sizeLine mt25"></div>
@@ -49,7 +49,7 @@
         :customMaximum="100"
         customTooltip="평상시 착용 하시는 팬티의 사이즈 숫자를 입력해 주세요. 예를 들어 지금 착용하신 팬티에 90 이라고 라벨에 적혀 있다면, 90이라고 입력 해주세요."
       ></sizeSlider>
-      <styleButton currentLocation="size"></styleButton>
+      <styleButton currentLocation="size" currentNumber="1"></styleButton>
     </div>
   </div>
 </template>
@@ -96,10 +96,10 @@ export default {
     },
     async saveSize() {
       const saveData = {
-        bust: this.$refs.bust.sliderOption.value,
-        waist: this.$refs.waist.sliderOption.value,
-        hip: this.$refs.hip.sliderOption.value,
-        tall: this.$refs.tall.sliderOption.value,
+        bust: this.$refs.bust.sliderValue,
+        waist: this.$refs.waist.sliderValue,
+        hip: this.$refs.hip.sliderValue,
+        tall: this.$refs.tall.sliderValue,
       };
 
       await this.setSizeData(saveData);

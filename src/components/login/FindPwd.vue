@@ -1,7 +1,7 @@
 <template>
   <div class="findId subContent side-margin-50">
-    <div class="findId-title mt30">비밀번호 찾기</div>
-    <div class="mt10">
+    <div class="findId-title mt70">비밀번호 찾기</div>
+    <div class="explain mt10">
       가입 당시 입력한 아이디, 휴대전화 번호를 통해 비밀번호를 찾을 수 있습니다.
     </div>
     <div class="findIdLine mt25"></div>

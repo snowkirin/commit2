@@ -7,6 +7,12 @@ VueCommon.install = (Vue) => {
       return process.env.API_IMAGE_URL;
     },
 
+    htmlEnterLine(str) {
+      let rtn = '';
+      if (str) rtn = str.replace(new RegExp(/\r?\n/, 'g'), '<br/>');
+      return rtn;
+    },
+
     // 세션체크
     sessionCheck($router, $store) {
       if ($store.state.login.Authentication.authenticated) $router.push({ path: '/closet' });

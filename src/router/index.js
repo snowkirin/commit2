@@ -32,11 +32,14 @@ const Closet = () => import('@/components/closet/Index');
 const ClosetTomorrow = () => import('@/components/closet/detail/Tomorrow');
 const ClosetCurrent = () => import('@/components/closet/detail/Current');
 const ClosetPast = () => import('@/components/closet/detail/past');
-const ClosetCustomerService = () => import('@/components/closet/detail/CustomerService');
+const ClosetRespView = () => import('@/components/closet/detail/RespView');
 const ClosetNotice = () => import('@/components/closet/detail/notice');
 const ClosetMypageSecurity = () => import('@/components/closet/detail/MypageSecurity');
 const ClosetMypage = () => import('@/components/closet/detail/Mypage');
 const ClosetStyleInfo = () => import('@/components/closet/detail/StyleInfo');
+const ClosetCoupon = () => import('@/components/closet/detail/Coupon');
+
+const PageNotFound = () => import('@/components/common/PageNotFound');
 
 Vue.use(Router);
 
@@ -95,17 +98,22 @@ export default new Router({
             { path: 'tomorrow', component: ClosetTomorrow },
             { path: 'current', component: ClosetCurrent },
             { path: 'past', component: ClosetPast },
-            { path: 'cs', component: ClosetCustomerService },
+            { path: 'cs', component: ClosetRespView },
             { path: 'notice', component: ClosetNotice },
             { path: 'security', component: ClosetMypageSecurity },
             { path: 'mypage', component: ClosetMypage },
             { path: 'style', component: ClosetStyleInfo },
+            { path: 'coupon', component: ClosetCoupon },
           ],
           meta: {
             requiresAuth: true,
           },
         },
       ],
+    },
+    {
+      path: '*',
+      component: PageNotFound,
     },
   ],
 });
