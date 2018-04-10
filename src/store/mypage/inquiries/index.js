@@ -4,6 +4,7 @@ import actions from './actions';
 export default {
   namespaced: true,
   state: {
+    isInquiries: false,
     selectInquiries: null,
     inquiriesInfo: {},
     inquiriesList: [],
@@ -22,6 +23,9 @@ export default {
     [types.NEW_INQUIRIES](state, data) {
       state.newInquiries.push(data);
     },
+    [types.SET_INQUIRIES_SUCCESS](state) {
+      state.isInquiries = true;
+    },
   },
   actions,
   getters: {
@@ -29,5 +33,6 @@ export default {
     getInquiriesInfo: state => state.inquiriesInfo,
     getSelectInquiries: state => state.selectInquiries,
     getNewInquiries: state => state.newInquiries,
+    getIsInquiries: state => state.isInquiries,
   },
 };

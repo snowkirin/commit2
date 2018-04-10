@@ -69,6 +69,7 @@ export default {
   },
   computed: {
     ...mapGetters({
+      isInquiries: 'mypage/inquiries/getIsInquiries',
       inquiriesList: 'mypage/inquiries/getInquiriesList',
       inquiriesInfo: 'mypage/inquiries/getInquiriesInfo',
     }),
@@ -90,6 +91,7 @@ export default {
     ...mapActions({
       setInquiriesList: 'mypage/inquiries/setInquiriesList',
       setInquiriesInfo: 'mypage/inquiries/setInquiriesInfo',
+      setMobileInquiries: 'mypage/inquiries/setMobileInquiries',
     }),
     activeContent(content) {
       this.showContent = content;
@@ -110,7 +112,7 @@ export default {
         this.showId = id;
       }
     },
-    setInquiries() {
+    async setInquiries() {
       const inquiriesType = document.querySelector('select[name=inquiries_type]');
       const subject = document.querySelector('input[name=subject]');
       const content = document.querySelector('textarea[name=content]');
@@ -119,7 +121,20 @@ export default {
       if (!this.$common.InputDataValidation(subject, '제목을 입력해주세요.', true)) return;
       if (!this.$common.InputDataValidation(content, '문의 내용을 입력해주세요.', true)) return;
 
-      console.log('a');
+      await this.setMobileInquiries({
+        type: inquiriesType.value,
+        subject: subject.value,
+        text: content.value,
+      });
+
+      if (this.isInquiries) {
+        this.setInquiriesList();
+        inquiriesType.value = '';
+        subject.value = '';
+        content.value = '';
+
+        alert('문의글 등록이 완료되었습니다.');
+      }
     },
   },
   created() {

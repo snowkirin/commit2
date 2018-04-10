@@ -1,5 +1,5 @@
 <template>
-  <component v-bind:is="viewType"></component>
+  <component v-bind:is="dataViewType"></component>
 </template>
 
 <script>
@@ -9,6 +9,11 @@ import MCustomerService from '@/components/closet/detail/MCustomerService';
 
 export default {
   name: 'respView',
+  data() {
+    return {
+      dataViewType: 'mCustomerService',
+    };
+  },
   props: {
     viewType: {
       type: String,
@@ -24,11 +29,13 @@ export default {
       setInquiriesList: 'mypage/inquiries/setInquiriesList',
     }),
     mobileVisible() {
-      if (window.outerWidth <= 486) this.viewType = 'mCustomerService';
-      else this.viewType = 'customerService';
+      if (window.outerWidth <= 486) this.dataViewType = 'mCustomerService';
+      else this.dataViewType = 'customerService';
     },
   },
   created() {
+    this.dataViewType = this.viewType;
+
     this.mobileVisible();
     this.setInquiriesList();
     window.addEventListener('resize', this.mobileVisible);

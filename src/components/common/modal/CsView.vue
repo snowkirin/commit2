@@ -42,12 +42,30 @@
           </div>
         </div>
       </template>
+      <div class="talk-area" v-show="lastAnswer">
+        <div class="talk-area-left">
+          <div class="admin-icon">
+            <div class="admin-icon-logo"></div>
+          </div>
+          <div class="balloon">
+            <div class="balloon-text">
+              감사합니다. 질문해주신 내용을 확인 후, 답변드리겠습니다.<br/>
+              추가 질문이 있으신가요? <br/>
+              <div class="mt10">
+                <div class="balloon-square-area" @click="selectLastAnswer('continue')">네, 질문할게요.</div>
+                <div class="balloon-square-area" @click="selectLastAnswer('stop')">아니요, 괜찮아요.</div>
+              </div>
+            </div>
+          </div>
+          <div class="talk-date">{{ currentTime }}</div>
+        </div>
+      </div>
     </div>
     <div class="talk-input-box">
       <div class="inputGroup">
-        <input type="text" name="message" class="form-login-group mt12" placeholder="문의유형을 먼저 선택해주세요." style="width: 82%;" disabled @keydown="$common.submitEvt($event, sendMessage)" />
+        <input type="text" name="message" class="form-login-group mt12" placeholder="문의유형을 먼저 선택해주세요." style="width: 82%;" disabled @keydown="submitEvt($event, sendMessage)" />
         <div style="display: inline-table; width: 2%;"></div>
-        <button class="button-login" style="width: 15%;" @click="sendMessage">전송</button>
+        <button id="sendMessage" class="button-login" style="width: 15%;" @click="sendMessage">전송</button>
       </div>
     </div>
   </div>
@@ -66,6 +84,9 @@ export default {
   },
   data() {
     return {
+      currentTime: this.$moment().format('A hh:mm'),
+      lastProc: true,
+      lastAnswer: false,
       nextInquiries: false,
     };
   },
@@ -81,6 +102,17 @@ export default {
       actSetNewInquiries: 'mypage/inquiries/setNewInquiries',
       setSaveInquiries: 'mypage/inquiries/setSaveInquiries',
     }),
+    selectLastAnswer(type) {
+      if (type === 'continue') {
+        this.lastAnswer = false;
+        document.querySelector('input[name=message]').disabled = false;
+        document.getElementById('sendMessage').disabled = false;
+        document.querySelector('input[name=message]').focus();
+      } else {
+        this.setSaveInquiries();
+        this.$parent.parentRefCall();
+      }
+    },
     selectInquiries($evt, target) {
       const inquiriesCat = document.querySelector('.balloon-square-active');
       if (inquiriesCat) inquiriesCat.classList.remove('balloon-square-active');
@@ -95,6 +127,7 @@ export default {
     },
     sendMessage() {
       if (this.nextInquiries) {
+        this.lastProc = true;
         const message = document.querySelector('input[name=message]');
         if (!this.$common.InputDataValidation(message, '문의내용을 입력해주세요.', true)) return;
 
@@ -109,17 +142,20 @@ export default {
         message.focus();
 
         setTimeout(() => {
-          if (this.newInquiries.length === prevDataLength) {
-            this.actSetNewInquiries({
-              type: 'a',
-              text: '감사합니다. 질문해주신 내용을 확인 후, 답변드리겠습니다.',
-              regdate: this.$moment().format('A hh:mm'),
-            });
-
-            if (this.newInquiries.length > 2) this.setSaveInquiries();
+          if (this.lastProc) {
+            if (this.newInquiries.length === prevDataLength) {
+              this.currentTime = this.$moment().format('A hh:mm');
+              this.lastAnswer = true;
+              message.disabled = true;
+              document.getElementById('sendMessage').disabled = true;
+            } else this.lastAnswer = false;
           }
-        }, 3000);
+        }, 2000);
       } else alert('문의유형을 먼저 선택해주세요.');
+    },
+    submitEvt(evt, callback) {
+      if (evt.keyCode === 13) callback();
+      else this.lastProc = false;
     },
     modalScrollEvt() {
       const modal = document.querySelector('.custom-modal-content');

@@ -72,19 +72,23 @@
               </div>
             </div>
             <template v-for="(info, k) in inquiriesInfo.list">
-              <div v-bind:key="k" class="talk-area">
-                <div v-bind:class="{ 'talk-area-right': (info.content_type_name === '문의'), 'talk-area-left': (info.content_type_name === '답변') }">
-                  <div v-show="(info.content_type_name === '답변')" class="admin-icon">
-                    <div class="admin-icon-logo"></div>
-                  </div>
-                  <div v-bind:class="{ 'right-balloon': (info.content_type_name === '문의'), 'balloon': (info.content_type_name === '답변') }">
-                    <div class="balloon-text">
-                      {{ info.content }}
+              <template v-if="k === 0 && inquiriesInfo.first.subject === info.content">
+              </template>
+              <template v-else>
+                <div v-bind:key="k" class="talk-area">
+                  <div v-bind:class="{ 'talk-area-right': (info.content_type_name === '문의'), 'talk-area-left': (info.content_type_name === '답변') }">
+                    <div v-show="(info.content_type_name === '답변')" class="admin-icon">
+                      <div class="admin-icon-logo"></div>
                     </div>
+                    <div v-bind:class="{ 'right-balloon': (info.content_type_name === '문의'), 'balloon': (info.content_type_name === '답변') }">
+                      <div class="balloon-text">
+                        {{ info.content }}
+                      </div>
+                    </div>
+                    <div class="talk-date">{{ $moment(info.inserted).format("A hh:mm") }}</div>
                   </div>
-                  <div class="talk-date">{{ $moment(info.inserted).format("A hh:mm") }}</div>
                 </div>
-              </div>
+              </template>
             </template>
           </div>
         </template>

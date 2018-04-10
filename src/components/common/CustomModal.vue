@@ -56,6 +56,10 @@ export default {
     closeModal() {
       this.modal.style.display = 'none';
     },
+    parentRefCall() {
+      this.closeModal();
+      this.$parent.setInquiriesList();
+    },
   },
   mounted() {
     this.modal = document.querySelector(`div.custom-modal[data-id="${this.modalType}"]`);

@@ -76,12 +76,12 @@
             </div>
           </div>
           <div class="style-content-row">
-            <div class="style-content-header">기피 재질</div>
+            <div class="style-content-header">기피 패턴</div>
             <div class="style-content-data mt20">
-              <template v-if="printMaterial.length > 0">
-                <template v-for="(material, k) in printMaterial">
+              <template v-if="printPattern.length > 0">
+                <template v-for="(pattern, k) in printPattern">
                   <div v-bind:key="k" class="style-point-box">
-                    {{ material }}
+                    {{ pattern }}
                   </div>
                 </template>
               </template>
@@ -158,11 +158,11 @@ export default {
 
       return data;
     },
-    printMaterial() {
+    printPattern() {
       let data = [];
 
-      if (this.mypageStyleData.except_material) {
-        data = this.mypageStyleData.except_material.split(',');
+      if (this.mypageStyleData.except_pattern) {
+        data = this.mypageStyleData.except_pattern.split(',');
       }
 
       return data;

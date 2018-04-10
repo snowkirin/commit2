@@ -36,32 +36,45 @@ const setNewInquiries = async ({ commit }, data) => {
 };
 
 const setSaveInquiries = async ({ state }) => {
-  let subjectIdx = null;
-  let contentIdx = null;
-
-  for (let i = 0; i < state.newInquiries.length; i += 1) {
-    if (state.newInquiries[i].type === 'q' && subjectIdx === null) {
-      subjectIdx = i;
-    } else if (state.newInquiries[i].type === 'q' && contentIdx === null) {
-      contentIdx = i;
-    }
-
-    if (subjectIdx && contentIdx) {
-      break;
-    }
-  }
-
-  if (subjectIdx && contentIdx) {
-    await Inquiries.setNewInquiries({
-      subject: state.newInquiries[subjectIdx].text,
+  if (state.newInquiries.length > 0) {
+    const result = await Inquiries.setNewInquiries({
+      subject: state.newInquiries[0].text,
       email: 'a',
       email_noti: 'Y',
       cell_phone: 0,
       cell_phone_noti: 'Y',
       inquiryType: parseInt(state.selectInquiries, 10),
-      content: state.newInquiries[contentIdx].text,
+      content: state.newInquiries[0].text,
     });
+
+    if (result.data.inquiryId) {
+      const prmList = [];
+
+      for (let i = 1; i < state.newInquiries.length; i += 1) {
+        prmList.push(Inquiries.setPutInquiries({
+          inquiriesId: result.data.inquiryId,
+          content: state.newInquiries[i].text,
+        }));
+      }
+
+      await Promise.all(prmList);
+    }
   }
+};
+
+const setMobileInquiries = async ({ commit }, data) => {
+  const result = await Inquiries.setNewInquiries({
+    subject: data.subject,
+    email: 'a',
+    email_noti: 'Y',
+    cell_phone: 0,
+    cell_phone_noti: 'Y',
+    inquiryType: parseInt(data.type, 10),
+    content: data.text,
+  });
+
+  if (result.data.inquiryId) commit(types.SET_INQUIRIES_SUCCESS);
+  else alert('시스템에 문제가 발생했습니다.\n잠시 후 다시 시도해주세요.');
 };
 
 export default {
@@ -70,4 +83,5 @@ export default {
   selectInquiries,
   setNewInquiries,
   setSaveInquiries,
+  setMobileInquiries,
 };
