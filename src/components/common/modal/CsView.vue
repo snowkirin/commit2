@@ -102,14 +102,14 @@ export default {
       actSetNewInquiries: 'mypage/inquiries/setNewInquiries',
       setSaveInquiries: 'mypage/inquiries/setSaveInquiries',
     }),
-    selectLastAnswer(type) {
+    async selectLastAnswer(type) {
       if (type === 'continue') {
         this.lastAnswer = false;
         document.querySelector('input[name=message]').disabled = false;
         document.getElementById('sendMessage').disabled = false;
         document.querySelector('input[name=message]').focus();
       } else {
-        this.setSaveInquiries();
+        await this.setSaveInquiries();
         this.$parent.parentRefCall();
       }
     },

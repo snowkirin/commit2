@@ -25,7 +25,7 @@
             <div
               class="patterns-image"
               v-bind:style="{
-                backgroundImage: (data.name !== '선택 없음') ? `url(http://dev-image.zuly.co.kr/common/patterns/${data.code}.png)` : 'url(/static/img/signup/none_logo.png)',
+                backgroundImage: (data.name !== '선택 없음') ? `url(${$common.IMAGEURL()}common/patterns/${data.code}.png)` : 'url(/static/img/signup/none_logo.png)',
               }"
             >
             </div>

@@ -23,11 +23,6 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'success',
-  data() {
-    return {
-      type: '',
-    };
-  },
   computed: mapGetters({
     phoneAuth: 'common/getPhoneAuth',
     userId: 'common/getUserId',
@@ -35,9 +30,7 @@ export default {
   created() {
     let rtn = false;
 
-    if (this.type === 'findid') {
-      if (this.userId) rtn = !rtn;
-    } else if (this.type === 'findpwd') ;
+    if (this.userId) rtn = !rtn;
 
     if (!rtn) {
       alert('잘못된 접근입니다.');

@@ -100,6 +100,7 @@ import Datepicker from 'vuejs-datepicker';
 import SignupModal from '@/components/common/SignupModal';
 import PrivateText from '@/info/private';
 
+
 export default {
   name: 'signUp-first',
   components: {
