@@ -8,6 +8,7 @@ import moment from 'moment';
 import VueMomentJS from 'vue-momentjs';
 import VueGlobalConst from '@/library/VueGlobalConst';
 import VueCommon from '@/library/VueCommon';
+import html from '@/library/htmlinjection';
 import sess from '@/library/session';
 import App from './App';
 import router from './router';
@@ -30,6 +31,7 @@ Vue.use(VueCommon);
 Vue.use(VeeValidate);
 Validator.localize('ko', ko);
 
+html.setTitle(router);
 sess.setRouterSession(router, store);
 
 // eslint-disable-line no-new

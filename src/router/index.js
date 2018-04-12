@@ -55,8 +55,11 @@ export default new Router({
     {
       path: '/',
       component: Index,
+      meta: {
+        title: 'ZULY',
+      },
       children: [
-        { path: '/', name: 'IndexMain', component: Main },
+        { path: '/', name: 'IndexMain', component: Main, meta: { title: 'ZULY' } },
         { path: '/login', component: Login },
         { path: '/find/id', component: FindId },
         { path: '/find/id/complete', component: Success },
