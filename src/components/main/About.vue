@@ -69,6 +69,7 @@ export default {
   }
 
   .main-about-title {
+    letter-spacing: -1.2px;
     font-size: 20px !important;
   }
 

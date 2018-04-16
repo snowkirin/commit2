@@ -107,5 +107,9 @@ span.menu-title {
     width: 83px;
     height: 26px;
   }
+
+  .pd20 {
+    padding-top: 10px !important;
+  }
 }
 </style>
