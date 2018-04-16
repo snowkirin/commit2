@@ -108,8 +108,8 @@ span.menu-title {
   }
 
   .logo {
-    width: 83px;
-    height: 26px;
+    width: 81px;
+    height: 24px;
   }
 
   .pd20 {
