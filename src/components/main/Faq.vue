@@ -200,5 +200,14 @@ export default {
   span.en-font {
     padding-top: 13px !important;
   }
+
+  .faq-answer-text {
+    padding: 20px !important;
+    font-size: 16px !important;
+  }
+
+  .mt40 {
+    margin-top: 30px !important;
+  }
 }
 </style>

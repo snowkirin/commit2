@@ -86,6 +86,10 @@ ul.header-menu {
   top: -6px;
 }
 
+li.interval {
+  margin: 0 15px;
+}
+
 span.menu-title {
   cursor: pointer;
 }
@@ -110,6 +114,16 @@ span.menu-title {
 
   .pd20 {
     padding-top: 10px !important;
+  }
+
+  ul.header-menu {
+    padding: 0;
+    position: relative;
+    top: -8px;
+  }
+
+  li.interval {
+    margin: 0 10px;
   }
 }
 </style>
