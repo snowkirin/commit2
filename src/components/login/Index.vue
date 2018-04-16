@@ -91,7 +91,6 @@ export default {
   font-weight: 400;
   line-height: 1.26;
   text-align: center;
-  text-shadow: 0px 1px 0 rgba(0, 0, 0, 0.1);
 }
 
 .loginLine {
