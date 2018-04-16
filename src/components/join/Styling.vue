@@ -5,7 +5,7 @@
       <styleMenu v-show="this.Authentication.authenticated" leftSize="60%"></styleMenu>
     </div>
     <div class="explain mt8">
-      ZULY는 베이직 스타일을 기본으로 합니다.
+      줄라이는 베이직 스타일을 기본으로 합니다.
     </div>
     <div class="stylingLine mt25"></div>
     <div class="styling-form mt70" style="width: 100%;">

@@ -7,11 +7,11 @@
       <div class="main-about-title" v-if="outerWidth <= 486">
         놀라운 편리함,<br/>
         포기 할 수 없는 아름다움<br/>
-        데일리룩 구독 서비스 <span class="en-font">ZULY</span>
+        데일리룩 구독 서비스 줄라이
       </div>
       <div class="main-about-title" v-else>
         놀라운 편리함, 포기 할 수 없는 아름다움<br/>
-        데일리룩 구독 서비스 <span class="en-font">ZULY</span>
+        데일리룩 구독 서비스 줄라이
       </div>
       <div class="main-about-service pd5 hide-area">
         <a href="#" class="tc-white">서비스 상세 소개</a>

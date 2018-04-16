@@ -147,12 +147,17 @@ export default {
   .secondProcess,
   .thirdProcess,
   .fourthProcess {
-    background-size: 900px 900px;
-    height: 89px;
+    background-size: 800px 800px;
+    width: 68px;
+    height: 68px;
   }
 
   span.en-font {
     padding-top: 14px !important;
+  }
+
+  .process-icon {
+    flex: 0 0 90px;
   }
 }
 </style>
