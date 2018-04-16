@@ -11,7 +11,7 @@
       </div>
       <div v-show="!Authentication.authenticated" class="benefit-btn-area" style="width: 20%; position: relative;">
         <button class="button-main" style="bottom: 6px; right: 0; position: absolute;" @click="signup">
-          <span style="padding-left: 30px; font-weight: 400;">한달 무료 신청</span>
+          <span style="font-size: 27px; padding-left: 20px; font-weight: 400;">한달 무료 신청</span>
           <div class="d-inlineblock arrowIcon"></div>
         </button>
       </div>
@@ -50,6 +50,7 @@ export default {
 .benefit-main {
   width: 1300px;
   margin: auto;
+  margin-top: 22px;
 }
 
 .benefit-title {
@@ -67,11 +68,13 @@ export default {
 }
 
 .arrowIcon {
+  position: relative;
+  top: 1px;
   background: url('/static/img/icons/zuly_icon.png') no-repeat -43px -8px;
   background-size: 250px 250px;
   width: 37.5px;
   height: 23.5px;
-  margin-left: 65px;
+  margin-left: 26%;
 }
 
 .special-title {
@@ -80,8 +83,8 @@ export default {
 }
 
 @media screen and (max-width: 486px) {
-  .benefit-title {
-    letter-spacing: -2.6px;
+  .arrowIcon {
+    margin-left: 30% !important;
   }
 }
 </style>

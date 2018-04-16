@@ -5,7 +5,7 @@
         HELP
       </div>
       <div class="main-cs-tel en-font">
-        1644-1107
+        02-6929-3821
       </div>
       <div class="main-cs-noti mt5">
         평일 오전 10 시 ~ 오후 5시 / 점심 시간 오후 12시30분 ~ 오후 1시 30분<br/>

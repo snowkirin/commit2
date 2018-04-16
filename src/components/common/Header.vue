@@ -12,8 +12,8 @@
             나만의 옷장
           </router-link>
         </li>
-        <li style="margin: 0 15px 0 15px;">
-          <span style="display: inline-block; width:4px; height:4px; background-color: #212121; opacity: 0.5;"></span>
+        <li class="interval">
+          <span class="mobile-point" style="display: inline-block; width:4px; height:4px; background-color: #212121; opacity: 0.5;"></span>
         </li>
         <li>
           <span v-if="Authentication.authenticated" class="menu-title" @click="doLogout">
@@ -124,6 +124,15 @@ span.menu-title {
 
   li.interval {
     margin: 0 10px;
+  }
+
+  span.mobile-point {
+    top: -3px;
+    position: relative;
+  }
+
+  .menu-title {
+    letter-spacing: -1px;
   }
 }
 </style>

@@ -51,6 +51,19 @@ export default {
   margin: auto;
 }
 
+.main-about-service {
+  line-height: 2.56;
+  letter-spacing: -0.2px;
+  text-align: left;
+  color: #ffffff;
+}
+
+.main-about-title {
+  letter-spacing: -2.2px;
+  text-align: left;
+  color: #ffffff;
+}
+
 @media screen and (max-width: 486px) {
   .mt70 {
     margin-top: 35px !important;
@@ -71,23 +84,11 @@ export default {
   .main-about-title {
     letter-spacing: -1.2px;
     font-size: 20px !important;
+    line-height: 1.4;
   }
 
   .pd120 {
     padding-top: 0 !important;
   }
-}
-
-.main-about-service {
-  line-height: 2.56;
-  letter-spacing: -0.2px;
-  text-align: left;
-  color: #ffffff;
-}
-
-.main-about-title {
-  letter-spacing: -2.2px;
-  text-align: left;
-  color: #ffffff;
 }
 </style>
