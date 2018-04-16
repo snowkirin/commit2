@@ -157,7 +157,8 @@ export default {
   }
 
   .process-icon {
-    flex: 0 0 90px;
+    width: 80px;
+    flex: 0 0 80px;
   }
 }
 </style>
