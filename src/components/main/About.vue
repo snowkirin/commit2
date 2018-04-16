@@ -40,7 +40,7 @@ export default {
 
 .main-about {
   height: 420px;
-  background-image: url('/static/img/main/img_about.png');
+  background-image: url('/static/img/main/img_about_large.png');
   background-repeat: no-repeat;
   background-position: 50% 0;
   background-color: #cfcbc7;
@@ -58,7 +58,9 @@ export default {
 
   .main-about {
     display: table;
-    height: 300px;
+    background-image: url('/static/img/main/img_about_medium.png');
+    height: 210px;
+    background-size: cover;
   }
 
   .main-about-detail {
@@ -67,7 +69,7 @@ export default {
   }
 
   .main-about-title {
-    font-size: 27px !important;
+    font-size: 20px !important;
   }
 
   .pd120 {

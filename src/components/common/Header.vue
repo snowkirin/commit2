@@ -102,5 +102,10 @@ span.menu-title {
   .zuly-menu {
     margin-top: 5px !important;
   }
+
+  .logo {
+    width: 83px;
+    height: 26px;
+  }
 }
 </style>
