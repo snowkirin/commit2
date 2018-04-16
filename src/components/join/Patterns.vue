@@ -22,6 +22,7 @@
           }"
         >
           <div class="patterns-images">
+            <div></div>
             <div
               class="patterns-image"
               v-bind:style="{
