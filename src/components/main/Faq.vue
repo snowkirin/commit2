@@ -7,9 +7,9 @@
       <div class="w100 faq-card">
         <div class="w100">
           <div class="faq-line"></div>
-          <div class="mt70 faq-question" @click="openFAQ">
+          <div class="mt70 faq-question" @click="openFAQ($event)">
             <div class="faq-question-subject">Q&nbsp;&nbsp;&nbsp;&nbsp;요금제는 어떻게 되나요?</div>
-            <div class="faq-question-icon" @click="openFAQIcon">
+            <div class="faq-question-icon" @click="openFAQIcon($event)">
               <i class="fa fa-angle-down fa-lg"></i>
             </div>
           </div>
@@ -25,9 +25,9 @@
           </div>
         </div>
         <div class="w100">
-          <div class="mt40 faq-question" @click="openFAQ">
+          <div class="mt40 faq-question" @click="openFAQ($event)">
             <div class="faq-question-subject">Q&nbsp;&nbsp;&nbsp;&nbsp;회원이 되면 어떤 옷을 받는건가요?</div>
-            <div class="faq-question-icon" @click="openFAQIcon">
+            <div class="faq-question-icon" @click="openFAQIcon($event)">
               <i class="fa fa-angle-down fa-lg"></i>
             </div>
           </div>
@@ -41,9 +41,9 @@
           </div>
         </div>
         <div class="w100">
-          <div class="mt40 faq-question" @click="openFAQ">
+          <div class="mt40 faq-question" @click="openFAQ($event)">
             <div class="faq-question-subject">Q&nbsp;&nbsp;&nbsp;&nbsp;정말 고르지 않아도 나에게 어울리는 옷을 보내주나요?</div>
-            <div class="faq-question-icon" @click="openFAQIcon">
+            <div class="faq-question-icon" @click="openFAQIcon($event)">
               <i class="fa fa-angle-down fa-lg"></i>
             </div>
           </div>
@@ -56,9 +56,9 @@
           </div>
         </div>
         <div class="w100">
-          <div class="mt40 faq-question" @click="openFAQ">
+          <div class="mt40 faq-question" @click="openFAQ($event)">
             <div class="faq-question-subject">Q&nbsp;&nbsp;&nbsp;&nbsp;옷만 이쁘게 입고 세탁/보관 걱정 없이 문 앞에 두면 되는건가요?</div>
-            <div class="faq-question-icon" @click="openFAQIcon">
+            <div class="faq-question-icon" @click="openFAQIcon($event)">
               <i class="fa fa-angle-down fa-lg"></i>
             </div>
           </div>
@@ -70,9 +70,9 @@
           </div>
         </div>
         <div class="w100">
-          <div class="mt40 faq-question" @click="openFAQ">
+          <div class="mt40 faq-question" @click="openFAQ($event, 'last')">
             <div class="faq-question-subject">Q&nbsp;&nbsp;&nbsp;&nbsp;서비스 지역의 제한은 있나요?</div>
-            <div class="faq-question-icon" @click="openFAQIcon">
+            <div class="faq-question-icon" @click="openFAQIcon($event, 'last')">
               <i class="fa fa-angle-down fa-lg"></i>
             </div>
           </div>
@@ -92,7 +92,7 @@
 export default {
   name: 'faq',
   methods: {
-    openFAQ(evt) {
+    openFAQ(evt, view) {
       const obj = evt;
       const answer = obj.target.parentNode.parentNode.querySelector('.faq-answer');
       const icon = obj.target.parentNode.querySelector('i');
@@ -102,14 +102,18 @@ export default {
           icon.classList.remove('fa-angle-down');
           icon.classList.add('fa-angle-up');
           answer.style.display = 'block';
+
+          if (view) document.querySelector('.last-line').style.backgroundColor = '#dadada';
         } else {
           icon.classList.remove('fa-angle-up');
           icon.classList.add('fa-angle-down');
           answer.style.display = 'none';
+
+          if (view) document.querySelector('.last-line').style.backgroundColor = '#FFFFFF';
         }
       }
     },
-    openFAQIcon(evt) {
+    openFAQIcon(evt, view) {
       const obj = evt;
       const answer = obj.target.parentNode.parentNode.parentNode.querySelector('.faq-answer');
       const icon = obj.target;
@@ -119,10 +123,14 @@ export default {
           icon.classList.remove('fa-angle-down');
           icon.classList.add('fa-angle-up');
           answer.style.display = 'block';
+
+          if (view) document.querySelector('.last-line').style.backgroundColor = '#dadada';
         } else {
           icon.classList.remove('fa-angle-up');
           icon.classList.add('fa-angle-down');
           answer.style.display = 'none';
+
+          if (view) document.querySelector('.last-line').style.backgroundColor = '#FFFFFF';
         }
       }
     },
