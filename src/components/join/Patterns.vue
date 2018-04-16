@@ -33,6 +33,9 @@
           <div class="patterns-text">
             {{ data.name }}
           </div>
+          <div v-show="data.selected" class="patterns-btn" :class="{ 'card-btn-oncolor': data.selected }">
+            <div class="btn-times" :class="{ 'on': data.selected }"></div>
+          </div>
         </div>
       </template>
     </div>

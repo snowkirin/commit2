@@ -196,7 +196,7 @@ export default {
   letter-spacing: normal;
   text-align: left;
   color: #212121;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
 
 .colors-card-list {
@@ -258,7 +258,7 @@ export default {
   }
 
   .colors-area-last {
-    margin-top: 30px;
+    margin-top: 40px;
   }
 }
 
