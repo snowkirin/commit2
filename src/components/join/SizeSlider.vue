@@ -38,14 +38,14 @@
     </div>
     <div class="sizeInput divIB" :data-val="dataId">
       <template v-if="sizeTitle === '허리'">
-        <input type="text" name="cusInput" value="0" maxlength="3" @keydown="$common.NumberValidateEvt" style="margin-left: 12px;" @keyup="sizeKeyEvt" />
+        <input type="text" name="cusInput" value="0" maxlength="3" @keydown="$common.NumberValidateEvt" style="margin-left: 10px;" @keyup="sizeKeyEvt" />
         <span class="sizeDisplay">
           inch
         </span>
       </template>
       <template v-else>
-        <input type="text" name="cusInput" value="0" maxlength="3" @keydown="$common.NumberValidateEvt" style="margin-left: 20px;" @keyup="sizeKeyEvt" />
-        <span class="sizeDisplay" style="margin-left: 63px;">
+        <input type="text" name="cusInput" value="0" maxlength="3" @keydown="$common.NumberValidateEvt" style="margin-left: 10px; font-size: 18px" @keyup="sizeKeyEvt" />
+        <span class="sizeDisplay" style="margin-left: 53px;">
           cm
         </span>
       </template>
@@ -232,7 +232,7 @@ export default {
 
 .sizeDisplay {
   position: absolute;
-  margin-left: 55px;
+  margin-left: 53px;
   margin-top: -22px;
 }
 
