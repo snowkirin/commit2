@@ -22,7 +22,7 @@
           }"
         >
           <div class="patterns-images">
-            <div></div>
+            <div v-show="data.selected" class="card-greyscale"></div>
             <div
               class="patterns-image"
               v-bind:style="{
@@ -276,6 +276,16 @@ div.btn-times:after {
   border: solid 2px #dadada;
 }
 
+.card-greyscale {
+  background-color: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  height: 104%;
+  position: absolute;
+  border-radius: 100px;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+}
+
 @media screen and (max-width: 486px) {
   .patterns-image {
     height: 145px !important;
@@ -283,6 +293,10 @@ div.btn-times:after {
 
   .pattern-mobile {
     margin-top: 40px !important;
+  }
+
+  .card-greyscale {
+    height: 81%;
   }
 }
 </style>
