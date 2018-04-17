@@ -86,7 +86,6 @@ export default {
       setMypageStyle: 'mypage/setMypageStyle',
     }),
     selectStyle(data) {
-      console.log('selectStyle');
       const imageTarget = document.querySelector('.circle-pick');
 
       if (data === this.$const.STYLE_NATURAL) this.pickClassEvt(this.natural, this.unique, this.classic, this.modern, this.feminine, imageTarget);
@@ -98,7 +97,6 @@ export default {
       this.pickMood(data);
     },
     changeCircleImage(main, obj) {
-      console.log('changeCircleImage');
       const target = obj;
 
       if (window.outerWidth <= 486) {
@@ -140,7 +138,6 @@ export default {
       }
     },
     pickClassEvt(main, sub1, sub2, outSub1, outSub2, imageTarget) {
-      console.log('pickClassEvt');
       if (main) {
         this.removePick();
 
@@ -157,7 +154,6 @@ export default {
       }
     },
     removePick() {
-      console.log('removePick');
       const circlePick = document.querySelectorAll('.zuly-detail-circle-pick');
       const circlePickDeactive = document.querySelectorAll('.zuly-circle-pick-deactive');
 
@@ -175,7 +171,6 @@ export default {
       }
     },
     circleHoverEvt(main, sub1, sub2, outSub1, outSub2) {
-      console.log('circleHoverEvt');
       const obj = main;
       const outObj1 = outSub1;
       const outObj2 = outSub2;
@@ -210,13 +205,11 @@ export default {
     },
     moveNext() {
       this.$localStorage.set('S2', this.selectMood);
-      console.log('moveNext : ', this.selectMood);
       this.$router.push({ path: 'colors' });
     },
   },
   async created() {
     const localStorage = this.$localStorage.get('S2');
-    console.log('created : ', this.$localStorage.get('S2'));
 
     if (this.Authentication.authenticated) {
       if (!this.mypageStyleData.bust_size) await this.setMypageStyle();
