@@ -40,7 +40,7 @@ export default {
 
 <style scoped>
 .closet-header {
-  height: 245px;
+  height: 235px;
   background-color: #7984a1;
 }
 
@@ -62,7 +62,7 @@ export default {
 .closet-my-info {
   padding: 30px 0 0 30px;
   line-height: 0.9;
-  font-size: 60px;
+  font-size: 56px;
   font-weight: 300;
   font-style: normal;
   font-stretch: normal;
@@ -81,8 +81,8 @@ export default {
 
 .closet-noti-info {
   width: 62.5%;
-  margin-top: 59px;
-  margin-right: 10px;
+  margin-top: 42px;
+  margin-right: 7px;
   height: 95px;
   float: right;
   box-sizing: border-box;
@@ -93,7 +93,7 @@ export default {
   vertical-align: top;
   position: relative;
   width: 31.8%;
-  height: 100%;
+  height: 110%;
 }
 
 .noti-text {
@@ -128,7 +128,7 @@ export default {
 
 @media screen and (max-width: 486px) {
   .closet-my-info {
-    padding: 8% 4.8% 0 4.8% !important;
+    padding: 8% 4.8% 0 4.5% !important;
     font-size: 40px;
   }
 

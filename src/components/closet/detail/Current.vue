@@ -570,7 +570,7 @@ div.btn-times:after {
   }
 
   .closet-card-none-content {
-    width: 100%;
+    width: 90%;
   }
 
   .content-table span {

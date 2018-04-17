@@ -86,7 +86,7 @@ export default {
 }
 
 .findId-title {
-  font-size: 36px;
+  font-size: 32px;
   font-weight: 400;
   font-style: normal;
   font-stretch: normal;
@@ -94,7 +94,6 @@ export default {
   letter-spacing: -0.4px;
   text-align: center;
   color: #212121;
-  text-shadow: 0px 1px 0 rgba(0, 0, 0, 0.1);
 }
 
 .findIdLine {
