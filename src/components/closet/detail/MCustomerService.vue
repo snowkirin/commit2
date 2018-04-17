@@ -182,7 +182,7 @@ export default {
   width: 100%;
   padding: 30px 0;
   display: block;
-  border-bottom: solid 1px #999999;
+  border-bottom: solid 1px #dadada;
   cursor: pointer;
 }
 
@@ -207,7 +207,7 @@ export default {
 .list-data-content {
   display: none;
   background-color: #f5f5f5;
-  padding: 22px 30px;
+  padding: 20px;
   line-height: 1;
   word-wrap: break-word;
 }
