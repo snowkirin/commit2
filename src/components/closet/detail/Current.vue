@@ -568,6 +568,14 @@ div.btn-times:after {
   .item-content > div {
     padding-top: 0 !important;
   }
+
+  .closet-card-none-content {
+    width: 100%;
+  }
+
+  .content-table span {
+    font-size: 26px;
+  }
 }
 
 @media screen and (max-width: 400px) {

@@ -420,7 +420,7 @@ export default {
 }
 
 @media screen and (max-width: 486px) {
-  .closet-card-area, .closet-card {
+  .closet-card-area, .closet-card, .closet-card-none-content {
     display: block !important;
     width: 100% !important;
   }
@@ -446,6 +446,10 @@ export default {
 
   .closet-card-active i {
     display: none !important;
+  }
+
+  .content-table span {
+    font-size: 26px;
   }
 }
 </style>
