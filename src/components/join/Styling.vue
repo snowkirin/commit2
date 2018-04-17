@@ -8,7 +8,7 @@
       줄라이는 베이직 스타일을 기본으로 합니다.
     </div>
     <div class="stylingLine mt25"></div>
-    <div class="styling-form mt70" style="width: 100%;">
+    <div class="styling-form mt70 mauto" style="width: 100%;">
       <div class="zuly-style-circle mauto">
         <div class="zuly-circle-text">
           ZULY<br/>
@@ -501,7 +501,6 @@ div.btn-times:after {
   .zuly-style-circle {
     width: 230px;
     height: 230px;
-    margin-bottom: 300px;
   }
 
   .zuly-detail-circle {
