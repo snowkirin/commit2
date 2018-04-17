@@ -5,7 +5,7 @@
     <zuly-footer v-show="footerShow"></zuly-footer>
   </div>
 </template>
-
+ 
 <script>
 import ZulyHeader from '@/components/common/Header';
 import ZulyFooter from '@/components/common/Footer';
