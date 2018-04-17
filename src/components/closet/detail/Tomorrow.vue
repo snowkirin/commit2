@@ -422,7 +422,7 @@ export default {
 @media screen and (max-width: 486px) {
   .closet-card-area, .closet-card, .closet-card-none-content {
     display: block !important;
-    width: 100% !important;
+    width: 90% !important;
   }
 
   .closet-card-images {

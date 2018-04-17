@@ -145,6 +145,7 @@
 .style,
 .mypage,
 .notice,
+.patterns,
 .mobile-customer-service,
 .clothes {
   padding: 0 4.8% !important;
@@ -153,7 +154,7 @@
 .closet-noti-info {
   box-sizing: border-box !important;
   width: 100% !important;
-  margin-top: 59px !important;
+  margin-top: 49px !important;
   margin-right: 0 !important;
   float: none !important;
   padding: 0 30px;
