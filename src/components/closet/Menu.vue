@@ -22,7 +22,7 @@
       <router-link to="/closet/security">
         <div class="menu" data-id="mypage">나의정보관리</div>
       </router-link>
-      <div class="menu" data-id="payment">지불정보</div>
+      <!-- div class="menu" data-id="payment">지불정보</div -->
       <router-link to="/closet/coupon">
         <div class="menu" data-id="coupon">쿠폰</div>
       </router-link>
@@ -134,7 +134,7 @@ export default {
   }
 
   .menu {
-    margin-right: 5px;
+    margin-right: 10px;
   }
 }
 </style>

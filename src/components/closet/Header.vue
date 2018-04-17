@@ -178,5 +178,9 @@ export default {
   .noti-count span {
     font-size: 30px;
   }
+
+  .closet-line {
+    width: 1px !important;
+  }
 }
 </style>
