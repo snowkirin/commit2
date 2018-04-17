@@ -64,10 +64,14 @@
 }
 
 .closet-mobile-menu,
-.current,
-.clothes {
+.current {
   min-width: 900px !important;
   padding: 0 3.172% !important;
+}
+
+.clothes {
+  min-width: 900px !important;
+  padding: 0 3.172% 490px 3.172% !important;
 }
 
 .tomorrow {
