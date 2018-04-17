@@ -344,6 +344,10 @@ export default {
     padding: 0 4.8% 470px 4.8% !important;
   }
 
+  .content-form {
+    margin-right: 0px !important;
+  }
+
   .next-btn {
     width: 100% !important;
     float: none !important;

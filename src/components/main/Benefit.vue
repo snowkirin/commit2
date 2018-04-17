@@ -84,7 +84,7 @@ export default {
 
 @media screen and (max-width: 486px) {
   .arrowIcon {
-    margin-left: 45.8% !important;
+    margin-left: 35.8% !important;
   }
 }
 </style>

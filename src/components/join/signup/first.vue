@@ -403,6 +403,7 @@ export default {
 
   .signup-area {
     width: 100%;
+    margin-right: 0px !important;
   }
 
   .signup-area-last {

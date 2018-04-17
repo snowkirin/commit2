@@ -501,6 +501,7 @@ div.btn-times:after {
   .zuly-style-circle {
     width: 230px;
     height: 230px;
+    margin-bottom: 300px;
   }
 
   .zuly-detail-circle {
