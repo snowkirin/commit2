@@ -1,6 +1,6 @@
 <template>
   <div class="signup subContent mauto">
-    <div class="w100 mt30 mauto">
+    <div class="w100 mt70 mauto">
       <div class="content-form d-inlinetable" style="margin-right: 30px; text-align: left;">
         <div class="signup-payment-title">
           ZULY는 78,000원<br/>
@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="content-form d-inlinetable">
-        <div class="signup-payment-label">요금제</div>
+        <div class="signup-payment-label sp-mobile-only">요금제</div>
         <div class="signup-payment-btn explain mt18 day-name-active">
           월 2회 단일 78,000원 요금제
         </div>
@@ -361,6 +361,10 @@ export default {
     z-index: 999 !important;
     margin-top: 0 !important;
     float: none !important;
+  }
+
+  .sp-mobile-only {
+    margin-top: 40px;
   }
 }
 </style>
