@@ -64,7 +64,8 @@
 }
 
 .closet-mobile-menu,
-.current {
+.current,
+.clothes {
   min-width: 900px !important;
   padding: 0 3.172% !important;
 }
