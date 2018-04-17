@@ -38,7 +38,7 @@
   border-bottom-width: 1px;
 }
 
-input {
+input, textarea {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;

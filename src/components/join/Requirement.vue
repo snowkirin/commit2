@@ -80,5 +80,19 @@ export default {
   .requirement-textarea {
     width: 86%;
   }
+
+  .req-btn-area {
+    position: fixed !important;
+    width: 100% !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    z-index: 999 !important;
+    margin-top: 0 !important;
+    float: none !important;
+  }
+
+  .content-form {
+    padding-bottom: 400px !important;
+  }
 }
 </style>
