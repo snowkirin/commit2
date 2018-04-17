@@ -55,6 +55,10 @@ export default {
 </script>
 
 <style scoped>
+.button-login {
+  height: 80px;
+}
+
 .requirementLine {
   height: 1px;
   opacity: 0.2;

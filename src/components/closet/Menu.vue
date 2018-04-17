@@ -134,6 +134,7 @@ export default {
   }
 
   .menu {
+    font-size: 18px;
     margin-right: 10px;
   }
 }
