@@ -3,7 +3,7 @@
     <div class="closet-card-none" v-show="!isShow">
       <div class="closet-card-none-content">
         <div class="content-table mauto">
-          <span><b>D-{{ printDDay(tomorrowCloset) }}일 후</b><br/>옷장이 채워집니다.</span>
+          <span><b>D{{ tomorrowCloset.styling_dday }}일 후</b><br/>옷장이 채워집니다.</span>
         </div>
       </div>
     </div>

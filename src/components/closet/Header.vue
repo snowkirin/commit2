@@ -5,14 +5,14 @@
       <div class="closet-noti-card">
         <div class="f16 noti-text">미확인 공지사항</div>
         <div class="f16 noti-count noti-count-first">
-          <span>2</span> 건
+          <span>0</span> 건
         </div>
       </div>
       <div class="closet-line"></div>
       <div class="closet-noti-card closet-mobile">
         <div class="f16 noti-text">사용 가능 쿠폰</div>
         <div class="f16 noti-count">
-          <span>2</span> 개
+          <span>0</span> 개
         </div>
       </div>
       <div class="closet-line closet-mobile"></div>
@@ -20,7 +20,7 @@
         <div class="f16 noti-text noti-last-text" style="width: 56%; display: inline-block;">내일의 옷장 선택</div>
         <div class="f16 noti-text-icon">변경가능</div>
         <div class="f16 noti-count">
-          <span>D-5</span>
+          <span>D{{tomorrowCloset.select_dday}}</span>
         </div>
       </div>
     </div>
@@ -33,6 +33,7 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'closet-header',
   computed: mapGetters({
+    tomorrowCloset: 'mypage/closet/getTomorrowCloset',
     Authentication: 'login/Authentication',
   }),
 };
