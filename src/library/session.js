@@ -4,7 +4,7 @@ export default {
   setRouterSession($router, $store) {
     $router.beforeEach(
       (to, from, next) => {
-        const actToken = document.cookie.match(new RegExp('access_token=([^;]+)'));
+        const actToken = document.cookie.match(new RegExp(`${process.env.TOKEN_NAME}=([^;]+)`));
 
         if (actToken) $store.commit('login/LOGIN_SUCCESS', JSON.parse(Base64.decode(actToken[1].split('.')[1])).user);
         else $store.commit('login/LOGOUT');

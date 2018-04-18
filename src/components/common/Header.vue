@@ -52,7 +52,7 @@ export default {
       else this.headerLine = false;
     },
     doLogout() {
-      document.cookie = `access_token=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=${process.env.HOST}`;
+      document.cookie = `${process.env.TOKEN_NAME}=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=${process.env.HOST}`;
       this.$router.push({ path: '/login' });
     },
   },
