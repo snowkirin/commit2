@@ -81,7 +81,7 @@ export default {
 
 .closet-noti-info {
   width: 62.5%;
-  margin-top: 42px;
+  margin-top: 40px;
   margin-right: 7px;
   height: 95px;
   float: right;
@@ -128,7 +128,7 @@ export default {
 
 @media screen and (max-width: 486px) {
   .closet-my-info {
-    padding: 8% 4.8% 0 4.5% !important;
+    padding: 8% 4.8% 0 3.5% !important;
     font-size: 40px;
   }
 

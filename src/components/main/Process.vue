@@ -116,6 +116,7 @@ export default {
   background: url('/static/img/icons/icon_main1.svg') no-repeat 37.322% 37.431%;
   width: 89px;
   height: 89px;
+  padding-top: 5px;
 }
 
 .secondProcess {
@@ -128,12 +129,15 @@ export default {
   background: url('/static/img/icons/icon_main3.svg') no-repeat 48.299% 37.431%;
   width: 89px;
   height: 89px;
+  padding-top: 10px;
 }
 
 .fourthProcess {
   background: url('/static/img/icons/icon_main4.svg') no-repeat 70.033% 37.431%;
   width: 89px;
   height: 89px;
+  padding-top: 10px;
+  padding-left: 3px;
 }
 
 @media screen and (max-width: 486px) {
@@ -145,11 +149,16 @@ export default {
 
   .firstProcess,
   .secondProcess,
-  .thirdProcess,
   .fourthProcess {
     width: 68px;
     height: 68px;
   }
+
+  .thirdProcess{
+    width: 70px;
+    height: 70px;
+  }
+
 
   span.en-font {
     padding-top: 14px !important;

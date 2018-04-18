@@ -244,7 +244,7 @@ export default {
 
 .styling-card {
   width: 489px;
-  height: 245px;
+  height: 240px;
   background-color: #FFFFFF;
   border: solid 2px #dadada;
   position: relative;

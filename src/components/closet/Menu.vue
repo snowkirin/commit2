@@ -84,7 +84,7 @@ export default {
 
 <style scoped>
 .closet-menu {
-  height: 50px;
+  height: 45px;
   border-bottom: 1px solid #b9b9b9;
 }
 
