@@ -147,7 +147,6 @@ export default {
   .secondProcess,
   .thirdProcess,
   .fourthProcess {
-    background-size: 800px 800px;
     width: 68px;
     height: 68px;
   }
