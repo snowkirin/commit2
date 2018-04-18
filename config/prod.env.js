@@ -4,4 +4,5 @@ module.exports = {
   API_MESSAGE_URL: '"http://message.zuly.co.kr/api/v1.0"',
   API_IMAGE_URL: '"http://image.zuly.co.kr/"',
   HOST: '"zuly.co.kr"',
+  GA_ID: '"UA-113930121-2"',
 }

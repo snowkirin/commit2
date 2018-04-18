@@ -6,6 +6,7 @@ import VeeValidate, { Validator } from 'vee-validate';
 import ko from 'vee-validate/dist/locale/ko';
 import moment from 'moment';
 import VueMomentJS from 'vue-momentjs';
+import VueAnalytics from 'vue-analytics';
 import VueGlobalConst from '@/library/VueGlobalConst';
 import VueCommon from '@/library/VueCommon';
 import html from '@/library/htmlinjection';
@@ -16,6 +17,8 @@ import store from './store';
 
 Vue.config.productionTip = false;
 
+const isDev = process.env.NODE_ENV === 'development';
+
 moment.locale('ko');
 
 Vue.use(VueMomentJS, moment);
@@ -24,6 +27,15 @@ Vue.use(VueLocalStorage);
 Vue.use(VueLocalStorage, {
   name: 'zuly',
   bind: true,
+});
+
+Vue.use(VueAnalytics, {
+  id: process.env.GA_ID,
+  router,
+  debug: {
+    enabled: !isDev,
+    sendHitTask: isDev,
+  },
 });
 
 Vue.use(VueGlobalConst);
