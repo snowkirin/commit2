@@ -10,4 +10,5 @@ module.exports = merge(prodEnv, {
   API_IMAGE_URL: '"http://dev-image.zuly.co.kr/"',
   HOST: '"zuly.co.kr"',
   GA_ID: '"UA-113930121-1"',
+  TOKEN_NAME: '"dev_access_token"',
 })

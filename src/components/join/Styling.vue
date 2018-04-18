@@ -16,7 +16,7 @@
         </div>
         <div class="zuly-detail-circle circle-natural" @click="selectStyle($const.STYLE_NATURAL)">
           <div class="zuly-detail-circle-text">
-            <span class="subject">네츄럴</span>
+            <span class="subject">내추럴</span>
             <br/><span class="description">(편안하고 활동적인)</span>
           </div>
         </div>
