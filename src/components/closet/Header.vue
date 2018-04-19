@@ -20,7 +20,7 @@
         <div class="f16 noti-text noti-last-text" style="width: 56%; display: inline-block;">내일의 옷장 선택</div>
         <div class="f16 noti-text-icon">변경가능</div>
         <div class="f16 noti-count">
-          <span>D{{tomorrowCloset.select_dday}}</span>
+          <span>D-{{tomorrowCloset.select_dday}}</span>
         </div>
       </div>
     </div>

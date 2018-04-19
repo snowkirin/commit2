@@ -289,6 +289,8 @@ export default {
 
     this.mobileVisible();
     window.addEventListener('resize', this.mobileVisible);
+
+    this.printDDay(this.tomorrowCloset);
   },
   mounted() {
     const card = document.querySelectorAll('.closet-card');
