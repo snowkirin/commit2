@@ -326,7 +326,7 @@ export default {
   },
   created() {
     const htmlScript = document.createElement('script');
-    htmlScript.setAttribute('src', 'http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false');
+    htmlScript.setAttribute('src', 'https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js?autoload=false');
     document.head.appendChild(htmlScript);
   },
   mounted() {
