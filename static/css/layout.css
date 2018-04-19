@@ -25,7 +25,11 @@ header {
   height: 69px;
   overflow: hidden;
 }
-
+@media screen and (max-width: 486px) {
+header {
+      height: 54px;
+  }
+}
 header div.left {
   width: auto;
   float: left;

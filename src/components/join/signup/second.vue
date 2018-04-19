@@ -6,7 +6,7 @@
           ZULY는 78,000원<br/>
           <span>요금제 단일 상품 입니다.</span>
         </div>
-        <div class="explain signup-payment-text" style="margin-top: 28px">
+        <div class="explain signup-payment-text">
           월 2회 스타일링 된 의류 세트(2벌) 정기 배송<br/>
           <span>(1회 배송 의류 리테일가<br/>30만원 기준 x 2 = 60만원)</span><br/>
           무료 세탁<br/>
@@ -250,7 +250,7 @@ export default {
 }
 
 .signup-payment-title {
-  font-size: 38px;
+  font-size: 36px;
   font-weight: 600;
   font-style: normal;
   font-stretch: normal;
@@ -261,6 +261,11 @@ export default {
   position: relative;
   bottom: 5px;
 }
+@media screen and (max-width: 486px) {
+  .signup-payment-title {
+    font-size: 32px;
+  }
+}
 
 .signup-payment-title span {
   position: relative;
@@ -270,6 +275,7 @@ export default {
 
 .signup-payment-text {
   line-height: 1.7;
+  margin-top: 10px;
 }
 
 .signup-payment-text span {

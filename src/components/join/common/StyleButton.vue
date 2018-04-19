@@ -89,11 +89,11 @@ export default {
 </script>
 
 <style scoped>
-.button-login {
-  height: 80px;
-}
 
 @media screen and (max-width: 486px) {
+  .button-grey{
+    height: 70px;
+  }
   .style-btn-area {
     position: fixed !important;
     width: 100% !important;

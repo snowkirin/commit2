@@ -58,7 +58,7 @@ export default {
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
-  line-height: 1.21;
+  line-height: 1.28;
   letter-spacing: -5.6px;
   color: #212121;
 }

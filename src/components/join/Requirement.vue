@@ -55,8 +55,10 @@ export default {
 </script>
 
 <style scoped>
+
+
 .button-login {
-  height: 80px;
+  height: 60px;
 }
 
 .requirementLine {
