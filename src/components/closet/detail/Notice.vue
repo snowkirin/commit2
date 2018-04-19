@@ -26,7 +26,7 @@
               </div>
             </div>
             <div  v-bind:key="'data_'+ k" class="notice-rows-data" :data-id="notice.id">
-              {{ notice.content }}
+              <span v-html="contentReplace(notice)"></span>
             </div>
           </template>
         </template>
@@ -61,6 +61,10 @@ export default {
 
       if (noticeContent.style.display === 'none' || noticeContent.style.display === '') noticeContent.style.display = 'block';
       else noticeContent.style.display = 'none';
+    },
+    contentReplace(text) {
+      const result = this.$common.enterReplace(text.content);
+      return result;
     },
   },
   created() {
@@ -129,7 +133,7 @@ export default {
   display: none;
   background-color: #f5f5f5;
   padding: 22px 30px;
-  line-height: 1;
+  line-height: 1.4;
 }
 
 @media screen and (max-width: 486px) {
