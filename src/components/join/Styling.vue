@@ -411,6 +411,9 @@ div.btn-times:after {
   z-index: -1;
   display: none;
   background-image: url('/static/img/signup/hover_natural.png');
+  -webkit-filter: grayscale(100%);
+  opacity: 0.6;
+  filter: alpha(opacity=60);
   background-repeat: no-repeat;
   background-position: 50% 0;
   position: absolute;
