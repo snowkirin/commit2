@@ -14,7 +14,7 @@
         의상을 선택해주세요.
       </div>
       <div class="closet-card-area mt50">
-        <div class="closet-card" @click="selectStyle(printStyleFirst)" data-value="first">
+        <div class="closet-card" @click="selectStyle(printStyleFirst, 'first')" data-value="first">
           <!-- div class="closet-card-title">01. 유니크 스타일</div-->
           <div class="closet-card-title" v-show="isMobile">
             <i class="fa fa-heart fa-lg"></i>
@@ -50,7 +50,7 @@
           </div>
         </div>
         <div class="closet-card-block"></div>
-        <div class="closet-card" @click="selectStyle(printStyleSecond)" data-value="second">
+        <div class="closet-card" @click="selectStyle(printStyleSecond, 'second')" data-value="second">
           <!-- div class="closet-card-title">02. 모던 스타일</div-->
           <div class="closet-card-title" v-show="isMobile">
             <i class="fa fa-heart fa-lg"></i>
@@ -194,11 +194,20 @@ export default {
 
       return rtn;
     },
-    async selectStyle(style) {
+    async selectStyle(style, type) {
       await this.setTomorrowSelect({
         subscriptionId: this.tomorrowCloset.subscription_id,
         products: [...this.parseIntProduct(...style.productId)],
       });
+
+      if (type === 'first') {
+        this.styleOnOff(true, document.querySelector('[data-value="first"]'), true);
+        this.styleOnOff(false, document.querySelector('[data-value="second"]'), false);
+      }
+      if (type === 'second') {
+        this.styleOnOff(false, document.querySelector('[data-value="first"]'), false);
+        this.styleOnOff(true, document.querySelector('[data-value="second"]'), true);
+      }
 
       if (this.tomorrowSelect) await this.setTomorrowCloset();
     },
