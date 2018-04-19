@@ -106,6 +106,11 @@ VueCommon.install = (Vue) => {
         } else break;
       }
     },
+
+    enterReplace(text) {
+      const result = text.replace(/(\n|\r\n)/g, '<br/>');
+      return result;
+    },
   };
 };
 
