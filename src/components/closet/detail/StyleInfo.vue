@@ -95,7 +95,7 @@
           <div class="style-content-row">
             <div class="style-content-header">요구사항</div>
             <div class="style-content-data mt30">
-              <span v-if="mypageStyleData.etc">{{ mypageStyleData.etc }}</span>
+              <span v-if="mypageStyleData.etc" v-html="contentReplace(mypageStyleData.etc)"></span>
               <span v-else>따로 요청하신 사항이 존재하지 않습니다.</span>
             </div>
           </div>
@@ -174,6 +174,10 @@ export default {
     }),
     moveNext() {
       this.$router.push({ path: '/join/size' });
+    },
+    contentReplace(text) {
+      const result = this.$common.enterReplace(text);
+      return result;
     },
   },
   created() {
