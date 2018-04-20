@@ -5,5 +5,5 @@ module.exports = {
   API_IMAGE_URL: '"http://image.zuly.co.kr/"',
   HOST: '"zuly.co.kr"',
   GA_ID: '"UA-113930121-2"',
-  TOKEN_NAME: '"access_token"',
+  TOKEN_NAME: '"prod_access_token"',
 }
