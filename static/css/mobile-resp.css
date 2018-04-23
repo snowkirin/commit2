@@ -127,7 +127,9 @@
 .ml30 {
   margin-left: 10px !important;
 }
-
+.content-title{
+  font-weight: 500 !important;
+}
 .content-form {
   width: 100% !important;
 }

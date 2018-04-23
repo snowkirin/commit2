@@ -92,6 +92,7 @@
 .closet-noti-info {
   width: 100% !important;
   margin-top: 42px !important;
+  margin-left: -13px;
   margin-right: 0 !important;
   float: none !important;
   padding: 0 30px;

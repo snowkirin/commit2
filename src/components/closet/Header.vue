@@ -3,19 +3,19 @@
     <div class="closet-my-info">{{ Authentication.userName }}님 옷장</div>
     <div class="closet-noti-info">
       <div class="closet-noti-card">
-        <div class="f16 noti-text">미확인 공지사항</div>
+        <div class="f16 noti-text">공지사항</div>
         <div class="f16 noti-count noti-count-first">
           <span>0</span> 건
         </div>
       </div>
-      <div class="closet-line"></div>
-      <div class="closet-noti-card closet-mobile">
+    <div class="closet-line"></div>
+    <!--    <div class="closet-noti-card closet-mobile">
         <div class="f16 noti-text">사용 가능 쿠폰</div>
         <div class="f16 noti-count">
           <span>0</span> 개
         </div>
-      </div>
-      <div class="closet-line closet-mobile"></div>
+      </div>-->
+      <div class="closet-mobile" style="float: left"></div>
       <div class="closet-noti-card noti-last-card">
         <div class="f16 noti-text noti-last-text" style="width: 56%; display: inline-block;">내일의 옷장 선택</div>
         <div class="f16 noti-text-icon">변경가능</div>
@@ -81,7 +81,6 @@ export default {
 }
 
 .closet-noti-info {
-  width: 62.5%;
   margin-top: 40px;
   margin-right: 7px;
   height: 95px;
@@ -93,7 +92,7 @@ export default {
   display: inline-block;
   vertical-align: top;
   position: relative;
-  width: 31.8%;
+  width: 300px;
   height: 110%;
 }
 
@@ -143,6 +142,7 @@ export default {
 
   .closet-mobile {
     display: none;
+    float: left;
   }
 
   .noti-text {

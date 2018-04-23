@@ -15,7 +15,7 @@
       </div>
       <div class="closet-card-area mt50">
         <div class="closet-card" @click="selectStyle(printStyleFirst, 'first')" data-value="first">
-          <!-- div class="closet-card-title">01. 유니크 스타일</div-->
+          <div class="closet-card-title">TYPE A</div>
           <div class="closet-card-title" v-show="isMobile">
             <i class="fa fa-heart fa-lg"></i>
           </div>
@@ -31,11 +31,11 @@
             </template>
           </div>
           <div class="closet-card-text">
-            <div class="closet-card-text-title">상품 설명</div>
-            <div class="closet-card-text-title-text mt10" v-html="printArrText(printStyleFirst.description)">
-            </div>
             <div class="closet-card-text-title mt25">스타일 팁</div>
             <div class="closet-card-text-title-text mt10" v-html="$common.htmlEnterLine(printStyleFirst.stylingTip)">
+            </div>
+            <div class="closet-card-text-title">상품 설명</div>
+            <div class="closet-card-text-title-text mt10" v-html="printArrText(printStyleFirst.description)">
             </div>
           </div>
           <div class="closet-card-bottom">
@@ -51,7 +51,7 @@
         </div>
         <div class="closet-card-block"></div>
         <div class="closet-card" @click="selectStyle(printStyleSecond, 'second')" data-value="second">
-          <!-- div class="closet-card-title">02. 모던 스타일</div-->
+          <div class="closet-card-title">TYPE B</div>
           <div class="closet-card-title" v-show="isMobile">
             <i class="fa fa-heart fa-lg"></i>
           </div>
@@ -67,11 +67,11 @@
             </template>
           </div>
           <div class="closet-card-text">
-            <div class="closet-card-text-title">상품 설명</div>
-            <div class="closet-card-text-title-text mt10" v-html="printArrText(printStyleSecond.description)">
-            </div>
             <div class="closet-card-text-title mt25">스타일 팁</div>
             <div class="closet-card-text-title-text mt10" v-html="$common.htmlEnterLine(printStyleSecond.stylingTip)">
+            </div>
+            <div class="closet-card-text-title">상품 설명</div>
+            <div class="closet-card-text-title-text mt10" v-html="printArrText(printStyleSecond.description)">
             </div>
           </div>
           <div class="closet-card-bottom">
@@ -260,7 +260,7 @@ export default {
         const thumbImage = obj.querySelectorAll('.thumnail-image');
 
         for (let i = 0; i < thumbImage.length; i += 1) {
-          thumbImage[i].style.height = '353px';
+          thumbImage[i].style.height = '343px';
           thumbImage[i].style.opacity = '0.4';
         }
       } else {
@@ -333,15 +333,15 @@ export default {
 }
 
 .closet-card-title {
-  text-align: right;
-  line-height: 0;
+  text-align: left;
+  line-height: 15px;
   font-size: 20px;
   font-weight: 600;
   font-style: normal;
   font-stretch: normal;
-  letter-spacing: normal;
+  letter-spacing: -0.4px;
   color: #797979;
-  margin: 30px 20px 0 20px;
+  margin: 25px 20px 0 20px;
 }
 
 .closet-card-title-on {
@@ -350,6 +350,7 @@ export default {
 
 .closet-card-images {
   margin: 20px 20px 0 20px;
+  height: 343px;
 }
 
 .thumnail-image-area {
@@ -389,8 +390,8 @@ export default {
 }
 
 .closet-card-hashtag {
-  font-size: 16px;
-  line-height: 1;
+  font-size: 18px;
+  line-height: 1.4;
   letter-spacing: -1px;
   text-align: left;
   color: #566b9c;
@@ -428,12 +429,23 @@ export default {
 
 .closet-card-active-color {
   background-color: rgba(0, 0, 0, 1);
+  height: 343px;
 }
 
 @media screen and (max-width: 486px) {
   .closet-card-area, .closet-card, .closet-card-none-content {
     display: block !important;
-    width: 90% !important;
+    width: 100% !important;
+  }
+
+  .closet-card-active-color {
+    background-color: rgba(0, 0, 0, 1);
+    height: 249px;
+  }
+
+  .closet-card-images {
+    margin: 20px 20px 0 20px;
+    height: 249px;
   }
 
   .closet-card-images {
@@ -452,7 +464,7 @@ export default {
   }
 
   .closet-card-active {
-    top: 13% !important;
+    top: 23% !important;
   }
 
   .closet-card-active i {

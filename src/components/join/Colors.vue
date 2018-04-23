@@ -205,7 +205,7 @@ export default {
 .colors-card {
   width: 118px;
   height: 56px;
-  line-height: 52px;
+  line-height: 54px;
   display: inline-block;
   vertical-align: middle;
   background-color: #f4f4f4;

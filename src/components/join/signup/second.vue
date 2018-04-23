@@ -6,7 +6,7 @@
           ZULY는 78,000원<br/>
           <span>요금제 단일 상품 입니다.</span>
         </div>
-        <div class="explain signup-payment-text">
+        <div class="signup-payment-text" style="font-size: 18px;">
           월 2회 스타일링 된 의류 세트(2벌) 정기 배송<br/>
           <span>(1회 배송 의류 리테일가<br/>30만원 기준 x 2 = 60만원)</span><br/>
           무료 세탁<br/>
@@ -66,7 +66,7 @@
         <div class="signup-payment-label mt40">개인 정보(배송을 위해 현관 비밀번호를 알려주세요)</div>
         <div class="w100 mt18">
           <div class="field mt12">
-            <input type="password" name="lobbyPwd" class="form-login-input" placeholder="현관 비밀번호" />
+            <input type="text" name="lobbyPwd" class="form-login-input" placeholder="현관 비밀번호" />
           </div>
         </div>
         <div class="signup-payment-label mt40">쿠폰</div>
