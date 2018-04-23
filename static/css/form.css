@@ -195,3 +195,34 @@
 .day-name-active-left {
   border-left: 0;
 }
+
+.size-each-group {
+  width: 100%;
+  display: table;
+  table-layout: fixed;
+  padding: 0;
+  height: 60px;
+  color: #797979;
+}
+
+.size-each {
+  display: table-cell;
+  text-align: center;
+  border: 1px solid #797979;
+  vertical-align: middle;
+  border-right: 0;
+  cursor: pointer;
+}
+
+.size-each:last-child {
+  border-right: 1px solid #797979;
+}
+
+.size-each-active {
+  color: #212121;
+  border: 2px solid #212121 !important;
+}
+
+.size-each-active-left {
+  border-left: 0;
+}

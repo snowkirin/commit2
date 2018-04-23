@@ -5,53 +5,48 @@
       <styleMenu v-show="this.Authentication.authenticated"></styleMenu>
     </div>
     <div class="explain mt8">
-      제공되는 스타일을 위해 필요한 정보입니다.
+      다음 질문들은 스타일리스트가 체형을 정확히 파악하여 연출하는데 도움이 됩니다.
     </div>
     <div class="sizeLine mt25"></div>
-    <div class="size-tt-text mauto mt40">
-      치수 측정 <i class="fa fa-exclamation-circle" @click="toolTipEvt"></i>
-    </div>
-    <div class="tooltipLocation tooltip-group">
-      <toolTip ref="mtooltip" :mobileSizeTip="true"></toolTip>
-    </div>
     <div class="content-form mauto mt40">
-      <sizeSlider
-        ref="tall"
-        :dataId="0"
-        :customValue="loadSize('tall')"
-        sizeTitle="키"
-        customTooltip="최근에 측정된 키를 입력해주세요."
-      ></sizeSlider>
-      <sizeSlider
+      <sizeTooltip ref="tall" :dataId="0" sizeTitle="키" customTooltip="최근에 측정된 키를 입력해주세요."></sizeTooltip>
+      <div class="field" :class="{ error: errors.has('tall') }">
+        <input type="number" name="tall" class="form-login-input" placeholder="최근 측정한 키를 입력" v-validate="'required'"/>
+        <span class="error" v-show="errors.has('tall')">키를 입력해주세요.</span>
+      </div>
+      <sizeTooltip
         ref="bust"
+        :bustError.sync="bustError"
         :dataId="1"
+        :dataSet="[75, 80, 85, 90]"
+        :initData="initData"
+        sizeUnit="cm"
         sizeTitle="가슴"
-        :customValue="loadSize('bust')"
-        :customInterval="5"
-        :customMinimum="75"
-        :customMaximum="95"
-        customTooltip="평상시 착용 하시는 브래지어 사이즈에서 앞에 있는 숫자를 입력해 주세요. 예를 들어 지금 착용하신 브래지어에 80A 이라고 라벨에 적혀 있다면, 80 이라고 입력 해주세요."
-      ></sizeSlider>
-      <sizeSlider
+        customTooltip="평상시 착용 하시는 브래지어 사이즈에서 앞에 있는 숫자를 입력해 주세요. 예를 들어 지금 착용하신 브래지어에 80A 이라고 라벨에 적혀 있다면, 80 이라고 입력 해주세요.">
+      </sizeTooltip>
+      <span class="error" v-show="!initFlag && bustError">가슴 사이즈를 선택해주세요.</span>
+      <sizeTooltip
         ref="waist"
+        :waistError.sync="waistError"
         :dataId="2"
+        :dataSet="[24, 26, 28]"
+        :initData="initData"
+        sizeUnit="inch"
         sizeTitle="허리"
-        :customValue="loadSize('waist')"
-        :customInterval="2"
-        :customMinimum="24"
-        :customMaximum="32"
-        customTooltip="즐겨 입으시는 바지의 인치를 입력 해주세요."
-      ></sizeSlider>
-      <sizeSlider
+        customTooltip="즐겨 입으시는 바지의 인치를 입력 해주세요.">
+      </sizeTooltip>
+      <span class="error" v-show="!initFlag && waistError">허리 사이즈를 선택해주세요.</span>
+      <sizeTooltip
         ref="hip"
+        :hipError.sync="hipError"
         :dataId="3"
+        :dataSet="[80, 85, 90, 95]"
+        :initData="initData"
+        sizeUnit="cm"
         sizeTitle="힙"
-        :customValue="loadSize('hip')"
-        :customInterval="5"
-        :customMinimum="80"
-        :customMaximum="100"
-        customTooltip="평상시 착용 하시는 팬티의 사이즈 숫자를 입력해 주세요. 예를 들어 지금 착용하신 팬티에 90 이라고 라벨에 적혀 있다면, 90이라고 입력 해주세요."
-      ></sizeSlider>
+        customTooltip="평상시 착용 하시는 팬티의 사이즈 숫자를 입력해 주세요. 예를 들어 지금 착용하신 팬티에 90 이라고 라벨에 적혀 있다면, 90이라고 입력 해주세요.">
+      </sizeTooltip>
+      <span class="error" v-show="!initFlag && hipError">힙 사이즈를 선택해주세요.</span>
       <styleButton currentLocation="size" currentNumber="1"></styleButton>
     </div>
   </div>
@@ -59,7 +54,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import SizeSlider from '@/components/join/SizeSlider';
+import SizeTooltip from '@/components/join/SizeTooltip';
 import StyleMenu from '@/components/join/common/StyleMenu';
 import StyleButton from '@/components/join/common/StyleButton';
 import ToolTip from '@/components/join/common/ToolTip';
@@ -69,10 +64,15 @@ export default {
   data() {
     return {
       clickCount: 0,
+      initFlag: true,
+      bustError: true,
+      waistError: true,
+      hipError: true,
+      initData: {},
     };
   },
   components: {
-    SizeSlider,
+    SizeTooltip,
     StyleMenu,
     StyleButton,
     ToolTip,
@@ -108,43 +108,52 @@ export default {
       else mnu.style.display = 'none';
     },
     async saveSize() {
-      const saveData = {
-        bust: this.$refs.bust.sliderValue,
-        waist: this.$refs.waist.sliderValue,
-        hip: this.$refs.hip.sliderValue,
-        tall: this.$refs.tall.sliderValue,
+      const sizeData = {
+        tall: document.querySelector('input[name=tall]').value,
+        bust: this.$refs.bust.value,
+        waist: this.$refs.waist.value,
+        hip: this.$refs.hip.value,
       };
-
-      await this.setSizeData(saveData);
-      this.$localStorage.set('S1', JSON.stringify(saveData));
+      await this.setSizeData(sizeData);
+      this.$localStorage.set('S1', JSON.stringify(sizeData));
     },
     moveNext() {
-      const tallSelected = (this.$refs.tall.customMinimum !== this.$refs.tall.sliderValue);
-      const bustSelected = (this.$refs.bust.customMinimum !== this.$refs.bust.sliderValue);
-      const waistSelected = (this.$refs.waist.customMinimum !== this.$refs.waist.sliderValue);
-      const hipSelected = (this.$refs.hip.customMinimum !== this.$refs.hip.sliderValue);
-      console.log(tallSelected, bustSelected, waistSelected, hipSelected);
-      if (!tallSelected && !bustSelected && !waistSelected && !hipSelected) {
-        alert('사이즈를 선택해 주세요.');
-        return;
-      }
-      this.saveSize();
-      this.$router.push({ path: 'styling' });
+      this.initFlag = false;
+      this.$validator.validateAll().then((result) => {
+        if (result) {
+          if (!this.bustError && !this.waistError && !this.hipError) {
+            this.saveSize();
+            this.$router.push({ path: 'styling' });
+          }
+        }
+      });
     },
   },
-  async created() {
+  async mounted() {
     let localStorage = this.$localStorage.get('S1');
 
     if (this.Authentication.authenticated) {
       if (!this.mypageStyleData.bust_size) await this.setMypageStyle();
+      document.querySelector('input[name=tall]').value = this.mypageStyleData.tall_size;
+      this.initData = {
+        bust: this.mypageStyleData.bust_size,
+        waist: this.mypageStyleData.waist_size,
+        hip: this.mypageStyleData.hip_size,
+      };
     } else if (localStorage) {
       localStorage = JSON.parse(localStorage);
+      document.querySelector('input[name=tall]').value = localStorage.tall;
       this.setMypageCache({
         tall_size: localStorage.tall,
         bust_size: localStorage.bust,
         waist_size: localStorage.waist,
         hip_size: localStorage.hip,
       });
+      this.initData = {
+        bust: localStorage.bust,
+        waist: localStorage.waist,
+        hip: localStorage.hip,
+      };
     }
   },
 };
