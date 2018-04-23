@@ -53,7 +53,8 @@ export default {
   mounted() {
     this.modal = document.querySelector(`div.custom-modal[data-id="${this.dataId}"]`);
     this.modal.style.width = `${this.width}px`;
-    this.modal.style.height = `${this.height}px`;
+    // this.modal.style.height = `${this.height}px`;
+    this.modal.style.height = '85%';
 
     if (this.modalType === 'csView') {
       this.modal.style.border = 'solid 1px #212121';
@@ -117,7 +118,7 @@ export default {
   background-color: #FFFFFF;
   position: absolute;
   opacity: 1;
-  top: 7.4%;
+  top: 7.6%;
   left: 95%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
