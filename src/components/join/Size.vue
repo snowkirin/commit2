@@ -119,6 +119,15 @@ export default {
       this.$localStorage.set('S1', JSON.stringify(saveData));
     },
     moveNext() {
+      const tallSelected = (this.$refs.tall.customMinimum !== this.$refs.tall.sliderValue);
+      const bustSelected = (this.$refs.bust.customMinimum !== this.$refs.bust.sliderValue);
+      const waistSelected = (this.$refs.waist.customMinimum !== this.$refs.waist.sliderValue);
+      const hipSelected = (this.$refs.hip.customMinimum !== this.$refs.hip.sliderValue);
+      console.log(tallSelected, bustSelected, waistSelected, hipSelected);
+      if (!tallSelected && !bustSelected && !waistSelected && !hipSelected) {
+        alert('사이즈를 선택해 주세요.');
+        return;
+      }
       this.saveSize();
       this.$router.push({ path: 'styling' });
     },

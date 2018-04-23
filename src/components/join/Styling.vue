@@ -204,6 +204,10 @@ export default {
       };
     },
     moveNext() {
+      if (this.selectMood === null) {
+        alert('선호 스타일을 선택해 주세요.');
+        return;
+      }
       this.$localStorage.set('S2', this.selectMood);
       this.$router.push({ path: 'colors' });
     },
