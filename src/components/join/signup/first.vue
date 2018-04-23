@@ -214,6 +214,17 @@ export default {
     validateBeforeSubmit() {
       this.$validator.validateAll().then((result) => {
         if (result) {
+          const privateFlag = document.querySelector('input[name=private_flag]:checked');
+          const useFlag = document.querySelector('input[name=use_flag]:checked');
+
+          if (!privateFlag) {
+            alert('개인정보의 수집 및 이용에 동의해주세요.');
+            return;
+          }
+          if (!useFlag) {
+            alert('이용약관을 확인해주세요.');
+            return;
+          }
           if (this.phoneAuth) {
             const name = document.querySelector('input[name=name]').value;
             const email = document.querySelector('input[name=email]').value;
