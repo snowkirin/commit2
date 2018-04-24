@@ -223,9 +223,12 @@ export default {
 .tall-input-unit {
   display: table-cell;
   vertical-align:bottom;
-  text-align:center;
+  text-align: left;
+  padding-left: 15px;
   width: 25%;
   height: 60px;
+  font-size: 20px;
+  font-weight: 300;
 }
 
 .field {
