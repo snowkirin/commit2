@@ -8,45 +8,58 @@
       다음 질문들은 스타일리스트가 체형을 정확히 파악하여 연출하는데 도움이 됩니다.
     </div>
     <div class="sizeLine mt25"></div>
-    <div class="content-form mauto mt40">
-      <sizeTooltip ref="tall" :dataId="0" sizeTitle="키" customTooltip="최근에 측정된 키를 입력해주세요."></sizeTooltip>
-      <div class="field" :class="{ error: errors.has('tall') }">
-        <input type="number" name="tall" class="form-login-input" placeholder="최근 측정한 키를 입력" v-validate="'required'"/>
-        <span class="error" v-show="errors.has('tall')">키를 입력해주세요.</span>
+    <div class="content-form mauto">
+      <div class="size-margin">
+        <sizeTooltip ref="tall" :dataId="0" sizeTitle="키" customTooltip="최근에 측정된 키를 입력해주세요."></sizeTooltip>
+        <div class="tall-input-group" :class="{ error: errors.has('tall') }">
+          <div class="tall-input">
+            <input type="number" name="tall" class="form-login-input" placeholder="최근 측정한 키를 입력" v-validate="'required'"/>
+          </div>
+          <div class="tall-input-unit">cm</div>
+        </div>
+        <div class="field">
+          <span class="error" v-show="errors.has('tall')" style="text">키를 입력해주세요.</span>
+        </div>
+        <sizeTooltip
+          ref="bust"
+          :bustError.sync="bustError"
+          :dataId="1"
+          :dataSet="[75, 80, 85, 90]"
+          :initData="initData"
+          sizeUnit="cm"
+          sizeTitle="가슴"
+          customTooltip="평상시 착용 하시는 브래지어 사이즈에서 앞에 있는 숫자를 입력해 주세요. 예를 들어 지금 착용하신 브래지어에 80A 이라고 라벨에 적혀 있다면, 80 이라고 입력 해주세요.">
+        </sizeTooltip>
+        <div class="field">
+          <span class="error" v-show="!initFlag && bustError">가슴 사이즈를 선택해주세요.</span>
+        </div>
+        <sizeTooltip
+          ref="waist"
+          :waistError.sync="waistError"
+          :dataId="2"
+          :dataSet="[24, 26, 28, 30]"
+          :initData="initData"
+          sizeUnit="inch"
+          sizeTitle="허리"
+          customTooltip="즐겨 입으시는 바지의 인치를 입력 해주세요.">
+        </sizeTooltip>
+        <div class="field">
+          <span class="error" v-show="!initFlag && waistError">허리 사이즈를 선택해주세요.</span>
+        </div>
+        <sizeTooltip
+          ref="hip"
+          :hipError.sync="hipError"
+          :dataId="3"
+          :dataSet="[80, 85, 90, 95]"
+          :initData="initData"
+          sizeUnit="cm"
+          sizeTitle="힙"
+          customTooltip="평상시 착용 하시는 팬티의 사이즈 숫자를 입력해 주세요. 예를 들어 지금 착용하신 팬티에 90 이라고 라벨에 적혀 있다면, 90이라고 입력 해주세요.">
+        </sizeTooltip>
+        <div class="field">
+          <span class="error" v-show="!initFlag && hipError">힙 사이즈를 선택해주세요.</span>
+        </div>
       </div>
-      <sizeTooltip
-        ref="bust"
-        :bustError.sync="bustError"
-        :dataId="1"
-        :dataSet="[75, 80, 85, 90]"
-        :initData="initData"
-        sizeUnit="cm"
-        sizeTitle="가슴"
-        customTooltip="평상시 착용 하시는 브래지어 사이즈에서 앞에 있는 숫자를 입력해 주세요. 예를 들어 지금 착용하신 브래지어에 80A 이라고 라벨에 적혀 있다면, 80 이라고 입력 해주세요.">
-      </sizeTooltip>
-      <span class="error" v-show="!initFlag && bustError">가슴 사이즈를 선택해주세요.</span>
-      <sizeTooltip
-        ref="waist"
-        :waistError.sync="waistError"
-        :dataId="2"
-        :dataSet="[24, 26, 28]"
-        :initData="initData"
-        sizeUnit="inch"
-        sizeTitle="허리"
-        customTooltip="즐겨 입으시는 바지의 인치를 입력 해주세요.">
-      </sizeTooltip>
-      <span class="error" v-show="!initFlag && waistError">허리 사이즈를 선택해주세요.</span>
-      <sizeTooltip
-        ref="hip"
-        :hipError.sync="hipError"
-        :dataId="3"
-        :dataSet="[80, 85, 90, 95]"
-        :initData="initData"
-        sizeUnit="cm"
-        sizeTitle="힙"
-        customTooltip="평상시 착용 하시는 팬티의 사이즈 숫자를 입력해 주세요. 예를 들어 지금 착용하신 팬티에 90 이라고 라벨에 적혀 있다면, 90이라고 입력 해주세요.">
-      </sizeTooltip>
-      <span class="error" v-show="!initFlag && hipError">힙 사이즈를 선택해주세요.</span>
       <styleButton currentLocation="size" currentNumber="1"></styleButton>
     </div>
   </div>
@@ -193,6 +206,32 @@ export default {
   top: 24%;
 }
 
+.tall-input-group {
+  width: 392px;
+  display: table;
+  table-layout: fixed;
+  padding: 0;
+  height: 60px;
+}
+
+.tall-input {
+  display: table-cell;
+  text-align: center;
+  width: 75%;
+}
+
+.tall-input-unit {
+  display: table-cell;
+  vertical-align:bottom;
+  text-align:center;
+  width: 25%;
+  height: 60px;
+}
+
+.field {
+  text-align: left;
+}
+
 @media screen and (max-width: 486px) {
   .size-tt-text {
     width: 100%;
@@ -202,6 +241,11 @@ export default {
     display: inline-block;
     color: #aaaaaa;
     cursor: pointer;
+  }
+
+  .size-margin {
+    margin: 0 20px 0 20px;
+    overflow-x:hidden;
   }
 }
 </style>
