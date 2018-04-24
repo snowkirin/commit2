@@ -1,8 +1,9 @@
 <template>
   <div class="sizeScroll mt35" :data-main="dataId">
-    <span class="sizeText divIB">{{ sizeTitle }}</span>
-    <span v-if="sizeTitle === '가슴'">(브래지어)</span>
-    <span v-if="sizeTitle === '힙'">(팬티)</span>
+    <span class="sizeText divIB">{{ sizeTitle }}
+      <span v-if="sizeTitle === '가슴'" class="description">(브래지어)</span>
+      <span v-if="sizeTitle === '힙'" class="description">(팬티)</span>
+    </span>
     <i class="fa fa-exclamation-circle tooltip-group" @mouseover="toolTipEvt" @mouseleave="toolTipEvt"></i>
     <div class="tooltipLocation tooltip-group">
       <toolTip ref="tooltip" :tooltipText="customTooltip" :mobileSizeTip="false"></toolTip>
@@ -131,7 +132,7 @@ export default {
   font-style: normal;
   font-stretch: normal;
   line-height: 2.67;
-  letter-spacing: -2px;
+  letter-spacing: -1px;
   color: #212121;
 }
 
@@ -151,6 +152,11 @@ input:focus{
   position: absolute;
   z-index: 5;
   left: 6%;
+}
+
+.description {
+  color:#797979;
+  font-weight:normal;
 }
 
 @media screen and (max-width: 486px) {
