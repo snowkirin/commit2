@@ -347,13 +347,13 @@ export default {
 .heart-icon {
   position: absolute;
   top: 5%;
-  left: 88.5%;
+  left: 86.5%;
   line-height: 15px;
-  font-size: 20px;
+  font-size: 27px;
   font-weight: 600;
   font-style: normal;
   font-stretch: normal;
-  color: #797979;
+  color: #e9e9e9;
 }
 
 .heart-icon-on {
@@ -449,6 +449,22 @@ export default {
 }
 
 @media screen and (max-width: 486px) {
+  .heart-icon {
+    position: absolute;
+    top: 5%;
+    left: 89%;
+    line-height: 15px;
+    font-size: 27px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    color: #e9e9e9;
+  }
+
+  .heart-icon-on {
+    color: #f45649;
+  }
+
   .closet-card-area, .closet-card, .closet-card-none-content {
     display: block !important;
     width: 100% !important;
@@ -491,17 +507,34 @@ export default {
     font-size: 26px;
   }
 }
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 376px) {
   .heart-icon {
     position: absolute;
-    top: 4.4%;
-    left: 86%;
+    top: 5%;
+    left: 86.5%;
     line-height: 15px;
-    font-size: 20px;
+    font-size: 27px;
     font-weight: 600;
     font-style: normal;
     font-stretch: normal;
-    color: #797979;
+    color: #e9e9e9;
+  }
+
+  .heart-icon-on {
+    color: #f45649;
+  }
+}
+@media screen and (max-width: 320px) {
+  .heart-icon {
+    position: absolute;
+    top: 5%;
+    left: 84%;
+    line-height: 15px;
+    font-size: 27px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    color: #e9e9e9;
   }
 
   .heart-icon-on {
