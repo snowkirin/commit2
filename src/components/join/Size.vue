@@ -1,5 +1,5 @@
 <template>
-  <div class="size subContent mauto">
+  <div class="size subContent mauto size-margin">
     <div class="content-title mt70">
       사이즈
       <styleMenu v-show="this.Authentication.authenticated"></styleMenu>
@@ -9,56 +9,54 @@
     </div>
     <div class="sizeLine mt25"></div>
     <div class="content-form mauto">
-      <div class="size-margin">
-        <sizeTooltip ref="tall" :dataId="0" sizeTitle="키" customTooltip="최근에 측정된 키를 입력해주세요."></sizeTooltip>
-        <div class="tall-input-group" :class="{ error: errors.has('tall') }">
-          <div class="tall-input">
-            <input type="number" name="tall" class="form-login-input" placeholder="최근 측정한 키를 입력" v-validate="'required'"/>
-          </div>
-          <div class="tall-input-unit">cm</div>
+      <sizeTooltip ref="tall" :dataId="0" sizeTitle="키" customTooltip="최근에 측정된 키를 입력해주세요."></sizeTooltip>
+      <div class="tall-input-group" :class="{ error: errors.has('tall') }">
+        <div class="tall-input">
+          <input type="number" name="tall" class="form-login-input" placeholder="최근 측정한 키를 입력" v-validate="'required'"/>
         </div>
-        <div class="field">
-          <span class="error" v-show="errors.has('tall')" style="text">키를 입력해주세요.</span>
-        </div>
-        <sizeTooltip
-          ref="bust"
-          :bustError.sync="bustError"
-          :dataId="1"
-          :dataSet="[75, 80, 85, 90]"
-          :initData="initData"
-          sizeUnit="cm"
-          sizeTitle="가슴"
-          customTooltip="평상시 착용 하시는 브래지어 사이즈에서 앞에 있는 숫자를 입력해 주세요. 예를 들어 지금 착용하신 브래지어에 80A 이라고 라벨에 적혀 있다면, 80 이라고 입력 해주세요.">
-        </sizeTooltip>
-        <div class="field">
-          <span class="error" v-show="!initFlag && bustError">가슴 사이즈를 선택해주세요.</span>
-        </div>
-        <sizeTooltip
-          ref="waist"
-          :waistError.sync="waistError"
-          :dataId="2"
-          :dataSet="[24, 26, 28, 30]"
-          :initData="initData"
-          sizeUnit="inch"
-          sizeTitle="허리"
-          customTooltip="즐겨 입으시는 바지의 인치를 입력 해주세요.">
-        </sizeTooltip>
-        <div class="field">
-          <span class="error" v-show="!initFlag && waistError">허리 사이즈를 선택해주세요.</span>
-        </div>
-        <sizeTooltip
-          ref="hip"
-          :hipError.sync="hipError"
-          :dataId="3"
-          :dataSet="[80, 85, 90, 95]"
-          :initData="initData"
-          sizeUnit="cm"
-          sizeTitle="힙"
-          customTooltip="평상시 착용 하시는 팬티의 사이즈 숫자를 입력해 주세요. 예를 들어 지금 착용하신 팬티에 90 이라고 라벨에 적혀 있다면, 90이라고 입력 해주세요.">
-        </sizeTooltip>
-        <div class="field">
-          <span class="error" v-show="!initFlag && hipError">힙 사이즈를 선택해주세요.</span>
-        </div>
+        <div class="tall-input-unit">cm</div>
+      </div>
+      <div class="field">
+        <span class="error" v-show="errors.has('tall')" style="text">키를 입력해주세요.</span>
+      </div>
+      <sizeTooltip
+        ref="bust"
+        :bustError.sync="bustError"
+        :dataId="1"
+        :dataSet="[75, 80, 85, 90]"
+        :initData="initData"
+        sizeUnit="cm"
+        sizeTitle="가슴"
+        customTooltip="평상시 착용 하시는 브래지어 사이즈에서 앞에 있는 숫자를 입력해 주세요. 예를 들어 지금 착용하신 브래지어에 80A 이라고 라벨에 적혀 있다면, 80 이라고 입력 해주세요.">
+      </sizeTooltip>
+      <div class="field">
+        <span class="error" v-show="!initFlag && bustError">가슴 사이즈를 선택해주세요.</span>
+      </div>
+      <sizeTooltip
+        ref="waist"
+        :waistError.sync="waistError"
+        :dataId="2"
+        :dataSet="[24, 26, 28, 30]"
+        :initData="initData"
+        sizeUnit="inch"
+        sizeTitle="허리"
+        customTooltip="즐겨 입으시는 바지의 인치를 입력 해주세요.">
+      </sizeTooltip>
+      <div class="field">
+        <span class="error" v-show="!initFlag && waistError">허리 사이즈를 선택해주세요.</span>
+      </div>
+      <sizeTooltip
+        ref="hip"
+        :hipError.sync="hipError"
+        :dataId="3"
+        :dataSet="[80, 85, 90, 95]"
+        :initData="initData"
+        sizeUnit="cm"
+        sizeTitle="힙"
+        customTooltip="평상시 착용 하시는 팬티의 사이즈 숫자를 입력해 주세요. 예를 들어 지금 착용하신 팬티에 90 이라고 라벨에 적혀 있다면, 90이라고 입력 해주세요.">
+      </sizeTooltip>
+      <div class="field">
+        <span class="error" v-show="!initFlag && hipError">힙 사이즈를 선택해주세요.</span>
       </div>
       <styleButton currentLocation="size" currentNumber="1"></styleButton>
     </div>
