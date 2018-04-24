@@ -15,10 +15,10 @@
       </div>
       <div class="closet-card-area mt50">
         <div class="closet-card" @click="selectStyle(printStyleFirst, 'first')" data-value="first">
-          <div class="closet-card-title">TYPE A</div>
-          <div class="closet-card-title" v-show="isMobile">
-            <i class="fa fa-heart fa-lg"></i>
+          <div v-show="isMobile">
+            <i class="fa fa-heart fa-lg heart-icon"></i>
           </div>
+          <div class="closet-card-title select-title">TYPE A</div>
           <div class="closet-card-images">
             <template v-for="(image, k) in printStyleFirst.image">
               <div v-bind:key="k" class="thumnail-image-area">
@@ -34,9 +34,6 @@
             <div class="closet-card-text-title mt25">스타일 팁</div>
             <div class="closet-card-text-title-text mt10" v-html="$common.htmlEnterLine(printStyleFirst.stylingTip)">
             </div>
-            <div class="closet-card-text-title">상품 설명</div>
-            <div class="closet-card-text-title-text mt10" v-html="printArrText(printStyleFirst.description)">
-            </div>
           </div>
           <div class="closet-card-bottom">
             <div class="dotted-line mt30"></div>
@@ -51,10 +48,10 @@
         </div>
         <div class="closet-card-block"></div>
         <div class="closet-card" @click="selectStyle(printStyleSecond, 'second')" data-value="second">
-          <div class="closet-card-title">TYPE B</div>
-          <div class="closet-card-title" v-show="isMobile">
-            <i class="fa fa-heart fa-lg"></i>
+          <div v-show="isMobile">
+            <i class="fa fa-heart fa-lg heart-icon"></i>
           </div>
+          <div class="closet-card-title select-title">TYPE B</div>
           <div class="closet-card-images">
             <template v-for="(image, k) in printStyleSecond.image">
               <div v-bind:key="k" class="thumnail-image-area">
@@ -69,9 +66,6 @@
           <div class="closet-card-text">
             <div class="closet-card-text-title mt25">스타일 팁</div>
             <div class="closet-card-text-title-text mt10" v-html="$common.htmlEnterLine(printStyleSecond.stylingTip)">
-            </div>
-            <div class="closet-card-text-title">상품 설명</div>
-            <div class="closet-card-text-title-text mt10" v-html="printArrText(printStyleSecond.description)">
             </div>
           </div>
           <div class="closet-card-bottom">
@@ -254,7 +248,8 @@ export default {
       if (type) {
         obj.classList.add('closet-card-on');
         obj.querySelector('.closet-card-images').classList.add('closet-card-active-color');
-        obj.querySelector('.closet-card-title i').style.color = 'red';
+        obj.querySelector('.heart-icon').classList.add('heart-icon-on');
+        obj.querySelector('.select-title').classList.add('select-title-on');
         obj.querySelector('.closet-card-active').style.display = 'block';
 
         const thumbImage = obj.querySelectorAll('.thumnail-image');
@@ -266,7 +261,8 @@ export default {
       } else {
         obj.classList.remove('closet-card-on');
         obj.querySelector('.closet-card-images').classList.remove('closet-card-active-color');
-        obj.querySelector('.closet-card-title i').style.color = 'black';
+        obj.querySelector('.heart-icon').classList.remove('heart-icon-on');
+        obj.querySelector('.select-title').classList.remove('select-title-on');
         obj.querySelector('.closet-card-active').style.display = 'none';
 
         const thumbImage = obj.querySelectorAll('.thumnail-image');
@@ -345,6 +341,26 @@ export default {
 }
 
 .closet-card-title-on {
+  color: #212121;
+}
+
+.heart-icon {
+  position: absolute;
+  top: 5%;
+  left: 88.5%;
+  line-height: 15px;
+  font-size: 20px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  color: #797979;
+}
+
+.heart-icon-on {
+  color: #f45649;
+}
+
+.select-title-on {
   color: #212121;
 }
 
@@ -473,6 +489,23 @@ export default {
 
   .content-table span {
     font-size: 26px;
+  }
+}
+@media screen and (max-width: 320px) {
+  .heart-icon {
+    position: absolute;
+    top: 4.4%;
+    left: 86%;
+    line-height: 15px;
+    font-size: 20px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    color: #797979;
+  }
+
+  .heart-icon-on {
+    color: #f45649;
   }
 }
 </style>
