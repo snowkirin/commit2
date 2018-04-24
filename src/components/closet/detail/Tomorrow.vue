@@ -40,7 +40,7 @@
           </div>
           <div class="closet-card-bottom">
             <div class="dotted-line mt30"></div>
-            <div class="closet-card-hashtag mt20" v-html="$common.htmlEnterLine(printStyleFirst.hashTag)">
+            <div class="mt20" v-html="$common.htmlEnterLine(printStyleFirst.hashTag)">
             </div>
           </div>
           <div class="closet-card-active">
@@ -392,9 +392,9 @@ export default {
 .closet-card-hashtag {
   font-size: 18px;
   line-height: 1.4;
-  letter-spacing: -1px;
+  letter-spacing: -0.4px;
   text-align: left;
-  color: #566b9c;
+  color: #683b3f;
   margin-bottom: 20px;
 }
 
