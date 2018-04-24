@@ -189,10 +189,15 @@ export default {
       return rtn;
     },
     async selectStyle(style, type) {
-      await this.setTomorrowSelect({
-        subscriptionId: this.tomorrowCloset.subscription_id,
-        products: [...this.parseIntProduct(...style.productId)],
-      });
+      if (this.tomorrowCloset.select_dday >= 0) {
+        await this.setTomorrowSelect({
+          subscriptionId: this.tomorrowCloset.subscription_id,
+          products: [...this.parseIntProduct(...style.productId)],
+        });
+      } else {
+        alert('선택기간이 지났습니다. 고객센터로 문의해주세요.');
+        return;
+      }
 
       if (type === 'first') {
         this.styleOnOff(true, document.querySelector('[data-value="first"]'), true);
