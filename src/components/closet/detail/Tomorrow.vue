@@ -346,7 +346,7 @@ export default {
 
 .heart-icon {
   position: absolute;
-  top: 5%;
+  top: 4.6%;
   left: 86.5%;
   line-height: 15px;
   font-size: 27px;
@@ -451,7 +451,7 @@ export default {
 @media screen and (max-width: 486px) {
   .heart-icon {
     position: absolute;
-    top: 5%;
+    top: 4.6%;
     left: 89%;
     line-height: 15px;
     font-size: 27px;
@@ -510,7 +510,7 @@ export default {
 @media screen and (max-width: 376px) {
   .heart-icon {
     position: absolute;
-    top: 5%;
+    top: 4.6%;
     left: 86.5%;
     line-height: 15px;
     font-size: 27px;
@@ -527,7 +527,7 @@ export default {
 @media screen and (max-width: 320px) {
   .heart-icon {
     position: absolute;
-    top: 5%;
+    top: 4.6%;
     left: 84%;
     line-height: 15px;
     font-size: 27px;
