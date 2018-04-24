@@ -30,11 +30,16 @@
   color: #212121;
   text-decoration: none;
 }
-
+.dotted-line-hashtag {
+  background-color: #a7a7a7;
+  border-bottom-style: dashed;
+  border-bottom-color: #dbdbdb;
+  border-bottom-width: 1px;
+}
 .dotted-line {
-  background-color: #d4d4d4;
-  border-bottom-style: dotted;
-  border-bottom-color: #f7f7f7;
+  background-color: #ffffff;
+  border-bottom-style: dashed;
+  border-bottom-color: #dbdbdb;
   border-bottom-width: 1px;
 }
 

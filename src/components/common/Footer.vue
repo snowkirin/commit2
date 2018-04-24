@@ -61,7 +61,7 @@ footer {
 }
 
 .footer-area {
-  padding: 0 50px 50px 50px;
+  padding: 80px 50px 50px 50px;
 }
 
 .footer-line {
@@ -80,7 +80,7 @@ footer {
 
 @media screen and (max-width: 486px) {
   .footer-area {
-    padding: 0 30px;
+    padding: 30px 30px 0px 30px;
   }
 }
 

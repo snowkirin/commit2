@@ -25,7 +25,7 @@
         </div>
       </div>
       <feedBack ref="feedback"></feedBack>
-      <div class="closet-styling-tip mt30">
+      <div class="closet-styling-tip mt50">
         <div class="closet-styling-rotate-text">
           ZULY STYLE
         </div>
@@ -61,10 +61,16 @@
           TODAY'S STYLE
         </div>
       </div>
+      <div class="closet-styling-tip-title">스타일 팁</div>
       <div class="closet-styling-tip-text" v-html="printStylingTip">
         <!-- div class="closet-styling-tip-stylist mt30">
           - 담당 스타일리스트 한영진님
         </div -->
+      </div>
+      <div class="closet-styling-tip-hashtag">
+        <div class="dotted-line-hashtag"></div>
+        <div class="mt20" v-html="currentCloset.hashtag">
+        </div>
       </div>
       <div class="current-closet-item-list mt30" style="display: flex;">
         <div class="current-closet-item">
@@ -85,13 +91,13 @@
                 ></div>
               </div>
               <div class="item-content">
-                <div style="padding-top: 45px;">
+                <div style="padding-top: 60px;">
                   <span style="font-weight: 600;">[{{ closet.brand_kor_name }}]</span><br/>
                   <span style="line-height: 2;">{{ closet.name }}</span>
-                  <p>
+                  <div style="padding-top: 8px;">
                     <span class="normal-price">{{ $common.numberWithCommas(closet.sale_price) }}원</span><br/>
                     <span style="line-height: 1.8;">혜택가 {{ $common.numberWithCommas(closet.used_price) }}원 <span class="normal-price-percent">({{ closet.discount_rate }}%↓)</span></span>
-                  </p>
+                  </div>
                   <!-- p>
                     상품 상세보기
                   </p -->
@@ -273,7 +279,7 @@ div.btn-times:after {
 }
 
 .closet-styling-tip {
-  height: 600px;
+  height: 570px;
   background-color: #dbdbdb;
   position: relative;
 }
@@ -312,11 +318,11 @@ div.btn-times:after {
   background-color: #FFFFFF;
   position: absolute;
   left: 51.3%;
-  top: 25.3%;
+  top: 22.3%;
 }
 
 .closet-styling-image-title {
-  font-size: 64px;
+  font-size: 62px;
   font-weight: 600;
   font-style: normal;
   font-stretch: normal;
@@ -328,13 +334,13 @@ div.btn-times:after {
 .first-title {
   position: absolute;
   left: 20.5%;
-  top: 75.3%;
+  top: 79.3%;
 }
 
 .second-title {
   position: absolute;
   left: 23.7%;
-  top: 86.2%;
+  top: 89.2%;
 }
 
 .third-line {
@@ -349,15 +355,44 @@ div.btn-times:after {
   background-color: #dbdbdb;
   text-align: left;
   word-wrap:break-word;
+  padding: 0 19.4% 20px 23.9%;
+  font-size: 18px;
+}
+.closet-styling-tip-hashtag{
+  background-color: #dbdbdb;
+  text-align: left;
+  word-wrap:break-word;
   padding: 0 19.4% 60px 23.9%;
+  font-size: 18px;
+  color: #683b3f;
 }
 
+.closet-styling-tip-title {
+  background-color: #dbdbdb;
+  text-align: left;
+  word-wrap:break-word;
+  padding: 0 19.4% 0px 23.9%;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  color: #212121;
+  line-height: 3;
+}
 .closet-styling-tip-stylist {
   font-size: 16px;
   font-weight: normal;
   line-height: 1;
   letter-spacing: -1px;
   color: #797979;
+}
+
+.closet-card-hashtag {
+  font-size: 18px;
+  line-height: 1.4;
+  letter-spacing: -0.4px;
+  text-align: left;
+  color: #683b3f;
+  margin-bottom: 20px;
 }
 
 .current-closet-item {
@@ -544,7 +579,7 @@ div.btn-times:after {
 
   .second-title {
     left: 7.7%;
-    top: 99.2%;
+    top: 98.2%;
   }
 
   .closet-styling-image-title {
@@ -552,9 +587,14 @@ div.btn-times:after {
   }
 
   .closet-styling-tip-text {
-    padding: 60px 4.8%;
+    padding: 0px 8% 30px 8%;
   }
-
+  .closet-styling-tip-title {
+    padding: 20px 8% 0px 8%;
+  }
+ .closet-styling-tip-hashtag {
+    padding: 0px 8% 10px 8%;
+  }
   .thumnail-image,
   .thumnail-image-area {
     width: 80px;
@@ -566,7 +606,8 @@ div.btn-times:after {
   }
 
   .item-content > div {
-    padding-top: 0 !important;
+    padding-top: 15px !important;
+    padding-left: 45px !important;
   }
 
   .closet-card-none-content {
