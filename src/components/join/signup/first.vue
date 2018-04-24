@@ -121,8 +121,17 @@ export default {
   computed: mapGetters({
     isLogin: 'login/isLogin',
     phoneAuthKey: 'signup/getPhoneAuthKey',
+    phoneVerifyResult: 'signup/getPhoneVerify',
     phoneAuth: 'signup/getPhoneAuth',
   }),
+  watch: {
+    phoneVerifyResult(value) {
+      if (value) {
+        this.startTimer();
+        this.authErr = true;
+      }
+    },
+  },
   methods: {
     ...mapActions({
       setFirstData: 'signup/setFirstData',
@@ -168,9 +177,6 @@ export default {
               email: email.value,
               phone: phone.value.split('-').join(''),
             });
-
-            this.startTimer();
-            this.authErr = true;
 
             return true;
           }

@@ -13,6 +13,7 @@ export default {
     mood: null,
     requirement: '',
     phoneAuth: false,
+    phoneVerify: false,
     phoneAuthKey: null,
     phoneAuthCnt: 0,
     surveyStorage: {
@@ -47,6 +48,7 @@ export default {
       state.sizeData = { ...data };
     },
     [types.PHONE_VERIFY](state, data) {
+      state.phoneVerify = data.result;
       state.phoneAuthKey = data.authId;
     },
     [types.PHONE_VERIFY_CHECK](state) {
@@ -92,6 +94,7 @@ export default {
   actions,
   getters: {
     getPhoneAuth: state => state.phoneAuth,
+    getPhoneVerify: state => state.phoneVerify,
     getPhoneAuthKey: state => state.phoneAuthKey,
     getColors: state => state.surveyStorage.colors,
     getPreferColors: state => state.colors.prefer,

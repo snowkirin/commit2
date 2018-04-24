@@ -110,7 +110,13 @@ const phoneVerify = async ({ commit }, data) => {
       ...data,
     });
 
-    if (result.data.result) commit(types.PHONE_VERIFY, result.data);
+    commit(types.PHONE_VERIFY, result.data);
+
+    if (result.data.emailDuplicated) {
+      alert('이미 가입한 이메일입니다.');
+    } else if (result.data.phoneDuplicated) {
+      alert('이미 가입한 휴대전화입니다.');
+    }
   } catch (e) {
     console.error(e.message);
   }
