@@ -22,7 +22,7 @@
           <div class="closet-card-images">
             <template v-for="(image, k) in printStyleFirst.image">
               <div v-bind:key="k" class="thumnail-image-area">
-                <div class="thumnail-image"
+                <div class="thumnail-image" v-bind:class="{ 'thumnail-image-left100': (printStyleFirst.image[1] === null) }"
                   v-bind:style="{
                     backgroundImage: `url('${$common.IMAGEURL() + image}')`,
                   }"
@@ -55,7 +55,7 @@
           <div class="closet-card-images">
             <template v-for="(image, k) in printStyleSecond.image">
               <div v-bind:key="k" class="thumnail-image-area">
-                <div class="thumnail-image"
+                <div class="thumnail-image" v-bind:class="{ 'thumnail-image-left100': (printStyleSecond.image[1] === null) }"
                   v-bind:style="{
                     backgroundImage: `url('${$common.IMAGEURL() + image}')`,
                   }"
@@ -391,6 +391,10 @@ export default {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+}
+
+.thumnail-image-left100 {
+  left: 100%;
 }
 
 .closet-card-text {
