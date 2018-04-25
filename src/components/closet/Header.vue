@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'closet-header',
@@ -42,6 +42,9 @@ export default {
     Authentication: 'login/Authentication',
   }),
   methods: {
+    ...mapActions({
+      setTomorrowCloset: 'mypage/closet/setTomorrowCloset',
+    }),
     printDDay(date) {
       let changeDay = '';
       if (date === 0 || date < 0) {
@@ -54,6 +57,9 @@ export default {
 
       return changeDay;
     },
+  },
+  async created() {
+    await this.setTomorrowCloset();
   },
 };
 </script>
