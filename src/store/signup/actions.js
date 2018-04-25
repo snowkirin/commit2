@@ -154,6 +154,26 @@ const signup = async ({ state }, data) => {
     if (state.selected.onepiece.length > 0) clothes = [...new Set([...clothes, ...state.selected.onepiece])];
     else clothes = [...clothes, 12860];
 
+    if (state.sizeData === undefined || Object.keys(state.sizeData).length === 0) {
+      alert('사이즈가 정상적으로 입력되지 않았습니다. 다시 진행해주세요.'); return false;
+    } else if (state.mood === undefined || state.mood === null) {
+      alert('선호 스타일이 정상적으로 입력되지 않았습니다. 다시 진행해주세요.'); return false;
+    } else if (state.firstData.name === undefined || state.firstData.name === null) {
+      alert('이름이 정상적으로 입력되지 않았습니다. 다시 진행해주세요.'); return false;
+    } else if (state.firstData.email === undefined || state.firstData.email === null) {
+      alert('이메일을 정상적으로 입력되지 않았습니다. 다시 진행해주세요.'); return false;
+    } else if (state.firstData.phone === undefined || state.firstData.phone === null) {
+      alert('핸드폰 번호가 정상적으로 입력되지 않았습니다. 다시 진행해주세요.'); return false;
+    } else if (state.firstData.addr === undefined || state.firstData.addr === null) {
+      alert('주소를 정상적으로 입력되지 않았습니다. 다시 진행해주세요.'); return false;
+    } else if (state.firstData.addrDetail === undefined || state.firstData.addrDetail === null) {
+      alert('주소 상세를 정상적으로 입력되지 않았습니다. 다시 진행해주세요.'); return false;
+    } else if (state.firstData.zipcode === undefined || state.firstData.zipcode === null) {
+      alert('우편번호를 정상적으로 입력되지 않았습니다. 다시 진행해주세요.'); return false;
+    } if (data.cardNumber.length <= 14) {
+      alert('카드번호를 잘못 입력하셨습니다. 다시 입력해주세요.'); return false;
+    }
+
     const result = await Auth.localJoin({
       sizeData: state.sizeData,
       mood: state.mood,
