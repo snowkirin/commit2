@@ -129,7 +129,7 @@
             </div>
           </div>
           <div style="margin: 23px;">
-            <button class="button-login">
+            <button class="button-login" @click="currentPayment()">
               {{ printBtnText }} 등록된 카드로 결제하기
             </button>
           </div>
@@ -206,6 +206,9 @@ export default {
       if (this.paymentAmount > 0) {
         this.printBtnText = `${this.$common.numberWithCommas(this.paymentAmount)}원`;
       }
+    },
+    currentPayment() {
+      alert('체험단 기간 중에는 결제가 불가능합니다.');
     },
   },
   async created() {
