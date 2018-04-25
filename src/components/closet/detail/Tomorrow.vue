@@ -21,7 +21,7 @@
           <div class="closet-card-title select-title">TYPE A</div>
           <div class="closet-card-images">
             <template v-for="(image, k) in printStyleFirst.image">
-              <div v-bind:key="k" class="thumnail-image-area">
+              <div v-if="image !== null" v-bind:key="k" class="thumnail-image-area" >
                 <div class="thumnail-image" v-bind:class="{ 'thumnail-image-left100': (printStyleFirst.image[1] === null) }"
                   v-bind:style="{
                     backgroundImage: `url('${$common.IMAGEURL() + image}')`,
@@ -55,7 +55,7 @@
           <div class="closet-card-images">
             <template v-for="(image, k) in printStyleSecond.image">
               <div v-bind:key="k" class="thumnail-image-area">
-                <div class="thumnail-image" v-bind:class="{ 'thumnail-image-left100': (printStyleSecond.image[1] === null) }"
+                <div v-if="image !== null" class="thumnail-image" v-bind:class="{ 'thumnail-image-left100': (printStyleSecond.image[1] === null) }"
                   v-bind:style="{
                     backgroundImage: `url('${$common.IMAGEURL() + image}')`,
                   }"
