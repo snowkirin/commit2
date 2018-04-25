@@ -3,7 +3,7 @@
     <div class="closet-card-none" v-show="!isShow">
       <div class="closet-card-none-content">
         <div class="content-table mauto">
-          <span><b>D-{{ tomorrowCloset.styling_dday }}일 후</b><br/>옷장이 채워집니다.</span>
+          <span><b>{{ printDDay(tomorrowCloset.styling_dday) }}</b><br/>옷장이 채워집니다.</span>
         </div>
       </div>
     </div>
@@ -176,17 +176,24 @@ export default {
       setTomorrowCloset: 'mypage/closet/setTomorrowCloset',
       setTomorrowSelect: 'mypage/closet/setTomorrowSelect',
     }),
-    printDDay(tmr) {
-      let rtn = 0;
-
+    isShowFlag(tmr) {
       if (tmr.products) {
         this.isShow = true;
       } else if (tmr.select_dday > 0) {
         this.isShow = false;
-        rtn = tmr.select_dday;
       }
 
-      return rtn;
+      return true;
+    },
+    printDDay(date) {
+      let changeDay = '';
+      if (date === 0 || date < 0) {
+        changeDay = 'D day';
+      } else {
+        changeDay = `D-${date}일 후`;
+      }
+
+      return changeDay;
     },
     async selectStyle(style, type) {
       if (this.tomorrowCloset.select_dday >= 0) {
@@ -300,7 +307,7 @@ export default {
     this.mobileVisible();
     window.addEventListener('resize', this.mobileVisible);
 
-    this.printDDay(this.tomorrowCloset);
+    this.isShowFlag(this.tomorrowCloset);
   },
   mounted() {
     const card = document.querySelectorAll('.closet-card');

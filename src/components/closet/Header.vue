@@ -18,9 +18,9 @@
       <div class="closet-mobile" style="float: left"></div>
       <div class="closet-noti-card noti-last-card">
         <div class="f16 noti-text noti-last-text" style="width: 56%; display: inline-block;">내일의 옷장 선택</div>
-        <div class="f16 noti-text-icon">변경가능</div>
+        <div class="f16 noti-text-icon">{{changeMsg}}</div>
         <div class="f16 noti-count">
-          <span>D-{{tomorrowCloset.select_dday}}</span>
+          <span>{{printDDay(tomorrowCloset.select_dday)}}</span>
         </div>
       </div>
     </div>
@@ -32,10 +32,29 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'closet-header',
+  data() {
+    return {
+      changeMsg: '변경가능',
+    };
+  },
   computed: mapGetters({
     tomorrowCloset: 'mypage/closet/getTomorrowCloset',
     Authentication: 'login/Authentication',
   }),
+  methods: {
+    printDDay(date) {
+      let changeDay = '';
+      if (date === 0 || date < 0) {
+        changeDay = 'D day';
+        this.changeMsg = '변경불가';
+      } else {
+        changeDay = `D-${date}`;
+        this.changeMsg = '변경가능';
+      }
+
+      return changeDay;
+    },
+  },
 };
 </script>
 
