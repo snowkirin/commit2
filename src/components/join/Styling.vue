@@ -174,11 +174,24 @@ export default {
     deviceCheck() {
       const mobileKeyWords = ['Android', 'iPhone', 'iPod', 'BlackBerry', 'Windows CE', 'SAMSUNG', 'LG', 'MOT', 'SonyEricsson'];
       for (let i = 0; mobileKeyWords.length > i; i += 1) {
-        if (navigator.userAgent.match(mobileKeyWords[i]) != null) {
+        if (navigator.userAgent.match(mobileKeyWords[i]) !== null) {
           this.deviceMobile = true;
         }
       }
       this.deviceMobile = false;
+
+      this.activeCircle = document.querySelector('.circle-active');
+      this.natural = document.querySelector('.circle-natural');
+      this.unique = document.querySelector('.circle-unique');
+      this.classic = document.querySelector('.circle-classic');
+      this.modern = document.querySelector('.circle-modern');
+      this.feminine = document.querySelector('.circle-feminine');
+
+      this.circleHoverEvt(this.natural, this.unique, this.classic, this.modern, this.feminine);
+      this.circleHoverEvt(this.unique, this.natural, this.modern, this.classic, this.feminine);
+      this.circleHoverEvt(this.classic, this.natural, this.feminine, this.modern, this.unique);
+      this.circleHoverEvt(this.modern, this.unique, this.feminine, this.natural, this.classic);
+      this.circleHoverEvt(this.feminine, this.classic, this.modern, this.natural, this.unique);
     },
     circleHoverEvt(main, sub1, sub2, outSub1, outSub2) {
       if (!this.deviceMobile) {
@@ -233,20 +246,7 @@ export default {
     } else if (localStorage) this.selectStyle(localStorage);
   },
   mounted() {
-    this.activeCircle = document.querySelector('.circle-active');
-    this.natural = document.querySelector('.circle-natural');
-    this.unique = document.querySelector('.circle-unique');
-    this.classic = document.querySelector('.circle-classic');
-    this.modern = document.querySelector('.circle-modern');
-    this.feminine = document.querySelector('.circle-feminine');
-
     this.deviceCheck();
-
-    this.circleHoverEvt(this.natural, this.unique, this.classic, this.modern, this.feminine);
-    this.circleHoverEvt(this.unique, this.natural, this.modern, this.classic, this.feminine);
-    this.circleHoverEvt(this.classic, this.natural, this.feminine, this.modern, this.unique);
-    this.circleHoverEvt(this.modern, this.unique, this.feminine, this.natural, this.classic);
-    this.circleHoverEvt(this.feminine, this.classic, this.modern, this.natural, this.unique);
 
     if (this.selectMood) this.selectStyle(this.selectMood);
   },
