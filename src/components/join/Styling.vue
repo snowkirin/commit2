@@ -181,7 +181,6 @@ export default {
       this.deviceMobile = false;
     },
     circleHoverEvt(main, sub1, sub2, outSub1, outSub2) {
-      alert('IPHONE TEST', this.deviceMobile);
       if (!this.deviceMobile) {
         const obj = main;
         const outObj1 = outSub1;
@@ -240,6 +239,8 @@ export default {
     this.classic = document.querySelector('.circle-classic');
     this.modern = document.querySelector('.circle-modern');
     this.feminine = document.querySelector('.circle-feminine');
+
+    this.deviceCheck();
 
     this.circleHoverEvt(this.natural, this.unique, this.classic, this.modern, this.feminine);
     this.circleHoverEvt(this.unique, this.natural, this.modern, this.classic, this.feminine);
