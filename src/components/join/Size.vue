@@ -246,7 +246,6 @@ export default {
 
   .size-margin {
     margin: 0 20px 0 20px;
-    overflow-x:hidden;
   }
 }
 </style>
