@@ -29,11 +29,13 @@ Vue.use(VueLocalStorage, {
   bind: true,
 });
 
+console.log(process.env.GA_ID);
+
 Vue.use(VueAnalytics, {
   id: process.env.GA_ID,
   router,
   debug: {
-    enabled: !isDev,
+    enabled: true,
     sendHitTask: isDev,
   },
 });
