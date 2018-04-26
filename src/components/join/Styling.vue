@@ -172,6 +172,7 @@ export default {
     },
     deviceCheck() {
       const mobileKeyWords = ['Android', 'iPhone', 'iPod', 'BlackBerry', 'Windows CE', 'SAMSUNG', 'LG', 'MOT', 'SonyEricsson'];
+      alert(navigator.userAgent);
       for (let i = 0; mobileKeyWords.length > i; i += 1) {
         if (navigator.userAgent.match(mobileKeyWords[i]) !== null) {
           return true;
