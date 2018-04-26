@@ -181,6 +181,7 @@ export default {
       this.deviceMobile = false;
     },
     circleHoverEvt(main, sub1, sub2, outSub1, outSub2) {
+      alert('IPHONE TEST', this.deviceMobile);
       if (!this.deviceMobile) {
         const obj = main;
         const outObj1 = outSub1;
