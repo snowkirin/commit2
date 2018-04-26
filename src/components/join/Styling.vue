@@ -71,7 +71,6 @@ export default {
       modern: null,
       classic: null,
       feminine: null,
-      deviceMobile: false,
     };
   },
   computed: {
@@ -175,11 +174,9 @@ export default {
       const mobileKeyWords = ['Android', 'iPhone', 'iPod', 'BlackBerry', 'Windows CE', 'SAMSUNG', 'LG', 'MOT', 'SonyEricsson'];
       for (let i = 0; mobileKeyWords.length > i; i += 1) {
         if (navigator.userAgent.match(mobileKeyWords[i]) !== null) {
-          this.deviceMobile = true;
+          return true;
         }
       }
-      this.deviceMobile = false;
-
       this.activeCircle = document.querySelector('.circle-active');
       this.natural = document.querySelector('.circle-natural');
       this.unique = document.querySelector('.circle-unique');
@@ -192,41 +189,41 @@ export default {
       this.circleHoverEvt(this.classic, this.natural, this.feminine, this.modern, this.unique);
       this.circleHoverEvt(this.modern, this.unique, this.feminine, this.natural, this.classic);
       this.circleHoverEvt(this.feminine, this.classic, this.modern, this.natural, this.unique);
+
+      return false;
     },
     circleHoverEvt(main, sub1, sub2, outSub1, outSub2) {
-      if (!this.deviceMobile) {
-        const obj = main;
-        const outObj1 = outSub1;
-        const outObj2 = outSub2;
+      const obj = main;
+      const outObj1 = outSub1;
+      const outObj2 = outSub2;
 
-        obj.onmouseover = () => {
-          this.removePick();
-          obj.querySelector('span.subject').classList.add('zuly-detail-circle-active-subject');
-          obj.classList.add('zuly-main-circle-active', 'zuly-detail-circle-active');
-          sub1.classList.add('zuly-detail-circle-active', 'zuly-circle-active-second');
-          sub2.classList.add('zuly-detail-circle-active', 'zuly-circle-active-second');
+      obj.onmouseover = () => {
+        this.removePick();
+        obj.querySelector('span.subject').classList.add('zuly-detail-circle-active-subject');
+        obj.classList.add('zuly-main-circle-active', 'zuly-detail-circle-active');
+        sub1.classList.add('zuly-detail-circle-active', 'zuly-circle-active-second');
+        sub2.classList.add('zuly-detail-circle-active', 'zuly-circle-active-second');
 
-          outObj1.classList.add('zuly-circle-deactive');
-          outObj2.classList.add('zuly-circle-deactive');
-          outObj1.querySelector('span.description').style.display = 'none';
-          outObj2.querySelector('span.description').style.display = 'none';
-          this.changeCircleImage(main, this.activeCircle);
-        };
+        outObj1.classList.add('zuly-circle-deactive');
+        outObj2.classList.add('zuly-circle-deactive');
+        outObj1.querySelector('span.description').style.display = 'none';
+        outObj2.querySelector('span.description').style.display = 'none';
+        this.changeCircleImage(main, this.activeCircle);
+      };
 
-        obj.onmouseout = () => {
-          if (this.selectMood) this.selectStyle(this.selectMood);
-          obj.querySelector('span.subject').classList.remove('zuly-detail-circle-active-subject');
-          obj.classList.remove('zuly-main-circle-active', 'zuly-detail-circle-active');
-          sub1.classList.remove('zuly-detail-circle-active', 'zuly-circle-active-second');
-          sub2.classList.remove('zuly-detail-circle-active', 'zuly-circle-active-second');
+      obj.onmouseout = () => {
+        if (this.selectMood) this.selectStyle(this.selectMood);
+        obj.querySelector('span.subject').classList.remove('zuly-detail-circle-active-subject');
+        obj.classList.remove('zuly-main-circle-active', 'zuly-detail-circle-active');
+        sub1.classList.remove('zuly-detail-circle-active', 'zuly-circle-active-second');
+        sub2.classList.remove('zuly-detail-circle-active', 'zuly-circle-active-second');
 
-          outObj1.classList.remove('zuly-circle-deactive');
-          outObj2.classList.remove('zuly-circle-deactive');
-          outObj1.querySelector('span.description').style.display = 'inline-block';
-          outObj2.querySelector('span.description').style.display = 'inline-block';
-          this.activeCircle.style.cssText = 'display: none;';
-        };
-      }
+        outObj1.classList.remove('zuly-circle-deactive');
+        outObj2.classList.remove('zuly-circle-deactive');
+        outObj1.querySelector('span.description').style.display = 'inline-block';
+        outObj2.querySelector('span.description').style.display = 'inline-block';
+        this.activeCircle.style.cssText = 'display: none;';
+      };
     },
     moveNext() {
       if (this.selectMood === null) {
