@@ -172,18 +172,24 @@ export default {
     },
     deviceCheck() {
       const mobileKeyWords = ['Android', 'iPhone', 'iPod', 'BlackBerry', 'Windows CE', 'SAMSUNG', 'LG', 'MOT', 'SonyEricsson'];
-      alert(navigator.userAgent);
-      for (let i = 0; mobileKeyWords.length > i; i += 1) {
-        if (navigator.userAgent.match(mobileKeyWords[i]) !== null) {
-          return true;
-        }
-      }
       this.activeCircle = document.querySelector('.circle-active');
       this.natural = document.querySelector('.circle-natural');
       this.unique = document.querySelector('.circle-unique');
       this.classic = document.querySelector('.circle-classic');
       this.modern = document.querySelector('.circle-modern');
       this.feminine = document.querySelector('.circle-feminine');
+
+      for (let i = 0; mobileKeyWords.length > i; i += 1) {
+        if (navigator.userAgent.match(mobileKeyWords[i]) !== null) {
+          this.circleHoverMobileEvt(this.natural, this.unique, this.classic, this.modern, this.feminine);
+          this.circleHoverMobileEvt(this.unique, this.natural, this.modern, this.classic, this.feminine);
+          this.circleHoverMobileEvt(this.classic, this.natural, this.feminine, this.modern, this.unique);
+          this.circleHoverMobileEvt(this.modern, this.unique, this.feminine, this.natural, this.classic);
+          this.circleHoverMobileEvt(this.feminine, this.classic, this.modern, this.natural, this.unique);
+
+          return true;
+        }
+      }
 
       this.circleHoverEvt(this.natural, this.unique, this.classic, this.modern, this.feminine);
       this.circleHoverEvt(this.unique, this.natural, this.modern, this.classic, this.feminine);
@@ -192,6 +198,25 @@ export default {
       this.circleHoverEvt(this.feminine, this.classic, this.modern, this.natural, this.unique);
 
       return false;
+    },
+    circleHoverMobileEvt(main, sub1, sub2, outSub1, outSub2) {
+      const obj = main;
+      const outObj1 = outSub1;
+      const outObj2 = outSub2;
+
+      obj.onmouseclick = () => {
+        this.removePick();
+        obj.querySelector('span.subject').classList.add('zuly-detail-circle-active-subject');
+        obj.classList.add('zuly-main-circle-active', 'zuly-detail-circle-active');
+        sub1.classList.add('zuly-detail-circle-active', 'zuly-circle-active-second');
+        sub2.classList.add('zuly-detail-circle-active', 'zuly-circle-active-second');
+
+        outObj1.classList.add('zuly-circle-deactive');
+        outObj2.classList.add('zuly-circle-deactive');
+        outObj1.querySelector('span.description').style.display = 'none';
+        outObj2.querySelector('span.description').style.display = 'none';
+        this.changeCircleImage(main, this.activeCircle);
+      };
     },
     circleHoverEvt(main, sub1, sub2, outSub1, outSub2) {
       const obj = main;
