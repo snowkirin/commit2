@@ -1,8 +1,8 @@
 <template>
 <div class="alert-modal" :data-id="dataId">
-  <div class="alert-modal-content scroll" v-html="content"></div>
-  <div style="position:absolute; left:50%; top: 60%; transform:translateX(-50%);">
-    <button class="button-login" style="width: 100px;" @click="closeModal">확인</button>
+  <div class="alert-modal-content" v-html="content"></div>
+  <div class="alert-btn-area">
+    <a class="button-login" style="width: 100px;" @click="closeModal">확인</a>
   </div>
 </div>
 </template>
@@ -62,8 +62,6 @@ export default {
   left: 0;
   right: 0;
   margin: auto;
-  width: 300px;
-  height: 138px;
   background-color: #ffffff;
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.17);
   border: solid 1px #212121 !important;
@@ -73,7 +71,7 @@ export default {
 
 .alert-modal-content {
   width: 100%;
-  margin-top: 32px;
+  margin-top: 26px;
   font-size: 20px;
   font-weight: normal;
   font-style: normal;
@@ -84,8 +82,10 @@ export default {
   color: #212121;
 }
 
-.alert-modal-btn-area {
-  width: 100%;
+.alert-btn-area {
+  margin-top: 26px;
+  margin-bottom: 300px;
+  text-align: center;
 }
 
 .alert-modal-btn {

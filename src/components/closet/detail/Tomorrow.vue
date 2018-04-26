@@ -207,6 +207,11 @@ export default {
           subscriptionId: this.tomorrowCloset.subscription_id,
           products: [...this.parseIntProduct(...style.productId)],
         });
+        if (type === 'first') {
+          this.$common.viewAlertModal('TYPE A 배송됩니다.', this.$refs);
+        } else {
+          this.$common.viewAlertModal('TYPE B 배송됩니다.', this.$refs);
+        }
       } else {
         this.$common.viewAlertModal('선택기간이 지났습니다.<br />고객센터로 문의해주세요.', this.$refs);
         return;
