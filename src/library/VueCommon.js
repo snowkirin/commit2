@@ -111,6 +111,10 @@ VueCommon.install = (Vue) => {
       const result = text.replace(/(\n|\r\n)/g, '<br/>');
       return result;
     },
+
+    viewAlertModal(msg, refs) {
+      refs.view.openModal(msg);
+    },
   };
 };
 

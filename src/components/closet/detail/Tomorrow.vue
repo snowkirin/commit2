@@ -81,19 +81,25 @@
         </div>
       </div>
     </div>
+    <alert-modal ref="view" width="300" height="190"></alert-modal>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import AlertModal from '@/components/common/AlertModal';
 
 export default {
   name: 'tomorrow',
+  components: {
+    AlertModal,
+  },
   data() {
     return {
       isMobile: false,
       isShow: false,
       selected: {},
+      alertMsg: '',
     };
   },
   computed: {
@@ -202,7 +208,7 @@ export default {
           products: [...this.parseIntProduct(...style.productId)],
         });
       } else {
-        alert('선택기간이 지났습니다. 고객센터로 문의해주세요.');
+        this.$common.viewAlertModal('선택기간이 지났습니다.<br />고객센터로 문의해주세요.', this.$refs);
         return;
       }
 
