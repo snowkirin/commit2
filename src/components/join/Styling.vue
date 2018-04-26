@@ -175,7 +175,7 @@ export default {
       const outObj1 = outSub1;
       const outObj2 = outSub2;
 
-      obj.onmouseover = () => {
+      obj.onmouseenter = () => {
         this.removePick();
         obj.querySelector('span.subject').classList.add('zuly-detail-circle-active-subject');
         obj.classList.add('zuly-main-circle-active', 'zuly-detail-circle-active');
@@ -189,7 +189,7 @@ export default {
         this.changeCircleImage(main, this.activeCircle);
       };
 
-      obj.onmouseout = () => {
+      obj.onmouseleave = () => {
         if (this.selectMood) this.selectStyle(this.selectMood);
         obj.querySelector('span.subject').classList.remove('zuly-detail-circle-active-subject');
         obj.classList.remove('zuly-main-circle-active', 'zuly-detail-circle-active');
