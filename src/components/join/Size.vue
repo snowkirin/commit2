@@ -223,7 +223,6 @@ export default {
   vertical-align:bottom;
   text-align: left;
   padding-left: 15px;
-  width: 25%;
   height: 60px;
   font-size: 20px;
   font-weight: 300;
@@ -245,7 +244,33 @@ export default {
   }
 
   .size-margin {
-    margin: 0 20px 0 20px;
+    margin-left: 20px;
+    padding-right: 20px;
+    overflow-x:hidden;
+  }
+
+  .tall-input-group {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+    padding: 0;
+    height: 60px;
+  }
+
+  .tall-input {
+    display: table-cell;
+    text-align: center;
+    width: 75%;
+  }
+
+  .tall-input-unit {
+    display: table-cell;
+    vertical-align:bottom;
+    text-align: left;
+    padding-left: 15px;
+    height: 60px;
+    font-size: 20px;
+    font-weight: 300;
   }
 }
 </style>
