@@ -15,7 +15,7 @@
           class="clothes-card d-inlineblock"
           :data-id="data.code"
           :data-selected="data.selected"
-          :class="{ 'card-oncolor': data.selected }"
+          v-bind:class="[k + 1 === printData.length ? 'closet-select-mobile' : '', { 'card-oncolor': data.selected }]"
           v-bind:style="{
             marginRight: (k + 1) % 5 === 0 ? '0' : '7.5px',
             marginTop: (k + 1) > 5 ? '7.5px': 0,
@@ -122,4 +122,9 @@ export default {
 </script>
 
 <style scoped>
+  @media screen and (max-width: 486px) {
+    .closet-select-mobile {
+      margin-bottom: 80px;
+    }
+  }
 </style>

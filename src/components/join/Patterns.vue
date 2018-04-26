@@ -15,7 +15,7 @@
           class="patterns-card d-inlineblock"
           :data-id="data.code"
           :data-selected="data.selected"
-          :class="{ 'card-oncolor': data.selected, 'pattern-mobile': (k % 2 === 0) ? (k !== 0) ? true : false : false, }"
+          :class="[k + 1 === printDataList.length ? 'closet-select-mobile' : '', {'card-oncolor': data.selected, 'pattern-mobile': (k % 2 === 0) ? (k !== 0) ? true : false : false, }]"
           @click="pickManagement({ type: 'pattern', id: data.code })"
           v-bind:style="{
             marginTop: ((k+1) % 6 === 0) ? '35px' : null,
@@ -297,6 +297,10 @@ div.btn-times:after {
 
   .card-greyscale {
     height: 81%;
+  }
+
+  .closet-select-mobile {
+    margin-bottom: 100px;
   }
 }
 </style>
