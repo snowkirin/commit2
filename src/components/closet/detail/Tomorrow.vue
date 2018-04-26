@@ -481,9 +481,13 @@ export default {
     color: #f45649;
   }
 
-  .closet-card-area, .closet-card, .closet-card-none-content {
+  .closet-card-area, .closet-card {
     display: block !important;
     width: 100% !important;
+  }
+
+  .closet-card-none-content  {
+    width: 90%;
   }
 
   .closet-card-active-color {
