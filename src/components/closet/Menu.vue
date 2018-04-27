@@ -155,6 +155,11 @@ export default {
     line-height: 1;
   }
 
+  .menu a {
+    color: #797979;
+    text-decoration: none;
+  }
+
   .closet_active {
     font-weight: 600 !important;
     color: #212121 !important;
