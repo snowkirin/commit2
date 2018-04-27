@@ -8,23 +8,23 @@
         <div id="current" class="menu" data-id="current" :class="{ 'closet_active' : activeMenuName === 'current' }" @click="menuClick()">현재의옷장</div>
       </router-link>
       <router-link to="/closet/past">
-        <div id="past" class="menu" data-id="past" :class="{ 'closet_active' : activeMenuName === 'past' }" @click="menuClick()">과거의옷장</div>
+        <div id="past" class="menu" data-id="past" :class="{ 'closet_active' : activeMenuName === 'past' }">과거의옷장</div>
       </router-link>
       <router-link to="/closet/style">
-        <div id="style" class="menu" data-id="style" :class="{ 'closet_active' : activeMenuName === 'style' }" @click="menuClick()">스타일정보</div>
+        <div id="style" class="menu" data-id="style" :class="{ 'closet_active' : activeMenuName === 'style' }">스타일정보</div>
       </router-link>
       <router-link to="/closet/security">
-        <div id="mypage" class="menu" data-id="mypage" :class="{ 'closet_active' : activeMenuName === 'mypage' }" @click="menuClick()">나의정보관리</div>
+        <div id="mypage" class="menu" data-id="mypage" :class="{ 'closet_active' : activeMenuName === 'mypage' }">나의정보관리</div>
       </router-link>
       <!-- div class="menu" data-id="payment">지불정보</div -->
       <router-link to="/closet/coupon">
-        <div id="coupon" class="menu" data-id="coupon" :class="{ 'closet_active' : activeMenuName === 'coupon' }" @click="menuClick()">쿠폰</div>
+        <div id="coupon" class="menu" data-id="coupon" :class="{ 'closet_active' : activeMenuName === 'coupon' }">쿠폰</div>
       </router-link>
       <router-link to="/closet/cs">
-        <div id="cs" class="menu" data-id="cs" :class="{ 'closet_active' : activeMenuName === 'cs' }" @click="menuClick()">문의내역</div>
+        <div id="cs" class="menu" data-id="cs" :class="{ 'closet_active' : activeMenuName === 'cs' }">문의내역</div>
       </router-link>
       <router-link to="/closet/notice">
-        <div id="notice" class="menu" data-id="notice" :class="{ 'closet_active' : activeMenuName === 'notice' }" @click="menuClick()">공지사항</div>
+        <div id="notice" class="menu" data-id="notice" :class="{ 'closet_active' : activeMenuName === 'notice' }">공지사항</div>
       </router-link>
     </div>
   </div>
@@ -43,10 +43,6 @@ export default {
     };
   },
   methods: {
-    menuClick() {
-      this.activeMenuEvt();
-      alert(document.querySelector('.closet-mobile-menu').offsetWidth);
-    },
     hoverEvt(target) {
       const obj = target;
       if (!this.$common.deviceCheck()) {
@@ -57,6 +53,10 @@ export default {
           if (obj.id !== this.activeMenuName) {
             obj.classList.remove('closet_active');
           }
+        };
+      } else {
+        obj.onclick = () => {
+          this.activeMenuEvt();
         };
       }
     },
@@ -80,7 +80,6 @@ export default {
   mounted() {
     this.menuEvt();
     this.activeMenuEvt();
-    alert(document.querySelector('.closet-mobile-menu').offsetWidth);
   },
 };
 </script>
