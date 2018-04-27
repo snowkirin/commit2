@@ -46,13 +46,7 @@ export default {
   methods: {
     hoverEvt(target) {
       const obj = target;
-      if (this.$common.deviceCheck()) {
-        obj.onmouseclick = () => {
-          const clickMenu = document.querySelectorAll('div.current_active');
-          clickMenu.remove('closet_active');
-          obj.classList.add('closet_active');
-        };
-      } else {
+      if (!this.$common.deviceCheck()) {
         obj.onmouseover = () => {
           obj.classList.add('closet_active');
         };
