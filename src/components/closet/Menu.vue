@@ -1,47 +1,15 @@
 <template>
   <div class="closet-mobile-menu">
     <div class="closet-menu mt30">
-      <div id="tomorrow" class="menu" data-id="tomorrow" :class="{ 'closet_active' : activeMenuName === 'tomorrow' }" @click="menuClick()">
-        <router-link to="/closet/tomorrow" :class="{ 'router-active' : activeMenuName === 'tomorrow' }">
-          <span :class="{ 'active_menu_name' : activeMenuName === 'tomorrow' }">내일의옷장</span>
-        </router-link>
-      </div>
-      <div id="current" class="menu" data-id="current" :class="{ 'closet_active' : activeMenuName === 'current' }" @click="menuClick()">
-        <router-link to="/closet/current">
-          <span :class="{ 'active_menu_name' : activeMenuName === 'current' }">현재의옷장</span>
-        </router-link>
-      </div>
-      <div id="past" class="menu" data-id="past" :class="{ 'closet_active' : activeMenuName === 'past' }">
-        <router-link to="/closet/past">
-          <span :class="{ 'active_menu_name' : activeMenuName === 'past' }">과거의옷장</span>
-        </router-link>
-      </div>
-      <div id="style" class="menu" data-id="style" :class="{ 'closet_active' : activeMenuName === 'style' }">
-        <router-link to="/closet/style">
-          <span :class="{ 'active_menu_name' : activeMenuName === 'style' }">스타일정보</span>
-        </router-link>
-      </div>
-      <div id="mypage" class="menu" data-id="mypage" :class="{ 'closet_active' : activeMenuName === 'mypage' }">
-        <router-link to="/closet/security">
-          <span :class="{ 'active_menu_name' : activeMenuName === 'mypage' }">나의정보관리</span>
-        </router-link>
-      </div>
+      <div id="tomorrow" class="menu" data-id="tomorrow" :class="{ 'closet_active' : activeMenuName === 'tomorrow' }" @click="menuClick('/closet/tomorrow')">내일의옷장</div>
+      <div id="current" class="menu" data-id="current" :class="{ 'closet_active' : activeMenuName === 'current' }" @click="menuClick('/closet/current')">현재의옷장</div>
+      <div id="past" class="menu" data-id="past" :class="{ 'closet_active' : activeMenuName === 'past' }" @click="menuClick('/closet/past')">과거의옷장</div>
+      <div id="style" class="menu" data-id="style" :class="{ 'closet_active' : activeMenuName === 'style' }" @click="menuClick('/closet/style')">스타일정보</div>
+      <div id="mypage" class="menu" data-id="mypage" :class="{ 'closet_active' : activeMenuName === 'mypage' }" @click="menuClick('/closet/security')">나의정보관리</div>
       <!-- div class="menu" data-id="payment">지불정보</div -->
-      <div id="coupon" class="menu" data-id="coupon" :class="{ 'closet_active' : activeMenuName === 'coupon' }">
-        <router-link to="/closet/coupon">
-          <span :class="{ 'active_menu_name' : activeMenuName === 'coupon' }">쿠폰</span>
-        </router-link>
-      </div>
-      <div id="cs" class="menu" data-id="cs" :class="{ 'closet_active' : activeMenuName === 'cs' }">
-        <router-link to="/closet/cs">
-          <span :class="{ 'active_menu_name' : activeMenuName === 'cs' }">문의내역</span>
-        </router-link>
-      </div>
-      <div id="notice" class="menu" data-id="notice" :class="{ 'closet_active' : activeMenuName === 'notice' }">
-        <router-link to="/closet/notice">
-          <span :class="{ 'active_menu_name' : activeMenuName === 'notice' }">공지사항</span>
-        </router-link>
-      </div>
+      <div id="coupon" class="menu" data-id="coupon" :class="{ 'closet_active' : activeMenuName === 'coupon' }" @click="menuClick('/closet/coupon')">쿠폰</div>
+      <div id="cs" class="menu" data-id="cs" :class="{ 'closet_active' : activeMenuName === 'cs' }" @click="menuClick('/closet/cs')">문의내역</div>
+      <div id="notice" class="menu" data-id="notice" :class="{ 'closet_active' : activeMenuName === 'notice' }" @click="menuClick('/closet/notice')">공지사항</div>
     </div>
   </div>
 </template>
@@ -59,6 +27,9 @@ export default {
     };
   },
   methods: {
+    menuClick(menu) {
+      this.$router.push({ path: menu });
+    },
     hoverEvt(target) {
       const obj = target;
       if (!this.$common.deviceCheck()) {
@@ -126,17 +97,9 @@ export default {
   text-decoration: none;
 }
 
-.menu a:hover {
-  font-weight: 600;
-  color: #212121;
-}
-
-.active_menu_name {
-  font-weight: 600;
-  color: #212121;
-}
-
 .menu.closet_active {
+  font-weight: 600;
+  color: #212121;
   border-bottom: 4px solid #212121;
 }
 
