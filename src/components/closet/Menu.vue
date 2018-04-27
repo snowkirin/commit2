@@ -129,7 +129,6 @@ export default {
   }
 
   .closet-menu {
-    width: 100% !important;
     white-space: nowrap !important;
     overflow-x: auto !important;
     overflow-y: hidden !important;
@@ -142,8 +141,18 @@ export default {
   }
 
   .menu {
+    display: inline-block;
     font-size: 18px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: -1px;
+    text-align: left;
+    color: #797979;
     margin-right: 10px;
+    height: 91%;
+    cursor: pointer;
+    line-height: 1;
   }
 
   .closet_active {
