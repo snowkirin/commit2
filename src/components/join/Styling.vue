@@ -170,12 +170,53 @@ export default {
         }
       }
     },
+    initHoverDivision() {
+      this.activeCircle = document.querySelector('.circle-active');
+      this.natural = document.querySelector('.circle-natural');
+      this.unique = document.querySelector('.circle-unique');
+      this.classic = document.querySelector('.circle-classic');
+      this.modern = document.querySelector('.circle-modern');
+      this.feminine = document.querySelector('.circle-feminine');
+
+      if (this.$common.deviceCheck()) {
+        this.circleHoverMobileEvt(this.natural, this.unique, this.classic, this.modern, this.feminine);
+        this.circleHoverMobileEvt(this.unique, this.natural, this.modern, this.classic, this.feminine);
+        this.circleHoverMobileEvt(this.classic, this.natural, this.feminine, this.modern, this.unique);
+        this.circleHoverMobileEvt(this.modern, this.unique, this.feminine, this.natural, this.classic);
+        this.circleHoverMobileEvt(this.feminine, this.classic, this.modern, this.natural, this.unique);
+      } else {
+        this.circleHoverEvt(this.natural, this.unique, this.classic, this.modern, this.feminine);
+        this.circleHoverEvt(this.unique, this.natural, this.modern, this.classic, this.feminine);
+        this.circleHoverEvt(this.classic, this.natural, this.feminine, this.modern, this.unique);
+        this.circleHoverEvt(this.modern, this.unique, this.feminine, this.natural, this.classic);
+        this.circleHoverEvt(this.feminine, this.classic, this.modern, this.natural, this.unique);
+      }
+    },
+    circleHoverMobileEvt(main, sub1, sub2, outSub1, outSub2) {
+      const obj = main;
+      const outObj1 = outSub1;
+      const outObj2 = outSub2;
+
+      obj.onmouseclick = () => {
+        this.removePick();
+        obj.querySelector('span.subject').classList.add('zuly-detail-circle-active-subject');
+        obj.classList.add('zuly-main-circle-active', 'zuly-detail-circle-active');
+        sub1.classList.add('zuly-detail-circle-active', 'zuly-circle-active-second');
+        sub2.classList.add('zuly-detail-circle-active', 'zuly-circle-active-second');
+
+        outObj1.classList.add('zuly-circle-deactive');
+        outObj2.classList.add('zuly-circle-deactive');
+        outObj1.querySelector('span.description').style.display = 'none';
+        outObj2.querySelector('span.description').style.display = 'none';
+        this.changeCircleImage(main, this.activeCircle);
+      };
+    },
     circleHoverEvt(main, sub1, sub2, outSub1, outSub2) {
       const obj = main;
       const outObj1 = outSub1;
       const outObj2 = outSub2;
 
-      obj.onmouseenter = () => {
+      obj.onmouseover = () => {
         this.removePick();
         obj.querySelector('span.subject').classList.add('zuly-detail-circle-active-subject');
         obj.classList.add('zuly-main-circle-active', 'zuly-detail-circle-active');
@@ -189,7 +230,7 @@ export default {
         this.changeCircleImage(main, this.activeCircle);
       };
 
-      obj.onmouseleave = () => {
+      obj.onmouseout = () => {
         if (this.selectMood) this.selectStyle(this.selectMood);
         obj.querySelector('span.subject').classList.remove('zuly-detail-circle-active-subject');
         obj.classList.remove('zuly-main-circle-active', 'zuly-detail-circle-active');
@@ -221,19 +262,7 @@ export default {
     } else if (localStorage) this.selectStyle(localStorage);
   },
   mounted() {
-    this.activeCircle = document.querySelector('.circle-active');
-    this.natural = document.querySelector('.circle-natural');
-    this.unique = document.querySelector('.circle-unique');
-    this.classic = document.querySelector('.circle-classic');
-    this.modern = document.querySelector('.circle-modern');
-    this.feminine = document.querySelector('.circle-feminine');
-
-    this.circleHoverEvt(this.natural, this.unique, this.classic, this.modern, this.feminine);
-    this.circleHoverEvt(this.unique, this.natural, this.modern, this.classic, this.feminine);
-    this.circleHoverEvt(this.classic, this.natural, this.feminine, this.modern, this.unique);
-    this.circleHoverEvt(this.modern, this.unique, this.feminine, this.natural, this.classic);
-    this.circleHoverEvt(this.feminine, this.classic, this.modern, this.natural, this.unique);
-
+    this.initHoverDivision();
     if (this.selectMood) this.selectStyle(this.selectMood);
   },
 };
