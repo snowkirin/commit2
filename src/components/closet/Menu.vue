@@ -144,5 +144,11 @@ export default {
     font-size: 18px;
     margin-right: 10px;
   }
+
+  .closet_active {
+    font-weight: 600;
+    color: #212121;
+    border-bottom: 4px solid #212121;
+  }
 }
 </style>
