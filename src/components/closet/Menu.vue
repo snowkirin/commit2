@@ -140,6 +140,21 @@ export default {
     display: none !important;
   }
 
+  .menu {
+    display: inline-block;
+    font-size: 18px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: -1px;
+    text-align: left;
+    color: #797979;
+    margin-right: 10px;
+    height: 91%;
+    cursor: pointer;
+    line-height: 1;
+  }
+
   .closet_active {
     font-weight: 600 !important;
     color: #212121 !important;
