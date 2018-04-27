@@ -124,7 +124,6 @@ export default {
 @media screen and (max-width: 1024px) {
   .closet-mobile-menu {
     position: relative;
-    overflow-y: hidden !important;
     -webkit-overflow-scrolling: touch !important;
   }
 
