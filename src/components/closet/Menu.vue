@@ -49,7 +49,7 @@ export default {
     };
   },
   methods: {
-    menuClick(menuName) {
+    menuClick() {
       this.activeMenuEvt();
     },
     hoverEvt(target) {
