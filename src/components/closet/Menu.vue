@@ -129,6 +129,7 @@ export default {
   }
 
   .closet-menu {
+    width: 100% !important;
     white-space: nowrap !important;
     overflow-x: auto !important;
     overflow-y: hidden !important;
