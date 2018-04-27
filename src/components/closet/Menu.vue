@@ -132,7 +132,6 @@ export default {
     white-space: nowrap !important;
     overflow-x: auto !important;
     overflow-y: hidden !important;
-    transition: -ms-transform 0.5s,-webkit-transform 0.5s,transform 0.5s !important;
   }
 
   .closet-menu::-webkit-scrollbar {
@@ -141,23 +140,8 @@ export default {
   }
 
   .menu {
-    display: inline-block;
     font-size: 18px;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    letter-spacing: -1px;
-    text-align: left;
-    color: #797979;
     margin-right: 10px;
-    height: 91%;
-    cursor: pointer;
-    line-height: 1;
-  }
-
-  .menu a {
-    color: #797979;
-    text-decoration: none;
   }
 
   .closet_active {
