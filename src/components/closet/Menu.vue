@@ -1,33 +1,47 @@
 <template>
   <div class="closet-mobile-menu">
     <div class="closet-menu mt30">
-      <router-link to="/closet/tomorrow">
-        <div id="tomorrow" class="menu" data-id="tomorrow" :class="{ 'closet_active' : activeMenuName === 'tomorrow' }" @click="menuClick()">내일의옷장</div>
-      </router-link>
-      <router-link to="/closet/current">
-        <div id="current" class="menu" data-id="current" :class="{ 'closet_active' : activeMenuName === 'current' }" @click="menuClick()">현재의옷장</div>
-      </router-link>
-      <router-link to="/closet/past">
-        <div id="past" class="menu" data-id="past" :class="{ 'closet_active' : activeMenuName === 'past' }">과거의옷장</div>
-      </router-link>
-      <router-link to="/closet/style">
-        <div id="style" class="menu" data-id="style" :class="{ 'closet_active' : activeMenuName === 'style' }">스타일정보</div>
-      </router-link>
+      <div id="tomorrow" class="menu" data-id="tomorrow" :class="{ 'closet_active' : activeMenuName === 'tomorrow' }" @click="menuClick()">
+        <router-link to="/closet/tomorrow" :class="{ 'router-active' : activeMenuName === 'tomorrow' }">
+          내일의옷장
+        </router-link>
+      </div>
+      <div id="current" class="menu" data-id="current" :class="{ 'closet_active' : activeMenuName === 'current' }" @click="menuClick()">
+        <router-link to="/closet/current">
+          현재의옷장
+        </router-link>
+      </div>
+      <div id="past" class="menu" data-id="past" :class="{ 'closet_active' : activeMenuName === 'past' }">
+        <router-link to="/closet/past">
+          과거의옷장
+        </router-link>
+      </div>
+      <div id="style" class="menu" data-id="style" :class="{ 'closet_active' : activeMenuName === 'style' }">
+        <router-link to="/closet/style">
+          스타일정보
+        </router-link>
+      </div>
       <div id="mypage" class="menu" data-id="mypage" :class="{ 'closet_active' : activeMenuName === 'mypage' }">
         <router-link to="/closet/security">
           나의정보관리
         </router-link>
       </div>
       <!-- div class="menu" data-id="payment">지불정보</div -->
-      <router-link to="/closet/coupon">
-        <div id="coupon" class="menu" data-id="coupon" :class="{ 'closet_active' : activeMenuName === 'coupon' }">쿠폰</div>
-      </router-link>
-      <router-link to="/closet/cs">
-        <div id="cs" class="menu" data-id="cs" :class="{ 'closet_active' : activeMenuName === 'cs' }">문의내역</div>
-      </router-link>
-      <router-link to="/closet/notice">
-        <div id="notice" class="menu" data-id="notice" :class="{ 'closet_active' : activeMenuName === 'notice' }">공지사항</div>
-      </router-link>
+      <div id="coupon" class="menu" data-id="coupon" :class="{ 'closet_active' : activeMenuName === 'coupon' }">
+        <router-link to="/closet/coupon">
+          쿠폰
+        </router-link>
+      </div>
+      <div id="cs" class="menu" data-id="cs" :class="{ 'closet_active' : activeMenuName === 'cs' }">
+        <router-link to="/closet/cs">
+          문의내역
+        </router-link>
+      </div>
+      <div id="notice" class="menu" data-id="notice" :class="{ 'closet_active' : activeMenuName === 'notice' }">
+        <router-link to="/closet/notice">
+          공지사항
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -112,7 +126,7 @@ export default {
   text-decoration: none;
 }
 
-.closet_active {
+.menu.closet_active {
   font-weight: 600;
   color: #212121;
   border-bottom: 4px solid #212121;
