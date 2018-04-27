@@ -46,14 +46,20 @@ export default {
   methods: {
     hoverEvt(target) {
       const obj = target;
-
-      obj.onmouseover = () => {
-        obj.classList.add('closet_active');
-      };
-
-      obj.onmouseout = () => {
-        obj.classList.remove('closet_active');
-      };
+      if (this.$common.deviceCheck()) {
+        obj.onmouseclick = () => {
+          const clickMenu = document.querySelectorAll('div.current_active');
+          clickMenu.remove('closet_active');
+          obj.classList.add('closet_active');
+        };
+      } else {
+        obj.onmouseover = () => {
+          obj.classList.add('closet_active');
+        };
+        obj.onmouseout = () => {
+          obj.classList.remove('closet_active');
+        };
+      }
     },
     menuEvt() {
       const menu = document.querySelectorAll('.menu');

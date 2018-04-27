@@ -170,8 +170,7 @@ export default {
         }
       }
     },
-    deviceCheck() {
-      const mobileKeyWords = ['Android', 'iPhone', 'iPod', 'BlackBerry', 'Windows CE', 'SAMSUNG', 'LG', 'MOT', 'SonyEricsson'];
+    initHoverDivision() {
       this.activeCircle = document.querySelector('.circle-active');
       this.natural = document.querySelector('.circle-natural');
       this.unique = document.querySelector('.circle-unique');
@@ -179,25 +178,19 @@ export default {
       this.modern = document.querySelector('.circle-modern');
       this.feminine = document.querySelector('.circle-feminine');
 
-      for (let i = 0; mobileKeyWords.length > i; i += 1) {
-        if (navigator.userAgent.match(mobileKeyWords[i]) !== null) {
-          this.circleHoverMobileEvt(this.natural, this.unique, this.classic, this.modern, this.feminine);
-          this.circleHoverMobileEvt(this.unique, this.natural, this.modern, this.classic, this.feminine);
-          this.circleHoverMobileEvt(this.classic, this.natural, this.feminine, this.modern, this.unique);
-          this.circleHoverMobileEvt(this.modern, this.unique, this.feminine, this.natural, this.classic);
-          this.circleHoverMobileEvt(this.feminine, this.classic, this.modern, this.natural, this.unique);
-
-          return true;
-        }
+      if (this.$common.deviceCheck()) {
+        this.circleHoverMobileEvt(this.natural, this.unique, this.classic, this.modern, this.feminine);
+        this.circleHoverMobileEvt(this.unique, this.natural, this.modern, this.classic, this.feminine);
+        this.circleHoverMobileEvt(this.classic, this.natural, this.feminine, this.modern, this.unique);
+        this.circleHoverMobileEvt(this.modern, this.unique, this.feminine, this.natural, this.classic);
+        this.circleHoverMobileEvt(this.feminine, this.classic, this.modern, this.natural, this.unique);
+      } else {
+        this.circleHoverEvt(this.natural, this.unique, this.classic, this.modern, this.feminine);
+        this.circleHoverEvt(this.unique, this.natural, this.modern, this.classic, this.feminine);
+        this.circleHoverEvt(this.classic, this.natural, this.feminine, this.modern, this.unique);
+        this.circleHoverEvt(this.modern, this.unique, this.feminine, this.natural, this.classic);
+        this.circleHoverEvt(this.feminine, this.classic, this.modern, this.natural, this.unique);
       }
-
-      this.circleHoverEvt(this.natural, this.unique, this.classic, this.modern, this.feminine);
-      this.circleHoverEvt(this.unique, this.natural, this.modern, this.classic, this.feminine);
-      this.circleHoverEvt(this.classic, this.natural, this.feminine, this.modern, this.unique);
-      this.circleHoverEvt(this.modern, this.unique, this.feminine, this.natural, this.classic);
-      this.circleHoverEvt(this.feminine, this.classic, this.modern, this.natural, this.unique);
-
-      return false;
     },
     circleHoverMobileEvt(main, sub1, sub2, outSub1, outSub2) {
       const obj = main;
@@ -269,8 +262,7 @@ export default {
     } else if (localStorage) this.selectStyle(localStorage);
   },
   mounted() {
-    this.deviceCheck();
-
+    this.initHoverDivision();
     if (this.selectMood) this.selectStyle(this.selectMood);
   },
 };
