@@ -2,35 +2,35 @@
   <div class="closet-mobile-menu">
     <div class="closet-menu mt30">
       <router-link to="/closet/tomorrow">
-        <div id="tomorrow" class="menu" data-id="tomorrow" :class="{ 'closet_active' : activeMenuName === 'tomorrow' }" @click="menuClick('tomorrow')">
+        <div id="tomorrow" class="menu" data-id="tomorrow" :class="{ 'closet_active' : activeMenuName === 'tomorrow' }" @click="menuClick()">
           내일의옷장
         </div>
       </router-link>
       <router-link to="/closet/current">
-        <div id="current" class="menu" data-id="current" :class="{ 'closet_active' : activeMenuName === 'current' }" @click="menuClick('current')">
+        <div id="current" class="menu" data-id="current" :class="{ 'closet_active' : activeMenuName === 'current' }" @click="menuClick()">
           현재의옷장
         </div>
       </router-link>
       <router-link to="/closet/past">
-        <div id="past" class="menu" data-id="past" :class="{ 'closet_active' : activeMenuName === 'past' }" @click="menuClick('past')">
+        <div id="past" class="menu" data-id="past" :class="{ 'closet_active' : activeMenuName === 'past' }" @click="menuClick()">
           과거의옷장
         </div>
       </router-link>
       <router-link to="/closet/style">
-        <div id="style" class="menu" data-id="style" :class="{ 'closet_active' : activeMenuName === 'style' }" @click="menuClick('style')">스타일정보</div>
+        <div id="style" class="menu" data-id="style" :class="{ 'closet_active' : activeMenuName === 'style' }" @click="menuClick()">스타일정보</div>
       </router-link>
       <router-link to="/closet/security">
-        <div id="mypage" class="menu" data-id="mypage" :class="{ 'closet_active' : activeMenuName === 'mypage' }" @click="menuClick('mypage')">나의정보관리</div>
+        <div id="mypage" class="menu" data-id="mypage" :class="{ 'closet_active' : activeMenuName === 'mypage' }" @click="menuClick()">나의정보관리</div>
       </router-link>
       <!-- div class="menu" data-id="payment">지불정보</div -->
       <router-link to="/closet/coupon">
-        <div id="coupon" class="menu" data-id="coupon" :class="{ 'closet_active' : activeMenuName === 'coupon' }" @click="menuClick('coupon')">쿠폰</div>
+        <div id="coupon" class="menu" data-id="coupon" :class="{ 'closet_active' : activeMenuName === 'coupon' }" @click="menuClick()">쿠폰</div>
       </router-link>
       <router-link to="/closet/cs">
-        <div id="cs" class="menu" data-id="cs" :class="{ 'closet_active' : activeMenuName === 'cs' }" @click="menuClick('cs')">문의내역</div>
+        <div id="cs" class="menu" data-id="cs" :class="{ 'closet_active' : activeMenuName === 'cs' }" @click="menuClick()">문의내역</div>
       </router-link>
       <router-link to="/closet/notice">
-        <div id="notice" class="menu" data-id="notice" :class="{ 'closet_active' : activeMenuName === 'notice' }" @click="menuClick('notice')">공지사항</div>
+        <div id="notice" class="menu" data-id="notice" :class="{ 'closet_active' : activeMenuName === 'notice' }" @click="menuClick()">공지사항</div>
       </router-link>
     </div>
   </div>
@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     menuClick(menuName) {
-      this.activeMenuName = menuName;
+      this.activeMenuEvt();
     },
     hoverEvt(target) {
       const obj = target;
@@ -132,6 +132,7 @@ export default {
     white-space: nowrap !important;
     overflow-x: auto !important;
     overflow-y: hidden !important;
+    transition: -ms-transform 0.5s,-webkit-transform 0.5s,transform 0.5s !important;
   }
 
   .closet-menu::-webkit-scrollbar {
@@ -140,8 +141,23 @@ export default {
   }
 
   .menu {
+    display: inline-block;
     font-size: 18px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: -1px;
+    text-align: left;
+    color: #797979;
     margin-right: 10px;
+    height: 91%;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  .menu a {
+    color: #797979;
+    text-decoration: none;
   }
 
   .closet_active {
