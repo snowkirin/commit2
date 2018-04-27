@@ -21,8 +21,8 @@
           <div class="closet-card-title select-title">TYPE A</div>
           <div class="closet-card-images">
             <template v-for="(image, k) in printStyleFirst.image">
-              <div v-if="image !== null" v-bind:key="k" class="thumnail-image-area" >
-                <div class="thumnail-image" v-bind:class="{ 'thumnail-image-left100': (printStyleFirst.image[1] === null) }"
+              <div v-if="image !== null" v-bind:key="k" class="thumnail-image-area">
+                <div class="thumnail-image" v-bind:class="{ 'thumnail-image-left100': centerImage(printStyleFirst.image) }"
                   v-bind:style="{
                     backgroundImage: `url('${$common.IMAGEURL() + image}')`,
                   }"
@@ -54,8 +54,8 @@
           <div class="closet-card-title select-title">TYPE B</div>
           <div class="closet-card-images">
             <template v-for="(image, k) in printStyleSecond.image">
-              <div v-bind:key="k" class="thumnail-image-area">
-                <div v-if="image !== null" class="thumnail-image" v-bind:class="{ 'thumnail-image-left100': (printStyleSecond.image[1] === null) }"
+              <div v-if="image !== null" v-bind:key="k" class="thumnail-image-area">
+                <div class="thumnail-image" v-bind:class="{ 'thumnail-image-left100': centerImage(printStyleSecond.image) }"
                   v-bind:style="{
                     backgroundImage: `url('${$common.IMAGEURL() + image}')`,
                   }"
@@ -182,6 +182,12 @@ export default {
       setTomorrowCloset: 'mypage/closet/setTomorrowCloset',
       setTomorrowSelect: 'mypage/closet/setTomorrowSelect',
     }),
+    centerImage(value) {
+      for (let i = 0; value.length > i; i += 1) {
+        if (value[i] === null) return true;
+      }
+      return false;
+    },
     isShowFlag(tmr) {
       if (tmr.products) {
         this.isShow = true;
@@ -412,7 +418,7 @@ export default {
 }
 
 .thumnail-image-left100 {
-  left: 100%;
+  left: 100% !important;
 }
 
 .closet-card-text {
