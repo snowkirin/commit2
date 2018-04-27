@@ -1,6 +1,6 @@
 <template>
   <footer class="mt70">
-    <div class="footer-area">
+    <div :class="[$route.path === '/' ? 'main-footer-area' : 'footer-area']">
       <div class="main-point-text en-font">
         HELP
       </div>
@@ -64,6 +64,10 @@ footer {
   padding: 80px 50px 50px 50px;
 }
 
+.main-footer-area {
+  padding: 0px 50px 50px 50px;
+}
+
 .footer-line {
   display: inline-block;
   margin: 0 10px;
@@ -80,6 +84,10 @@ footer {
 
 @media screen and (max-width: 486px) {
   .footer-area {
+    padding: 30px 30px 0px 30px;
+  }
+
+  .main-footer-area {
     padding: 30px 30px 0px 30px;
   }
 }
