@@ -13,9 +13,11 @@
       <router-link to="/closet/style">
         <div id="style" class="menu" data-id="style" :class="{ 'closet_active' : activeMenuName === 'style' }">스타일정보</div>
       </router-link>
-      <router-link to="/closet/security">
-        <div id="mypage" class="menu" data-id="mypage" :class="{ 'closet_active' : activeMenuName === 'mypage' }">나의정보관리</div>
-      </router-link>
+      <div id="mypage" class="menu" data-id="mypage" :class="{ 'closet_active' : activeMenuName === 'mypage' }">
+        <router-link to="/closet/security">
+          나의정보관리
+        </router-link>
+      </div>
       <!-- div class="menu" data-id="payment">지불정보</div -->
       <router-link to="/closet/coupon">
         <div id="coupon" class="menu" data-id="coupon" :class="{ 'closet_active' : activeMenuName === 'coupon' }">쿠폰</div>
