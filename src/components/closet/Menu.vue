@@ -2,56 +2,35 @@
   <div class="closet-mobile-menu">
     <div class="closet-menu mt30">
       <router-link to="/closet/tomorrow">
-        <div class="menu" data-id="tomorrow"
-          :class="[{ 'closet_active' : activeMenuName === 'tomorrow' }, { 'closet_active' : hoverMenuName === 'tomorrow' }]"
-          @mouseover="mouseOver('tomorrow')" @mouseleave="mouseOut">
+        <div id="tomorrow" class="menu" data-id="tomorrow" :class="{ 'closet_active' : activeMenuName === 'tomorrow' }">
           내일의옷장
         </div>
       </router-link>
       <router-link to="/closet/current">
-        <div class="menu" data-id="current"
-          :class="[{ 'closet_active' : activeMenuName === 'current' }, { 'closet_active' : hoverMenuName === 'current' }]"
-          @mouseover="mouseOver('current')" @mouseleave="mouseOut">
+        <div id="current" class="menu" data-id="current" :class="{ 'closet_active' : activeMenuName === 'current' }">
           현재의옷장
         </div>
       </router-link>
       <router-link to="/closet/past">
-        <div class="menu" data-id="past"
-          :class="[{ 'closet_active' : activeMenuName === 'past' }, { 'closet_active' : hoverMenuName === 'past' }]"
-          @mouseover="mouseOver('past')" @mouseleave="mouseOut">
+        <div id="past" class="menu" data-id="past" :class="{ 'closet_active' : activeMenuName === 'past' }">
           과거의옷장
         </div>
       </router-link>
       <router-link to="/closet/style">
-        <div class="menu" data-id="style"
-          :class="[{ 'closet_active' : activeMenuName === 'style' }, { 'closet_active' : hoverMenuName === 'style' }]"
-          @mouseover="mouseOver('style')" @mouseleave="mouseOut">
-          스타일정보</div>
+        <div id="style" class="menu" data-id="style" :class="{ 'closet_active' : activeMenuName === 'style' }">스타일정보</div>
       </router-link>
       <router-link to="/closet/security">
-        <div class="menu" data-id="mypage"
-          :class="[{ 'closet_active' : activeMenuName === 'mypage' }, { 'closet_active' : hoverMenuName === 'mypage' }]"
-          @mouseover="mouseOver('mypage')" @mouseleave="mouseOut">
-          나의정보관리</div>
+        <div id="mypage" class="menu" data-id="mypage" :class="{ 'closet_active' : activeMenuName === 'mypage' }">나의정보관리</div>
       </router-link>
       <!-- div class="menu" data-id="payment">지불정보</div -->
       <router-link to="/closet/coupon">
-        <div class="menu" data-id="coupon"
-          :class="[{ 'closet_active' : activeMenuName === 'coupon' }, { 'closet_active' : hoverMenuName === 'coupon' }]"
-          @mouseover="mouseOver('coupon')" @mouseleave="mouseOut">
-          쿠폰</div>
+        <div id="coupon" class="menu" data-id="coupon" :class="{ 'closet_active' : activeMenuName === 'coupon' }">쿠폰</div>
       </router-link>
       <router-link to="/closet/cs">
-        <div class="menu" data-id="cs"
-          :class="[{ 'closet_active' : activeMenuName === 'cs' }, { 'closet_active' : hoverMenuName === 'cs' }]"
-          @mouseover="mouseOver('cs')" @mouseleave="mouseOut">
-          문의내역</div>
+        <div id="cs" class="menu" data-id="cs" :class="{ 'closet_active' : activeMenuName === 'cs' }">문의내역</div>
       </router-link>
       <router-link to="/closet/notice">
-        <div class="menu" data-id="notice"
-          :class="[{ 'closet_active' : activeMenuName === 'notice' }, { 'closet_active' : hoverMenuName === 'notice' }]"
-          @mouseover="mouseOver('notice')" @mouseleave="mouseOut">
-          공지사항</div>
+        <div id="notice" class="menu" data-id="notice" :class="{ 'closet_active' : activeMenuName === 'notice' }">공지사항</div>
       </router-link>
     </div>
   </div>
@@ -67,18 +46,31 @@ export default {
   data() {
     return {
       activeMenuName: '',
-      hoverMenuName: '',
     };
   },
   methods: {
     menuClick(menuName) {
       this.activeMenuName = menuName;
     },
-    mouseOver(menuName) {
-      this.hoverMenuName = menuName;
+    hoverEvt(target) {
+      const obj = target;
+      if (!this.$common.deviceCheck()) {
+        obj.onmouseover = () => {
+          obj.classList.add('closet_active');
+        };
+        obj.onmouseout = () => {
+          if (obj.id !== this.activeMenuName) {
+            obj.classList.remove('closet_active');
+          }
+        };
+      }
     },
-    mouseOut() {
-      this.hoverMenuName = '';
+    menuEvt() {
+      const menu = document.querySelectorAll('.menu');
+
+      for (let i = 0; i < menu.length; i += 1) {
+        this.hoverEvt(menu[i]);
+      }
     },
     activeMenuEvt() {
       if (this.$route.path === '/closet' || this.$route.path === '/closet/tomorrow') {
@@ -91,6 +83,7 @@ export default {
     },
   },
   mounted() {
+    this.menuEvt();
     this.activeMenuEvt();
   },
 };
