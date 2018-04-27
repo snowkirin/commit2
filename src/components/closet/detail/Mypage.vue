@@ -480,7 +480,7 @@ export default {
   input[name=zipcode],
   input[name=view_phone],
   input[name=new_password_confirm] {
-    width: 60% !important;
+    width: 59.4% !important;
   }
 
   #findAddr,
