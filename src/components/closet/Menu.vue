@@ -2,35 +2,56 @@
   <div class="closet-mobile-menu">
     <div class="closet-menu mt30">
       <router-link to="/closet/tomorrow">
-        <div class="menu" data-id="tomorrow">
+        <div class="menu" data-id="tomorrow"
+          :class="[{ 'closet_active' : activeMenuName === 'tomorrow' }, { 'closet_active' : hoverMenuName === 'tomorrow' }]"
+          @mouseover="mouseOver('tomorrow')" @mouseleave="mouseOut">
           내일의옷장
         </div>
       </router-link>
       <router-link to="/closet/current">
-        <div class="menu" data-id="current">
+        <div class="menu" data-id="current"
+          :class="[{ 'closet_active' : activeMenuName === 'current' }, { 'closet_active' : hoverMenuName === 'current' }]"
+          @mouseover="mouseOver('current')" @mouseleave="mouseOut">
           현재의옷장
         </div>
       </router-link>
       <router-link to="/closet/past">
-        <div class="menu" data-id="past">
+        <div class="menu" data-id="past"
+          :class="[{ 'closet_active' : activeMenuName === 'past' }, { 'closet_active' : hoverMenuName === 'past' }]"
+          @mouseover="mouseOver('past')" @mouseleave="mouseOut">
           과거의옷장
         </div>
       </router-link>
       <router-link to="/closet/style">
-        <div class="menu" data-id="style">스타일정보</div>
+        <div class="menu" data-id="style"
+          :class="[{ 'closet_active' : activeMenuName === 'style' }, { 'closet_active' : hoverMenuName === 'style' }]"
+          @mouseover="mouseOver('style')" @mouseleave="mouseOut">
+          스타일정보</div>
       </router-link>
       <router-link to="/closet/security">
-        <div class="menu" data-id="mypage">나의정보관리</div>
+        <div class="menu" data-id="mypage"
+          :class="[{ 'closet_active' : activeMenuName === 'mypage' }, { 'closet_active' : hoverMenuName === 'mypage' }]"
+          @mouseover="mouseOver('mypage')" @mouseleave="mouseOut">
+          나의정보관리</div>
       </router-link>
       <!-- div class="menu" data-id="payment">지불정보</div -->
       <router-link to="/closet/coupon">
-        <div class="menu" data-id="coupon">쿠폰</div>
+        <div class="menu" data-id="coupon"
+          :class="[{ 'closet_active' : activeMenuName === 'coupon' }, { 'closet_active' : hoverMenuName === 'coupon' }]"
+          @mouseover="mouseOver('coupon')" @mouseleave="mouseOut">
+          쿠폰</div>
       </router-link>
       <router-link to="/closet/cs">
-        <div class="menu" data-id="cs">문의내역</div>
+        <div class="menu" data-id="cs"
+          :class="[{ 'closet_active' : activeMenuName === 'cs' }, { 'closet_active' : hoverMenuName === 'cs' }]"
+          @mouseover="mouseOver('cs')" @mouseleave="mouseOut">
+          문의내역</div>
       </router-link>
       <router-link to="/closet/notice">
-        <div class="menu" data-id="notice">공지사항</div>
+        <div class="menu" data-id="notice"
+          :class="[{ 'closet_active' : activeMenuName === 'notice' }, { 'closet_active' : hoverMenuName === 'notice' }]"
+          @mouseover="mouseOver('notice')" @mouseleave="mouseOut">
+          공지사항</div>
       </router-link>
     </div>
   </div>
@@ -43,40 +64,33 @@ export default {
   watch: {
     $route: 'activeMenuEvt',
   },
+  data() {
+    return {
+      activeMenuName: '',
+      hoverMenuName: '',
+    };
+  },
   methods: {
-    hoverEvt(target) {
-      const obj = target;
-      if (!this.$common.deviceCheck()) {
-        obj.onmouseover = () => {
-          obj.classList.add('closet_active');
-        };
-        obj.onmouseout = () => {
-          obj.classList.remove('closet_active');
-        };
-      }
+    menuClick(menuName) {
+      this.activeMenuName = menuName;
     },
-    menuEvt() {
-      const menu = document.querySelectorAll('.menu');
-
-      for (let i = 0; i < menu.length; i += 1) {
-        this.hoverEvt(menu[i]);
-      }
+    mouseOver(menuName) {
+      this.hoverMenuName = menuName;
+    },
+    mouseOut() {
+      this.hoverMenuName = '';
     },
     activeMenuEvt() {
-      if (document.querySelector('div.current_active')) document.querySelector('div.current_active').classList.remove('current_active');
       if (this.$route.path === '/closet' || this.$route.path === '/closet/tomorrow') {
-        document.querySelector('div.menu[data-id="tomorrow"]').classList.add('current_active');
+        this.activeMenuName = 'tomorrow';
       } else if (this.$route.path === '/closet/security') {
-        document.querySelector('div.menu[data-id="mypage"]').classList.add('current_active');
+        this.activeMenuName = 'mypage';
       } else {
-        document.querySelector(`div.menu[data-id="${this.$route.path.replace('/closet/', '')}"]`).classList.add('current_active');
+        this.activeMenuName = this.$route.path.replace('/closet/', '');
       }
-
-      document.querySelector('div.current_active').parentNode.style.color = '#212121';
     },
   },
   mounted() {
-    this.menuEvt();
     this.activeMenuEvt();
   },
 };
@@ -108,7 +122,7 @@ export default {
   text-decoration: none;
 }
 
-.current_active, .closet_active {
+.closet_active {
   font-weight: 600;
   color: #212121;
   border-bottom: 4px solid #212121;
