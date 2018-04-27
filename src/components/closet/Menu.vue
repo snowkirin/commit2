@@ -2,19 +2,13 @@
   <div class="closet-mobile-menu">
     <div class="closet-menu mt30">
       <router-link to="/closet/tomorrow">
-        <div id="tomorrow" class="menu" data-id="tomorrow" :class="{ 'closet_active' : activeMenuName === 'tomorrow' }" @click="menuClick()">
-          내일의옷장
-        </div>
+        <div id="tomorrow" class="menu" data-id="tomorrow" :class="{ 'closet_active' : activeMenuName === 'tomorrow' }" @click="menuClick()">내일의옷장</div>
       </router-link>
       <router-link to="/closet/current">
-        <div id="current" class="menu" data-id="current" :class="{ 'closet_active' : activeMenuName === 'current' }" @click="menuClick()">
-          현재의옷장
-        </div>
+        <div id="current" class="menu" data-id="current" :class="{ 'closet_active' : activeMenuName === 'current' }" @click="menuClick()">현재의옷장</div>
       </router-link>
       <router-link to="/closet/past">
-        <div id="past" class="menu" data-id="past" :class="{ 'closet_active' : activeMenuName === 'past' }" @click="menuClick()">
-          과거의옷장
-        </div>
+        <div id="past" class="menu" data-id="past" :class="{ 'closet_active' : activeMenuName === 'past' }" @click="menuClick()">과거의옷장</div>
       </router-link>
       <router-link to="/closet/style">
         <div id="style" class="menu" data-id="style" :class="{ 'closet_active' : activeMenuName === 'style' }" @click="menuClick()">스타일정보</div>
@@ -51,6 +45,7 @@ export default {
   methods: {
     menuClick() {
       this.activeMenuEvt();
+      alert(document.querySelector('.closet-mobile-menu').offsetWidth);
     },
     hoverEvt(target) {
       const obj = target;
@@ -85,6 +80,7 @@ export default {
   mounted() {
     this.menuEvt();
     this.activeMenuEvt();
+    alert(document.querySelector('.closet-mobile-menu').offsetWidth);
   },
 };
 </script>
