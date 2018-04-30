@@ -43,7 +43,7 @@
   border-bottom-width: 1px;
 }
 
-input, textarea {
+input, textarea, select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;

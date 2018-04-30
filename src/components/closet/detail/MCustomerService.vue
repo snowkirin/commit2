@@ -12,6 +12,7 @@
     </div>
     <div class="content-form" data-value="write" v-show="showContent === 'write'">
       <div class="mt10">
+        <label name="select-title"></label>
         <select class="cs-select-box" name="inquiries_type">
           <option value="">문의종류를 선택해주세요.</option>
           <option :value="$const.INQUIRIES_SUBSCRIBE">구독문의</option>
@@ -161,6 +162,7 @@ export default {
   width: 100%;
   font-size: 18px;
   font-weight: 300;
+  padding-left: 10px;
 }
 
 .requirement-textarea {
@@ -220,4 +222,18 @@ export default {
 .inquiries-subject {
   line-height: 2;
 }
+
+
+label {
+  position: absolute;
+  margin-left: 80%;
+  margin-top: 15px;
+}
+
+label:after {
+  content:"\f0dd";
+  font-family: "FontAwesome";
+  font-size: 18px;
+}
+
 </style>
