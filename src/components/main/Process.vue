@@ -12,8 +12,9 @@
               <div class="firstProcess"></div>
             </div>
             <div class="ml30">
-              <div class="process-title">1. 스타일 정보를 입력</div>
-              <div class="process-text mt10">
+              <div class="step-number">STEP 01</div>
+              <div class="process-title">스타일 정보를 입력</div>
+              <div class="process-text mt5">
                 스타일리스트가 입력정보로<br/>
                 어울리는 옷을 제안합니다.<br/>
                 <a href="#" class="hide-area">스타일리스트 소개</a>
@@ -25,8 +26,9 @@
               <div class="secondProcess"></div>
             </div>
             <div class="ml30">
-              <div class="process-title">2. 정해진 날짜에 배송/수거</div>
-              <div class="process-text mt10">
+              <div class="step-number">STEP 02</div>
+              <div class="process-title">정해진 날짜에 배송/수거</div>
+              <div class="process-text mt5">
                 당신이 선택한 옷이<br/>
                 2주 단위로 배송/수거 됩니다.<br/>
                 <a href="#" class="hide-area">지역별 배송 일자</a>
@@ -43,8 +45,9 @@
               <div class="thirdProcess"></div>
             </div>
             <div class="ml30">
-              <div class="process-title">3. 세탁/보관 걱정 없이 수거</div>
-              <div class="process-text mt10">
+              <div class="step-number">STEP 03</div>
+              <div class="process-title">세탁/보관 걱정 없이 수거</div>
+              <div class="process-text mt5">
                 2주간 편하게 입고, 문 앞에 두면 끝.<br/>
                 더 입고 싶다면 반납 없이 구매도 가능합니다.<br/>
                 <a href="#" class="hide-area">세탁 방법 소개</a>
@@ -56,8 +59,9 @@
               <div class="fourthProcess"></div>
             </div>
             <div class="ml30">
-              <div class="process-title">4. 피드백 전달</div>
-              <div class="process-text mt10">
+              <div class="step-number">STEP 04</div>
+              <div class="process-title">피드백 전달</div>
+              <div class="process-text mt5">
                 더 나은 스타일 제안을 위해 의견 주세요.<br/>
                 나를 이해하는 스타일이 제공 됩니다.<br/>
                 <a href="#" class="hide-area">피드백 예시</a>
