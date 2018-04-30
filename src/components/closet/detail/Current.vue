@@ -29,7 +29,7 @@
         <div class="closet-styling-rotate-text">
           ZULY STYLE
         </div>
-        <div class="closet-styling-image-first">
+        <div class="closet-styling-image-first" v-if="currentCloset.products[0].id !== null">
           <template v-if="currentCloset.products && currentCloset.products.length > 0">
             <div class="image-area">
               <div
@@ -41,7 +41,7 @@
             </div>
           </template>
         </div>
-        <div class="closet-styling-image-second">
+        <div class="closet-styling-image-second" v-if="currentCloset.products[1].id !== null">
           <template v-if="currentCloset.products && currentCloset.products.length > 1">
             <div class="image-area">
               <div
@@ -213,6 +213,12 @@ export default {
   },
   async created() {
     await this.setCurrentCloset();
+    const productList = this.currentCloset.products;
+    for (let i = 0; productList.length > i; i += 1) {
+      if (productList[i].id !== null) return;
+    }
+    // 원피스가 아닐 경우 추가
+    document.querySelector('.closet-styling-tip').classList.add('styling-two-area');
   },
 };
 </script>
@@ -544,6 +550,9 @@ div.btn-times:after {
 @media screen and (max-width: 486px) {
   .closet-styling-tip {
     display: block;
+  }
+
+  .styling-two-area {
     height: 900px;
   }
 
