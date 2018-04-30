@@ -47,9 +47,8 @@ export default {
   mounted() {
     this.modal = document.querySelector('div.alert-modal');
     this.modal.style.width = `${this.width}px`;
-    this.modal.style.height = `${this.height}px`;
+    this.modal.style.height = '28%';
   },
-
 };
 </script>
 
@@ -163,7 +162,6 @@ div.btn-times:after {
 @media screen and (max-width: 486px) {
   .alert-modal {
     width: 80% !important;
-    height: 80% !important;
   }
 
   .alert-modal-btn {

@@ -81,7 +81,7 @@
         </div>
       </div>
     </div>
-    <alert-modal ref="view" width="300" height="190"></alert-modal>
+    <alert-modal ref="view" width="320" height="190"></alert-modal>
   </div>
 </template>
 
