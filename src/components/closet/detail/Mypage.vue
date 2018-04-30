@@ -189,7 +189,7 @@ export default {
   data() {
     return {
       delivery_day: null,
-      pwdRegex: /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/,
+      pwdRegex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/,
       pwdMsg: '신규 비밀번호를 입력해주세요.',
       isPwd: false,
       isPwdConfirm: false,

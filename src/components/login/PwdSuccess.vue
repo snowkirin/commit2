@@ -7,7 +7,7 @@
     <div class="findIdLine mt25"></div>
     <div class="findId-form mt40" style="width: 392px; margin: auto;">
       <div class="field" :class="{ error: errors.has('password') }">
-        <input type="password" name="password" class="form-login-input mt12" placeholder="비밀번호 8자리 이상, 대문자/숫자/특수문자 포함" v-validate="{ required: true, regex: pwdRegex }" @keyup="pwdCheck(errors.has('password'))" />
+        <input type="password" name="password" class="form-login-input mt12" placeholder="비밀번호 8자리 이상의 영문,숫자,특수문자 포함" v-validate="{ required: true, regex: pwdRegex }" @keyup="pwdCheck(errors.has('password'))" />
         <span class="error" v-show="errors.has('password')">{{ pwdMsg }}</span>
       </div>
       <div class="field" :class="{ error: errors.has('password_confirm') }">
@@ -28,7 +28,7 @@ export default {
   name: 'pwd-success',
   data() {
     return {
-      pwdRegex: /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/,
+      pwdRegex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/,
       pwdMsg: '비밀번호를 입력해주세요.',
       isPwd: false,
       isPwdConfirm: false,
@@ -50,7 +50,7 @@ export default {
         if (!checkBoolean) checkBoolean = !checkBoolean;
         this.pwdMsg = '비밀번호를 입력해주세요.';
       } else {
-        this.pwdMsg = '비밀번호가 안전하지 않습니다. (최소 8자리 이상, 대문자/숫자/특수문자 포함)';
+        this.pwdMsg = '비밀번호가 안전하지 않습니다. (최소 8자리 이상의 영문,숫자,특수문자 포함)';
       }
 
       if (checkBoolean) this.isPwd = false;
