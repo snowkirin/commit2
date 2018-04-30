@@ -29,7 +29,7 @@
         <div class="closet-styling-rotate-text">
           ZULY STYLE
         </div>
-        <div class="closet-styling-image-first" v-if="currentCloset.products[0].id !== null">
+        <div class="closet-styling-image-first" v-if="firstCurrentCloset">
           <template v-if="currentCloset.products && currentCloset.products.length > 0">
             <div class="image-area">
               <div
@@ -41,7 +41,7 @@
             </div>
           </template>
         </div>
-        <div class="closet-styling-image-second" v-if="currentCloset.products[1].id !== null">
+        <div class="closet-styling-image-second" v-if="secondCurrentCloset">
           <template v-if="currentCloset.products && currentCloset.products.length > 1">
             <div class="image-area">
               <div
@@ -153,6 +153,8 @@ export default {
       paymentAmount: 0,
       printBtnText: '',
       buyProductArr: [],
+      firstCurrentCloset: true,
+      secondCurrentCloset: true,
     };
   },
   components: {
@@ -215,10 +217,14 @@ export default {
     await this.setCurrentCloset();
     const productList = this.currentCloset.products;
     for (let i = 0; productList.length > i; i += 1) {
-      if (productList[i].id !== null) return;
+      if (productList[i].id === null) {
+        document.querySelector('.closet-styling-tip').classList.add('closet-styling-one-tip');
+        document.querySelector('.second-title').classList.add('onepiece-second-title');
+        document.querySelector('.closet-styling-tip-title').classList.add('onepiece-closet-styling-tip-title');
+        if (i === 0) this.firstCurrentCloset = false;
+        else this.secondCurrentCloset = false;
+      }
     }
-    // 원피스가 아닐 경우 추가
-    document.querySelector('.closet-styling-tip').classList.add('styling-two-area');
   },
 };
 </script>
@@ -549,11 +555,12 @@ div.btn-times:after {
 
 @media screen and (max-width: 486px) {
   .closet-styling-tip {
+    height: 900px;
     display: block;
   }
 
-  .styling-two-area {
-    height: 900px;
+  .closet-styling-one-tip {
+    height: 440px;
   }
 
   .closet-styling-image-first,
@@ -594,6 +601,10 @@ div.btn-times:after {
     top: 98.2%;
   }
 
+  .onepiece-second-title {
+    top: 102.3%;
+  }
+
   .closet-styling-image-title {
     font-size: 42px;
   }
@@ -603,6 +614,9 @@ div.btn-times:after {
   }
   .closet-styling-tip-title {
     padding: 20px 8% 0px 8%;
+  }
+  .onepiece-closet-styling-tip-title {
+    padding: 45px 8% 0px 8%;
   }
  .closet-styling-tip-hashtag {
     padding: 0px 8% 10px 8%;
