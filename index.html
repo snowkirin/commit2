@@ -35,7 +35,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/static/css/common.css">
     <%
-      if (process.env.NODE_ENV === 'local' || process.env.NODE_ENV === 'dev') {
+      if (process.env.NODE_ENV === 'local' || process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'testing') {
     %>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-113930121-1"></script>
