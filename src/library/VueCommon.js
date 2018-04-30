@@ -33,7 +33,9 @@ VueCommon.install = (Vue) => {
     },
 
     numberWithCommas(x) {
-      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      let result = '';
+      if (x !== null || x !== undefined) result = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      return result;
     },
 
     // 엔터키이벤트
