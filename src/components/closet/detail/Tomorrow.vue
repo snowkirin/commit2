@@ -268,9 +268,11 @@ export default {
       if (selected) {
         const card = document.querySelectorAll('.closet-card');
 
-        for (let i = 0; i < card.length; i += 1) {
-          card[i].onmouseover = () => {};
-          card[i].onmouseout = () => {};
+        if (!this.$common.deviceCheck()) {
+          for (let i = 0; i < card.length; i += 1) {
+            card[i].onmouseover = () => {};
+            card[i].onmouseout = () => {};
+          }
         }
       }
 
@@ -305,13 +307,19 @@ export default {
     hoverEvt(target) {
       const obj = target;
 
-      obj.onmouseover = () => {
-        this.styleOnOff(true, obj);
-      };
+      if (!this.$common.deviceCheck()) {
+        obj.onmouseover = () => {
+          this.styleOnOff(true, obj);
+        };
 
-      obj.onmouseout = () => {
-        this.styleOnOff(false, obj);
-      };
+        obj.onmouseout = () => {
+          this.styleOnOff(false, obj);
+        };
+      } else {
+        obj.onclick = () => {
+          this.styleOnOff(true, obj);
+        };
+      }
     },
     mobileVisible() {
       if (window.outerWidth <= 486) this.isMobile = true;
