@@ -155,23 +155,23 @@ const signup = async ({ state }, data) => {
     else clothes = [...clothes, 12860];
 
     if (state.sizeData === undefined || Object.keys(state.sizeData).length === 0) {
-      alert('사이즈가 정상적으로 입력되지 않았습니다. 다시 진행해주세요.'); return false;
+      return { msg: '사이즈가 정상적으로 입력되지 않았습니다. 다시 진행해주세요.', result: false };
     } else if (state.mood === undefined || state.mood === null) {
-      alert('선호 스타일이 정상적으로 입력되지 않았습니다. 다시 진행해주세요.'); return false;
+      return { msg: '선호 스타일이 정상적으로 입력되지 않았습니다. 다시 진행해주세요.', result: false };
     } else if (state.firstData.name === undefined || state.firstData.name === null) {
-      alert('이름이 정상적으로 입력되지 않았습니다. 다시 진행해주세요.'); return false;
+      return { msg: '이름이 정상적으로 입력되지 않았습니다. 다시 진행해주세요.', result: false };
     } else if (state.firstData.email === undefined || state.firstData.email === null) {
-      alert('이메일을 정상적으로 입력되지 않았습니다. 다시 진행해주세요.'); return false;
+      return { msg: '이메일을 정상적으로 입력되지 않았습니다. 다시 진행해주세요.', result: false };
     } else if (state.firstData.phone === undefined || state.firstData.phone === null) {
-      alert('핸드폰 번호가 정상적으로 입력되지 않았습니다. 다시 진행해주세요.'); return false;
+      return { msg: '핸드폰 번호가 정상적으로 입력되지 않았습니다. 다시 진행해주세요.', result: false };
     } else if (state.firstData.addr === undefined || state.firstData.addr === null) {
-      alert('주소를 정상적으로 입력되지 않았습니다. 다시 진행해주세요.'); return false;
+      return { msg: '주소를 정상적으로 입력되지 않았습니다. 다시 진행해주세요.', result: false };
     } else if (state.firstData.addrDetail === undefined || state.firstData.addrDetail === null) {
-      alert('주소 상세를 정상적으로 입력되지 않았습니다. 다시 진행해주세요.'); return false;
+      return { msg: '주소 상세를 정상적으로 입력되지 않았습니다. 다시 진행해주세요.', result: false };
     } else if (state.firstData.zipcode === undefined || state.firstData.zipcode === null) {
-      alert('우편번호를 정상적으로 입력되지 않았습니다. 다시 진행해주세요.'); return false;
+      return { msg: '우편번호를 정상적으로 입력되지 않았습니다. 다시 진행해주세요.', result: false };
     } if (data.cardNumber.length <= 14) {
-      alert('카드번호를 잘못 입력하셨습니다. 다시 입력해주세요.'); return false;
+      return { msg: '카드번호를 잘못 입력하셨습니다. 다시 입력해주세요.', result: false };
     }
 
     const result = await Auth.localJoin({
@@ -201,8 +201,10 @@ const signup = async ({ state }, data) => {
       coupon: data.coupon,
     });
 
-    if (result.data.paymentRtn) alert('유효한 카드가 아닙니다.\n카드정보를 확인하시고 다시 진행해주세요.');
-    if (result.data.result) return true;
+    if (result.data.paymentRtn) {
+      return { msg: '유효한 카드가 아닙니다.<br/>카드정보를 확인하시고 다시 진행해주세요.', result: false };
+    }
+    if (result.data.result) return { msg: '회원가입이 완료되었습니다.<br/>로그인 페이지로 이동합니다.', result: true };
   } catch (e) {
     console.error(e.message);
   }

@@ -15,6 +15,8 @@ export default {
   data() {
     return {
       content: '',
+      type: 'alert',
+      path: null,
       modal: null,
     };
   },
@@ -34,13 +36,25 @@ export default {
       type: String,
       default: '138',
     },
+    isConfirm: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
-    openModal(msg) {
+    openModal(msg, type, path) {
       this.modal.style.display = 'block';
       this.content = msg;
+      this.type = type;
+      this.path = path;
     },
     closeModal() {
+      if (this.type === 'confirm') {
+        this.$emit('update:isConfirm', true);
+        if (this.path !== null) {
+          this.$router.push({ path: this.path });
+        }
+      }
       this.modal.style.display = 'none';
     },
   },

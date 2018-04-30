@@ -110,14 +110,19 @@
         </div>
       </div>
     </div>
+    <alert-modal ref="view" width="320" height="190" :isConfirm.sync="isConfirm"></alert-modal>
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
+import AlertModal from '@/components/common/AlertModal';
 
 export default {
   name: 'signUp-second',
+  components: {
+    AlertModal,
+  },
   data() {
     return {
       deliveryDay: '',
@@ -125,6 +130,7 @@ export default {
       cardVerifyMsg: '',
       birthVerify: false,
       birthVerifyMsg: '',
+      isConfirm: false,
     };
   },
   methods: {
@@ -163,12 +169,12 @@ export default {
       const privateFlag = document.querySelector('input[name=private_flag]:checked');
 
       if (this.deliveryDay === '') {
-        alert('배송일을 선택해주세요.');
+        this.$common.viewAlertModal('배송일을 선택해주세요.', this.$refs, 'alert');
         return;
       }
 
       if (!privateFlag) {
-        alert('구매진행에 동의해주세요.');
+        this.$common.viewAlertModal('구매진행에 동의해주세요.', this.$refs, 'alert');
         return;
       }
 
@@ -188,19 +194,18 @@ export default {
             coupon: document.querySelector('input[name=coupon]').value,
           });
 
-          if (signupRtn) {
-            alert('회원가입이 완료되었습니다.\n로그인 페이지로 이동합니다.');
-
+          if (signupRtn.result) {
+            this.$common.viewAlertModal(signupRtn.msg, this.$refs, 'confirm', '/login');
             for (let i = 1; i <= 14; i += 1) {
               this.$localStorage.remove(`S${i}`);
             }
-
-            this.$router.push({ path: '/login' });
+          } else {
+            this.$common.viewAlertModal(signupRtn.msg, this.$refs, 'alert');
           }
           return;
         }
 
-        alert('에러메시지를 확인하시고 입력후 버튼을 눌러주세요.');
+        this.$common.viewAlertModal('에러메시지를 확인하시고<br/>입력후 버튼을 눌러주세요.', this.$refs, 'alert');
       });
     },
     dayHoverEvt(group, cnt, obj) {
