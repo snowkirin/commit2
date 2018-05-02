@@ -74,11 +74,6 @@ export default {
 </script>
 
 <style scoped>
-.notice {
-  display: inline-block;
-  width: 100%;
-}
-
 .notice-rows {
   display: flex;
   justify-content: space-between;
@@ -137,10 +132,6 @@ export default {
 }
 
 @media screen and (max-width: 486px) {
-  .notice {
-    width: fit-content !important;
-  }
-
   .notice-number {
     width: 15% !important;
   }
