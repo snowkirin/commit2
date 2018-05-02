@@ -61,7 +61,7 @@ export default {
   mounted() {
     this.modal = document.querySelector('div.alert-modal');
     this.modal.style.width = `${this.width}px`;
-    this.modal.style.height = '30%';
+    this.modal.style.height = '180px';
   },
 };
 </script>
