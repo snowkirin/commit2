@@ -451,6 +451,7 @@ export default {
   letter-spacing: -0.4px;
   text-align: left;
   color: #683b3f;
+  text-transform:capitalize;
 }
 
 .closet-card-on {
