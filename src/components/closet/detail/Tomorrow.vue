@@ -37,7 +37,7 @@
           </div>
           <div class="closet-card-bottom">
             <div class="dotted-line mt30"></div>
-            <div class="mt20" v-html="$common.htmlEnterLine(printStyleFirst.hashTag)">
+            <div class="closet-card-hashtag mt20" v-html="$common.htmlEnterLine(printStyleFirst.hashTag)">
             </div>
           </div>
           <div class="closet-card-active">
@@ -451,7 +451,6 @@ export default {
   letter-spacing: -0.4px;
   text-align: left;
   color: #683b3f;
-  margin-bottom: 20px;
 }
 
 .closet-card-on {
@@ -463,7 +462,7 @@ export default {
   width: -moz-available;
   width: -webkit-fill-available;
   width: fill-available;
-  margin: 30px 20px 0 20px;
+  margin: 20px;
   position: absolute;
   bottom: 0;
 }
@@ -492,7 +491,6 @@ export default {
   .heart-icon {
     position: absolute;
     top: 4.6%;
-    left: 89%;
     line-height: 15px;
     font-size: 27px;
     font-weight: 600;
@@ -550,39 +548,6 @@ export default {
   .content-table span {
     font-size: 26px;
   }
-}
-@media screen and (max-width: 376px) {
-  .heart-icon {
-    position: absolute;
-    top: 4.6%;
-    left: 86.5%;
-    line-height: 15px;
-    font-size: 27px;
-    font-weight: 600;
-    font-style: normal;
-    font-stretch: normal;
-    color: #e9e9e9;
-  }
 
-  .heart-icon-on {
-    color: #f45649;
-  }
-}
-@media screen and (max-width: 320px) {
-  .heart-icon {
-    position: absolute;
-    top: 4.6%;
-    left: 84%;
-    line-height: 15px;
-    font-size: 27px;
-    font-weight: 600;
-    font-style: normal;
-    font-stretch: normal;
-    color: #e9e9e9;
-  }
-
-  .heart-icon-on {
-    color: #f45649;
-  }
 }
 </style>
