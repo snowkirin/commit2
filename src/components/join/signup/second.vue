@@ -66,7 +66,7 @@
         <div class="signup-payment-label mt40">개인 정보(배송을 위해 현관 비밀번호를 알려주세요)</div>
         <div class="w100 mt18">
           <div class="field mt12">
-            <input type="text" name="lobbyPwd" class="form-login-input" placeholder="현관 비밀번호" />
+            <input type="text" name="lobbyPwd" class="form-login-input" placeholder="현관 비밀번호" maxlength="12" />
           </div>
         </div>
         <div class="signup-payment-label mt40">쿠폰</div>

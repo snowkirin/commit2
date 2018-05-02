@@ -137,7 +137,7 @@
             <div class="mypage-content-header">공동 현관 번호 <span>(배송을 위해 공동현관 비밀번호 알려주세요)</span></div>
             <div class="mypage-content-data mt20">
               <div class="field">
-                <input type="text" name="ann" class="form-login-input" style="width: 60%;" placeholder="공동 현관 번호" :value="mypageData.address_password" />
+                <input type="text" name="lobbyPwd" class="form-login-input" style="width: 60%;" placeholder="공동 현관 번호" :value="mypageData.address_password" maxlength="12" />
               </div>
             </div>
           </div>
