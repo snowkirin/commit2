@@ -380,6 +380,7 @@ div.btn-times:after {
   padding: 0 19.4% 60px 23.9%;
   font-size: 18px;
   color: #683b3f;
+  text-transform:capitalize;
 }
 
 .closet-styling-tip-title {
@@ -619,7 +620,7 @@ div.btn-times:after {
     padding: 45px 8% 0px 8%;
   }
  .closet-styling-tip-hashtag {
-    padding: 0px 8% 10px 8%;
+    padding: 0px 8% 25px 8%;
   }
   .thumnail-image,
   .thumnail-image-area {
