@@ -114,8 +114,8 @@ VueCommon.install = (Vue) => {
       return result;
     },
 
-    viewAlertModal(msg, refs) {
-      refs.view.openModal(msg);
+    viewAlertModal(msg, refs, type, path) {
+      refs.view.openModal(msg, type, path);
     },
 
     deviceCheck() {

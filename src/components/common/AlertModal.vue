@@ -1,8 +1,8 @@
 <template>
 <div class="alert-modal" :data-id="dataId">
-  <div class="alert-modal-content" v-html="content"></div>
+  <div class="alert-modal-content en-font" v-html="content"></div>
   <div class="alert-btn-area">
-    <a class="button-login" style="width: 100px;" @click="closeModal">확인</a>
+    <a class="button-login" style="width: 125px;" @click="closeModal">확인</a>
   </div>
 </div>
 </template>
@@ -15,6 +15,8 @@ export default {
   data() {
     return {
       content: '',
+      type: 'alert',
+      path: null,
       modal: null,
     };
   },
@@ -34,22 +36,33 @@ export default {
       type: String,
       default: '138',
     },
+    isConfirm: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
-    openModal(msg) {
+    openModal(msg, type, path) {
       this.modal.style.display = 'block';
       this.content = msg;
+      this.type = type;
+      this.path = path;
     },
     closeModal() {
+      if (this.type === 'confirm') {
+        this.$emit('update:isConfirm', true);
+        if (this.path !== null) {
+          this.$router.push({ path: this.path });
+        }
+      }
       this.modal.style.display = 'none';
     },
   },
   mounted() {
     this.modal = document.querySelector('div.alert-modal');
     this.modal.style.width = `${this.width}px`;
-    this.modal.style.height = `${this.height}px`;
+    this.modal.style.height = '30%';
   },
-
 };
 </script>
 
@@ -163,7 +176,6 @@ div.btn-times:after {
 @media screen and (max-width: 486px) {
   .alert-modal {
     width: 80% !important;
-    height: 80% !important;
   }
 
   .alert-modal-btn {

@@ -99,10 +99,13 @@ export default {
       const title = obj.target.querySelector('.colors-card-text');
       const color = obj.target.getAttribute('data-color');
       const selected = obj.target.getAttribute('data-selected');
-      const textColor = (color === 'FFFFFF') ? '212121' : 'FFFFFF';
+      const textColor = (color !== '000000') ? '212121' : 'FFFFFF';
 
       if (selected !== 'true') {
-        if (obj.target) obj.target.style.backgroundColor = `#${color}`;
+        if (obj.target) {
+          obj.target.style.backgroundColor = `#${color}`;
+          obj.target.style.color = `#${textColor}`;
+        }
         if (title) {
           title.style.backgroundColor = `#${obj.target.getAttribute('data-color')}`;
           title.style.color = `#${textColor}`;
@@ -115,7 +118,10 @@ export default {
       const selected = obj.target.getAttribute('data-selected');
 
       if (selected !== 'true') {
-        if (obj.target) obj.target.style.backgroundColor = '#F4F4F4';
+        if (obj.target) {
+          obj.target.style.backgroundColor = '#F4F4F4';
+          obj.target.style.color = '#212121';
+        }
         if (title) {
           title.style.backgroundColor = '#F4F4F4';
           title.style.color = '#212121';

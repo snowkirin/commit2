@@ -88,7 +88,7 @@
         </div>
       </div>
     </div>
-
+    <address-modal ref="address" dataId="address"></address-modal>
     <signup-modal ref="private" dataId="private" title="개인 정보 관리 지침" :content="privateText"></signup-modal>
     <signup-modal ref="use" dataId="use" title="이용약관"></signup-modal>
   </div>
@@ -97,6 +97,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import Datepicker from 'vuejs-datepicker';
+import AddressModal from '@/components/common/AddressModal';
 import SignupModal from '@/components/common/SignupModal';
 import PrivateText from '@/info/private';
 
@@ -105,6 +106,7 @@ export default {
   name: 'signUp-first',
   components: {
     Datepicker,
+    AddressModal,
     SignupModal,
   },
   data() {
@@ -140,6 +142,9 @@ export default {
     }),
     viewModal(ref) {
       this.$refs[ref].openModal();
+    },
+    closeModal(ref) {
+      this.$refs[ref].closeModal();
     },
     pwdCheck(isBoolean) {
       const pwd = document.querySelector('input[name=password]');
@@ -276,20 +281,22 @@ export default {
       });
     },
     openDaumPopup() {
+      this.viewModal('address');
       const zipcode = document.querySelector('input[name=zipcode]');
       const address = document.querySelector('input[name=address]');
       const detailAddress = document.querySelector('input[name=detail_address]');
 
       const daum = window.daum;
 
-      const width = 500;
-      const height = 600;
-
-
       daum.postcode.load(() => {
         new window.daum.Postcode({
-          width,
-          height,
+          width: '100%',
+          height: '500',
+          onclose: (state) => {
+            if (state === 'COMPLETE_CLOSE') {
+              this.closeModal('address');
+            }
+          },
           oncomplete: (data) => {
             zipcode.value = data.zonecode;
 
@@ -301,10 +308,7 @@ export default {
 
             detailAddress.focus();
           },
-        }).open({
-          top: (window.screen.height / 2) - (height / 2),
-          left: (window.screen.width / 2) - (width / 2),
-        });
+        }).embed(document.querySelector('div[name=addressArea]'), {});
       });
     },
     startTimer() {

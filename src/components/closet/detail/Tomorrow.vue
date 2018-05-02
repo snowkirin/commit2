@@ -18,7 +18,7 @@
           <div v-show="isMobile">
             <i class="fa fa-heart fa-lg heart-icon"></i>
           </div>
-          <div class="closet-card-title select-title">TYPE A</div>
+          <div class="closet-card-title select-title en-font">01. Codi Look</div>
           <div class="closet-card-images">
             <template v-for="(image, k) in printStyleFirst.image">
               <div v-if="image !== null" v-bind:key="k" class="thumnail-image-area">
@@ -51,7 +51,7 @@
           <div v-show="isMobile">
             <i class="fa fa-heart fa-lg heart-icon"></i>
           </div>
-          <div class="closet-card-title select-title">TYPE B</div>
+          <div class="closet-card-title select-title en-font">02. Item Codi</div>
           <div class="closet-card-images">
             <template v-for="(image, k) in printStyleSecond.image">
               <div v-if="image !== null" v-bind:key="k" class="thumnail-image-area">
@@ -81,7 +81,7 @@
         </div>
       </div>
     </div>
-    <alert-modal ref="view" width="300" height="190"></alert-modal>
+    <alert-modal ref="view" width="320" height="190"></alert-modal>
   </div>
 </template>
 
@@ -214,12 +214,12 @@ export default {
           products: [...this.parseIntProduct(...style.productId)],
         });
         if (type === 'first') {
-          this.$common.viewAlertModal('TYPE A 배송됩니다.', this.$refs);
+          this.$common.viewAlertModal('<b class="en-font">01. Codi Look</b> 배송됩니다.', this.$refs, 'alert');
         } else {
-          this.$common.viewAlertModal('TYPE B 배송됩니다.', this.$refs);
+          this.$common.viewAlertModal('<b class="en-font">02. Item Codi</b> 배송됩니다.', this.$refs, 'alert');
         }
       } else {
-        this.$common.viewAlertModal('선택기간이 지났습니다.<br />고객센터로 문의해주세요.', this.$refs);
+        this.$common.viewAlertModal('선택기간이 지났습니다.<br />고객센터로 문의해주세요.', this.$refs, 'alert');
         return;
       }
 
@@ -268,9 +268,11 @@ export default {
       if (selected) {
         const card = document.querySelectorAll('.closet-card');
 
-        for (let i = 0; i < card.length; i += 1) {
-          card[i].onmouseover = () => {};
-          card[i].onmouseout = () => {};
+        if (!this.$common.deviceCheck()) {
+          for (let i = 0; i < card.length; i += 1) {
+            card[i].onmouseover = () => {};
+            card[i].onmouseout = () => {};
+          }
         }
       }
 
@@ -305,13 +307,19 @@ export default {
     hoverEvt(target) {
       const obj = target;
 
-      obj.onmouseover = () => {
-        this.styleOnOff(true, obj);
-      };
+      if (!this.$common.deviceCheck()) {
+        obj.onmouseover = () => {
+          this.styleOnOff(true, obj);
+        };
 
-      obj.onmouseout = () => {
-        this.styleOnOff(false, obj);
-      };
+        obj.onmouseout = () => {
+          this.styleOnOff(false, obj);
+        };
+      } else {
+        obj.onclick = () => {
+          this.styleOnOff(true, obj);
+        };
+      }
     },
     mobileVisible() {
       if (window.outerWidth <= 486) this.isMobile = true;
@@ -360,11 +368,10 @@ export default {
 .closet-card-title {
   text-align: left;
   line-height: 15px;
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: bold;
   font-style: normal;
   font-stretch: normal;
-  letter-spacing: -0.4px;
   color: #797979;
   margin: 25px 20px 0 20px;
 }
@@ -466,7 +473,7 @@ export default {
   color: #f45649;
   text-align: center;
   position: absolute;
-  top: 25%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%,-50%);
 }
@@ -533,7 +540,7 @@ export default {
   }
 
   .closet-card-active {
-    top: 23% !important;
+    top: 36% !important;
   }
 
   .closet-card-active i {

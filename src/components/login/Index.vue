@@ -22,7 +22,7 @@
           로그인
         </button>
       </div>
-      <div class="login-menu w100 mt40" style="display: table;">
+      <div class="login-menu w100 mt30" style="display: table;">
         <ul class="loginMenu">
           <li class="loginMenu">
             <router-link to="/join/size" class="no-deco-a">회원가입</router-link>
@@ -163,7 +163,8 @@ li.loginMenu {
 
 @media screen and (max-width: 486px) {
   .loginMenu {
-    font-size: 14px;
+    font-size: 15px;
+    line-height: 2.2;
   }
 }
 </style>

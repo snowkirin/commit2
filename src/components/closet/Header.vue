@@ -129,7 +129,7 @@ export default {
 .noti-count {
   position: absolute;
   bottom: 0;
-  right: 14px;
+  right: 24px;
 }
 
 .noti-count span {
