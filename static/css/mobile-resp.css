@@ -259,3 +259,7 @@ div.subContent {
 .noti-text {
   font-size: 15px !important;
 }
+
+.alert-modal-content {
+  font-size: 18px !important;
+}

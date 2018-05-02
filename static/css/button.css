@@ -26,8 +26,10 @@
 }
 @media screen and (max-width: 486px) {
   .button-login {
-    height: 70px !important;
+    height: 60px !important;
     font-size: 20px !important;
+    line-height: 60px !important;
+    width: 125px !important;
   }
 }
 .button-login {

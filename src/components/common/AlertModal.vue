@@ -1,8 +1,8 @@
 <template>
 <div class="alert-modal" :data-id="dataId">
-  <div class="alert-modal-content" v-html="content"></div>
+  <div class="alert-modal-content en-font" v-html="content"></div>
   <div class="alert-btn-area">
-    <a class="button-login" style="width: 120px;" @click="closeModal">확인</a>
+    <a class="button-login" style="width: 125px;" @click="closeModal">확인</a>
   </div>
 </div>
 </template>
