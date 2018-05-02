@@ -236,6 +236,12 @@ div.subContent {
   font-size: 16px !important;
 }
 
+
+.step-number {
+ font-size: 14px !important;
+ line-height: 1.5 !important;
+}
+
 .benefit-main {
   margin-top: 0 !important;
 }

@@ -2,7 +2,7 @@
 <div class="alert-modal" :data-id="dataId">
   <div class="alert-modal-content" v-html="content"></div>
   <div class="alert-btn-area">
-    <a class="button-login" style="width: 100px;" @click="closeModal">확인</a>
+    <a class="button-login" style="width: 120px;" @click="closeModal">확인</a>
   </div>
 </div>
 </template>
@@ -61,7 +61,7 @@ export default {
   mounted() {
     this.modal = document.querySelector('div.alert-modal');
     this.modal.style.width = `${this.width}px`;
-    this.modal.style.height = '28%';
+    this.modal.style.height = '30%';
   },
 };
 </script>

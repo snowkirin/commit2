@@ -102,7 +102,7 @@ export default {
 
 .content-first-number {
   display: flex;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   line-height: 1;
   letter-spacing: normal;
@@ -117,7 +117,7 @@ export default {
 .content-second-text {
   width: 69.6%;
   font-size: 18px;
-  letter-spacing: -1.2px;
+  letter-spacing: -0.4px;
   color: #212121;
 }
 
