@@ -215,8 +215,6 @@ export default {
         document.querySelector('#authKeyConfirm').disabled = true;
         phone.disabled = true;
         phoneAuthNumber.disabled = true;
-        phone.style.border = '1px solid #2bbf10';
-        phoneAuthNumber.style.border = '1px solid #2bbf10';
         this.authErr = false;
       } else alert('인증번호를 다시 확인하시고 진행해주세요.');
 

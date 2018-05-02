@@ -263,3 +263,9 @@ div.subContent {
 .alert-modal-content {
   font-size: 18px !important;
 }
+
+/** datapicker */
+.vdp-datepicker__calendar header .next,
+.vdp-datepicker__calendar header .prev {
+  width: 11% !important;
+}

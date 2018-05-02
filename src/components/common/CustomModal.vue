@@ -111,7 +111,7 @@ export default {
 
 .custom-modal-content {
   width: 92.9%;
-  padding: 0 0 25px 25px;
+  padding: 0 0 20px 20px;
   font-size: 14px;
   font-weight: normal;
   font-style: normal;
@@ -195,8 +195,13 @@ div.btn-times:after {
   }
 
   .custom-modal-btn {
-    top: 4.4%;
-    left: 92%;
+    top: 5.3%;
+    left: 91.4%;
+  }
+
+  .scroll {
+    height: 78%;
+    overflow: scroll;
   }
 }
 </style>
