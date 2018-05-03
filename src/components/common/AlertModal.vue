@@ -1,7 +1,7 @@
 <template>
-<div class="alert-modal" :data-id="dataId">
-  <div class="alert-modal-content en-font" v-html="content"></div>
-  <div class="alert-btn-area">
+<div class="alert-frame">
+  <div class="alert-content">
+    <div class="alert-message en-font" v-html="content"></div>
     <a class="button-alert" @click="closeModal">확인</a>
   </div>
 </div>
@@ -59,128 +59,60 @@ export default {
     },
   },
   mounted() {
-    this.modal = document.querySelector('div.alert-modal');
-    this.modal.style.width = `${this.width}px`;
-    this.modal.style.height = '30%';
+    this.modal = document.querySelector('div.alert-frame');
   },
 };
 </script>
 
 <style scoped>
-.alert-modal {
-  z-index: 100;
+.alert-frame {
+  display: none;
   position: fixed;
+  overflow: hidden;
   top: 0;
-  bottom: 0;
   left: 0;
+  bottom: 0;
   right: 0;
-  margin: auto;
-  background-color: #ffffff;
-  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.17);
-  border: solid 1px #212121 !important;
-  border: solid 1px var(--black-two);
-  display:none;
+  background-color: transparent;
+  z-index: 1000;
+  opacity: 1;
+  text-align: center;
 }
 
-.alert-modal-content {
+.alert-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  box-sizing: border-box;
+  min-width: 300px;
+  width: inherit;
+  height: inherit;
+  padding: 25px;
+  background-color: #ffffff;
+  box-shadow: rgba(0, 0, 0, 0.2) 5px 5px 30px 0px;
+  border: solid 1px #212121 !important;
+  border: solid 1px var(--black-two);
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.alert-message {
   width: 100%;
-  margin-top: 26px;
-  font-size: 20px;
+  margin-bottom: 20px;
+  font-size: 18px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
   line-height: 1.4;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.2px;
   text-align: center;
   color: #212121;
 }
 
-.alert-btn-area {
-  margin-top: 26px;
-  margin-bottom: 300px;
-  text-align: center;
-}
-
-.alert-modal-btn {
-  width: 100px;
-  height: 40px;
-  background-color: #212121;
-  border: solid 1px #999999;
-}
-
-.alert-btn-name {
-  font-size: 18px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 2.67;
-  letter-spacing: -0.5px;
-  text-align: left;
-  color: #ffffff;
-}
-
-div.btn-times {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  border-radius: 6px;
-}
-
-div.btn-times:before, div.btn-times:after {
-  content: '';
-  position: absolute;
-  width: 30px;
-  height: 2px;
-  background-color: #212121;
-  border-radius: 2px;
-  top: 23px;
-  box-shadow: 0 0 2px 0 #ccc;
-}
-
-div.btn-times:before {
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  transform: rotate(45deg);
-  left: 9px;
-}
-
-div.btn-times:after {
-  -webkit-transform: rotate(-45deg);
-  -moz-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-  right: 9px;
-}
-
-.scroll {
-  height: 50%;
-  overflow: scroll;
-}
-
-.scroll::-webkit-scrollbar {
-  width: 8px;
-}
-
-.scroll::-webkit-scrollbar-thumb {
-  border-radius: 4px;
-  background-color: #dadada;
-}
-
-.csView {
-  display: inline-block;
-  font-size: 18px;
-  line-height: 1;
-  letter-spacing: -0.5px;
-  color: #808080;
-}
-
 @media screen and (max-width: 486px) {
-  .alert-modal {
-    width: 80% !important;
-  }
-
-  .alert-modal-btn {
-    top: 4.4%;
-    left: 92%;
+  .alert-frame {
+    top: 0;
+    background: rgba(0,0,0,.7);
   }
 }
 </style>
