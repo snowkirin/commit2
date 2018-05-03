@@ -89,7 +89,7 @@
       </div>
     </div>
     <address-modal ref="address" dataId="address"></address-modal>
-    <signup-modal ref="private" dataId="private" title="개인 정보 관리 지침" :content="privateText"></signup-modal>
+    <signup-modal ref="private" dataId="private" title="개인정보 관리 지침" :content="privateText"></signup-modal>
     <signup-modal ref="use" dataId="use" title="이용약관"></signup-modal>
   </div>
 </template>
@@ -289,7 +289,7 @@ export default {
       daum.postcode.load(() => {
         new window.daum.Postcode({
           width: '100%',
-          height: '500',
+          height: '433',
           onclose: (state) => {
             if (state === 'COMPLETE_CLOSE') {
               this.closeModal('address');
