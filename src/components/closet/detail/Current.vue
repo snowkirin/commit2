@@ -86,7 +86,7 @@
                 <div
                   class="thumnail-image"
                   v-bind:style="{
-                    'background-image': `url(${API_IMAGE_URL}${closet.image}`,
+                    'background-image': `url(${API_IMAGE_URL}${closet.image})`,
                   }"
                 ></div>
               </div>
