@@ -25,7 +25,7 @@
                   <div
                     class="thumnail-image"
                     v-bind:style="{
-                      'background-image': `url(${API_IMAGE_URL}${image}`,
+                      'background-image': `url(${API_IMAGE_URL}${image})`,
                     }"
                   >
 

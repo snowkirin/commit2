@@ -35,7 +35,7 @@
               <div
                 class="image-area-detail"
                 v-bind:style="{
-                  'background-image': `url(${API_IMAGE_URL}${currentCloset.products[0].image}`,
+                  'background-image': `url(${API_IMAGE_URL}${currentCloset.products[0].image})`,
                 }"
               ></div>
             </div>
@@ -47,7 +47,7 @@
               <div
                 class="image-area-detail"
                 v-bind:style="{
-                  'background-image': `url(${API_IMAGE_URL}${currentCloset.products[1].image}`,
+                  'background-image': `url(${API_IMAGE_URL}${currentCloset.products[1].image})`,
                 }"
               ></div>
             </div>
@@ -86,7 +86,7 @@
                 <div
                   class="thumnail-image"
                   v-bind:style="{
-                    'background-image': `url(${API_IMAGE_URL}${closet.image}`,
+                    'background-image': `url(${API_IMAGE_URL}${closet.image})`,
                   }"
                 ></div>
               </div>
