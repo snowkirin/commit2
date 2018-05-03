@@ -9,7 +9,7 @@ VueCommon.install = (Vue) => {
 
     htmlEnterLine(str) {
       let rtn = '';
-      if (str) rtn = str.replace(new RegExp(/\r?\n/, 'g'), '<br/>');
+      if (str) rtn = str.replace(/\r?\n/g, '<br/>');
       return rtn;
     },
 
