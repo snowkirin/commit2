@@ -106,7 +106,7 @@ export default {
 }
 
 .closet-noti-info {
-  margin-top: 40px;
+  margin-top: 30px;
   margin-right: 7px;
   height: 95px;
   float: right;
