@@ -1,11 +1,13 @@
 <template>
-<div class="address-modal" :data-id="dataId">
-  <div class="custom-modal-title">주소찾기
-    <div class="custom-modal-btn" @click="closeModal">
-      <div class="btn-times"></div>
+<div class="address-frame">
+  <div class="address-content">
+    <div class="custom-modal-title">주소찾기
+      <div class="custom-modal-btn" @click="closeModal">
+        <div class="btn-times"></div>
+      </div>
     </div>
+    <div name="addressArea"></div>
   </div>
-  <div name="addressArea"></div>
 </div>
 </template>
 
@@ -33,29 +35,43 @@ export default {
     },
   },
   mounted() {
-    this.modal = document.querySelector('div.address-modal');
+    this.modal = document.querySelector('div.address-frame');
   },
 
 };
 </script>
 
 <style scoped>
-.address-modal {
-  z-index: 100;
+.address-frame {
+  display: none;
   position: fixed;
+  overflow: hidden;
   top: 0;
-  bottom: 0;
   left: 0;
+  bottom: 0;
   right: 0;
+  background-color: transparent;
+  z-index: 1000;
+  opacity: 1;
+  text-align: center;
+}
+
+.address-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
   margin: auto;
   width: 500px;
   height: 500px;
+  box-sizing: border-box;
   background-color: #ffffff;
-  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.17);
+  box-shadow: rgba(0, 0, 0, 0.2) 5px 5px 30px 0px;
   border: solid 1px #212121 !important;
   border: solid 1px var(--black-two);
-  display:none;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
 }
+
 
 .custom-modal-title {
   width: 100%;
@@ -131,9 +147,14 @@ div.btn-times:after {
 }
 
 @media screen and (max-width: 486px) {
-  .address-modal {
-    width: 300px !important;
-    height: 500px !important;
+  .address-frame {
+    top: 0;
+    background: rgba(0,0,0,.7);
+  }
+
+  .address-content {
+    width: inherit;
+    height: inherit;
   }
 
   .custom-modal-btn {

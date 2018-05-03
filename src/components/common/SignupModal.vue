@@ -1,11 +1,13 @@
 <template>
-<div class="custom-modal" :data-id="dataId">
-  <div class="custom-modal-title">{{ title }}
-    <div class="custom-modal-btn" @click="closeModal">
-      <div class="btn-times"></div>
+<div class="signup-frame" :data-id="dataId">
+  <div class="signup-content">
+    <div class="custom-modal-title">{{ title }}
+      <div class="custom-modal-btn" @click="closeModal">
+        <div class="btn-times"></div>
+      </div>
     </div>
-  </div>
-  <div class="custom-modal-content scroll" v-html="content">
+    <div class="custom-modal-content scroll" v-html="content">
+    </div>
   </div>
 </div>
 </template>
@@ -50,10 +52,7 @@ export default {
     },
   },
   mounted() {
-    this.modal = document.querySelector(`div.custom-modal[data-id="${this.dataId}"]`);
-    this.modal.style.width = `${this.width}px`;
-    // this.modal.style.height = `${this.height}px`;
-    this.modal.style.height = '85%';
+    this.modal = document.querySelector(`div.signup-frame[data-id="${this.dataId}"]`);
 
     if (this.modalType === 'csView') {
       this.modal.style.border = 'solid 1px #212121';
@@ -67,26 +66,40 @@ export default {
 </script>
 
 <style scoped>
-.custom-modal {
-  z-index: 100;
+.signup-frame {
+  display: none;
   position: fixed;
+  overflow: hidden;
   top: 0;
-  bottom: 0;
   left: 0;
+  bottom: 0;
   right: 0;
-  margin: auto;
+  background-color: transparent;
+  z-index: 1000;
+  opacity: 1;
+  text-align: center;
+}
+
+.signup-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  box-sizing: border-box;
+  min-width: 300px;
   width: 705px;
-  height: 635px;
+  height: 85%;
+  padding: 25px;
   background-color: #ffffff;
-  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.17);
+  box-shadow: rgba(0, 0, 0, 0.2) 5px 5px 30px 0px;
   border: solid 1px #212121 !important;
   border: solid 1px var(--black-two);
-  display:none;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
 }
 
 .custom-modal-title {
   width: 100%;
-  padding: 25px 25px 10px 25px;
+  padding-bottom: 20px;
   font-size: 23px;
   font-weight: bold;
   font-style: normal;
@@ -99,8 +112,6 @@ export default {
 }
 
 .custom-modal-content {
-  width: 92.9%;
-  padding: 0 0 25px 25px;
   font-size: 14px;
   font-weight: normal;
   font-style: normal;
@@ -156,7 +167,7 @@ div.btn-times:after {
 }
 
 .scroll {
-  height: 84%;
+  height: 96%;
   overflow: scroll;
 }
 
@@ -177,8 +188,14 @@ div.btn-times:after {
   color: #808080;
 }
 
+
 @media screen and (max-width: 486px) {
-  .custom-modal {
+  .signup-frame {
+    top: 0;
+    background: rgba(0,0,0,.7);
+  }
+
+  .signup-content {
     width: 80% !important;
     height: 80% !important;
   }
@@ -189,12 +206,8 @@ div.btn-times:after {
   }
 
   .scroll {
-    height: 78%;
+    height: 94%;
     overflow: scroll;
-  }
-
-  .custom-modal-content {
-    padding: 0 0 20px 20px;
   }
 }
 </style>
