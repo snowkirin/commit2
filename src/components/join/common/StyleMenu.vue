@@ -1,5 +1,5 @@
 <template>
-  <div style="display: table-row; position: relative;">
+  <div>
     <div class="content-title-menu-box" @click="stylingMenuOnoff" :style="`left: ${printLeftSize};`">
       <div class="arrow-down"></div>
     </div>

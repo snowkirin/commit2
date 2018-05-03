@@ -289,7 +289,7 @@ export default {
       daum.postcode.load(() => {
         new window.daum.Postcode({
           width: '100%',
-          height: '500',
+          height: '434',
           onclose: (state) => {
             if (state === 'COMPLETE_CLOSE') {
               this.closeModal('address');

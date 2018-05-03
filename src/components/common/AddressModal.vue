@@ -1,5 +1,10 @@
 <template>
 <div class="address-modal" :data-id="dataId">
+  <div class="custom-modal-title">주소찾기
+    <div class="custom-modal-btn" @click="closeModal">
+      <div class="btn-times"></div>
+    </div>
+  </div>
   <div name="addressArea"></div>
 </div>
 </template>
@@ -52,6 +57,65 @@ export default {
   display:none;
 }
 
+.custom-modal-title {
+  width: 100%;
+  padding: 20px;
+  font-size: 23px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.08;
+  letter-spacing: -0.7px;
+  text-align: left;
+  color: #212121;
+  box-sizing: border-box;
+  border-bottom: solid 1px #212121 !important;
+}
+
+.custom-modal-btn {
+  width: 48px;
+  height: 48px;
+  background-color: #FFFFFF;
+  position: absolute;
+  opacity: 1;
+  top: 6%;
+  left: 95%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+div.btn-times {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 6px;
+}
+
+div.btn-times:before, div.btn-times:after {
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 2px;
+  background-color: #212121;
+  border-radius: 2px;
+  top: 23px;
+  box-shadow: 0 0 2px 0 #ccc;
+}
+
+div.btn-times:before {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  transform: rotate(45deg);
+  left: 9px;
+}
+
+div.btn-times:after {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  right: 9px;
+}
+
 .scroll {
   height: 50%;
   overflow: scroll;
@@ -70,6 +134,11 @@ export default {
   .address-modal {
     width: 300px !important;
     height: 500px !important;
+  }
+
+  .custom-modal-btn {
+    top: 6.3%;
+    left: 91.4%;
   }
 }
 </style>

@@ -1,7 +1,6 @@
 <template>
 <div class="custom-modal" :data-id="dataId">
-  <div class="custom-modal-title">
-    {{ title }}
+  <div class="custom-modal-title">{{ title }}
     <div class="custom-modal-btn" @click="closeModal">
       <div class="btn-times"></div>
     </div>
@@ -80,16 +79,16 @@ export default {
   height: 635px;
   background-color: #ffffff;
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.17);
-  border: solid 1px #212121;
+  border: solid 1px #212121 !important;
   border: solid 1px var(--black-two);
   display:none;
 }
 
 .custom-modal-title {
   width: 100%;
-  padding: 25px;
-  font-size: 26px;
-  font-weight: normal;
+  padding: 25px 25px 10px 25px;
+  font-size: 23px;
+  font-weight: bold;
   font-style: normal;
   font-stretch: normal;
   line-height: 1.08;
@@ -101,7 +100,7 @@ export default {
 
 .custom-modal-content {
   width: 92.9%;
-  padding: 0 0 20px 20px;
+  padding: 0 0 25px 25px;
   font-size: 14px;
   font-weight: normal;
   font-style: normal;
@@ -118,7 +117,7 @@ export default {
   background-color: #FFFFFF;
   position: absolute;
   opacity: 1;
-  top: 7.6%;
+  top: 5%;
   left: 95%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
@@ -185,13 +184,17 @@ div.btn-times:after {
   }
 
   .custom-modal-btn {
-    top: 5.3%;
+    top: 6.3%;
     left: 91.4%;
   }
 
   .scroll {
     height: 78%;
     overflow: scroll;
+  }
+
+  .custom-modal-content {
+    padding: 0 0 20px 20px;
   }
 }
 </style>
