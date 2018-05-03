@@ -5,39 +5,33 @@
       줄라이의 소식을 확인해보세요.
     </div>
     <div class="closet-content mt50">
-      <div class="notice-content">
-        <div class="notice-rows notice-header">
-          <div class="notice-number">번호</div>
-          <div class="notice-subject">제목</div>
-          <div class="notice-regdate">등록일</div>
-        </div>
-        <template v-if="noticeList.length > 0">
-          <template v-for="(notice, k) in noticeList">
-            <div v-bind:key="k" class="notice-rows" @click="noticeView(notice.id)">
-              <div class="notice-number">
-                {{ noticeList.length - k }}
-              </div>
-              <div class="notice-subject">
-                {{ notice.title }}
-                <span v-show="$moment().diff($moment(notice.inserted), 'days') < 7" class="new-content">new</span>
-              </div>
-              <div class="notice-regdate">
-                {{ $moment(notice.inserted).format('YY.MM.DD') }}
-              </div>
-            </div>
-            <div  v-bind:key="'data_'+ k" class="notice-rows-data" :data-id="notice.id">
-              <span v-html="contentReplace(notice)"></span>
-            </div>
-          </template>
-        </template>
-        <template v-else>
-          <div class="notice-rows no-data">
-            등록된 내용이 존재하지 않습니다.
-          </div>
-        </template>
-
-
+      <div class="notice-rows notice-header">
+        <div class="notice-number">번호</div>
+        <div class="notice-subject">제목</div>
+        <div class="notice-regdate">등록일</div>
       </div>
+      <template v-if="noticeList.length > 0" v-for="(notice, k) in noticeList">
+        <div v-bind:key="k" class="notice-content notice-rows" @click="noticeView(notice.id)">
+          <div class="notice-number">
+            {{ noticeList.length - k }}
+          </div>
+          <div class="notice-subject">
+            {{ notice.title }}
+            <span v-show="$moment().diff($moment(notice.inserted), 'days') < 7" class="new-content">new</span>
+          </div>
+          <div class="notice-regdate">
+            {{ $moment(notice.inserted).format('YY.MM.DD') }}
+          </div>
+        </div>
+        <div v-bind:key="'data_'+ k" class="notice-rows-data" :data-id="notice.id">
+          <span v-html="contentReplace(notice)"></span>
+        </div>
+      </template>
+      <template v-else>
+        <div class="notice-content">
+          등록된 내용이 존재하지 않습니다.
+        </div>
+      </template>
     </div>
   </div>
 </template>
