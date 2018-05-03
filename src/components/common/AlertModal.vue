@@ -87,9 +87,9 @@ export default {
   min-width: 300px;
   width: inherit;
   height: inherit;
-  padding: 20px;
+  padding: 25px;
   background-color: #ffffff;
-  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.17);
+  box-shadow: rgba(0, 0, 0, 0.2) 5px 5px 30px 0px;
   border: solid 1px #212121 !important;
   border: solid 1px var(--black-two);
   opacity: 1;
@@ -99,14 +99,20 @@ export default {
 .alert-message {
   width: 100%;
   margin-bottom: 20px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
   line-height: 1.4;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.2px;
   text-align: center;
   color: #212121;
 }
 
+@media screen and (max-width: 486px) {
+  .alert-frame {
+    top: 0;
+    background: rgba(0,0,0,.7);
+  }
+}
 </style>
