@@ -24,7 +24,7 @@
               <div v-if="image !== null" v-bind:key="k" class="thumnail-image-area">
                 <div class="thumnail-image" v-bind:class="{ 'thumnail-image-left100': centerImage(printStyleFirst.image) }"
                   v-bind:style="{
-                    backgroundImage: `url('${$common.IMAGEURL() + image}')`,
+                    'background-image': `url('${$common.IMAGEURL() + image}')`,
                   }"
                 ></div>
               </div>
@@ -57,7 +57,7 @@
               <div v-if="image !== null" v-bind:key="k" class="thumnail-image-area">
                 <div class="thumnail-image" v-bind:class="{ 'thumnail-image-left100': centerImage(printStyleSecond.image) }"
                   v-bind:style="{
-                    backgroundImage: `url('${$common.IMAGEURL() + image}')`,
+                    'background-image': `url('${$common.IMAGEURL() + image}')`,
                   }"
                 ></div>
               </div>

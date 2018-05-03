@@ -26,7 +26,7 @@
             <div
               class="clothes-images"
               v-bind:style="{
-                backgroundImage: (data.name !== '선택 없음') ? `url(${$common.IMAGEURL()}common/items/${data.code}.png)` : 'url(/static/img/signup/none_logo.png)',
+                'background-image': (data.name !== '선택 없음') ? `url(${$common.IMAGEURL()}common/items/${data.code}.png)` : 'url(/static/img/signup/none_logo.png)',
               }"
             >
             </div>

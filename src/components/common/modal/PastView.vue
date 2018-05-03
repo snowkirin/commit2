@@ -7,7 +7,7 @@
             <div
               class="thumnail-image"
               v-bind:style="{
-                backgroundImage: `url(${API_IMAGE_URL}${detail.image_path}`,
+                'background-image': `url(${API_IMAGE_URL}${detail.image_path}`,
               }"
             >
             </div>
