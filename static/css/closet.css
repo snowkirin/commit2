@@ -8,6 +8,13 @@
   text-align: left;
 }
 
+.closet-title-sub-text {
+  line-height: 2.5;
+  letter-spacing: -0.4px;
+  color: #797979;
+  font-size: 18px;
+}
+
 .closet-card-block {
   display: inline-block;
   width: 1.1%;
