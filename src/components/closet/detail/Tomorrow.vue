@@ -13,12 +13,15 @@
         2가지 데일리룩 후보 중 마음에 드는<br/>
         의상을 선택해주세요.
       </div>
+      <div class="closet-title-sub-text">
+        (기한 내 미선택 시, 회원님께 더 어울릴 스타일로 자동 지정 후 배송 됩니다.)
+      </div>
       <div class="closet-card-area mt50">
         <div class="closet-card" @click="selectStyle(printStyleFirst, 'first')" data-value="first">
           <div v-show="isMobile">
             <i class="fa fa-heart fa-lg heart-icon"></i>
           </div>
-          <div class="closet-card-title select-title en-font">01. Codi Look</div>
+          <div class="closet-card-title select-title en-font">A. Codi Look</div>
           <div class="closet-card-images">
             <template v-for="(image, k) in printStyleFirst.image">
               <div v-if="image !== null" v-bind:key="k" class="thumnail-image-area">
@@ -51,7 +54,7 @@
           <div v-show="isMobile">
             <i class="fa fa-heart fa-lg heart-icon"></i>
           </div>
-          <div class="closet-card-title select-title en-font">02. Item Codi</div>
+          <div class="closet-card-title select-title en-font">B. Item Codi</div>
           <div class="closet-card-images">
             <template v-for="(image, k) in printStyleSecond.image">
               <div v-if="image !== null" v-bind:key="k" class="thumnail-image-area">
@@ -214,9 +217,9 @@ export default {
           products: [...this.parseIntProduct(...style.productId)],
         });
         if (type === 'first') {
-          this.$common.viewAlertModal('<b class="en-font">01. Codi Look</b> 배송됩니다.', this.$refs, 'alert');
+          this.$common.viewAlertModal('<b class="en-font">A. Codi Look</b> 배송됩니다.', this.$refs, 'alert');
         } else {
-          this.$common.viewAlertModal('<b class="en-font">02. Item Codi</b> 배송됩니다.', this.$refs, 'alert');
+          this.$common.viewAlertModal('<b class="en-font">B. Item Codi</b> 배송됩니다.', this.$refs, 'alert');
         }
       } else {
         this.$common.viewAlertModal('선택기간이 지났습니다.<br />고객센터로 문의해주세요.', this.$refs, 'alert');

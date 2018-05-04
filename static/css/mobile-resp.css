@@ -256,6 +256,11 @@ div.subContent {
   font-size: 26px !important;
 }
 
+.closet-title-sub-text {
+  line-height: 1.5;
+  letter-spacing: -0.4px;
+}
+
 .noti-text {
   font-size: 15px !important;
 }
