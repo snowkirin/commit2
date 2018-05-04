@@ -86,7 +86,7 @@
               </div>
             </div>
           </div>
-          <div class="mypage-content-row">
+          <div class="mypage-content-row hide-area">
             <div class="mypage-content-header">카드 결제 정보</div>
             <div class="mypage-content-data mt20">
               <div class="field">
@@ -181,7 +181,7 @@
         </div>
       </div>
     </div>
-    <div class="mypage-modify-btn mt30">
+    <div class="mypage-modify-btn mt30 hide-area">
       <div class="mypage-button-area">
         <button class="button-grey mypage-button">취소</button>
         <button class="button-login mypage-button">저장</button>
