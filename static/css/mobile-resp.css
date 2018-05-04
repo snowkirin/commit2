@@ -65,7 +65,7 @@
   font-size: 14px !important;
   display: inline-block !important;
   width: auto !important;
-  letter-spacing: 0px !important;
+  letter-spacing: -0.3px !important;
 }
 
 .main-about {
