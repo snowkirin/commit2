@@ -12,7 +12,7 @@
       <sizeTooltip ref="tall" :dataId="0" sizeTitle="키" customTooltip="최근에 측정된 키를 입력해주세요."></sizeTooltip>
       <div class="tall-input-group" :class="{ error: errors.has('tall') }">
         <div class="tall-input">
-          <input type="number" name="tall" class="form-login-input" placeholder="최근 측정한 키를 입력" v-validate="'required'"/>
+          <input type="number" name="tall" class="form-login-input" placeholder="최근 측정한 키를 입력" v-validate="'required'" maxlength="3"/>
         </div>
         <div class="tall-input-unit">cm</div>
       </div>

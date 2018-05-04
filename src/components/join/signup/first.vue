@@ -7,19 +7,19 @@
       <div class="signup-area d-inlinetable" style="margin-right: 30px;">
         <div class="signup-title-detail">사용자 계정</div>
         <div class="field" :class="{ error: errors.has('name') }">
-          <input type="text" name="name" class="form-login-input mt20" placeholder="이름" v-validate="'required'" />
+          <input type="text" name="name" class="form-login-input mt20" placeholder="이름" v-validate="'required'" maxlength="15" />
           <span class="error" v-show="errors.has('name')">이름을 입력해주세요.</span>
         </div>
         <div class="field" :class="{ error: errors.has('email') }">
-          <input type="text" name="email" class="form-login-input mt12" placeholder="이메일" v-validate="'required|email'" />
+          <input type="text" name="email" class="form-login-input mt12" placeholder="이메일" v-validate="'required|email'" maxlength="50" />
           <span class="error" v-show="errors.has('email')">이메일을 정확하게 입력해주세요.</span>
         </div>
         <div class="field" :class="{ error: errors.has('password') }">
-          <input type="password" name="password" class="form-login-input mt12" placeholder="비밀번호 8자리 이상의 영문,숫자,특수문자 포함" v-validate="{ required: true, regex: pwdRegex }" @keyup="pwdCheck(errors.has('password'))" />
+          <input type="password" name="password" class="form-login-input mt12" placeholder="비밀번호 8자리 이상의 영문,숫자,특수문자 포함" v-validate="{ required: true, regex: pwdRegex }" @keyup="pwdCheck(errors.has('password'))" maxlength="256" />
           <span class="error" v-show="errors.has('password')">{{ pwdMsg }}</span>
         </div>
         <div class="field" :class="{ error: errors.has('password_confirm') }">
-          <input type="password" name="password_confirm" class="form-login-input mt12" placeholder="비밀번호 확인" v-validate="'required|confirmed:password'" @change="pwdConfirm(errors.has('passwordConfirmation'))" />
+          <input type="password" name="password_confirm" class="form-login-input mt12" placeholder="비밀번호 확인" v-validate="'required|confirmed:password'" @change="pwdConfirm(errors.has('passwordConfirmation'))" maxlength="256" />
           <span class="error" v-show="errors.has('password_confirm')">비밀번호가 일치하지 않습니다.</span>
         </div>
       </div>
@@ -27,7 +27,7 @@
         <div class="signup-title-detail">연락처 정보</div>
         <div class="field" :class="{ error: errors.has('phone') }">
           <div class="inputGroup">
-            <input type="text" name="phone" class="form-login-group mt20" placeholder="휴대전화" style="width: 72%;" v-validate="'required'" />
+            <input type="text" name="phone" class="form-login-group mt20" placeholder="휴대전화" style="width: 72%;" v-validate="'required'" maxlength="14" />
             <div style="display: inline-table; width: 3%;"></div>
             <button id="phoneVerify" class="button-grey" style="width: 25%;" @click="phoneVerify">인증</button>
           </div>
@@ -52,11 +52,11 @@
           </div>
         </div>
         <div class="field" :class="{ error: errors.has('address') }">
-          <input type="text" name="address" class="form-login-input mt12" placeholder="주소" v-validate="'required'" />
+          <input type="text" name="address" class="form-login-input mt12" placeholder="주소" v-validate="'required'" maxlength="30" />
           <span class="error" v-show="errors.has('address')">주소가 입력되지 않았습니다.</span>
         </div>
         <div class="field" :class="{ error: errors.has('detail_address') }">
-          <input type="text" name="detail_address" class="form-login-input mt12" placeholder="상세주소" v-validate="'required'" />
+          <input type="text" name="detail_address" class="form-login-input mt12" placeholder="상세주소" v-validate="'required'" maxlength="30" />
           <span class="error" v-show="errors.has('detail_address')">상세주소가 입력되지 않았습니다.</span>
         </div>
         <div class="signup-chk-area mt15">
