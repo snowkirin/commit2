@@ -86,6 +86,42 @@
               </div>
             </div>
           </div>
+          <div class="mypage-content-row">
+            <div class="mypage-content-header">카드 결제 정보</div>
+            <div class="mypage-content-data mt20">
+              <div class="field">
+                <div class="mypage-content-data mobile-v">
+                  하나카드
+                  <button id="changeEmail" class="button-grey" style="width: 25%; margin-left: 5px;" @click="displayEvt('cardarea')">카드 변경</button>
+                </div>
+              </div>
+            </div>
+            <div class="hide-area" id="cardarea">
+              <div class="mypage-content-data mt20">
+                <div class="field" :class="{ error: errors.has('cardNumber') }">
+                  <div class="inputGroup">
+                    <div class="inputIconLabel" style="display: inline-table; width: 60%;">
+                      <input type="text" name="cardNumber" class="form-login-input" placeholder="카드번호(- 없이 16자리 입력)" maxlength="16" v-validate="'required'" />
+                      <i class="fa fa-credit-card fa-lg"></i>
+                    </div>
+                    <div style="display: inline-table; width: 1.5%;"></div>
+                    <input type="text" name="cardExpiry" class="form-login-group" placeholder="MM/YY" style="width: 25%;" v-validate="'required'" />
+                  </div>
+                </div>
+                <div class="field mt12 talign-left" :class="{ error: errors.has('birthDay') }">
+                  <input type="text" name="birthDay" class="form-login-input" placeholder="생년월일(YY/MM/DD)" style="width: 86.5%;" v-validate="'required'" />
+                  <span class="error" v-show="errors.has('birthDay')">생년월일을 입력해주세요.</span>
+                </div>
+                <div class="field mt12 talign-left" :class="{ error: errors.has('cardPwd') }">
+                  <input type="password" name="cardPwd" class="form-login-input" placeholder="비밀번호" style="width: 25%;" maxlength="2" v-validate="'required'" />
+                  <span class="password-icon-position">
+                    <i class="fa fa-circle" style="font-size: 8px;"></i>
+                    <i class="fa fa-circle" style="font-size: 8px;"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="mypage-content-center"></div>
         <div class="mypage-content-right">
@@ -94,9 +130,9 @@
             <div class="mypage-content-data mt20">
               <div class="field" :class="{ error: errors.has('zipcode') }">
                 <div class="inputGroup">
-                  <input type="text" name="zipcode" class="form-login-group" placeholder="우편번호" style="width: 43.6%;" v-validate="'required'" :value="mypageData.zipcode" />
+                  <input type="text" name="zipcode" class="form-login-group" placeholder="우편번호" style="width: 60%;" v-validate="'required'" :value="mypageData.zipcode" />
                   <div style="display: inline-table; width: 1.5%;"></div>
-                  <button id="findAddr" class="button-grey" style="width: 15%;" @click="openDaumPopup">주소찾기</button>
+                  <button id="findAddr" class="button-grey" style="width: 25%;" @click="openDaumPopup">주소찾기</button>
                 </div>
               </div>
             </div>
@@ -141,39 +177,15 @@
               </div>
             </div>
           </div>
-          <div class="mypage-content-row hide-area">
-            <div class="mypage-content-header">카드 결제 정보</div>
-            <div class="mypage-content-data mt20">
-              <div class="field" :class="{ error: errors.has('cardNumber') }">
-                <div class="inputGroup">
-                  <div class="inputIconLabel" style="display: inline-table; width: 50%;">
-                    <input type="text" name="cardNumber" class="form-login-input" placeholder="카드번호(- 없이 16자리 입력)" maxlength="16" v-validate="'required'" />
-                    <i class="fa fa-credit-card fa-lg"></i>
-                  </div>
-                  <div style="display: inline-table; width: 1.5%;"></div>
-                  <input type="text" name="cardExpiry" class="form-login-group" placeholder="MM/YY" style="width: 15%;" v-validate="'required'" />
-                </div>
-              </div>
-              <div class="field mt12 talign-left" :class="{ error: errors.has('birthDay') }">
-                <input type="text" name="birthDay" class="form-login-input" placeholder="생년월일(YY/MM/DD)" style="width: 66.2%;" v-validate="'required'" />
-                <span class="error" v-show="errors.has('birthDay')">생년월일을 입력해주세요.</span>
-              </div>
-              <div class="field mt12 talign-left" :class="{ error: errors.has('cardPwd') }">
-                <input type="password" name="cardPwd" class="form-login-input" placeholder="비밀번호" style="width: 15%;" maxlength="2" v-validate="'required'" />
-                <span class="password-icon-position">
-                  <i class="fa fa-circle" style="font-size: 8px;"></i>
-                  <i class="fa fa-circle" style="font-size: 8px;"></i>
-                </span>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
-
-    <!-- div class="mypage-modify-btn mt30">
-      <button class="button-login" style="float: right; width: 202px;">정보수정</button>
-    </div -->
+    <div class="mypage-modify-btn mt30">
+      <div style="float: right;">
+        <button class="button-grey" style="width: 202px;">취소</button>
+        <button class="button-login" style="width: 202px;">저장</button>
+      </div>
+    </div>
   </div>
 </template>
 
