@@ -15,9 +15,7 @@
             <div class="mypage-content-header">이메일</div>
             <div class="mypage-content-data mobile-v">
               {{ mypageData.email }}
-              <button id="changeEmail" class="button-grey" style="width: 25%; margin-left: 5px;" @click="displayEvt('emailarea', 'emailbtn')">
-                <span id="emailbtn">이메일 변경</span>
-              </button>
+              <button id="changeEmail" class="button-grey" style="width: 25%; margin-left: 5px;" @click="displayEvt('emailarea', 'changeEmail', '이메일 변경')">이메일 변경</button>
             </div>
             <div class="mypage-content-data mt10 hide-area" id="emailarea">
               <div class="field">
@@ -61,7 +59,7 @@
                 <div class="inputGroup">
                   <input type="text" name="view_phone" class="form-login-group" placeholder="휴대전화" style="width: 60%;" :value="mypageData.phone_no" disabled/>
                   <div style="display: inline-table; width: 1.5%;"></div>
-                  <button id="changePhone" class="button-grey" style="width: 25%;" @click="displayEvt('phonearea')">휴대폰번호 변경</button>
+                  <button id="changePhone" class="button-grey" style="width: 25%;" @click="displayEvt('phonearea', 'changePhone', '휴대폰번호 변경')">휴대폰번호 변경</button>
                 </div>
               </div>
             </div>
@@ -94,7 +92,7 @@
               <div class="field">
                 <div class="mypage-content-data mobile-v">
                   <span style="width: 60%;">하나카드 ****-****-****-8261</span>
-                  <button id="changeCard" class="button-grey" style="width: 25%; margin-left: 5px;" @click="displayEvt('cardarea')">카드 변경</button>
+                  <button id="changeCard" class="button-grey" style="width: 25%; margin-left: 5px;" @click="displayEvt('cardarea', 'changeCard', '카드 변경')">카드 변경</button>
                 </div>
               </div>
             </div>
@@ -280,17 +278,23 @@ export default {
         phone.value = '';
         phoneAuthNumber.value = '';
         this.authErr = false;
-        this.displayEvt('phonearea');
+        this.displayEvt('phonearea', 'changePhone', '휴대폰번호 변경');
         this.changeFlag('phone');
       } else alert('인증번호를 다시 확인하시고 진행해주세요.');
 
       return true;
     },
-    displayEvt(id) {
+    displayEvt(id, buttonArea, beforeText) {
       const target = document.getElementById(id);
+      const textbtn = document.getElementById(buttonArea);
 
-      if (target.style.display === 'block') target.style.display = 'none';
-      else target.style.display = 'block';
+      if (target.style.display === 'block') {
+        target.style.display = 'none';
+        textbtn.innerHTML = beforeText;
+      } else {
+        target.style.display = 'block';
+        textbtn.innerHTML = '변경 취소';
+      }
     },
     async actEmailChange() {
       const email = document.querySelector('input[name=changeEmail]');
@@ -303,7 +307,7 @@ export default {
         alert('이메일 변경이 완료되었습니다.');
         await this.setMypage();
         email.value = '';
-        this.displayEvt('emailarea');
+        this.displayEvt('emailarea', 'changeEmail', '이메일 변경');
         this.changeFlag('email');
       }
     },
