@@ -15,13 +15,13 @@
             <div class="mypage-content-header">이메일</div>
             <div class="mypage-content-data mobile-v">
               {{ mypageData.email }}
-              <button id="changeEmail" class="button-grey" style="width: 25%; margin-left: 5px;" @click="displayEvt('emailarea')">이메일 변경</button>
+              <button id="changeEmail" class="button-grey" style="width: 25%; margin-left: 5px;" @click="displayEvt('emailarea', 'changeEmail', '이메일 변경')">이메일 변경</button>
             </div>
             <div class="mypage-content-data mt10 hide-area" id="emailarea">
               <div class="field">
                 <div class="inputGroup">
-                  <input type="text" name="changeEmail" class="form-login-group" placeholder="변경할 이메일주소" style="width: 60%;" />
-                  <div id="changeEmailConfirmWall" style="display: inline-table; width: 1.5%;"></div>
+                  <input type="text" name="changeEmail" class="form-login-group confirm-area" placeholder="변경할 이메일주소"/>
+                  <div id="changeEmailConfirmWall" style="display: inline-table; width: 1.5% !important;"></div>
                   <button id="changeEmailConfirm" class="button-grey" style="width: 25%;" @click="actEmailChange" >변경</button>
                 </div>
               </div>
@@ -31,13 +31,13 @@
             <div class="mypage-content-header">비밀번호 변경</div>
             <div class="mypage-content-data mt20">
               <div class="field" :class="{ error: errors.has('cur_password') }">
-                <input type="password" name="cur_password" class="form-login-input" style="width: 60%;" placeholder="현재 비밀번호" v-validate="'required'" />
+                <input type="password" name="cur_password" class="form-login-input" style="width: 60% !important;" placeholder="현재 비밀번호" v-validate="'required'" />
                 <span class="error" v-show="errors.has('cur_password')">현재 비밀번호를 입력해주세요.</span>
               </div>
             </div>
             <div class="mypage-content-data mt10">
               <div class="field" :class="{ error: errors.has('new_password') }">
-                <input type="password" name="new_password" class="form-login-input" style="width: 60%;" placeholder="신규 비밀번호" v-validate="{ required: true, regex: pwdRegex }" @keyup="pwdCheck(errors.has('new_password'))" />
+                <input type="password" name="new_password" class="form-login-input" style="width: 60% !important;" placeholder="신규 비밀번호" v-validate="{ required: true, regex: pwdRegex }" @keyup="pwdCheck(errors.has('new_password'))" />
                 <span class="error" v-show="errors.has('new_password')">{{ pwdMsg }}</span>
               </div>
             </div>
@@ -59,7 +59,7 @@
                 <div class="inputGroup">
                   <input type="text" name="view_phone" class="form-login-group" placeholder="휴대전화" style="width: 60%;" :value="mypageData.phone_no" disabled/>
                   <div style="display: inline-table; width: 1.5%;"></div>
-                  <button id="changePhone" class="button-grey" style="width: 25%;" @click="displayEvt('phonearea')">휴대폰번호 변경</button>
+                  <button id="changePhone" class="button-grey" style="width: 25%;" @click="displayEvt('phonearea', 'changePhone', '휴대폰번호 변경')">휴대폰번호 변경</button>
                 </div>
               </div>
             </div>
@@ -67,7 +67,7 @@
               <div class="mypage-content-data mt10">
                 <div class="field" :class="{ error: errors.has('phone') }">
                   <div class="inputGroup">
-                    <input type="text" name="phone" class="form-login-group" placeholder="휴대전화" style="width: 60%;" v-validate="'required'" />
+                    <input type="text" name="phone" class="form-login-group confirm-area" placeholder="휴대전화" v-validate="'required'" />
                     <div style="display: inline-table; width: 1.5%;"></div>
                     <button id="phoneVerify" class="button-grey" style="width: 25%;" @click="phoneVerify">인증</button>
                   </div>
@@ -77,11 +77,48 @@
               <div class="mypage-content-data mt10">
                 <div class="field" :class="{ error: errors.has('phone_auth_number') }">
                   <div class="inputGroup">
-                    <input type="text" name="phone_auth_number" class="form-login-group" placeholder="인증번호" style="width: 60%;" v-validate="'required'" />
+                    <input type="text" name="phone_auth_number" class="form-login-group confirm-area" placeholder="인증번호" v-validate="'required'" />
                     <div style="display: inline-table; width: 1.5%;"></div>
                     <button id="authKeyConfirm" class="button-grey" style="width: 25%;" @click="authKeyConfirm">확인</button>
                   </div>
                   <span class="error" v-show="authErr">{{ authErrMessage }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mypage-content-row hide-area">
+            <div class="mypage-content-header">카드 결제 정보</div>
+            <div class="mypage-content-data mt20">
+              <div class="field">
+                <div class="mypage-content-data mobile-v">
+                  <span style="width: 60%;">하나카드 ****-****-****-8261</span>
+                  <button id="changeCard" class="button-grey" style="width: 25%; margin-left: 5px;" @click="displayEvt('cardarea', 'changeCard', '카드 변경')">카드 변경</button>
+                </div>
+              </div>
+            </div>
+            <div class="hide-area" id="cardarea">
+              <div class="mypage-content-data mt20">
+                <div class="field" :class="{ error: errors.has('cardNumber') }">
+                  <div class="inputGroup">
+                    <div class="inputIconLabel" style="display: inline-table; width: 60%;">
+                      <input type="text" name="cardNumber" class="form-login-input" placeholder="카드번호(- 없이 16자리 입력)" maxlength="16" v-validate="'required'" />
+                      <i class="fa fa-credit-card fa-lg"></i>
+                    </div>
+                    <div style="display: inline-table; width: 1.5%;"></div>
+                    <input type="text" name="cardExpiry" class="form-login-group" placeholder="MM/YY" style="width: 25% !important;" v-validate="'required'" />
+                  </div>
+                </div>
+                <div class="field mt12 talign-left" :class="{ error: errors.has('birthDay') }">
+                  <input type="text" name="birthDay" class="form-login-input" placeholder="생년월일(YY/MM/DD)" style="width: 86.5% !important;" v-validate="'required'" />
+                  <span class="error" v-show="errors.has('birthDay')">생년월일을 입력해주세요.</span>
+                </div>
+                <div class="field mt12 talign-left" :class="{ error: errors.has('cardPwd') }">
+                  <input type="password" name="cardPwd" class="form-login-input" placeholder="비밀번호" style="width: 25% !important;" maxlength="2" v-validate="'required'" />
+                  <span class="password-icon-position">
+                    <i class="fa fa-circle" style="font-size: 8px;"></i>
+                    <i class="fa fa-circle" style="font-size: 8px;"></i>
+                  </span>
+                  <button id="authKeyConfirm" class="button-grey" style="margin-left: 30px; width: 25%;" @click="authKeyConfirm">확인</button>
                 </div>
               </div>
             </div>
@@ -94,9 +131,9 @@
             <div class="mypage-content-data mt20">
               <div class="field" :class="{ error: errors.has('zipcode') }">
                 <div class="inputGroup">
-                  <input type="text" name="zipcode" class="form-login-group" placeholder="우편번호" style="width: 43.6%;" v-validate="'required'" :value="mypageData.zipcode" />
+                  <input type="text" name="zipcode" class="form-login-group" placeholder="우편번호" style="width: 60%;" v-validate="'required'" :value="mypageData.zipcode" />
                   <div style="display: inline-table; width: 1.5%;"></div>
-                  <button id="findAddr" class="button-grey" style="width: 15%;" @click="openDaumPopup">주소찾기</button>
+                  <button id="findAddr" class="button-grey" style="width: 25%;" @click="openDaumPopup">주소찾기</button>
                 </div>
               </div>
             </div>
@@ -141,39 +178,15 @@
               </div>
             </div>
           </div>
-          <div class="mypage-content-row hide-area">
-            <div class="mypage-content-header">카드 결제 정보</div>
-            <div class="mypage-content-data mt20">
-              <div class="field" :class="{ error: errors.has('cardNumber') }">
-                <div class="inputGroup">
-                  <div class="inputIconLabel" style="display: inline-table; width: 50%;">
-                    <input type="text" name="cardNumber" class="form-login-input" placeholder="카드번호(- 없이 16자리 입력)" maxlength="16" v-validate="'required'" />
-                    <i class="fa fa-credit-card fa-lg"></i>
-                  </div>
-                  <div style="display: inline-table; width: 1.5%;"></div>
-                  <input type="text" name="cardExpiry" class="form-login-group" placeholder="MM/YY" style="width: 15%;" v-validate="'required'" />
-                </div>
-              </div>
-              <div class="field mt12 talign-left" :class="{ error: errors.has('birthDay') }">
-                <input type="text" name="birthDay" class="form-login-input" placeholder="생년월일(YY/MM/DD)" style="width: 66.2%;" v-validate="'required'" />
-                <span class="error" v-show="errors.has('birthDay')">생년월일을 입력해주세요.</span>
-              </div>
-              <div class="field mt12 talign-left" :class="{ error: errors.has('cardPwd') }">
-                <input type="password" name="cardPwd" class="form-login-input" placeholder="비밀번호" style="width: 15%;" maxlength="2" v-validate="'required'" />
-                <span class="password-icon-position">
-                  <i class="fa fa-circle" style="font-size: 8px;"></i>
-                  <i class="fa fa-circle" style="font-size: 8px;"></i>
-                </span>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
-
-    <!-- div class="mypage-modify-btn mt30">
-      <button class="button-login" style="float: right; width: 202px;">정보수정</button>
-    </div -->
+    <div class="mypage-modify-btn mt30 hide-area">
+      <div class="mypage-button-area">
+        <button class="button-grey mypage-button">취소</button>
+        <button class="button-login mypage-button">저장</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -265,17 +278,23 @@ export default {
         phone.value = '';
         phoneAuthNumber.value = '';
         this.authErr = false;
-        this.displayEvt('phonearea');
+        this.displayEvt('phonearea', 'changePhone', '휴대폰번호 변경');
         this.changeFlag('phone');
       } else alert('인증번호를 다시 확인하시고 진행해주세요.');
 
       return true;
     },
-    displayEvt(id) {
+    displayEvt(id, buttonArea, beforeText) {
       const target = document.getElementById(id);
+      const textbtn = document.getElementById(buttonArea);
 
-      if (target.style.display === 'block') target.style.display = 'none';
-      else target.style.display = 'block';
+      if (target.style.display === 'block') {
+        target.style.display = 'none';
+        textbtn.innerHTML = beforeText;
+      } else {
+        target.style.display = 'block';
+        textbtn.innerHTML = '변경 취소';
+      }
     },
     async actEmailChange() {
       const email = document.querySelector('input[name=changeEmail]');
@@ -288,7 +307,7 @@ export default {
         alert('이메일 변경이 완료되었습니다.');
         await this.setMypage();
         email.value = '';
-        this.displayEvt('emailarea');
+        this.displayEvt('emailarea', 'changeEmail', '이메일 변경');
         this.changeFlag('email');
       }
     },
@@ -457,6 +476,18 @@ export default {
   font-weight: normal;
 }
 
+.mypage-button-area {
+  float: right !important;
+}
+
+.mypage-button {
+  width: 202px;
+}
+
+.confirm-area {
+  width: 60%;
+}
+
 @media screen and (max-width: 486px) {
   .mypage-content-area {
     display: block;
@@ -485,18 +516,18 @@ export default {
 
   #findAddr,
   #changePhone,
-  #changePwd {
+  #changePwd{
     width: 38.6% !important;
   }
 
-  #changeEmail {
+  #changeEmail,
+  #changeCard,
+  #changeEmailConfirm,
+  #phoneVerify,
+  #authKeyConfirm {
     margin-left: 0 !important;
     margin-top: 10px !important;
     width: 38.6% !important;
-  }
-
-  #changeEmailConfirmWall {
-    display: none !important;
   }
 
   #changeEmailConfirm {
@@ -505,6 +536,19 @@ export default {
 
   .mobile-v {
     margin-top: 20px !important;
+  }
+
+  .mypage-button-area {
+    width: 100%;
+  }
+
+  .mypage-button {
+    width: 49%;
+    height: 70px;
+  }
+
+  .confirm-area {
+    width: 59% !important;
   }
 }
 </style>
