@@ -15,13 +15,15 @@
             <div class="mypage-content-header">이메일</div>
             <div class="mypage-content-data mobile-v">
               {{ mypageData.email }}
-              <button id="changeEmail" class="button-grey" style="width: 25%; margin-left: 5px;" @click="displayEvt('emailarea')">이메일 변경</button>
+              <button id="changeEmail" class="button-grey" style="width: 25%; margin-left: 5px;" @click="displayEvt('emailarea', 'emailbtn')">
+                <span id="emailbtn">이메일 변경</span>
+              </button>
             </div>
             <div class="mypage-content-data mt10 hide-area" id="emailarea">
               <div class="field">
                 <div class="inputGroup">
-                  <input type="text" name="changeEmail" class="form-login-group" placeholder="변경할 이메일주소" style="width: 60%;" />
-                  <div id="changeEmailConfirmWall" style="display: inline-table; width: 1.5%;"></div>
+                  <input type="text" name="changeEmail" class="form-login-group confirm-area" placeholder="변경할 이메일주소"/>
+                  <div id="changeEmailConfirmWall" style="display: inline-table; width: 1.5% !important;"></div>
                   <button id="changeEmailConfirm" class="button-grey" style="width: 25%;" @click="actEmailChange" >변경</button>
                 </div>
               </div>
@@ -31,13 +33,13 @@
             <div class="mypage-content-header">비밀번호 변경</div>
             <div class="mypage-content-data mt20">
               <div class="field" :class="{ error: errors.has('cur_password') }">
-                <input type="password" name="cur_password" class="form-login-input" style="width: 60%;" placeholder="현재 비밀번호" v-validate="'required'" />
+                <input type="password" name="cur_password" class="form-login-input" style="width: 60% !important;" placeholder="현재 비밀번호" v-validate="'required'" />
                 <span class="error" v-show="errors.has('cur_password')">현재 비밀번호를 입력해주세요.</span>
               </div>
             </div>
             <div class="mypage-content-data mt10">
               <div class="field" :class="{ error: errors.has('new_password') }">
-                <input type="password" name="new_password" class="form-login-input" style="width: 60%;" placeholder="신규 비밀번호" v-validate="{ required: true, regex: pwdRegex }" @keyup="pwdCheck(errors.has('new_password'))" />
+                <input type="password" name="new_password" class="form-login-input" style="width: 60% !important;" placeholder="신규 비밀번호" v-validate="{ required: true, regex: pwdRegex }" @keyup="pwdCheck(errors.has('new_password'))" />
                 <span class="error" v-show="errors.has('new_password')">{{ pwdMsg }}</span>
               </div>
             </div>
@@ -67,7 +69,7 @@
               <div class="mypage-content-data mt10">
                 <div class="field" :class="{ error: errors.has('phone') }">
                   <div class="inputGroup">
-                    <input type="text" name="phone" class="form-login-group" placeholder="휴대전화" style="width: 60%;" v-validate="'required'" />
+                    <input type="text" name="phone" class="form-login-group confirm-area" placeholder="휴대전화" v-validate="'required'" />
                     <div style="display: inline-table; width: 1.5%;"></div>
                     <button id="phoneVerify" class="button-grey" style="width: 25%;" @click="phoneVerify">인증</button>
                   </div>
@@ -77,7 +79,7 @@
               <div class="mypage-content-data mt10">
                 <div class="field" :class="{ error: errors.has('phone_auth_number') }">
                   <div class="inputGroup">
-                    <input type="text" name="phone_auth_number" class="form-login-group" placeholder="인증번호" style="width: 60%;" v-validate="'required'" />
+                    <input type="text" name="phone_auth_number" class="form-login-group confirm-area" placeholder="인증번호" v-validate="'required'" />
                     <div style="display: inline-table; width: 1.5%;"></div>
                     <button id="authKeyConfirm" class="button-grey" style="width: 25%;" @click="authKeyConfirm">확인</button>
                   </div>
@@ -478,6 +480,10 @@ export default {
   width: 202px;
 }
 
+.confirm-area {
+  width: 60%;
+}
+
 @media screen and (max-width: 486px) {
   .mypage-content-area {
     display: block;
@@ -506,19 +512,18 @@ export default {
 
   #findAddr,
   #changePhone,
-  #changePwd {
+  #changePwd{
     width: 38.6% !important;
   }
 
   #changeEmail,
-  #changeCard {
+  #changeCard,
+  #changeEmailConfirm,
+  #phoneVerify,
+  #authKeyConfirm {
     margin-left: 0 !important;
     margin-top: 10px !important;
     width: 38.6% !important;
-  }
-
-  #changeEmailConfirmWall {
-    display: none !important;
   }
 
   #changeEmailConfirm {
@@ -536,6 +541,10 @@ export default {
   .mypage-button {
     width: 49%;
     height: 70px;
+  }
+
+  .confirm-area {
+    width: 59% !important;
   }
 }
 </style>
