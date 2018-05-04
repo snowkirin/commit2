@@ -4,6 +4,7 @@
 
 .en-font {
   font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
+  letter-spacing: -0.2px !important;
 }
 
 .main-point-text {
