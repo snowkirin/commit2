@@ -211,7 +211,7 @@ export default {
 
   .faq-answer-text {
     padding: 20px !important;
-    font-size: 16px !important;
+    font-size: 15px !important;
   }
 
   .mt40 {

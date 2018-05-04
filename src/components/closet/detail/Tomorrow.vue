@@ -8,7 +8,7 @@
       </div>
     </div>
     <div v-show="isShow">
-      <div class="main-point-text closet-title mt30">내일의 옷장</div>
+      <div class="main-point-text closet-title">내일의 옷장</div>
       <div class="closet-title-text mt20">
         2가지 데일리룩 후보 중 마음에 드는<br/>
         의상을 선택해주세요.
