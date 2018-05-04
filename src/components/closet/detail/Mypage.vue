@@ -91,8 +91,8 @@
             <div class="mypage-content-data mt20">
               <div class="field">
                 <div class="mypage-content-data mobile-v">
-                  하나카드
-                  <button id="changeEmail" class="button-grey" style="width: 25%; margin-left: 5px;" @click="displayEvt('cardarea')">카드 변경</button>
+                  <span style="width: 60%;">하나카드 ****-****-****-8261</span>
+                  <button id="changeCard" class="button-grey" style="width: 25%; margin-left: 5px;" @click="displayEvt('cardarea')">카드 변경</button>
                 </div>
               </div>
             </div>
@@ -105,19 +105,20 @@
                       <i class="fa fa-credit-card fa-lg"></i>
                     </div>
                     <div style="display: inline-table; width: 1.5%;"></div>
-                    <input type="text" name="cardExpiry" class="form-login-group" placeholder="MM/YY" style="width: 25%;" v-validate="'required'" />
+                    <input type="text" name="cardExpiry" class="form-login-group" placeholder="MM/YY" style="width: 25% !important;" v-validate="'required'" />
                   </div>
                 </div>
                 <div class="field mt12 talign-left" :class="{ error: errors.has('birthDay') }">
-                  <input type="text" name="birthDay" class="form-login-input" placeholder="생년월일(YY/MM/DD)" style="width: 86.5%;" v-validate="'required'" />
+                  <input type="text" name="birthDay" class="form-login-input" placeholder="생년월일(YY/MM/DD)" style="width: 86.5% !important;" v-validate="'required'" />
                   <span class="error" v-show="errors.has('birthDay')">생년월일을 입력해주세요.</span>
                 </div>
                 <div class="field mt12 talign-left" :class="{ error: errors.has('cardPwd') }">
-                  <input type="password" name="cardPwd" class="form-login-input" placeholder="비밀번호" style="width: 25%;" maxlength="2" v-validate="'required'" />
+                  <input type="password" name="cardPwd" class="form-login-input" placeholder="비밀번호" style="width: 25% !important;" maxlength="2" v-validate="'required'" />
                   <span class="password-icon-position">
                     <i class="fa fa-circle" style="font-size: 8px;"></i>
                     <i class="fa fa-circle" style="font-size: 8px;"></i>
                   </span>
+                  <button id="authKeyConfirm" class="button-grey" style="margin-left: 30px; width: 25%;" @click="authKeyConfirm">확인</button>
                 </div>
               </div>
             </div>
@@ -181,9 +182,9 @@
       </div>
     </div>
     <div class="mypage-modify-btn mt30">
-      <div style="float: right;">
-        <button class="button-grey" style="width: 202px;">취소</button>
-        <button class="button-login" style="width: 202px;">저장</button>
+      <div class="mypage-button-area">
+        <button class="button-grey mypage-button">취소</button>
+        <button class="button-login mypage-button">저장</button>
       </div>
     </div>
   </div>
@@ -469,6 +470,14 @@ export default {
   font-weight: normal;
 }
 
+.mypage-button-area {
+  float: right !important;
+}
+
+.mypage-button {
+  width: 202px;
+}
+
 @media screen and (max-width: 486px) {
   .mypage-content-area {
     display: block;
@@ -501,7 +510,8 @@ export default {
     width: 38.6% !important;
   }
 
-  #changeEmail {
+  #changeEmail,
+  #changeCard {
     margin-left: 0 !important;
     margin-top: 10px !important;
     width: 38.6% !important;
@@ -517,6 +527,15 @@ export default {
 
   .mobile-v {
     margin-top: 20px !important;
+  }
+
+  .mypage-button-area {
+    width: 100%;
+  }
+
+  .mypage-button {
+    width: 49%;
+    height: 70px;
   }
 }
 </style>
