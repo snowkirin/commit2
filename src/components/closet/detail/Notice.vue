@@ -20,7 +20,7 @@
             <span v-show="$moment().diff($moment(notice.inserted), 'days') < 7" class="new-content">new</span>
           </div>
           <div class="notice-regdate">
-            {{ $moment(notice.inserted).format('YY.MM.DD') }}
+            {{ notice.inserted }}
           </div>
         </div>
         <div v-bind:key="'data_'+ k" class="notice-rows-data" :data-id="notice.id">
