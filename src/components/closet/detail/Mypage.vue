@@ -86,7 +86,7 @@
               </div>
             </div>
           </div>
-          <div class="mypage-content-row hide-area">
+          <div class="mypage-content-row">
             <div class="mypage-content-header">카드 결제 정보</div>
             <div class="mypage-content-data mt20">
               <div class="field">
@@ -105,12 +105,15 @@
                       <i class="fa fa-credit-card fa-lg"></i>
                     </div>
                     <div style="display: inline-table; width: 1.5%;"></div>
-                    <input type="text" name="cardExpiry" class="form-login-group" placeholder="MM/YY" style="width: 25% !important;" v-validate="'required'" />
+                    <input type="text" name="cardExpiry" class="form-login-group" placeholder="MM/YY" style="width: 25% !important;" v-validate="'required'" @keyup="checkCardExpiry" />
+                    <span class="error" v-show="(errors.has('cardNumber') || errors.has('cardExpiry'))">카드번호 & 유효기간을 입력해주세요.</span>
+                    <span class="error" v-show="cardVerify">{{ cardVerifyMsg }}</span>
                   </div>
                 </div>
                 <div class="field mt12 talign-left" :class="{ error: errors.has('birthDay') }">
-                  <input type="text" name="birthDay" class="form-login-input" placeholder="생년월일(YY/MM/DD)" style="width: 86.5% !important;" v-validate="'required'" />
+                  <input type="text" name="birthDay" class="form-login-input" placeholder="생년월일(YYMMDD)" v-validate="'required'" @keyup="checkBirthExpiry" />
                   <span class="error" v-show="errors.has('birthDay')">생년월일을 입력해주세요.</span>
+                  <span class="error" v-show="birthVerify">{{ birthVerifyMsg }}</span>
                 </div>
                 <div class="field mt12 talign-left" :class="{ error: errors.has('cardPwd') }">
                   <input type="password" name="cardPwd" class="form-login-input" placeholder="비밀번호" style="width: 25% !important;" maxlength="2" v-validate="'required'" />
@@ -118,7 +121,10 @@
                     <i class="fa fa-circle" style="font-size: 8px;"></i>
                     <i class="fa fa-circle" style="font-size: 8px;"></i>
                   </span>
-                  <button id="authKeyConfirm" class="button-grey" style="margin-left: 30px; width: 25%;" @click="authKeyConfirm">확인</button>
+                  <button id="authKeyConfirm" class="button-grey" style="margin-left: 30px; width: 25%;" @click="paymentChange">확인</button>
+                </div>
+                <div class="talign-left">
+                  <span class="error" v-show="errors.has('cardPwd')">카드비밀번호 앞 2자리를 입력해주세요.</span>
                 </div>
               </div>
             </div>
@@ -208,6 +214,10 @@ export default {
       isPwdConfirm: false,
       authErr: false,
       authErrMessage: '',
+      cardVerify: false,
+      cardVerifyMsg: '',
+      birthVerify: false,
+      birthVerifyMsg: '',
     };
   },
   computed: {
@@ -226,12 +236,27 @@ export default {
       setMypage: 'mypage/setMypage',
       changeEmail: 'mypage/changeEmail',
       changePwd: 'mypage/changePwd',
+      changePayment: 'mypage/changePayment',
       changeFlag: 'mypage/changeFlag',
       actPhoneVerify: 'mypage/phoneVerify',
       actPhoneCheckVerify: 'mypage/phoneCheckVerify',
     }),
     selectDay(day) {
       this.delivery_day = day;
+    },
+    checkCardExpiry(evt) {
+      const cardReg = /^(0?[1-9]|1[0-2]|12)(1[9]|[2-9][0-9]|99)$/;
+      if (!cardReg.test(evt.target.value)) {
+        this.cardVerify = true;
+        this.cardVerifyMsg = '카드유효기간을 MMYY(월년) 형태로 입력해주세요. (ex: 0323)';
+      } else this.cardVerify = false;
+    },
+    checkBirthExpiry(evt) {
+      const birthReg = /^([0-9][0-9]|99)(0?[1-9]|1[0-2]|12)(0?[1-9]|[12][0-9]|3[01])$/;
+      if (!birthReg.test(evt.target.value)) {
+        this.birthVerify = true;
+        this.birthVerifyMsg = '생년월일을 YYMMDD(년월일) 형태로 입력해주세요. (ex: 851211)';
+      } else this.birthVerify = false;
     },
     async phoneVerify() {
       const phone = document.querySelector('input[name=phone]');
@@ -331,6 +356,36 @@ export default {
         newPwd.value = '';
         newPwdCf.value = '';
         this.changeFlag('pwd');
+      }
+    },
+    async paymentChange() {
+      if (!await this.$validator.validate('cardNumber')) return;
+      if (!await this.$validator.validate('cardExpiry')) return;
+      if (!await this.$validator.validate('birthDay')) return;
+      if (!await this.$validator.validate('cardPwd')) return;
+
+      const cardNumber = document.querySelector('input[name=cardNumber]');
+      const cardExpiry = document.querySelector('input[name=cardExpiry]');
+      const birthDay = document.querySelector('input[name=birthDay]');
+      const cardPwd = document.querySelector('input[name=cardPwd]');
+
+      const paymentRtn = await this.changePayment({
+        cardNumber: cardNumber.value,
+        cardYearExpiry: `20${cardExpiry.value.substring(2, 4)}`,
+        cardMonthExpiry: cardExpiry.value.substring(0, 2),
+        userBirth: birthDay.value,
+        cardPassword: cardPwd.value,
+      });
+
+      if (paymentRtn.result) {
+        alert('카드 결제 정보 변경이 완료되었습니다.');
+        cardNumber.value = '';
+        cardExpiry.value = '';
+        birthDay.value = '';
+        cardPwd.value = '';
+        this.changeFlag('payment');
+      } else {
+        alert('시스템에 문제가 발생했습니다.\n잠시 후 다시 시도해주세요.');
       }
     },
     pwdCheck(isBoolean) {
@@ -486,6 +541,10 @@ export default {
 
 .confirm-area {
   width: 60%;
+}
+
+span.error {
+  display: block;
 }
 
 @media screen and (max-width: 486px) {

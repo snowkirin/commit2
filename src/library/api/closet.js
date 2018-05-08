@@ -82,6 +82,22 @@ const setChangePwd = ({
   withCredentials: true,
 }).then(result => result).catch(err => err.response);
 
+const setChangePayment = ({
+  cardNumber,
+  cardYearExpiry,
+  cardMonthExpiry,
+  userBirth,
+  cardPassword,
+}) => axios.patch(`${API_URL}/member/payment`, {
+  cardNumber,
+  cardYearExpiry,
+  cardMonthExpiry,
+  userBirth,
+  cardPassword,
+}, {
+  withCredentials: true,
+}).then(result => result).catch(err => Promise.reject(err));
+
 const authPhone = ({
   phone,
 }) => axios.post(`${API_URL}/member/phone`, {
@@ -111,6 +127,7 @@ export default {
   saveMypageStyle,
   setChangeEmail,
   setChangePwd,
+  setChangePayment,
   authPhone,
   authPhoneCheck,
 };

@@ -17,6 +17,7 @@ export default {
     mypageStyleData: {},
     mypageChangeEmail: false,
     mypageChangePwd: false,
+    mypageChangePayment: false,
     phoneAuth: false,
     phoneAuthKey: null,
     phoneAuthCnt: 0,
@@ -38,6 +39,9 @@ export default {
     [types.MYPAGE_CHANGE_PASSWORD](state, data) {
       state.mypageChangePwd = data;
     },
+    [types.MYPAGE_CHANGE_PAYMENT](state, data) {
+      state.mypageChangePayment = data;
+    },
     [types.PHONE_VERIFY](state, data) {
       state.phoneAuthKey = data.authId;
     },
@@ -55,6 +59,7 @@ export default {
     getMypageStyleData: state => state.mypageStyleData,
     getMypageEmailFlag: state => state.mypageChangeEmail,
     getMypagePwdFlag: state => state.mypageChangePwd,
+    getMypagePaymentFlag: state => state.mypageChangePayment,
     getPhoneAuth: state => state.phoneAuth,
     getPhoneAuthKey: state => state.phoneAuthKey,
   },
