@@ -137,21 +137,21 @@
             <div class="mypage-content-data mt20">
               <div class="field" :class="{ error: errors.has('zipcode') }">
                 <div class="inputGroup">
-                  <input type="text" name="zipcode" class="form-login-group" placeholder="우편번호" style="width: 60%;" v-validate="'required'" :value="mypageData.zipcode" />
+                  <input type="text" name="zipcode" readonly="readonly" class="form-login-group" placeholder="우편번호" style="width: 60%;" v-validate="'required'" :value="mypageData.zipcode" />
                   <div style="display: inline-table; width: 1.5%;"></div>
-                  <button id="findAddr" class="button-grey" style="width: 25%;" @click="openDaumPopup">주소찾기</button>
+                  <!-- <button id="findAddr" class="button-grey" style="width: 25%;" @click="openDaumPopup">주소찾기</button> -->
                 </div>
               </div>
             </div>
             <div class="mypage-content-data mt10">
               <div class="field" :class="{ error: errors.has('address') }">
-                <input type="text" name="address" class="form-login-input" placeholder="주소" style="width: 60%;" v-validate="'required'" :value="mypageData.address" />
+                <input type="text" name="address" readonly="readonly" class="form-login-input" placeholder="주소" style="width: 60%;" v-validate="'required'" :value="mypageData.address" />
                 <span class="error" v-show="errors.has('address')">주소가 입력되지 않았습니다.</span>
               </div>
             </div>
             <div class="mypage-content-data mt10">
               <div class="field" :class="{ error: errors.has('detail_address') }">
-                <input type="text" name="detail_address" class="form-login-input" placeholder="상세주소" style="width: 60%;" v-validate="'required'" :value="mypageData.address_detail" />
+                <input type="text" name="detail_address" readonly="readonly" class="form-login-input" placeholder="상세주소" style="width: 60%;" v-validate="'required'" :value="mypageData.address_detail" />
                 <span class="error" v-show="errors.has('detail_address')">상세주소가 입력되지 않았습니다.</span>
               </div>
             </div>
@@ -180,7 +180,7 @@
             <div class="mypage-content-header">공동 현관 번호 <span>(배송을 위해 공동현관 비밀번호 알려주세요)</span></div>
             <div class="mypage-content-data mt20">
               <div class="field">
-                <input type="text" name="lobbyPwd" class="form-login-input" style="width: 60%;" placeholder="공동 현관 번호" :value="mypageData.address_password" maxlength="12" />
+                <input type="text" name="lobbyPwd" readonly="readonly" class="form-login-input" style="width: 60%;" placeholder="공동 현관 번호" :value="mypageData.address_password" maxlength="12" />
               </div>
             </div>
           </div>
