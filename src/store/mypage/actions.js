@@ -24,6 +24,7 @@ const changeEmail = async ({ commit }, data) => {
 const changeFlag = async ({ commit }, type) => {
   if (type === 'email') commit(types.MYPAGE_CHANGE_EMAIL, false);
   else if (type === 'pwd') commit(types.MYPAGE_CHANGE_PASSWORD, false);
+  else if (type === 'payment') commit(types.MYPAGE_CHANGE_PAYMENT, false);
 };
 
 const changePwd = async ({ commit }, data) => {
@@ -39,6 +40,24 @@ const changePwd = async ({ commit }, data) => {
 
     if (result.data.result) commit(types.MYPAGE_CHANGE_PASSWORD, true);
     else alert('서비스에 문제가 발생하였습니다.\n새로고침 후 다시 시도해주세요');
+  } catch (e) {
+    console.error(e.message);
+  }
+};
+
+const changePayment = async ({ commit }, data) => {
+  try {
+    const result = await Closet.setChangePayment({
+      cardNumber: data.cardNumber,
+      cardYearExpiry: data.cardYearExpiry,
+      cardMonthExpiry: data.cardMonthExpiry,
+      userBirth: data.userBirth,
+      cardPassword: data.cardPassword,
+    });
+
+    if (result.data.result) {
+      commit(types.MYPAGE_CHANGE_PAYMENT, true);
+    } else alert('서비스에 문제가 발생하였습니다.\n새로고침 후 다시 시도해주세요');
   } catch (e) {
     console.error(e.message);
   }
@@ -129,6 +148,7 @@ export default {
   changePwd,
   changeEmail,
   changeFlag,
+  changePayment,
   mypageSecurity,
   securityDestroyed,
   setMypage,
