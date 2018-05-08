@@ -91,7 +91,7 @@
             <div class="mypage-content-data mt20">
               <div class="field">
                 <div class="mypage-content-data mobile-v">
-                  <span style="width: 60%;">하나카드 ****-****-****-8261</span>
+                  <span style="width: 60%;">{{mypageData.card_name + " " + mypageData.card_number}}</span>
                   <button id="changeCard" class="button-grey" style="width: 25%; margin-left: 5px;" @click="displayEvt('cardarea', 'changeCard', '카드 변경')">카드 변경</button>
                 </div>
               </div>
@@ -226,6 +226,7 @@ export default {
       mypageData: 'mypage/getMypageData',
       mypagePwdFlag: 'mypage/getMypagePwdFlag',
       mypageEmailFlag: 'mypage/getMypageEmailFlag',
+      mypagePaymentFlag: 'mypage/getMypagePaymentFlag',
       phoneAuthKey: 'mypage/getPhoneAuthKey',
       phoneAuth: 'mypage/getPhoneAuth',
     }),
@@ -369,7 +370,7 @@ export default {
       const birthDay = document.querySelector('input[name=birthDay]');
       const cardPwd = document.querySelector('input[name=cardPwd]');
 
-      const paymentRtn = await this.changePayment({
+      await this.changePayment({
         cardNumber: cardNumber.value,
         cardYearExpiry: `20${cardExpiry.value.substring(2, 4)}`,
         cardMonthExpiry: cardExpiry.value.substring(0, 2),
@@ -377,15 +378,15 @@ export default {
         cardPassword: cardPwd.value,
       });
 
-      if (paymentRtn.result) {
+      if (this.mypagePaymentFlag) {
         alert('카드 결제 정보 변경이 완료되었습니다.');
+        await this.setMypage();
         cardNumber.value = '';
         cardExpiry.value = '';
         birthDay.value = '';
         cardPwd.value = '';
+        this.displayEvt('cardarea', 'changeCard', '카드 변경');
         this.changeFlag('payment');
-      } else {
-        alert('시스템에 문제가 발생했습니다.\n잠시 후 다시 시도해주세요.');
       }
     },
     pwdCheck(isBoolean) {
