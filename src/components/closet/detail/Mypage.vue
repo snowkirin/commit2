@@ -160,7 +160,7 @@
             <div class="mypage-content-header">기념일</div>
             <div class="mypage-content-data mt20">
               <div class="field">
-                <datepicker name="ann" class="mt12" input-class="form-login-input" placeholder="기념일" language="ko" format="MM.dd" :value="mypageData.memorial_day" style="width: 60%;"></datepicker>
+                <input type="text" name="ann" placeholder="기념일" readonly="readonly" class="form-login-input" :value="mypageData.memorial_day" style="width: 60%;">
               </div>
             </div>
           </div>
@@ -168,11 +168,11 @@
             <div class="mypage-content-header">배송일 지정</div>
             <div class="mypage-content-data mt30">
               <div class="day-name-group" style="width: 60%;">
-                <div class="day-name" v-bind:class="{ 'day-name-active': delivery_day === 0 }" @click="selectDay(0)">월</div>
-                <div class="day-name" v-bind:class="{ 'day-name-active': delivery_day === 1 }" @click="selectDay(1)">화</div>
-                <div class="day-name" v-bind:class="{ 'day-name-active': delivery_day === 2 }" @click="selectDay(2)">수</div>
-                <div class="day-name" v-bind:class="{ 'day-name-active': delivery_day === 3 }" @click="selectDay(3)">목</div>
-                <div class="day-name" v-bind:class="{ 'day-name-active': delivery_day === 4 }" @click="selectDay(4)">금</div>
+                <div class="day-name" v-bind:class="{ 'day-name-active': delivery_day === 0 }">월</div>
+                <div class="day-name" v-bind:class="{ 'day-name-active': delivery_day === 1 }">화</div>
+                <div class="day-name" v-bind:class="{ 'day-name-active': delivery_day === 2 }">수</div>
+                <div class="day-name" v-bind:class="{ 'day-name-active': delivery_day === 3 }">목</div>
+                <div class="day-name" v-bind:class="{ 'day-name-active': delivery_day === 4 }">금</div>
               </div>
             </div>
           </div>
@@ -193,17 +193,20 @@
         <button class="button-login mypage-button">저장</button>
       </div>
     </div>
+    <address-modal ref="address" dataId="address"></address-modal>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import Datepicker from 'vuejs-datepicker';
+import AddressModal from '@/components/common/AddressModal';
 
 export default {
   name: 'mypage',
   components: {
     Datepicker,
+    AddressModal,
   },
   data() {
     return {
@@ -244,6 +247,12 @@ export default {
     }),
     selectDay(day) {
       this.delivery_day = day;
+    },
+    viewModal(ref) {
+      this.$refs[ref].openModal();
+    },
+    closeModal(ref) {
+      this.$refs[ref].closeModal();
     },
     checkCardExpiry(evt) {
       const cardReg = /^(0?[1-9]|1[0-2]|12)(1[9]|[2-9][0-9]|99)$/;
@@ -408,20 +417,22 @@ export default {
       else this.isPwdConfirm = true;
     },
     openDaumPopup() {
+      this.viewModal('address');
       const zipcode = document.querySelector('input[name=zipcode]');
       const address = document.querySelector('input[name=address]');
       const detailAddress = document.querySelector('input[name=detail_address]');
 
       const daum = window.daum;
 
-      const width = 500;
-      const height = 600;
-
-
       daum.postcode.load(() => {
         new window.daum.Postcode({
-          width,
-          height,
+          width: '100%',
+          height: '433',
+          onclose: (state) => {
+            if (state === 'COMPLETE_CLOSE') {
+              this.closeModal('address');
+            }
+          },
           oncomplete: (data) => {
             zipcode.value = data.zonecode;
 
@@ -433,10 +444,7 @@ export default {
 
             detailAddress.focus();
           },
-        }).open({
-          top: (window.screen.height / 2) - (height / 2),
-          left: (window.screen.width / 2) - (width / 2),
-        });
+        }).embed(document.querySelector('div[name=addressArea]'), {});
       });
     },
     startTimer() {
