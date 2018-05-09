@@ -59,13 +59,13 @@ export default {
 
 .menu-title-area {
   position:relative;
-  left: 50% !important;
+  left: 47.5% !important;
   -webkit-transform: translate(-50%);
   transform: translate(-50%);
 }
 
 .content-menu-box {
-  left: 52.5% !important;
+  left: 50% !important;
   -webkit-transform: translate(-50%);
   transform: translate(-50%);
 }
@@ -81,10 +81,6 @@ export default {
 
   .menu-title-area {
     left: 45% !important;
-  }
-
-  .content-menu-box {
-    left: 50% !important;
   }
 }
 </style>
