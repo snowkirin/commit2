@@ -6,17 +6,17 @@
     </div>
     <div class="security-input">
       <div class="inputGroup">
-        <input type="text" name="coupon" class="form-login-group mt12" placeholder="쿠폰번호" style="width: 33%;" />
+        <input type="text" name="coupon" class="form-login-group mt12 coupon-input" placeholder="쿠폰번호"/>
         <div style="display: inline-table; width: 1%;"></div>
-        <button class="button-login" style="width: 10%;">등록</button>
+        <button class="button-login coupon-button">등록</button>
       </div>
     </div>
     <div class="closet-content mt50">
       <div class="notice-content">
         <div class="notice-rows notice-header">
-          <div class="notice-number">쿠폰종류</div>
-          <div class="notice-subject">쿠폰명</div>
-          <div class="notice-regdate">사용 가능 기간</div>
+          <div class="notice-number-title">쿠폰종류</div>
+          <div class="notice-subject-title">쿠폰명</div>
+          <div class="notice-regdate-title">사용 가능 기간</div>
         </div>
         <div class="notice-rows">
           <div class="notice-number">
@@ -28,10 +28,10 @@
             </div>
           </div>
           <div class="notice-subject">
-            2
+            WHITE 등급 일반쿠폰 3%
           </div>
           <div class="notice-regdate">
-            3
+            2018.03.01~2018.03.31
           </div>
         </div>
         <div class="notice-rows">
@@ -44,10 +44,10 @@
             </div>
           </div>
           <div class="notice-subject">
-            2
+            WHITE 등급 일반쿠폰 30%
           </div>
           <div class="notice-regdate">
-            3
+            2018.03.01~2018.03.31
           </div>
         </div>
       </div>
@@ -83,12 +83,8 @@ export default {
 </script>
 
 <style scoped>
-.notice {
-  display: inline-block;
-  width: 100%;
-}
-
 .notice-rows {
+  min-height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -101,14 +97,11 @@ export default {
 }
 
 .notice-header {
-  height: 40px;
   line-height: 40px;
   font-weight: 600;
 }
 
 .notice-content {
-  height: 60px;
-  line-height: 60px;
 }
 
 .notice-number {
@@ -117,11 +110,29 @@ export default {
 }
 
 .notice-subject {
-  width: 80%;
+  width: 75%;
+  text-align: center;
+  word-break:break-all;
 }
 
 .notice-regdate {
+  width: 15%;
+  text-align: center;
+  word-break:break-all;
+}
+
+.notice-number-title {
   width: 10%;
+  text-align: center;
+}
+
+.notice-subject-title {
+  width: 75%;
+  text-align: center;
+}
+
+.notice-regdate-title {
+  width: 15%;
   text-align: center;
 }
 
@@ -159,6 +170,14 @@ export default {
   font-weight: 600;
 }
 
+.coupon-input {
+  width: 33%;
+}
+
+.coupon-button {
+  width: 10%;
+}
+
 .coupon-text {
   display: inline-block;
   line-height: 40px;
@@ -177,6 +196,7 @@ export default {
   top: -41.3%;
   left: 2.5%;
   width: 21px;
+  line-height: 60px;
   font-size: 14px;
   color: #FFFFFF;
   font-weight: normal;
@@ -188,20 +208,51 @@ export default {
 }
 
 @media screen and (max-width: 486px) {
-  .notice {
-    width: fit-content !important;
-  }
-
   .notice-number {
-    width: 15% !important;
+    width: 20% !important;
   }
 
   .notice-subject {
-    width: 60% !important;
+    width: 45% !important;
+    padding: 0 20px 0 20px;
   }
 
   .notice-regdate {
-    width: 25% !important;
+    width: 35% !important;
+  }
+
+  .coupon-square {
+    width: 100% !important;
+  }
+
+  .coupon-label {
+    left: -21.5%;
+  }
+
+  .notice-number-title {
+    width: 20%;
+    text-align: center;
+  }
+
+  .notice-subject-title {
+    width: 45%;
+    padding: 0 20px 0 20px;
+    text-align: center;
+  }
+
+  .notice-regdate-title {
+    width: 35%;
+    text-align: center;
+  }
+
+  .coupon-input {
+    width: 60%;
+  }
+
+  .coupon-button {
+    width: 39%;
+    height: 60px !important;
+    line-height: 0px !important;
   }
 }
 </style>
