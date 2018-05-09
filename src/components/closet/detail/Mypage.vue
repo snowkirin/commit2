@@ -105,18 +105,18 @@
                       <i class="fa fa-credit-card fa-lg"></i>
                     </div>
                     <div style="display: inline-table; width: 1.5%;"></div>
-                    <input type="text" name="cardExpiry" class="form-login-group" placeholder="MM/YY" style="width: 25% !important;" v-validate="'required'" @keyup="checkCardExpiry" />
+                    <input type="text" name="cardExpiry" class="form-login-group card-verify" placeholder="MM/YY" v-validate="'required'" @keyup="checkCardExpiry" />
                     <span class="error" v-show="(errors.has('cardNumber') || errors.has('cardExpiry'))">카드번호 & 유효기간을 입력해주세요.</span>
                     <span class="error" v-show="cardVerify">{{ cardVerifyMsg }}</span>
                   </div>
                 </div>
                 <div class="field mt12 talign-left" :class="{ error: errors.has('birthDay') }">
-                  <input type="text" name="birthDay" class="form-login-input" placeholder="생년월일(YYMMDD)" v-validate="'required'" @keyup="checkBirthExpiry" />
+                  <input type="text" name="birthDay" class="form-login-input birth-verify" placeholder="생년월일(YYMMDD)" v-validate="'required'" @keyup="checkBirthExpiry" />
                   <span class="error" v-show="errors.has('birthDay')">생년월일을 입력해주세요.</span>
                   <span class="error" v-show="birthVerify">{{ birthVerifyMsg }}</span>
                 </div>
                 <div class="field mt12 talign-left" :class="{ error: errors.has('cardPwd') }">
-                  <input type="password" name="cardPwd" class="form-login-input" placeholder="비밀번호" style="width: 25% !important;" maxlength="2" v-validate="'required'" />
+                  <input type="password" name="cardPwd" class="form-login-input card-verify" placeholder="비밀번호" maxlength="2" v-validate="'required'" />
                   <span class="password-icon-position">
                     <i class="fa fa-circle" style="font-size: 8px;"></i>
                     <i class="fa fa-circle" style="font-size: 8px;"></i>
@@ -556,6 +556,14 @@ span.error {
   display: block;
 }
 
+.card-verify {
+  width: 25% !important;
+}
+
+.birth-verify {
+  width: 86.5% !important;
+}
+
 @media screen and (max-width: 486px) {
   .mypage-content-area {
     display: block;
@@ -616,6 +624,14 @@ span.error {
 
   .confirm-area {
     width: 59% !important;
+  }
+
+  .card-verify {
+    width: 38.5% !important;
+  }
+
+  .birth-verify {
+    width: 100% !important;
   }
 }
 </style>
