@@ -1,8 +1,8 @@
 <template>
   <div class="colors subContent mauto">
     <div class="content-title mt70">
-      <span id="menuTitle">색상 선택</span>
-      <styleMenu v-show="this.Authentication.authenticated" :leftSize="leftSize"></styleMenu>
+      <span v-show="!this.Authentication.authenticated">색상 선택</span>
+      <styleMenu v-show="this.Authentication.authenticated" menuTitle="색상 선택"></styleMenu>
     </div>
     <div class="explain mt8">
       스타일링을 위한 색상 선택에 활용됩니다.
@@ -75,11 +75,6 @@ import StyleButton from '@/components/join/common/StyleButton';
 
 export default {
   name: 'colors',
-  data() {
-    return {
-      leftSize: 0,
-    };
-  },
   components: {
     StyleMenu,
     StyleButton,
@@ -174,9 +169,6 @@ export default {
       if (this.except.length <= 0) this.fnPickColors(localStorage.except, 'except');
     }
   },
-  mounted() {
-    this.leftSize = (document.getElementById('menuTitle').offsetWidth / 2) + 10;
-  },
 };
 </script>
 
@@ -246,10 +238,6 @@ export default {
 .colors-block {
   display: inline-block;
   width: 2.5%;
-}
-
-#menuTitle {
-  display: inline-block;
 }
 
 @media screen and (max-width: 486px) {

@@ -1,8 +1,8 @@
 <template>
   <div class="patterns subContent mauto">
     <div class="content-title mt70">
-      <span id="menuTitle">기피 패턴</span>
-      <styleMenu v-show="this.Authentication.authenticated" :leftSize="leftSize"></styleMenu>
+      <span v-show="!this.Authentication.authenticated">기피 패턴</span>
+      <styleMenu v-show="this.Authentication.authenticated" menuTitle="기피 패턴"></styleMenu>
     </div>
     <div class="explain mt8">
       받고 싶지 않은 스타일을 모두 선택해주세요.
@@ -55,11 +55,6 @@ export default {
   components: {
     StyleMenu,
     StyleButton,
-  },
-  data() {
-    return {
-      leftSize: 0,
-    };
   },
   computed: {
     ...mapGetters({
@@ -153,8 +148,6 @@ export default {
     for (let i = 0; i < patternsCard.length; i += 1) {
       this.cardHoverEvt(patternsCard[i]);
     }
-
-    this.leftSize = (document.getElementById('menuTitle').offsetWidth / 2) + 10;
   },
 };
 </script>
@@ -291,10 +284,6 @@ div.btn-times:after {
   border-radius: 100px;
   -webkit-border-radius: 100px;
   -moz-border-radius: 100px;
-}
-
-#menuTitle {
-  display: inline-block;
 }
 
 @media screen and (max-width: 486px) {

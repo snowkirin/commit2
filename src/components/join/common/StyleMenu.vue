@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="content-title-menu-box" @click="stylingMenuOnoff" :style="`margin-left: ${printLeftSize};`">
+    <span id="menuTitle">{{menuTitle}}</span>
+    <div class="content-title-menu-box" @click="stylingMenuOnoff" :style="`margin-left: ${leftSize}px;`">
       <div class="arrow-down"></div>
     </div>
     <div class="content-menu-box">
@@ -23,14 +24,15 @@
 <script>
 export default {
   name: 'styleMenu',
-  props: {
-    leftSize: {
-      type: String,
-    },
+  data() {
+    return {
+      leftSize: 0,
+    };
   },
-  computed: {
-    printLeftSize() {
-      return `${this.leftSize}px`;
+  props: {
+    menuTitle: {
+      type: String,
+      default: '',
     },
   },
   methods: {
@@ -41,6 +43,9 @@ export default {
       else mnu.style.display = 'none';
     },
   },
+  mounted() {
+    this.leftSize = (document.getElementById('menuTitle').offsetWidth / 2) + 10;
+  },
 };
 </script>
 
@@ -50,13 +55,17 @@ export default {
   text-decoration: none;
 }
 
+#menuTitle {
+  display: inline-block;
+}
+
 @media screen and (max-width: 486px) {
   .content-title-menu-box {
     top: 1px !important;
   }
 
   .content-menu-box {
-    left: 32% !important;
+    left: 50% !important;
   }
 }
 </style>

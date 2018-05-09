@@ -1,8 +1,8 @@
 <template>
   <div class="clothes subContent mauto">
     <div class="content-title mt70">
-      <span id="menuTitle">팬츠</span>
-      <styleMenu v-show="this.Authentication.authenticated" :leftSize="leftSize"></styleMenu>
+      <span v-show="!this.Authentication.authenticated">팬츠</span>
+      <styleMenu v-show="this.Authentication.authenticated" menuTitle="팬츠"></styleMenu>
     </div>
     <div class="explain mt8">
       받고 싶지 않은 스타일을 모두 선택해주세요.
@@ -51,11 +51,6 @@ import StyleButton from '@/components/join/common/StyleButton';
 
 export default {
   name: 'pants',
-  data() {
-    return {
-      leftSize: 0,
-    };
-  },
   components: {
     StyleMenu,
     StyleButton,
@@ -127,9 +122,6 @@ export default {
 </script>
 
 <style scoped>
-  #menuTitle {
-    display: inline-block;
-  }
   @media screen and (max-width: 486px) {
     .closet-select-mobile {
       margin-bottom: 80px;

@@ -1,8 +1,8 @@
 <template>
   <div class="clothes subContent mauto">
     <div class="content-title mt70">
-      <span id="menuTitle">티셔츠</span>
-      <styleMenu v-show="this.Authentication.authenticated" :leftSize="leftSize"></styleMenu>
+      <span v-show="!this.Authentication.authenticated">티셔츠</span>
+      <styleMenu v-show="this.Authentication.authenticated" menuTitle="티셔츠"></styleMenu>
     </div>
     <div class="explain mt8">
       받고 싶지 않은 스타일을 모두 선택해주세요.
@@ -121,16 +121,10 @@ export default {
       }
     }
   },
-  mounted() {
-    this.leftSize = (document.getElementById('menuTitle').offsetWidth / 2) + 10;
-  },
 };
 </script>
 
 <style scoped>
-  #menuTitle {
-    display: inline-block;
-  }
   @media screen and (max-width: 486px) {
     .closet-select-mobile {
       margin-bottom: 80px;

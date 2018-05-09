@@ -1,8 +1,8 @@
 <template>
   <div class="size subContent mauto size-margin">
     <div class="content-title mt70">
-      <span id="menuTitle">사이즈</span>
-      <styleMenu v-show="this.Authentication.authenticated" :leftSize="leftSize"></styleMenu>
+      <span v-show="!this.Authentication.authenticated">사이즈</span>
+      <styleMenu v-show="this.Authentication.authenticated" menuTitle="사이즈"></styleMenu>
     </div>
     <div class="explain mt8">
       다음 질문들은 스타일리스트가 체형을 정확히 파악하여 연출하는데 도움이 됩니다.
@@ -80,7 +80,6 @@ export default {
       waistError: true,
       hipError: true,
       initData: {},
-      leftSize: 0,
     };
   },
   components: {
@@ -167,8 +166,6 @@ export default {
         hip: localStorage.hip,
       };
     }
-
-    this.leftSize = (document.getElementById('menuTitle').offsetWidth / 2) + 10;
   },
 };
 </script>
@@ -233,10 +230,6 @@ export default {
 
 .field {
   text-align: left;
-}
-
-#menuTitle {
-  display: inline-block;
 }
 
 @media screen and (max-width: 486px) {
