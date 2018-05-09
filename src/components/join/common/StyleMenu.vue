@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="content-title-menu-box" @click="stylingMenuOnoff" :style="`left: ${printLeftSize};`">
+    <div class="content-title-menu-box" @click="stylingMenuOnoff" :style="`margin-left: ${printLeftSize};`">
       <div class="arrow-down"></div>
     </div>
     <div class="content-menu-box">
@@ -26,14 +26,11 @@ export default {
   props: {
     leftSize: {
       type: String,
-      default: '58%',
     },
   },
   computed: {
     printLeftSize() {
-      let rtn = this.leftSize;
-      if (window.outerWidth <= 486) rtn = `${(parseInt(this.leftSize.replace('%', ''), 10) + 18).toString()}%`;
-      return rtn;
+      return `${this.leftSize}px`;
     },
   },
   methods: {

@@ -1,8 +1,8 @@
 <template>
   <div class="styling subContent mauto">
     <div class="content-title mt70">
-      선호 스타일
-      <styleMenu v-show="this.Authentication.authenticated" leftSize="60%"></styleMenu>
+      <span id="menuTitle">선호 스타일</span>
+      <styleMenu v-show="this.Authentication.authenticated" :leftSize="leftSize"></styleMenu>
     </div>
     <div class="explain mt8">
       줄라이는 베이직 스타일을 기본으로 합니다.
@@ -71,6 +71,7 @@ export default {
       modern: null,
       classic: null,
       feminine: null,
+      leftSize: 0,
     };
   },
   computed: {
@@ -264,6 +265,8 @@ export default {
   mounted() {
     this.initHoverDivision();
     if (this.selectMood) this.selectStyle(this.selectMood);
+
+    this.leftSize = (document.getElementById('menuTitle').offsetWidth / 2) + 10;
   },
 };
 </script>
@@ -519,6 +522,10 @@ div.btn-times:after {
   position: absolute;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+}
+
+#menuTitle {
+  display: inline-block;
 }
 
 @media screen and (max-width: 486px) {

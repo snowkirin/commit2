@@ -1,8 +1,8 @@
 <template>
   <div class="clothes subContent mauto">
-    <div class="content-title mt30">
-      니트/베스트
-      <styleMenu v-show="this.Authentication.authenticated" leftSize="61%"></styleMenu>
+    <div class="content-title mt70">
+      <span id="menuTitle">니트/베스트</span>
+      <styleMenu v-show="this.Authentication.authenticated" :leftSize="leftSize"></styleMenu>
     </div>
     <div class="explain mt15">
       받고 싶지 않은 스타일을 모두 선택해주세요.
@@ -51,6 +51,11 @@ import StyleButton from '@/components/join/common/StyleButton';
 
 export default {
   name: 'knitVest',
+  data() {
+    return {
+      leftSize: 0,
+    };
+  },
   components: {
     StyleMenu,
     StyleButton,
@@ -117,11 +122,15 @@ export default {
     }
   },
   mounted() {
+    this.leftSize = (document.getElementById('menuTitle').offsetWidth / 2) + 10;
   },
 };
 </script>
 
 <style scoped>
+  #menuTitle {
+    display: inline-block;
+  }
   @media screen and (max-width: 486px) {
     .closet-select-mobile {
       margin-bottom: 80px;
