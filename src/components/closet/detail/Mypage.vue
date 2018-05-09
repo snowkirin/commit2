@@ -576,7 +576,6 @@ span.error {
     width: 100% !important;
   }
 
-  input[name=zipcode],
   input[name=view_phone],
   input[name=new_password_confirm] {
     width: 59.4% !important;
