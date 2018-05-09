@@ -1,8 +1,10 @@
 <template>
   <div>
-    <span id="menuTitle">{{menuTitle}}</span>
-    <div class="content-title-menu-box" @click="stylingMenuOnoff" :style="`margin-left: ${leftSize}px;`">
-      <div class="arrow-down"></div>
+    <div class="menu-title-area">
+      <span id="menuTitle">{{menuTitle}}</span>
+      <div class="content-title-menu-box" @click="stylingMenuOnoff" :style="`margin-left: ${leftSize}px;`">
+        <div class="arrow-down"></div>
+      </div>
     </div>
     <div class="content-menu-box">
       <div class="content-menu-box-detail"><router-link to="/join/size" class="style-menu">사이즈</router-link></div>
@@ -55,6 +57,19 @@ export default {
   text-decoration: none;
 }
 
+.menu-title-area {
+  position:relative;
+  left: 50% !important;
+  -webkit-transform: translate(-50%);
+  transform: translate(-50%);
+}
+
+.content-menu-box {
+  left: 52.5% !important;
+  -webkit-transform: translate(-50%);
+  transform: translate(-50%);
+}
+
 #menuTitle {
   display: inline-block;
 }
@@ -62,6 +77,10 @@ export default {
 @media screen and (max-width: 486px) {
   .content-title-menu-box {
     top: 1px !important;
+  }
+
+  .menu-title-area {
+    left: 45% !important;
   }
 
   .content-menu-box {
