@@ -1,8 +1,8 @@
 <template>
   <div class="styling subContent mauto">
     <div class="content-title mt70">
-      선호 스타일
-      <styleMenu v-show="this.Authentication.authenticated" leftSize="60%"></styleMenu>
+      <span v-show="!this.Authentication.authenticated">선호 스타일</span>
+      <styleMenu v-show="this.Authentication.authenticated" menuTitle="선호 스타일"></styleMenu>
     </div>
     <div class="explain mt8">
       줄라이는 베이직 스타일을 기본으로 합니다.

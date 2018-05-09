@@ -1,8 +1,8 @@
 <template>
   <div class="clothes subContent mauto">
     <div class="content-title mt70">
-      티셔츠
-      <styleMenu v-show="this.Authentication.authenticated" leftSize="57%"></styleMenu>
+      <span v-show="!this.Authentication.authenticated">티셔츠</span>
+      <styleMenu v-show="this.Authentication.authenticated" menuTitle="티셔츠"></styleMenu>
     </div>
     <div class="explain mt8">
       받고 싶지 않은 스타일을 모두 선택해주세요.
@@ -51,6 +51,11 @@ import StyleButton from '@/components/join/common/StyleButton';
 
 export default {
   name: 'tshirt',
+  data() {
+    return {
+      leftSize: 0,
+    };
+  },
   components: {
     StyleMenu,
     StyleButton,
@@ -115,8 +120,6 @@ export default {
         }
       }
     }
-  },
-  mounted() {
   },
 };
 </script>

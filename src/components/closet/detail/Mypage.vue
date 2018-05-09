@@ -105,18 +105,18 @@
                       <i class="fa fa-credit-card fa-lg"></i>
                     </div>
                     <div style="display: inline-table; width: 1.5%;"></div>
-                    <input type="text" name="cardExpiry" class="form-login-group" placeholder="MM/YY" style="width: 25% !important;" v-validate="'required'" @keyup="checkCardExpiry" />
+                    <input type="text" name="cardExpiry" class="form-login-group card-verify" placeholder="MM/YY" v-validate="'required'" @keyup="checkCardExpiry" />
                     <span class="error" v-show="(errors.has('cardNumber') || errors.has('cardExpiry'))">카드번호 & 유효기간을 입력해주세요.</span>
                     <span class="error" v-show="cardVerify">{{ cardVerifyMsg }}</span>
                   </div>
                 </div>
                 <div class="field mt12 talign-left" :class="{ error: errors.has('birthDay') }">
-                  <input type="text" name="birthDay" class="form-login-input" placeholder="생년월일(YYMMDD)" v-validate="'required'" @keyup="checkBirthExpiry" />
+                  <input type="text" name="birthDay" class="form-login-input birth-verify" placeholder="생년월일(YYMMDD)" v-validate="'required'" @keyup="checkBirthExpiry" />
                   <span class="error" v-show="errors.has('birthDay')">생년월일을 입력해주세요.</span>
                   <span class="error" v-show="birthVerify">{{ birthVerifyMsg }}</span>
                 </div>
                 <div class="field mt12 talign-left" :class="{ error: errors.has('cardPwd') }">
-                  <input type="password" name="cardPwd" class="form-login-input" placeholder="비밀번호" style="width: 25% !important;" maxlength="2" v-validate="'required'" />
+                  <input type="password" name="cardPwd" class="form-login-input card-verify" placeholder="비밀번호" maxlength="2" v-validate="'required'" />
                   <span class="password-icon-position">
                     <i class="fa fa-circle" style="font-size: 8px;"></i>
                     <i class="fa fa-circle" style="font-size: 8px;"></i>
@@ -137,21 +137,21 @@
             <div class="mypage-content-data mt20">
               <div class="field" :class="{ error: errors.has('zipcode') }">
                 <div class="inputGroup">
-                  <input type="text" name="zipcode" class="form-login-group" placeholder="우편번호" style="width: 60%;" v-validate="'required'" :value="mypageData.zipcode" />
+                  <input type="text" name="zipcode" readonly="readonly" class="form-login-group" placeholder="우편번호" style="width: 60%;" v-validate="'required'" :value="mypageData.zipcode" />
                   <div style="display: inline-table; width: 1.5%;"></div>
-                  <button id="findAddr" class="button-grey" style="width: 25%;" @click="openDaumPopup">주소찾기</button>
+                  <!-- <button id="findAddr" class="button-grey" style="width: 25%;" @click="openDaumPopup">주소찾기</button> -->
                 </div>
               </div>
             </div>
             <div class="mypage-content-data mt10">
               <div class="field" :class="{ error: errors.has('address') }">
-                <input type="text" name="address" class="form-login-input" placeholder="주소" style="width: 60%;" v-validate="'required'" :value="mypageData.address" />
+                <input type="text" name="address" readonly="readonly" class="form-login-input" placeholder="주소" style="width: 60%;" v-validate="'required'" :value="mypageData.address" />
                 <span class="error" v-show="errors.has('address')">주소가 입력되지 않았습니다.</span>
               </div>
             </div>
             <div class="mypage-content-data mt10">
               <div class="field" :class="{ error: errors.has('detail_address') }">
-                <input type="text" name="detail_address" class="form-login-input" placeholder="상세주소" style="width: 60%;" v-validate="'required'" :value="mypageData.address_detail" />
+                <input type="text" name="detail_address" readonly="readonly" class="form-login-input" placeholder="상세주소" style="width: 60%;" v-validate="'required'" :value="mypageData.address_detail" />
                 <span class="error" v-show="errors.has('detail_address')">상세주소가 입력되지 않았습니다.</span>
               </div>
             </div>
@@ -160,7 +160,7 @@
             <div class="mypage-content-header">기념일</div>
             <div class="mypage-content-data mt20">
               <div class="field">
-                <datepicker name="ann" class="mt12" input-class="form-login-input" placeholder="기념일" language="ko" format="MM.dd" :value="mypageData.memorial_day" style="width: 60%;"></datepicker>
+                <input type="text" name="ann" placeholder="기념일" readonly="readonly" class="form-login-input" :value="mypageData.memorial_day" style="width: 60%;">
               </div>
             </div>
           </div>
@@ -168,11 +168,11 @@
             <div class="mypage-content-header">배송일 지정</div>
             <div class="mypage-content-data mt30">
               <div class="day-name-group" style="width: 60%;">
-                <div class="day-name" v-bind:class="{ 'day-name-active': delivery_day === 0 }" @click="selectDay(0)">월</div>
-                <div class="day-name" v-bind:class="{ 'day-name-active': delivery_day === 1 }" @click="selectDay(1)">화</div>
-                <div class="day-name" v-bind:class="{ 'day-name-active': delivery_day === 2 }" @click="selectDay(2)">수</div>
-                <div class="day-name" v-bind:class="{ 'day-name-active': delivery_day === 3 }" @click="selectDay(3)">목</div>
-                <div class="day-name" v-bind:class="{ 'day-name-active': delivery_day === 4 }" @click="selectDay(4)">금</div>
+                <div class="day-name" v-bind:class="{ 'day-name-active': delivery_day === 0 }">월</div>
+                <div class="day-name" v-bind:class="{ 'day-name-active': delivery_day === 1 }">화</div>
+                <div class="day-name" v-bind:class="{ 'day-name-active': delivery_day === 2 }">수</div>
+                <div class="day-name" v-bind:class="{ 'day-name-active': delivery_day === 3 }">목</div>
+                <div class="day-name" v-bind:class="{ 'day-name-active': delivery_day === 4 }">금</div>
               </div>
             </div>
           </div>
@@ -180,7 +180,7 @@
             <div class="mypage-content-header">공동 현관 번호 <span>(배송을 위해 공동현관 비밀번호 알려주세요)</span></div>
             <div class="mypage-content-data mt20">
               <div class="field">
-                <input type="text" name="lobbyPwd" class="form-login-input" style="width: 60%;" placeholder="공동 현관 번호" :value="mypageData.address_password" maxlength="12" />
+                <input type="text" name="lobbyPwd" readonly="readonly" class="form-login-input" style="width: 60%;" placeholder="공동 현관 번호" :value="mypageData.address_password" maxlength="12" />
               </div>
             </div>
           </div>
@@ -193,17 +193,20 @@
         <button class="button-login mypage-button">저장</button>
       </div>
     </div>
+    <address-modal ref="address" dataId="address"></address-modal>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import Datepicker from 'vuejs-datepicker';
+import AddressModal from '@/components/common/AddressModal';
 
 export default {
   name: 'mypage',
   components: {
     Datepicker,
+    AddressModal,
   },
   data() {
     return {
@@ -244,6 +247,12 @@ export default {
     }),
     selectDay(day) {
       this.delivery_day = day;
+    },
+    viewModal(ref) {
+      this.$refs[ref].openModal();
+    },
+    closeModal(ref) {
+      this.$refs[ref].closeModal();
     },
     checkCardExpiry(evt) {
       const cardReg = /^(0?[1-9]|1[0-2]|12)(1[9]|[2-9][0-9]|99)$/;
@@ -408,20 +417,22 @@ export default {
       else this.isPwdConfirm = true;
     },
     openDaumPopup() {
+      this.viewModal('address');
       const zipcode = document.querySelector('input[name=zipcode]');
       const address = document.querySelector('input[name=address]');
       const detailAddress = document.querySelector('input[name=detail_address]');
 
       const daum = window.daum;
 
-      const width = 500;
-      const height = 600;
-
-
       daum.postcode.load(() => {
         new window.daum.Postcode({
-          width,
-          height,
+          width: '100%',
+          height: '433',
+          onclose: (state) => {
+            if (state === 'COMPLETE_CLOSE') {
+              this.closeModal('address');
+            }
+          },
           oncomplete: (data) => {
             zipcode.value = data.zonecode;
 
@@ -433,10 +444,7 @@ export default {
 
             detailAddress.focus();
           },
-        }).open({
-          top: (window.screen.height / 2) - (height / 2),
-          left: (window.screen.width / 2) - (width / 2),
-        });
+        }).embed(document.querySelector('div[name=addressArea]'), {});
       });
     },
     startTimer() {
@@ -548,6 +556,14 @@ span.error {
   display: block;
 }
 
+.card-verify {
+  width: 25% !important;
+}
+
+.birth-verify {
+  width: 86.5% !important;
+}
+
 @media screen and (max-width: 486px) {
   .mypage-content-area {
     display: block;
@@ -568,7 +584,6 @@ span.error {
     width: 100% !important;
   }
 
-  input[name=zipcode],
   input[name=view_phone],
   input[name=new_password_confirm] {
     width: 59.4% !important;
@@ -609,6 +624,14 @@ span.error {
 
   .confirm-area {
     width: 59% !important;
+  }
+
+  .card-verify {
+    width: 38.5% !important;
+  }
+
+  .birth-verify {
+    width: 100% !important;
   }
 }
 </style>

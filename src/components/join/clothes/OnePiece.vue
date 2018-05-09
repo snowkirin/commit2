@@ -1,8 +1,8 @@
 <template>
   <div class="clothes subContent mauto">
     <div class="content-title mt70">
-      원피스
-      <styleMenu v-show="this.Authentication.authenticated" leftSize="57%"></styleMenu>
+      <span v-show="!this.Authentication.authenticated">원피스</span>
+      <styleMenu v-show="this.Authentication.authenticated" menuTitle="원피스"></styleMenu>
     </div>
     <div class="explain mt8">
       받고 싶지 않은 스타일을 모두 선택해주세요.
@@ -114,8 +114,6 @@ export default {
         }
       }
     }
-  },
-  mounted() {
   },
 };
 </script>

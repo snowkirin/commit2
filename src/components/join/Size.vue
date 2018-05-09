@@ -1,8 +1,8 @@
 <template>
   <div class="size subContent mauto size-margin">
     <div class="content-title mt70">
-      사이즈
-      <styleMenu v-show="this.Authentication.authenticated"></styleMenu>
+      <span v-show="!this.Authentication.authenticated">사이즈</span>
+      <styleMenu v-show="this.Authentication.authenticated" menuTitle="사이즈"></styleMenu>
     </div>
     <div class="explain mt8">
       다음 질문들은 스타일리스트가 체형을 정확히 파악하여 연출하는데 도움이 됩니다.

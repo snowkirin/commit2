@@ -1,7 +1,10 @@
 <template>
   <div>
-    <div class="content-title-menu-box" @click="stylingMenuOnoff" :style="`left: ${printLeftSize};`">
-      <div class="arrow-down"></div>
+    <div class="menu-title-area">
+      <span id="menuTitle">{{menuTitle}}</span>
+      <div class="content-title-menu-box" @click="stylingMenuOnoff" :style="`margin-left: ${leftSize}px;`">
+        <div class="arrow-down"></div>
+      </div>
     </div>
     <div class="content-menu-box">
       <div class="content-menu-box-detail"><router-link to="/join/size" class="style-menu">사이즈</router-link></div>
@@ -23,17 +26,15 @@
 <script>
 export default {
   name: 'styleMenu',
-  props: {
-    leftSize: {
-      type: String,
-      default: '58%',
-    },
+  data() {
+    return {
+      leftSize: 0,
+    };
   },
-  computed: {
-    printLeftSize() {
-      let rtn = this.leftSize;
-      if (window.outerWidth <= 486) rtn = `${(parseInt(this.leftSize.replace('%', ''), 10) + 18).toString()}%`;
-      return rtn;
+  props: {
+    menuTitle: {
+      type: String,
+      default: '',
     },
   },
   methods: {
@@ -44,6 +45,9 @@ export default {
       else mnu.style.display = 'none';
     },
   },
+  mounted() {
+    this.leftSize = (document.getElementById('menuTitle').offsetWidth / 2) + 10;
+  },
 };
 </script>
 
@@ -53,13 +57,34 @@ export default {
   text-decoration: none;
 }
 
+.menu-title-area {
+  position:relative;
+  left: 50% !important;
+  -webkit-transform: translate(-50%);
+  transform: translate(-50%);
+}
+
+.content-menu-box {
+  left: 52.5% !important;
+  -webkit-transform: translate(-50%);
+  transform: translate(-50%);
+}
+
+#menuTitle {
+  display: inline-block;
+}
+
 @media screen and (max-width: 486px) {
   .content-title-menu-box {
     top: 1px !important;
   }
 
+  .menu-title-area {
+    left: 45% !important;
+  }
+
   .content-menu-box {
-    left: 32% !important;
+    left: 50% !important;
   }
 }
 </style>

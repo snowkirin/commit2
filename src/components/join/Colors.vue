@@ -1,8 +1,8 @@
 <template>
   <div class="colors subContent mauto">
     <div class="content-title mt70">
-      색상 선택
-      <styleMenu v-show="this.Authentication.authenticated" leftSize="60%"></styleMenu>
+      <span v-show="!this.Authentication.authenticated">색상 선택</span>
+      <styleMenu v-show="this.Authentication.authenticated" menuTitle="색상 선택"></styleMenu>
     </div>
     <div class="explain mt8">
       스타일링을 위한 색상 선택에 활용됩니다.

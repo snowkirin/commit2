@@ -1,8 +1,8 @@
 <template>
   <div class="patterns subContent mauto">
     <div class="content-title mt70">
-      기피 패턴
-      <styleMenu v-show="this.Authentication.authenticated" leftSize="59%"></styleMenu>
+      <span v-show="!this.Authentication.authenticated">기피 패턴</span>
+      <styleMenu v-show="this.Authentication.authenticated" menuTitle="기피 패턴"></styleMenu>
     </div>
     <div class="explain mt8">
       받고 싶지 않은 스타일을 모두 선택해주세요.
