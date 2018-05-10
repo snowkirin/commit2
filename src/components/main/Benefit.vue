@@ -11,7 +11,7 @@
       </div>
       <div v-show="!Authentication.authenticated" class="benefit-btn-area" style="width: 20%; position: relative;">
         <button class="button-main" style="bottom: 6px; right: 0; position: absolute;" @click="signup">
-          <span style="font-size: 27px; padding-left: 20px; font-weight: 400;">한달 무료 신청</span>
+          <span style="font-size: 24px; padding-left: 20px; font-weight: 400;">한달 무료 신청</span>
           <div class="d-inlineblock arrowIcon"></div>
         </button>
       </div>

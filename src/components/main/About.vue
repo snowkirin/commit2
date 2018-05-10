@@ -1,7 +1,7 @@
 <template>
   <div class="main-about side-padding-50 mt70">
     <div class="main-about-detail">
-      <div class="main-point-text tc-white pd120 en-font">
+      <div class="main-point-text tc-white about-description en-font">
         ABOUT
       </div>
       <div class="main-about-title" v-if="outerWidth <= 486">
@@ -38,8 +38,12 @@ export default {
   margin-top: 63px !important;
 }
 
+.about-description {
+  padding-top: 287px !important;
+}
+
 .main-about {
-  height: 420px;
+  height: 500px;
   background-image: url('/static/img/main/img_about_large.png');
   background-repeat: no-repeat;
   background-position: 50% 0;
@@ -69,10 +73,14 @@ export default {
     margin-top: 35px !important;
   }
 
+  .about-description {
+    padding-top: 100px !important;
+  }
+
   .main-about {
     display: table;
     background-image: url('/static/img/main/img_about_medium.png');
-    height: 210px;
+    height: 250px;
     background-size: cover;
   }
 
@@ -84,7 +92,7 @@ export default {
   .main-about-title {
     letter-spacing: -1.2px;
     font-size: 20px !important;
-    line-height: 1.4;
+    line-height: 1.3;
   }
 
   .pd120 {
