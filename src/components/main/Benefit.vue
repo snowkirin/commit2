@@ -50,7 +50,7 @@ export default {
 .benefit-main {
   width: 1300px;
   margin: auto;
-  margin-top: 22px;
+  margin-top: 30px;
 }
 
 .benefit-title {
