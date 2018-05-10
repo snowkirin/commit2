@@ -47,7 +47,7 @@ export default {
   background-image: url('/static/img/main/img_about_large.png');
   background-repeat: no-repeat;
   background-position: 50% 0;
-  background-color: #cfcbc7;
+  background-color: #242424;
 }
 
 .main-about-detail {
@@ -82,6 +82,7 @@ export default {
     background-image: url('/static/img/main/img_about_medium.png');
     height: 250px;
     background-size: cover;
+    background-size: 100% 100%;
   }
 
   .main-about-detail {
