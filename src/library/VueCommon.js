@@ -3,6 +3,10 @@ const VueCommon = {};
 VueCommon.install = (Vue) => {
   const vue = Vue;
   vue.prototype.$common = {
+    getServerMode() {
+      return process.env.NODE_ENV;
+    },
+
     IMAGEURL() {
       return process.env.API_IMAGE_URL;
     },
