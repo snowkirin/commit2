@@ -116,6 +116,16 @@ const authPhoneCheck = ({
   withCredentials: true,
 }).then(result => result).catch(err => err.response);
 
+const buyUsedProduct = ({
+  amount,
+  name,
+}) => axios.post(`${API_URL}/payment/buyUsedProduct`, {
+  amount,
+  name,
+}, {
+  withCredentials: true,
+}).then(result => result).catch(err => err.response);
+
 export default {
   mypageInfo,
   mypageStyle,
@@ -130,4 +140,5 @@ export default {
   setChangePayment,
   authPhone,
   authPhoneCheck,
+  buyUsedProduct,
 };

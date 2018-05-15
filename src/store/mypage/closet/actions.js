@@ -61,10 +61,35 @@ const setCurrentCloset = async ({ commit }) => {
   }
 };
 
+const buyUsedProduct = async ({ commit }, data) => {
+  try {
+    for (let i = 0; data.length > i; i += 1) {
+      const result = Closet.buyUsedProduct({
+        amount: data[i].used_price,
+        name: data[i].name,
+      });
+      result.then(res => commit(types.PAYMENT_CURRENT, { name: data[i].name, message: res.data.message }))
+        .catch(err => alert(`시스템에 문제가 발생했습니다.\n잠시 후 다시 시도해주세요.\n${err}`));
+    }
+  } catch (e) {
+    console.error(e.message);
+  }
+};
+
+const initPaymentCurrent = async ({ commit }) => {
+  try {
+    commit(types.INIT_PAYMENT_CURRENT);
+  } catch (e) {
+    console.error(e.message);
+  }
+};
+
 export default {
   setTomorrowCloset,
   setTomorrowSelect,
   setPastCloset,
   pastDetailView,
   setCurrentCloset,
+  buyUsedProduct,
+  initPaymentCurrent,
 };
