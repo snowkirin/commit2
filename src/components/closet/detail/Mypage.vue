@@ -91,8 +91,10 @@
             <div class="mypage-content-data mt20">
               <div class="field">
                 <div class="mypage-content-data mobile-v">
-                  <span style="width: 60%;">{{mypageData.card_name + " " + mypageData.card_number}}</span>
-                  <button id="changeCard" class="button-grey" style="width: 25%; margin-left: 5px;" @click="displayEvt('cardarea', 'changeCard', '카드 변경')">카드 변경</button>
+                  <span style="width: 60%;">{{ getCardInfo() }}</span>
+                  <button id="changeCard" class="button-grey" style="width: 25%;"
+                  :style="{ 'margin-left': (mypageData.card_name !== null && mypageData.card_name !== undefined) ? '5px' : '0px;' }"
+                  @click="displayEvt('cardarea', 'changeCard', '카드 변경')">카드 변경</button>
                 </div>
               </div>
             </div>
@@ -472,6 +474,12 @@ export default {
       }, 1000);
 
       window.interval = interval;
+    },
+    getCardInfo() {
+      if (this.mypageData.card_name !== null && this.mypageData.card_name !== undefined) {
+        return `${this.mypageData.card_name} ${this.mypageData.card_number}`;
+      }
+      return '';
     },
   },
   async created() {

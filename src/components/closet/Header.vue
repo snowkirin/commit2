@@ -67,7 +67,7 @@ export default {
 <style scoped>
 .closet-header {
   height: 235px;
-  background-color: #7984a1;
+  background-color: #be7979;
 }
 
 .f16 {

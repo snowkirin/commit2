@@ -47,7 +47,7 @@ export default {
   background-image: url('/static/img/main/img_about_large.png');
   background-repeat: no-repeat;
   background-position: 50% 0;
-  background-color: #242424;
+  background-color: #2d2727;
 }
 
 .main-about-detail {
