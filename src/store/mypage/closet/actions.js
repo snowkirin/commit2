@@ -67,6 +67,9 @@ const buyUsedProduct = async ({ commit }, data) => {
       const result = Closet.buyUsedProduct({
         amount: data[i].used_price,
         name: data[i].name,
+        itemId: data[i].id,
+        itemType: '13602', // 13600:결제항목구분
+        paymentMethod: '10614', // 10600:결제방법
       });
       result.then(res => commit(types.PAYMENT_CURRENT, { name: data[i].name, message: res.data.message }))
         .catch(err => alert(`시스템에 문제가 발생했습니다.\n잠시 후 다시 시도해주세요.\n${err}`));
