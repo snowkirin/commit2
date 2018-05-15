@@ -129,7 +129,7 @@
             </div>
           </div>
           <div style="margin: 23px;">
-            <button class="button-login" @click="currentPayment()">
+            <button class="button-login" @click="paymentConfirm()">
               {{ printBtnText }} 등록된 카드로 결제하기
             </button>
           </div>
@@ -164,6 +164,7 @@ export default {
     ...mapGetters({
       currentCloset: 'mypage/closet/getCurrentCloset',
       currentNone: 'mypage/closet/getCurrentNone',
+      paymentCurrent: 'mypage/closet/getPaymentCurrent',
     }),
     printStylingTip() {
       let printData = this.currentCloset.styling_tip;
@@ -174,6 +175,8 @@ export default {
   methods: {
     ...mapActions({
       setCurrentCloset: 'mypage/closet/setCurrentCloset',
+      buyUsedProduct: 'mypage/closet/buyUsedProduct',
+      initPaymentCurrent: 'mypage/closet/initPaymentCurrent',
     }),
     closeSurvey() {
       document.querySelector('.closet-feedback').style.display = 'none';
@@ -209,8 +212,22 @@ export default {
         this.printBtnText = `${this.$common.numberWithCommas(this.paymentAmount)}원`;
       }
     },
-    currentPayment() {
+    paymentConfirm() {
+      if (this.buyProductArr.length <= 0) {
+        alert('결제하실 상품을 체크해주세요.');
+        return;
+      }
       alert('체험단 기간 중에는 결제가 불가능합니다.');
+      // const paymentFlag = confirm('대여 상품은 교환/환불이 어렵습니다.\n정말 구매하시겠습니까?');
+      // if (paymentFlag) {
+      //   this.currentPayment();
+      // }
+    },
+    async currentPayment() {
+      await this.buyUsedProduct(this.buyProductArr)
+        .then(setTimeout(() => { alert(this.paymentCurrent); }, 1500))
+        .catch(err => console.log(err));
+      this.initPaymentCurrent();
     },
   },
   async created() {

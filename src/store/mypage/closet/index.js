@@ -12,6 +12,7 @@ export default {
     pastNone: false,
     currentNone: false,
     tomorrowSelected: false,
+    paymentCurrent: '',
   },
   mutations: {
     [types.SET_TOMORROW_CLOSET](state, data) {
@@ -38,6 +39,13 @@ export default {
     [types.SET_PARENT_NONE](state) {
       state.pastNone = true;
     },
+    [types.PAYMENT_CURRENT](state, data) {
+      if (state.paymentCurrent !== '') { state.paymentCurrent += '\n'; }
+      state.paymentCurrent += `${data.name}\n${data.message}\n`;
+    },
+    [types.INIT_PAYMENT_CURRENT](state) {
+      state.paymentCurrent = '';
+    },
   },
   actions,
   getters: {
@@ -49,5 +57,6 @@ export default {
     getPastNone: state => state.pastNone,
     getCurrentNone: state => state.currentNone,
     getTomorrowSelect: state => state.tomorrowSelected,
+    getPaymentCurrent: state => state.paymentCurrent,
   },
 };
