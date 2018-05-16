@@ -119,9 +119,15 @@ const authPhoneCheck = ({
 const buyUsedProduct = ({
   amount,
   name,
+  itemId,
+  itemType,
+  paymentMethod,
 }) => axios.post(`${API_URL}/payment/buyUsedProduct`, {
   amount,
   name,
+  itemId,
+  itemType,
+  paymentMethod,
 }, {
   withCredentials: true,
 }).then(result => result).catch(err => err.response);
