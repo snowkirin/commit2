@@ -61,19 +61,36 @@ const setCurrentCloset = async ({ commit }) => {
   }
 };
 
-const buyUsedProduct = async ({ commit }, data) => {
+const buyUsedProduct = async (Object, data) => {
   try {
+    // for (let i = 0; data.length > i; i += 1) {
+    //   const result = Closet.buyUsedProduct({
+    //     amount: data[i].used_price,
+    //     name: data[i].name,
+    //     itemId: data[i].id,
+    //     itemType: '13602', // 13600:결제항목구분
+    //     paymentMethod: '10614', // 10600:결제방법
+    //   });
+    //   result.then(res => commit(types.PAYMENT_CURRENT, { name: data[i].name, message: res.data.message }))
+    //     .catch(err => alert(`시스템에 문제가 발생했습니다.\n잠시 후 다시 시도해주세요.\n${err}`));
+
+    const itemList = {};
     for (let i = 0; data.length > i; i += 1) {
-      const result = Closet.buyUsedProduct({
-        amount: data[i].used_price,
-        name: data[i].name,
-        itemId: data[i].id,
-        itemType: '13602', // 13600:결제항목구분
-        paymentMethod: '10614', // 10600:결제방법
-      });
-      result.then(res => commit(types.PAYMENT_CURRENT, { name: data[i].name, message: res.data.message }))
-        .catch(err => alert(`시스템에 문제가 발생했습니다.\n잠시 후 다시 시도해주세요.\n${err}`));
+      if (i === 0) {
+        itemList.amount = Number(data[i].used_price);
+        itemList.name = data[i].name;
+        itemList.itemId = data[i].id;
+        itemList.itemType = '13602'; // 13600:결제항목구분
+        itemList.paymentMethod = '10614'; // 10600:결제방법
+      } else {
+        itemList.amount += Number(data[i].used_price);
+        itemList.name = `${data[i].name} 외 ${i}건`;
+      }
     }
+
+    Closet.buyUsedProduct(itemList)
+      .then(res => alert(`${itemList.name}\n${res.data.message}`))
+      .catch(err => alert(`시스템에 문제가 발생했습니다.\n잠시 후 다시 시도해주세요.\n${err}`));
   } catch (e) {
     console.error(e.message);
   }

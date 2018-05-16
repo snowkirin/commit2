@@ -224,10 +224,11 @@ export default {
       // }
     },
     async currentPayment() {
-      await this.buyUsedProduct(this.buyProductArr)
-        .then(setTimeout(() => { alert(this.paymentCurrent); }, 1500))
-        .catch(err => console.log(err));
-      this.initPaymentCurrent();
+      // await this.buyUsedProduct(this.buyProductArr)
+      //   .then(setTimeout(() => { alert(this.paymentCurrent); }, 1500))
+      //   .catch(err => console.log(err));
+      // this.initPaymentCurrent();
+      await this.buyUsedProduct(this.buyProductArr);
     },
   },
   async created() {
