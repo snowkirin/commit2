@@ -106,7 +106,7 @@ export default {
   font-weight: 600;
   line-height: 1;
   letter-spacing: normal;
-  color: #212121;
+  color: #333333;
 }
 
 .content-second {
@@ -118,7 +118,7 @@ export default {
   width: 69.6%;
   font-size: 18px;
   letter-spacing: -0.4px;
-  color: #212121;
+  color: #333333;
 }
 
 .content-second-title {

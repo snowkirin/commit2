@@ -23,7 +23,7 @@
   line-height: 2.67;
   letter-spacing: -0.2px;
   text-align: left;
-  color: #212121;
+  color: #333333;
   padding-left: 10px;
   box-sizing: border-box;
 }
@@ -40,7 +40,7 @@
   line-height: 2.67;
   letter-spacing: -0.2px;
   text-align: left;
-  color: #212121;
+  color: #333333;
   padding-left: 10px;
   box-sizing: border-box;
 }
@@ -118,7 +118,7 @@
   font-size: 18px;
   line-height: 1;
   letter-spacing: -0.5px;
-  color: #212121;
+  color: #333333;
 }
 
 .form-input-radio input {
@@ -162,7 +162,7 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: #212121;
+  background: #333333;
 }
 
 .day-name-group {
@@ -188,8 +188,8 @@
 }
 
 .day-name-active {
-  color: #212121;
-  border: 2px solid #212121 !important;
+  color: #333333;
+  border: 2px solid #333333 !important;
 }
 
 .day-name-active-left {
@@ -219,8 +219,8 @@
 }
 
 .size-each-active {
-  color: #212121;
-  border: 2px solid #212121 !important;
+  color: #333333;
+  border: 2px solid #333333 !important;
 }
 
 .size-each-active-left {

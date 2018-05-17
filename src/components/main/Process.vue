@@ -147,7 +147,7 @@ export default {
 @media screen and (max-width: 486px) {
   .mobile-process-line {
     height: 2px;
-    background-color: #212121;
+    background-color: #333333;
     margin-bottom: 36px;
   }
 

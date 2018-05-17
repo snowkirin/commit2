@@ -380,7 +380,7 @@ export default {
 }
 
 .closet-card-title-on {
-  color: #212121;
+  color: #333333;
 }
 
 .heart-icon {
@@ -400,7 +400,7 @@ export default {
 }
 
 .select-title-on {
-  color: #212121;
+  color: #333333;
 }
 
 .closet-card-images {
@@ -439,13 +439,13 @@ export default {
   font-size: 16px;
   font-weight: 600;
   letter-spacing: -1px;
-  color: #212121;
+  color: #333333;
 }
 
 .closet-card-text-title-text {
   font-size: 18px;
   letter-spacing: -1px;
-  color: #212121;
+  color: #333333;
 }
 
 .closet-card-hashtag {

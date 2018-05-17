@@ -20,7 +20,7 @@
 }
 
 .closet-content {
-  border-top: solid 2px #212121;
+  border-top: solid 2px #333333;
 }
 
 .closet-card-none {
@@ -54,6 +54,6 @@
   line-height: 1.4;
   letter-spacing: normal;
   letter-spacing: -1.8px;
-  color: #212121;
+  color: #333333;
   text-align: center;
 }

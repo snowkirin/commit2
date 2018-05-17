@@ -272,7 +272,7 @@ export default {
 .stylingLine {
   height: 1px;
   opacity: 0.2;
-  background-color: #212121;
+  background-color: #333333;
 }
 
 .styling-card {
@@ -370,7 +370,7 @@ div.btn-times:after {
   font-weight: 600;
   line-height: 1;
   text-align: center;
-  color: #212121;
+  color: #333333;
 }
 
 .zuly-circle-text span {
@@ -394,7 +394,7 @@ div.btn-times:after {
   font-size: 18px;
   line-height: 1;
   text-align: center;
-  color: #212121;
+  color: #333333;
 }
 
 .zuly-detail-circle-text span.description {

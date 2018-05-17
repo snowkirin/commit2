@@ -13,7 +13,7 @@
           </router-link>
         </li>
         <li class="interval">
-          <span class="mobile-point" style="display: inline-block; width:4px; height:4px; background-color: #212121; opacity: 0.5;"></span>
+          <span class="mobile-point" style="display: inline-block; width:4px; height:4px; background-color: #333333; opacity: 0.5;"></span>
         </li>
         <li>
           <span v-if="Authentication.authenticated" class="menu-title" @click="doLogout">
@@ -77,7 +77,7 @@ export default {
 div.headerLine {
   width: 100%;
   height: 3px;
-  background-color: #212121;
+  background-color: #333333;
 }
 
 ul.header-menu {

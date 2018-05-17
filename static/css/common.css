@@ -23,11 +23,11 @@
 .greyLine {
   height: 1px;
   opacity: 0.2;
-  background-color: #212121;
+  background-color: #333333;
 }
 
 .no-deco-a {
-  color: #212121;
+  color: #333333;
   text-decoration: none;
 }
 .dotted-line-hashtag {

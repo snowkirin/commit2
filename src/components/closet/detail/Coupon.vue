@@ -92,7 +92,7 @@ export default {
   font-style: normal;
   font-stretch: normal;
   letter-spacing: -0.4px;
-  color: #212121;
+  color: #333333;
   border-bottom: solid 2px #e9e9e9;
 }
 
@@ -163,7 +163,7 @@ export default {
   height: 40px;
   border-radius: 3px;
   background-color: #ffffff;
-  border: solid 1px #212121;
+  border: solid 1px #333333;
   display: inline-block;
   vertical-align: middle;
   font-size: 16px;

@@ -19,8 +19,8 @@
             :style="(prefer.indexOf(color.code) > -1 ?
             {
               backgroundColor: `#${color.code}`,
-              color: (color.code === 'FFFFFF' || color.code === '') ? '#212121' : '#FFFFFF',
-              border: (color.code === 'FFFFFF' || color.code === '') ? (color.code === 'FFFFFF') ? '2px solid #212121' : '2px solid #212121' : null,
+              color: (color.code === 'FFFFFF' || color.code === '') ? '#333333' : '#FFFFFF',
+              border: (color.code === 'FFFFFF' || color.code === '') ? (color.code === 'FFFFFF') ? '2px solid #333333' : '2px solid #333333' : null,
               boxSizing: (color.code === 'FFFFFF' || color.code === '') ? 'border-box' : null,
               margin: ((k+1) % 3 === 2) ? '12px 12px 0 12px' : null,
             } : {
@@ -47,8 +47,8 @@
             :style="(except.indexOf(color.code) > -1 ?
             {
               backgroundColor: `#${color.code}`,
-              color: (color.code === 'FFFFFF' || color.code === '') ? '#212121' : '#FFFFFF',
-              border: (color.code === 'FFFFFF' || color.code === '') ? (color.code === 'FFFFFF') ? '2px solid #212121' : '2px solid #212121' : null,
+              color: (color.code === 'FFFFFF' || color.code === '') ? '#333333' : '#FFFFFF',
+              border: (color.code === 'FFFFFF' || color.code === '') ? (color.code === 'FFFFFF') ? '2px solid #333333' : '2px solid #333333' : null,
               boxSizing: (color.code === 'FFFFFF' || color.code === '') ? 'border-box' : null,
               margin: ((k+1) % 3 === 2) ? '12px 12px 0 12px' : null,
             } : {
@@ -99,7 +99,7 @@ export default {
       const title = obj.target.querySelector('.colors-card-text');
       const color = obj.target.getAttribute('data-color');
       const selected = obj.target.getAttribute('data-selected');
-      const textColor = (color !== '000000') ? '212121' : 'FFFFFF';
+      const textColor = (color !== '000000') ? '333333' : 'FFFFFF';
 
       if (selected !== 'true') {
         if (obj.target) {
@@ -120,11 +120,11 @@ export default {
       if (selected !== 'true') {
         if (obj.target) {
           obj.target.style.backgroundColor = '#F4F4F4';
-          obj.target.style.color = '#212121';
+          obj.target.style.color = '#333333';
         }
         if (title) {
           title.style.backgroundColor = '#F4F4F4';
-          title.style.color = '#212121';
+          title.style.color = '#333333';
         }
       }
     },
@@ -187,7 +187,7 @@ export default {
 .colorsLine {
   height: 1px;
   opacity: 0.2;
-  background-color: #212121;
+  background-color: #333333;
 }
 
 .colors-area {
@@ -201,7 +201,7 @@ export default {
   font-stretch: normal;
   letter-spacing: normal;
   text-align: left;
-  color: #212121;
+  color: #333333;
   margin-bottom: 5px;
 }
 
@@ -220,7 +220,7 @@ export default {
   font-style: normal;
   font-stretch: normal;
   letter-spacing: -0.5px;
-  color: #212121;
+  color: #333333;
   cursor: pointer;
   margin-top: 12px;
   float: left;

@@ -87,6 +87,6 @@ export default {
   border: solid 1px #737373;
   font-size: 16px;
   letter-spacing: -0.4px;
-  color: #212121;
+  color: #333333;
 }
 </style>

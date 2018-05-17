@@ -53,7 +53,7 @@ export default {
 
 <style scoped>
 .style-menu {
-  color: #212121;
+  color: #333333;
   text-decoration: none;
 }
 

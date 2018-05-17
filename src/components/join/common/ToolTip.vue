@@ -66,7 +66,7 @@ export default {
 
   .tooltip:before {
     top: -13px;
-    border-color: transparent transparent transparent #212121;
+    border-color: transparent transparent transparent #333333;
     border-width: 6px;
     transform: rotate(270deg);
   }

@@ -175,7 +175,7 @@ div.btn-times-right:after {
 }
 
 .slidedot-dt-active {
-  background-color: #212121;
+  background-color: #333333;
 }
 
 .skip-area {

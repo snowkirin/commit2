@@ -40,7 +40,7 @@ export default {
     };
 
     subscribeBtn.onmouseout = () => {
-      subscribeBtn.style.backgroundColor = '#212121';
+      subscribeBtn.style.backgroundColor = '#333333';
     };
   },
 };
@@ -60,7 +60,7 @@ export default {
   font-stretch: normal;
   line-height: 1.28;
   letter-spacing: -5.6px;
-  color: #212121;
+  color: #333333;
 }
 
 .benefit-title span {

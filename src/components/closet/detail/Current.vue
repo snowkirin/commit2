@@ -109,7 +109,7 @@
         <div style="display: inline-block; width: 1.3%;"></div>
         <div class="current-closet-item-buy">
           <div class="item-buy-title mt30">최종결제 금액확인</div>
-          <div class="mt30" style="height: 1px; background-color: #212121; opacity: 0.5;"></div>
+          <div class="mt30" style="height: 1px; background-color: #333333; opacity: 0.5;"></div>
           <div class="mt50 item-buy-row">
             <div class="item-buy-row-title">주문 수량</div>
             <div class="item-buy-row-right">
@@ -361,7 +361,7 @@ div.btn-times:after {
   font-stretch: normal;
   line-height: 0.41;
   letter-spacing: normal;
-  color: #212121;
+  color: #333333;
 }
 
 .first-title {
@@ -378,7 +378,7 @@ div.btn-times:after {
 
 .third-line {
   height: 4px;
-  background-color: #212121;
+  background-color: #333333;
   position: relative;
   left: 153.5px;
   top: -7.5px;
@@ -409,7 +409,7 @@ div.btn-times:after {
   font-size: 16px;
   font-weight: 600;
   letter-spacing: -1px;
-  color: #212121;
+  color: #333333;
   line-height: 3;
 }
 .closet-styling-tip-stylist {
@@ -439,7 +439,7 @@ div.btn-times:after {
 .current-closet-item-buy {
   display: inline-block;
   width: 40%;
-  border: solid 2px #212121;
+  border: solid 2px #333333;
 }
 
 .item-buy-title {
@@ -450,7 +450,7 @@ div.btn-times:after {
   font-stretch: normal;
   line-height: 1;
   letter-spacing: normal;
-  color: #212121;
+  color: #333333;
 }
 
 .item-buy-row {
@@ -479,7 +479,7 @@ div.btn-times:after {
   line-height: 1;
   letter-spacing: normal;
   text-align: right;
-  color: #212121;
+  color: #333333;
 }
 
 .item-buy-row-right span {
@@ -490,7 +490,7 @@ div.btn-times:after {
   padding-left: 22px;
   font-size: 18px;
   line-height: 1;
-  color: #212121;
+  color: #333333;
 }
 
 .closet-item-card:last-of-type {

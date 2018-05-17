@@ -156,7 +156,7 @@ export default {
 .patternsLine {
   height: 1px;
   opacity: 0.2;
-  background-color: #212121;
+  background-color: #333333;
 }
 
 .patterns-card {
