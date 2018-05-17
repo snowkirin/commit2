@@ -179,11 +179,11 @@ export default {
 
 .current-date-area {
   text-align: center;
-  color: #212121;
+  color: #333333;
   font-size: 18px;
   line-height: 1;
   letter-spacing: -0.5px;
-  color: #212121;
+  color: #333333;
 }
 
 .talk-input-box {
@@ -214,7 +214,7 @@ export default {
   font-size: 18px;
   line-height: 1.56;
   letter-spacing: -0.5px;
-  color: #212121;
+  color: #333333;
 }
 
 .balloon-bottom {
@@ -304,11 +304,11 @@ export default {
 
 .current-date-area {
   text-align: center;
-  color: #212121;
+  color: #333333;
   font-size: 18px;
   line-height: 1;
   letter-spacing: -0.5px;
-  color: #212121;
+  color: #333333;
 }
 
 .talk-area-right {

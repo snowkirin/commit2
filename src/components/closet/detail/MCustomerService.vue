@@ -194,7 +194,7 @@ export default {
   font-size: 18px;
   line-height: 1;
   letter-spacing: -0.5px;
-  color: #212121;
+  color: #333333;
 }
 
 .list-data-rows > .date {
@@ -216,7 +216,7 @@ export default {
 
 .inquiries-type {
   line-height: 2;
-  border-bottom: 1px solid #212121;
+  border-bottom: 1px solid #333333;
 }
 
 .inquiries-subject {

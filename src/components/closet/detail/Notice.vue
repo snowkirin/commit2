@@ -75,7 +75,7 @@ export default {
   font-style: normal;
   font-stretch: normal;
   letter-spacing: -0.4px;
-  color: #212121;
+  color: #333333;
   border-bottom: solid 2px #e9e9e9;
   cursor: pointer;
 }

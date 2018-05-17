@@ -376,7 +376,7 @@ export default {
 .signupLine {
   height: 1px;
   opacity: 0.2;
-  background-color: #212121;
+  background-color: #333333;
 }
 
 .signup-area {
@@ -390,7 +390,7 @@ export default {
   font-stretch: normal;
   letter-spacing: normal;
   text-align: left;
-  color: #212121;
+  color: #333333;
 }
 
 .signup-chk-area {

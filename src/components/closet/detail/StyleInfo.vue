@@ -192,8 +192,8 @@ export default {
 }
 
 .style-content {
-  border-top: 2px solid #212121;
-  border-bottom: 2px solid #212121;
+  border-top: 2px solid #333333;
+  border-bottom: 2px solid #333333;
 }
 
 .style-content-area {
@@ -220,13 +220,13 @@ export default {
   font-weight: 600;
   line-height: 1;
   letter-spacing: -0.4px;
-  color: #212121;
+  color: #333333;
 }
 
 .style-content-data {
   font-size: 18px;
   line-height: 1.6;
-  color: #212121;
+  color: #333333;
 }
 
 .style-content-header span {

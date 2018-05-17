@@ -75,7 +75,7 @@ export default {
 .content-area {
   font-size: 18px;
   line-height: 1;
-  color: #212121;
+  color: #333333;
   margin-left: 20px;
 }
 
@@ -98,7 +98,7 @@ export default {
 .past-view-text {
   font-size: 18px;
   line-height: 1;
-  color: #212121;
+  color: #333333;
 }
 
 .past-view-text p {

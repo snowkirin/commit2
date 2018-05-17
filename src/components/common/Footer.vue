@@ -52,7 +52,7 @@ export default {
 <style scoped>
 
 .tc-black {
-  color: #212121;
+  color: #333333;
 }
 
 footer {

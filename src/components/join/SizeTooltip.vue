@@ -133,7 +133,7 @@ export default {
   font-stretch: normal;
   line-height: 2.67;
   letter-spacing: -1px;
-  color: #212121;
+  color: #333333;
 }
 
 input:focus{

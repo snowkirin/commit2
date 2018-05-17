@@ -64,7 +64,7 @@ export default {
 .requirementLine {
   height: 1px;
   opacity: 0.2;
-  background-color: #212121;
+  background-color: #333333;
 }
 
 .requirement-textarea {

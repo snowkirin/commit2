@@ -179,7 +179,7 @@ export default {
 .sizeLine {
   height: 1px;
   opacity: 0.2;
-  background-color: #212121;
+  background-color: #333333;
 }
 
 .size-tt-text {
@@ -190,7 +190,7 @@ export default {
   font-style: normal;
   font-stretch: normal;
   letter-spacing: -0.4px;
-  color: #212121;
+  color: #333333;
 }
 
 .fa-exclamation-circle {

@@ -67,9 +67,9 @@ export default {
     this.modal.style.height = `${this.height}px`;
 
     if (this.modalType === 'csView') {
-      this.modal.style.border = 'solid 1px #212121';
+      this.modal.style.border = 'solid 1px #333333';
       this.modal.style.backgroundColor = '#f5f5f5';
-      this.modal.querySelector('.custom-modal-title').style.cssText = 'border-bottom: 1px solid #212121; background-color: #FFFFFF;';
+      this.modal.querySelector('.custom-modal-title').style.cssText = 'border-bottom: 1px solid #333333; background-color: #FFFFFF;';
       this.modal.querySelector('.custom-modal-content').style.height = '66.5%';
     }
   },
@@ -90,7 +90,7 @@ export default {
   height: 635px;
   background-color: #ffffff;
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.17);
-  border: solid 1px #212121;
+  border: solid 1px #333333;
   border: solid 1px var(--black-two);
   display:none;
 }
@@ -105,7 +105,7 @@ export default {
   line-height: 1.08;
   letter-spacing: -0.7px;
   text-align: left;
-  color: #212121;
+  color: #333333;
   box-sizing: border-box;
 }
 
@@ -119,7 +119,7 @@ export default {
   line-height: 1.71;
   letter-spacing: -0.4px;
   text-align: left;
-  color: #212121;
+  color: #333333;
 }
 
 .custom-modal-btn {
@@ -146,7 +146,7 @@ div.btn-times:before, div.btn-times:after {
   position: absolute;
   width: 30px;
   height: 2px;
-  background-color: #212121;
+  background-color: #333333;
   border-radius: 2px;
   top: 23px;
   box-shadow: 0 0 2px 0 #ccc;

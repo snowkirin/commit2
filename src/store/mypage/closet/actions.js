@@ -79,12 +79,14 @@ const buyUsedProduct = async (Object, data) => {
       if (i === 0) {
         itemList.amount = Number(data[i].used_price);
         itemList.name = data[i].name;
-        itemList.itemId = data[i].id;
+        itemList.itemId = [];
+        itemList.itemId.push(data[i].id);
         itemList.itemType = '13602'; // 13600:결제항목구분
         itemList.paymentMethod = '10614'; // 10600:결제방법
       } else {
         itemList.amount += Number(data[i].used_price);
         itemList.name = `${data[i].name} 외 ${i}건`;
+        itemList.itemId.push(data[i].id);
       }
     }
 

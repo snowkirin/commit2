@@ -96,7 +96,7 @@ export default {
 .loginLine {
   height: 1px;
   opacity: 0.2;
-  background-color: #212121;
+  background-color: #333333;
 }
 
 .login-chk-area {
@@ -122,7 +122,7 @@ export default {
   font-stretch: normal;
   line-height: 2;
   letter-spacing: -0.2px;
-  color: #212121;
+  color: #333333;
 }
 
 ul.loginMenu {
@@ -146,7 +146,7 @@ li.loginMenu {
   display: inline-block;
   width: 1px;
   height: 20px;
-  background: #212121;
+  background: #333333;
   top: 7px;
 }
 

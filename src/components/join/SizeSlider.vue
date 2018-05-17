@@ -104,13 +104,13 @@ export default {
       sliderOption: {
         height: 2,
         bgStyle: {
-          backgroundColor: '#212121',
+          backgroundColor: '#333333',
         },
         tooltipStyle: {
-          backgroundColor: '#212121',
+          backgroundColor: '#333333',
         },
         processStyle: {
-          backgroundColor: '#212121',
+          backgroundColor: '#333333',
         },
       },
     };
@@ -136,7 +136,7 @@ export default {
     },
     dragUp() {
       this.dragPoint = false;
-      document.querySelector(`div[data-id="${this.dataId}"] i`).style.color = '#212121';
+      document.querySelector(`div[data-id="${this.dataId}"] i`).style.color = '#333333';
       document.querySelector(`div[data-id="${this.dataId}"] .custom-text`).style.color = '#797979';
       document.querySelector(`div[data-id="${this.dataId}"] .custom-text`).style.display = 'none';
 
@@ -204,7 +204,7 @@ export default {
   font-stretch: normal;
   line-height: 2.67;
   letter-spacing: -2px;
-  color: #212121;
+  color: #333333;
   width: 32px;
 }
 

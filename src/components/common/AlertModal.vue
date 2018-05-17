@@ -90,7 +90,7 @@ export default {
   padding: 25px;
   background-color: #ffffff;
   box-shadow: rgba(0, 0, 0, 0.2) 5px 5px 30px 0px;
-  border: solid 1px #212121 !important;
+  border: solid 1px #333333 !important;
   border: solid 1px var(--black-two);
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
@@ -106,7 +106,7 @@ export default {
   line-height: 1.4;
   letter-spacing: -0.2px;
   text-align: center;
-  color: #212121;
+  color: #333333;
 }
 
 @media screen and (max-width: 486px) {

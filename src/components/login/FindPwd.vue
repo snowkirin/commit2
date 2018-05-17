@@ -143,13 +143,13 @@ export default {
   line-height: 1.26;
   letter-spacing: -0.4px;
   text-align: center;
-  color: #212121;
+  color: #333333;
 }
 
 .findIdLine {
   height: 1px;
   opacity: 0.2;
-  background-color: #212121;
+  background-color: #333333;
 }
 
 .findId-chk-area {
@@ -170,7 +170,7 @@ export default {
   font-stretch: normal;
   line-height: 2;
   letter-spacing: -0.2px;
-  color: #212121;
+  color: #333333;
 }
 
 .findIdMenuSide {
@@ -193,7 +193,7 @@ export default {
   font-stretch: normal;
   letter-spacing: -0.1px;
   text-align: left;
-  color: #212121;
+  color: #333333;
 }
 
 .findId-wait span {

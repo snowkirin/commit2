@@ -99,8 +99,8 @@ export default {
 
 .menu.closet_active {
   font-weight: 600;
-  color: #212121;
-  border-bottom: 4px solid #212121;
+  color: #333333;
+  border-bottom: 4px solid #333333;
 }
 
 @media screen and (max-width: 1024px) {
@@ -144,8 +144,8 @@ export default {
 
   .closet_active {
     font-weight: 600 !important;
-    color: #212121 !important;
-    border-bottom: 4px solid #212121 !important;
+    color: #333333 !important;
+    border-bottom: 4px solid #333333 !important;
   }
 }
 </style>

@@ -262,7 +262,7 @@ export default {
   line-height: 1.26;
   letter-spacing: -1px;
   text-align: left;
-  color: #212121;
+  color: #333333;
   position: relative;
   bottom: 5px;
 }
@@ -294,7 +294,7 @@ export default {
   font-stretch: normal;
   letter-spacing: -0.4px;
   text-align: left;
-  color: #212121;
+  color: #333333;
 }
 
 .signup-payment-label-normal {
@@ -304,13 +304,13 @@ export default {
   font-stretch: normal;
   letter-spacing: -0.4px;
   text-align: left;
-  color: #212121;
+  color: #333333;
 }
 
 .signup-payment-btn {
   width: 100%;
   background-color: #ffffff;
-  border: solid 2px #212121;
+  border: solid 2px #333333;
   text-align: left;
   padding: 20px 0 20px 22px;
   -webkit-box-sizing: border-box;
@@ -343,7 +343,7 @@ export default {
 }
 
 .on {
-  border: solid 2px #212121;
+  border: solid 2px #333333;
 }
 
 .mt18 {
