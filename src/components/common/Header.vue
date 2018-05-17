@@ -108,8 +108,8 @@ span.menu-title {
   }
 
   .logo {
-    width: 81px;
-    height: 24px;
+    width: 73px;
+    height: 22px;
   }
 
   .pd20 {
@@ -119,7 +119,7 @@ span.menu-title {
   ul.header-menu {
     padding: 0;
     position: relative;
-    top: -8px;
+    top: -11px;
   }
 
   li.interval {
