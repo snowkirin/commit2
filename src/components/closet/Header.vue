@@ -66,7 +66,7 @@ export default {
 
 <style scoped>
 .closet-header {
-  height: 235px;
+  height: 225px;
   background-color: #be7979;
 }
 
@@ -88,7 +88,7 @@ export default {
 .closet-my-info {
   padding: 30px 0 0 30px;
   line-height: 0.9;
-  font-size: 56px;
+  font-size: 50px;
   font-weight: 300;
   font-style: normal;
   font-stretch: normal;
@@ -153,8 +153,8 @@ export default {
 
 @media screen and (max-width: 486px) {
   .closet-my-info {
-    padding: 8% 4.8% 0 3.5% !important;
-    font-size: 40px;
+    padding: 6% 4.8% 0 3.5% !important;
+    font-size: 38px;
   }
 
   .closet-noti-info {
