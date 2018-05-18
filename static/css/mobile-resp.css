@@ -16,6 +16,7 @@
 .benefit-main-title {
   width: 100% !important;
   letter-spacing: -2.6px;
+  line-height: 1.35;
 }
 
 .subContent {
@@ -49,7 +50,7 @@
 }
 
 .benefit-title {
-  font-size: 26px !important;
+  font-size: 25px !important;
   letter-spacing: -2.2px !important;
 }
 
@@ -62,10 +63,11 @@
 }
 
 .main-point-text {
-  font-size: 15px !important;
+  font-size: 14px !important;
   display: inline-block !important;
   width: auto !important;
   letter-spacing: -0.5px;
+  line-height: 2;
 }
 
 .main-about {
@@ -104,7 +106,7 @@
 }
 
 .process-title, .faq-question {
-  font-size: 19px !important;
+  font-size: 18px !important;
   letter-spacing: -1.2px !important;
 }
 
@@ -243,7 +245,7 @@ div.subContent {
 }
 
 .benefit-main {
-  margin-top: 7px !important;
+  margin-top: 10px !important;
 }
 
 

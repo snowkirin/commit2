@@ -148,7 +148,7 @@ export default {
   .mobile-process-line {
     height: 2px;
     background-color: #333333;
-    margin-bottom: 36px;
+    margin-bottom: 30px;
   }
 
   .firstProcess,
