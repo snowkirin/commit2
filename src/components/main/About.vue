@@ -92,8 +92,8 @@ export default {
 
   .main-about-title {
     letter-spacing: -1.2px;
-    font-size: 20px !important;
-    line-height: 1.3;
+    font-size: 18px !important;
+    line-height: 1.4;
   }
 
   .pd120 {

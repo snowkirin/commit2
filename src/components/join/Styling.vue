@@ -527,7 +527,7 @@ div.btn-times:after {
   }
 
   .content-title {
-    margin-top: 35px !important;
+    margin-top: 30px !important;
   }
 
   .zuly-circle-text {

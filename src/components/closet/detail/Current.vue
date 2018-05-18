@@ -76,7 +76,7 @@
         <div class="current-closet-item">
           <template v-for="(closet, k) in currentCloset.products">
             <div v-if="closet.id !== null" v-bind:key="k" class="closet-item-card mt35">
-              <div class="item-checkbox">
+              <div class="item-checkbox" v-show="closet.sold_flag !== 1">
                 <label class="container">
                   <input type="checkbox" name="product" :value="closet.id" @click="productEvt($event, k)">
                   <span class="checkmark" style="width: 40px; height: 40px;"></span>

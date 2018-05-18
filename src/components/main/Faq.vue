@@ -202,7 +202,7 @@ export default {
 
 @media screen and (max-width: 486px) {
   .faq-question {
-    margin-top: 37px !important;
+    margin-top: 32px !important;
   }
 
   span.en-font {
@@ -211,7 +211,7 @@ export default {
 
   .faq-answer-text {
     padding: 20px !important;
-    font-size: 15px !important;
+    font-size: 14px !important;
   }
 
   .mt40 {
