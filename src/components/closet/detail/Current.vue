@@ -98,9 +98,9 @@
                     <span class="normal-price">{{ $common.numberWithCommas(closet.sale_price) }}원</span><br/>
                     <span style="line-height: 1.8;">혜택가 {{ $common.numberWithCommas(closet.used_price) }}원 <span class="normal-price-percent">({{ closet.discount_rate }}%↓)</span></span>
                   </div>
-                  <!-- p>
+                  <!-- <p style="cursor:pointer" @click="viewModal">
                     상품 상세보기
-                  </p -->
+                  </p> -->
                 </div>
               </div>
             </div>
@@ -136,12 +136,14 @@
         </div>
       </div>
     </div>
+    <detail-modal ref="detail" dataId="address"></detail-modal>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import FeedBack from '@/components/closet/feedback/Index';
+import DetailModal from '@/components/common/DetailModal';
 
 export default {
   name: 'current',
@@ -159,6 +161,7 @@ export default {
   },
   components: {
     FeedBack,
+    DetailModal,
   },
   computed: {
     ...mapGetters({
@@ -229,6 +232,9 @@ export default {
       //   .catch(err => console.log(err));
       // this.initPaymentCurrent();
       await this.buyUsedProduct(this.buyProductArr);
+    },
+    viewModal() {
+      this.$refs.detail.openModal();
     },
   },
   async created() {
@@ -576,6 +582,7 @@ div.btn-times:after {
   .closet-styling-tip {
     height: 900px;
     display: block;
+    margin-top: 30px !important;
   }
 
   .closet-styling-one-tip {
