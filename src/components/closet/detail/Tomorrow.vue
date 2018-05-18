@@ -552,6 +552,8 @@ export default {
   .content-table span {
     font-size: 26px;
   }
-
+  .mt50 {
+    margin-top: 30px !important;
+  }
 }
 </style>

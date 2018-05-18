@@ -582,7 +582,6 @@ div.btn-times:after {
   .closet-styling-tip {
     height: 900px;
     display: block;
-    margin-top: 30px !important;
   }
 
   .closet-styling-one-tip {
