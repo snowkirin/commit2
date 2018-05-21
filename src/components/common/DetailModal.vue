@@ -6,39 +6,55 @@
         <div class="btn-times"></div>
       </div>
     </div>
-    <div class="detail-message">
-      <!-- <div>
-        <div class="button-prev">
-          <ruler height="100%" width="100%">
-            <svg viewBox="0 0 42 80" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
-              <polyline fill="none" stroke="#333333" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" points="45.63,75.8 0.375,38.087 45.63,0.375"/>
+    <div class="detail-image-area">
+      <div class="detail-message detail-mainimage">
+        <div class="image-navigation">
+          <div class="prev-navigation" @click="clickPrev()">
+            <svg class="nav-svg-size" viewBox="0 0 50 80" xml:space="preserve">
+              <polyline fill="none" stroke="#333333" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" points="45.63,75.8 0.375,38.087 45.63,0.375"></polyline>
             </svg>
-          </ruler>
-        </div>
-        <div class="button-next">
-          <ruler height="100%" width="100%">
-            <svg viewBox="0 0 42 80" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
-              <path d="M1 0l40 40.083L1.166 80" style="fill: none; fill-rule: evenodd; stroke: #333333; stroke-width: 1; stroke-linecap: round; stroke-linejoin: round"></path>
+          </div>
+          <div class="next-navigation" @click="clickNext()">
+            <svg class="nav-svg-size" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 80" xml:space="preserve">
+              <polyline fill="none" stroke="#333333" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" points="0.375,0.375 45.63,38.087 0.375,75.8"/>
             </svg>
-          </ruler>
+          </div>
         </div>
-      </div> -->
-      <carousel
-        :per-page="1"
-        :navigationEnabled="navigationEnabled"
-        :paginationEnabled="paginationEnabled"
-        :navigationPrevLabel="navigationPrevLabel"
-        :navigationNextLabel="navigationNextLabel">
-        <slide class="main-image-area">
-          <div class="main-image" style="background-image: url('http://dev-image.zuly.co.kr/product/2018/04/16/59962728-14f4-4352-be4a-b6facd017ddb.jpg');"></div>
-        </slide>
-        <slide>
-          <div class="main-image" style="background-image: url('http://dev-image.zuly.co.kr/product/2018/04/16/f487b29f-aafb-44de-9c33-7a39caef5344.jpg');"></div>
-        </slide>
-        <slide>
-          <div class="main-image" style="background-image: url('http://dev-image.zuly.co.kr/product/2018/04/16/59962728-14f4-4352-be4a-b6facd017ddb.jpg');"></div>
-        </slide>
-      </carousel>
+        <carousel
+          :per-page="1"
+          :navigateTo.sync="navigateTo"
+          :navigationEnabled="navigationEnabled"
+          :paginationEnabled="paginationEnabled"
+          :navigationPrevLabel="navigationPrevLabel"
+          :navigationNextLabel="navigationNextLabel">
+          <slide class="main-image-area">
+            <div class="main-image" style="background-image: url('http://dev-image.zuly.co.kr/product/2018/04/16/f487b29f-aafb-44de-9c33-7a39caef5344.jpg');"></div>
+          </slide>
+          <slide>
+            <div class="main-image" style="background-image: url('http://dev-image.zuly.co.kr/product/2018/04/16/59962728-14f4-4352-be4a-b6facd017ddb.jpg');"></div>
+          </slide>
+          <slide>
+            <div class="main-image" style="background-image: url('http://dev-image.zuly.co.kr/product/2018/04/16/f487b29f-aafb-44de-9c33-7a39caef5344.jpg');"></div>
+          </slide>
+          <slide>
+            <div class="main-image" style="background-image: url('http://dev-image.zuly.co.kr/product/2018/04/16/59962728-14f4-4352-be4a-b6facd017ddb.jpg');"></div>
+          </slide>
+        </carousel>
+      </div>
+      <div class="detail-message detail-subimage">
+        <div class="thumnail-image-area" @click="clickThum(0)">
+          <img class="thumnail-detailimage thumnail-active" src="http://dev-image.zuly.co.kr/product/2018/04/16/f487b29f-aafb-44de-9c33-7a39caef5344.jpg" />
+        </div>
+        <div class="thumnail-image-area" @click="clickThum(1)">
+          <img class="thumnail-detailimage" src="http://dev-image.zuly.co.kr/product/2018/04/16/59962728-14f4-4352-be4a-b6facd017ddb.jpg" />
+        </div>
+        <div class="thumnail-image-area" @click="clickThum(2)">
+          <img class="thumnail-detailimage" src="http://dev-image.zuly.co.kr/product/2018/04/16/f487b29f-aafb-44de-9c33-7a39caef5344.jpg" />
+        </div>
+        <div class="thumnail-image-area" @click="clickThum(3)">
+          <img class="thumnail-detailimage" src="http://dev-image.zuly.co.kr/product/2018/04/16/59962728-14f4-4352-be4a-b6facd017ddb.jpg" />
+        </div>
+      </div>
     </div>
     <div class="detail-message mb0 en-font">
       <span class="detail-info-header">상품정보 보기</span>
@@ -66,7 +82,8 @@ export default {
       content: '',
       type: 'detail',
       modal: null,
-      navigationEnabled: true,
+      navigateTo: 0,
+      navigationEnabled: false,
       paginationEnabled: false,
       navigationPrevLabel: `<svg width='30px' height='60px' viewBox='0 0 50 80' xml:space='preserve'>
                               <polyline fill='none' stroke='#333333' stroke-width='1' stroke-linecap='round' stroke-linejoin='round' points='45.63,75.8 0.375,38.087 45.63,0.375'/>
@@ -78,6 +95,11 @@ export default {
   },
   props: {
   },
+  watch: {
+    navigateTo(val) {
+      console.log(val);
+    },
+  },
   methods: {
     openModal() {
       this.modal.style.display = 'block';
@@ -85,13 +107,27 @@ export default {
     closeModal() {
       this.modal.style.display = 'none';
     },
+    clickThum(number) {
+      const thumbList = document.querySelectorAll('.thumnail-detailimage');
+
+      for (let i = 0; thumbList.length > i; i += 1) {
+        if (number === i) thumbList[i].classList.add('thumnail-active');
+        else thumbList[i].classList.remove('thumnail-active');
+      }
+
+      this.navigateTo = number;
+    },
+    clickPrev() {
+      const currentPage = this.navigateTo;
+      if (currentPage > 0) this.navigateTo = currentPage - 1;
+    },
+    clickNext() {
+      const currentPage = this.navigateTo;
+      if (currentPage < 3) this.navigateTo = currentPage + 1;
+    },
   },
   mounted() {
     this.modal = document.querySelector('div.detail-frame');
-    document.querySelector('.VueCarousel-navigation-prev').style.transform = 'translate(0%)';
-    document.querySelector('.VueCarousel-navigation-prev').style.marginTop = '-12%';
-    document.querySelector('.VueCarousel-navigation-next').style.transform = 'translate(0%)';
-    document.querySelector('.VueCarousel-navigation-next').style.marginTop = '-12%';
   },
 };
 </script>
@@ -242,36 +278,44 @@ div.btn-times:after {
   transform: translate(0%, 0%) !important;
 }
 
-.prev-custom {
-  padding: 20px;
+.detail-image-area {
+  display:table; margin-right: 20px;
 }
 
-.button-prev {
-  position: absolute;
-  z-index: 10;
-  left: 20px;
-  top: 32%;
-  width: 20px;
-  height: 40px;
-  padding: 20px;
-  border: 0;
-  background: none;
-  -webkit-transform: translate(0%, 0%) scale(1);
-  transform: translate(0%, 0%) scale(1.5);
+.detail-mainimage {
+  float: left; width: 80%;
 }
 
-.button-next {
-  position: absolute;
-  z-index: 10;
-  right: 20px;
-  top: 32%;
-  width: 20px;
-  height: 40px;
-  padding: 20px;
-  border: 0;
-  background: none;
-  -webkit-transform: translate(0%, 0%) scale(1);
-  transform: translate(0%, 0%) scale(1.5);
+.detail-subimage {
+  float: left; width: 20%;
+}
+
+.image-navigation {
+  position:relative; width: 100%; z-index: 9999;
+}
+
+.prev-navigation {
+  position: absolute; left: 20px;
+}
+
+.next-navigation {
+  position: absolute; right: 20px;
+}
+
+.nav-svg-size {
+  width: 30px; height: 60px;
+}
+
+.thumnail-image-area {
+  padding: 0 0 12px 10px;
+}
+
+.thumnail-detailimage {
+  width: 100px; height: 100px;
+}
+
+.thumnail-active {
+  border: solid 1px #333333;
 }
 
 @media screen and (max-width: 486px) {
