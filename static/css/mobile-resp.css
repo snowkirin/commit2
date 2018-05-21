@@ -15,8 +15,8 @@
 
 .benefit-main-title {
   width: 100% !important;
-  letter-spacing: -2.6px;
-  line-height: 1.35;
+  letter-spacing: -2.2px;
+  line-height: 1.4;
 }
 
 .subContent {
@@ -50,7 +50,7 @@
 }
 
 .benefit-title {
-  font-size: 25px !important;
+  font-size: 26px !important;
   letter-spacing: -2.2px !important;
 }
 
@@ -84,7 +84,7 @@
 }
 
 .menu-title {
-  font-size: 17px !important;
+  font-size: 16px !important;
 }
 
 .process-card {
@@ -154,11 +154,14 @@
 .clothes {
   padding: 0 4.8% !important;
 }
+.closet-header {
+  height: 190px !important;
+}
 
 .closet-noti-info {
   box-sizing: border-box !important;
   width: 100% !important;
-  margin-top: 49px !important;
+  margin-top: 30px !important;
   margin-right: 0 !important;
   float: none !important;
   padding: 0 30px;
@@ -216,12 +219,24 @@ div.subContent {
 
 .main-about-title,
 .login-title,
-.content-title {
-  font-size: 32px;
+.content-title,
+.findId-title {
+  font-size: 26px !important;
 }
-
+.main-cs-noti,
+.explain,
+.faq-answer-text,
+.process-text,
+.form-login-input,
+.form-login-group,
+.main-about-service,
+.checkboxText
+ {
+  font-size: 14px !important;
+  letter-spacing: -0.6px !important;
+}
 .main-cs-tel {
-  font-size: 30px !important;
+  font-size: 26px !important;
   letter-spacing: -0.2px !important;
 }
 
@@ -250,12 +265,16 @@ div.subContent {
 
 
 .main-cs-noti, .footer-info {
-  font-size: 16px !important;
+  font-size: 15px !important;
   letter-spacing: -0.7px !important;
 }
 
 .closet-title-text {
-  font-size: 26px !important;
+  font-size: 22px !important;
+  margin-top: 10px !important;
+  line-height: 1.4 !important;
+  letter-spacing: -2px;
+
 }
 
 .closet-title-sub-text {
@@ -272,7 +291,58 @@ div.subContent {
 .alert-modal-content {
   font-size: 18px !important;
 }
-
+.content-second-title{
+    font-size: 14px;
+    font-weight: 600;
+    padding-top: 10px;
+}
+.content-first-number,
+.content-second-text,
+.closet-item-card,
+.item-buy-row-title,
+.style-content-data,
+.mypage-content-data
+.button-grey,
+.button-grey,
+.button-login,
+.mypage-content-data,
+.closet-styling-tip-text,
+.closet-styling-tip-hashtag,
+.size-each,
+.colors-card,
+.patterns-text,
+.signup-payment-text,
+.explain,
+.signup-payment-label,
+.signup-payment-label-normal,
+.requirement-textarea
+{
+  font-size: 16px !important;
+  letter-spacing: -0.5px !important;
+}
+.zuly-detail-circle-text span.description {
+  margin-top: 4px !important;
+}
+.signup-payment-text{
+  margin-top: 5px !important;
+}
+.item-buy-row-right
+{
+  font-size: 20px !important;
+}
+.item-buy-title{
+  font-size: 24px !important;
+  padding: 5px 0 !important;
+}
+.mt30 {
+    margin-top: 15px !important;
+}
+.mt40 {
+    margin-top: 20px !important;
+}
+.mt50 {
+    margin-top: 25px !important;
+}
 /** datapicker */
 .vdp-datepicker__calendar header .next,
 .vdp-datepicker__calendar header .prev {

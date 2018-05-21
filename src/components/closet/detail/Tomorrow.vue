@@ -9,7 +9,7 @@
     </div>
     <div v-show="isShow">
       <div class="main-point-text closet-title">내일의 옷장</div>
-      <div class="closet-title-text mt20">
+      <div class="closet-title-text mt15">
         2가지 데일리룩 후보 중 마음에 드는<br/>
         의상을 선택해주세요.
       </div>
@@ -552,6 +552,8 @@ export default {
   .content-table span {
     font-size: 26px;
   }
-
+  .mt50 {
+    margin-top: 30px !important;
+  }
 }
 </style>

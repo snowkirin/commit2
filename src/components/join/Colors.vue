@@ -4,7 +4,7 @@
       <span v-show="!this.Authentication.authenticated">색상 선택</span>
       <styleMenu v-show="this.Authentication.authenticated" menuTitle="색상 선택"></styleMenu>
     </div>
-    <div class="explain mt8">
+    <div class="explain mt10">
       스타일링을 위한 색상 선택에 활용됩니다.
     </div>
     <div class="colorsLine mt25"></div>

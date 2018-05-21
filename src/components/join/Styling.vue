@@ -4,7 +4,7 @@
       <span v-show="!this.Authentication.authenticated">선호 스타일</span>
       <styleMenu v-show="this.Authentication.authenticated" menuTitle="선호 스타일"></styleMenu>
     </div>
-    <div class="explain mt8">
+    <div class="explain mt10">
       줄라이는 베이직 스타일을 기본으로 합니다.
     </div>
     <div class="stylingLine mt25"></div>
@@ -366,7 +366,7 @@ div.btn-times:after {
 .zuly-circle-text {
   display: table-cell;
   vertical-align: middle;
-  font-size: 36px;
+  font-size: 32px;
   font-weight: 600;
   line-height: 1;
   text-align: center;
@@ -391,7 +391,7 @@ div.btn-times:after {
 .zuly-detail-circle-text {
   display: table-cell;
   vertical-align: middle;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1;
   text-align: center;
   color: #333333;
@@ -400,8 +400,8 @@ div.btn-times:after {
 .zuly-detail-circle-text span.description {
   display: inline-block;
   margin-top: 8px;
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: 14px;
+  line-height: 1.4;
   color: #797979;
 }
 
@@ -565,7 +565,7 @@ div.btn-times:after {
   }
 
   .zuly-detail-circle-text {
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .zuly-detail-circle-text span.description {

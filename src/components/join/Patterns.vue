@@ -4,7 +4,7 @@
       <span v-show="!this.Authentication.authenticated">기피 패턴</span>
       <styleMenu v-show="this.Authentication.authenticated" menuTitle="기피 패턴"></styleMenu>
     </div>
-    <div class="explain mt8">
+    <div class="explain mt10">
       받고 싶지 않은 스타일을 모두 선택해주세요.
     </div>
     <div class="patternsLine mt25"></div>
@@ -18,7 +18,7 @@
           :class="[k + 1 === printDataList.length ? 'closet-select-mobile' : '', {'card-oncolor': data.selected, 'pattern-mobile': (k % 2 === 0) ? (k !== 0) ? true : false : false, }]"
           @click="pickManagement({ type: 'pattern', id: data.code })"
           v-bind:style="{
-            marginTop: ((k+1) % 6 === 0) ? '35px' : null,
+            marginTop: ((k+1) % 6 === 0) ? '50px' : null,
           }"
         >
           <div class="patterns-images">
@@ -198,6 +198,7 @@ export default {
   text-align: center;
   color: #333333;
   position: absolute;
+  margin-top: 5px;
   opacity: 1;
   top: 110%;
   left: 50%;

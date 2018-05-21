@@ -28,7 +28,7 @@
 .main-cs-tel,
 .login-title,
 .content-title {
-  font-size: 36px;
+  font-size: 32px;
   font-style: normal;
   font-stretch: normal;
   letter-spacing: -1.2px;
@@ -37,15 +37,14 @@
 }
 
 .main-cs-noti,
-.explain,
 .faq-answer-text,
 .process-text,
 .main-about-service {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
-  letter-spacing: -1px;
+  letter-spacing: -0.4px;
   color: #333333;
 }
 
@@ -81,7 +80,7 @@
 }
 
 .menu-title {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 400;
   font-style: normal;
   font-stretch: normal;

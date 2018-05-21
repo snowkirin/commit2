@@ -1,6 +1,6 @@
 <template>
   <div class="closet-mobile-menu">
-    <div class="closet-menu mt30">
+    <div class="closet-menu" style="margin-top:30px">
       <div id="tomorrow" class="menu" data-id="tomorrow" :class="{ 'closet_active' : activeMenuName === 'tomorrow' }" @click="menuClick('/closet/tomorrow')">내일의옷장</div>
       <div id="current" class="menu" data-id="current" :class="{ 'closet_active' : activeMenuName === 'current' }" @click="menuClick('/closet/current')">현재의옷장</div>
       <div id="past" class="menu" data-id="past" :class="{ 'closet_active' : activeMenuName === 'past' }" @click="menuClick('/closet/past')">과거의옷장</div>

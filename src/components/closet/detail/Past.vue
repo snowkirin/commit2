@@ -1,7 +1,7 @@
 <template>
   <div class="past mt40">
     <div class="main-point-text closet-title">과거의 옷장</div>
-    <div class="closet-title-text mt20">
+    <div class="closet-title-text mt15">
       그 동안의 옷장을 확인하실 수 있습니다.
     </div>
     <div class="closet-content mt50">

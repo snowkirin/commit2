@@ -86,12 +86,12 @@
 }
 
 .closet-my-info {
-  font-size: 45px;
+  font-size: 38px !important;
 }
 
 .closet-noti-info {
   width: 100% !important;
-  margin-top: 42px !important;
+  margin-top: 25px !important;
   margin-left: -13px;
   margin-right: 0 !important;
   float: none !important;

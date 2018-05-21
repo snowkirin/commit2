@@ -10,7 +10,7 @@
 
     <div v-show="!currentNone">
       <div class="main-point-text closet-title">현재의 옷장</div>
-      <div class="closet-title-text mt20">
+      <div class="closet-title-text mt15">
         현재 대여중인 의상이 마음에 드신다면?<br/>
         반납 없이 구매할 수 있습니다.<br/>
       </div>
@@ -98,9 +98,9 @@
                     <span class="normal-price">{{ $common.numberWithCommas(closet.sale_price) }}원</span><br/>
                     <span style="line-height: 1.8;">혜택가 {{ $common.numberWithCommas(closet.used_price) }}원 <span class="normal-price-percent">({{ closet.discount_rate }}%↓)</span></span>
                   </div>
-                  <!-- p>
+                  <!-- <p style="cursor:pointer" @click="viewModal">
                     상품 상세보기
-                  </p -->
+                  </p> -->
                 </div>
               </div>
             </div>
@@ -136,12 +136,14 @@
         </div>
       </div>
     </div>
+    <detail-modal ref="detail" dataId="address"></detail-modal>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import FeedBack from '@/components/closet/feedback/Index';
+import DetailModal from '@/components/common/DetailModal';
 
 export default {
   name: 'current',
@@ -159,6 +161,7 @@ export default {
   },
   components: {
     FeedBack,
+    DetailModal,
   },
   computed: {
     ...mapGetters({
@@ -229,6 +232,9 @@ export default {
       //   .catch(err => console.log(err));
       // this.initPaymentCurrent();
       await this.buyUsedProduct(this.buyProductArr);
+    },
+    viewModal() {
+      this.$refs.detail.openModal();
     },
   },
   async created() {

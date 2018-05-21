@@ -403,7 +403,6 @@ export default {
   text-align: left;
   display: table-cell;
   vertical-align: bottom;
-  letter-spacing: -2px;
 }
 
 .checkboxText span {

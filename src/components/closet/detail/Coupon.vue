@@ -1,7 +1,7 @@
 <template>
   <div class="notice mt40">
     <div class="main-point-text closet-title">쿠폰 등록/내역</div>
-    <div class="closet-title-text mt20">
+    <div class="closet-title-text mt15">
       쿠폰 번호를 입력하세요.
     </div>
     <div class="security-input">

@@ -1,7 +1,7 @@
 <template>
   <div class="mypage mt40">
     <div class="main-point-text closet-title">나의 정보관리</div>
-    <div class="closet-title-text mt20">
+    <div class="closet-title-text mt15">
       나의 정보를 변경 하실 수 있습니다.
     </div>
     <div class="mypage-content mt50">
@@ -15,7 +15,7 @@
             <div class="mypage-content-header">이메일</div>
             <div class="mypage-content-data mobile-v">
               {{ mypageData.email }}
-              <button id="changeEmail" class="button-grey" style="width: 25%; margin-left: 5px;" @click="displayEvt('emailarea', 'changeEmail', '이메일 변경')">이메일 변경</button>
+              <button id="changeEmail" class="button-grey" style="width: 20%; margin-left: 5px;" @click="displayEvt('emailarea', 'changeEmail', '이메일 변경')">이메일 변경</button>
             </div>
             <div class="mypage-content-data mt10 hide-area" id="emailarea">
               <div class="field">
@@ -92,7 +92,7 @@
               <div class="field">
                 <div class="mypage-content-data mobile-v">
                   <span style="width: 60%;">{{ getCardInfo() }}</span>
-                  <button id="changeCard" class="button-grey" style="width: 25%;"
+                  <button id="changeCard" class="button-grey" style="width: 20%;"
                   :style="{ 'margin-left': (mypageData.card_name !== null && mypageData.card_name !== undefined) ? '5px' : '0px;' }"
                   @click="displayEvt('cardarea', 'changeCard', '카드 변경')">카드 변경</button>
                 </div>

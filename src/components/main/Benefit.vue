@@ -71,10 +71,10 @@ export default {
   position: relative;
   top: 1px;
   background: url('/static/img/icons/zuly_icon.png') no-repeat -43px -8px;
-  background-size: 250px 250px;
+  background-size: 239px 239px;
   width: 37.5px;
   height: 23.5px;
-  margin-left: 26%;
+  margin-left: 31%;
 }
 
 .special-title {
@@ -84,7 +84,7 @@ export default {
 
 @media screen and (max-width: 486px) {
   .arrowIcon {
-    margin-left: 35.8% !important;
+    margin-left: 39.8% !important;
   }
 }
 </style>
