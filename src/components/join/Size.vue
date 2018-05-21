@@ -4,7 +4,7 @@
       <span v-show="!this.Authentication.authenticated">사이즈</span>
       <styleMenu v-show="this.Authentication.authenticated" menuTitle="사이즈"></styleMenu>
     </div>
-    <div class="explain mt8">
+    <div class="explain mt10">
       다음 질문들은 스타일리스트가 체형을 정확히 파악하여 연출하는데 도움이 됩니다.
     </div>
     <div class="sizeLine mt25"></div>
@@ -224,7 +224,7 @@ export default {
   text-align: left;
   padding-left: 15px;
   height: 60px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 300;
 }
 

@@ -10,7 +10,7 @@
 
     <div v-show="!currentNone">
       <div class="main-point-text closet-title">현재의 옷장</div>
-      <div class="closet-title-text mt20">
+      <div class="closet-title-text mt15">
         현재 대여중인 의상이 마음에 드신다면?<br/>
         반납 없이 구매할 수 있습니다.<br/>
       </div>

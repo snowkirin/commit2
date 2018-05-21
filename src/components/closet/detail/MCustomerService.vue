@@ -1,7 +1,7 @@
 <template>
   <div class="mobile-customer-service mt40">
     <div class="main-point-text closet-title">문의 신청 / 내역</div>
-    <div class="closet-title-text mt20">
+    <div class="closet-title-text mt15">
       고객님의 소중한 의견으로 한 뼘 더 자라는 줄라이가 되겠습니다.
     </div>
     <div class="cs-menu mt30">

@@ -92,7 +92,7 @@
           총 가격
           <span style="float: right;">￦78,000</span>
         </div>
-        <div class="signup-chk-area mt30" @click="checkBoxEvt">
+        <div class="signup-chk-area mt40" @click="checkBoxEvt">
           <label class="container">
             <input type="checkbox" name="private_flag" value="Y" />
             <span class="checkmark"></span>
@@ -255,12 +255,12 @@ export default {
 }
 
 .signup-payment-title {
-  font-size: 36px;
+  font-size: 32px;
   font-weight: 600;
   font-style: normal;
   font-stretch: normal;
-  line-height: 1.26;
-  letter-spacing: -1px;
+  line-height: 1.32;
+  letter-spacing: -1.5px;
   text-align: left;
   color: #333333;
   position: relative;
@@ -268,19 +268,20 @@ export default {
 }
 @media screen and (max-width: 486px) {
   .signup-payment-title {
-    font-size: 32px;
+    font-size: 26px;
   }
 }
 
 .signup-payment-title span {
   position: relative;
-  letter-spacing: -3.2px;
   right: 2px;
+  letter-spacing: -1.0px;
 }
 
 .signup-payment-text {
-  line-height: 1.7;
+  line-height: 1.5;
   margin-top: 10px;
+  letter-spacing: -0.4px;
 }
 
 .signup-payment-text span {
@@ -288,7 +289,6 @@ export default {
 }
 
 .signup-payment-label {
-  font-size: 16px;
   font-weight: 600;
   font-style: normal;
   font-stretch: normal;
@@ -298,7 +298,6 @@ export default {
 }
 
 .signup-payment-label-normal {
-  font-size: 16px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
@@ -339,7 +338,8 @@ export default {
   text-align: left;
   display: table-cell;
   vertical-align: bottom;
-  letter-spacing: -2px;
+  letter-spacing: -1px;
+  font-size: 16px;
 }
 
 .on {

@@ -1,7 +1,7 @@
 <template>
   <div class="style mt40">
     <div class="main-point-text closet-title">스타일정보</div>
-    <div class="closet-title-text mt20">
+    <div class="closet-title-text mt15">
       줄라이는 베이직 스타일을 기본으로 합니다.
     </div>
     <div class="style-content mt50">

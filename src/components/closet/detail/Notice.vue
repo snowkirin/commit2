@@ -1,7 +1,7 @@
 <template>
   <div class="notice mt40">
     <div class="main-point-text closet-title">공지사항</div>
-    <div class="closet-title-text mt20">
+    <div class="closet-title-text mt15">
       줄라이의 소식을 확인해보세요.
     </div>
     <div class="closet-content mt50">

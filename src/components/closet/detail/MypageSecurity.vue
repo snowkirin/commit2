@@ -1,7 +1,7 @@
 <template>
   <div class="mypage mt40">
     <div class="main-point-text closet-title">나의 정보관리</div>
-    <div class="closet-title-text mt20">
+    <div class="closet-title-text mt15">
       안전하게 보호하기 위해 비밀번호를<br/>
       다시 한번 확인 합니다.
     </div>
