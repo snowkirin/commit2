@@ -87,8 +87,8 @@ export default {
 
 .closet-my-info {
   padding: 30px 0 0 30px;
-  line-height: 0.9;
   font-size: 45px;
+  line-height: 0.9;
   font-weight: 300;
   font-style: normal;
   font-stretch: normal;
@@ -153,8 +153,8 @@ export default {
 
 @media screen and (max-width: 486px) {
   .closet-my-info {
-    padding: 6% 4.8% 0 3.5% !important;
     font-size: 32px;
+    padding: 6% 4.8% 0 3.5% !important;
   }
 
   .closet-noti-info {
