@@ -79,7 +79,7 @@ export default {
 
 .menu {
   display: inline-block;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
@@ -124,7 +124,7 @@ export default {
 
   .menu {
     display: inline-block;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: normal;
     font-style: normal;
     font-stretch: normal;
@@ -134,7 +134,7 @@ export default {
     margin-right: 10px;
     height: 91%;
     cursor: pointer;
-    line-height: 2;
+    line-height: 1;
   }
 
   .menu a {
