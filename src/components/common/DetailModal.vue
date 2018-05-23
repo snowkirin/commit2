@@ -1,46 +1,10 @@
 <template>
 <div class="detail-frame">
-  <div class="detail-content">
-    <div class="detail-modal-title">스키니핏 팬츠
-      <div class="detail-modal-btn" @click="closeModal">
-        <div class="btn-times"></div>
-      </div>
+  <div class="detail-content scroll">
+    <div class="detail-modal-btn" @click="closeModal">
+      <div class="btn-times"></div>
     </div>
     <div class="detail-image-area">
-      <div class="detail-message detail-mainimage">
-        <div class="image-navigation">
-          <div class="prev-navigation" @click="clickPrev()">
-            <svg class="nav-svg-size" viewBox="0 0 50 80" xml:space="preserve">
-              <polyline fill="none" stroke="#333333" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" points="45.63,75.8 0.375,38.087 45.63,0.375"></polyline>
-            </svg>
-          </div>
-          <div class="next-navigation" @click="clickNext()">
-            <svg class="nav-svg-size" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 80" xml:space="preserve">
-              <polyline fill="none" stroke="#333333" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" points="0.375,0.375 45.63,38.087 0.375,75.8"/>
-            </svg>
-          </div>
-        </div>
-        <carousel
-          :per-page="1"
-          :navigateTo.sync="navigateTo"
-          :navigationEnabled="navigationEnabled"
-          :paginationEnabled="paginationEnabled"
-          :navigationPrevLabel="navigationPrevLabel"
-          :navigationNextLabel="navigationNextLabel">
-          <slide class="main-image-area">
-            <div class="main-image" style="background-image: url('http://dev-image.zuly.co.kr/product/2018/04/16/f487b29f-aafb-44de-9c33-7a39caef5344.jpg');"></div>
-          </slide>
-          <slide>
-            <div class="main-image" style="background-image: url('http://dev-image.zuly.co.kr/product/2018/04/16/59962728-14f4-4352-be4a-b6facd017ddb.jpg');"></div>
-          </slide>
-          <slide>
-            <div class="main-image" style="background-image: url('http://dev-image.zuly.co.kr/product/2018/04/16/f487b29f-aafb-44de-9c33-7a39caef5344.jpg');"></div>
-          </slide>
-          <slide>
-            <div class="main-image" style="background-image: url('http://dev-image.zuly.co.kr/product/2018/04/16/59962728-14f4-4352-be4a-b6facd017ddb.jpg');"></div>
-          </slide>
-        </carousel>
-      </div>
       <div class="detail-message detail-subimage">
         <div class="thumnail-image-area" @click="clickThum(0)">
           <img class="thumnail-detailimage thumnail-active" src="http://dev-image.zuly.co.kr/product/2018/04/16/f487b29f-aafb-44de-9c33-7a39caef5344.jpg" />
@@ -55,14 +19,52 @@
           <img class="thumnail-detailimage" src="http://dev-image.zuly.co.kr/product/2018/04/16/59962728-14f4-4352-be4a-b6facd017ddb.jpg" />
         </div>
       </div>
-    </div>
-    <div class="detail-message mb0 en-font">
-      <span class="detail-info-header">상품정보 보기</span>
-      <span class="detail-info">색상 : 핑크</span>
-      <span class="detail-info">핏감 : 슬림</span>
-      <span class="detail-info">두께 : 얇음</span>
-      <span class="detail-info">신축성 : 있음</span>
-      <span class="detail-info">비침 : 있음</span>
+      <div class="detail-message detail-mainimage">
+        <div class="prev-navigation" @click="clickPrev()">
+          <svg class="nav-svg-size" viewBox="0 0 50 80" xml:space="preserve">
+            <polyline fill="none" stroke="#333333" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" points="45.63,75.8 0.375,38.087 45.63,0.375"></polyline>
+          </svg>
+        </div>
+        <div class="next-navigation" @click="clickNext()">
+          <svg class="nav-svg-size" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 80" xml:space="preserve">
+            <polyline fill="none" stroke="#333333" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" points="0.375,0.375 45.63,38.087 0.375,75.8"/>
+          </svg>
+        </div>
+        <div class="main-image-area">
+          <carousel
+            :per-page="1"
+            :navigateTo.sync="navigateTo"
+            :navigationEnabled="navigationEnabled"
+            :paginationEnabled="paginationEnabled"
+            :navigationPrevLabel="navigationPrevLabel"
+            :navigationNextLabel="navigationNextLabel">
+            <slide data-index="0"
+                   :slideClick="handleSlideClick">
+              <img class="main-image" src="http://dev-image.zuly.co.kr/product/2018/04/16/f487b29f-aafb-44de-9c33-7a39caef5344.jpg" />
+            </slide>
+            <slide data-index="1"
+                  :slideClick="handleSlideClick">
+              <img class="main-image" src="http://dev-image.zuly.co.kr/product/2018/04/16/59962728-14f4-4352-be4a-b6facd017ddb.jpg" />
+            </slide>
+            <slide data-index="2"
+                  :slideClick="handleSlideClick">
+              <img class="main-image" src="http://dev-image.zuly.co.kr/product/2018/04/16/f487b29f-aafb-44de-9c33-7a39caef5344.jpg" />
+            </slide>
+            <slide data-index="3"
+                  :slideClick="handleSlideClick">
+              <img class="main-image" src="http://dev-image.zuly.co.kr/product/2018/04/16/59962728-14f4-4352-be4a-b6facd017ddb.jpg" />
+            </slide>
+          </carousel>
+        </div>
+      </div>
+      <div class="detail-message detail-maininfo en-font">
+        <span class="detail-info-header">상품정보 보기</span>
+        <span class="detail-info">색상 : 핑크</span>
+        <span class="detail-info">핏감 : 슬림</span>
+        <span class="detail-info">두께 : 얇음</span>
+        <span class="detail-info">신축성 : 있음</span>
+        <span class="detail-info">비침 : 있음</span>
+      </div>
     </div>
   </div>
 </div>
@@ -95,11 +97,6 @@ export default {
   },
   props: {
   },
-  watch: {
-    navigateTo(val) {
-      console.log(val);
-    },
-  },
   methods: {
     openModal() {
       this.modal.style.display = 'block';
@@ -120,10 +117,17 @@ export default {
     clickPrev() {
       const currentPage = this.navigateTo;
       if (currentPage > 0) this.navigateTo = currentPage - 1;
+
+      this.clickThum(this.navigateTo);
     },
     clickNext() {
       const currentPage = this.navigateTo;
       if (currentPage < 3) this.navigateTo = currentPage + 1;
+
+      this.clickThum(this.navigateTo);
+    },
+    handleSlideClick(dataset) {
+      console.log(dataset);
     },
   },
   mounted() {
@@ -153,7 +157,7 @@ export default {
   left: 50%;
   box-sizing: border-box;
   min-width: 300px;
-  width: inherit;
+  width: 55%;
   height: inherit;
   padding: 25px;
   background-color: #ffffff;
@@ -166,7 +170,6 @@ export default {
 
 .detail-message {
   width: 100%;
-  margin-bottom: 20px;
   font-size: 18px;
   font-weight: normal;
   font-style: normal;
@@ -213,11 +216,11 @@ export default {
 .detail-modal-btn {
   width: 48px;
   height: 48px;
-  background-color: #FFFFFF;
-  position: absolute;
+  position: fixed;
   opacity: 1;
-  top: 5%;
-  left: 95%;
+  top: 30px;
+  left: 98%;
+  z-index: 9999;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
@@ -255,16 +258,11 @@ div.btn-times:after {
 }
 
 .main-image-area {
-  width: 350px;
-  height: 450px;
+  width: 100%;
 }
 
 .main-image {
-  position: relative;
   width: 100%;
-  height: 100%;
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
 }
 
 .VueCarousel-navigation-prev {
@@ -279,27 +277,37 @@ div.btn-times:after {
 }
 
 .detail-image-area {
-  display:table; margin-right: 20px;
+  display:table;
 }
 
 .detail-mainimage {
-  float: left; width: 80%;
+  position: relative;
+  float: left; width: 65%;
+  margin: 0 20px 0 20px;
 }
 
 .detail-subimage {
-  float: left; width: 20%;
+  float: left; width: 10%;
 }
 
-.image-navigation {
-  position:relative; width: 100%; z-index: 9999;
+.detail-maininfo {
+  float: left; width: 19%;
 }
 
 .prev-navigation {
-  position: absolute; left: 20px;
+  position: absolute;
+  top: 50%;
+  z-index: 10;
+  left: 20px;
+  cursor: pointer;
 }
 
 .next-navigation {
-  position: absolute; right: 20px;
+  position: absolute;
+  top: 50%;
+  z-index: 10;
+  right: 20px;
+  cursor: pointer;
 }
 
 .nav-svg-size {
@@ -311,11 +319,25 @@ div.btn-times:after {
 }
 
 .thumnail-detailimage {
-  width: 100px; height: 100px;
+  width: 100%;
 }
 
 .thumnail-active {
   border: solid 1px #333333;
+}
+
+.scroll {
+  height: 96%;
+  overflow: scroll;
+}
+
+.scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: #dadada;
 }
 
 @media screen and (max-width: 486px) {
@@ -329,9 +351,13 @@ div.btn-times:after {
     left: 91.4%;
   }
 
-  .main-image-area {
-    width: 200px;
-    height: 300px;
+  .thumnail-detailimage {
+    width: 50px;
+  }
+
+  .scroll {
+    height: 90%;
+    overflow: scroll;
   }
 
 }
