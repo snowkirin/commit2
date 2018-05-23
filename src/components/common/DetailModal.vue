@@ -1,11 +1,12 @@
 <template>
 <div class="detail-frame">
   <div class="detail-content scroll">
+    <span class="detail-info-header" v-if="isMobile">스키니핏팬츠</span>
     <div class="detail-modal-btn" @click="closeModal">
       <div class="btn-times"></div>
     </div>
     <div class="detail-image-area">
-      <div class="detail-message detail-subimage">
+      <div class="detail-message detail-subimage" v-if="!isMobile">
         <div class="thumnail-image-area" @click="clickThum(0)">
           <img class="thumnail-detailimage thumnail-active" src="http://dev-image.zuly.co.kr/product/2018/04/16/f487b29f-aafb-44de-9c33-7a39caef5344.jpg" />
         </div>
@@ -35,30 +36,41 @@
             :per-page="1"
             :navigateTo.sync="navigateTo"
             :navigationEnabled="navigationEnabled"
-            :paginationEnabled="paginationEnabled"
-            :navigationPrevLabel="navigationPrevLabel"
-            :navigationNextLabel="navigationNextLabel">
-            <slide data-index="0"
-                   :slideClick="handleSlideClick">
+            :paginationEnabled="paginationEnabled">
+            <slide data-index="0">
               <img class="main-image" src="http://dev-image.zuly.co.kr/product/2018/04/16/f487b29f-aafb-44de-9c33-7a39caef5344.jpg" />
             </slide>
-            <slide data-index="1"
-                  :slideClick="handleSlideClick">
+            <slide data-index="1">
               <img class="main-image" src="http://dev-image.zuly.co.kr/product/2018/04/16/59962728-14f4-4352-be4a-b6facd017ddb.jpg" />
             </slide>
-            <slide data-index="2"
-                  :slideClick="handleSlideClick">
+            <slide data-index="2">
               <img class="main-image" src="http://dev-image.zuly.co.kr/product/2018/04/16/f487b29f-aafb-44de-9c33-7a39caef5344.jpg" />
             </slide>
-            <slide data-index="3"
-                  :slideClick="handleSlideClick">
+            <slide data-index="3">
               <img class="main-image" src="http://dev-image.zuly.co.kr/product/2018/04/16/59962728-14f4-4352-be4a-b6facd017ddb.jpg" />
             </slide>
           </carousel>
+          <div class="carousel-pagination" v-if="isMobile">
+            <ul role="tablist" class="carousel-dot-container">
+              <li aria-hidden="false" role="presentation" aria-selected="false" class="carousel-dot">
+                <button type="button" role="button" tabindex="0" class="carousel-dot-button carousel-dot-button-active" @click="clickDot(0)"></button>
+              </li>
+              <li aria-hidden="false" role="presentation" aria-selected="false" class="carousel-dot">
+                <button type="button" role="button" tabindex="1" class="carousel-dot-button" @click="clickDot(1)"></button>
+              </li>
+              <li aria-hidden="false" role="presentation" aria-selected="false" class="carousel-dot">
+                <button type="button" role="button" tabindex="2" class="carousel-dot-button" @click="clickDot(2)"></button>
+              </li>
+              <li aria-hidden="false" role="presentation" aria-selected="true" class="carousel-dot">
+                <button type="button" role="button" tabindex="3" class="carousel-dot-button" @click="clickDot(3)"></button>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
       <div class="detail-message detail-maininfo en-font">
-        <span class="detail-info-header">상품정보 보기</span>
+        <span class="detail-info-header" v-if="!isMobile">스키니핏팬츠</span>
+        <span class="detail-info-subheader" v-if="isMobile">상품정보 보기</span>
         <span class="detail-info">색상 : 핑크</span>
         <span class="detail-info">핏감 : 슬림</span>
         <span class="detail-info">두께 : 얇음</span>
@@ -87,12 +99,7 @@ export default {
       navigateTo: 0,
       navigationEnabled: false,
       paginationEnabled: false,
-      navigationPrevLabel: `<svg width='30px' height='60px' viewBox='0 0 50 80' xml:space='preserve'>
-                              <polyline fill='none' stroke='#333333' stroke-width='1' stroke-linecap='round' stroke-linejoin='round' points='45.63,75.8 0.375,38.087 45.63,0.375'/>
-                            </svg>`,
-      navigationNextLabel: `<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='30px' height='60px' viewBox='0 0 50 80' xml:space='preserve'>
-                              <polyline fill='none' stroke='#333333' stroke-width='1' stroke-linecap='round' stroke-linejoin='round' points='0.375,0.375 45.63,38.087 0.375,75.8'/>
-                            </svg>`,
+      isMobile: false,
     };
   },
   props: {
@@ -108,8 +115,24 @@ export default {
       const thumbList = document.querySelectorAll('.thumnail-detailimage');
 
       for (let i = 0; thumbList.length > i; i += 1) {
-        if (number === i) thumbList[i].classList.add('thumnail-active');
-        else thumbList[i].classList.remove('thumnail-active');
+        if (number === i) {
+          thumbList[i].classList.add('thumnail-active');
+        } else {
+          thumbList[i].classList.remove('thumnail-active');
+        }
+      }
+
+      this.navigateTo = number;
+    },
+    clickDot(number) {
+      const buttonList = document.querySelectorAll('.carousel-dot-button');
+
+      for (let j = 0; buttonList.length > j; j += 1) {
+        if (number === j) {
+          buttonList[j].classList.add('carousel-dot-button-active');
+        } else {
+          buttonList[j].classList.remove('carousel-dot-button-active');
+        }
       }
 
       this.navigateTo = number;
@@ -118,20 +141,27 @@ export default {
       const currentPage = this.navigateTo;
       if (currentPage > 0) this.navigateTo = currentPage - 1;
 
-      this.clickThum(this.navigateTo);
+      this.clickPrevAndNext();
     },
     clickNext() {
       const currentPage = this.navigateTo;
       if (currentPage < 3) this.navigateTo = currentPage + 1;
 
-      this.clickThum(this.navigateTo);
+      this.clickPrevAndNext();
     },
-    handleSlideClick(dataset) {
-      console.log(dataset);
+    clickPrevAndNext() {
+      if (window.outerWidth <= 486) {
+        this.clickDot(this.navigateTo);
+      } else {
+        this.clickThum(this.navigateTo);
+      }
     },
   },
   mounted() {
     this.modal = document.querySelector('div.detail-frame');
+    if (window.outerWidth <= 486) {
+      this.isMobile = true;
+    }
   },
 };
 </script>
@@ -188,7 +218,16 @@ export default {
   word-break:pre-line;
   display: block;
   text-align:left;
-  font-size:16px;
+  font-size: 20px;
+  font-weight:bold;
+  margin-bottom: 18px;
+}
+
+.detail-info-subheader {
+  word-break:pre-line;
+  display: block;
+  text-align:left;
+  font-size: 16px;
   font-weight:bold;
   margin-bottom: 18px;
 }
@@ -358,6 +397,60 @@ div.btn-times:after {
   .scroll {
     height: 90%;
     overflow: scroll;
+  }
+
+  .detail-mainimage {
+    width: 100%;
+    margin: 0 0 20px 0;
+  }
+
+  .detail-maininfo {
+    width: 100%;
+  }
+
+  .prev-navigation, .next-navigation {
+    top: 40%;
+  }
+
+  .nav-svg-size {
+    width: 25px; height: 50px;
+  }
+
+  .carousel-pagination {
+    position: absolute;
+    bottom: -20px;
+    transform: translate(50%, -20px);
+  }
+
+  .carousel-dot-container {
+    display: inline-block;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  .carousel-dot {
+    display: inline-block;
+    cursor: pointer;
+    margin-top: 20px; padding: 10px;
+  }
+
+  .carousel-dot-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    padding: 0;
+    border-radius: 100%;
+    outline: none;
+    cursor: pointer;
+    width: 10px; height: 10px;
+    background-color: #333333;
+    opacity: 0.1;
+  }
+
+  .carousel-dot-button-active {
+    background-color: #333333;
+    opacity: 1;
   }
 
 }
