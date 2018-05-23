@@ -79,7 +79,7 @@ export default {
 
 .menu {
   display: inline-block;
-  font-size: 20px;
+  font-size: 19px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
@@ -87,7 +87,7 @@ export default {
   text-align: left;
   color: #797979;
   margin-right: 20px;
-  height: 91%;
+  height: 86%;
   cursor: pointer;
   line-height: 1;
 }
@@ -112,6 +112,7 @@ export default {
 
   .closet-menu {
     white-space: nowrap !important;
+    margin-top: 20px !important;
     overflow-x: auto !important;
     overflow-y: hidden !important;
     transition: -ms-transform 0.5s,-webkit-transform 0.5s,transform 0.5s !important;
@@ -124,7 +125,7 @@ export default {
 
   .menu {
     display: inline-block;
-    font-size: 18px;
+    font-size: 17px;
     font-weight: normal;
     font-style: normal;
     font-stretch: normal;
@@ -132,7 +133,7 @@ export default {
     text-align: left;
     color: #797979;
     margin-right: 10px;
-    height: 91%;
+    height: 84%;
     cursor: pointer;
     line-height: 1;
   }
