@@ -69,9 +69,9 @@
         </div>
       </div>
       <div class="detail-message detail-maininfo en-font">
-        <span class="detail-info-header" v-if="!isMobile">스키니핏팬츠</span>
+        <span class="detail-info-header" v-if="!isMobile">스키니핏팬츠스키니핏팬츠스키니핏팬츠스키니핏팬츠</span>
         <span class="detail-info-subheader" v-if="isMobile">상품정보 보기</span>
-        <span class="detail-info">색상 : 핑크</span>
+        <span class="detail-info">색상 : 핑크핑크핑크핑크핑크핑크핑크핑크핑크핑크핑크핑크핑크핑크핑크핑크</span>
         <span class="detail-info">핏감 : 슬림</span>
         <span class="detail-info">두께 : 얇음</span>
         <span class="detail-info">신축성 : 있음</span>
@@ -187,9 +187,9 @@ export default {
   left: 50%;
   box-sizing: border-box;
   min-width: 300px;
-  width: 55%;
+  width: 820px;
   height: inherit;
-  padding: 25px;
+  padding: 25px 25px 10px 25px;
   background-color: #ffffff;
   box-shadow: rgba(0, 0, 0, 0.2) 5px 5px 30px 0px;
   border: solid 1px #333333 !important;
@@ -200,7 +200,7 @@ export default {
 
 .detail-message {
   width: 100%;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
@@ -221,6 +221,7 @@ export default {
   font-size: 20px;
   font-weight:bold;
   margin-bottom: 18px;
+  line-height: 1.3;
 }
 
 .detail-info-subheader {
@@ -236,6 +237,7 @@ export default {
   word-break:pre-line;
   display: block;
   text-align: left;
+  margin-bottom: 15px;
 }
 
 .detail-modal-title {
@@ -258,7 +260,7 @@ export default {
   position: fixed;
   opacity: 1;
   top: 30px;
-  left: 98%;
+  right: -20px;
   z-index: 9999;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
@@ -321,16 +323,16 @@ div.btn-times:after {
 
 .detail-mainimage {
   position: relative;
-  float: left; width: 65%;
-  margin: 0 20px 0 20px;
+  float: left; width: 400px;
+  margin: 0 20px 0 15px;
 }
 
 .detail-subimage {
-  float: left; width: 10%;
+  float: left; width: 60px;
 }
 
 .detail-maininfo {
-  float: left; width: 19%;
+  float: left; width: 230px; margin-top: 0px !important;
 }
 
 .prev-navigation {
@@ -354,10 +356,11 @@ div.btn-times:after {
 }
 
 .thumnail-image-area {
-  padding: 0 0 12px 10px;
+  margin-bottom: 5px;
 }
 
 .thumnail-detailimage {
+  cursor: pointer;
   width: 100%;
 }
 
@@ -366,7 +369,6 @@ div.btn-times:after {
 }
 
 .scroll {
-  height: 96%;
   overflow: scroll;
 }
 
@@ -380,13 +382,15 @@ div.btn-times:after {
 }
 
 @media screen and (max-width: 486px) {
+  .detail-content {
+    width: 55%;
+  }
   .detail-frame {
     top: 0;
     background: rgba(0,0,0,.7);
   }
 
   .detail-modal-btn {
-    top: 6.3%;
     left: 91.4%;
   }
 
@@ -451,6 +455,10 @@ div.btn-times:after {
   .carousel-dot-button-active {
     background-color: #333333;
     opacity: 1;
+  }
+
+  .detail-content {
+    padding: 20px 25px 25px 25px;
   }
 
 }
