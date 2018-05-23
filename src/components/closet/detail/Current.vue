@@ -98,9 +98,9 @@
                     <span class="normal-price">{{ $common.numberWithCommas(closet.sale_price) }}원</span><br/>
                     <span style="line-height: 1.8;">혜택가 {{ $common.numberWithCommas(closet.used_price) }}원 <span class="normal-price-percent">({{ closet.discount_rate }}%↓)</span></span>
                   </div>
-                  <!-- <p style="cursor:pointer" @click="viewModal">
+                  <span class="product-detail" @click="viewModal(closet, currentCloset.images[k])">
                     상품 상세보기
-                  </p> -->
+                  </span>
                 </div>
               </div>
             </div>
@@ -233,8 +233,8 @@ export default {
       // this.initPaymentCurrent();
       await this.buyUsedProduct(this.buyProductArr);
     },
-    viewModal() {
-      this.$refs.detail.openModal();
+    viewModal(closetInfo, closetImage) {
+      this.$refs.detail.openModal(closetInfo, closetImage);
     },
   },
   async created() {
@@ -562,6 +562,18 @@ div.btn-times:after {
 .normal-price-percent {
   color: #f45649;
   letter-spacing: -0.7px;
+}
+
+.product-detail {
+  cursor: pointer;
+  height: 18px;
+  font-size: 18px;
+  letter-spacing: -0.5px;
+  text-align: left;
+  position: relative;
+  top: 17px;
+  border-bottom: 1px solid #566b9c;
+  color: #566b9c;
 }
 
 @media screen and (max-width: 900px) {

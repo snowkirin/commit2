@@ -1,23 +1,14 @@
 <template>
 <div class="detail-frame">
   <div class="detail-content scroll">
-    <span class="detail-info-header" v-if="isMobile">스키니핏팬츠</span>
+    <span class="detail-info-header" v-if="isMobile">{{closetInfo.name}}</span>
     <div class="detail-modal-btn" @click="closeModal">
       <div class="btn-times"></div>
     </div>
     <div class="detail-image-area">
       <div class="detail-message detail-subimage" v-if="!isMobile">
-        <div class="thumnail-image-area" @click="clickThum(0)">
-          <img class="thumnail-detailimage thumnail-active" src="http://dev-image.zuly.co.kr/product/2018/04/16/f487b29f-aafb-44de-9c33-7a39caef5344.jpg" />
-        </div>
-        <div class="thumnail-image-area" @click="clickThum(1)">
-          <img class="thumnail-detailimage" src="http://dev-image.zuly.co.kr/product/2018/04/16/59962728-14f4-4352-be4a-b6facd017ddb.jpg" />
-        </div>
-        <div class="thumnail-image-area" @click="clickThum(2)">
-          <img class="thumnail-detailimage" src="http://dev-image.zuly.co.kr/product/2018/04/16/f487b29f-aafb-44de-9c33-7a39caef5344.jpg" />
-        </div>
-        <div class="thumnail-image-area" @click="clickThum(3)">
-          <img class="thumnail-detailimage" src="http://dev-image.zuly.co.kr/product/2018/04/16/59962728-14f4-4352-be4a-b6facd017ddb.jpg" />
+        <div v-for="(image, idx) in closetImage" v-bind:key="idx" class="thumnail-image-area" @click="clickThum(idx)">
+          <img class="thumnail-detailimage" :class="{ 'thumnail-active': idx ===  0 }" :src="API_IMAGE_URL+image" />
         </div>
       </div>
       <div class="detail-message detail-mainimage">
@@ -37,45 +28,32 @@
             :navigateTo.sync="navigateTo"
             :navigationEnabled="navigationEnabled"
             :paginationEnabled="paginationEnabled">
-            <slide data-index="0">
-              <img class="main-image" src="http://dev-image.zuly.co.kr/product/2018/04/16/f487b29f-aafb-44de-9c33-7a39caef5344.jpg" />
-            </slide>
-            <slide data-index="1">
-              <img class="main-image" src="http://dev-image.zuly.co.kr/product/2018/04/16/59962728-14f4-4352-be4a-b6facd017ddb.jpg" />
-            </slide>
-            <slide data-index="2">
-              <img class="main-image" src="http://dev-image.zuly.co.kr/product/2018/04/16/f487b29f-aafb-44de-9c33-7a39caef5344.jpg" />
-            </slide>
-            <slide data-index="3">
-              <img class="main-image" src="http://dev-image.zuly.co.kr/product/2018/04/16/59962728-14f4-4352-be4a-b6facd017ddb.jpg" />
+            <slide v-for="(image, idx) in closetImage" v-bind:key="idx" :data-index="idx">
+              <img class="main-image" :src="API_IMAGE_URL+image" />
             </slide>
           </carousel>
           <div class="carousel-pagination" v-if="isMobile">
             <ul role="tablist" class="carousel-dot-container">
-              <li aria-hidden="false" role="presentation" aria-selected="false" class="carousel-dot">
-                <button type="button" role="button" tabindex="0" class="carousel-dot-button carousel-dot-button-active" @click="clickDot(0)"></button>
-              </li>
-              <li aria-hidden="false" role="presentation" aria-selected="false" class="carousel-dot">
-                <button type="button" role="button" tabindex="1" class="carousel-dot-button" @click="clickDot(1)"></button>
-              </li>
-              <li aria-hidden="false" role="presentation" aria-selected="false" class="carousel-dot">
-                <button type="button" role="button" tabindex="2" class="carousel-dot-button" @click="clickDot(2)"></button>
-              </li>
-              <li aria-hidden="false" role="presentation" aria-selected="true" class="carousel-dot">
-                <button type="button" role="button" tabindex="3" class="carousel-dot-button" @click="clickDot(3)"></button>
+              <li v-for="(image, idx) in closetImage" v-bind:key="idx" aria-hidden="false" role="presentation" aria-selected="false" class="carousel-dot">
+                <button type="button" role="button" :tabindex="idx" class="carousel-dot-button" :class="{ 'carousel-dot-button-active': idx ===  0 }" @click="clickDot(idx)"></button>
               </li>
             </ul>
           </div>
         </div>
       </div>
       <div class="detail-message detail-maininfo en-font">
-        <span class="detail-info-header" v-if="!isMobile">스키니핏팬츠스키니핏팬츠스키니핏팬츠스키니핏팬츠</span>
+        <span class="detail-info-header" v-if="!isMobile">{{closetInfo.name}}</span>
         <span class="detail-info-subheader" v-if="isMobile">상품정보 보기</span>
-        <span class="detail-info">색상 : 핑크핑크핑크핑크핑크핑크핑크핑크핑크핑크핑크핑크핑크핑크핑크핑크</span>
-        <span class="detail-info">핏감 : 슬림</span>
-        <span class="detail-info">두께 : 얇음</span>
-        <span class="detail-info">신축성 : 있음</span>
-        <span class="detail-info">비침 : 있음</span>
+        <span class="detail-info">겉감소재 :
+          <span v-for="(material, idx) in materialList" v-bind:key="idx">
+            {{material.kind}} {{material.percent}}%<span v-if="materialList.length-1 !== idx">, </span>
+          </span>
+        </span>
+        <span class="detail-info">색상 : {{closetOption.color}}</span>
+        <span class="detail-info">핏감 : {{closetOption.fit}}</span>
+        <span class="detail-info">두께 : {{closetOption.thickness}}</span>
+        <span class="detail-info">신축성 : {{closetOption.flexibility}}</span>
+        <span class="detail-info">비침 : {{closetOption.see_through}}</span>
       </div>
     </div>
   </div>
@@ -100,15 +78,36 @@ export default {
       navigationEnabled: false,
       paginationEnabled: false,
       isMobile: false,
+      closetInfo: {},
+      closetOption: {},
+      closetImage: {},
+      materialList: [],
+      API_IMAGE_URL: process.env.API_IMAGE_URL,
     };
   },
   props: {
   },
   methods: {
-    openModal() {
+    openModal(infos, images) {
+      this.closetInfo = infos;
+      this.closetImage = images;
+      this.closetOption = this.closetInfo.product_options[0];
+      this.materialList = [];
+      const material = JSON.parse(this.closetOption.material);
+      for (let i = 0; material.length > i; i += 1) {
+        if (material[i].type.label === '겉감') {
+          this.materialList.push({
+            kind: material[i].kind.label,
+            percent: material[i].percent,
+          });
+        }
+      }
       this.modal.style.display = 'block';
     },
     closeModal() {
+      this.navigateTo = 0;
+      this.clickPrevAndNext();
+
       this.modal.style.display = 'none';
     },
     clickThum(number) {
@@ -145,7 +144,8 @@ export default {
     },
     clickNext() {
       const currentPage = this.navigateTo;
-      if (currentPage < 3) this.navigateTo = currentPage + 1;
+      const maxIndex = this.closetImage.length - 1;
+      if (currentPage < maxIndex) this.navigateTo = currentPage + 1;
 
       this.clickPrevAndNext();
     },
@@ -215,7 +215,8 @@ export default {
 }
 
 .detail-info-header {
-  word-break:pre-line;
+  word-break:normal;
+  white-space:normal;
   display: block;
   text-align:left;
   font-size: 20px;
@@ -225,7 +226,8 @@ export default {
 }
 
 .detail-info-subheader {
-  word-break:pre-line;
+  word-break:normal;
+  white-space:normal;
   display: block;
   text-align:left;
   font-size: 16px;
@@ -234,10 +236,11 @@ export default {
 }
 
 .detail-info {
-  word-break:pre-line;
+  word-break:normal;
+  white-space:normal;
   display: block;
   text-align: left;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
 
 .detail-modal-title {
@@ -422,13 +425,14 @@ div.btn-times:after {
 
   .carousel-pagination {
     position: absolute;
+    width: inherit;
     bottom: -20px;
-    transform: translate(50%, -20px);
+    transform: translate(0%, -20px);
   }
 
   .carousel-dot-container {
     display: inline-block;
-    margin: 0 auto;
+    margin: 0;
     padding: 0;
   }
 
