@@ -8,7 +8,7 @@
     <div class="detail-image-area">
       <div class="detail-message detail-subimage" v-if="!isMobile">
         <div v-for="(image, idx) in closetImage" v-bind:key="idx" class="thumnail-image-area" @click="clickThum(idx)">
-          <img class="thumnail-detailimage" :class="{ 'thumnail-active': idx ===  0 }" :src="API_IMAGE_URL+image" />
+          <img class="thumnail-detailimage" :class="{ 'thumnail-active': idx ===  0 }" :src="API_IMAGE_URL+'small/'+image" />
         </div>
       </div>
       <div class="detail-message detail-mainimage">
