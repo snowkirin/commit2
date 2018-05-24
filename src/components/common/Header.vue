@@ -13,7 +13,7 @@
           </router-link>
         </li>
         <li class="interval">
-          <span class="mobile-point" style="display: inline-block; width:4px; height:4px; background-color: #333333; opacity: 0.5;"></span>
+          <span class="mobile-point" style="display: inline-block; width:3px; height:3px; background-color: #333333; opacity: 0.5;"></span>
         </li>
         <li>
           <span v-if="Authentication.authenticated" class="menu-title" @click="doLogout">

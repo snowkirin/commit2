@@ -1,52 +1,60 @@
 <template>
 <div class="detail-frame">
-  <div class="detail-content">
-    <div class="detail-modal-title">스키니핏 팬츠
-      <div class="detail-modal-btn" @click="closeModal">
-        <div class="btn-times"></div>
+  <div class="detail-content scroll">
+    <span class="detail-info-header" v-if="isMobile">{{closetInfo.name}}</span>
+    <div class="detail-modal-btn" @click="closeModal">
+      <div class="btn-times"></div>
+    </div>
+    <div class="detail-image-area">
+      <div class="detail-message detail-subimage" v-if="!isMobile">
+        <div v-for="(image, idx) in closetImage" v-bind:key="idx" class="thumnail-image-area" @click="clickThum(idx)">
+          <img class="thumnail-detailimage" :class="{ 'thumnail-active': idx ===  0 }" :src="API_IMAGE_URL+'small/'+image" />
+        </div>
       </div>
-    </div>
-    <div class="detail-message">
-      <!-- <div>
-        <div class="button-prev">
-          <ruler height="100%" width="100%">
-            <svg viewBox="0 0 42 80" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
-              <polyline fill="none" stroke="#333333" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" points="45.63,75.8 0.375,38.087 45.63,0.375"/>
-            </svg>
-          </ruler>
+      <div class="detail-message detail-mainimage">
+        <div class="prev-navigation" @click="clickPrev()">
+          <svg class="nav-svg-size" viewBox="0 0 50 80" xml:space="preserve">
+            <polyline fill="none" stroke="#333333" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" points="45.63,75.8 0.375,38.087 45.63,0.375"></polyline>
+          </svg>
         </div>
-        <div class="button-next">
-          <ruler height="100%" width="100%">
-            <svg viewBox="0 0 42 80" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
-              <path d="M1 0l40 40.083L1.166 80" style="fill: none; fill-rule: evenodd; stroke: #333333; stroke-width: 1; stroke-linecap: round; stroke-linejoin: round"></path>
-            </svg>
-          </ruler>
+        <div class="next-navigation" @click="clickNext()">
+          <svg class="nav-svg-size" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 80" xml:space="preserve">
+            <polyline fill="none" stroke="#333333" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" points="0.375,0.375 45.63,38.087 0.375,75.8"/>
+          </svg>
         </div>
-      </div> -->
-      <carousel
-        :per-page="1"
-        :navigationEnabled="navigationEnabled"
-        :paginationEnabled="paginationEnabled"
-        :navigationPrevLabel="navigationPrevLabel"
-        :navigationNextLabel="navigationNextLabel">
-        <slide class="main-image-area">
-          <div class="main-image" style="background-image: url('http://dev-image.zuly.co.kr/product/2018/04/16/59962728-14f4-4352-be4a-b6facd017ddb.jpg');"></div>
-        </slide>
-        <slide>
-          <div class="main-image" style="background-image: url('http://dev-image.zuly.co.kr/product/2018/04/16/f487b29f-aafb-44de-9c33-7a39caef5344.jpg');"></div>
-        </slide>
-        <slide>
-          <div class="main-image" style="background-image: url('http://dev-image.zuly.co.kr/product/2018/04/16/59962728-14f4-4352-be4a-b6facd017ddb.jpg');"></div>
-        </slide>
-      </carousel>
-    </div>
-    <div class="detail-message mb0 en-font">
-      <span class="detail-info-header">상품정보 보기</span>
-      <span class="detail-info">색상 : 핑크</span>
-      <span class="detail-info">핏감 : 슬림</span>
-      <span class="detail-info">두께 : 얇음</span>
-      <span class="detail-info">신축성 : 있음</span>
-      <span class="detail-info">비침 : 있음</span>
+        <div class="main-image-area">
+          <carousel
+            :per-page="1"
+            :navigateTo.sync="navigateTo"
+            :navigationEnabled="navigationEnabled"
+            :paginationEnabled="paginationEnabled">
+            <slide v-for="(image, idx) in closetImage" v-bind:key="idx" :data-index="idx">
+              <img class="main-image" :src="API_IMAGE_URL+image" />
+            </slide>
+          </carousel>
+          <div class="carousel-pagination" v-if="isMobile">
+            <ul role="tablist" class="carousel-dot-container">
+              <li v-for="(image, idx) in closetImage" v-bind:key="idx" aria-hidden="false" role="presentation" aria-selected="false" class="carousel-dot">
+                <button type="button" role="button" :tabindex="idx" class="carousel-dot-button" :class="{ 'carousel-dot-button-active': idx ===  0 }" @click="clickDot(idx)"></button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="detail-message detail-maininfo en-font">
+        <span class="detail-info-header" v-if="!isMobile">{{closetInfo.name}}</span>
+        <span class="detail-info-subheader" v-if="isMobile">상품정보 보기</span>
+        <span class="detail-info">겉감소재 :
+          <span v-for="(material, idx) in materialList" v-bind:key="idx">
+            {{material.kind}} {{material.percent}}%<span v-if="materialList.length-1 !== idx">, </span>
+          </span>
+        </span>
+        <span class="detail-info">색상 : {{closetOption.color}}</span>
+        <span class="detail-info">핏감 : {{closetOption.fit}}</span>
+        <span class="detail-info">두께 : {{closetOption.thickness}}</span>
+        <span class="detail-info">신축성 : {{closetOption.flexibility}}</span>
+        <span class="detail-info">비침 : {{closetOption.see_through}}</span>
+      </div>
     </div>
   </div>
 </div>
@@ -66,32 +74,94 @@ export default {
       content: '',
       type: 'detail',
       modal: null,
-      navigationEnabled: true,
+      navigateTo: 0,
+      navigationEnabled: false,
       paginationEnabled: false,
-      navigationPrevLabel: `<svg width='30px' height='60px' viewBox='0 0 50 80' xml:space='preserve'>
-                              <polyline fill='none' stroke='#333333' stroke-width='1' stroke-linecap='round' stroke-linejoin='round' points='45.63,75.8 0.375,38.087 45.63,0.375'/>
-                            </svg>`,
-      navigationNextLabel: `<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='30px' height='60px' viewBox='0 0 50 80' xml:space='preserve'>
-                              <polyline fill='none' stroke='#333333' stroke-width='1' stroke-linecap='round' stroke-linejoin='round' points='0.375,0.375 45.63,38.087 0.375,75.8'/>
-                            </svg>`,
+      isMobile: false,
+      closetInfo: {},
+      closetOption: {},
+      closetImage: {},
+      materialList: [],
+      API_IMAGE_URL: process.env.API_IMAGE_URL,
     };
   },
   props: {
   },
   methods: {
-    openModal() {
+    openModal(infos, images) {
+      this.closetInfo = infos;
+      this.closetImage = images;
+      this.closetOption = this.closetInfo.product_options[0];
+      this.materialList = [];
+      const material = JSON.parse(this.closetOption.material);
+      for (let i = 0; material.length > i; i += 1) {
+        if (material[i].type.label === '겉감') {
+          this.materialList.push({
+            kind: material[i].kind.label,
+            percent: material[i].percent,
+          });
+        }
+      }
       this.modal.style.display = 'block';
     },
     closeModal() {
+      this.navigateTo = 0;
+      this.clickPrevAndNext();
+
       this.modal.style.display = 'none';
+    },
+    clickThum(number) {
+      const thumbList = document.querySelectorAll('.thumnail-detailimage');
+
+      for (let i = 0; thumbList.length > i; i += 1) {
+        if (number === i) {
+          thumbList[i].classList.add('thumnail-active');
+        } else {
+          thumbList[i].classList.remove('thumnail-active');
+        }
+      }
+
+      this.navigateTo = number;
+    },
+    clickDot(number) {
+      const buttonList = document.querySelectorAll('.carousel-dot-button');
+
+      for (let j = 0; buttonList.length > j; j += 1) {
+        if (number === j) {
+          buttonList[j].classList.add('carousel-dot-button-active');
+        } else {
+          buttonList[j].classList.remove('carousel-dot-button-active');
+        }
+      }
+
+      this.navigateTo = number;
+    },
+    clickPrev() {
+      const currentPage = this.navigateTo;
+      if (currentPage > 0) this.navigateTo = currentPage - 1;
+
+      this.clickPrevAndNext();
+    },
+    clickNext() {
+      const currentPage = this.navigateTo;
+      const maxIndex = this.closetImage.length - 1;
+      if (currentPage < maxIndex) this.navigateTo = currentPage + 1;
+
+      this.clickPrevAndNext();
+    },
+    clickPrevAndNext() {
+      if (window.outerWidth <= 486) {
+        this.clickDot(this.navigateTo);
+      } else {
+        this.clickThum(this.navigateTo);
+      }
     },
   },
   mounted() {
     this.modal = document.querySelector('div.detail-frame');
-    document.querySelector('.VueCarousel-navigation-prev').style.transform = 'translate(0%)';
-    document.querySelector('.VueCarousel-navigation-prev').style.marginTop = '-12%';
-    document.querySelector('.VueCarousel-navigation-next').style.transform = 'translate(0%)';
-    document.querySelector('.VueCarousel-navigation-next').style.marginTop = '-12%';
+    if (window.outerWidth <= 486) {
+      this.isMobile = true;
+    }
   },
 };
 </script>
@@ -117,9 +187,9 @@ export default {
   left: 50%;
   box-sizing: border-box;
   min-width: 300px;
-  width: inherit;
+  width: 820px;
   height: inherit;
-  padding: 25px;
+  padding: 25px 25px 10px 25px;
   background-color: #ffffff;
   box-shadow: rgba(0, 0, 0, 0.2) 5px 5px 30px 0px;
   border: solid 1px #333333 !important;
@@ -130,8 +200,7 @@ export default {
 
 .detail-message {
   width: 100%;
-  margin-bottom: 20px;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
@@ -146,18 +215,32 @@ export default {
 }
 
 .detail-info-header {
-  word-break:pre-line;
+  word-break:normal;
+  white-space:normal;
   display: block;
   text-align:left;
-  font-size:16px;
+  font-size: 20px;
+  font-weight:bold;
+  margin-bottom: 18px;
+  line-height: 1.3;
+}
+
+.detail-info-subheader {
+  word-break:normal;
+  white-space:normal;
+  display: block;
+  text-align:left;
+  font-size: 16px;
   font-weight:bold;
   margin-bottom: 18px;
 }
 
 .detail-info {
-  word-break:pre-line;
+  word-break:normal;
+  white-space:normal;
   display: block;
   text-align: left;
+  margin-bottom: 5px;
 }
 
 .detail-modal-title {
@@ -177,11 +260,11 @@ export default {
 .detail-modal-btn {
   width: 48px;
   height: 48px;
-  background-color: #FFFFFF;
-  position: absolute;
+  position: fixed;
   opacity: 1;
-  top: 5%;
-  left: 95%;
+  top: 30px;
+  right: -20px;
+  z-index: 9999;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
@@ -219,16 +302,11 @@ div.btn-times:after {
 }
 
 .main-image-area {
-  width: 350px;
-  height: 450px;
+  width: 100%;
 }
 
 .main-image {
-  position: relative;
   width: 100%;
-  height: 100%;
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
 }
 
 .VueCarousel-navigation-prev {
@@ -242,52 +320,149 @@ div.btn-times:after {
   transform: translate(0%, 0%) !important;
 }
 
-.prev-custom {
-  padding: 20px;
+.detail-image-area {
+  display:table;
 }
 
-.button-prev {
+.detail-mainimage {
+  position: relative;
+  float: left; width: 400px;
+  margin: 0 20px 0 15px;
+}
+
+.detail-subimage {
+  float: left; width: 60px;
+}
+
+.detail-maininfo {
+  float: left; width: 230px; margin-top: 0px !important;
+}
+
+.prev-navigation {
   position: absolute;
+  top: 50%;
   z-index: 10;
   left: 20px;
-  top: 32%;
-  width: 20px;
-  height: 40px;
-  padding: 20px;
-  border: 0;
-  background: none;
-  -webkit-transform: translate(0%, 0%) scale(1);
-  transform: translate(0%, 0%) scale(1.5);
+  cursor: pointer;
 }
 
-.button-next {
+.next-navigation {
   position: absolute;
+  top: 50%;
   z-index: 10;
   right: 20px;
-  top: 32%;
-  width: 20px;
-  height: 40px;
-  padding: 20px;
-  border: 0;
-  background: none;
-  -webkit-transform: translate(0%, 0%) scale(1);
-  transform: translate(0%, 0%) scale(1.5);
+  cursor: pointer;
+}
+
+.nav-svg-size {
+  width: 30px; height: 60px;
+}
+
+.thumnail-image-area {
+  margin-bottom: 5px;
+}
+
+.thumnail-detailimage {
+  cursor: pointer;
+  width: 100%;
+}
+
+.thumnail-active {
+  border: solid 1px #333333;
+}
+
+.scroll {
+  overflow: scroll;
+}
+
+.scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: #dadada;
 }
 
 @media screen and (max-width: 486px) {
+  .detail-content {
+    width: 55%;
+  }
   .detail-frame {
     top: 0;
     background: rgba(0,0,0,.7);
   }
 
   .detail-modal-btn {
-    top: 6.3%;
     left: 91.4%;
   }
 
-  .main-image-area {
-    width: 200px;
-    height: 300px;
+  .thumnail-detailimage {
+    width: 50px;
+  }
+
+  .scroll {
+    height: 90%;
+    overflow: scroll;
+  }
+
+  .detail-mainimage {
+    width: 100%;
+    margin: 0 0 20px 0;
+  }
+
+  .detail-maininfo {
+    width: 100%;
+  }
+
+  .prev-navigation, .next-navigation {
+    top: 40%;
+  }
+
+  .nav-svg-size {
+    width: 25px; height: 50px;
+  }
+
+  .carousel-pagination {
+    position: absolute;
+    width: inherit;
+    bottom: -20px;
+    transform: translate(0%, -20px);
+  }
+
+  .carousel-dot-container {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+  }
+
+  .carousel-dot {
+    display: inline-block;
+    cursor: pointer;
+    margin-top: 20px; padding: 10px;
+  }
+
+  .carousel-dot-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    padding: 0;
+    border-radius: 100%;
+    outline: none;
+    cursor: pointer;
+    width: 10px; height: 10px;
+    background-color: #333333;
+    opacity: 0.1;
+  }
+
+  .carousel-dot-button-active {
+    background-color: #333333;
+    opacity: 1;
+  }
+
+  .detail-content {
+    padding: 20px 25px 25px 25px;
   }
 
 }
