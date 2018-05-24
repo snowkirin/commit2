@@ -48,7 +48,7 @@ export default {
 
 <style scoped>
 .benefit-main {
-  width: 1300px;
+  width: 1200px;
   margin: auto;
   margin-top: 30px;
 }

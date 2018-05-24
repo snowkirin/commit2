@@ -47,11 +47,11 @@ export default {
   background-image: url('/static/img/main/img_about_large.png');
   background-repeat: no-repeat;
   background-position: 50% 0;
-  background-color: #2d2727;
+  background-color: #fff;
 }
 
 .main-about-detail {
-  width: 1300px;
+  width: 1200px;
   margin: auto;
 }
 
@@ -64,7 +64,7 @@ export default {
 
 .main-about-title {
   font-size: 30px;
-  letter-spacing: -2.2px;
+  letter-spacing: -1.4px;
   text-align: left;
   color: #ffffff;
 }

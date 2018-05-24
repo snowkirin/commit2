@@ -83,7 +83,7 @@ export default {
 
 <style scoped>
 .process-main {
-  width: 1300px;
+  width: 1200px;
   margin: auto;
 }
 

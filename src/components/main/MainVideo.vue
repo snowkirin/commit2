@@ -41,7 +41,7 @@ export default {
         document.getElementById('youtube-player-1').style.width = `${videoWidth}px`;
         document.getElementById('youtube-player-1').style.height = '600px';
       } else {
-        document.getElementById('youtube-player-1').style.width = '1300px';
+        document.getElementById('youtube-player-1').style.width = '1200px';
         document.getElementById('youtube-player-1').style.height = '600px';
       }
       document.getElementById('youtube-player-1').style.position = 'relative';
