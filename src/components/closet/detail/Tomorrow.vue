@@ -443,13 +443,13 @@ export default {
 }
 
 .closet-card-text-title-text {
-  font-size: 16px;
-  letter-spacing: -0.4px;
+  font-size: 18px;
+  letter-spacing: -1px;
   color: #333333;
 }
 
 .closet-card-hashtag {
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.4;
   letter-spacing: -0.4px;
   text-align: left;
