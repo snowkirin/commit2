@@ -16,7 +16,7 @@
       <div class="closet-title-sub-text">
         (기한 내 미선택 시, 회원님께 더 어울릴 스타일로 자동 지정 후 배송 됩니다.)
       </div>
-      <div class="closet-card-area mt50">
+      <div class="closet-card-area mt30">
         <div class="closet-card" @click="selectStyle(printStyleFirst, 'first')" data-value="first">
           <div v-show="isMobile">
             <i class="fa fa-heart fa-lg heart-icon"></i>

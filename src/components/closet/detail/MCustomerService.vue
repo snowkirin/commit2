@@ -160,7 +160,7 @@ export default {
 .cs-select-box {
   height: 60px;
   width: 100%;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 300;
   padding-left: 10px;
 }
@@ -171,7 +171,7 @@ export default {
   background-color: #ffffff;
   border-top: solid 1px #999999;
   padding: 20px;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
@@ -191,7 +191,7 @@ export default {
 .list-data-rows > .subject {
   width: 75%;
   display: inline-block;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1;
   letter-spacing: -0.5px;
   color: #333333;
@@ -233,7 +233,7 @@ label {
 label:after {
   content:"\f0dd";
   font-family: "FontAwesome";
-  font-size: 18px;
+  font-size: 16px;
 }
 
 </style>

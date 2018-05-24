@@ -123,6 +123,7 @@ export default {
   background-color: #f5f5f5;
   padding: 22px 30px;
   line-height: 1.4;
+  font-size: 14px;
 }
 
 @media screen and (max-width: 486px) {

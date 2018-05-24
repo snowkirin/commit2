@@ -224,7 +224,7 @@ export default {
   text-align: left;
   padding-left: 15px;
   height: 60px;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 300;
 }
 

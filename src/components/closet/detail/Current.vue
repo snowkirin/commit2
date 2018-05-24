@@ -73,9 +73,9 @@
         </div>
       </div>
       <div class="current-closet-item-list mt30" style="display: flex;">
-        <div class="current-closet-item">
+        <div class="current-closet-item" style="padding-top:20px">
           <template v-for="(closet, k) in currentCloset.products">
-            <div v-if="closet.id !== null" v-bind:key="k" class="closet-item-card mt35">
+            <div v-if="closet.id !== null" v-bind:key="k" class="closet-item-card mt10">
               <div class="item-checkbox" v-show="closet.sold_flag !== 1">
                 <label class="container">
                   <input type="checkbox" name="product" :value="closet.id" @click="productEvt($event, k)">
@@ -91,7 +91,7 @@
                 ></div>
               </div>
               <div class="item-content">
-                <div style="padding-top: 60px;">
+                <div style="padding-top: 25px;">
                   <span style="font-weight: 600;">[{{ closet.brand_kor_name }}]</span><br/>
                   <span style="line-height: 2;">{{ closet.name }}</span>
                   <div style="padding-top: 8px;">
@@ -361,7 +361,7 @@ div.btn-times:after {
 }
 
 .closet-styling-image-title {
-  font-size: 62px;
+  font-size: 58px;
   font-weight: 600;
   font-style: normal;
   font-stretch: normal;
@@ -395,14 +395,14 @@ div.btn-times:after {
   text-align: left;
   word-wrap:break-word;
   padding: 0 19.4% 20px 23.9%;
-  font-size: 18px;
+  font-size: 16px;
 }
 .closet-styling-tip-hashtag{
   background-color: #dbdbdb;
   text-align: left;
   word-wrap:break-word;
   padding: 0 19.4% 60px 23.9%;
-  font-size: 18px;
+  font-size: 16px;
   color: #683b3f;
   text-transform:capitalize;
 }
@@ -427,7 +427,7 @@ div.btn-times:after {
 }
 
 .closet-card-hashtag {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.4;
   letter-spacing: -0.4px;
   text-align: left;
@@ -450,7 +450,7 @@ div.btn-times:after {
 
 .item-buy-title {
   text-align: center;
-  font-size: 27px;
+  font-size: 24px;
   font-weight: 600;
   font-style: normal;
   font-stretch: normal;
@@ -467,7 +467,7 @@ div.btn-times:after {
 
 .item-buy-row-title {
   width: 40%;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
@@ -478,7 +478,7 @@ div.btn-times:after {
 
 .item-buy-row-right {
   width: 60%;
-  font-size: 22px;
+  font-size: 18px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
@@ -494,7 +494,7 @@ div.btn-times:after {
 
 .closet-item-card {
   padding-left: 22px;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1;
   color: #333333;
 }
@@ -524,8 +524,8 @@ div.btn-times:after {
 .thumnail-image-area {
   position: relative;
   display: inline-block;
-  width: 190px;
-  height: 241px;
+  width: 130px;
+  height: 181px;
   background-color: #f5f5f5;
   border: solid 1px #e9e9e9;
   margin-left: 52px;
@@ -535,8 +535,8 @@ div.btn-times:after {
   position: absolute;
   top: 50%; left: 50%;
   transform: translate(-50%,-50%);
-  width: 190px;
-  height: 241px;
+  width: 130px;
+  height: 181px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -567,7 +567,7 @@ div.btn-times:after {
 .product-detail {
   cursor: pointer;
   height: 18px;
-  font-size: 18px;
+  font-size: 16px;
   letter-spacing: -0.5px;
   text-align: left;
   position: relative;

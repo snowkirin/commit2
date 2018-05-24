@@ -224,7 +224,7 @@ export default {
 }
 
 .style-content-data {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.6;
   color: #333333;
 }

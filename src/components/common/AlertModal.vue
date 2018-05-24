@@ -99,7 +99,7 @@ export default {
 .alert-message {
   width: 100%;
   margin-bottom: 20px;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
