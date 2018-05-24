@@ -63,10 +63,10 @@ export default {
 }
 
 .main-about-title {
-  letter-spacing: -1.2px;
+  font-size: 30px;
+  letter-spacing: -2.2px;
   text-align: left;
   color: #ffffff;
-  font-size: 28px;
 }
 
 @media screen and (max-width: 486px) {
