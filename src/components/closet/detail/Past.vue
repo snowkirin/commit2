@@ -102,7 +102,7 @@ export default {
 
 .content-first-number {
   display: flex;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   line-height: 1;
   letter-spacing: normal;
@@ -116,7 +116,7 @@ export default {
 
 .content-second-text {
   width: 69.6%;
-  font-size: 18px;
+  font-size: 16px;
   letter-spacing: -0.4px;
   color: #333333;
 }
@@ -138,7 +138,7 @@ export default {
 .content-second-view-cell {
   position: relative;
   top: 50%;
-  font-size: 18px;
+  font-size: 16px;
   color: #566b9c;
   text-decoration: underline;
   letter-spacing: -0.8px;

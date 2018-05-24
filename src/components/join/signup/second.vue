@@ -6,7 +6,7 @@
           ZULY는 78,000원<br/>
           <span>요금제 단일 상품 입니다.</span>
         </div>
-        <div class="signup-payment-text" style="font-size: 18px;">
+        <div class="signup-payment-text" style="font-size: 16px;">
           월 2회 스타일링 된 의류 세트(2벌) 정기 배송<br/>
           <span>(1회 배송 의류 리테일가<br/>30만원 기준 x 2 = 60만원)</span><br/>
           무료 세탁<br/>

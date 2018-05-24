@@ -117,7 +117,7 @@ export default {
 }
 
 .findId-form span {
-  font-size: 18px;
+  font-size: 16px;
   letter-spacing: -0.5px;
   text-align: center;
   color: #ec4b1a;

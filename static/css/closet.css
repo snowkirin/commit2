@@ -11,8 +11,8 @@
 .closet-title-sub-text {
   letter-spacing: -0.8px;
   color: #797979;
-  font-size: 18px;
-  line-height: 2;
+  font-size: 16px;
+  line-height: 2.5;
 }
 
 .closet-card-block {
@@ -51,10 +51,10 @@
 .content-table span {
   display: table-cell;
   vertical-align: middle;
-  font-size: 32px;
+  font-size: 28px;
   line-height: 1.4;
   letter-spacing: normal;
-  letter-spacing: -1.8px;
+  letter-spacing: -1.4px;
   color: #333333;
   text-align: center;
 }

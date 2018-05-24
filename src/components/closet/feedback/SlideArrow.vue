@@ -148,7 +148,7 @@ div.btn-times-right:after {
 }
 
 .navi-font {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1;
   letter-spacing: -1.5px;
   color: #ffffff;
@@ -183,7 +183,7 @@ div.btn-times-right:after {
   position: relative;
   top: 283px;
   left: 593px;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1;
   letter-spacing: -0.5px;
   color: #ffffff;

@@ -182,7 +182,7 @@ div.btn-times:after {
 
 .csView {
   display: inline-block;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1;
   letter-spacing: -0.5px;
   color: #808080;

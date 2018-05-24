@@ -167,7 +167,7 @@ export default {
 }
 
 .patterns-text {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;

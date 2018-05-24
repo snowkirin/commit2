@@ -539,7 +539,7 @@ export default {
 }
 
 .mypage-content-data {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1;
   color: #333333;
 }

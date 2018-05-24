@@ -73,7 +73,7 @@ export default {
 
 <style scoped>
 .content-area {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1;
   color: #333333;
   margin-left: 20px;
@@ -96,7 +96,7 @@ export default {
 }
 
 .past-view-text {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1;
   color: #333333;
 }

@@ -73,7 +73,7 @@ export default {
   background-color: #ffffff;
   border: solid 1px #999999;
   padding: 20px;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
