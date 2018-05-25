@@ -227,7 +227,7 @@ export default {
 label {
   position: absolute;
   margin-left: 80%;
-  margin-top: 15px;
+  margin-top: 10px;
 }
 
 label:after {

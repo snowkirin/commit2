@@ -7,7 +7,7 @@
     </div>
     <div class="detail-image-area">
       <div class="detail-message detail-subimage" v-if="!isMobile">
-        <div v-for="(image, idx) in closetImage" v-bind:key="idx" class="thumnail-image-area" @click="clickThum(idx)">
+        <div v-for="(image, idx) in closetImage.path" v-bind:key="idx" class="thumnail-image-area" @click="clickThum(idx)">
           <img class="thumnail-detailimage" :class="{ 'thumnail-active': idx ===  0 }" :src="API_IMAGE_URL+'small/'+image" />
         </div>
       </div>
@@ -28,13 +28,13 @@
             :navigateTo.sync="navigateTo"
             :navigationEnabled="navigationEnabled"
             :paginationEnabled="paginationEnabled">
-            <slide v-for="(image, idx) in closetImage" v-bind:key="idx" :data-index="idx">
-              <img class="main-image" :src="API_IMAGE_URL+image" />
+            <slide v-for="(image, idx) in closetImage.path" v-bind:key="idx" :data-index="idx">
+              <img class="main-image" :src="(closetImage.width[idx] > 600) ? API_IMAGE_URL+'medium/'+image : API_IMAGE_URL+image" />
             </slide>
           </carousel>
           <div class="carousel-pagination" v-if="isMobile">
             <ul role="tablist" class="carousel-dot-container">
-              <li v-for="(image, idx) in closetImage" v-bind:key="idx" aria-hidden="false" role="presentation" aria-selected="false" class="carousel-dot">
+              <li v-for="(image, idx) in closetImage.path" v-bind:key="idx" aria-hidden="false" role="presentation" aria-selected="false" class="carousel-dot">
                 <button type="button" role="button" :tabindex="idx" class="carousel-dot-button" :class="{ 'carousel-dot-button-active': idx ===  0 }" @click="clickDot(idx)"></button>
               </li>
             </ul>
