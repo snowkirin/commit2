@@ -1,7 +1,7 @@
 <template>
   <div class="closet-mobile-menu">
     <div class="closet-menu" style="margin-top:30px">
-      <div class="close-mobile-slide" @touchmove.prevent="touchMove">
+      <div class="close-mobile-slide">
         <div id="tomorrow" class="menu" data-id="tomorrow" :class="{ 'closet_active' : activeMenuName === 'tomorrow' }" @click="menuClick('/closet/tomorrow', 0)">내일의옷장</div>
         <div id="current" class="menu" data-id="current" :class="{ 'closet_active' : activeMenuName === 'current' }" @click="menuClick('/closet/current', 1)">현재의옷장</div>
         <div id="past" class="menu" data-id="past" :class="{ 'closet_active' : activeMenuName === 'past' }" @click="menuClick('/closet/past', 2)">과거의옷장</div>
@@ -44,15 +44,6 @@ export default {
         XPosition = -230;
       } else {
         XPosition = -284;
-      }
-      document.querySelector('.close-mobile-slide').style.transform = `translate3d(${XPosition}px, 0px, 0px)`;
-    },
-    touchMove(e) {
-      let XPosition = e.touches[0].pageX;
-      if (XPosition < 0) {
-        XPosition = -284;
-      } else if (XPosition > 284) {
-        XPosition = 0;
       }
       document.querySelector('.close-mobile-slide').style.transform = `translate3d(${XPosition}px, 0px, 0px)`;
     },
