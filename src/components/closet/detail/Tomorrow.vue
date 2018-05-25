@@ -476,7 +476,7 @@ export default {
   color: #f45649;
   text-align: center;
   position: absolute;
-  top: 40%;
+  top: 35%;
   left: 50%;
   transform: translate(-50%,-50%);
 }
