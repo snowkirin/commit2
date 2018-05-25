@@ -39,22 +39,22 @@ export default {
       if (idx < 3) {
         XPosition = 0;
       } else if (idx === 3) {
-        XPosition = 140;
+        XPosition = -140;
       } else if (idx === 4) {
-        XPosition = 230;
+        XPosition = -230;
       } else {
-        XPosition = 284;
+        XPosition = -284;
       }
-      document.querySelector('.close-mobile-slide').style.transform = `translate3d(-${XPosition}px, 0px, 0px)`;
+      document.querySelector('.close-mobile-slide').style.transform = `translate3d(${XPosition}px, 0px, 0px)`;
     },
     touchMove(e) {
       let XPosition = e.touches[0].pageX;
       if (XPosition < 0) {
-        XPosition = 0;
+        XPosition = -284;
       } else if (XPosition > 284) {
-        XPosition = 284;
+        XPosition = 0;
       }
-      document.querySelector('.close-mobile-slide').style.transform = `translate3d(-${XPosition}px, 0px, 0px)`;
+      document.querySelector('.close-mobile-slide').style.transform = `translate3d(${XPosition}px, 0px, 0px)`;
     },
     hoverEvt(target) {
       const obj = target;
