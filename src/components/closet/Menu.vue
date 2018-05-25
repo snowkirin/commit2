@@ -26,6 +26,7 @@ export default {
   data() {
     return {
       activeMenuName: '',
+      clickPosition: 0,
     };
   },
   methods: {
@@ -45,6 +46,7 @@ export default {
       } else {
         XPosition = -284;
       }
+      this.clickPosition = XPosition;
       document.querySelector('.close-mobile-slide').style.transform = `translate3d(${XPosition}px, 0px, 0px)`;
     },
     touchMove() {
@@ -52,13 +54,12 @@ export default {
       document.querySelector('.close-mobile-slide').style.transform = 'translate3d(0px, 0px, 0px)';
     },
     touchEnd(e) {
-      let XPosition = e.changedTouches[0].pageX;
+      const XPosition = e.changedTouches[0].pageX;
       if (XPosition < -284) {
-        XPosition = -284;
+        document.querySelector('.close-mobile-slide').style.transform = `translate3d(${this.clickPosition}px, 0px, 0px)`;
       } else if (XPosition > 284) {
-        XPosition = 0;
+        document.querySelector('.close-mobile-slide').style.transform = `translate3d(${this.clickPosition}px, 0px, 0px)`;
       }
-      document.querySelector('.close-mobile-slide').style.transform = `translate3d(${XPosition}px, 0px, 0px)`;
     },
     hoverEvt(target) {
       const obj = target;
