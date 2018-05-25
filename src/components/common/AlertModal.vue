@@ -100,11 +100,11 @@ export default {
   width: 100%;
   margin-bottom: 20px;
   font-size: 16px;
-  font-weight: normal;
+  font-weight: bold;
   font-style: normal;
   font-stretch: normal;
   line-height: 1.4;
-  letter-spacing: -0.2px;
+  letter-spacing: -0.4px;
   text-align: center;
   color: #333333;
 }

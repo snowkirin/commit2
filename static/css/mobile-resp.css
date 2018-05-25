@@ -278,6 +278,7 @@ div.subContent {
   letter-spacing: -0.8px;
   font-size: 16px;
   padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .noti-text {
@@ -322,10 +323,7 @@ div.subContent {
 .signup-payment-text{
   margin-top: 5px !important;
 }
-.item-buy-row-right
-{
-  font-size: 20px !important;
-}
+
 .item-buy-title{
   font-size: 24px !important;
   padding: 5px 0 !important;

@@ -87,8 +87,8 @@ export default {
 }
 
 .notice-content {
-  height: 60px;
-  line-height: 60px;
+  height: 50px;
+  line-height: 50px;
 }
 
 .notice-number {

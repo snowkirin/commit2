@@ -210,8 +210,8 @@ export default {
 }
 
 .balloon-text {
-  padding: 20px 20px;
-  font-size: 16px;
+  padding: 10px 15px;
+  font-size: 14px;
   line-height: 1.56;
   letter-spacing: -0.5px;
   color: #333333;
@@ -292,14 +292,14 @@ export default {
 }
 
 .admin-icon-logo {
-  width: 35px;
+  width: 30px;
   height: 10px;
   background-image: url(/static/img/logo/ZULY-BI.png);
   background-size: 100% 100%;
   background-repeat: no-repeat;
   position: relative;
   top: 40%;
-  left: 10%;
+  left: 15%;
 }
 
 .current-date-area {
@@ -358,7 +358,7 @@ export default {
   height: 50px;
   background-color: #ffffff;
   border: solid 1px #e9e9e9;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 50px;
   letter-spacing: -0.5px;
   color: #797979;

@@ -92,7 +92,7 @@ export default {
 
 @media screen and (max-width: 486px) {
   .button-grey{
-    height: 70px;
+    height: 50px;
   }
   .style-btn-area {
     position: fixed !important;

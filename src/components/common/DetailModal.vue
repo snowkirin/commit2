@@ -355,7 +355,7 @@ div.btn-times:after {
 }
 
 .nav-svg-size {
-  width: 30px; height: 60px;
+  width: 30px; height: 50px;
 }
 
 .thumnail-image-area {

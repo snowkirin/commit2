@@ -209,7 +209,7 @@ export default {
   display: table;
   table-layout: fixed;
   padding: 0;
-  height: 60px;
+  height: 50px;
 }
 
 .tall-input {
@@ -223,9 +223,10 @@ export default {
   vertical-align:bottom;
   text-align: left;
   padding-left: 15px;
-  height: 60px;
+  height: 50px;
   font-size: 16px;
   font-weight: 300;
+  padding-bottom: 10px;
 }
 
 .field {
@@ -254,7 +255,7 @@ export default {
     display: table;
     table-layout: fixed;
     padding: 0;
-    height: 60px;
+    height: 50px;
   }
 
   .tall-input {
@@ -268,7 +269,7 @@ export default {
     vertical-align:bottom;
     text-align: left;
     padding-left: 15px;
-    height: 60px;
+    height: 50px;
     font-size: 20px;
     font-weight: 300;
   }

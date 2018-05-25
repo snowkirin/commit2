@@ -165,6 +165,7 @@ export default {
   .close-mobile-slide {
     visibility: visible;
     flex-basis: 339px;
+    transition: -ms-transform 0.5s,-webkit-transform 0.5s,transform 0.5s !important;
   }
 
   .menu {

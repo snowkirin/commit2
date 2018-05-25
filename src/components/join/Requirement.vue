@@ -58,7 +58,7 @@ export default {
 
 
 .button-login {
-  height: 60px;
+  height: 50px;
 }
 
 .requirementLine {

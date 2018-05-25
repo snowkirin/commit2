@@ -84,7 +84,7 @@ export default {
 
 <style scoped>
 .notice-rows {
-  min-height: 60px;
+  min-height: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -193,11 +193,12 @@ export default {
 
 .coupon-label {
   position: absolute;
-  top: -41.3%;
+  top: -29.3%;
   left: 2.5%;
   width: 21px;
-  line-height: 60px;
-  font-size: 14px;
+  line-height: 56px;
+  font-size: 12px;
+  letter-spacing: 0.5px;
   color: #FFFFFF;
   font-weight: normal;
   -webkit-transform: rotate(-270deg);
@@ -251,7 +252,7 @@ export default {
 
   .coupon-button {
     width: 39%;
-    height: 60px !important;
+    height: 50px !important;
     line-height: 0px !important;
   }
 }

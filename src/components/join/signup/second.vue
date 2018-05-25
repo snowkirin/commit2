@@ -311,7 +311,7 @@ export default {
   background-color: #ffffff;
   border: solid 2px #333333;
   text-align: left;
-  padding: 20px 0 20px 22px;
+  padding: 15px 0 15px 22px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;

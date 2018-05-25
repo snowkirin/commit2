@@ -158,7 +158,7 @@ export default {
 }
 
 .cs-select-box {
-  height: 60px;
+  height: 50px;
   width: 100%;
   font-size: 16px;
   font-weight: 300;
