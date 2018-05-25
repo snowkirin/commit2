@@ -27,9 +27,9 @@
 @media screen and (max-width: 486px) {
   .button-login,
   .button-grey {
-    height: 50px !important;
+    height: 55px !important;
     font-size: 16px !important;
-    line-height: 50px !important;
+    line-height: 55px !important;
   }
 .button-survey{
     font-size: 16px !important;
