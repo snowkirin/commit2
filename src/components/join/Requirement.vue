@@ -83,6 +83,12 @@ export default {
 }
 
 @media screen and (max-width: 486px) {
+    .button-grey{
+      height: 60px !important;
+    }
+    .button-login{
+      height: 60px !important;
+    }
   .requirement-textarea {
     width: 86%;
   }

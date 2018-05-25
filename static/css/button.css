@@ -6,13 +6,13 @@
 
 .button-main {
   width: 320px;
-  height: 70px;
+  height: 60px;
   background-color: #333333;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
-  line-height: 70px;
+  line-height: 60px;
   letter-spacing: -1.8px;
   color: #ffffff;
   text-align: left;
@@ -27,9 +27,9 @@
 @media screen and (max-width: 486px) {
   .button-login,
   .button-grey {
-    height: 55px !important;
+    height: 50px !important;
     font-size: 16px !important;
-    line-height: 55px !important;
+    line-height: 50px !important;
   }
 .button-survey{
     font-size: 16px !important;

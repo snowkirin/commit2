@@ -104,7 +104,7 @@
       </div>
       <div class="mt40">
         <div id="next-btn" class="next-btn" style="width: 392px; float: right;">
-          <button class="button-login" @click="finalSignup">
+          <button class="button-login button-next" @click="finalSignup">
             결제
           </button>
         </div>
@@ -269,6 +269,10 @@ export default {
 @media screen and (max-width: 486px) {
   .signup-payment-title {
     font-size: 26px;
+  }
+
+  .button-next {
+    height: 60px !important;
   }
 }
 

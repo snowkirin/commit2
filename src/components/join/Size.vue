@@ -270,7 +270,7 @@ export default {
     text-align: left;
     padding-left: 15px;
     height: 50px;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 300;
   }
 }

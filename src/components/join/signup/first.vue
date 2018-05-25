@@ -82,7 +82,7 @@
       </div>
       <div class="mt40">
         <div id="next-btn" class="next-btn" style="width: 392px; float: right;">
-          <button class="button-login" @click="validateBeforeSubmit">
+          <button class="button-login button-next" @click="validateBeforeSubmit">
             다음 (12/13)
           </button>
         </div>
@@ -416,6 +416,10 @@ export default {
 }
 
 @media screen and (max-width: 486px) {
+  .button-next {
+    height: 60px !important;
+  }
+
   .signup {
     padding: 0 4.8% 470px 4.8% !important;
   }
