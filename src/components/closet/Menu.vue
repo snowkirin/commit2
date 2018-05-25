@@ -1,6 +1,6 @@
 <template>
   <div class="closet-mobile-menu">
-    <div class="closet-menu" style="margin-top:30px">
+    <div class="closet-menu" @touchmove="touchMove" @touchend="touchEnd">
       <div class="close-mobile-slide">
         <div id="tomorrow" class="menu" data-id="tomorrow" :class="{ 'closet_active' : activeMenuName === 'tomorrow' }" @click="menuClick('/closet/tomorrow', 0)">내일의옷장</div>
         <div id="current" class="menu" data-id="current" :class="{ 'closet_active' : activeMenuName === 'current' }" @click="menuClick('/closet/current', 1)">현재의옷장</div>
@@ -29,9 +29,8 @@ export default {
     };
   },
   methods: {
-    menuClick(menu, idx) {
+    menuClick(menu) {
       this.$router.push({ path: menu });
-      this.activeMenuPosition(idx);
     },
     activeMenuPosition(idx) {
       if (!this.$common.deviceCheck()) return;
@@ -44,6 +43,18 @@ export default {
         XPosition = -230;
       } else {
         XPosition = -284;
+      }
+      document.querySelector('.close-mobile-slide').style.transform = `translate3d(${XPosition}px, 0px, 0px)`;
+    },
+    touchMove(e) {
+      document.querySelector('.close-mobile-slide').style.transform = `translate3d(${e.touches[0].pageX}px, 0px, 0px)`;
+    },
+    touchEnd(e) {
+      let XPosition = e.changedTouches[0].pageX;
+      if (XPosition < -284) {
+        XPosition = -284;
+      } else if (XPosition > 284) {
+        XPosition = 0;
       }
       document.querySelector('.close-mobile-slide').style.transform = `translate3d(${XPosition}px, 0px, 0px)`;
     },
@@ -104,6 +115,7 @@ export default {
 
 <style scoped>
 .closet-menu {
+  margin-top:30px;
   height: 45px;
   border-bottom: 1px solid #b9b9b9;
 }
@@ -154,8 +166,8 @@ export default {
   }
 
   .close-mobile-slide {
+    width: 100%;
     visibility: visible;
-    flex-basis: 339px;
     transition: -ms-transform 0.5s,-webkit-transform 0.5s,transform 0.5s !important;
   }
 
