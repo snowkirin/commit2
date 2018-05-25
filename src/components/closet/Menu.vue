@@ -1,6 +1,6 @@
 <template>
   <div class="closet-mobile-menu">
-    <div class="closet-menu" @touchmove="touchMove" @touchend="touchEnd">
+    <div class="closet-menu" @touchend="touchEnd">
       <div class="close-mobile-slide">
         <div id="tomorrow" class="menu" data-id="tomorrow" :class="{ 'closet_active' : activeMenuName === 'tomorrow' }" @click="menuClick('/closet/tomorrow', 0)">내일의옷장</div>
         <div id="current" class="menu" data-id="current" :class="{ 'closet_active' : activeMenuName === 'current' }" @click="menuClick('/closet/current', 1)">현재의옷장</div>
@@ -29,8 +29,9 @@ export default {
     };
   },
   methods: {
-    menuClick(menu) {
+    menuClick(menu, idx) {
       this.$router.push({ path: menu });
+      this.activeMenuPosition(idx);
     },
     activeMenuPosition(idx) {
       if (!this.$common.deviceCheck()) return;
@@ -46,8 +47,9 @@ export default {
       }
       document.querySelector('.close-mobile-slide').style.transform = `translate3d(${XPosition}px, 0px, 0px)`;
     },
-    touchMove(e) {
-      document.querySelector('.close-mobile-slide').style.transform = `translate3d(${e.touches[0].pageX}px, 0px, 0px)`;
+    touchMove() {
+      // document.querySelector('.close-mobile-slide').style.transform = `translate3d(${e.touches[0].pageX}px, 0px, 0px)`;
+      document.querySelector('.close-mobile-slide').style.transform = 'translate3d(0px, 0px, 0px)';
     },
     touchEnd(e) {
       let XPosition = e.changedTouches[0].pageX;
