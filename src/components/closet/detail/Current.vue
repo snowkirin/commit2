@@ -33,9 +33,17 @@
           <template v-if="currentCloset.products && currentCloset.products.length > 0">
             <div class="image-area">
               <div
+                v-if="currentCloset.products[0].image.width <= 600"
                 class="image-area-detail"
                 v-bind:style="{
-                  'background-image': `url(${API_IMAGE_URL}${currentCloset.products[0].image})`,
+                  'background-image': `url(${API_IMAGE_URL}${currentCloset.products[0].image.path})`,
+                }"
+              ></div>
+              <div
+                v-else
+                class="image-area-detail"
+                v-bind:style="{
+                  'background-image': `url(${API_IMAGE_URL}medium/${currentCloset.products[0].image.path})`,
                 }"
               ></div>
             </div>
@@ -45,9 +53,17 @@
           <template v-if="currentCloset.products && currentCloset.products.length > 1">
             <div class="image-area">
               <div
+                v-if="currentCloset.products[1].image.width <= 600"
                 class="image-area-detail"
                 v-bind:style="{
-                  'background-image': `url(${API_IMAGE_URL}${currentCloset.products[1].image})`,
+                  'background-image': `url(${API_IMAGE_URL}${currentCloset.products[1].image.path})`,
+                }"
+              ></div>
+              <div
+                v-else
+                class="image-area-detail"
+                v-bind:style="{
+                  'background-image': `url(${API_IMAGE_URL}medium/${currentCloset.products[1].image.path})`,
                 }"
               ></div>
             </div>
@@ -86,7 +102,7 @@
                 <div
                   class="thumnail-image"
                   v-bind:style="{
-                    'background-image': `url(${API_IMAGE_URL}${closet.image})`,
+                    'background-image': `url(${API_IMAGE_URL}small/${closet.image.path})`,
                   }"
                 ></div>
               </div>
