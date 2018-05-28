@@ -54,7 +54,7 @@ export default {
 }
 
 .benefit-title {
-  font-size: 60px;
+  font-size: 58px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
