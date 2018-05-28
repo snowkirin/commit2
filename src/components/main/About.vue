@@ -63,7 +63,7 @@ export default {
 }
 
 .main-about-title {
-  font-size: 30px;
+  font-size: 26px;
   letter-spacing: -1.4px;
   text-align: left;
   color: #ffffff;
