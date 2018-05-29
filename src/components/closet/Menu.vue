@@ -125,7 +125,7 @@ export default {
 
 .menu {
   display: inline-block;
-  font-size: 19px;
+  font-size: 18px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
@@ -176,7 +176,7 @@ export default {
 
   .menu {
     display: inline-block;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: normal;
     font-style: normal;
     font-stretch: normal;

@@ -79,7 +79,7 @@ footer {
 
 .footer-line::after {
   content: "\007C";
-  font-size: 15px;
+  font-size: 12px;
 }
 
 @media screen and (max-width: 486px) {
