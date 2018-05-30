@@ -176,6 +176,7 @@ export default {
 
   .noti-last-text {
     width: 100% !important;
+    display: block !important;
   }
 
   .noti-text-icon {
