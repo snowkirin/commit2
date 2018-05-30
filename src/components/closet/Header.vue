@@ -154,8 +154,8 @@ export default {
 @media screen and (max-width: 486px) {
   .closet-my-info {
     font-size: 32px;
-    padding: 6% 4.8% 0 3.5% !important;
-  }
+    padding: 7.5% 4.8% 0 3.5% !important;
+ }
 
   .closet-noti-info {
     padding: 0 4.8%;
@@ -208,6 +208,7 @@ export default {
 
   .closet-line {
     width: 1px !important;
+    margin-top: 5px;
   }
 }
 </style>
