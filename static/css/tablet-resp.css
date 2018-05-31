@@ -25,7 +25,7 @@
 }
 
 .main-point-text {
-  font-size: 17px !important;
+  font-size: 15px !important;
 }
 
 .main-about {
@@ -108,4 +108,23 @@
   left: -webkit-calc(48% - 401px) !important;
   left: -moz-calc(48% - 401px) !important;
   left: calc(48% - 401px) !important;
+}
+
+.closet-title-text {
+   font-size: 24px;
+   font-weight: normal;
+   font-style: normal;
+   font-stretch: normal;
+   line-height: 1.33;
+   letter-spacing: -1px;
+}
+
+.f16{
+   font-size: 15px;
+   font-weight: normal;
+   font-style: normal;
+   font-stretch: normal;
+   letter-spacing: -0.4px;
+   text-align: left;
+   color: #ffffff;
 }
