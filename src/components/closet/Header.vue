@@ -87,12 +87,12 @@ export default {
 
 .closet-my-info {
   padding: 30px 0 0 30px;
-  font-size: 45px;
+  font-size: 42px;
   line-height: 0.9;
   font-weight: 300;
   font-style: normal;
   font-stretch: normal;
-  letter-spacing: -2.2px;
+  letter-spacing: -3.3px;
   text-align: left;
   color: #ffffff;
 }

@@ -14,7 +14,7 @@
         현재 대여중인 의상이 마음에 드신다면?<br/>
         반납 없이 구매할 수 있습니다.<br/>
       </div>
-      <div class="closet-feedback mt50">
+      <div class="closet-feedback mt30">
         <div class="closet-feedback-content">
           ZULY 이용에 대한 이야기를 들려주세요.<br/>
           소중한 의견을 바탕으로 다음 스타일링이 진행됩니다.<br/>
@@ -25,7 +25,7 @@
         </div>
       </div>
       <feedBack ref="feedback"></feedBack>
-      <div class="closet-styling-tip mt50">
+      <div class="closet-styling-tip mt30">
         <div class="closet-styling-rotate-text">
           ZULY STYLE
         </div>

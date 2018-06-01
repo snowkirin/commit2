@@ -4,7 +4,7 @@
     <div class="closet-title-text mt15">
       그 동안의 옷장을 확인하실 수 있습니다.
     </div>
-    <div class="closet-content mt50">
+    <div class="closet-content mt30">
       <div v-show="pastNone" class="past-content">
         이력이 존재하지 않습니다.
       </div>

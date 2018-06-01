@@ -11,7 +11,7 @@
         <button class="button-login coupon-button">등록</button>
       </div>
     </div>
-    <div class="closet-content mt50">
+    <div class="closet-content mt30">
       <div class="notice-content">
         <div class="notice-rows notice-header">
           <div class="notice-number-title">쿠폰종류</div>

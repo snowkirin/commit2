@@ -1,5 +1,5 @@
 <template>
-  <div class="feedBack mt50">
+  <div class="feedBack mt30">
     <div class="feedback-area mauto">
       <div class="feedback-title">FEEDBACK</div>
       <component v-bind:is="viewFeed"></component>

@@ -4,7 +4,7 @@
     <div class="closet-title-text mt15">
       줄라이는 베이직 스타일을 기본으로 합니다.
     </div>
-    <div class="style-content mt50">
+    <div class="style-content mt30">
       <div class="style-content-area">
         <div class="style-content-left" style="margin-bottom: 40px;">
           <div class="style-content-row">

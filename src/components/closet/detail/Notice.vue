@@ -4,7 +4,7 @@
     <div class="closet-title-text mt15">
       줄라이의 소식을 확인해보세요.
     </div>
-    <div class="closet-content mt50">
+    <div class="closet-content mt30">
       <div class="notice-rows notice-header">
         <div class="notice-number">번호</div>
         <div class="notice-subject">제목</div>

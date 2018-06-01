@@ -4,7 +4,7 @@
     <div class="closet-title-text mt15">
       나의 정보를 변경 하실 수 있습니다.
     </div>
-    <div class="mypage-content mt50">
+    <div class="mypage-content mt30">
       <div class="mypage-content-area">
         <div class="mypage-content-left" style="margin-bottom: 40px;">
           <div class="mypage-content-row">

@@ -5,7 +5,7 @@
       고객님의 소중한 의견으로<br/>
       한 뼘 더 자라는 줄라이가 되겠습니다.
     </div>
-    <div class="customer-service-content mt50">
+    <div class="customer-service-content mt30">
       <div class="cs-left-area">
         <div class="cs-left-top">
           <div class="cs-left-title">나의 문의내역</div>
