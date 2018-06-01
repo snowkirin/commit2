@@ -81,14 +81,14 @@
 }
 
 .menu-title {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 400;
   font-style: normal;
   font-stretch: normal;
   line-height: 1.33;
   letter-spacing: -0.7px;
   color: #333333;
-  text-decoration: none;
+ text-decoration: none;
 }
 
 .dot {
