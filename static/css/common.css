@@ -1,6 +1,11 @@
 @import '_reboot.css';
 
 /* Common Style */
+
+body {
+  /* 특별하게 지정하지 않으면 폰트사이즈와 높이값이 같게 */
+  line-height: 1;
+}
 p {
   margin: 0;
 }

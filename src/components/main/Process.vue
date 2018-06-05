@@ -6,14 +6,10 @@
         <div class="img">
           <img src="/static/img/icons/icon_main1.svg" alt="">
         </div>
-        <div class="desc">
-          <div class="">STEP 01</div>
-          <div class="process-title">스타일 정보를 입력</div>
-          <div class="process-text mt5">
-            스타일리스트가 입력정보로<br/>
-            어울리는 옷을 제안합니다.<br/>
-            <a href="#" class="hide-area">스타일리스트 소개</a>
-          </div>
+        <div class="detail">
+          <p class="txt-step en-font">STEP 01</p>
+          <p class="txt-title">스타일 정보를 입력</p>
+          <p class="txt-desc">스타일리스트가 입력정보로 어울리는 옷을 제안합니다.</p>
         </div>
       </div>
 
@@ -21,31 +17,21 @@
         <div class="img">
           <img src="/static/img/icons/icon_main2.svg" alt="">
         </div>
-        <div class="desc">
-          <div class="en-font step-number">STEP 02</div>
-          <div class="process-title">정해진 날짜에 배송/수거</div>
-          <div class="process-text mt5">
-            당신이 선택한 옷이<br/>
-            2주 단위로 배송/수거 됩니다.<br/>
-            <a href="#" class="hide-area">지역별 배송 일자</a>
-          </div>
+        <div class="detail">
+          <p class="txt-step en-font">STEP 02</p>
+          <p class="txt-title">정해진 날짜에 배송/수거</p>
+          <p class="txt-desc">당신이 선택한 옷이 2주 단위로 배송/수거 됩니다.</p>
         </div>
-
-
       </div>
 
       <div class="step step3">
         <div class="img">
           <img src="/static/img/icons/icon_main3.svg" alt="">
         </div>
-        <div class="desc">
-          <div class="en-font step-number">STEP 03</div>
-          <div class="process-title">세탁/보관 걱정 없이 수거</div>
-          <div class="process-text mt5">
-            2주간 편하게 입고, 문 앞에 두면 끝.<br/>
-            더 입고 싶다면 반납 없이 구매도 가능합니다.<br/>
-            <a href="#" class="hide-area">세탁 방법 소개</a>
-          </div>
+        <div class="detail">
+          <p class="txt-step en-font">STEP 03</p>
+          <p class="txt-title">세탁/보관 걱정 없이 수거</p>
+          <p class="txt-desc">2주간 편하게 입고, 문 앞에 두면 끝. 더 입고 싶다면 반납 없이 구매도 가능합니다.</p>
         </div>
       </div>
 
@@ -53,14 +39,10 @@
         <div class="img">
           <img src="/static/img/icons/icon_main4.svg" alt="">
         </div>
-        <div class="desc">
-          <div class="en-font step-number">STEP 04</div>
-          <div class="process-title">피드백 전달</div>
-          <div class="process-text mt5">
-            더 나은 스타일 제안을 위해 의견 주세요.<br/>
-            나를 이해하는 스타일이 제공 됩니다.<br/>
-            <a href="#" class="hide-area">피드백 예시</a>
-          </div>
+        <div class="detail">
+          <p class="txt-step en-font">STEP 04</p>
+          <p class="txt-title">피드백 전달</p>
+          <p class="txt-desc">더 나은 스타일 제안을 위해 의견 주세요. 나를 이해하는 스타일이 제공 됩니다.</p>
         </div>
       </div>
 
@@ -82,14 +64,31 @@ export default {
   }
   .step {
     display: flex;
+    margin-top: 35px;
     .img {
       flex: 0 0 21.43%;
-      /*flex-basis: 21.43%;*/
+      margin-right: 22px;
+      img {
+        max-width: 100%;
+      }
     }
-    img {
-      max-width: 100%;
-    }
-    .desc {
+    .detail {
+      .txt-step {
+        font-size: 12px;
+        color: #b47a3d;
+        font-weight: 700;
+      }
+      .txt-title {
+        font-size: 18px;
+        letter-spacing: -.5px;
+        margin: 10px 0 12px;
+      }
+      .txt-desc {
+        font-size: 15px;
+        line-height: 23px;
+        letter-spacing: -.5px;
+        word-break: keep-all;
+      }
     }
   }
 /*.process-main {*/

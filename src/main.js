@@ -24,7 +24,7 @@ Vue.use(VueMomentJS, moment);
 Vue.use(VueMq, {
   breakpoints: {
     sm: 768,
-    md: 1200,
+    md: 1280,
     lg: Infinity,
   },
 });
