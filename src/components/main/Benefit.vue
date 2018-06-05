@@ -1,22 +1,19 @@
 <template>
-  <div class="benefit-main side-padding-50">
-    <div class="main-point-text en-font">
-      BENEFIT
-    </div>
-    <div class="benefit-title d-flex">
-      <div class="benefit-main-title" style="width: 80%;">
-        쇼핑, 세탁, 보관 걱정 없는<br/>
-        나만의 옷장<br/>
-        지금 무료로 경험하세요.
-      </div>
-      <div v-show="!Authentication.authenticated" class="benefit-btn-area" style="width: 20%; position: relative;">
-        <button class="button-main" style="bottom: 6px; right: 0; position: absolute;" @click="signup">
-          <span style="font-size: 20px; padding-left: 20px; font-weight: 400;">한달 무료 신청</span>
-          <div class="d-inlineblock arrowIcon"></div>
-        </button>
-      </div>
+  <div class="benefit">
+    <p class="main-point-text en-font">BENEFIT</p>
+    <p class="title">
+      쇼핑, 세탁, 보관 걱정 없는<br/>
+      나만의 옷장<br/>
+      지금 무료로 경험하세요.
+    </p>
+    <div v-show="!Authentication.authenticated" class="benefit-btn-area" style="width: 20%; position: relative;">
+      <button class="button-main" style="bottom: 6px; right: 0; position: absolute; display: none; " @click="signup">
+        <span style="font-size: 20px; padding-left: 20px; font-weight: 400;">한달 무료 신청</span>
+        <div class="d-inlineblock arrowIcon"></div>
+      </button>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -46,7 +43,15 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  .benefit {
+    padding: 15px 20px 45px;
+    .title {
+      letter-spacing: -1.4px;
+      font-size: 26px;
+      line-height: 34px;
+    }
+  }
 .benefit-main {
   width: 1200px;
   margin: auto;
