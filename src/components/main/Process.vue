@@ -1,6 +1,7 @@
 <template>
   <div class="process">
     <p class="main-point-text">Process</p>
+    <hr class="zuly-line">
     <div>
       <div class="step step1">
         <div class="img">
@@ -60,126 +61,43 @@ export default {
 
 <style scoped lang="scss">
   .process {
-    padding: 20px;
+    /*padding: 20px;*/
+    padding: 6.25vw;
   }
   .step {
     display: flex;
-    margin-top: 35px;
+    /*margin-top: 35px;*/
+    margin-top: 10.9375vw;
     .img {
       flex: 0 0 21.43%;
-      margin-right: 22px;
+      /*margin-right: 22px;*/
+      margin-right: 6.875vw;
       img {
         max-width: 100%;
       }
     }
     .detail {
       .txt-step {
-        font-size: 12px;
+        /*font-size: 12px;*/
+        font-size: 3.75vw;
         color: #b47a3d;
         font-weight: 700;
       }
       .txt-title {
-        font-size: 18px;
+        /*font-size: 18px;*/
+        font-size: 5.625vw;
         letter-spacing: -.5px;
-        margin: 10px 0 12px;
+        /*margin: 10px 0 12px;*/
+        margin: 3.125vw 0 3.75vw;
       }
       .txt-desc {
-        font-size: 15px;
-        line-height: 23px;
+        /*font-size: 15px;*/
+        font-size: 4.6875vw;
+        /*line-height: 23px;*/
+        line-height: 7.1875vw;
         letter-spacing: -.5px;
         word-break: keep-all;
       }
     }
   }
-/*.process-main {*/
-  /*width: 1200px;*/
-  /*margin: auto;*/
-/*}*/
-
-/*.main-point-text {*/
-  /*width: 200px;*/
-/*}*/
-
-/*.line {*/
-  /*width: 1px;*/
-  /*height: 98%;*/
-  /*background-color: #dadada;*/
-/*}*/
-
-/*.process-half-area {*/
-  /*position: relative;*/
-  /*width: 49%;*/
-  /*bottom: 5px;*/
-/*}*/
-
-/*.process-text {*/
-  /*line-height: 1.56;*/
-/*}*/
-
-/*.process-text a {*/
-  /*font-weight: 500;*/
-  /*color: #405a94;*/
-/*}*/
-
-/*.process-icon {*/
-  /*width: 90px;*/
-/*}*/
-
-/*.firstProcess {*/
-  /*background: url('/static/img/icons/icon_main1.svg') no-repeat 37.322% 37.431%;*/
-  /*width: 89px;*/
-  /*height: 89px;*/
-  /*padding-top: 5px;*/
-/*}*/
-
-/*.secondProcess {*/
-  /*background: url('/static/img/icons/icon_main2.svg') no-repeat 59.166% 37.431%;*/
-  /*width: 89px;*/
-  /*height: 89px;*/
-/*}*/
-
-/*.thirdProcess {*/
-  /*background: url('/static/img/icons/icon_main3.svg') no-repeat 48.299% 37.431%;*/
-  /*width: 89px;*/
-  /*height: 89px;*/
-  /*padding-top: 10px;*/
-/*}*/
-
-/*.fourthProcess {*/
-  /*background: url('/static/img/icons/icon_main4.svg') no-repeat 70.033% 37.431%;*/
-  /*width: 89px;*/
-  /*height: 89px;*/
-  /*padding-top: 10px;*/
-  /*padding-left: 3px;*/
-/*}*/
-
-/*@media screen and (max-width: 486px) {*/
-  /*.mobile-process-line {*/
-    /*height: 2px;*/
-    /*background-color: #333333;*/
-    /*margin-bottom: 30px;*/
-  /*}*/
-
-  /*.firstProcess,*/
-  /*.secondProcess,*/
-  /*.fourthProcess {*/
-    /*width: 68px;*/
-    /*height: 68px;*/
-  /*}*/
-
-  /*.thirdProcess{*/
-    /*width: 70px;*/
-    /*height: 70px;*/
-  /*}*/
-
-
-  /*span.en-font {*/
-    /*padding-top: 14px !important;*/
-  /*}*/
-
-  /*.process-icon {*/
-    /*width: 80px;*/
-    /*flex: 0 0 80px;*/
-  /*}*/
-/*}*/
 </style>

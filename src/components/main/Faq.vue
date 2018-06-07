@@ -2,13 +2,13 @@
   <div class="faq">
     <div>
       <p class="main-point-text en-font">FAQ</p>
+      <hr class="zuly-line">
       <div class="faq-card">
         <div class="w100">
           <div class="faq-question" @click="openFAQ($event)">
             <p class="faq-question-subject">
-              <span>Q</span>
-              <span>요금제는 어떻게 되나요?</span>
-              <!-- ICON이 있을수도 없을수도 있습니다.-->
+              <span class="faq-question-q">Q</span>
+              <span class="faq-question-text">요금제는 어떻게 되나요?</span>
             </p>
           </div>
           <div class="faq-answer">
@@ -28,11 +28,8 @@
         <div class="w100">
           <div class="faq-question" @click="openFAQ($event)">
             <p class="faq-question-subject">
-              <span>Q</span>
-              <span>회원이 되면 어떤 옷을 받는건가요?</span>
-              <!--<span class="faq-question-icon" @click="openFAQIcon($event)">-->
-                <!--<i class="fa fa-angle-down fa-lg"></i>-->
-              <!--</span>-->
+              <span class="faq-question-q">Q</span>
+              <span class="faq-question-text">회원이 되면 어떤 옷을 받는건가요?</span>
             </p>
           </div>
           <div class="faq-answer">
@@ -48,11 +45,8 @@
         <div class="w100">
           <div class="faq-question" @click="openFAQ($event)">
             <p class="faq-question-subject">
-              <span>Q</span>
-              <span>정말 고르지 않아도 나에게 어울리는 옷을 보내주나요?</span>
-              <span class="faq-question-icon" @click="openFAQIcon($event)">
-                <i class="fa fa-angle-down fa-lg"></i>
-              </span>
+              <span class="faq-question-q">Q</span>
+              <span class="faq-question-text">정말 고르지 않아도 나에게 어울리는 옷을 보내주나요?</span>
             </p>
           </div>
           <div class="faq-answer">
@@ -67,11 +61,8 @@
         <div class="w100">
           <div class="faq-question" @click="openFAQ($event)">
             <p class="faq-question-subject">
-              <span>Q</span>
-              <span>옷만 이쁘게 입고 세탁/보관 걱정 없이 문 앞에 두면 되는건가요?</span>
-              <span class="faq-question-icon" @click="openFAQIcon($event)">
-                <i class="fa fa-angle-down fa-lg"></i>
-              </span>
+              <span class="faq-question-q">Q</span>
+              <span class="faq-question-text">옷만 이쁘게 입고 세탁/보관 걱정 없이 문 앞에 두면 되는건가요?</span>
             </p>
           </div>
           <div class="faq-answer">
@@ -83,11 +74,11 @@
         <div class="w100">
           <div class="faq-question" @click="openFAQ($event, 'last')">
             <p class="faq-question-subject">
-              <span>Q</span>
-              <span>서비스 지역의 제한은 있나요?</span>
-              <span class="faq-question-icon" @click="openFAQIcon($event, 'last')">
+              <span class="faq-question-q">Q</span>
+              <span class="faq-question-text">서비스 지역의 제한은 있나요?</span>
+              <!--<span class="faq-question-icon" @click="openFAQIcon($event, 'last')">
                 <i class="fa fa-angle-down fa-lg"></i>
-              </span>
+              </span>-->
             </p>
           </div>
           <div class="faq-answer">
@@ -107,43 +98,27 @@ export default {
   methods: {
     openFAQ(evt, view) {
       const obj = evt;
-      const answer = obj.target.parentNode.parentNode.querySelector('.faq-answer');
-      const icon = obj.target.parentNode.querySelector('i');
-
-      if (answer) {
-        if (answer.style.display === 'none' || !answer.style.display) {
-          icon.classList.remove('fa-angle-down');
-          icon.classList.add('fa-angle-up');
-          answer.style.display = 'block';
-
-          if (view) document.querySelector('.last-line').style.backgroundColor = '#dadada';
-        } else {
-          icon.classList.remove('fa-angle-up');
-          icon.classList.add('fa-angle-down');
-          answer.style.display = 'none';
-
-          if (view) document.querySelector('.last-line').style.backgroundColor = '#FFFFFF';
+      if (obj.target.tagName === 'SPAN') {
+        const answer = obj.target.parentNode.parentNode.parentNode.querySelector('.faq-answer');
+        if (answer) {
+          if (answer.style.display === 'none' || !answer.style.display) {
+            answer.style.display = 'block';
+            if (view) document.querySelector('.last-line').style.backgroundColor = '#dadada';
+          } else {
+            answer.style.display = 'none';
+            if (view) document.querySelector('.last-line').style.backgroundColor = '#FFFFFF';
+          }
         }
-      }
-    },
-    openFAQIcon(evt, view) {
-      const obj = evt;
-      const answer = obj.target.parentNode.parentNode.parentNode.querySelector('.faq-answer');
-      const icon = obj.target;
-
-      if (answer) {
-        if (answer.style.display === 'none' || !answer.style.display) {
-          icon.classList.remove('fa-angle-down');
-          icon.classList.add('fa-angle-up');
-          answer.style.display = 'block';
-
-          if (view) document.querySelector('.last-line').style.backgroundColor = '#dadada';
-        } else {
-          icon.classList.remove('fa-angle-up');
-          icon.classList.add('fa-angle-down');
-          answer.style.display = 'none';
-
-          if (view) document.querySelector('.last-line').style.backgroundColor = '#FFFFFF';
+      } else if (obj.target.tagName === 'P') {
+        const answer = obj.target.parentNode.parentNode.querySelector('.faq-answer');
+        if (answer) {
+          if (answer.style.display === 'none' || !answer.style.display) {
+            answer.style.display = 'block';
+            if (view) document.querySelector('.last-line').style.backgroundColor = '#dadada';
+          } else {
+            answer.style.display = 'none';
+            if (view) document.querySelector('.last-line').style.backgroundColor = '#FFFFFF';
+          }
         }
       }
     },
@@ -154,15 +129,19 @@ export default {
 <style scoped lang="scss">
 
   .faq {
-    padding: 0 20px;
+    padding: 6.25vw;
   }
   .faq-question-subject {
-    font-size: 18px;
+    /*font-size: 18px;*/
+    font-size: 5.625vw;
     display: flex;
     letter-spacing: -0.5px;
-    padding: 20px 0;
+    /*padding: 20px 0;*/
+    padding: 6.25vw 0;
     position: relative;
-    line-height: 24px;
+    /*line-height: 24px;*/
+    line-height: 7.5vw;
+    justify-content: space-between;
     &:after {
       position: absolute;
       content: '';
@@ -172,91 +151,36 @@ export default {
       bottom: 0;
       left: 0;
     }
-    span {
-      &:first-child {
-        flex: 0 0 27px;
-      }
+    .faq-question-q {
+      flex: 0 0 8.4375vw;
+    }
+    .faq-question-text {
+      flex: 1 1 auto;
+    }
+    .faq-question-icon {
+      align-self: center;
     }
   }
 
   .faq-answer {
     display: none;
-    padding: 20px;
+    /*padding: 20px;*/
+    padding: 6.25vw;
     background-color: #f5f5f5;
+    .faq-answer-text {
+      /*line-height: 23px;*/
+      line-height: 7.1875vw;
+      /*font-size: 15px;*/
+      font-size: 4.6875vw;
+      letter-spacing: -.6px;
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+      .faq-answer-text-title {
+        /*line-height: 25px;*/
+        line-height: 7.8125vw;
+      }
+    }
   }
-
-/*.main-point-text {*/
-  /*width: 200px;*/
-/*}*/
-
-/*.faq-line {*/
-  /*height: 2px;*/
-  /*background-color: #333333;*/
-/*}*/
-
-/*.faq-text-line {*/
-  /*height: 1px;*/
-  /*background-color: #dadada;*/
-/*}*/
-
-/*.faq-question {*/
-  /*display: block;*/
-  /*cursor: pointer;*/
-/*}*/
-
-/*.faq-question-icon {*/
-  /*float: right;*/
-/*}*/
-
-/*.faq-answer {*/
-  /*background-color: #f5f5f5;*/
-  /*display: none;*/
-/*}*/
-
-/*.faq-answer-text {*/
-  /*padding: 30px 30px 30px 30px;*/
-  /*line-height: 1.56;*/
-/*}*/
-
-/*.last-line {*/
-  /*background-color: #FFFFFF;*/
-/*}*/
-
-/*.faq-question-subject {*/
-  /*display: inline-block;*/
-  /*width: 85%;*/
-/*}*/
-
-/*.mobile-process-line {*/
-  /*height: 2px;*/
-  /*background-color: #333333;*/
-  /*margin-bottom: 42px;*/
-/*}*/
-
-/*.firstProcess,*/
-/*.secondProcess,*/
-/*.thirdProcess,*/
-/*.fourthProcess {*/
-  /*background-size: 900px 900px;*/
-  /*height: 89px;*/
-/*}*/
-
-/*@media screen and (max-width: 486px) {*/
-  /*.faq-question {*/
-    /*margin-top: 32px !important;*/
-  /*}*/
-
-  /*span.en-font {*/
-    /*padding-top: 13px !important;*/
-  /*}*/
-
-  /*.faq-answer-text {*/
-    /*padding: 20px !important;*/
-    /*font-size: 14px !important;*/
-  /*}*/
-
-  /*.mt40 {*/
-    /*margin-top: 30px !important;*/
-  /*}*/
-/*}*/
 </style>

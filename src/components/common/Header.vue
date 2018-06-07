@@ -8,9 +8,6 @@
         <li>
           <router-link to="/closet" class="menu-title">나만의 옷장</router-link>
         </li>
-        <!--<li class="interval">-->
-          <!--<span class="mobile-point" style="display: inline-block; width:3px; height:3px; background-color: #333333; opacity: 0.5;"></span>-->
-        <!--</li>-->
         <li>
           <span v-if="Authentication.authenticated" class="menu-title" @click="doLogout">
             로그아웃
@@ -21,7 +18,6 @@
         </li>
       </ul>
     </nav>
-    <div v-show="headerLine" class="headerLine mt60"></div>
   </header>
 </template>
 
@@ -63,11 +59,14 @@ export default {
     align-items: center;
     display: flex;
     justify-content: space-between;
-    padding: 30px 20px;
+    /*padding: 30px 20px;*/
+    padding: 9.375vw 6.25vw;
   }
   .logo {
-    width: 71px;
-    height: 21px;
+    /*width: 71px;*/
+    /*height: 21px;*/
+    width: 22.1875vw;
+    height: 6.5625vw;
     img {
       width: 100%;
       height: 100%;
@@ -81,95 +80,31 @@ export default {
       margin: 0;
     }
     li {
-      line-height: 21px;
-      margin-right: 25px;
+      /*line-height: 21px;*/
+      line-height: 6.5625vw;
+      /*margin-right: 25px;*/
+      margin-right: 7.8125vw;
       position: relative;
+      /*font-size: 16px;*/
+      font-size: 5vw;
       &:last-child {
         margin-right: 0;
       }
       &:not(:last-child):after {
         position: absolute;
-        right: -12px;
-        top: 10px;
+        /* right: -12px; */
+        /*top: 10px;*/
+        top: 3.125vw;
+        right: -3.75vw;
         display: inline-block;
         content: '';
-        width: 3px;
-        height: 3px;
+        width: 0.9375vw;
+        height: 0.9375vw;
+        /*width: 3px;*/
+        /*height: 3px;*/
         background-color: #333;
         opacity: 0.5;
       }
     }
   }
-.side-margin-50 {
-  margin: 0 50px 0 53px;
-}
-
-/*.logo {*/
-  /*width: 99px;*/
-  /*height: 30px;*/
-  /*background-image: url('/static/img/logo/ZULY-BI.png');*/
-  /*background-size: 100% 100%;*/
-/*}*/
-
-div.headerLine {
-  width: 100%;
-  height: 3px;
-  background-color: #333333;
-}
-
-ul.header-menu {
-  padding: 0;
-  position: relative;
-  top: -6px;
-}
-
-li.interval {
-  margin: 0 15px;
-}
-
-span.menu-title {
-  cursor: pointer;
-}
-
-@media screen and (max-width: 486px) {
-  div.headerLine {
-    display: inline-block;
-  }
-
-  .mt60 {
-    margin-top: 15px !important;
-  }
-
-  .zuly-menu {
-    margin-top: 5px !important;
-  }
-
-  /*.logo {*/
-    /*width: 73px;*/
-    /*height: 22px;*/
-  /*}*/
-
-  .pd20 {
-    padding-top: 10px !important;
-  }
-
-  ul.header-menu {
-    padding: 0;
-    position: relative;
-    top: -11px;
-  }
-
-  li.interval {
-    margin: 0 10px;
-  }
-
-  span.mobile-point {
-    top: -3px;
-    position: relative;
-  }
-
-  .menu-title {
-    letter-spacing: -1px;
-  }
-}
 </style>

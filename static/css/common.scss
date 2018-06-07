@@ -1,41 +1,50 @@
 @charset "UTF-8";
-@import url(_reboot.css);
+@import '_reboot.css';
 /* Common Style */
+
 body {
   /* 특별하게 지정하지 않으면 폰트사이즈와 높이값이 같게 */
   line-height: 1;
-  overflow-y: scroll; }
-
+  overflow-y: scroll;
+}
 p {
-  margin: 0; }
-
-ol, dl, ul {
-  margin: 0; }
+  margin: 0;
+}
+ol,dl,ul {
+  margin: 0;
+}
 
 .txt-mainTitle {
+  //font-size: 14px;
   font-size: 4.375vw;
   font-weight: 800;
+  //line-height: 28px;
   line-height: 8.75vw;
-  text-transform: uppercase; }
+  text-transform: uppercase;
+}
 
 .main-point-text {
+  //font-size: 14px;
   font-size: 4.375vw;
   font-weight: 800;
+  //line-height: 28px;
   line-height: 8.75vw;
   color: #f45649;
-  text-transform: uppercase; }
+  text-transform: uppercase;
+}
 
 /*
  hr 태그 Version
 */
+
 .zuly-line {
   margin: 0;
   position: absolute;
   width: calc(100% - 6.25vw);
   height: 0;
   border: 0 none;
-  border-bottom: 2px solid #212121; }
-
+  border-bottom: 2px solid #212121;
+}
 .zuly-thin-line {
   margin: 0;
   position: absolute;
@@ -43,7 +52,9 @@ ol, dl, ul {
   height: 0;
   border: 0 none;
   border-bottom: 1px solid #797979;
-  opacity: 0.6; }
+  opacity: 0.6;
+}
+
 
 /*
 가상 선택자 Version
@@ -71,6 +82,17 @@ ol, dl, ul {
   }
 }
 */
+
+// Tablet
+@media (min-width: 768px){
+}
+// Desktop
+@media (min-width: 1200px){
+  .main-point-text {
+    //font-size: 17px;
+  }
+}
+
 /*@import "layout.css";*/
 /*@import "fontInfo.css";*/
 /*@import "button.css";*/
@@ -79,58 +101,66 @@ ol, dl, ul {
 /*@import "signup.css";*/
 /*@import "tablet-resp.css" screen and (max-width: 1200px) and (min-width: 486px);*/
 /*@import "mobile-resp.css" screen and (max-width: 486px);*/
+
+
 /*.vertical-line {*/
-/*width: 1px;*/
-/*background-color: #d3d3d3;*/
-/*margin: 0 10px;*/
+  /*width: 1px;*/
+  /*background-color: #d3d3d3;*/
+  /*margin: 0 10px;*/
 /*}*/
+
 /*.Line {*/
-/*width: 100%;*/
-/*height: 1px;*/
-/*background-color: #e1e1e1;*/
+  /*width: 100%;*/
+  /*height: 1px;*/
+  /*background-color: #e1e1e1;*/
 /*}*/
+
 /*.greyLine {*/
-/*height: 1px;*/
-/*opacity: 0.2;*/
-/*background-color: #333333;*/
+  /*height: 1px;*/
+  /*opacity: 0.2;*/
+  /*background-color: #333333;*/
 /*}*/
+
 /*.no-deco-a {*/
-/*color: #333333;*/
-/*text-decoration: none;*/
+  /*color: #333333;*/
+  /*text-decoration: none;*/
 /*}*/
 /*.dotted-line-hashtag {*/
-/*background-color: #a7a7a7;*/
-/*border-bottom-style: dashed;*/
-/*border-bottom-color: #dbdbdb;*/
-/*border-bottom-width: 1px;*/
+  /*background-color: #a7a7a7;*/
+  /*border-bottom-style: dashed;*/
+  /*border-bottom-color: #dbdbdb;*/
+  /*border-bottom-width: 1px;*/
 /*}*/
 /*.dotted-line {*/
-/*background-color: #ffffff;*/
-/*border-bottom-style: dashed;*/
-/*border-bottom-color: #dbdbdb;*/
-/*border-bottom-width: 1px;*/
+  /*background-color: #ffffff;*/
+  /*border-bottom-style: dashed;*/
+  /*border-bottom-color: #dbdbdb;*/
+  /*border-bottom-width: 1px;*/
 /*}*/
+
 /*input, textarea, select {*/
-/*-webkit-appearance: none;*/
-/*-moz-appearance: none;*/
-/*appearance: none;*/
-/*border-radius: 0;*/
+  /*-webkit-appearance: none;*/
+  /*-moz-appearance: none;*/
+  /*appearance: none;*/
+  /*border-radius: 0;*/
 /*}*/
+
 /*input:-webkit-autofill,*/
 /*input:-webkit-autofill:hover,*/
 /*input:-webkit-autofill:focus,*/
 /*input:-webkit-autofill:active {*/
-/*transition: background-color 5000s ease-in-out 0s;*/
-/*}*/
-/*.scroll::-webkit-scrollbar {*/
-/*width: 8px;*/
-/*}*/
-/*.scroll::-webkit-scrollbar-thumb {*/
-/*border-radius: 4px;*/
-/*background-color: #dadada;*/
-/*}*/
-/*.hide-area {*/
-/*display: none;*/
+    /*transition: background-color 5000s ease-in-out 0s;*/
 /*}*/
 
-/*# sourceMappingURL=common.css.map */
+/*.scroll::-webkit-scrollbar {*/
+  /*width: 8px;*/
+/*}*/
+
+/*.scroll::-webkit-scrollbar-thumb {*/
+  /*border-radius: 4px;*/
+  /*background-color: #dadada;*/
+/*}*/
+
+/*.hide-area {*/
+  /*display: none;*/
+/*}*/
