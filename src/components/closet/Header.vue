@@ -4,22 +4,19 @@
       <span class="name">{{ Authentication.userName }}</span>님 옷장
     </p>
     <div class="info">
-      <!--공지사항-->
       <div class="notice">
         <p class="title">공지사항</p>
-        <p style="letter-spacing: 2px;">
-          <span class="txt-number en-font">0</span>
-          건
+        <p class="number">
+          <span>0</span> 건
         </p>
       </div>
-      <!--내일의 옷장 선택 -->
       <div class="tomorrow-closet">
         <p class="title">내일의 옷장 선택</p>
         <div class="txt-change">
           <span>{{ changeMsg }}</span>
         </div>
-        <p>
-          <span class="txt-number en-font">{{ printDDay(tomorrowCloset.select_dday) }}</span>
+        <p class="number">
+          <span>{{ printDDay(tomorrowCloset.select_dday) }}</span>
         </p>
       </div>
     </div>
@@ -68,12 +65,10 @@ export default {
     background-color: #be7979;
     color: #fff;
     padding: 23px 18px 24px;
-    /*padding: 6.25vw;*/
     font-weight: 300;
   }
   .user {
     font-size: 32px;
-    /*font-size: 10vw;*/
     letter-spacing: -2.2px;
     line-height: 40px;
     .name {
@@ -82,60 +77,69 @@ export default {
   }
   .info {
     display: flex;
-    margin-top: 27px;
-    /*margin-top: 8.4375vw;*/
-    /*height: 80px;*/
-    /*height: 25vw;*/
+    margin-top: 28px;
     .notice,
     .tomorrow-closet {
-      width: 50%;
       position: relative;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      .title {
+        font-size: 14px;
+        letter-spacing: -1px;
+      }
+      .number {
+        span {
+          font-size: 30px;
+          line-height: 36px;
+          font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
+          letter-spacing: 0;
+        }
+      }
     }
     .notice {
       font-size: 16px;
-      /*font-size: 5vw;*/
+      flex: 1 1 168px;
       &:after {
         content: '';
         display: block;
         width: 2px;
-        height: 100%;
+        height: 80px;
         background-color: rgba(255,255,255, 0.5);
         opacity: 0.5;
         position: absolute;
         top: 0;
         right: 0;
       }
+
+      .title {
+        font-size: 14px;
+        letter-spacing: -1px;
+      }
+      .number {
+        font-size: 16px;
+        letter-spacing: 2.3px;
+        margin-top: 35px;
+        span {
+          font-size: 30px;
+          line-height: 36px;
+          font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
+          letter-spacing: 0;
+        }
+      }
     }
     .tomorrow-closet {
-      padding-left: 20px;
-      /*padding-left: 6.25vw;*/
+      padding-left: 22px;
+      flex: 1 1 116px;
       .txt-change {
         width: 57px;
-        /*width: 17.8125vw;*/
         font-size: 12px;
-        /*font-size: 3.75vw;*/
         letter-spacing: -0.8px;
         line-height: 21px;
-        /*line-height: 6.5625vw;*/
         border-radius: 10px;
-        /*border-radius: 3.125vw;*/
         border: 1px solid #fff;
         text-align: center;
         margin-top: 13px;
       }
-    }
-    .title {
-      font-size: 14px;
-      /*font-size: 4.375vw;*/
-      letter-spacing: -1px;
-    }
-    .txt-number {
-      font-size: 30px;
-      /*font-size: 9.375vw;*/
-      line-height: 36px;
     }
   }
 </style>
