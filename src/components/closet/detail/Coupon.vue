@@ -1,5 +1,60 @@
 <template>
-  <div class="notice mt40">
+  <div class="coupon">
+    <p class="txt-main-title">쿠폰 번호를 입력하세요.</p>
+    <form>
+      <div class="form-group" data-grid="7:3">
+        <input type="text" class="form-input">
+        <button
+          type="button"
+          class="btn btn-primary">
+          등록
+        </button>
+      </div>
+    </form>
+    <div class="line line__default"></div>
+    <div class="coupon-list">
+      <table>
+        <thead>
+        <tr>
+          <th>쿠폰종류</th>
+          <th>쿠폰명</th>
+          <th>사용가능기간</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>
+            <div class="coupon-ticket">
+              <span class="percent en-font">30%</span>
+              <span class="text">ZULY</span>
+            </div>
+          </td>
+          <td>
+            WHITE 등급<br/>일반쿠폰 30%
+          </td>
+          <td class="en-font">
+            2018.03.01 ~ 2018.03.31
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="coupon-ticket">
+              <span class="percent en-font">30%</span>
+              <span class="text">ZULY</span>
+            </div>
+          </td>
+          <td>
+            WHITE 등급<br/>일반쿠폰 30%
+          </td>
+          <td class="en-font">
+            2018.03.01 ~ 2018.03.31
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!--<div class="notice mt40">
     <div class="main-point-text closet-title">쿠폰 등록/내역</div>
     <div class="closet-title-text mt15">
       쿠폰 번호를 입력하세요.
@@ -52,7 +107,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div>-->
 </template>
 
 <script>
@@ -82,7 +137,80 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  @import '../style';
+  .coupon {
+    padding: 20px;
+  }
+  .coupon-list {
+    table {
+      width: 100%;
+      table-layout: fixed;
+      border-bottom: 1px solid #333;
+    }
+    th, td {
+      font-size: 15px;
+      letter-spacing: -0.6px;
+    }
+    thead {
+      th {
+        height: 43px;
+        &:first-child {
+          text-align: left;
+        }
+        &:last-child {
+          text-align: right;
+        }
+      }
+    }
+    tbody {
+      tr {
+        td {
+          border-top: 1px solid #e9e9e9;
+        }
+      }
+      td {
+        line-height: 23px;
+        height: 78px;
+        &:last-child {
+          text-align: left;
+          letter-spacing: 0;
+        }
+      }
+    }
+
+  }
+  .coupon-ticket {
+    position: relative;
+    overflow: hidden;
+    width: 70px;
+    height: 38px;
+    border: 1px solid #333;
+    border-radius: 3px;
+    line-height: 36px;
+    text-align: center;
+    padding-right:16px;
+    .percent {
+      font-size: 15px;
+      font-weight: 700;
+    }
+    .text {
+      transform-origin: 0 0;
+      -webkit-transform: rotate(90deg);
+      transform: rotate(90deg);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 300;
+      background-color: #333;
+      position: absolute;
+      width: 36px;
+      top: 0;
+      letter-spacing: 0;
+      left: 100%;
+      height: 16px;
+      line-height: 16px;
+    }
+  }
 .notice-rows {
   min-height: 50px;
   display: flex;

@@ -1,5 +1,84 @@
 <template>
-  <div class="current mt40">
+  <div class="current">
+    <p class="txt-current-title">
+      현재 대여중인 의상이 마음에<br/>
+      드신다면?<br/>
+      반납 없이 구매할 수 있습니다.
+    </p>
+    <div class="current-styling">
+      <div class="carousel">
+        <p class="txt-rotate">Zuly Style</p>
+        <div class="img-current-styling">
+          <img src="https://picsum.photos/300/300" alt="">
+          <!--<img src="https://picsum.photos/200/300" alt="">-->
+        </div>
+        <p class="txt-tip-today-style en-font"><span>TIP</span> <span class="txt-dash">_</span><br/> <span>TODAY&apos;S STYLE</span></p>
+      </div>
+      <div class="txt-style-tip">
+        <p class="txt-style-tip__title">스타일 팁</p>
+        <p class="txt-style-tip__desc">
+          심플하지만 갖춰입은듯 스타일리쉬 한 룩!<br/>
+          - 허리에서 포켓까지 이어진 바이올렛톤의 새틴 배색이 포인트인 팬츠로, 이러한 디자인의 특징을 살려서 블라우스를 입을때 앞면을 살짝 넣어서 입어보세요.
+          - 허리의 사이즈가 조금 크다면 벨트보다는 옷핀을 바지 안쪽으로 살짝 집어 핏을 잡아주신후, 블라우스 뒷면은 빼서 입어주시면 스타일리쉬함은 물론 체형보완이 되는 핏이 되요. 팬츠는 써머시즌 샌들 등과 잘 어울려요.
+        </p>
+      </div>
+
+      <div class="zuly-line-dot"></div>
+      <p class="txt-hashtag">#ZULY #오피스룩 # 나만의옷장 #모던 #블라우스 #화이트 # 팬츠 #배색 #Ss18</p>
+    </div>
+    <div class="current-product-list">
+      <ul>
+        <li>
+          <!--<div class="item-checkbox">-->
+            <!--<label class="container">-->
+              <!--<input type="checkbox" name="product">-->
+              <!--<span class="checkmark" style="width: 40px; height: 40px;"></span>-->
+            <!--</label>-->
+          <!--</div>-->
+          <div class="checkbox">
+            <input type="checkbox" name="" id="">
+          </div>
+          <div class="image">
+            <img src="https://picsum.photos/200/300" alt="상품이미지"/>
+          </div>
+          <div class="information">
+            <p class="title">마누엘에기욤</p>
+            <p class="desc">반하이 블라우스</p>
+            <p class="original-price"><span class="txt-strike en-font">198,000</span>원</p>
+            <p class="sale-price">혜택가<span class="en-font">138,600</span>원 <span class="txt-price-accent en-font">(30%↓)</span></p>
+            <a class="link-detail" href="#">상품 상세보기</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="confirm-payment">
+      <p class="title">최종결제 금액 확인</p>
+      <p class="quantity">
+        <span class="text">주문수량</span>
+        <span class="number en-font">0</span>
+      </p>
+      <p class="price">
+        <span class="text">총 상품금액</span>
+        <span class="number"><span class="en-font">0</span>원</span>
+      </p>
+      <p class="final">
+        <span class="text">최종 결제 금액</span>
+        <span class="number"><span class="en-font">0</span>원</span>
+      </p>
+      <div class="btn-confirm">
+        <button
+          type="button">
+          등록된 카드로 결제하기
+          <!--<img src="/static/img/closet/btn-ok.png"
+               srcset="/static/img/closet/btn-ok@2x.png 2x,
+               /static/img/closet/btn-ok@3x.png 3x"
+               alt=""
+               class="btn_ok">-->
+        </button>
+      </div>
+    </div>
+  </div>
+  <!--<div class="current mt40">
     <div class="closet-card-none" v-show="currentNone">
       <div class="closet-card-none-content">
         <div class="content-table mauto">
@@ -79,9 +158,9 @@
       </div>
       <div class="closet-styling-tip-title">스타일 팁</div>
       <div class="closet-styling-tip-text" v-html="printStylingTip">
-        <!-- div class="closet-styling-tip-stylist mt30">
+        &lt;!&ndash; div class="closet-styling-tip-stylist mt30">
           - 담당 스타일리스트 한영진님
-        </div -->
+        </div &ndash;&gt;
       </div>
       <div class="closet-styling-tip-hashtag">
         <div class="dotted-line-hashtag"></div>
@@ -153,7 +232,7 @@
       </div>
     </div>
     <detail-modal ref="detail" dataId="address"></detail-modal>
-  </div>
+  </div>-->
 </template>
 
 <script>
@@ -269,8 +348,204 @@ export default {
 };
 </script>
 
-<style scoped>
-.closet-feedback {
+<style scoped lang="scss">
+  .current {
+    padding: 24px 20px 20px 20px;
+  }
+  .txt-current-title {
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: -1.1px;
+  }
+  .current-styling {
+    background-color: #dbdbdb;
+    padding: 32px 26px 24px 24px;
+    margin: {
+      top: 16px;
+      bottom: 31px;
+    }
+  }
+  .carousel {
+    position:relative;
+    margin-bottom: 22px;
+    .txt-rotate {
+      position: absolute;
+      font-size: 14px;
+      font-weight: 600;
+      color: #ffffff;
+      -webkit-transform: rotate(-270deg);
+      -moz-transform: rotate(-270deg);
+      -ms-transform: rotate(-270deg);
+      -o-transform: rotate(-270deg);
+      filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+    }
+    .img-current-styling {
+      width: 226px;
+      height: 264px;
+      margin: 0 auto;
+      border: 8px solid #fff;
+      overflow: hidden;
+    }
+    .txt-tip-today-style {
+      font-size: 32px;
+      line-height: 30px;
+      font-weight: 700;
+      white-space: nowrap;
+      position: relative;
+      padding-left: 21px;
+      &:before {
+        content: '#';
+        display: block;
+        left: 0;
+        line-height: 41px;
+        position: absolute;
+      }
+      .txt-dash {
+        display: inline-block;
+        width: 47px;
+        border-bottom: 3px solid #333;
+        text-indent: -9999em;
+        overflow: hidden;
+        position: relative;
+        top: -3px;
+      }
+    }
+  }
+
+  .txt-style-tip {
+    font-size: 15px;
+    letter-spacing: -0.6px;
+    &__title {
+      line-height: 21px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    &__desc {
+      font-size: 15px;
+      line-height: 23px;
+    }
+  }
+  .txt-strike {
+    text-decoration-line: line-through;
+  }
+  .current-product-list {
+    border: 2px solid #e9e9e9;
+    margin-bottom: 10px;
+    .image {
+      width: 60px;
+      height: 70px;
+      overflow: hidden;
+    }
+    ul {
+      list-style: none;
+      padding: 23px 21px;
+    }
+    li {
+      display: flex;
+      &:after {
+        content: '';
+        border-bottom: 2px solid #e9e9e9;
+        display: block;
+      }
+      &:last-child {
+        &:after {
+          display: none;
+        }
+      }
+    }
+
+    .information {
+      .title {
+        font-size: 15px;
+        line-height: 21px;
+        font-weight: 700;
+        letter-spacing: -0.6px;
+      }
+      .desc {
+        font-size: 15px;
+        line-height: 23px;
+        letter-spacing: -0.6px;
+      }
+      .original-price {
+        letter-spacing: -0.6px;
+        line-height: 23px;
+        font-size: 15px;
+        color: #797979;
+        .txt-strike {
+          font-size: 14px;
+          line-height: 25px;
+          letter-spacing: 0;
+        }
+      }
+      .sale-price {
+        font-size: 15px;
+        letter-spacing: -0.6px;
+        white-space: nowrap;
+        .txt-price-accent {
+          color: #f45649;
+          letter-spacing: -0.4px;
+        }
+      }
+      .link-detail {
+        font-size: 15px;
+        line-height: 25px;
+        letter-spacing: -0.4px;
+        color: #566b9c;
+        text-decoration: underline;
+      }
+    }
+  }
+  .confirm-payment {
+    border: 2px solid #333;
+    .title {
+      font-size: 17px;
+      letter-spacing: -1.2px;
+      text-align: center;
+      border-bottom: 2px solid #333;
+      font-weight: 700;
+      padding: {
+        top: 15px;
+        bottom: 13px;
+      }
+    }
+    .quantity,
+    .price,
+    .final {
+      display: flex;
+      justify-content: space-between;
+      line-height: 25px;
+      padding: 10px 15px 10px 18px;
+      .text {
+        font-size: 15px;
+        line-height: 23px;
+        letter-spacing: -0.6px;
+      }
+      .number {
+        font-weight: 700;
+      }
+    }
+    .final {
+      background-color: #f5f5f5;
+      .number {
+        color: #f45649;
+      }
+    }
+    .btn-confirm {
+     padding: 20px 17px 22px 16px;
+      button {
+        width: 100%;
+        border: 0 none;
+        padding: 0;
+        text-align: center;
+        font-size: 15px;
+        line-height: 50px;
+        background-color: #333;
+        color: #fff;
+        letter-spacing: -0.6px;
+      }
+    }
+  }
+/*.closet-feedback {
   display: none;
   height: 330px;
   background: url('/static/img/closet/img_feedback.png');
@@ -702,5 +977,5 @@ div.btn-times:after {
   .closet-styling-image-title {
     font-size: 32px;
   }
-}
+}*/
 </style>

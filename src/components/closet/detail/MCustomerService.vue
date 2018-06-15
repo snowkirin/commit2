@@ -1,5 +1,20 @@
 <template>
-  <div class="mobile-customer-service mt40">
+  <div class="customer-service">
+    <p class="txt-main-title">
+      고객님의 소 중한 의견으로 한 뼘 더 자라는 줄라이가 되겠습니다.
+    </p>
+    <div class="flex-list">
+      <ul>
+        <li
+          v-bind:class="{ 'seleted': showContent === 'write' }"
+          @click="activeContent('write')">1:1 문의</li>
+        <li
+          v-bind:class="{ 'seleted': showContent === 'list' }"
+          @click="activeContent('list')">문의내역</li>
+      </ul>
+    </div>
+  </div>
+  <!--<div class="mobile-customer-service mt40">
     <div class="main-point-text closet-title">문의 신청 / 내역</div>
     <div class="closet-title-text mt15">
       고객님의 소중한 의견으로 한 뼘 더 자라는 줄라이가 되겠습니다.
@@ -54,7 +69,7 @@
         </div>
       </template>
     </div>
-  </div>
+  </div>-->
 </template>
 
 <script>
@@ -148,7 +163,38 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  @import '../style';
+  .customer-service {
+    padding: 20px;
+  }
+  .flex-list {
+    ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+    }
+    li {
+      flex: 1;
+      position: relative;
+      border: 1px solid #c4c4c4;
+      margin-left: -1px;
+      line-height: 48px;
+      text-align: center;
+      color: #bbb;
+      letter-spacing: -0.6px;
+      &:first-child {
+        margin-left: 0;
+      }
+      &.seleted {
+        font-weight: 700;
+        color: #333;
+        z-index: 10;
+        outline: 2px solid #333;
+        outline-offset: -2px;
+      }
+    }
+  }
 .mobile-customer-service {
   padding-bottom: 410px;
 }

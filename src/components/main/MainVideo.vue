@@ -32,31 +32,31 @@ export default {
     },
   },
   mounted() {
-    if (this.$common.getServerMode() !== 'production') {
-      const videoWidth = document.getElementById('videoArea').offsetWidth;
-      if (videoWidth <= 486) {
-        document.getElementById('youtube-player-1').style.width = `${videoWidth}px`;
-        document.getElementById('youtube-player-1').style.height = '250px';
-      } else if (videoWidth > 486 && videoWidth <= 1300) {
-        document.getElementById('youtube-player-1').style.width = `${videoWidth}px`;
-        document.getElementById('youtube-player-1').style.height = '600px';
-      } else {
-        document.getElementById('youtube-player-1').style.width = '1200px';
-        document.getElementById('youtube-player-1').style.height = '600px';
-      }
-      document.getElementById('youtube-player-1').style.position = 'relative';
-      document.getElementById('youtube-player-1').style.left = '50%';
-      document.getElementById('youtube-player-1').style.transform = 'translate(-50%)';
-
-      document.getElementById('videoArea').classList.add('main-video');
-    } else {
-      document.getElementById('videoArea').classList.add('main-image');
-    }
+    // if (this.$common.getServerMode() !== 'production') {
+    //   const videoWidth = document.getElementById('videoArea').offsetWidth;
+    //   if (videoWidth <= 486) {
+    //     document.getElementById('youtube-player-1').style.width = `${videoWidth}px`;
+    //     document.getElementById('youtube-player-1').style.height = '250px';
+    //   } else if (videoWidth > 486 && videoWidth <= 1300) {
+    //     document.getElementById('youtube-player-1').style.width = `${videoWidth}px`;
+    //     document.getElementById('youtube-player-1').style.height = '600px';
+    //   } else {
+    //     document.getElementById('youtube-player-1').style.width = '1200px';
+    //     document.getElementById('youtube-player-1').style.height = '600px';
+    //   }
+    //   document.getElementById('youtube-player-1').style.position = 'relative';
+    //   document.getElementById('youtube-player-1').style.left = '50%';
+    //   document.getElementById('youtube-player-1').style.transform = 'translate(-50%)';
+    //
+    //   document.getElementById('videoArea').classList.add('main-video');
+    // } else {
+    //   document.getElementById('videoArea').classList.add('main-image');
+    // }
   },
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .main-video {
   height: 600px;
 }

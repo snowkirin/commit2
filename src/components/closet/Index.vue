@@ -21,6 +21,6 @@ export default {
 
 <style scoped>
 .closet {
-  padding-bottom: 410px;
+  /*padding-bottom: 410px;*/
 }
 </style>

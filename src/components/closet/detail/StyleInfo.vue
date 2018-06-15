@@ -1,5 +1,26 @@
 <template>
-  <div class="style mt40">
+  <div class="style-info">
+    <p class="txt-main-title">줄라이는 베이직 스타일을 기본으로 합니다.</p>
+    <div class="line line__default"></div>
+    <div class="size">
+      <p>사이즈</p>
+      <p>
+        {{ this.printSize }}
+      </p>
+    </div>
+    <div class="prefer-style">
+      <p>선호 스타일</p>
+      <p>
+        <span>{{ mypageStyleData.moodName }}</span>
+        <span>{{ mypageStyleData.moodDesc }}</span>
+      </p>
+    </div>
+    <div class="prefer-color">
+      <p></p>
+    </div>
+    <div class="avoid-color"></div>
+  </div>
+  <!--<div class="style mt40">
     <div class="main-point-text closet-title">스타일정보</div>
     <div class="closet-title-text mt15">
       줄라이는 베이직 스타일을 기본으로 합니다.
@@ -106,7 +127,7 @@
     <div class="style-modify-btn mt30">
       <button class="button-login" style="float: right; width: 202px;" @click="moveNext">정보수정</button>
     </div>
-  </div>
+  </div>-->
 </template>
 
 <script>
@@ -186,8 +207,12 @@ export default {
 };
 </script>
 
-<style scoped>
-.style-modify-btn {
+<style scoped lang="scss">
+  @import '../style';
+  .style-info {
+    padding: 20px;
+  }
+/*.style-modify-btn {
   height: 150px;
 }
 
@@ -256,5 +281,5 @@ export default {
   .style-content-right {
     margin-bottom: 40px;
   }
-}
+}*/
 </style>

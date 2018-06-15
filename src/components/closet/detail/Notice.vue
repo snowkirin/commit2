@@ -1,38 +1,81 @@
 <template>
-  <div class="notice mt40">
-    <div class="main-point-text closet-title">공지사항</div>
-    <div class="closet-title-text mt15">
+  <div class="notice">
+    <p class="txt-main-title">
       줄라이의 소식을 확인해보세요.
-    </div>
-    <div class="closet-content mt30">
-      <div class="notice-rows notice-header">
-        <div class="notice-number">번호</div>
-        <div class="notice-subject">제목</div>
-        <div class="notice-regdate">등록일</div>
+    </p>
+    <div class="line line__default"></div>
+
+    <div>
+      <div v-if="noticeList.length > 0">
+        <table>
+          <thead>
+          <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>등록일</th>
+          </tr>
+          </thead>
+          <tbody
+            v-for="(data, index) in noticeList"
+            :key="index"
+            @click="noticeView(data.id)">
+          <tr>
+            <td>
+              {{ data.id }}
+            </td>
+            <td>
+              {{ data.title }}
+              <span
+                v-show="$moment().diff($moment(data.inserted), 'days') < 7"
+                class="new-content">
+                New
+              </span>
+            </td>
+            <td>{{ data.inserted }}</td>
+          </tr>
+          <tr
+            v-bind:key="'data_'+ index"
+            class="notice-rows-data"
+            :data-id="data.id">
+            <td colspan="3" v-html="contentReplace(data)"></td>
+          </tr>
+          </tbody>
+        </table>
       </div>
-      <template v-if="noticeList.length > 0" v-for="(notice, k) in noticeList">
-        <div v-bind:key="k" class="notice-content notice-rows" @click="noticeView(notice.id)">
-          <div class="notice-number">
-            {{ noticeList.length - k }}
-          </div>
-          <div class="notice-subject">
-            {{ notice.title }}
-            <span v-show="$moment().diff($moment(notice.inserted), 'days') < 7" class="new-content">new</span>
-          </div>
-          <div class="notice-regdate">
-            {{ notice.inserted }}
-          </div>
-        </div>
-        <div v-bind:key="'data_'+ k" class="notice-rows-data" :data-id="notice.id">
-          <span v-html="contentReplace(notice)"></span>
-        </div>
-      </template>
-      <template v-else>
-        <div class="notice-content">
-          등록된 내용이 존재하지 않습니다.
-        </div>
-      </template>
+      <div v-else>
+        <p>등록된 내용이 없는걸?</p>
+      </div>
     </div>
+
+    <!--<div class="closet-content mt30">-->
+      <!--<div class="notice-rows notice-header">-->
+        <!--<div class="notice-number">번호</div>-->
+        <!--<div class="notice-subject">제목</div>-->
+        <!--<div class="notice-regdate">등록일</div>-->
+      <!--</div>-->
+      <!--<template v-if="noticeList.length > 0" v-for="(notice, k) in noticeList">-->
+        <!--<div v-bind:key="k" class="notice-content notice-rows" @click="noticeView(notice.id)">-->
+          <!--<div class="notice-number">-->
+            <!--{{ noticeList.length - k }}-->
+          <!--</div>-->
+          <!--<div class="notice-subject">-->
+            <!--{{ notice.title }}-->
+            <!--<span v-show="$moment().diff($moment(notice.inserted), 'days') < 7" class="new-content">new</span>-->
+          <!--</div>-->
+          <!--<div class="notice-regdate">-->
+            <!--{{ notice.inserted }}-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div v-bind:key="'data_'+ k" class="notice-rows-data" :data-id="notice.id">-->
+          <!--<span v-html="contentReplace(notice)"></span>-->
+        <!--</div>-->
+      <!--</template>-->
+      <!--<template v-else>-->
+        <!--<div class="notice-content">-->
+          <!--등록된 내용이 존재하지 않습니다.-->
+        <!--</div>-->
+      <!--</template>-->
+    <!--</div>-->
   </div>
 </template>
 
@@ -53,7 +96,7 @@ export default {
     noticeView(id) {
       const noticeContent = document.querySelector(`[data-id="${id}"]`);
 
-      if (noticeContent.style.display === 'none' || noticeContent.style.display === '') noticeContent.style.display = 'block';
+      if (noticeContent.style.display === 'none' || noticeContent.style.display === '') noticeContent.style.display = 'table-row';
       else noticeContent.style.display = 'none';
     },
     contentReplace(text) {

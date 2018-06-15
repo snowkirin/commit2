@@ -2,7 +2,7 @@
   <div>
     <router-link
       class="btn-free-month"
-      v-if="Authentication.authenticated"
+      v-if="!Authentication.authenticated"
       to="/join/size">
       한달 무료 신청
       <span class="icon-arrow">&rightarrow;</span>

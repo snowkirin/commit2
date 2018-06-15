@@ -7,6 +7,7 @@ import ko from 'vee-validate/dist/locale/ko';
 import moment from 'moment';
 import VueMomentJS from 'vue-momentjs';
 import VueMq from 'vue-mq';
+import Ellipsis from 'ellipsis-plus';
 // import VueAnalytics from 'vue-analytics';
 import VueGlobalConst from '@/library/VueGlobalConst';
 import VueCommon from '@/library/VueCommon';
@@ -48,6 +49,8 @@ Vue.use(VueGlobalConst);
 Vue.use(VueCommon);
 Vue.use(VeeValidate);
 Validator.localize('ko', ko);
+
+Vue.component(Ellipsis.name, Ellipsis);
 
 html.setTitle(router);
 sess.setRouterSession(router, store);
