@@ -26,7 +26,7 @@
   .btn-primary {
     background-color: #333;
     color: #fff;
-    line-height: 50px;
+    height: 50px;
     letter-spacing: -0.6px; }
   .btn-secondary {
     line-height: 50px;
@@ -108,21 +108,27 @@ ol, dl, ul {
   .line__dashed {
     border-bottom-style: dashed; }
 
-.txt-main-point {
-  font-size: 14px;
-  font-weight: 800;
-  line-height: 28px;
-  color: #f45649;
-  text-transform: uppercase;
-  font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
-  letter-spacing: -.2px; }
-  .txt-main-point[data-color="white"] {
-    color: #fff; }
-
 .txt-main-title {
   font-size: 20px;
   line-height: 28px;
   letter-spacing: -1px; }
+
+.txt-main-point {
+  color: #f45649;
+  font-size: 14px;
+  font-weight: 800;
+  font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
+  line-height: 28px;
+  letter-spacing: -0.2px;
+  text-transform: uppercase; }
+  .txt-main-point[data-color="white"] {
+    color: #fff; }
+
+.txt-point {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.6px;
+  line-height: 21px; }
 
 .txt-hashtag {
   font-size: 14px;

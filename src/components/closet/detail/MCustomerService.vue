@@ -13,63 +13,79 @@
           @click="activeContent('list')">문의내역</li>
       </ul>
     </div>
+    <!-- 1:1 문의 -->
+    <div
+      data-value="write"
+      v-show="showContent === 'write'">
+      <form>
+        <div class="form-row">
+          <select class="custom-select" name="inquiries_type">
+            <option value="">문의종류를 선택해주세요.</option>
+            <option :value="$const.INQUIRIES_SUBSCRIBE">구독문의</option>
+            <option :value="$const.INQUIRIES_ORDER">주문문의</option>
+            <option :value="$const.INQUIRIES_DELIVERY">배송문의</option>
+            <option :value="$const.INQUIRIES_NORMAL">일반(기타)문의</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <input type="text"
+                 name="subject"
+                 class="form-input"
+                 placeholder="제목을 입력해주세요."/>
+        </div>
+        <div class="form-row">
+          <textarea
+            name="content"
+            class="requirement-textarea"
+            placeholder="문의 내용을 입력해주세요.">
+          </textarea>
+        </div>
+        <div class="req-btn-area">
+          <button
+            class="btn btn-primary"
+            @click="setInquiries">
+            문의하기
+          </button>
+        </div>
+      </form>
+    </div>
+    <!-- 문의 내역 -->
+    <div data-value="list" v-show="showContent === 'list'">
+      <table class="table">
+        <colgroup>
+          <col width="*">
+          <col width="82">
+        </colgroup>
+        <tbody
+          v-for="(item, idx) in inquiriesList"
+          :key="idx">
+        <tr
+          @click="viewInquiries(item.id)">
+          <td class="title">{{ item.subject }}</td>
+          <td class="date">{{ item.inserted.substring(0, 10) }}</td>
+        </tr>
+        <tr
+          class="content"
+          :data-id="item.id">
+          <td
+            colspan="2">
+            <div class="inner">
+              <p class="type">문의유형 : {{ printInquiriesInfo.type_name }}</p>
+              <div v-for="(item2, idx2) in printInquiriesInfo.list" :key="idx2">
+                <p class="desc" style="white-space: pre-line">
+                  {{ item2 .content }}
+                </p>
+              </div>
+            </div>
+
+
+          </td>
+        </tr>
+        </tbody>
+
+      </table>
+    </div>
   </div>
-  <!--<div class="mobile-customer-service mt40">
-    <div class="main-point-text closet-title">문의 신청 / 내역</div>
-    <div class="closet-title-text mt15">
-      고객님의 소중한 의견으로 한 뼘 더 자라는 줄라이가 되겠습니다.
-    </div>
-    <div class="cs-menu mt30">
-      <div class="day-name-group">
-        <div class="day-name" v-bind:class="{ 'day-name-active': showContent === 'write' }" @click="activeContent('write')">1:1 문의</div>
-        <div class="day-name" v-bind:class="{ 'day-name-active': showContent === 'list' }" @click="activeContent('list')">문의내역</div>
-      </div>
-    </div>
-    <div class="content-form" data-value="write" v-show="showContent === 'write'">
-      <div class="mt10">
-        <label name="select-title"></label>
-        <select class="cs-select-box" name="inquiries_type">
-          <option value="">문의종류를 선택해주세요.</option>
-          <option :value="$const.INQUIRIES_SUBSCRIBE">구독문의</option>
-          <option :value="$const.INQUIRIES_ORDER">주문문의</option>
-          <option :value="$const.INQUIRIES_DELIVERY">배송문의</option>
-          <option :value="$const.INQUIRIES_NORMAL">일반(기타)문의</option>
-        </select>
-      </div>
-      <div class="mt10">
-        <input type="text" name="subject" class="form-login-input" placeholder="제목을 입력해주세요."/>
-      </div>
-      <div class="mt10">
-        <textarea name="content" class="requirement-textarea" placeholder="문의 내용을 입력해주세요."></textarea>
-      </div>
-      <div class="req-btn-area mt10">
-        <button class="button-login" @click="setInquiries">
-          문의하기
-        </button>
-      </div>
-    </div>
-    <div class="mt10" data-value="list" v-show="showContent === 'list'">
-      <template v-for="(inquiries, k) in inquiriesList">
-        <div v-bind:key="k" class="list-data-rows" @click="viewInquiries(inquiries.id)">
-          <div class="subject">{{ inquiries.subject }}</div>
-          <div class="date">
-              {{ inquiries.inserted.substring(2, 10) }}
-          </div>
-        </div>
-        <div v-bind:key="'ct_'+ k" class="list-data-content" :data-id="inquiries.id">
-          <div class="inquiries-type">문의유형 : {{ printInquiriesInfo.type_name }}</div>
-          <template v-for="(lis, k) in printInquiriesInfo.list">
-            <div v-bind:key="k" class="inquiries-subject">
-              {{ lis.content_type_name }}
-            </div>
-            <div v-bind:key="'ct_'+ k" class="inquiries-content">
-              {{ lis.content }}
-            </div>
-          </template>
-        </div>
-      </template>
-    </div>
-  </div>-->
 </template>
 
 <script>
@@ -80,7 +96,8 @@ export default {
   data() {
     return {
       showId: null,
-      showContent: 'write',
+      // showContent: 'write',
+      showContent: 'list',
     };
   },
   computed: {
@@ -113,18 +130,20 @@ export default {
       this.showContent = content;
     },
     viewInquiries(id) {
-      const target = document.querySelector(`.list-data-content[data-id="${id}"]`);
+      const target = document.querySelector(`[data-id="${id}"]`);
 
       if (this.showId && this.showId === id) {
         target.style.display = 'none';
+        this.showId = null;
       } else {
         this.setInquiriesInfo(id);
-        const content = document.querySelectorAll('.list-data-content');
+
+        const content = document.querySelectorAll('.content');
         for (let i = 0; i < content.length; i += 1) {
           content[i].style.display = 'none';
         }
 
-        target.style.display = 'block';
+        target.style.display = 'table-row';
         this.showId = id;
       }
     },
@@ -140,7 +159,7 @@ export default {
       await this.setMobileInquiries({
         type: inquiriesType.value,
         subject: subject.value,
-        text: content.value,
+        text: content.value.trim(),
       });
 
       if (this.isInquiries) {
@@ -155,6 +174,7 @@ export default {
   },
   created() {
     this.setInquiriesList();
+    console.log(this.$common);
   },
   updated() {
     const inquiriesHtml = document.querySelectorAll('.cs-left-data-title .subject');
@@ -195,7 +215,75 @@ export default {
       }
     }
   }
-.mobile-customer-service {
+  div[data-value="write"] {
+    .form-row {
+      margin-top: 10px;
+    }
+    .custom-select {
+      width: 100%;
+      height: 50px;
+      padding-left: 9px;
+      border: 1px solid #c4c4c4;
+    }
+    .requirement-textarea {
+      width: 100%;
+      height: 100px;
+      border: 1px solid #c4c4c4;
+      padding: 3px 11px 5px 10px;
+      resize: none;
+      font-size: 15px;
+      line-height: 25px;
+      letter-spacing: -0.6px;
+    }
+    .req-btn-area {
+      margin-top: 20px;
+      button {
+        width: 100%;
+      }
+    }
+  }
+  div[data-value="list"] {
+    .table {
+      width: 100%;
+      table-layout: fixed;
+      text-align: left;
+      .title,
+      .date {
+        font-size: 15px;
+        line-height: 23px;
+        height: 50px;
+        border-top: 1px solid #e7e7e7;
+      }
+      .title {
+        letter-spacing: -0.6px;
+      }
+      .date {
+        font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
+      }
+      .content {
+        display: block;
+        .inner {
+          background-color: #f5f5f5;
+          padding: 10px;
+          .type {
+            font-size: 14px;
+            line-height: 22px;
+            letter-spacing: -0.6px;
+            margin-bottom: 4px;
+          }
+          .desc {
+            font-size: 14px;
+            line-height: 20px;
+            letter-spacing: -0.8px;
+            color: #797979;
+          }
+        }
+      }
+
+    }
+  }
+
+/*.mobile-customer-service {
   padding-bottom: 410px;
 }
 
@@ -280,6 +368,6 @@ label:after {
   content:"\f0dd";
   font-family: "FontAwesome";
   font-size: 16px;
-}
+}*/
 
 </style>

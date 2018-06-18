@@ -5,46 +5,51 @@
     </p>
     <div class="line line__default"></div>
 
-    <div>
-      <div v-if="noticeList.length > 0">
-        <table>
-          <thead>
-          <tr>
-            <th>번호</th>
-            <th>제목</th>
-            <th>등록일</th>
-          </tr>
-          </thead>
-          <tbody
-            v-for="(data, index) in noticeList"
-            :key="index"
-            @click="noticeView(data.id)">
-          <tr>
-            <td>
-              {{ data.id }}
-            </td>
-            <td>
-              {{ data.title }}
-              <span
-                v-show="$moment().diff($moment(data.inserted), 'days') < 7"
-                class="new-content">
-                New
-              </span>
-            </td>
-            <td>{{ data.inserted }}</td>
-          </tr>
-          <tr
-            v-bind:key="'data_'+ index"
-            class="notice-rows-data"
-            :data-id="data.id">
-            <td colspan="3" v-html="contentReplace(data)"></td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-      <div v-else>
-        <p>등록된 내용이 없는걸?</p>
-      </div>
+    <div
+      v-if="noticeList.length > 0">
+      <table class="table table-notice">
+        <!--<colgroup>
+          <col width="27">
+          <col width="*">
+          <col width="90">
+        </colgroup>-->
+        <thead>
+        <tr>
+          <th class="number">번호</th>
+          <th class="title">제목</th>
+          <th class="date">등록일</th>
+        </tr>
+        </thead>
+        <tbody
+          v-for="(data, index) in noticeList"
+          :key="index"
+          @click="noticeView(data.id)">
+        <tr class="row row-info">
+          <td class="number">
+            {{ data.id }}
+          </td>
+          <td class="title">
+            {{ data.title }}
+            <!--TODO: 콘솔 warning check-->
+            <span
+              v-show="$moment().diff($moment(data.inserted), 'days') < 7"
+              class="new-content">
+              New
+            </span>
+          </td>
+          <td class="date">{{ data.inserted }}</td>
+        </tr>
+        <tr
+          v-bind:key="'data_'+ index"
+          class="row row-content"
+          :data-id="data.id">
+          <td colspan="3" v-html="contentReplace(data)"></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div v-else>
+      <p>등록된 내용이 없는걸?</p>
     </div>
 
     <!--<div class="closet-content mt30">-->
@@ -110,8 +115,78 @@ export default {
 };
 </script>
 
-<style scoped>
-.notice-rows {
+<style scoped lang="scss">
+  .notice {
+    padding: {
+      top: 24px;
+      left: 18px;
+      right: 18px;
+      bottom: 20px;
+    }
+    .line {
+      margin-top: 16px;
+    }
+    .table-notice {
+      width: 100%;
+      table-layout: fixed;
+      border-bottom: 1px solid #333;
+      .number,
+      .date {
+        text-align: center;
+      }
+      .number {
+        width: 29px;
+      }
+      .title {
+        padding-left: 17px;
+      }
+      .date {
+        width: 103px;
+      }
+      thead {
+        th {
+          font-size: 15px;
+          line-height: 21px;
+          letter-spacing: -0.6px;
+          height: 43px;
+        }
+
+      }
+      tbody {
+        .row {
+          td {
+            border-top: 1px solid #e9e9e9;
+          }
+        }
+        .row-info {
+          td {
+            height: 54px;
+            font-size: 15px;
+            line-height: 23px;
+            letter-spacing: -0.6px;
+          }
+          .number {
+            text-align: center;
+          }
+          .date {
+            font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
+            letter-spacing: 0;
+          }
+        }
+        // 클릭시 보여지는 컨텐츠
+        .row-content {
+          display: none;
+          td {
+            padding: 10px;
+            background-color: #f5f5f5;
+            font-size: 14px;
+            letter-spacing: -0.6px;
+          }
+        }
+      }
+    }
+  }
+/*.notice-rows {
   display: flex;
   justify-content: space-between;
   font-size: 16px;
@@ -181,5 +256,5 @@ export default {
   .notice-regdate {
     width: 25% !important;
   }
-}
+}*/
 </style>

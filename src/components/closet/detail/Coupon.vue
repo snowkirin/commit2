@@ -138,7 +138,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  @import '../style';
   .coupon {
     padding: 20px;
   }
@@ -211,7 +210,14 @@ export default {
       line-height: 16px;
     }
   }
-.notice-rows {
+  .txt-main-title {
+    margin-bottom: 15px;
+  }
+  .line {
+    margin-top: 20px;
+  }
+
+/*.notice-rows {
   min-height: 50px;
   display: flex;
   justify-content: space-between;
@@ -383,5 +389,5 @@ export default {
     height: 50px !important;
     line-height: 0px !important;
   }
-}
+}*/
 </style>
