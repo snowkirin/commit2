@@ -6,9 +6,11 @@ const doLogin = async ({ commit }, loginInfo) => {
     const result = await Auth.localLogin({
       ...loginInfo,
     });
-
-    if (result.data.result) commit(types.LOGIN_SUCCESS, result.data);
-    else commit(types.LOGIN_FAILURE);
+    if (result.data.result) {
+      commit(types.LOGIN_SUCCESS, result.data);
+    } else {
+      commit(types.LOGIN_FAILURE);
+    }
   } catch (e) {
     commit(types.LOGIN_ERROR, e.message);
   }

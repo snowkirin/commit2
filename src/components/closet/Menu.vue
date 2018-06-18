@@ -2,15 +2,71 @@
   <div class="closet-mobile-menu">
     <div class="closet-menu" @touchend="touchEnd">
       <div class="close-mobile-slide">
-        <div id="tomorrow" class="menu" data-id="tomorrow" :class="{ 'closet_active' : activeMenuName === 'tomorrow' }" @click="menuClick('/closet/tomorrow', 0)">내일의옷장</div>
-        <div id="current" class="menu" data-id="current" :class="{ 'closet_active' : activeMenuName === 'current' }" @click="menuClick('/closet/current', 1)">현재의옷장</div>
-        <div id="past" class="menu" data-id="past" :class="{ 'closet_active' : activeMenuName === 'past' }" @click="menuClick('/closet/past', 2)">과거의옷장</div>
-        <div id="style" class="menu" data-id="style" :class="{ 'closet_active' : activeMenuName === 'style' }" @click="menuClick('/closet/style', 3)">스타일정보</div>
-        <div id="mypage" class="menu" data-id="mypage" :class="{ 'closet_active' : activeMenuName === 'mypage' }" @click="menuClick('/closet/security', 4)">나의정보관리</div>
+        <div
+          id="tomorrow"
+          class="menu"
+          data-id="tomorrow"
+          :class="{ 'closet_active' : activeMenuName === 'tomorrow' }"
+          @click="menuClick('/closet/tomorrow', 0)">
+          내일의옷장
+        </div>
+        <div
+          id="current"
+          class="menu"
+          data-id="current"
+          :class="{ 'closet_active' : activeMenuName === 'current' }"
+          @click="menuClick('/closet/current', 1)">
+          현재의옷장
+        </div>
+        <div
+          id="past"
+          class="menu"
+          data-id="past"
+          :class="{ 'closet_active' : activeMenuName === 'past' }"
+          @click="menuClick('/closet/past', 2)">
+          과거의옷장
+        </div>
+        <div
+          id="style"
+          class="menu"
+          data-id="style"
+          :class="{ 'closet_active' : activeMenuName === 'style' }"
+          @click="menuClick('/closet/style', 3)">
+          스타일정보
+        </div>
+        <div
+          id="mypage"
+          class="menu"
+          data-id="mypage"
+          :class="{ 'closet_active' : activeMenuName === 'mypage' }"
+          @click="menuClick('/closet/security', 4)">
+          나의정보관리
+        </div>
         <!-- div class="menu" data-id="payment">지불정보</div -->
-        <div id="coupon" class="menu" data-id="coupon" :class="{ 'closet_active' : activeMenuName === 'coupon' }" @click="menuClick('/closet/coupon', 5)">쿠폰</div>
-        <div id="cs" class="menu" data-id="cs" :class="{ 'closet_active' : activeMenuName === 'cs' }" @click="menuClick('/closet/cs', 6)">문의내역</div>
-        <div id="notice" class="menu" data-id="notice" :class="{ 'closet_active' : activeMenuName === 'notice' }" @click="menuClick('/closet/notice', 7)">공지사항</div>
+        <div
+          id="coupon"
+          class="menu"
+          data-id="coupon"
+          :class="{ 'closet_active' : activeMenuName === 'coupon' }"
+          @click="menuClick('/closet/coupon', 5)">
+          쿠폰
+        </div>
+        <div
+          id="cs"
+          class="menu"
+          data-id="cs"
+          :class="{ 'closet_active' : activeMenuName === 'cs' }"
+          @click="menuClick('/closet/cs', 6)">
+          문의내역
+        </div>
+        <div
+          id="notice"
+          class="menu"
+          data-id="notice"
+          :class="{ 'closet_active' : activeMenuName === 'notice' }"
+          @click="menuClick('/closet/notice', 7)">
+          공지사항
+        </div>
       </div>
     </div>
   </div>
@@ -116,8 +172,48 @@ export default {
 };
 </script>
 
-<style scoped>
-.closet-menu {
+<style scoped lang="scss">
+  .closet-mobile-menu {
+    padding: 20px 20px 0;
+    /*padding: 6.25vw 6.25vw 0;*/
+    -webkit-overflow-scrolling: touch;
+    .closet-menu {
+      border-bottom: 1px solid #b9b9b9;
+      white-space: nowrap;
+      font-size: 0;
+      transition: -ms-transform 0.5s,-webkit-transform 0.5s,transform 0.5s;
+      overflow: {
+        x: auto;
+        y: hidden;
+      }
+    }
+    .closet-menu::-webkit-scrollbar {
+      -webkit-appearance: none;
+      display: none;
+    }
+  }
+  .close-mobile-slide {
+    .menu {
+      &.closet_active {
+        font-weight: 700;
+        color: #333;
+        border-bottom: 4px solid #333;
+      }
+      padding-bottom: 15px;
+      /*padding-bottom: 6.25vw;*/
+      display: inline-block;
+      font-size: 16px;
+      /*font-size: 5vw;*/
+      letter-spacing: -1px;
+      color: #797979;
+      margin-left: 20px;
+      /*margin-left: 6.25vw;*/
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+/*.closet-menu {
   margin-top:30px;
   height: 45px;
   border-bottom: 1px solid #b9b9b9;
@@ -199,5 +295,5 @@ export default {
     color: #333333 !important;
     border-bottom: 4px solid #333333 !important;
   }
-}
+}*/
 </style>

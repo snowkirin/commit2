@@ -2,7 +2,11 @@
   <footer class="footer">
     <div :class="[$route.path === '/' ? 'main-footer-area' : 'footer-area']">
       <div class="help">
-        <p class="main-point-text en-font">Help</p>
+        <p
+          class="txt-main-point"
+          :style="pathCheck">
+          Help
+        </p>
         <p class="en-font txt-tel">
           <a href="tel:02-6929-3821">02-6929-3821</a>
         </p>
@@ -15,7 +19,7 @@
           이용해 주세요.
         </p>
       </div>
-      <hr class="zuly-thin-line"/>
+      <div class="line line__thin"></div>
       <div class="info-policy">
         <ul class="menu-policy">
           <li><a href="#">이용 약관</a></li>
@@ -43,7 +47,7 @@ export default {
   name: 'zuly-footer',
   methods: {
     pointTextEvt() {
-      const target = document.querySelector('footer .main-point-text');
+      const target = document.querySelector('footer .txt-main-point');
       if (this.$route.path !== '/') target.classList.add('tc-black');
       else target.classList.remove('tc-black');
     },
@@ -56,39 +60,45 @@ export default {
   mounted() {
     this.pointTextEvt();
   },
+  computed: {
+    pathCheck() {
+      if (this.$route.path === '/') {
+        return {
+          color: '#f45649',
+        };
+      }
+      return {
+        color: '#333',
+      };
+    },
+  },
 };
 </script>
 
 <style scoped lang="scss">
 .footer {
-  /*padding: 20px;*/
-  padding: 6.25vw;
+  padding: 20px;
 }
 .txt-tel {
-  /*font-size: 26px;*/
-  font-size: 8.125vw;
+  font-size: 26px;
   font-weight: 700;
 }
 .main-cs-noti {
-  /*font-size: 14px;*/
-  font-size: 4.375vw;
-  /*line-height: 22px;*/
-  line-height: 6.875vw;
+  font-size: 14px;
+  line-height: 22px;
   letter-spacing: -.6px;
-  /*padding: 20px 0;*/
-  padding: 6.25vw 0;
+  padding: 20px 0;
 }
 .txt-link {
   color: #566b9c;
 }
 
 .info-policy {
-  padding: 6.25vw 0;
+  padding: 20px 0;
   letter-spacing: -0.4px;
   .menu-policy {
     font-weight: 700;
-    /*font-size: 14px;*/
-    font-size: 4.375vw;
+    font-size: 14px;
     margin-bottom: 13px;
     list-style: none;
     padding: 0;
@@ -96,8 +106,7 @@ export default {
       display: inline-block;
       &:not(:last-child){
         position: relative;
-        /*margin-right: 25px;*/
-        margin-right: 7.8125vw;
+        margin-right: 25px;
         &:after {
           content: '';
           display: inline-block;
@@ -105,8 +114,6 @@ export default {
           width: 1px;
           background-color: #212121;
           position: absolute;
-          //right: -15px;
-          right: -4.6875vw;
         }
       }
     }
@@ -114,13 +121,9 @@ export default {
     }
   }
   .information {
-    /*font-size: 12px;*/
-    font-size: 3.75vw;
-    /*line-height: 20px;*/
-    line-height: 6.25vw;
+    font-size: 12px;
+    line-height: 20px;
     color: #797979;
   }
 }
-
-
 </style>

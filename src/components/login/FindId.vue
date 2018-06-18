@@ -1,5 +1,69 @@
 <template>
-  <div class="findId subContent side-margin-50">
+  <div class="find-id">
+    <div>
+      <p class="title">아이디 찾기</p>
+      <p class="explain">가입 당시 입력한 휴대전화 번호를 통해 아이디를 찾을 수 있습니다.</p>
+    </div>
+    <div class="line line__default"></div>
+    <form>
+      <div class="row">
+        <input
+          class="form-input"
+          type="text"
+          name=""
+          id=""
+          placeholder="이름">
+      </div>
+      <div class="row">
+        <input
+          class="form-input"
+          type="tel"
+          name=""
+          id=""
+          placeholder="휴대전화">
+      </div>
+      <div class="row form-group" data-grid="7:3">
+        <input
+          class="form-input"
+          type="number"
+          name=""
+          id=""
+          placeholder="인증번호">
+        <button
+          class="btn btn-secondary"
+          type="button">
+          인증
+        </button>
+      </div>
+      <div class="button">
+        <!--TODO: submit?-->
+        <button
+          type="button"
+          class="btn btn-primary"
+        >로그인</button>
+      </div>
+    </form>
+  </div>
+  <!--<div class="find-id">
+    <p>Title</p>
+    <div class="findId-form mt40">
+      <input type="text" name="name" class="form-login-input mt10" placeholder="이름" v-validate="'required'" />
+      <input type="text" name="phone" class="form-login-input mt10" placeholder="휴대전화" v-validate="'required'" />
+      <div class="inputGroup">
+        <input type="text" name="phone_auth_number" class="form-login-group mt10" placeholder="인증번호" style="width: 72%;"/>
+        <div style="display: inline-table; width: 3%;"></div>
+        <button  class="button-grey" style="width: 25%;" @click="phoneVerify">인증</button>
+      </div>
+      <div class="findId-wait mt10" v-show="authErr" v-html="authErrMessage">
+      </div>
+      <div class="mt10">
+        <button class="button-login" @click="authKeyConfirm">
+          다음
+        </button>
+      </div>
+    </div>
+  </div>-->
+  <!--<div class="findId subContent side-margin-50">
     <div class="findId-title mt70">아이디찾기</div>
     <div class="explain mt10">
       가입 당시 입력한 휴대전화 번호를 통해 아이디를 찾을 수 있습니다.
@@ -21,7 +85,7 @@
         </button>
       </div>
     </div>
-  </div>
+  </div>-->
 </template>
 
 <script>
@@ -128,85 +192,32 @@ export default {
 };
 </script>
 
-<style scoped>
-.findId {
-  width: 820px;
-  text-align: center;
-  margin: auto;
-}
-
-.findId-title {
-  font-size: 32px;
-  font-weight: 400;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.26;
-  letter-spacing: -0.4px;
-  text-align: center;
-  color: #333333;
-}
-
-.findIdLine {
-  height: 1px;
-  opacity: 0.2;
-  background-color: #333333;
-}
-
-.findId-chk-area {
-  height: 24px;
-  display: table;
-}
-
-.checkboxText {
-  text-align: left;
-  display: table-cell;
-  vertical-align: bottom;
-}
-
-.findIdMenu {
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 2;
-  letter-spacing: -0.2px;
-  color: #333333;
-}
-
-.findIdMenuSide {
-  width: 33%;
-  display: table-cell;
-}
-
-.findIdMenuCenter {
-  width: 34%;
-  border-left: 1px solid #999999;
-  border-right: 1px solid #999999;
-  display: table-cell;
-}
-
-.findId-wait {
-  text-align: left;
-  font-size: 14px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  letter-spacing: -0.1px;
-  text-align: left;
-  color: #333333;
-}
-
-.findId-wait span {
-  color: #ec4b1a;
-}
-
-.inputGroup input {
-  vertical-align: bottom;
-}
-
-@media screen and (max-width: 486px) {
-  .findId-form {
-    width: 100% !important;
+<style scoped lang="scss">
+  .find-id {
+    padding: 20px;
+    text-align: center;
+    .title {
+      font-size: 26px;
+      line-height: 36px;
+      letter-spacing: -1.4px;
+    }
+    .explain {
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: -0.8px;
+      color: #797979;
+    }
+    .line {
+      margin-top: 14px;
+      margin-bottom: 19px;
+    }
+    .row {
+      margin-bottom: 10px;
+    }
+    .button  {
+      button {
+        width: 100%;
+      }
+    }
   }
-}
 </style>
