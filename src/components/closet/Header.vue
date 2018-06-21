@@ -71,9 +71,6 @@ export default {
     font-size: 32px;
     letter-spacing: -2.2px;
     line-height: 40px;
-    .name {
-      color: #fff;
-    }
   }
   .info {
     display: flex;
@@ -97,8 +94,7 @@ export default {
       }
     }
     .notice {
-      font-size: 16px;
-      flex: 1 1 168px;
+      flex: 1 1 59.15492957746479%;
       &:after {
         content: '';
         display: block;
@@ -139,6 +135,17 @@ export default {
         border: 1px solid #fff;
         text-align: center;
         margin-top: 13px;
+      }
+    }
+  }
+  @media (min-width: 1279px) {
+    .user {
+      font-size: 42px;
+      letter-spacing: -2.2px;
+    }
+    .info {
+      .notice {
+
       }
     }
   }

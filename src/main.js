@@ -11,6 +11,7 @@ import Ellipsis from 'ellipsis-plus';
 // import VueAnalytics from 'vue-analytics';
 import VueGlobalConst from '@/library/VueGlobalConst';
 import VueCommon from '@/library/VueCommon';
+import VueCookies from 'vue-cookies';
 import html from '@/library/htmlinjection';
 import sess from '@/library/session';
 import App from './App';
@@ -34,6 +35,7 @@ Vue.use(VueLocalStorage, {
   name: 'zuly',
   bind: true,
 });
+Vue.use(VueCookies);
 
 // const isDev = process.env.NODE_ENV === 'development';
 // Vue.use(VueAnalytics, {

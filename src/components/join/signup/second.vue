@@ -1,5 +1,198 @@
 <template>
-  <div class="signup subContent mauto">
+  <div class="signup">
+    <p class="signup-title">
+      줄라이는 <span>78,000</span>원<br/>
+      요금제 단일 상품 입니다.
+    </p>
+    <div class="signup-text">
+      <p>월 2회 스타일링 된 의류 세트(2벌) 정기 배송</p>
+      <p>
+        <span>(1회 배송 의류 리테일가 30만원 기준 x 2 = 60만원)</span>
+      </p>
+      <p>무료 세탁</p>
+      <p>
+        무료 수거/배송 서비스
+      </p>
+      <p>
+        무료 전문 스타일링 및 스타일링 Tip 제공
+      </p>
+    </div>
+    <form>
+      <!--요금제-->
+      <div class="payment-system">
+        <p class="txt-point">요금제</p>
+        <div class="form-row">
+          <input
+            type="text"
+            class="form-input"
+            value="월2회 단일 78,000원 요금제"
+            readonly>
+        </div>
+      </div>
+      <!--배송일 지정-->
+      <div class="delivery-date">
+        <p class="txt-point">배송일 지정</p>
+        <div>
+          <div>
+            <ul>
+              <li
+                :class="{ 'selected': deliveryDay === '0' }"
+                data-id="0"
+                @click="selectDay('0')">
+                월
+              </li>
+              <li
+                :class="{ 'selected': deliveryDay === '1' }"
+                data-id="1"
+                @click="selectDay('1')">
+                화
+              </li>
+              <li
+                :class="{ 'selected': deliveryDay === '2' }"
+                data-id="2"
+                @click="selectDay('2')">
+                수
+              </li>
+              <li
+                :class="{ 'selected': deliveryDay === '3' }"
+                data-id="3"
+                @click="selectDay('3')">
+                목
+              </li>
+              <li
+                :class="{ 'selected': deliveryDay === '4' }"
+                data-id="4"
+                @click="selectDay('4')">
+                금
+              </li>
+            </ul>
+          </div>
+          <p class="text">
+            ※ 신청 주에 수령을 원하시면 별도 연락 부탁드립니다.<br/>
+            (010-2712-6010)
+          </p>
+        </div>
+      </div>
+      <!-- 카드 결제 정보-->
+      <div class="payment-info">
+        <p class="txt-point">카드 결제 정보</p>
+        <div class="form-row">
+          <div class="form-card">
+            <input
+              type="number"
+              class="form-input"
+              placeholder="카드 번호 (-없이 16자리 입력)"
+              maxlength="16"
+              @keydown="$common.NumberValidateEvt"
+              v-validate="'required'"
+              name="cardNumber"
+            >
+            <input
+              type="number"
+              class="form-input"
+              placeholder="MMYY"
+              v-validate="'required'"
+              @keyup="checkCardExpiry"
+              name="cardExpiry"
+            >
+          </div>
+          <p
+            class="txt-error"
+            v-show="(errors.has('cardNumber') || errors.has('cardExpiry'))">
+            카드번호 & 유효기간을 입력해주세요.
+          </p>
+          <p
+            class="txt-error"
+            v-show="cardVerify">
+            {{ cardVerifyMsg }}
+          </p>
+        </div>
+        <div class="form-row">
+          <div>
+            <input
+              type="text"
+              class="form-input"
+              name="birthDay"
+              placeholder="생년월일(YYMMDD)"
+              v-validate="'required'"
+              @keyup="checkBirthExpiry">
+          </div>
+          <p class="txt-error" v-show="errors.has('birthDay')">생년월일을 입력해주세요.</p>
+          <p class="txt-error" v-show="birthVerify">{{ birthVerifyMsg }}</p>
+        </div>
+        <div class="form-row">
+          <div>
+            <input
+              type="password"
+              class="form-input"
+              placeholder="비밀번호"
+              v-validate="'required'"
+              name="cardPwd">
+          </div>
+          <p class="txt-error" v-show="errors.has('cardPwd')">카드비밀번호 앞 2자리를 입력해주세요.</p>
+        </div>
+      </div>
+      <!-- 개인정보 -->
+      <div class="personal-info">
+        <p class="txt-point">개인 정보 (배송을 위해 현관 비밀번호를 알려주세요)</p>
+        <div class="form-row">
+          <input type="text" class="form-input" placeholder="현관 비밀번호">
+        </div>
+      </div>
+      <!-- 쿠폰 -->
+      <div class="coupon">
+        <p class="txt-point">쿠폰</p>
+        <div class="form-row form-group" data-grid="7:3">
+          <input type="text" class="form-input" placeholder="쿠폰">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            @click="couponVerify">
+            확인
+          </button>
+        </div>
+      </div>
+      <!-- 주문합계 -->
+      <div class="order-total">
+        <div>
+          <table class="order-total-table">
+            <colgroup>
+              <col width="*">
+              <col width="100">
+            </colgroup>
+            <thead>
+            <tr>
+              <th colspan="2">주문 합계</th>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr>
+              <td>총 가격</td>
+              <td><span class="txt-number">78,000</span> <span class="txt-unit">원</span></td>
+            </tr>
+            </tfoot>
+            <tbody>
+            <tr>
+              <td>월 2회 단일 요금제</td>
+              <td><span class="txt-number">78,000</span> <span class="txt-unit">원</span></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="custom-checkbox">
+        <input class="custom-control-input" type="checkbox" name="first" id="first">
+        <label class="custom-control-label" for="first">
+          상기 결제정보를 확인하였으며, 구매진행에 동의합니다.
+        </label>
+      </div>
+      <div class="btn-complete">
+        <button class="btn btn-primary">완료</button>
+      </div>
+    </form>
+  </div>
+  <!--<div class="signup subContent mauto">
     <div class="w100 mt70 mauto">
       <div class="content-form d-inlinetable" style="margin-right: 30px; text-align: left;">
         <div class="signup-payment-title">
@@ -111,7 +304,7 @@
       </div>
     </div>
     <alert-modal ref="view" width="320" height="190" :isConfirm.sync="isConfirm"></alert-modal>
-  </div>
+  </div>-->
 </template>
 
 <script>
@@ -249,8 +442,178 @@ export default {
 };
 </script>
 
-<style scoped>
-.content-form {
+<style scoped lang="scss">
+  .signup {
+    padding: 23px 20px 123px;
+  }
+  .signup-title {
+    font-size: 26px;
+    line-height: 34px;
+    letter-spacing: -1.4px;
+    span {
+      font-size: 28px;
+      line-height: 36px;
+      letter-spacing: 0;
+      font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
+    }
+  }
+  .signup-text {
+    margin-top: 12px;
+    margin-bottom: 32px;
+    font-size: 15px;
+    line-height: 23px;
+    letter-spacing: -0.6px;
+    span {
+      color: #797979;
+    }
+  }
+
+  .txt-point {
+    margin-bottom: 12px;
+  }
+
+  .delivery-date {
+    ul {
+      list-style: none;
+      display: flex;
+    }
+    li {
+      height: 50px;
+      flex: 1 0 57px;
+      border: 1px solid #cacaca;
+      margin-left: -1px;
+      text-align: center;
+      line-height: 48px;
+      position: relative;
+      color: #bbb;
+      font-size: 15px;
+      letter-spacing: -0.6px;
+      &:first-child {
+        margin-left: 0;
+      }
+      &.selected {
+        outline: 2px solid #333;
+        outline-offset: -2px;
+        z-index: 10;
+        color: #333;
+      }
+    }
+  }
+
+  .flex-list {
+    ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+    }
+    li {
+      flex: 1;
+      position: relative;
+      border: 1px solid #c4c4c4;
+      margin-left: -1px;
+      line-height: 48px;
+      text-align: center;
+      color: #bbb;
+      letter-spacing: -0.6px;
+      &:first-child {
+        margin-left: 0;
+      }
+      &.seleted {
+        font-weight: 700;
+        color: #333;
+        z-index: 10;
+        outline: 2px solid #333;
+        outline-offset: -2px;
+      }
+    }
+  }
+  .delivery-date,
+  .payment-info,
+  .personal-info,
+  .coupon,
+  .order-total {
+    margin-top: 36px;
+  }
+  .form-row {
+    margin-bottom: 10px;
+  }
+
+  .payment-system {
+    .form-input {
+      &[readonly]{
+        border: 2px solid #333;
+      }
+    }
+  }
+  .delivery-date {
+    margin-top: 36px;
+    .text {
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: -0.8px;
+      color: #797979;
+      margin-top: 9px;
+    }
+  }
+  .payment-info {
+    .form-card {
+      display: flex;
+      input {
+        &:nth-child(1){
+          margin-right: 8px;
+        }
+        &:nth-child(2){
+          flex: 0 0 106px;
+        }
+      }
+    }
+  }
+  .order-total {
+    margin-bottom: 15px;
+    &-table {
+      table-layout: fixed;
+      width: 100%;
+      font-size: 15px;
+      line-height: 23px;
+      letter-spacing: -0.6px;
+      .txt-number {
+        font-size: 18px;
+        font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
+        font-weight: 700;
+        line-height: 25px;
+        letter-spacing: 0;
+      }
+      th, td {
+        border-bottom: 1px solid #e9e9e9;
+        height: 60px;
+      }
+      td {
+        &:nth-child(2){
+          text-align: right;
+        }
+      }
+      thead {
+        th {
+          font-weight: 400;
+        }
+      }
+      tfoot {
+        td {
+          font-weight: 700;
+        }
+      }
+    }
+  }
+  .btn-complete {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    button {
+      width: 100%;
+    }
+  }
+/*.content-form {
   vertical-align: top;
 }
 
@@ -381,5 +744,5 @@ export default {
   .sp-mobile-only {
     margin-top: 40px;
   }
-}
+}*/
 </style>

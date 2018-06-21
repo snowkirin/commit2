@@ -27,6 +27,11 @@
     right: 15px;
   }
 }
+.error {
+  input {
+    border: 1px solid #ec4b1a;
+  }
+}
 
 
 // Button Style
@@ -54,12 +59,19 @@
 .custom-checkbox {
   position: relative;
   display: block;
-  padding-left: 25px;
+  padding-left: 31px;
   text-align: left;
   .custom-control-input {
     position: absolute;
     z-index: -1;
     opacity: 0;
+    &:focus {
+      ~label {
+        &:before {
+          outline: rgb(59, 153, 252) auto 5px;
+        }
+      }
+    }
     &:checked {
       ~label {
         &:after {
@@ -72,7 +84,7 @@
     position: relative;
     font-size: 14px;
     letter-spacing: -0.6px;
-    line-height: 22px;
+    line-height: 26px;
     cursor: pointer;
     margin: 0;
     &:before {
@@ -80,25 +92,32 @@
       display: block;
       content: '';
       background-color: #fff;
-      width: 22px;
-      height: 22px;
+      width: 26px;
+      height: 26px;
       border: 1px solid #999;
-      left: -25px;
+      left: -31px;
       top: 0;
     }
     &:after {
       content: '';
       position: absolute;
       display: none;
-      left: -18px;
+      left: -23px;
       top: 3px;
-      width: 8px;
-      height: 13px;
+      width: 10px;
+      height: 15px;
       border: solid black;
-      border-width: 0 3px 3px 0;
+      border-width: 0 4px 4px 0;
       -webkit-transform: rotate(45deg);
       -ms-transform: rotate(45deg);
       transform: rotate(45deg);
     }
+  }
+  .custom-control-link {
+    font-size: 14px;
+    line-height: 25px;
+    letter-spacing: -0.4px;
+    color: #566b9c;
+    text-decoration: underline;
   }
 }

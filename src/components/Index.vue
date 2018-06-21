@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div class="container">
     <zuly-header v-show="headerShow"></zuly-header>
     <router-view></router-view>
     <zuly-footer v-show="footerShow"></zuly-footer>
@@ -23,35 +23,52 @@ export default {
     ZulyFooter,
   },
   watch: {
+    // $route() {
+    //   this.mobileVisible();
+    // },
     $route() {
-      this.mobileVisible();
+      this.footerVisible();
     },
   },
   methods: {
-    mobileVisible() {
-      if (window.outerWidth <= 486) {
-        if (this.$route.meta.mobile) {
-          this.headerShow = false;
+    footerVisible() {
+      if (this.$mq === 'sm') {
+        if (this.$route.path.indexOf('join') !== -1) {
           this.footerShow = false;
-        } else {
-          this.headerShow = true;
-          this.footerShow = true;
         }
-      } else {
-        this.headerShow = true;
-        this.footerShow = true;
       }
     },
+    // mobileVisible() {
+    //   if (window.outerWidth <= 486) {
+    //     if (this.$route.meta.mobile) {
+    //       this.headerShow = false;
+    //       this.footerShow = false;
+    //     } else {
+    //       this.headerShow = true;
+    //       this.footerShow = true;
+    //     }
+    //   } else {
+    //     this.headerShow = true;
+    //     this.footerShow = true;
+    //   }
+    // },
   },
   created() {
-    this.mobileVisible();
-    window.addEventListener('resize', this.mobileVisible);
+    this.footerVisible();
+    // this.mobileVisible();
+    // window.addEventListener('resize', this.mobileVisible);
   },
   destroyed() {
-    window.removeEventListener('resize', this.mobileVisible);
+    // window.removeEventListener('resize', this.mobileVisible);
   },
 };
 </script>
 
 <style scoped>
+  @media (min-width: 1279px){
+    .container {
+      /*width: 1280px;*/
+      /*margin: 0 auto;*/
+    }
+  }
 </style>

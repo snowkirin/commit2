@@ -7,13 +7,13 @@
           :style="pathCheck">
           Help
         </p>
-        <p class="en-font txt-tel">
+        <p class="txt-tel">
           <a href="tel:02-6929-3821">02-6929-3821</a>
         </p>
-        <p class="main-cs-noti mt5">
-          평일 오전 10 시 ~ 오후 5시<br/>
-          / 점심 시간 오후 12시30분 ~ 오후 1시 30분<br/>
-          고객 센터가 종료된 오후 5시 이후와 일요일,<br/>
+        <p class="txt-operation">
+          평일 오전 10 시 ~ 오후 5시<br v-show="$mq === 'sm'">
+          &nbsp;/ 점심 시간 오후 12시30분 ~ 오후 1시 30분<br/>
+          고객 센터가 종료된 오후 5시 이후와 일요일,<br v-show="$mq === 'sm'">
           공휴일에는
           <router-link to="/closet/cs" class="txt-link">나의 옷장 문의 게시판</router-link>을
           이용해 주세요.
@@ -29,13 +29,13 @@
           <p class="txt-info">
             법인명(상호) : 주식 회사 어니언 그라운드(<span class="en-font">Onion Ground</span>) |
             대표자(성명) : 김경규, 이시진 |
-            개인정보보호책임자 : 김용주(<a class="en-font" href="mailto:admin@onionground.com">admin@onionground.com</a>)
+            개인정보보호책임자 : 김용주(<a class="en-font" href="mailto:admin@onionground.com">admin@onionground.com</a>) <br v-show="$mq === 'lg'">
             사업자 등록 번호 : 729-81-00963 |
-            서울 특별시 테헤란로 78길 14-6 동성빌딩 7층
+            서울 특별시 테헤란로 78길 14-6 동성빌딩 7층 <br v-show="$mq === 'lg'">
             입점 문의 및 마케팅 제휴 : <a class="en-font" href="mailto:sjsj00@onionground.com">sjsj00@onionground.com</a> |
             기타 문의 : <a class="en-font" href="mailto:admin@onionground.com">admin@onionground.com</a>
           </p>
-          <p class="en-font txt-copyright">&copy; Onion Ground All Right RESERVED</p>
+          <p class="txt-copyright">&copy; Onion Ground All Right RESERVED</p>
         </div>
       </div>
     </div>
@@ -77,53 +77,73 @@ export default {
 
 <style scoped lang="scss">
 .footer {
-  padding: 20px;
-}
-.txt-tel {
-  font-size: 26px;
-  font-weight: 700;
-}
-.main-cs-noti {
-  font-size: 14px;
-  line-height: 22px;
-  letter-spacing: -.6px;
-  padding: 20px 0;
-}
-.txt-link {
-  color: #566b9c;
+  padding: 30px 20px 78px;
 }
 
+.help {
+  padding-bottom: 16px;
+  .txt-tel {
+    font-size: 26px;
+    font-weight: 700;
+    font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
+  }
+  .txt-operation {
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: -0.4px;
+    margin-top: 15px;
+    white-space: nowrap;
+  }
+  .txt-link {
+    color: #566b9c;
+  }
+}
+.line {
+  position: absolute;
+  width: calc(100% - 20px);
+}
 .info-policy {
-  padding: 20px 0;
+  padding-top: 21px;
   letter-spacing: -0.4px;
   .menu-policy {
-    font-weight: 700;
-    font-size: 14px;
-    margin-bottom: 13px;
-    list-style: none;
-    padding: 0;
+    font-size: 0;
     li {
+      font-size: 14px;
+      font-weight: 700;
       display: inline-block;
-      &:not(:last-child){
-        position: relative;
-        margin-right: 25px;
+      position: relative;
+      &:nth-child(1){
+        padding-right: 10px;
         &:after {
-          content: '';
-          display: inline-block;
-          height: 100%;
-          width: 1px;
-          background-color: #212121;
           position: absolute;
+          content: '';
+          display: block;
+          height: 12px;
+          border-right: 1px solid #212121;
+          right: 0;
+          top: 2px;
         }
       }
-    }
-    a {
+      &:nth-child(2){
+        padding-left: 11px;
+      }
     }
   }
   .information {
     font-size: 12px;
     line-height: 20px;
     color: #797979;
+    margin-top: 13px;
   }
 }
+  @media (min-width: 1279px) {
+    .footer {
+      width: 1280px;
+      margin: 0 auto;
+      padding: 60px 40px;
+    }
+    .line {
+      display: none;
+    }
+  }
 </style>

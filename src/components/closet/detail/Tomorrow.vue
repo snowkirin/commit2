@@ -86,12 +86,14 @@
     </div>
     <alert-modal ref="view" width="320" height="190"></alert-modal>-->
     <div v-if="!isShow">
-      <p>
-        <b>
-          {{ printDDay(tomorrowCloset.styling_dday) }}
-        </b>
-        옷장이 채워집니다.
-      </p>
+      <div class="none">
+        <div class="inner">
+          <p>
+            <strong>{{ printDDay(tomorrowCloset.styling_dday) }}</strong> <br>
+            옷장이 채워집니다.
+          </p>
+        </div>
+      </div>
     </div>
 
     <div v-else>
@@ -496,6 +498,27 @@ export default {
 <style scoped lang="scss">
   .tomorrow {
     padding: 24px 20px 20px 20px;
+  }
+  .none {
+    height: 500px;
+    background: url(/static/img/closet/img_none.png) no-repeat 50% 0;
+    display: flex;
+    justify-content: center;
+    .inner {
+      margin: auto;
+      height: 160px;
+      background-color: #fafafa;
+      display: table;
+      width: 90%;
+    }
+    p {
+      height: 100%;
+      vertical-align: middle;
+      display: table-cell;
+      text-align: center;
+      font-size: 26px;
+      line-height: 36px;
+    }
   }
   .txt-tomorrow-title {
     line-height: 28px;

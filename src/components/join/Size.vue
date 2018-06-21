@@ -1,5 +1,138 @@
 <template>
-  <div class="size subContent mauto size-margin">
+  <div class="size">
+    <p class="size-title">사이즈</p>
+    <p
+      v-if="$mq === 'lg'"
+      class="size-text">
+      즐겨입는 옷의 사이즈와 체형 관련 정보를 입력해주세요.
+    </p>
+    <p
+      v-else
+      class="size-text">
+      즐겨입는 옷의 사이즈와 체형 관련 정보를 <br/>입력해주세요.
+    </p>
+    <div class="line line__default"></div>
+    <form>
+      <div class="contents">
+        <div class="content">
+          <div class="blouse">
+            <p class="txt-point">블라우스/셔츠</p>
+            <div class="flex-list">
+              <ul>
+                <template v-for="(data, idx) in [44,55,66,77]">
+                  <li
+                    :key="idx"
+                    :class="{selected: sizeData.blouse === data}"
+                    @click="setData('blouse', data)">
+                    {{data}}
+                  </li>
+                </template>
+              </ul>
+            </div>
+          </div>
+          <div class="skirt">
+            <p class="txt-point">치마</p>
+            <div class="flex-list">
+              <ul>
+                <template v-for="(data, idx) in [44,55,66,77]">
+                  <li
+                    :class="{selected: sizeData.skirt === data}"
+                    :key="idx"
+                    @click="setData('skirt', data)">
+                    {{data}}
+                  </li>
+                </template>
+              </ul>
+            </div>
+          </div>
+          <div class="pants">
+            <p class="txt-point">바지 (inch)</p>
+            <div class="flex-list">
+              <ul>
+                <template v-for="(data, idx) in [25,26,27,28,29,30,31]">
+                  <li
+                    :key="idx"
+                    :class="{selected: sizeData.pants === data}"
+                    @click="setData('pants', data)">
+                    {{data}}
+                  </li>
+                </template>
+              </ul>
+            </div>
+          </div>
+          <div class="height">
+            <p class="txt-point">키 (cm)</p>
+            <div
+              :class="{error: errors.has('height')}">
+              <div>
+                <input
+                  type="number"
+                  class="form-input"
+                  name="height"
+                  maxlength="3"
+                  v-model="sizeData.height"
+                  v-validate="'required'"
+                  placeholder="최근 측정한 키를 입력해주세요.">
+              </div>
+              <p
+                class="txt-error"
+                v-show="errors.has('height')">
+                키를 입력해주세요.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="content">
+          <div class="chest">
+            <p class="txt-point">가슴 (브래지어)</p>
+            <div
+              :class="{error: errors.has('chest')}">
+              <div>
+                <input
+                  type="text"
+                  class="form-input"
+                  v-model="sizeData.chest"
+                  name="chest"
+                  v-validate="'required'"
+                  placeholder="예) 80A">
+              </div>
+              <p
+                class="txt-error"
+                v-if="errors.has('chest')">
+                가슴을 입력해주세요.
+              </p>
+            </div>
+
+          </div>
+          <div class="body-type">
+            <p class="txt-point">체형</p>
+            <div>
+              <p class="text">마른 일자형 몸매로, 허리둘레와 엉덩이 둘레가 거의  같고 상체에 곡선이 발달되지 않았습니다.</p>
+              <ul class="body-type-list">
+                <template v-for="(data, idx) in ['/static/img/signup/img_body1.png','/static/img/signup/img_body2.png','/static/img/signup/img_body3.png','/static/img/signup/img_body4.png','/static/img/signup/img_body5.png']">
+                  <li
+                    :class="{selected: sizeData.bodyType === idx}"
+                    :key="idx">
+                    <img :src="data"/>
+                  </li>
+                </template>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-next">
+        <button
+          type="button"
+          class="btn btn-primary"
+          @click="btnNextStep">
+          다음
+        </button>
+      </div>
+    </form>
+  </div>
+  <!--<div class="size subContent mauto size-margin">
     <div class="content-title mt70">
       <span v-show="!this.Authentication.authenticated">사이즈</span>
       <styleMenu v-show="this.Authentication.authenticated" menuTitle="사이즈"></styleMenu>
@@ -60,10 +193,130 @@
       </div>
       <styleButton currentLocation="size" currentNumber="1"></styleButton>
     </div>
-  </div>
+  </div>-->
 </template>
 
 <script>
+//   export default {
+//   name: 'size',
+//   data() {
+//     return {
+//       clickCount: 0,
+//       initFlag: true,
+//       bustError: true,
+//       waistError: true,
+//       hipError: true,
+//       initData: {},
+//       sizeData: {
+//         blouse: 44,
+//         skirt: 44,
+//         pants: 25,
+//         height: null,
+//         chest: null,
+//         bodyType: 1,
+//       },
+//     };
+//   },
+//   components: {
+//     SizeTooltip,
+//     StyleMenu,
+//     StyleButton,
+//     ToolTip,
+//   },
+//   computed: {
+//     ...mapGetters({
+//       Authentication: 'login/Authentication',
+//       mypageStyleData: 'mypage/getMypageStyleData',
+//     }),
+//   },
+//   methods: {
+//     ...mapActions({
+//       setSizeData: 'signup/setSizeData',
+//       setMypageStyle: 'mypage/setMypageStyle',
+//       setMypageCache: 'mypage/setMypageCache',
+//     }),
+//     setData(type, data) {
+//       this.sizeData[type] = data;
+//     },
+//     btnNextStep() {
+//       this.$validator.validateAll().then((result) => {
+//         if (result) {
+//           this.$router.push({
+//             path: 'styling',
+//           });
+//         } else {
+//           alert('Error');
+//         }
+//       });
+//     },
+//     toolTipEvt() {
+//       this.$refs.mtooltip.toolTipEvt();
+//     },
+//     loadSize(type) {
+//       let rtn = 0;
+//       if (type === 'tall') rtn = (this.mypageStyleData.tall_size) ? this.mypageStyleData.tall_size : 0;
+//       else if (type === 'bust') rtn = (this.mypageStyleData.bust_size) ? this.mypageStyleData.bust_size : 0;
+//       else if (type === 'waist') rtn = (this.mypageStyleData.waist_size) ? this.mypageStyleData.waist_size : 0;
+//       else if (type === 'hip') rtn = (this.mypageStyleData.hip_size) ? this.mypageStyleData.hip_size : 0;
+//
+//       return rtn;
+//     },
+//     stylingMenuOnoff() {
+//       const mnu = document.querySelector('.content-menu-box');
+//
+//       if (mnu.style.display === 'none') mnu.style.display = 'block';
+//       else mnu.style.display = 'none';
+//     },
+//     async saveSize() {
+//       const sizeData = {
+//         tall: document.querySelector('input[name=tall]').value,
+//         bust: this.$refs.bust.value,
+//         waist: this.$refs.waist.value,
+//         hip: this.$refs.hip.value,
+//       };
+//       await this.setSizeData(sizeData);
+//       this.$localStorage.set('S1', JSON.stringify(sizeData));
+//     },
+//     moveNext() {
+//       this.initFlag = false;
+//       this.$validator.validateAll().then((result) => {
+//         if (result) {
+//           if (!this.bustError && !this.waistError && !this.hipError) {
+//             this.saveSize();
+//             this.$router.push({ path: 'styling' });
+//           }
+//         }
+//       });
+//     },
+//   },
+//   async mounted() {
+//     let localStorage = this.$localStorage.get('S1');
+//
+//     if (this.Authentication.authenticated) {
+//       if (!this.mypageStyleData.bust_size) await this.setMypageStyle();
+//       document.querySelector('input[name=tall]').value = this.mypageStyleData.tall_size;
+//       this.initData = {
+//         bust: this.mypageStyleData.bust_size,
+//         waist: this.mypageStyleData.waist_size,
+//         hip: this.mypageStyleData.hip_size,
+//       };
+//     } else if (localStorage) {
+//       localStorage = JSON.parse(localStorage);
+//       document.querySelector('input[name=tall]').value = localStorage.tall;
+//       this.setMypageCache({
+//         tall_size: localStorage.tall,
+//         bust_size: localStorage.bust,
+//         waist_size: localStorage.waist,
+//         hip_size: localStorage.hip,
+//       });
+//       this.initData = {
+//         bust: localStorage.bust,
+//         waist: localStorage.waist,
+//         hip: localStorage.hip,
+//       };
+//     }
+//   },
+// };
 import { mapActions, mapGetters } from 'vuex';
 import SizeTooltip from '@/components/join/SizeTooltip';
 import StyleMenu from '@/components/join/common/StyleMenu';
@@ -74,12 +327,14 @@ export default {
   name: 'size',
   data() {
     return {
-      clickCount: 0,
-      initFlag: true,
-      bustError: true,
-      waistError: true,
-      hipError: true,
-      initData: {},
+      sizeData: {
+        blouse: 44,
+        skirt: 44,
+        pants: 25,
+        height: null,
+        chest: null,
+        bodyType: 1,
+      },
     };
   },
   components: {
@@ -100,81 +355,162 @@ export default {
       setMypageStyle: 'mypage/setMypageStyle',
       setMypageCache: 'mypage/setMypageCache',
     }),
-    toolTipEvt() {
-      this.$refs.mtooltip.toolTipEvt();
+    setData(type, data) {
+      this.sizeData[type] = data;
     },
-    loadSize(type) {
-      let rtn = 0;
-      if (type === 'tall') rtn = (this.mypageStyleData.tall_size) ? this.mypageStyleData.tall_size : 0;
-      else if (type === 'bust') rtn = (this.mypageStyleData.bust_size) ? this.mypageStyleData.bust_size : 0;
-      else if (type === 'waist') rtn = (this.mypageStyleData.waist_size) ? this.mypageStyleData.waist_size : 0;
-      else if (type === 'hip') rtn = (this.mypageStyleData.hip_size) ? this.mypageStyleData.hip_size : 0;
-
-      return rtn;
-    },
-    stylingMenuOnoff() {
-      const mnu = document.querySelector('.content-menu-box');
-
-      if (mnu.style.display === 'none') mnu.style.display = 'block';
-      else mnu.style.display = 'none';
-    },
-    async saveSize() {
-      const sizeData = {
-        tall: document.querySelector('input[name=tall]').value,
-        bust: this.$refs.bust.value,
-        waist: this.$refs.waist.value,
-        hip: this.$refs.hip.value,
-      };
-      await this.setSizeData(sizeData);
-      this.$localStorage.set('S1', JSON.stringify(sizeData));
-    },
-    moveNext() {
-      this.initFlag = false;
+    btnNextStep() {
       this.$validator.validateAll().then((result) => {
         if (result) {
-          if (!this.bustError && !this.waistError && !this.hipError) {
-            this.saveSize();
-            this.$router.push({ path: 'styling' });
-          }
+          this.$localStorage.set('s1', JSON.stringify(this.sizeData));
+          this.$router.push({
+            path: 'styling',
+          });
+        } else {
+          alert('Error');
         }
       });
     },
   },
-  async mounted() {
-    let localStorage = this.$localStorage.get('S1');
-
-    if (this.Authentication.authenticated) {
-      if (!this.mypageStyleData.bust_size) await this.setMypageStyle();
-      document.querySelector('input[name=tall]').value = this.mypageStyleData.tall_size;
-      this.initData = {
-        bust: this.mypageStyleData.bust_size,
-        waist: this.mypageStyleData.waist_size,
-        hip: this.mypageStyleData.hip_size,
-      };
-    } else if (localStorage) {
-      localStorage = JSON.parse(localStorage);
-      document.querySelector('input[name=tall]').value = localStorage.tall;
-      this.setMypageCache({
-        tall_size: localStorage.tall,
-        bust_size: localStorage.bust,
-        waist_size: localStorage.waist,
-        hip_size: localStorage.hip,
-      });
-      this.initData = {
-        bust: localStorage.bust,
-        waist: localStorage.waist,
-        hip: localStorage.hip,
-      };
+  mounted() {
+    const localStorage = this.$localStorage.get('s1');
+    if (localStorage) {
+      this.sizeData = JSON.parse(localStorage);
     }
   },
 };
+
 </script>
 
-<style scoped>
-.size {
-  position: relative;
-  text-align: center;
-}
+<style scoped lang="scss">
+  .size {
+    padding: {
+      top: 24px;
+      left: 20px;
+      right: 20px;
+      bottom: 86px;
+    }
+  }
+  .size-title {
+    font-size: 26px;
+    line-height: 34px;
+    letter-spacing: -1.4px;
+    text-align: center;
+  }
+  .size-text {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.8px;
+    color: #797979;
+    text-align: center;
+    margin-top: 3px;
+  }
+  .txt-point {
+    margin-bottom: 13px;
+  }
+
+  .line {
+    margin-top: 17px;
+    margin-bottom: 17px;
+  }
+  .blouse {
+
+  }
+  .skirt {
+    // 35.8
+    margin-top: 36px;
+  }
+  .pants {
+    margin-top: 36px;
+  }
+  .height {
+    margin-top: 36px;
+  }
+  .chest {
+    margin-top: 35px;
+  }
+  .body-type {
+    margin-top: 36px;
+  }
+
+  .flex-list {
+    ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      margin-left: 1px;
+      margin-top: 1px;
+      background: #f5f5f5;
+    }
+    li {
+      flex: 0 4 calc(25% + 1px);
+      position: relative;
+      border: 1px solid #c4c4c4;
+      margin-left: -1px;
+      margin-top: -1px;
+      line-height: 48px;
+      text-align: center;
+      color: #bbb;
+      letter-spacing: -0.6px;
+      background: #fff;
+      &.selected {
+        font-weight: 700;
+        color: #333;
+        z-index: 10;
+        outline: 2px solid #333;
+        outline-offset: -2px;
+      }
+    }
+  }
+  .body-type {
+    .text {
+      text-align: center;
+      font-size: 14px;
+      color: #797979;
+      line-height: 20px;
+      letter-spacing: -0.8px;
+      padding: 9px 27px 11.3px;
+      background-color: #f5f5f5;
+      margin-bottom: 10px;
+    }
+    .body-type-list {
+      list-style: none;
+      font-size: 0;
+      text-align: center;
+      margin-left: -8px;
+      margin-top: -10px;
+      li {
+        display: inline-block;
+        margin-left: 8px;
+        margin-top: 10px;
+        width: 106px;
+        height: 178px;
+        border: 1px solid #c4c4c4;
+        img {
+          max-width: 100%;
+          max-height: 100%;
+          opacity: 0.3;
+        }
+        &.selected {
+          outline: 2px solid #333;
+          outline-offset: -2px;
+          opacity: 1;
+          img {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+  .btn-next {
+    position: fixed;
+    left:0;
+    right: 0;
+    bottom: 0;
+    button {
+      width: 100%;
+    }
+  }
 
 .sizeLine {
   height: 1px;
@@ -233,45 +569,50 @@ export default {
   text-align: left;
 }
 
-@media screen and (max-width: 486px) {
-  .size-tt-text {
-    width: 100%;
-  }
-
-  .fa-exclamation-circle {
-    display: inline-block;
-    color: #aaaaaa;
-    cursor: pointer;
-  }
-
-  .size-margin {
-    margin-left: 20px;
-    padding-right: 20px;
-    overflow-x:hidden;
-  }
-
-  .tall-input-group {
-    width: 100%;
-    display: table;
-    table-layout: fixed;
+/* Desktop Style */
+@media screen and (min-width:1279px){
+  .size {
+    width: 795px;
+    margin: 0 auto;
     padding: 0;
-    height: 50px;
   }
-
-  .tall-input {
-    display: table-cell;
-    text-align: center;
-    width: 75%;
+  .size-title {
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -1.7px;
   }
-
-  .tall-input-unit {
-    display: table-cell;
-    vertical-align:bottom;
-    text-align: left;
-    padding-left: 15px;
-    height: 50px;
+  .size-text {
     font-size: 16px;
-    font-weight: 300;
+    line-height: 23px;
+    letter-spacing: -0.6px;
+    margin-top: 5px;
+  }
+  .line {
+    margin-bottom: 26px;
+  }
+  .contents {
+    display: flex;
+    border-bottom: 1px solid #333;
+    .content {
+      &:nth-child(1){
+        width: 387.5px;
+        padding-right: 53.5px;
+        border-right: 1px solid #e9e9e9;
+      }
+      &:nth-child(2){
+        width: 405.5px;
+        padding-left: 39.5px;
+        padding-right: 32px;
+      }
+    }
+  }
+  .body-type {
+    .body-type-list {
+      text-align: left;
+      li {
+        text-align: center;
+      }
+    }
   }
 }
 </style>

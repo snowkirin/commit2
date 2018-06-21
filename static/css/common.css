@@ -20,6 +20,9 @@
   padding-left: 11px;
   padding-right: 15px; }
 
+.error input {
+  border: 1px solid #ec4b1a; }
+
 .btn {
   border: 0;
   padding: 0; }
@@ -38,19 +41,21 @@
 .custom-checkbox {
   position: relative;
   display: block;
-  padding-left: 25px;
+  padding-left: 31px;
   text-align: left; }
   .custom-checkbox .custom-control-input {
     position: absolute;
     z-index: -1;
     opacity: 0; }
+    .custom-checkbox .custom-control-input:focus ~ label:before {
+      outline: #3b99fc auto 5px; }
     .custom-checkbox .custom-control-input:checked ~ label:after {
       display: block; }
   .custom-checkbox .custom-control-label {
     position: relative;
     font-size: 14px;
     letter-spacing: -0.6px;
-    line-height: 22px;
+    line-height: 26px;
     cursor: pointer;
     margin: 0; }
     .custom-checkbox .custom-control-label:before {
@@ -58,24 +63,30 @@
       display: block;
       content: '';
       background-color: #fff;
-      width: 22px;
-      height: 22px;
+      width: 26px;
+      height: 26px;
       border: 1px solid #999;
-      left: -25px;
+      left: -31px;
       top: 0; }
     .custom-checkbox .custom-control-label:after {
       content: '';
       position: absolute;
       display: none;
-      left: -18px;
+      left: -23px;
       top: 3px;
-      width: 8px;
-      height: 13px;
+      width: 10px;
+      height: 15px;
       border: solid black;
-      border-width: 0 3px 3px 0;
+      border-width: 0 4px 4px 0;
       -webkit-transform: rotate(45deg);
       -ms-transform: rotate(45deg);
       transform: rotate(45deg); }
+  .custom-checkbox .custom-control-link {
+    font-size: 14px;
+    line-height: 25px;
+    letter-spacing: -0.4px;
+    color: #566b9c;
+    text-decoration: underline; }
 
 /* Common Style */
 body {
@@ -88,7 +99,8 @@ p {
 
 ol, dl, ul {
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  list-style: none; }
 
 .txt-mainTitle {
   font-size: 14px;
@@ -135,5 +147,18 @@ ol, dl, ul {
   line-height: 22px;
   letter-spacing: -0.6px;
   color: #683b3f; }
+
+.txt-error {
+  font-size: 14px;
+  letter-spacing: -0.4px;
+  color: #ec4b1a;
+  margin-top: 8px; }
+
+@media (min-width: 1279px) {
+  .txt-main-point {
+    font-size: 17px; }
+
+  .txt-point {
+    font-size: 16px; } }
 
 /*# sourceMappingURL=common.css.map */
