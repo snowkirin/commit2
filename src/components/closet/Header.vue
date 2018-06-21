@@ -1,27 +1,23 @@
 <template>
   <div class="closet-header">
-    <div class="closet-my-info">{{ Authentication.userName }}님 옷장</div>
-    <div class="closet-noti-info">
-      <div class="closet-noti-card">
-        <div class="f16 noti-text">공지사항</div>
-        <div class="f16 noti-count noti-count-first">
+    <p class="user">
+      <span class="name">{{ Authentication.userName }}</span>님 옷장
+    </p>
+    <div class="info">
+      <div class="notice">
+        <p class="title">공지사항</p>
+        <p class="number">
           <span>0</span> 건
-        </div>
+        </p>
       </div>
-    <div class="closet-line"></div>
-    <!--    <div class="closet-noti-card closet-mobile">
-        <div class="f16 noti-text">사용 가능 쿠폰</div>
-        <div class="f16 noti-count">
-          <span>0</span> 개
+      <div class="tomorrow-closet">
+        <p class="title">내일의 옷장 선택</p>
+        <div class="txt-change">
+          <span>{{ changeMsg }}</span>
         </div>
-      </div>-->
-      <div class="closet-mobile" style="float: left"></div>
-      <div class="closet-noti-card noti-last-card">
-        <div class="f16 noti-text noti-last-text" style="width: 56%; display: inline-block;">내일의 옷장 선택</div>
-        <div class="f16 noti-text-icon">{{changeMsg}}</div>
-        <div class="f16 noti-count">
-          <span>{{printDDay(tomorrowCloset.select_dday)}}</span>
-        </div>
+        <p class="number">
+          <span>{{ printDDay(tomorrowCloset.select_dday) }}</span>
+        </p>
       </div>
     </div>
   </div>
@@ -64,152 +60,93 @@ export default {
 };
 </script>
 
-<style scoped>
-.closet-header {
-  height: 210px;
-  background-color: #be7979;
-}
-
-.f16 {
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  letter-spacing: -0.4px;
-  text-align: left;
-  color: #ffffff;
-}
-
-.closet-stylist-info {
-  padding: 28px 0 0 30px;
-  height: 23px;
-}
-
-.closet-my-info {
-  padding: 30px 0 0 30px;
-  font-size: 42px;
-  line-height: 0.9;
-  font-weight: 300;
-  font-style: normal;
-  font-stretch: normal;
-  letter-spacing: -3.3px;
-  text-align: left;
-  color: #ffffff;
-}
-
-.closet-line {
-  width: 2px;
-  height: 100%;
-  background-color: #FFFFFF;
-  opacity: 0.5;
-  display: inline-block;
-}
-
-.closet-noti-info {
-  margin-top: 20px;
-  margin-right: 7px;
-  height: 95px;
-  float: right;
-  box-sizing: border-box;
-}
-
-.closet-noti-card {
-  display: inline-block;
-  vertical-align: top;
-  position: relative;
-  width: 300px;
-  height: 110%;
-}
-
-.noti-text {
-  font-weight: 500;
-  padding-left: 16px;
-}
-
-.noti-count {
-  position: absolute;
-  bottom: 0;
-  right: 24px;
-}
-
-.noti-count span {
-  font-size: 45px;
-  font-weight: 200;
-  font-style: normal;
-  font-stretch: normal;
-  letter-spacing: -1.2px;
-  text-align: left;
-  color: #ffffff;
-}
-
-.noti-text-icon {
-  border-radius: 10px;
-  display: inline-block;
-  font-size: 14px;
-  border: 1px solid #FFFFFF;
-  width: 28%;
-  text-align:center;
-}
-
-@media screen and (max-width: 486px) {
-  .closet-my-info {
+<style scoped lang="scss">
+  .closet-header {
+    background-color: #be7979;
+    color: #fff;
+    padding: 23px 18px 24px;
+    font-weight: 300;
+  }
+  .user {
     font-size: 32px;
-    padding: 7.5% 4.8% 0 3.5% !important;
- }
-
-  .closet-noti-info {
-    padding: 0 4.8%;
+    letter-spacing: -2.2px;
+    line-height: 40px;
   }
+  .info {
+    display: flex;
+    margin-top: 28px;
+    .notice,
+    .tomorrow-closet {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      .title {
+        font-size: 14px;
+        letter-spacing: -1px;
+      }
+      .number {
+        span {
+          font-size: 30px;
+          line-height: 36px;
+          font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
+          letter-spacing: 0;
+        }
+      }
+    }
+    .notice {
+      flex: 1 1 59.15492957746479%;
+      &:after {
+        content: '';
+        display: block;
+        width: 2px;
+        height: 80px;
+        background-color: rgba(255,255,255, 0.5);
+        opacity: 0.5;
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
 
-  .closet-noti-card {
-    width: 45%;
+      .title {
+        font-size: 14px;
+        letter-spacing: -1px;
+      }
+      .number {
+        font-size: 16px;
+        letter-spacing: 2.3px;
+        margin-top: 35px;
+        span {
+          font-size: 30px;
+          line-height: 36px;
+          font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
+          letter-spacing: 0;
+        }
+      }
+    }
+    .tomorrow-closet {
+      padding-left: 22px;
+      flex: 1 1 116px;
+      .txt-change {
+        width: 57px;
+        font-size: 12px;
+        letter-spacing: -0.8px;
+        line-height: 21px;
+        border-radius: 10px;
+        border: 1px solid #fff;
+        text-align: center;
+        margin-top: 13px;
+      }
+    }
   }
+  @media (min-width: 1279px) {
+    .user {
+      font-size: 42px;
+      letter-spacing: -2.2px;
+    }
+    .info {
+      .notice {
 
-  .closet-mobile {
-    display: none;
-    float: left;
+      }
+    }
   }
-
-  .noti-text {
-    padding-left: 0;
-  }
-
-  .noti-last-text {
-    width: 100% !important;
-    display: block !important;
-  }
-
-  .noti-text-icon {
-    width: fit-content;
-    font-size: 12px;
-    width: 60px;
-    height: 20px;
-    line-height: 20px;
-    margin-top: 10px;
-  }
-
-  .noti-last-card {
-    padding-left: 16px;
-  }
-
-  .noti-count-first {
-    margin-top: 30px;
-  }
-
-  .noti-count {
-    position: relative;
-    bottom: 0;
-    right: 0;
-  }
-
-  .noti-count span {
-    font-size: 30px;
-    line-height: 1.3;
-  }
-
-  .closet-line {
-    width: 1px !important;
-    margin-top: 5px;
-  }
-}
 </style>

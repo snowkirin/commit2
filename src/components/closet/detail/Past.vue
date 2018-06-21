@@ -1,5 +1,55 @@
 <template>
-  <div class="past mt40">
+  <div class="past">
+    <div>
+      <p class="txt-main-title">그 동안의 옷장을 확인하실 수 <br/>있습니다.</p>
+    </div>
+    <div class="line line__default"></div>
+    <div class="closet-list">
+      <ul>
+        <li
+          v-for="(data, idx) in pastCloset"
+          class="closet-item"
+          :key="idx">
+          <p class="order en-font">
+            <span class="number">{{ numberSuffix(idx, pastCloset.length) }}</span>
+            <span class="date"> {{ data.subscription_date }}</span>
+          </p>
+          <ul class="product">
+            <li
+              v-for="(img, idx2) in data.images"
+              :key="idx2"
+              class="product-image"
+            >
+              <img :src="(img !== null)? API_IMAGE_URL + 'small/' + img : 'http://via.placeholder.com/60x70?text=Image '" alt=""/>
+            </li>
+          </ul>
+          <div class="style-tip">
+            <p class="title">스타일 팁</p>
+            <ellipsis-plus
+              class="explain"
+              ref="noButton"
+              :show-button="false"
+              expand-text='+더보기'
+              collapse-text="접기"
+              :text="printStylingTip(data.styling_tip)"
+              :ellipsis="'...'"
+              :line="4">
+            </ellipsis-plus>
+          </div>
+          <p>
+            <a
+              @click="viewModal(data.id)"
+              class="link-purchase"
+              v-if="data.is_sold === 'N'">
+              구매 정보 보기
+            </a>
+          </p>
+        </li>
+      </ul>
+    </div>
+    <custom-modal ref="view" :dataId="dataId" title="" width="500" height="530" modalType="pastView"></custom-modal>
+  </div>
+  <!--<div class="past mt40">
     <div class="main-point-text closet-title">과거의 옷장</div>
     <div class="closet-title-text mt15">
       그 동안의 옷장을 확인하실 수 있습니다.
@@ -49,7 +99,7 @@
     </div>
 
     <custom-modal ref="view" :dataId="dataId" title="" width="500" height="530" modalType="pastView"></custom-modal>
-  </div>
+  </div>-->
 </template>
 
 <script>
@@ -81,6 +131,32 @@ export default {
       this.dataId = id.toString();
       this.$refs.view.openModal();
     },
+    numberSuffix(num, total) {
+      let result;
+      if (num === 0) {
+        if (total === 1) {
+          result = `${total}st`;
+        } else if (total === 2) {
+          result = `${total}nd`;
+        } else if (total === 3) {
+          result = `${total}rd`;
+        } else {
+          result = `${total}th`;
+        }
+      } else if (num > 0) {
+        const number = total - 1;
+        if (number === 1) {
+          result = `${number}st`;
+        } else if (number === 2) {
+          result = `${number}nd`;
+        } else if (number === 3) {
+          result = `${number}rd`;
+        } else {
+          result = `${number}th`;
+        }
+      }
+      return result;
+    },
     printStylingTip(data) {
       let printData = data;
       printData = printData.replace(new RegExp(/\r?\n/, 'g'), '<br/>');
@@ -94,8 +170,96 @@ export default {
 };
 </script>
 
-<style scoped>
-.past-content {
+<style scoped lang="scss">
+  .past {
+    padding: 20px;
+  }
+  .main-title {
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: -1px;
+    margin-bottom: 15px;
+  }
+  .zuly-line {
+    border-bottom: 2px solid #333;
+  }
+  .closet-list {
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    .closet-item {
+      border-bottom: 1px solid #e9e9e9;
+      padding-top: 11px;
+      padding-bottom: 26px;
+    }
+    .order {
+      margin-bottom: 11px;
+      .number,
+      .date {
+        line-height: 21px;
+        font-size: 16px;
+        font-weight: 700;
+      }
+      .number {
+        position: relative;
+        margin-right: 12px;
+        &:after {
+          content: '';
+          display: block;
+          position: absolute;
+          border-right: 2px solid #979797;
+          height: 12px;
+          top: 5px;
+          right: -10px;
+        }
+      }
+    }
+    .product {
+      font-size: 0;
+      margin-bottom: 10px;
+      &-image {
+        display: inline-block;
+        width: 60px;
+        height: 70px;
+        overflow: hidden;
+        margin-left: 8px;
+        &:first-child {
+          margin-left: 0;
+        }
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+    .style-tip {
+      margin-bottom: 19px;
+      .title,
+      .explain {
+        font-size: 15px;
+        letter-spacing: -0.6px;
+      }
+      .title {
+        line-height: 21px;
+        font-weight: 700;
+        margin-bottom: 7px;
+      }
+      .explain {
+        line-height: 23px;
+        color: #797979;
+      }
+    }
+    .link-purchase {
+      line-height: 25px;
+      font-size: 15px;
+      letter-spacing: -0.4px;
+      color: #566b9c;
+      text-decoration: underline;
+    }
+  }
+
+/*.past-content {
   padding: 30px 0;
   border-bottom: solid 2px #e9e9e9;
 }
@@ -177,5 +341,5 @@ export default {
   .content-second-view {
     text-align: left;
   }
-}
+}*/
 </style>

@@ -1,5 +1,58 @@
 <template>
-  <div class="styling subContent mauto">
+  <div class="styling">
+    <p class="styling-title">선호 스타일</p>
+    <p class="styling-text">줄라이는 베이직 스타일을 기본으로 합니다.</p>
+    <div class="line line__default"></div>
+    <div>
+      <div class="styling-form" style="width: 100%;">
+        <div class="zuly-style-circle mauto">
+          <div class="zuly-circle-text">
+            ZULY<br/>
+            <span>베이직</span>
+          </div>
+          <div class="zuly-detail-circle circle-natural" @click="selectStyle($const.STYLE_NATURAL)">
+            <div class="zuly-detail-circle-text">
+              <span class="subject">내추럴</span>
+              <br/><span class="description">(편안하고 활동적인)</span>
+            </div>
+          </div>
+          <div class="zuly-detail-circle circle-unique" @click="selectStyle($const.STYLE_UNIQUE)">
+            <div class="zuly-detail-circle-text">
+              <span class="subject">유니크</span>
+              <br/><span class="description">(개성있고<br/>유행에 민감한)</span>
+            </div>
+          </div>
+          <div class="zuly-detail-circle circle-classic" @click="selectStyle($const.STYLE_CLASSIC)">
+            <div class="zuly-detail-circle-text">
+              <span class="subject">클래식</span>
+              <br/><span class="description">(지적이고<br/>덜유행타는)</span>
+            </div>
+          </div>
+          <div class="zuly-detail-circle circle-modern" @click="selectStyle($const.STYLE_MODERN)">
+            <div class="zuly-detail-circle-text">
+              <span class="subject">모던</span>
+              <br/><span class="description">(단정하고 시크한)</span>
+            </div>
+          </div>
+          <div class="zuly-detail-circle circle-feminine" @click="selectStyle($const.STYLE_FEMININE)">
+            <div class="zuly-detail-circle-text">
+              <span class="subject">페미닌</span>
+              <br/><span class="description">(여성스럽고<br/>부드러운)</span>
+            </div>
+          </div>
+          <div class="circle-active"></div>
+          <div class="circle-pick"></div>
+        </div>
+        <div class="btn-next">
+          <button type="button" class="btn btn-primary">
+            <router-link to="/join/signup" class="style-menu">다음</router-link>
+          </button>
+        </div>
+        <!--<styleButton btnMarginTop="110px" currentNumber="2"></styleButton>-->
+      </div>
+    </div>
+  </div>
+  <!--<div class="styling subContent mauto">
     <div class="content-title mt70">
       <span v-show="!this.Authentication.authenticated">선호 스타일</span>
       <styleMenu v-show="this.Authentication.authenticated" menuTitle="선호 스타일"></styleMenu>
@@ -49,7 +102,7 @@
       </div>
       <styleButton btnMarginTop="110px" currentNumber="2"></styleButton>
     </div>
-  </div>
+  </div>-->
 </template>
 
 <script>
@@ -268,7 +321,34 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  .styling {
+    padding: 20px;
+  }
+  .styling-title {
+    font-size: 26px;
+    line-height: 34px;
+    letter-spacing: -1.4px;
+    text-align: center;
+  }
+  .styling-text {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.8px;
+    color: #797979;
+    text-align: center;
+  }
+  .line {
+    margin-top: 16px;
+    margin-bottom: 70px;
+  }
+
+  .styling-form {
+    margin-top: 70px;
+  }
+  .zuly-style-circle {
+    margin: 0 auto;
+  }
 .stylingLine {
   height: 1px;
   opacity: 0.2;
@@ -288,8 +368,18 @@ export default {
   height: 100%;
 }
 
+.btn-next {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  button {
+    width: 100%;
+  }
+}
+
 .styling-text {
-  font-size: 16px;
+  /*font-size: 16px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
@@ -302,7 +392,7 @@ export default {
   top: 92%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);*/
 }
 
 .styling-btn {

@@ -1,6 +1,6 @@
 <template>
-  <div class="tomorrow mt40">
-    <div class="closet-card-none" v-show="!isShow">
+  <div class="tomorrow">
+    <!--<div class="closet-card-none" v-show="!isShow">
       <div class="closet-card-none-content">
         <div class="content-table mauto">
           <span><b>{{ printDDay(tomorrowCloset.styling_dday) }}</b><br/>옷장이 채워집니다.</span>
@@ -84,7 +84,145 @@
         </div>
       </div>
     </div>
-    <alert-modal ref="view" width="320" height="190"></alert-modal>
+    <alert-modal ref="view" width="320" height="190"></alert-modal>-->
+    <div v-if="!isShow">
+      <div class="none">
+        <div class="inner">
+          <p>
+            <strong>{{ printDDay(tomorrowCloset.styling_dday) }}</strong> <br>
+            옷장이 채워집니다.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div v-else>
+      <div>
+        <p class="txt-tomorrow-title">
+          2가지 데일리룩 후보 중<br/>
+          마음에 드는 의상을 선택해주세요.
+        </p>
+        <p class="txt-tomorrow-caution">
+          (기한 내 미선택 시, 회원님께 더 어울릴 스타일로 자동 지정 후 배송 됩니다.)
+        </p>
+      </div>
+      <div class="codi-suggestion">
+        <div>
+          <p class="txt-codi-title en-font">A. Codi Look</p>
+          <p class="txt-codi-desc">
+            심플하지만 갖춰입은듯<br/>
+            스타일리쉬 한 룩!
+          </p>
+        </div>
+        <!-- TODO: 스타일로 뺄것. -->
+        <div style="width: 236px; margin: 0 auto;">
+          <div class="list-codi">
+            <div class="image">
+              <img src="http://via.placeholder.com/226x270" alt="상품 이미지"/>
+            </div>
+            <div
+              class="btn-detail">
+              <button
+                type="button">
+                상품 상세보기
+              </button>
+            </div>
+          </div>
+          <div class="list-codi">
+            <div class="image">
+              <img src="http://via.placeholder.com/226x270" alt="상품 이미지"/>
+            </div>
+            <div
+              class="btn-detail">
+              <button
+                type="button">
+                상품 상세보기
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="zuly-line-short"></div>
+        <div>
+          <p class="txt-tip-title">스타일 팁</p>
+          <!--TODO: 말줄임표 -->
+          <!--<p class="txt-tip-desc">- 허리에서 포켓까지 이어진 바이올렛톤의 새틴 배색이 포인트인 팬츠로, 이러한 디자인의 특징을 살려서.. +더보기</p>-->
+          <p class="txt-tip-desc" v-html="$common.htmlEnterLine(printStyleFirst.stylingTip)"></p>
+          <hr class="zuly-line-dot">
+          <!--<p class="txt-hashtag">-->
+            <!--#ZULY #오피스룩 # 나만의옷장 #모던 #블라우스 #화이트 # 팬츠 #배색 #Ss18 #ZULY #오피스룩 # 나만의옷장 #모던 #블라우스 #화이트 # 팬츠 #배색 #Ss18-->
+          <!--</p>-->
+          <p class="txt-hashtag" v-html="$common.htmlEnterLine(printStyleFirst.hashTag)"></p>
+        </div>
+        <div class="btn-select">
+          <button
+            @click="alertTest('Hello')"
+            type="button">
+            선택하기
+          </button>
+        </div>
+      </div>
+      <div class="codi-suggestion selected">
+        <div>
+          <p class="txt-codi-title en-font">A. Codi Look</p>
+          <p class="txt-codi-desc">
+            심플하지만 갖춰입은듯<br/>
+            스타일리쉬 한 룩!
+          </p>
+        </div>
+        <div style="width: 236px; margin: 0 auto;">
+          <div class="list-codi">
+            <div class="image">
+              <img src="http://via.placeholder.com/226x270" alt="상품 이미지"/>
+            </div>
+            <div
+              class="btn-detail">
+              <button
+                type="button">
+                상품 상세보기
+              </button>
+            </div>
+          </div>
+          <div class="list-codi">
+            <div class="image">
+              <img src="http://via.placeholder.com/226x270" alt="상품 이미지"/>
+            </div>
+            <div
+              class="btn-detail">
+              <button
+                type="button">
+                상품 상세보기
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="zuly-line-short"></div>
+        <div>
+          <p class="txt-tip-title">스타일 팁</p>
+          <!--TODO: 말줄임표 -->
+          <p class="txt-tip-desc">- 허리에서 포켓까지 이어진 바이올렛톤의 새틴 배색이 포인트인 팬츠로, 이러한 디자인의 특징을 살려서.. +더보기</p>
+          <hr class="zuly-line-dot">
+          <p class="txt-hashtag">
+            #ZULY #오피스룩 # 나만의옷장 #모던 #블라우스 #화이트 # 팬츠 #배색 #Ss18 #ZULY #오피스룩 # 나만의옷장 #모던 #블라우스 #화이트 # 팬츠 #배색 #Ss18
+          </p>
+        </div>
+        <div class="btn-select">
+          <button
+            @click="alertTest('Hello')"
+            type="button">
+            선택하기
+          </button>
+        </div>
+        <div class="dim-selected">
+          <p class="txt-heart">♥</p>
+          <p class="txt-selected">
+            좋아요.<br/>
+            선택할게요.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -185,6 +323,9 @@ export default {
       setTomorrowCloset: 'mypage/closet/setTomorrowCloset',
       setTomorrowSelect: 'mypage/closet/setTomorrowSelect',
     }),
+    alertTest(data) {
+      alert(data);
+    },
     centerImage(value) {
       for (let i = 0; value.length > i; i += 1) {
         if (value[i] === null) return true;
@@ -354,8 +495,136 @@ export default {
 };
 </script>
 
-<style scoped>
-.closet-card-area {
+<style scoped lang="scss">
+  .tomorrow {
+    padding: 24px 20px 20px 20px;
+  }
+  .none {
+    height: 500px;
+    background: url(/static/img/closet/img_none.png) no-repeat 50% 0;
+    display: flex;
+    justify-content: center;
+    .inner {
+      margin: auto;
+      height: 160px;
+      background-color: #fafafa;
+      display: table;
+      width: 90%;
+    }
+    p {
+      height: 100%;
+      vertical-align: middle;
+      display: table-cell;
+      text-align: center;
+      font-size: 26px;
+      line-height: 36px;
+    }
+  }
+  .txt-tomorrow-title {
+    line-height: 28px;
+    font-size: 20px;
+    letter-spacing: -0.8px;
+    margin-bottom: 2px;
+  }
+  .txt-tomorrow-caution {
+    line-height: 22px;
+    letter-spacing: -0.8px;
+    font-size: 14px;
+    color: #797979;
+  }
+  .codi-suggestion {
+    background-color: #f9f9f9;
+    border: 2px solid #e1e1e1;
+    padding: 24px 20px 20px 20px;
+    text-align: center;
+    margin-top: 16px;
+    position: relative;
+    &.selected {
+      border: 3px solid #000;
+      .dim-selected {
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        background-color: rgba(51, 51, 51, 0.4);
+        z-index: 100;
+        .txt-heart {
+          font-size: 50px;
+          margin-bottom: 18px;
+        }
+        .txt-selected {
+          line-height: 38px;
+          font-size: 28px;
+          letter-spacing: -1.9px;
+          font-weight: 300;
+        }
+      }
+    }
+    .list-codi {
+      background-color: #fff;
+      border: 1px solid #c3c3c3;
+      margin-top: 16px;
+      .image {
+        padding: 4px 4px 6px;
+        border-bottom: 1px solid #c3c3c3;
+      }
+      .btn-detail {
+        button {
+          border: 0;
+          width: 100%;
+          height: 100%;
+          background-color: #fff;
+          line-height: 36px;
+          letter-spacing: -1.3px;
+          font-weight: 300;
+        }
+      }
+    }
+    .txt-codi-title {
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 21px;
+      margin-bottom: 6px;
+      letter-spacing: 0 !important;
+    }
+    .txt-codi-desc {
+      font-size: 18px;
+      font-weight: 300;
+      letter-spacing: -0.7px;
+      line-height: 24px;
+    }
+    .txt-tip-title {
+      font-size: 15px;
+      letter-spacing: -0.6px;
+      color: #333;
+      font-weight: 700;
+      line-height: 21px;
+      margin-bottom: 11px;
+    }
+    .txt-tip-desc {
+      line-height: 23px;
+      letter-spacing: -0.6px;
+      font-size: 15px;
+    }
+    .btn-select {
+      margin-top: 25px;
+      button {
+        border: 0;
+        color: #fff;
+        font-size: 18px;
+        letter-spacing: -.6px;
+        background-color: #333;
+        line-height: 50px;
+        width: 100%;
+      }
+    }
+  }
+/*.closet-card-area {
   display: flex;
 }
 
@@ -555,5 +824,5 @@ export default {
   .mt50 {
     margin-top: 30px !important;
   }
-}
+}*/
 </style>

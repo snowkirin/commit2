@@ -5,6 +5,7 @@
     <process></process>
     <faq></faq>
     <main-video></main-video>
+    <event></event>
   </div>
 </template>
 
@@ -14,6 +15,7 @@ import About from '@/components/main/About';
 import Process from '@/components/main/Process';
 import Faq from '@/components/main/Faq';
 import MainVideo from '@/components/main/MainVideo';
+import Event from '@/components/main/Event';
 
 export default {
   name: 'maix-index',
@@ -23,12 +25,10 @@ export default {
     Process,
     Faq,
     MainVideo,
+    Event,
   },
 };
 </script>
 
-<style scoped>
-div.main {
-  padding-bottom: 410px;
-}
+<style scoped lang="scss">
 </style>

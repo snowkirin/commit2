@@ -1,78 +1,56 @@
 <template>
-  <div class="process-main side-padding-50 mt70">
-    <div class="main-process d-flex">
-      <div class="main-point-text" style="line-height: 0; position: relative;">
-        <span class="en-font" style="padding-top: 7px; position: absolute;">PROCESS</span>
+  <div class="process">
+    <p class="txt-main-point">Process</p>
+    <div class="line line__default"></div>
+    <div class="step">
+      <div class="left">
+        <div class="step1">
+          <div class="image">
+            <img src="/static/img/icons/icon_main1.svg" alt="">
+          </div>
+          <div class="detail">
+            <p class="txt-step">STEP 01</p>
+            <p class="txt-title">스타일 정보를 입력</p>
+            <p class="txt-desc">스타일리스트가 입력정보로<br v-show="$mq === 'lg'"> 어울리는 옷을 제안합니다.</p>
+          </div>
+        </div>
+        <div class="step2">
+          <div class="image">
+            <img src="/static/img/icons/icon_main2.svg" alt="">
+          </div>
+          <div class="detail">
+            <p class="txt-step">STEP 02</p>
+            <p class="txt-title">정해진 날짜에 배송/수거</p>
+            <p class="txt-desc">당신이 선택한 옷이 <br v-show="$mq === 'lg'">2주 단위로 배송/수거 됩니다.</p>
+          </div>
+        </div>
       </div>
-      <div class="main-process-info w100 d-flex">
-        <div class="mobile-process-line"></div>
-        <div class="process-half-area">
-          <div class="d-flex process-card">
-            <div class="process-icon">
-              <div class="firstProcess"></div>
-            </div>
-            <div class="ml30">
-              <div class="en-font step-number">STEP 01</div>
-              <div class="process-title">스타일 정보를 입력</div>
-              <div class="process-text mt5">
-                스타일리스트가 입력정보로<br/>
-                어울리는 옷을 제안합니다.<br/>
-                <a href="#" class="hide-area">스타일리스트 소개</a>
-              </div>
-            </div>
+      <div class="right">
+        <div class="step3">
+          <div class="image">
+            <img src="/static/img/icons/icon_main3.svg" alt="">
           </div>
-          <div class="d-flex process-card mt60">
-            <div class="process-icon">
-              <div class="secondProcess"></div>
-            </div>
-            <div class="ml30">
-              <div class="en-font step-number">STEP 02</div>
-              <div class="process-title">정해진 날짜에 배송/수거</div>
-              <div class="process-text mt5">
-                당신이 선택한 옷이<br/>
-                2주 단위로 배송/수거 됩니다.<br/>
-                <a href="#" class="hide-area">지역별 배송 일자</a>
-              </div>
-            </div>
+          <div class="detail">
+            <p class="txt-step">STEP 03</p>
+            <p class="txt-title">세탁/보관 걱정 없이 수거</p>
+            <p class="txt-desc">2주간 편하게 입고, 문 앞에 두면 끝. <br v-show="$mq === 'lg'">더 입고 싶다면 반납 없이 구매도 가능합니다.</p>
           </div>
         </div>
-        <div class="process-line" style="width: 2%;">
-          <div class="line"></div>
-        </div>
-        <div class="process-half-area half-second ml40">
-          <div class="d-flex process-card">
-            <div class="process-icon">
-              <div class="thirdProcess"></div>
-            </div>
-            <div class="ml30">
-              <div class="en-font step-number">STEP 03</div>
-              <div class="process-title">세탁/보관 걱정 없이 수거</div>
-              <div class="process-text mt5">
-                2주간 편하게 입고, 문 앞에 두면 끝.<br/>
-                더 입고 싶다면 반납 없이 구매도 가능합니다.<br/>
-                <a href="#" class="hide-area">세탁 방법 소개</a>
-              </div>
-            </div>
+        <div class="step4">
+          <div class="image">
+            <img src="/static/img/icons/icon_main4.svg" alt="">
           </div>
-          <div class="d-flex process-card mt60">
-            <div class="process-icon">
-              <div class="fourthProcess"></div>
-            </div>
-            <div class="ml30">
-              <div class="en-font step-number">STEP 04</div>
-              <div class="process-title">피드백 전달</div>
-              <div class="process-text mt5">
-                더 나은 스타일 제안을 위해 의견 주세요.<br/>
-                나를 이해하는 스타일이 제공 됩니다.<br/>
-                <a href="#" class="hide-area">피드백 예시</a>
-              </div>
-
-            </div>
+          <div class="detail">
+            <p class="txt-step">STEP 04</p>
+            <p class="txt-title">피드백 전달</p>
+            <p class="txt-desc">더 나은 스타일 제안을 위해 의견 주세요. <br v-show="$mq === 'lg'">나를 이해하는 스타일이 제공 됩니다.</p>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+
 </template>
 
 <script>
@@ -81,96 +59,244 @@ export default {
 };
 </script>
 
-<style scoped>
-.process-main {
-  width: 1200px;
-  margin: auto;
-}
-
-.main-point-text {
-  width: 200px;
-}
-
-.line {
-  width: 1px;
-  height: 98%;
-  background-color: #dadada;
-}
-
-.process-half-area {
-  position: relative;
-  width: 49%;
-  bottom: 5px;
-}
-
-.process-text {
-  line-height: 1.56;
-}
-
-.process-text a {
-  font-weight: 500;
-  color: #405a94;
-}
-
-.process-icon {
-  width: 90px;
-}
-
-.firstProcess {
-  background: url('/static/img/icons/icon_main1.svg') no-repeat 37.322% 37.431%;
-  width: 89px;
-  height: 89px;
-  padding-top: 5px;
-}
-
-.secondProcess {
-  background: url('/static/img/icons/icon_main2.svg') no-repeat 59.166% 37.431%;
-  width: 89px;
-  height: 89px;
-}
-
-.thirdProcess {
-  background: url('/static/img/icons/icon_main3.svg') no-repeat 48.299% 37.431%;
-  width: 89px;
-  height: 89px;
-  padding-top: 10px;
-}
-
-.fourthProcess {
-  background: url('/static/img/icons/icon_main4.svg') no-repeat 70.033% 37.431%;
-  width: 89px;
-  height: 89px;
-  padding-top: 10px;
-  padding-left: 3px;
-}
-
-@media screen and (max-width: 486px) {
-  .mobile-process-line {
-    height: 2px;
-    background-color: #333333;
-    margin-bottom: 30px;
+<style scoped lang="scss">
+  .process {
+    padding: 31px 20px 6px 20px
   }
-
-  .firstProcess,
-  .secondProcess,
-  .fourthProcess {
-    width: 68px;
-    height: 68px;
+  .line {
+    position: absolute;
+    width: calc(100% - 20px);
+    margin-top: 6px;
   }
-
-  .thirdProcess{
-    width: 70px;
-    height: 70px;
+  .step1,
+  .step2,
+  .step3,
+  .step4 {
+    display: flex;
+    .image,
+    .detail {
+      align-self: flex-start;
+    }
+    .image {
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .detail {
+      .txt-step {
+        font-size: 12px;
+        color: #b47a3d;
+        font-weight: 700;
+        font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
+      }
+      .txt-title {
+        font-size: 18px;
+      }
+      .txt-desc {
+        font-size: 15px;
+        line-height: 23px;
+        word-break: keep-all;
+      }
+    }
   }
-
-
-  span.en-font {
-    padding-top: 14px !important;
+  .step1 {
+    margin-top: 35px;
+    .image {
+      margin-left: -3px;
+      flex: 0 0 68px;
+    }
+    .detail {
+      padding-left: 18px;
+      .txt-step {
+        margin-top: 4px;
+      }
+      .txt-title {
+        font-size: 18px;
+        letter-spacing: -1px;
+        margin: 6px 0;
+      }
+      .txt-desc {
+        font-size: 15px;
+        line-height: 23px;
+        letter-spacing: -.3px;
+        word-break: keep-all;
+      }
+    }
   }
-
-  .process-icon {
-    width: 80px;
-    flex: 0 0 80px;
+  .step2 {
+    margin-top: 32px;
+    .image {
+      flex: 0 0 70px;
+      margin-left: -4px;
+    }
+    .detail {
+      padding-left: 17px;
+      .txt-step {
+        margin-top: 4px;
+      }
+      .txt-title {
+        letter-spacing: -.5px;
+        margin: {
+          top: 6px;
+          bottom: 8px;
+        }
+      }
+      .txt-desc {
+        letter-spacing: -0.4px;
+      }
+    }
   }
-}
+  .step3 {
+    margin-top: 31px;
+    .image {
+      flex: 0 0 70px;
+      margin-left: -4px;
+    }
+    .detail {
+      padding-left: 17px;
+      .txt-step {
+        margin-top: 5px;
+      }
+      .txt-title {
+        margin: {
+          top: 6px;
+          bottom: 8px;
+        }
+        letter-spacing: -0.5px;
+      }
+      .txt-desc {
+        letter-spacing: -0.4px;
+      }
+    }
+  }
+  .step4 {
+    margin-top: 33px;
+    .image {
+      flex: 0 0 66px;
+    }
+    .detail {
+      padding-left: 17px;
+      .txt-step {
+        margin-top: 2px;
+      }
+      .txt-title {
+        margin: {
+          top: 6px;
+          bottom: 6px;
+        }
+        letter-spacing: -0.5px;
+      }
+      .txt-desc {
+        letter-spacing: -0.4px;
+      }
+    }
+  }
+  @media (min-width: 1279px) {
+    .process {
+      width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      padding: 62px 40px 63px 40px;
+    }
+    .txt-main-point {
+      flex: 0 0 202px;
+    }
+    .line {
+      display: none;
+    }
+    .step {
+      display: flex;
+      margin-top: 2px;
+      flex: 1;
+      .left {
+        flex: 1 0 50%;
+        border-right: 1px solid #dadada;
+        margin-top: 3px;
+      }
+      .right {
+        flex: 1 0 50%;
+        padding-left: 48px;
+      }
+    }
+
+    .step1,
+    .step2,
+    .step3,
+    .step4 {
+      .detail {
+        .txt-step {
+          font-size: 14px;
+        }
+        .txt-title {
+          font-size: 22px;
+          line-height: 38px;
+          letter-spacing: -1.1px;
+        }
+        .txt-desc {
+          font-size: 16px;
+          line-height: 24px;
+          word-break: keep-all;
+          letter-spacing: -0.5px;
+        }
+      }
+    }
+    .step1 {
+      margin-top: 0;
+      .image {
+        flex: 0 0 90px;
+        margin-left: -5px;
+      }
+      .detail {
+        padding-left: 34px;
+        .txt-step {
+          margin-top: 2px;
+        }
+        .txt-title {
+          margin: 2px 0 1px -2px;
+        }
+      }
+    }
+    .step2 {
+      margin-top: 57px;
+      .image {
+        flex-basis: 91px;
+        margin-left: -6px
+      }
+      .detail {
+        padding-left: 34px;
+        .txt-title {
+          margin: 2px 0 -1px -1px;
+          letter-spacing: -0.6px;
+        }
+      }
+    }
+    .step3 {
+      margin-top: 0;
+      margin-left: 7px;
+      .image {
+        flex-basis: 89px;
+      }
+      .detail {
+        padding-left: 33px;
+        .txt-title {
+          margin: 2px 0 1px;
+          letter-spacing: -0.6px;
+        }
+      }
+    }
+    .step4 {
+      margin-top: 59px;
+      .image {
+        flex-basis: 88px;
+      }
+      .detail {
+        padding-left: 37px;
+        .txt-title {
+          margin: 2px 0 -1px;
+          letter-spacing: -0.6px;
+        }
+      }
+    }
+  }
 </style>

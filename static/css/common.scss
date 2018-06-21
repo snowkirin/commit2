@@ -1,0 +1,112 @@
+@charset "UTF-8";
+@import '_reboot.css';
+@import '_form.scss';
+/* Common Style */
+
+body {
+  /* 특별하게 지정하지 않으면 폰트사이즈와 높이값이 같게 */
+  line-height: 1;
+  overflow-y: scroll;
+}
+p {
+  margin: 0;
+}
+ol,dl,ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.txt-mainTitle {
+  font-size: 14px;
+  //font-size: 4.375vw;
+  font-weight: 800;
+  line-height: 28px;
+  //line-height: 8.75vw;
+  text-transform: uppercase;
+}
+
+.line {
+  border-bottom: {
+    color: #333;
+    width: 1px;
+  }
+  &__default {
+    border-bottom: {
+      width: 2px;
+      style: solid;
+    }
+  }
+  // 얇은
+  &__thin {
+    border-bottom: {
+      style: solid;
+      color: #e1e1e1;
+    }
+  }
+  // dashed 스타일
+  &__dashed {
+    border-bottom: {
+      style: dashed;
+    }
+  }
+}
+
+// Text Common Style
+.txt-main-title {
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: -1px;
+}
+.txt-main-point {
+  color: #f45649;
+  font: {
+    size: 14px;
+    weight: 800;
+    family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
+  }
+  line-height: 28px;
+  letter-spacing: -0.2px;
+  text-transform: uppercase;
+  &[data-color="white"]{
+    color: #fff;
+  }
+}
+.txt-point {
+  font: {
+    size: 15px;
+    weight: 700;
+  }
+  letter-spacing: -0.6px;
+  line-height: 21px;
+}
+.txt-hashtag {
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: -0.6px;
+  color: #683b3f;
+}
+.txt-error {
+  font-size: 14px;
+  letter-spacing: -0.4px;
+  color: #ec4b1a;
+  margin-top: 8px;
+}
+
+// Tablet
+@media (min-width: 768px){
+}
+// Desktop
+@media (min-width: 1279px){
+  .txt-main-point {
+    font: {
+      size: 17px;
+    }
+    //line-height: 28px;
+    //letter-spacing: -0.2px;
+    //text-transform: uppercase;
+  }
+  .txt-point {
+    font-size: 16px;
+  }
+}

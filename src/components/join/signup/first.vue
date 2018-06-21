@@ -1,5 +1,252 @@
 <template>
-  <div class="signup subContent mauto">
+  <div class="signup">
+    <p class="signup-title">정기구독/회원가입</p>
+    <div class="line line__default"></div>
+    <form>
+      <!-- 사용자 계정 -->
+      <div class="user-account">
+        <p class="txt-point">사용자 계정</p>
+        <div>
+          <div class="form-row">
+            <div :class="{error : errors.has('name')}">
+              <input
+                type="text"
+                class="form-input"
+                name="name"
+                v-validate="'required'"
+                maxlength="15"
+                placeholder="이름">
+            </div>
+            <p
+              v-if="errors.has('name')"
+              class="txt-error">
+              이름을 입력해주세요.
+            </p>
+          </div>
+          <div class="form-row">
+            <div :class="{error : errors.has('email')}">
+              <input
+                type="email"
+                class="form-input"
+                name="email"
+                v-validate="'required|email'"
+                maxlength="50"
+                placeholder="이메일">
+            </div>
+            <p
+              class="txt-error"
+              v-if="errors.has('email')">
+              이메일을 정확하게 입력해주세요.
+            </p>
+          </div>
+          <div class="form-row">
+            <div :class="{error : errors.has('password')}">
+              <input
+                type="password"
+                class="form-input"
+                placeholder="비밀번호 8자리 이상의 영문,숫자,특수문자 포함"
+                name="password"
+                v-validate="{ required: true, regex: pwdRegex }"
+                @keyup="pwdCheck(errors.has('password'))"
+                maxlength="256">
+            </div>
+            <p
+              class="txt-error"
+              v-show="errors.has('password')">
+              {{ pwdMsg }}
+            </p>
+          </div>
+          <div class="form-row">
+            <div :class="{error : errors.has('password_confirm')}">
+              <input
+                type="password"
+                class="form-input"
+                name="password_confirm"
+                placeholder="비밀번호 확인"
+                v-validate="'required|confirmed:password'"
+                @change="pwdConfirm(errors.has('passwordConfirmation'))"
+                maxlength="256">
+            </div>
+            <p
+              class="txt-error"
+              v-if="errors.has('password_confirm')">
+              비밀번호가 일치하지 않습니다.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- 연락처 정보 -->
+      <div class="contact-info">
+        <p class="txt-point">연락처 정보</p>
+        <div>
+          <div class="form-row">
+            <div class="form-group" data-grid="7:3" :class="{error : errors.has('phone')}">
+              <input
+                type="tel"
+                class="form-input"
+                name="phone"
+                v-validate="'required'"
+                maxlength="14"
+                placeholder="핸드폰번호">
+              <button
+                @click="phoneVerify"
+                type="button"
+                id="phoneVerify"
+                class="btn btn-secondary">
+                인증
+              </button>
+            </div>
+            <p
+              class="txt-error"
+              v-if="errors.has('phone')">
+              휴대전화를 입력해주세요.
+            </p>
+          </div>
+          <div class="form-row">
+            <div class="form-group" data-grid="7:3" :class="{error : errors.has('phone_auth_number')}">
+              <input
+                name="phone_auth_number"
+                type="number"
+                class="form-input"
+                v-validate="'required'"
+                placeholder="인증번호">
+              <button
+                type="button"
+                id="authKeyConfirm"
+                @click="authKeyConfirm"
+                class="btn btn-secondary">
+                확인
+              </button>
+            </div>
+            <p
+              class="txt-error"
+              v-if="authErr">
+              {{ authErrMessage }}
+            </p>
+          </div>
+          <div class="form-row">
+            <div class="form-group" data-grid="7:3" :class="{error : errors.has('zipcode')}">
+              <input
+                type="number"
+                class="form-input"
+                placeholder="우편번호"
+                v-validate="'required'"
+                name="zipcode">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                @click="openDaumPopup">
+                주소찾기
+              </button>
+            </div>
+            <p></p>
+          </div>
+          <div class="form-row">
+            <div :class="{error : errors.has('address')}">
+              <input
+                type="text"
+                class="form-input"
+                placeholder="주소"
+                v-validate="'required'"
+                maxlength="30"
+                name="address">
+            </div>
+            <p
+              class="txt-error"
+              v-if="errors.has('address')">
+              주소가 입력되지 않았습니다.
+            </p>
+          </div>
+          <div class="form-row">
+            <div :class="{error : errors.has('detail_address')}">
+              <input
+                type="text"
+                class="form-input"
+                placeholder="상세주소"
+                v-validate="'required'"
+                maxlength="30"
+                name="detail_address">
+            </div>
+            <p
+              class="txt-error"
+              v-if="errors.has('detail_address')">
+              상세주소가 입력되지 않았습니다.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- 추가 정보 -->
+      <div class="more-info">
+        <p class="txt-point">[선택] 추가 정보</p>
+        <div class="form-row">
+
+          <datepicker
+            name="ann"
+            input-class="form-input"
+            placeholder="기념일을 입력하시면, 기념일날 할인 쿠폰 지급"
+            language="ko"
+            format="MM.dd">
+          </datepicker>
+          <!--<input
+            placeholder="기념임을 입력하시면, 기념일날 할인 쿠폰 지급"
+            class="form-input"
+            type="text"
+            onfocus="(this.type='date')"
+            onfocusout="(this.type='text')"
+            id="date">-->
+        </div>
+      </div>
+      <!-- 체크박스 -->
+      <div>
+        <div class="custom-checkbox">
+          <input
+            class="custom-control-input"
+            type="checkbox"
+            name="first"
+            id="first">
+          <label
+            class="custom-control-label"
+            for="first">
+            개인정보의 수집 및 이용에 대한 동의
+          </label>
+          <a href="#" class="custom-control-link" @click="viewModal('private')">자세히보기</a>
+        </div>
+        <div class="custom-checkbox">
+          <input
+            class="custom-control-input"
+            type="checkbox"
+            name="second"
+            id="second">
+          <label
+            class="custom-control-label"
+            for="second">
+            이용약관
+          </label>
+          <a href="#" class="custom-control-link" @click="viewModal('use')">자세히보기</a>
+        </div>
+        <div class="custom-checkbox">
+          <input
+            class="custom-control-input"
+            type="checkbox"
+            name="third"
+            id="third">
+          <label
+            class="custom-control-label"
+            for="third">
+            [선택] 마케팅 정보 수신 동의
+          </label>
+          <a href="" class="custom-control-link">자세히보기</a>
+        </div>
+      </div>
+      <div class="btn-next">
+        <button class="btn btn-primary" @click="validateBeforeSubmit">다음</button>
+      </div>
+    </form>
+    <address-modal ref="address" dataId="address"></address-modal>
+    <signup-modal ref="private" dataId="private" title="개인정보 관리 지침" :content="privateText"></signup-modal>
+    <signup-modal ref="use" dataId="use" title="이용약관"></signup-modal>
+  </div>
+  <!--<div class="signup subContent mauto">
     <div class="content-title mt70">정기구독/회원가입</div>
     <div class="signupLine mt25"></div>
 
@@ -91,7 +338,7 @@
     <address-modal ref="address" dataId="address"></address-modal>
     <signup-modal ref="private" dataId="private" title="개인정보 관리 지침" :content="privateText"></signup-modal>
     <signup-modal ref="use" dataId="use" title="이용약관"></signup-modal>
-  </div>
+  </div>-->
 </template>
 
 <script>
@@ -336,11 +583,11 @@ export default {
       window.interval = interval;
     },
     btnFixedEvt() {
-      const btn = document.getElementById('next-btn');
-      btn.classList.remove('next-btn', 'next-btn-mobile');
-
-      if (window.scrollY > 380) btn.classList.add('next-btn');
-      else btn.classList.add('next-btn-mobile');
+      // const btn = document.getElementById('next-btn');
+      // btn.classList.remove('next-btn', 'next-btn-mobile');
+      //
+      // if (window.scrollY > 380) btn.classList.add('next-btn');
+      // else btn.classList.add('next-btn-mobile');
     },
   },
   created() {
@@ -372,7 +619,50 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  .signup {
+    padding: 24px 20px 82px 21px;
+  }
+  .signup-title {
+    font-size: 26px;
+    line-height: 34px;
+    letter-spacing: -1.4px;
+    text-align: center;
+  }
+  .txt-point {
+    margin-bottom: 13px;
+  }
+  .form-row {
+    margin-bottom: 10px;
+  }
+  .line {
+    margin: 16px 0;
+  }
+
+  .user-account {
+  }
+  .contact-info {
+    padding-top: 26px;
+  }
+  .more-info {
+    padding-top: 26px;
+    .form-row {
+      margin-bottom: 19px;
+    }
+  }
+  .custom-checkbox {
+    margin-bottom: 8px;
+  }
+  .btn-next {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    button {
+      width: 100%;
+    }
+  }
+
 .signupLine {
   height: 1px;
   opacity: 0.2;
@@ -413,39 +703,5 @@ export default {
 
 .field {
   text-align: left;
-}
-
-@media screen and (max-width: 486px) {
-  .button-next {
-    height: 60px !important;
-  }
-
-  .signup {
-    padding: 0 4.8% 470px 4.8% !important;
-  }
-
-  .signup-area {
-    width: 100%;
-    margin-right: 0px !important;
-  }
-
-  .signup-area-last {
-    margin-top: 30px;
-  }
-
-  .next-btn {
-    width: 100% !important;
-    float: none !important;
-  }
-
-  .next-btn-mobile {
-    position: fixed !important;
-    width: 100% !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    z-index: 999 !important;
-    margin-top: 0 !important;
-    float: none !important;
-  }
 }
 </style>

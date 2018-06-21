@@ -1,18 +1,43 @@
 <template>
-  <div class="mypage mt40">
-    <div class="main-point-text closet-title">나의 정보관리</div>
-    <div class="closet-title-text mt15">
-      안전하게 보호하기 위해 비밀번호를<br/>
+  <div class="mypage-sercurity">
+    <p class="txt-main-title">
+      안전하게 보호하기 위해 비밀번호를
       다시 한번 확인 합니다.
-    </div>
-    <div class="security-input">
-      <div class="inputGroup">
-        <input id="pwdInput" type="password" name="password" class="form-login-group mt12" placeholder="비밀번호" style="width: 33%;" v-validate="'required'" @keydown="$common.submitEvt($event, passwordCheck)"/>
-        <div id="pwdIntv" style="display: inline-table; width: 1%;"></div>
-        <button id="pwdBtn" class="button-login" style="width: 10%;" @click="passwordCheck">확인</button>
+    </p>
+    <div class="line line__default"></div>
+    <form>
+      <div class="form-group" data-grid="7:3">
+        <input
+          class="form-input"
+          id="pwdInput"
+          type="password"
+          name="password"
+          placeholder="비밀번호"
+          v-validate="'required'"
+          @keydown="$common.submitEvt($event, passwordCheck)"
+        />
+        <button
+          type="button"
+          class="btn btn-primary"
+          @click="passwordCheck"
+        >확인</button>
       </div>
-    </div>
+    </form>
   </div>
+  <!--<div class="mypage mt40">-->
+    <!--<div class="main-point-text closet-title">나의 정보관리</div>-->
+    <!--<div class="closet-title-text mt15">-->
+      <!--안전하게 보호하기 위해 비밀번호를<br/>-->
+      <!--다시 한번 확인 합니다.-->
+    <!--</div>-->
+    <!--<div class="security-input">-->
+      <!--<div class="inputGroup">-->
+        <!--<input id="pwdInput" type="password" name="password" class="form-login-group mt12" placeholder="비밀번호" style="width: 33%;" v-validate="'required'" @keydown="$common.submitEvt($event, passwordCheck)"/>-->
+        <!--<div id="pwdIntv" style="display: inline-table; width: 1%;"></div>-->
+        <!--<button id="pwdBtn" class="button-login" style="width: 10%;" @click="passwordCheck">확인</button>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
 </template>
 
 <script>
@@ -41,25 +66,15 @@ export default {
 };
 </script>
 
-<style scoped>
-.mypage {
-}
-
-.security-input {
-  margin-top: 30px;
-}
-
-@media screen and (max-width: 486px) {
-  #pwdInput {
-    width: 60% !important;
+<style scoped lang="scss">
+  @import '../style';
+  .mypage-sercurity {
+    padding: 20px;
+    .line {
+      margin: {
+        top: 15px;
+        bottom: 15px;
+      }
+    }
   }
-
-  #pwdIntv {
-    width: 1% !important;
-  }
-
-  #pwdBtn {
-    width: 38.6% !important;
-  }
-}
 </style>

@@ -1,5 +1,116 @@
 <template>
-  <div class="mypage mt40">
+  <div class="mypage">
+    <p class="txt-main-title">나의 정보를 변경 하실 수 있습니다.</p>
+    <div class="line line__default"></div>
+    <form>
+      <div class="name">
+        <p>이름</p>
+        <p>김용주</p>
+      </div>
+      <div class="email">
+        <p>이메일</p>
+        <div class="form-group" data-grid="7:3">
+          <input type="email" class="form-input">
+          <button
+            class="btn btn-secondary"
+            type="button">
+            이메일 변경
+          </button>
+        </div>
+      </div>
+      <div class="password">
+        <p>비밀번호 변경</p>
+        <div class="form-group" data-grid="7:3">
+          <input
+            class="form-input"
+            type="password">
+        </div>
+        <div class="form-group" data-grid="7:3">
+          <input
+            class="form-input"
+            type="password">
+        </div>
+        <div class="form-group" data-grid="7:3">
+          <input
+            class="form-input"
+            type="password">
+          <button
+            class="btn btn-secondary"
+            type="button">
+            비밀번호 변경
+          </button>
+        </div>
+      </div>
+      <div class="phone">
+        <div class="form-group">
+          <input
+            type="tel"
+            class="form-input"
+            placeholder="휴대전화번호">
+        </div>
+      </div>
+      <!--카드번호-->
+      <div class="card">
+        <p>카드 결제 정보</p>
+        <div class="form-group" data-grid="7:3">
+          <input type="number" name="" id="" class="form-input" placeholder="카드번호">
+          <button type="button" class="btn btn-secondary">카드 변경</button>
+        </div>
+      </div>
+      <!--주소-->
+      <div class="address">
+        <p>주소</p>
+        <div class="form-group">
+          <input type="text" class="form-input">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-input">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-input">
+        </div>
+      </div>
+      <!--기념일-->
+      <div class="anniversary">
+        <p>기념일</p>
+        <div class="form-group">
+          <input type="date" class="form-input">
+        </div>
+      </div>
+      <!--배송일-->
+      <div class="delivery-date">
+        <p>배송일 지정</p>
+        <ul>
+          <li class="selected">월</li>
+          <li>화</li>
+          <li>수</li>
+          <li>목</li>
+          <li>금</li>
+        </ul>
+      </div>
+      <!--현관 번호-->
+      <div class="entrance-number">
+        <div>
+          <p>공동 현관 번호</p>
+          <p>(배송을 위해 공동현관 비밀번호 알려주세요)</p>
+        </div>
+        <div>
+          <input
+            class="form-input"
+            type="text">
+        </div>
+      </div>
+      <div class="line line__default"></div>
+      <div class="btn-modify">
+        <button
+          type="button"
+          class="btn btn-primary">
+          정보 수정하기
+        </button>
+      </div>
+    </form>
+  </div>
+  <!--<div class="mypage mt40">
     <div class="main-point-text closet-title">나의 정보관리</div>
     <div class="closet-title-text mt15">
       나의 정보를 변경 하실 수 있습니다.
@@ -141,7 +252,7 @@
                 <div class="inputGroup">
                   <input type="text" name="zipcode" readonly="readonly" class="form-login-group" placeholder="우편번호" style="width: 60%;" v-validate="'required'" :value="mypageData.zipcode" />
                   <div style="display: inline-table; width: 1.5%;"></div>
-                  <!-- <button id="findAddr" class="button-grey" style="width: 25%;" @click="openDaumPopup">주소찾기</button> -->
+                  &lt;!&ndash; <button id="findAddr" class="button-grey" style="width: 25%;" @click="openDaumPopup">주소찾기</button> &ndash;&gt;
                 </div>
               </div>
             </div>
@@ -196,7 +307,7 @@
       </div>
     </div>
     <address-modal ref="address" dataId="address"></address-modal>
-  </div>
+  </div>-->
 </template>
 
 <script>
@@ -483,17 +594,17 @@ export default {
     },
   },
   async created() {
-    if (!this.mypageAuth) {
-      alert('잘못된 접근입니다.');
-      this.$router.push({ path: '/closet/security' });
-    } else {
-      const htmlScript = document.createElement('script');
-      htmlScript.setAttribute('src', 'https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js?autoload=false');
-      document.head.appendChild(htmlScript);
-
-      await this.setMypage();
-      this.delivery_day = this.mypageData.delivery_day;
-    }
+    // if (!this.mypageAuth) {
+    //   alert('잘못된 접근입니다.');
+    //   this.$router.push({ path: '/closet/security' });
+    // } else {
+    //   const htmlScript = document.createElement('script');
+    //   htmlScript.setAttribute('src', 'https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js?autoload=false');
+    //   document.head.appendChild(htmlScript);
+    //
+    //   await this.setMypage();
+    //   this.delivery_day = this.mypageData.delivery_day;
+    // }
   },
   destroyed() {
     this.securityDestroyed();
@@ -501,7 +612,44 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  @import '../style';
+  .mypage {
+    padding: 20px;
+  }
+  .delivery-date {
+    ul {
+      list-style: none;
+      display: flex;
+    }
+    li {
+      height: 57px;
+      flex: 0 0 57px;
+      border: 1px solid #cacaca;
+      margin-left: -1px;
+      text-align: center;
+      line-height: 57px;
+      position: relative;
+      color: #bbb;
+      font-size: 15px;
+      letter-spacing: -0.6px;
+      &:first-child {
+        margin-left: 0;
+      }
+      &.selected {
+        outline: 2px solid #333;
+        outline-offset: -2px;
+        z-index: 10;
+        color: #333;
+      }
+    }
+  }
+
+  .btn-modify {
+    button {
+      width: 100%;
+    }
+  }
 .mypage-modify-btn {
   height: 150px;
 }

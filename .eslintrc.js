@@ -31,7 +31,6 @@ module.exports = {
     'no-alert': 0,
     'no-console': 0,
     'linebreak-style': 0,
-
     'max-len': ['error', {
       'code': 250,
     }],
