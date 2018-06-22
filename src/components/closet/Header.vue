@@ -11,12 +11,15 @@
         </p>
       </div>
       <div class="tomorrow-closet">
-        <p class="title">내일의 옷장 선택</p>
-        <div class="txt-change">
-          <span>{{ changeMsg }}</span>
+        <div class="clearfix">
+          <p class="title">내일의 옷장 선택</p>
+          <div class="txt-change">
+            <span>{{ changeMsg }}</span>
+          </div>
         </div>
         <p class="number">
-          <span>{{ printDDay(tomorrowCloset.select_dday) }}</span>
+          <span>D-9</span>
+          <!--<span>{{ printDDay(tomorrowCloset.select_dday) }}</span>-->
         </p>
       </div>
     </div>
@@ -106,11 +109,6 @@ export default {
         top: 0;
         right: 0;
       }
-
-      .title {
-        font-size: 14px;
-        letter-spacing: -1px;
-      }
       .number {
         font-size: 16px;
         letter-spacing: 2.3px;
@@ -142,14 +140,68 @@ export default {
     .closet-header {
       width: 1200px;
       margin: 0 auto;
+      padding: {
+        top: 17px;
+        right: 32px;
+        bottom: 19px;
+        left: 26px;
+      }
     }
     .user {
       font-size: 42px;
-      letter-spacing: -2.2px;
+      letter-spacing: -3px;
+      line-height: 62px;
     }
     .info {
+      margin-top: 9px;
+      .notice,
+      .tomorrow-closet {
+        text-align: right;
+        .title {
+          font-size: 16px;
+          letter-spacing: -1.1px;
+          line-height: 24px;
+        }
+        .number {
+          font-size: 16px;
+          letter-spacing: -1.1px;
+          line-height: 27px;
+          span {
+            font-size: 42px;
+            line-height: 57px;
+            letter-spacing: 0;
+          }
+        }
+      }
       .notice {
-
+        flex: 0 0 73.8%;
+        .title {
+          margin-right: 216px;
+          margin-top: 3px;
+        }
+        .number {
+          margin-top: 18px;
+          margin-right: 30px;
+        }
+      }
+      .tomorrow-closet {
+        padding-left: 28px;
+        flex: 1;
+        .title {
+          float: left;
+        }
+        .txt-change {
+          float: right;
+          margin-top: 3px;
+          font-size: 14px;
+          letter-spacing: -1px;
+          line-height: 22px;
+          width: 64px;
+          border-radius: 30px;
+        }
+        .number {
+          margin-top: 18px;
+        }
       }
     }
   }
