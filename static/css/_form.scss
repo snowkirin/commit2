@@ -1,3 +1,4 @@
+@charset "UTF-8";
 // Form Layout
 .form-group {
   &[data-grid="7:3"]{
@@ -38,6 +39,7 @@
 .btn {
   border: 0;
   padding: 0;
+  font-family: 'Noto Sans KR', '맑은 고딕', 'Malgun Gothic', sans-serif;
   &-primary {
     background-color: #333;
     color: #fff;

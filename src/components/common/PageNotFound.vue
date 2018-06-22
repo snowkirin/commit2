@@ -1,5 +1,11 @@
 <template>
-<div>
+<div class="pageNotFound">
+  <div>
+    <div>Error</div>
+    <div>404</div>
+    <div>요청한 사이트가 존재하지 않습니다.</div>
+    <router-link to="/">홈으로 가기</router-link>
+  </div>
 </div>
 </template>
 
@@ -19,5 +25,8 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  @media (min-width: 1279px) {
+
+  }
 </style>
