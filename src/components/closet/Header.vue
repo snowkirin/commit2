@@ -139,6 +139,10 @@ export default {
     }
   }
   @media (min-width: 1279px) {
+    .closet-header {
+      width: 1200px;
+      margin: 0 auto;
+    }
     .user {
       font-size: 42px;
       letter-spacing: -2.2px;
