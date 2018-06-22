@@ -1,5 +1,106 @@
 <template>
-  <div class="customer-service mt40">
+  <div class="customer-service">
+    <div>
+      <!--TITLE -->
+      <p class="title">고객님의 소중한 의견으로<br/>한 뼘 더 자라는 줄라이가 되겠습니다.</p>
+      <div class="content">
+        <!-- Left -->
+        <div class="contact-detail">
+          <!-- TOP -->
+          <div class="top">
+            <p>
+              <span class="text">나의 문의 내역</span>
+              <button class="btn btn-primary" @click="viewModal">문의하기</button>
+            </p>
+          </div>
+          <!-- BOT-->
+          <div class="bot">
+            <ul class="contact-detail-list">
+              <li
+                v-for="(inquiries, k) in inquiriesList"
+                @click="viewInquiries(inquiries.id)"
+                :key="k"
+                :class="{ 'selected': (showId === inquiries.id) }">
+                <div class="inner">
+                  <div class="txt-title">
+                    <span class="title">{{ inquiries.subject }}</span>
+                    <span class="date">{{ inquiries.inserted.substring(2, 10) }}</span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- Right-->
+        <div class="contact-chat">
+          <!-- TOP -->
+          <div class="top">
+            <p class="text">이전 문의내역을 선택하시거나 새로운 1:1 채팅문의를 시작해 주세요.</p>
+          </div>
+          <!-- BOT-->
+          <div class="bot">
+            <template v-if="inquiriesInfo.first">
+              <div class="txt-current-date">
+                {{ $moment(inquiriesInfo.first.inserted).format('MM.DD ddd') }}
+              </div>
+              <div class="talk-content">
+                <div class="talk-area">
+                  <div class="talk-area-left">
+                    <div class="admin-icon">
+                      <div class="admin-icon-logo"></div>
+                    </div>
+                    <div class="balloon">
+                      <div class="balloon-text">
+                        <p>어떤 부분이 궁금하신가요?</p>
+                        <ul>
+                          <li class="balloon-square-area" v-bind:class="{ 'balloon-square-active': (inquiriesInfo.first.inquiry_type.toString() === $const.INQUIRIES_SUBSCRIBE) }">구독문의</li>
+                          <li class="balloon-square-area" v-bind:class="{ 'balloon-square-active': (inquiriesInfo.first.inquiry_type.toString() === $const.INQUIRIES_ORDER) }">주문문의</li>
+                          <li class="balloon-square-area" v-bind:class="{ 'balloon-square-active': (inquiriesInfo.first.inquiry_type.toString() === $const.INQUIRIES_DELIVERY) }">배송문의</li>
+                          <li class="balloon-square-area" v-bind:class="{ 'balloon-square-active': (inquiriesInfo.first.inquiry_type.toString() === $const.INQUIRIES_NORMAL) }">일반(기타)문의</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="talk-date">{{ $moment(inquiriesInfo.first.inserted).format("A hh:mm") }}</div>
+                  </div>
+                </div>
+                <div class="talk-area">
+                  <div class="talk-area-right">
+                    <div class="right-balloon">
+                      <div class="balloon-text">
+                        {{ inquiriesInfo.first.subject }}
+                      </div>
+                    </div>
+                    <div class="talk-date">{{ $moment(inquiriesInfo.first.inserted).format("A hh:mm") }}</div>
+                  </div>
+                </div>
+                <template v-for="(info, k) in inquiriesInfo.list">
+                  <template v-if="k === 0 && inquiriesInfo.first.subject === info.content">
+                  </template>
+                  <template v-else>
+                    <div v-bind:key="k" class="talk-area">
+                      <div v-bind:class="{ 'talk-area-right': (info.content_type_name === '문의'), 'talk-area-left': (info.content_type_name === '답변') }">
+                        <div v-show="(info.content_type_name === '답변')" class="admin-icon">
+                          <div class="admin-icon-logo"></div>
+                        </div>
+                        <div v-bind:class="{ 'right-balloon': (info.content_type_name === '문의'), 'balloon': (info.content_type_name === '답변') }">
+                          <div class="balloon-text">
+                            {{ info.content }}
+                          </div>
+                        </div>
+                        <div class="talk-date">{{ $moment(info.inserted).format("A hh:mm") }}</div>
+                      </div>
+                    </div>
+                  </template>
+                </template>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+    </div>
+    <custom-modal ref="view" dataId="view" title="문의하기" width="796" height="530" modalType="csView"></custom-modal>
+  </div>
+  <!--<div class="customer-service mt40">
     <div class="main-point-text closet-title">문의 신청 / 내역</div>
     <div class="closet-title-text mt15">
       고객님의 소중한 의견으로<br/>
@@ -96,7 +197,7 @@
     </div>
 
     <custom-modal ref="view" dataId="view" title="문의하기" width="796" height="530" modalType="csView"></custom-modal>
-  </div>
+  </div>-->
 </template>
 
 <script>
@@ -142,13 +243,142 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  .customer-service {
+    width: 94.793%;
+    margin: 0 auto;
+  }
+  .title {
+    font-size: 24px;
+    line-height: 34px;
+    letter-spacing: -1px;
+  }
+
+  .content {
+    display: flex;
+    border: 2px solid #e9e9e9;
+    margin-top: 25px;
+    height: 473px;
+  }
+  .contact-detail {
+    flex: 1 1 31.59340659340659%;
+
+    .top {
+      display: flex;
+      height: 80px;
+      justify-content: center;
+      flex-direction: column;
+      padding-left: 18px;
+      padding-right: 19px;
+      position: relative;
+      &:after {
+        content: '';
+        display: block;
+        border-bottom: 1px solid #e9e9e9;
+        position: absolute;
+        bottom: 0;
+        width: 82.8%;
+      }
+      .text {
+        font-size: 15px;
+        line-height: 21px;
+        letter-spacing: -0.7px;
+        font-weight: 700;
+        margin-right: 15px;
+      }
+      button {
+        width: 89px;
+      }
+    }
+    .bot {
+      height: 389px;
+      overflow-y: auto;
+    }
+    &-list {
+      li {
+        padding: 17px 13px 20px 19px;
+        position: relative;
+        &:after {
+          content: '';
+          display: block;
+          border-bottom: 1px solid #e9e9e9;
+          position: absolute;
+          bottom: 0;
+          width: 82.8%;
+        }
+        &.selected {
+          background-color: #eff3fc;
+        }
+      }
+      .txt-title {
+        display: flex;
+        .title {
+          font-size: 15px;
+          line-height: 23px;
+          letter-spacing: -0.6px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          width: 137px;
+        }
+        .date {
+          font-size: 15px;
+          line-height: 23px;
+          color: #797979;
+          font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
+        }
+      }
+      .txt-explain {
+        margin-top: 6px;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: -0.8px;
+        color: #797979;
+      }
+    }
+  }
+  .contact-chat {
+    flex: 1 1 68.40659340659341%;
+    background-color: #f4f4f4;
+    padding: 0 20px;
+    .top {
+      display: flex;
+      height: 80px;
+      justify-content: center;
+      flex-direction: column;
+      position: relative;
+      &:after {
+        content: '';
+        display: block;
+        border-bottom: 1px solid #e9e9e9;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+      }
+      .text {
+        font-size: 15px;
+        line-height: 23px;
+        letter-spacing: -0.6px;
+        color: #797979;
+      }
+    }
+    .bot {
+      height: 389px;
+      overflow-y: auto;
+    }
+  }
+
+  @media (min-width: 1279px) {
+    .customer-service {
+      width: 1200px;
+    }
+  }
 .greyLine {
   margin-top: 24px;
 }
 
 .customer-service {
-  padding-bottom: 410px;
+  /*padding-bottom: 410px;*/
 }
 
 .customer-service-content {
@@ -322,6 +552,10 @@ export default {
   border-left-width: 0;
 }
 
+.thumbnail {
+
+}
+
 .admin-icon {
   display: inline-block;
   border-radius: 50%;
@@ -369,12 +603,6 @@ export default {
 
 .right-balloon > .balloon-text {
   color: #FFFFFF;
-}
-
-.talk-content {
-  height: 76%;
-  overflow-y: scroll;
-  overflow-x: hidden;
 }
 
 .talk-area {
