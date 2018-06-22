@@ -40,7 +40,7 @@ export default {
     color: #fff;
     background-color: #fff;
     // 임시
-    background-size: cover;
+    background-size: 100% 100%;
   }
   .about-inner {
     padding: 20px 20px 17px 19px;
@@ -56,7 +56,7 @@ export default {
     .about {
       height: 500px;
       background-image: url('/static/img/main/img_about_large.png');
-      background-size: auto;
+      /*background-size: auto;*/
     }
     .about-inner {
       width: 1280px;
