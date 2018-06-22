@@ -103,6 +103,11 @@ ol, dl, ul {
   padding: 0;
   list-style: none; }
 
+.clearfix::after {
+  display: block;
+  content: '';
+  clear: both; }
+
 .txt-mainTitle {
   font-size: 14px;
   font-weight: 800;

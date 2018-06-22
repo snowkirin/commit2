@@ -122,31 +122,31 @@ export default {
 
   @media (min-width: 1279px){
     .header {
-      width: 1280px;
+      width: 1200px;
       margin: 0 auto;
-      padding: 30px 40px;
+      padding: 20px 0;
     }
     .logo {
       width: 90px;
       height: 27px;
     }
     .gnb {
-      margin-right: -2px;
-      margin-top: 5px;
+      margin-top: 0;
       li {
         font-size: 20px;
-        letter-spacing: -0.5px;
-        margin-right: 29px;
+        letter-spacing: -1.3px;
+        margin-right: 26px;
         &:not(:last-child):after {
           position: absolute;
-          right: -17px;
-          top: 7px;
+          right: -13px;
+          top: 9px;
           display: inline-block;
           content: '';
-          width: 4px;
-          height: 4px;
+          width: 3px;
+          height: 3px;
           background-color: #797979;
           overflow: hidden;
+          border-radius: 2px;
         }
       }
     }
