@@ -101,6 +101,17 @@ ol,dl,ul {
   margin-top: 8px;
 }
 
+.txt-bold {
+  font-weight: 700;
+}
+// 참조 텍스트
+.txt-refer {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.8px;
+  color: #797979;
+}
+
 // Tablet
 @media (min-width: 768px){
 }
@@ -110,11 +121,14 @@ ol,dl,ul {
     font: {
       size: 17px;
     }
-    //line-height: 28px;
-    //letter-spacing: -0.2px;
-    //text-transform: uppercase;
   }
   .txt-point {
     font-size: 16px;
+    line-height: 24px;
+  }
+  .txt-refer {
+    font-size: 15px;
+    line-height: 23px;
+    letter-spacing: -0.6px;
   }
 }

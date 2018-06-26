@@ -160,11 +160,26 @@ ol, dl, ul {
   color: #ec4b1a;
   margin-top: 8px; }
 
+.txt-bold {
+  font-weight: 700; }
+
+.txt-refer {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.8px;
+  color: #797979; }
+
 @media (min-width: 1279px) {
   .txt-main-point {
     font-size: 17px; }
 
   .txt-point {
-    font-size: 16px; } }
+    font-size: 16px;
+    line-height: 24px; }
+
+  .txt-refer {
+    font-size: 15px;
+    line-height: 23px;
+    letter-spacing: -0.6px; } }
 
 /*# sourceMappingURL=common.css.map */

@@ -1,10 +1,11 @@
 <template>
   <div class="current">
-    <p class="txt-current-title">
+    <!--<p class="txt-current-title">
       현재 대여중인 의상이 마음에<br/>
       드신다면?<br/>
       반납 없이 구매할 수 있습니다.
-    </p>
+    </p>-->
+    <feedBack ref="feedback"></feedBack>
     <div class="current-styling">
       <div class="carousel">
         <p class="txt-rotate">Zuly Style</p>
@@ -26,15 +27,15 @@
       <div class="zuly-line-dot"></div>
       <p class="txt-hashtag">#ZULY #오피스룩 # 나만의옷장 #모던 #블라우스 #화이트 # 팬츠 #배색 #Ss18</p>
     </div>
-    <div class="current-product-list">
+    <!--<div class="current-product-list">
       <ul>
         <li>
-          <!--<div class="item-checkbox">-->
-            <!--<label class="container">-->
-              <!--<input type="checkbox" name="product">-->
-              <!--<span class="checkmark" style="width: 40px; height: 40px;"></span>-->
-            <!--</label>-->
-          <!--</div>-->
+          &lt;!&ndash;<div class="item-checkbox">&ndash;&gt;
+            &lt;!&ndash;<label class="container">&ndash;&gt;
+              &lt;!&ndash;<input type="checkbox" name="product">&ndash;&gt;
+              &lt;!&ndash;<span class="checkmark" style="width: 40px; height: 40px;"></span>&ndash;&gt;
+            &lt;!&ndash;</label>&ndash;&gt;
+          &lt;!&ndash;</div>&ndash;&gt;
           <div class="checkbox">
             <input type="checkbox" name="" id="">
           </div>
@@ -69,14 +70,9 @@
         <button
           type="button">
           등록된 카드로 결제하기
-          <!--<img src="/static/img/closet/btn-ok.png"
-               srcset="/static/img/closet/btn-ok@2x.png 2x,
-               /static/img/closet/btn-ok@3x.png 3x"
-               alt=""
-               class="btn_ok">-->
         </button>
       </div>
-    </div>
+    </div>-->
   </div>
   <!--<div class="current mt40">
     <div class="closet-card-none" v-show="currentNone">
