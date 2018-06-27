@@ -86,6 +86,7 @@ export default {
       .title {
         font-size: 14px;
         letter-spacing: -1px;
+        font-weight: 500;
       }
       .number {
         span {

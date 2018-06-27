@@ -1,114 +1,122 @@
 <template>
   <div class="mypage">
     <p class="txt-main-title">나의 정보를 변경 하실 수 있습니다.</p>
-    <div class="line line__default"></div>
-    <form>
-      <div class="name">
-        <p>이름</p>
-        <p>김용주</p>
-      </div>
-      <div class="email">
-        <p>이메일</p>
-        <div class="form-group" data-grid="7:3">
-          <input type="email" class="form-input">
-          <button
-            class="btn btn-secondary"
-            type="button">
-            이메일 변경
-          </button>
+    <div class="contents" :class="{clearfix: $mq !== 'sm'}">
+      <div class="content">
+        <div class="name row">
+          <p class="txt-point">이름</p>
+          <p class="txt-name">김용주</p>
+        </div>
+        <div class="email row">
+          <p class="txt-point">이메일</p>
+          <div class="form-group" data-grid="7:3">
+            <input type="email" class="form-input">
+            <button
+              class="btn btn-secondary"
+              type="button">
+              이메일 변경
+            </button>
+          </div>
+        </div>
+        <div class="password row">
+          <p class="txt-point">비밀번호 변경</p>
+          <div class="form-group" data-grid="7:3">
+            <input
+              class="form-input"
+              type="password">
+          </div>
+          <div class="form-group" data-grid="7:3">
+            <input
+              class="form-input"
+              type="password">
+          </div>
+          <div class="form-group" data-grid="7:3">
+            <input
+              class="form-input"
+              type="password">
+            <button
+              class="btn btn-secondary"
+              type="button">
+              비밀번호 변경
+            </button>
+          </div>
+        </div>
+        <div class="phone row">
+          <p class="txt-point">휴대폰 번호 변경</p>
+          <div class="form-group" data-grid="7:3">
+            <input
+              type="tel"
+              class="form-input"
+              placeholder="휴대전화번호">
+            <button
+              class="btn btn-secondary"
+              type="button">휴대폰 번호<br v-show="$mq === 'sm'"/> 변경</button>
+          </div>
+        </div>
+        <!--카드번호-->
+        <div class="card row">
+          <p class="txt-point">카드 결제 정보</p>
+          <div class="form-group" data-grid="7:3">
+            <input type="number" name="" id="" class="form-input" placeholder="카드번호">
+            <button type="button" class="btn btn-secondary">카드 변경</button>
+          </div>
         </div>
       </div>
-      <div class="password">
-        <p>비밀번호 변경</p>
-        <div class="form-group" data-grid="7:3">
-          <input
-            class="form-input"
-            type="password">
+      <div class="content">
+        <!--주소-->
+        <div class="address row">
+          <p class="txt-point">주소</p>
+          <div class="form-group">
+            <input type="text" class="form-input">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-input">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-input">
+          </div>
         </div>
-        <div class="form-group" data-grid="7:3">
-          <input
-            class="form-input"
-            type="password">
+        <!--기념일-->
+        <div class="anniversary row">
+          <p class="txt-point">기념일</p>
+          <div class="form-group">
+            <input type="date" class="form-input">
+          </div>
         </div>
-        <div class="form-group" data-grid="7:3">
-          <input
-            class="form-input"
-            type="password">
-          <button
-            class="btn btn-secondary"
-            type="button">
-            비밀번호 변경
-          </button>
+        <!--배송일-->
+        <div class="delivery-date row">
+          <p class="txt-point">배송일 지정</p>
+          <div>
+            <ul>
+              <li class="selected">월</li>
+              <li>화</li>
+              <li>수</li>
+              <li>목</li>
+              <li>금</li>
+            </ul>
+          </div>
         </div>
-      </div>
-      <div class="phone">
-        <div class="form-group">
-          <input
-            type="tel"
-            class="form-input"
-            placeholder="휴대전화번호">
-        </div>
-      </div>
-      <!--카드번호-->
-      <div class="card">
-        <p>카드 결제 정보</p>
-        <div class="form-group" data-grid="7:3">
-          <input type="number" name="" id="" class="form-input" placeholder="카드번호">
-          <button type="button" class="btn btn-secondary">카드 변경</button>
-        </div>
-      </div>
-      <!--주소-->
-      <div class="address">
-        <p>주소</p>
-        <div class="form-group">
-          <input type="text" class="form-input">
-        </div>
-        <div class="form-group">
-          <input type="text" class="form-input">
-        </div>
-        <div class="form-group">
-          <input type="text" class="form-input">
+        <!--현관 번호-->
+        <div class="entrance-number row">
+          <div>
+            <p class="txt-point">공동 현관 번호</p>
+            <p class="txt-entrance-number">(배송을 위해 공동현관 비밀번호 알려주세요)</p>
+          </div>
+          <div>
+            <input
+              class="form-input"
+              type="text">
+          </div>
         </div>
       </div>
-      <!--기념일-->
-      <div class="anniversary">
-        <p>기념일</p>
-        <div class="form-group">
-          <input type="date" class="form-input">
-        </div>
-      </div>
-      <!--배송일-->
-      <div class="delivery-date">
-        <p>배송일 지정</p>
-        <ul>
-          <li class="selected">월</li>
-          <li>화</li>
-          <li>수</li>
-          <li>목</li>
-          <li>금</li>
-        </ul>
-      </div>
-      <!--현관 번호-->
-      <div class="entrance-number">
-        <div>
-          <p>공동 현관 번호</p>
-          <p>(배송을 위해 공동현관 비밀번호 알려주세요)</p>
-        </div>
-        <div>
-          <input
-            class="form-input"
-            type="text">
-        </div>
-      </div>
-      <div class="line line__default"></div>
-      <div class="btn-modify">
-        <button
-          type="button"
-          class="btn btn-primary">
-          정보 수정하기
-        </button>
-      </div>
-    </form>
+    </div>
+    <div class="btn-modify">
+      <button
+        type="button"
+        class="btn btn-primary">
+        정보 수정하기
+      </button>
+    </div>
   </div>
   <!--<div class="mypage mt40">
     <div class="main-point-text closet-title">나의 정보관리</div>
@@ -613,22 +621,81 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  @import '../style';
-  .mypage {
-    padding: 20px;
+  .form-group {
+    &[data-grid="7:3"]{
+      input {
+        flex: 0 0 65.8%;
+        /*flex-basis: 65.8%;*/
+        margin-right: 2.86%;
+      }
+      button {
+        flex-basis: 31.48%;
+      }
+    }
   }
+  .btn-secondary {
+    line-height: 18px;
+    height: 50px;
+  }
+
+  .mypage {
+    padding: {
+      top: 24px;
+      right: 20px;
+      bottom: 20px;
+      left: 20px;
+    }
+  }
+  .contents {
+    margin-top: 13px;
+    margin-bottom: 20px;
+    padding-top: 16px;
+    padding-bottom: 29px;
+    border-top: 2px solid #333;
+    border-bottom: 2px solid #333;
+  }
+
+  .row {
+    margin-bottom: 35px;
+  }
+  .txt-point {
+    margin-bottom: 12px;
+  }
+
+  .name {
+    .txt-point {
+      margin-bottom: 7px;
+    }
+    .txt-name {
+      font-size: 15px;
+      line-height: 23px;
+      letter-spacing: -0.6px;
+      color: #797979;
+    }
+  }
+
+  .password,
+  .address {
+    .form-group {
+      margin-bottom: 10px;
+      &:last-child{
+        margin-bottom: 0;
+      }
+    }
+  }
+
   .delivery-date {
     ul {
       list-style: none;
       display: flex;
     }
     li {
-      height: 57px;
+      height: 50px;
       flex: 0 0 57px;
-      border: 1px solid #cacaca;
+      border: 1px solid #c4c4c4;
       margin-left: -1px;
       text-align: center;
-      line-height: 57px;
+      line-height: 48px;
       position: relative;
       color: #bbb;
       font-size: 15px;
@@ -644,13 +711,79 @@ export default {
       }
     }
   }
-
+  .entrance-number {
+    margin-bottom: 0;
+    .txt-point {
+      margin-bottom: 2px;
+    }
+    .txt-entrance-number {
+      font-size: 15px;
+      line-height: 23px;
+      letter-spacing: -0.6px;
+      color: #797979;
+      margin-bottom: 13px;
+    }
+  }
   .btn-modify {
     button {
       width: 100%;
     }
   }
-.mypage-modify-btn {
+
+  @media (min-width: 1279px) {
+    .mypage {
+      width: 1200px;
+      padding: {
+        top: 30px;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+      margin: 0 auto;
+    }
+    .name .txt-name,
+    .entrance-number .txt-entrance-number {
+      font-size: 16px;
+    }
+    .contents {
+      margin-top: 27px;
+      margin-bottom: 18px;
+      padding-top: 24px;
+    }
+    .content {
+      width: 490px;
+      .row {
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+      &:nth-child(1) {
+        float: left;
+      }
+      &:nth-child(2) {
+        float: right;
+        margin-right: 59px;
+      }
+    }
+    .row {
+      margin-bottom: 33px;
+    }
+    .delivery-date {
+      li {
+        flex: 0 0 99px;
+        font-size: 16px;
+      }
+    }
+    .btn-modify {
+      text-align: right;
+      button {
+        width: 287px;
+        height: 60px;
+      }
+    }
+  }
+
+/*.mypage-modify-btn {
   height: 150px;
 }
 
@@ -789,5 +922,5 @@ span.error {
   .birth-verify {
     width: 100% !important;
   }
-}
+}*/
 </style>

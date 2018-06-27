@@ -5,7 +5,7 @@
       다시 한번 확인 합니다.
     </p>
     <div class="line line__default"></div>
-    <form>
+    <div>
       <div class="form-group" data-grid="7:3">
         <input
           class="form-input"
@@ -22,7 +22,7 @@
           @click="passwordCheck"
         >확인</button>
       </div>
-    </form>
+    </div>
   </div>
   <!--<div class="mypage mt40">-->
     <!--<div class="main-point-text closet-title">나의 정보관리</div>-->
@@ -55,8 +55,7 @@ export default {
       mypageSecurity: 'mypage/mypageSecurity',
     }),
     async passwordCheck() {
-      const pwd = document.querySelector('input[name=password]');
-
+      const pwd = document.getElementById('pwdInput');
       if (!this.$common.InputDataValidation(pwd, '비밀번호를 입력해주세요.', true)) return;
       await this.mypageSecurity({ password: pwd.value });
 
@@ -67,7 +66,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  @import '../style';
   .mypage-sercurity {
     padding: 20px;
     .line {
@@ -75,6 +73,14 @@ export default {
         top: 15px;
         bottom: 15px;
       }
+    }
+  }
+
+  @media (min-width: 1279px) {
+    .mypage-sercurity {
+      padding: 20px 0;
+      width: 1200px;
+      margin: 0 auto;
     }
   }
 </style>

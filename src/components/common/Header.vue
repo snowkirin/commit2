@@ -7,7 +7,7 @@
       <nav class="gnb" v-if="!gnbToggle">
         <ul>
           <li>
-            <router-link to="/closet" class="menu-title">나만의 옷장</router-link>
+            <router-link to="/closet/tomorrow" class="menu-title">나만의 옷장</router-link>
           </li>
           <li>
             <router-link
@@ -52,9 +52,7 @@ export default {
           this.gnbToggle = true;
         }
       } else if (this.$mq === 'md') {
-        console.log('md');
       } else {
-        console.log('lg');
       }
     },
     headerLineEvt() {
@@ -124,7 +122,7 @@ export default {
     .header {
       width: 1200px;
       margin: 0 auto;
-      padding: 30px 0;
+      padding: 30px 0 20px;
     }
     .logo {
       width: 90px;

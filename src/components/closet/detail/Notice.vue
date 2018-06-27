@@ -186,6 +186,14 @@ export default {
       }
     }
   }
+
+  @media (min-width: 1279px) {
+    .notice {
+      padding: 0;
+      width: 1200px;
+      margin: 0 auto;
+    }
+  }
 /*.notice-rows {
   display: flex;
   justify-content: space-between;
