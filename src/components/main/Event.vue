@@ -39,15 +39,14 @@ export default {
     }
   }
   .icon-arrow {
-    width: 26px;
-    height: 18px;
+    width: 33px;
+    height: 22px;
     display: inline-block;
     text-indent: -9999em;
     overflow: hidden;
     background: url(/static/img/icons/zuly_icon.png) no-repeat -43px -8px;
-    background-size: 215px 215px;
+    background-size: 238px;
     position: absolute;
     right: 20px;
-
   }
 </style>

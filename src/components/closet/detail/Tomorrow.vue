@@ -657,6 +657,7 @@ export default {
       .line {
         margin-top: 16px;
         margin-bottom: 16px;
+        border-bottom-color: #a7a7a7;
       }
     }
     .txt-tip-title {

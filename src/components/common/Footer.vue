@@ -26,7 +26,7 @@
           <li><a href="#">개인 정보 취급 방침</a></li>
         </ul>
         <div class="information">
-          <p class="txt-info">
+          <p class="txt-info" v-if="$mq === 'sm'">
             법인명(상호) : 주식 회사 어니언 그라운드(<span class="en-font">Onion Ground</span>) |
             대표자(성명) : 김경규, 이시진 |
             개인정보보호책임자 : 김용주(<a class="en-font" href="mailto:admin@onionground.com">admin@onionground.com</a>) <br v-show="$mq === 'lg'">
@@ -34,6 +34,11 @@
             서울 특별시 테헤란로 78길 14-6 동성빌딩 7층 <br v-show="$mq === 'lg'">
             입점 문의 및 마케팅 제휴 : <a class="en-font" href="mailto:sjsj00@onionground.com">sjsj00@onionground.com</a> |
             기타 문의 : <a class="en-font" href="mailto:admin@onionground.com">admin@onionground.com</a>
+          </p>
+          <p v-else class="txt-info">
+            법인명(상호) : 주식 회사 어니언 그라운드(Onion Ground) 대표자(성명) : 김경규, 이시진개인정보보호책임자 : 김용주(<a class="en-font" href="mailto:admin@onionground.com">admin@onionground.com</a>)<br/>
+            사업자 등록 번호 : 729-81-00963서울 특별시 테헤란로 78길 14-6 동성빌딩 7층<br/>
+            입점 문의 및 마케팅 제휴 : <a class="en-font" href="mailto:sjsj00@onionground.com">sjsj00@onionground.com</a> 기타 문의 : <a class="en-font" href="mailto:admin@onionground.com">admin@onionground.com</a><br/>
           </p>
           <p class="txt-copyright">&copy; Onion Ground All Right RESERVED</p>
         </div>
@@ -138,12 +143,62 @@ export default {
 }
   @media (min-width: 1279px) {
     .footer {
-      width: 1280px;
+      width: 1200px;
       margin: 0 auto;
-      padding: 60px 40px;
+      padding: 60px 0px;
+    }
+    .help {
+      .txt-main-point {
+        font-size: 16px;
+        margin-bottom: 6px;
+      }
+      .txt-tel {
+        font-size: 28px;
+        line-height: 25px;
+        letter-spacing: 0.4px;
+      }
+      .txt-operation {
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: -1px;
+        margin-top: 12px;
+      }
     }
     .line {
-      display: none;
+      position: relative;
+      width: 100%;
+      margin-top: 11px;
+      margin-bottom: 6px;
+    }
+    .info-policy {
+      padding-left: 4px;
+      .menu-policy {
+        li {
+          font-size: 15px;
+          line-height: 21px;
+          letter-spacing: -0.6px;
+          &:nth-child(1){
+            padding-right: 11px;
+            &::after {
+              border-right: 2px solid #212121;
+              height: 18px;
+              top: 3px;
+            }
+          }
+          &:nth-child(2){
+            padding-left: 9px;
+          }
+        }
+      }
+      .information {
+        font-size: 14px;
+        line-height: 22px;
+        letter-spacing: -0.8px;
+        margin-top: 15px;
+        .en-font {
+          letter-spacing: -0.8px !important;
+        }
+      }
     }
   }
 </style>
