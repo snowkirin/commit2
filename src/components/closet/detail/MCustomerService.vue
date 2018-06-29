@@ -261,7 +261,7 @@ export default {
         font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
       }
       .content {
-        display: block;
+        display: none;
         .inner {
           background-color: #f5f5f5;
           padding: 10px;

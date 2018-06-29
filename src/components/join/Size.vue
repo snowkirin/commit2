@@ -19,14 +19,13 @@
             <p class="txt-point">블라우스/셔츠</p>
             <div class="flex-list">
               <ul>
-                <template v-for="(data, idx) in [44,55,66,77]">
-                  <li
-                    :key="idx"
-                    :class="{selected: sizeData.blouse === data}"
-                    @click="setData('blouse', data)">
-                    {{data}}
-                  </li>
-                </template>
+                <li
+                  v-for="(data, idx) in sizes.blouse"
+                  :key="idx"
+                  :class="{selected: sizeData.blouseSize === data.code}"
+                  @click="setData('blouseSize', data.code)">
+                  {{ data.name }}
+                </li>
               </ul>
             </div>
           </div>
@@ -34,14 +33,13 @@
             <p class="txt-point">치마</p>
             <div class="flex-list">
               <ul>
-                <template v-for="(data, idx) in [44,55,66,77]">
-                  <li
-                    :class="{selected: sizeData.skirt === data}"
-                    :key="idx"
-                    @click="setData('skirt', data)">
-                    {{data}}
-                  </li>
-                </template>
+                <li
+                  v-for="(data, idx) in skirtData"
+                  :key="idx"
+                  :class="{selected: sizeData.skirtSize === data.code}"
+                  @click="setData('skirtSize', data.code)">
+                  {{ data.size }}
+                </li>
               </ul>
             </div>
           </div>
@@ -49,14 +47,13 @@
             <p class="txt-point">바지 (inch)</p>
             <div class="flex-list">
               <ul>
-                <template v-for="(data, idx) in [25,26,27,28,29,30,31]">
-                  <li
-                    :key="idx"
-                    :class="{selected: sizeData.pants === data}"
-                    @click="setData('pants', data)">
-                    {{data}}
-                  </li>
-                </template>
+                <li
+                  v-for="(data, idx) in pantsData"
+                  :key="idx"
+                  :class="{selected: sizeData.pantsSize === data.code}"
+                  @click="setData('pantsSize', data.code)">
+                  {{ data.size }}
+                </li>
               </ul>
             </div>
           </div>
@@ -70,7 +67,7 @@
                   class="form-input"
                   name="height"
                   maxlength="3"
-                  v-model="sizeData.height"
+                  v-model="sizeData.tallSize"
                   v-validate="'required'"
                   placeholder="최근 측정한 키를 입력해주세요.">
               </div>
@@ -91,7 +88,7 @@
                 <input
                   type="text"
                   class="form-input"
-                  v-model="sizeData.chest"
+                  v-model="sizeData.bustSize"
                   name="chest"
                   v-validate="'required'"
                   placeholder="예) 80A">
@@ -109,11 +106,12 @@
             <div>
               <p class="text">마른 일자형 몸매로, 허리둘레와 엉덩이 둘레가 거의  같고 상체에 곡선이 발달되지 않았습니다.</p>
               <ul class="body-type-list">
-                <template v-for="(data, idx) in ['/static/img/signup/img_body1.png','/static/img/signup/img_body2.png','/static/img/signup/img_body3.png','/static/img/signup/img_body4.png','/static/img/signup/img_body5.png']">
+                <template v-for="(data, idx) in bodyTypeData">
                   <li
-                    :class="{selected: sizeData.bodyType === idx}"
+                    :class="{selected: sizeData.bodyType === data.code}"
+                    @click="setData('bodyType', data.code)"
                     :key="idx">
-                    <img :src="data"/>
+                    <img :src="data.image"/>
                   </li>
                 </template>
               </ul>
@@ -318,6 +316,7 @@
 //   },
 // };
 import { mapActions, mapGetters } from 'vuex';
+import Codes from '@/library/api/codes';
 import SizeTooltip from '@/components/join/SizeTooltip';
 import StyleMenu from '@/components/join/common/StyleMenu';
 import StyleButton from '@/components/join/common/StyleButton';
@@ -327,13 +326,102 @@ export default {
   name: 'size',
   data() {
     return {
+      sizes: {},
+      blouseData: [
+        {
+          size: 44,
+          code: 13801,
+        },
+        {
+          size: 55,
+          code: 13802,
+        },
+        {
+          size: 66,
+          code: 13803,
+        },
+        {
+          size: 77,
+          code: 13804,
+        },
+      ],
+      skirtData: [
+        {
+          size: 44,
+          code: 13901,
+        },
+        {
+          size: 55,
+          code: 13902,
+        },
+        {
+          size: 66,
+          code: 13903,
+        },
+        {
+          size: 77,
+          code: 13904,
+        },
+      ],
+      pantsData: [
+        {
+          size: 25,
+          code: 14001,
+        },
+        {
+          size: 26,
+          code: 14002,
+        },
+        {
+          size: 27,
+          code: 14003,
+        },
+        {
+          size: 28,
+          code: 14004,
+        },
+        {
+          size: 29,
+          code: 14005,
+        },
+        {
+          size: 30,
+          code: 14006,
+        },
+        {
+          size: 31,
+          code: 14007,
+        },
+      ],
+      bodyTypeData: [
+        {
+          image: '/static/img/signup/img_body1.png',
+          code: 12701,
+        },
+        {
+          image: '/static/img/signup/img_body2.png',
+          code: 12702,
+        },
+        {
+          image: '/static/img/signup/img_body3.png',
+          code: 12703,
+        },
+        {
+          image: '/static/img/signup/img_body4.png',
+          code: 12704,
+        },
+        {
+          image: '/static/img/signup/img_body5.png',
+          code: 12705,
+        },
+      ],
       sizeData: {
-        blouse: 44,
-        skirt: 44,
-        pants: 25,
-        height: null,
-        chest: null,
-        bodyType: 1,
+        tallSize: null,
+        bustSize: null,
+        blouseSize: null,
+        skirtSize: null,
+        pantsSize: null,
+        bodyType: null,
       },
     };
   },
@@ -370,12 +458,17 @@ export default {
         }
       });
     },
+    async getSizes() {
+      const result = await Codes.getSizes();
+      this.sizes = { ...result.data };
+    },
   },
   mounted() {
     const localStorage = this.$localStorage.get('s1');
     if (localStorage) {
       this.sizeData = JSON.parse(localStorage);
     }
+    this.getSizes();
   },
 };
 
@@ -570,11 +663,11 @@ export default {
 }
 
 /* Desktop Style */
-@media screen and (min-width:1279px){
+@media screen and (min-width:767px){
   .size {
     width: 795px;
     margin: 0 auto;
-    padding: 0;
+    padding: 74px 0 0 0;
   }
   .size-title {
     font-size: 32px;
@@ -588,7 +681,8 @@ export default {
     margin-top: 5px;
   }
   .line {
-    margin-bottom: 26px;
+    margin-top: 26px;
+    margin-bottom: 24px;
   }
   .contents {
     display: flex;
@@ -606,6 +700,22 @@ export default {
       }
     }
   }
+  .skirt {
+    margin-top: 33px;
+  }
+  .pants {
+    margin-top: 35px;
+  }
+  .height {
+    margin-top: 33px;
+  }
+  .chest {
+    margin-top: 0;
+  }
+  .body-type {
+    margin-top: 33px;
+  }
+
   .body-type {
     .body-type-list {
       text-align: left;

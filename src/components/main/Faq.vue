@@ -9,12 +9,12 @@
             <p class="txt-question">
               <span class="q">Q</span>
               <span class="title">요금제는 어떻게 되나요?</span>
-              <span v-show="$mq === 'md' || $mq === 'lg'" class="icon">
-                <i class="fa fa-angle-down fa-lg"></i>
+              <span class="icon">
+                <i class="fa fa-angle-down"></i>
               </span>
             </p>
           </div>
-          <div class="answer" style="display: block;">
+          <div class="answer">
             <div class="txt-answer">
               <div class="emphasis">
                 <p>ZULY는 현재 78,000원 요금제 단일 상품 입니다.</p>
@@ -36,7 +36,7 @@
               <span class="q">Q</span>
               <span class="title">회원이 되면 어떤 옷을 받는건가요?</span>
               <span v-show="$mq === 'md' || $mq === 'lg'" class="icon">
-                <i class="fa fa-angle-down fa-lg"></i>
+                <i class="fa fa-angle-down"></i>
               </span>
             </p>
           </div>
@@ -58,7 +58,7 @@
               <span class="q">Q</span>
               <span class="title">정말 고르지 않아도 나에게 어울리는 옷을 보내주나요?</span>
               <span v-show="$mq === 'md' || $mq === 'lg'" class="icon">
-                <i class="fa fa-angle-down fa-lg"></i>
+                <i class="fa fa-angle-down"></i>
               </span>
             </p>
           </div>
@@ -79,7 +79,7 @@
               <span class="q">Q</span>
               <span class="title">옷만 이쁘게 입고 세탁/보관 걱정 없이 문 앞에 두면 되는건가요?</span>
               <span v-show="$mq === 'md' || $mq === 'lg'" class="icon">
-                <i class="fa fa-angle-down fa-lg"></i>
+                <i class="fa fa-angle-down"></i>
               </span>
             </p>
           </div>
@@ -97,7 +97,7 @@
               <span class="q">Q</span>
               <span class="title">서비스 지역의 제한은 있나요?</span>
               <span v-show="$mq === 'md' || $mq === 'lg'" class="icon">
-                <i class="fa fa-angle-down fa-lg"></i>
+                <i class="fa fa-angle-down"></i>
               </span>
             </p>
           </div>
@@ -179,6 +179,9 @@ export default {
   }
   .faq-list {
   }
+  .icon {
+    display: none;
+  }
   .faq-item {
     .question {
       position: relative;
@@ -233,24 +236,28 @@ export default {
       }
     }
   }
-  @media (min-width: 1279px) {
+  @media (min-width: 767px) {
     .faq {
-      width: 1280px;
+      width: 1200px;
       margin: 0 auto;
       display: flex;
-      padding: 0 40px 20px;
+      padding: 0 0 35px;
       position: relative;
     }
     .line {
       order: -1;
-      left: 242px;
+      left: 203px;
       width: 997px;
+    }
+    .icon {
+      display: block;
+      font-size: 39px;
     }
     .txt-main-point {
       flex: 0 0 202px;
     }
     .row {
-      margin-top: 45px;
+      margin-top: 42px;
       flex: 1;
     }
     .faq-item {

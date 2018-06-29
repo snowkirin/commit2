@@ -46,7 +46,7 @@ export default {
         size.height = 300;
       } else if (this.$mq === 'lg') {
         size.width = 1200;
-        size.height = 600;
+        size.height = 420;
       }
       return size;
     },

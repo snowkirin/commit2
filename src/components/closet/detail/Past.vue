@@ -1,49 +1,51 @@
 <template>
   <div class="past">
     <div>
-      <p class="txt-main-title">그 동안의 옷장을 확인하실 수 <br/>있습니다.</p>
+      <p class="txt-main-title">그 동안의 옷장을 확인하실 수 있습니다.</p>
     </div>
     <div class="line line__default"></div>
-    <div class="closet-list">
-      <ul>
+    <div>
+      <ul class="list-closet">
         <li
-          v-for="(data, idx) in pastCloset"
+          v-for="(data, idx) in EX_pastCloset"
           class="closet-item"
           :key="idx">
-          <p class="order en-font">
-            <span class="number">{{ numberSuffix(idx, pastCloset.length) }}</span>
-            <span class="date"> {{ data.subscription_date }}</span>
+          <p class="order">
+            <span class="number">7th</span>
+            <span class="date"> 18.06.20</span>
+            <!--<span class="number">{{ numberSuffix(idx, pastCloset.length) }}</span>
+            <span class="date"> {{ data.subscription_date }}</span>-->
           </p>
-          <ul class="product">
-            <li
-              v-for="(img, idx2) in data.images"
-              :key="idx2"
-              class="product-image"
-            >
-              <img :src="(img !== null)? API_IMAGE_URL + 'small/' + img : 'http://via.placeholder.com/60x70?text=Image '" alt=""/>
-            </li>
-          </ul>
-          <div class="style-tip">
-            <p class="title">스타일 팁</p>
-            <ellipsis-plus
-              class="explain"
-              ref="noButton"
-              :show-button="false"
-              expand-text='+더보기'
-              collapse-text="접기"
-              :text="printStylingTip(data.styling_tip)"
-              :ellipsis="'...'"
-              :line="4">
-            </ellipsis-plus>
+          <div class="product-desc">
+            <ul
+              class="list-product clearfix">
+              <li
+                v-for="(img, idx2) in data.images"
+                :key="idx2"
+                class="image"
+              >
+                <img :src="(img !== null)? API_IMAGE_URL + 'small/' + img : 'http://via.placeholder.com/60x70?text=Image '" alt=""/>
+              </li>
+            </ul>
+            <div class="style-tip">
+              <p class="title">스타일 팁</p>
+              <p class="explain">
+                심플하지만 갖춰입은듯 스타일리쉬 한 룩!
+                - 허리에서 포켓까지 이어진 바이올렛톤의 새틴 배색이 포인트인 팬츠로, 이러한 디자인의 특징을 살려서 블라우스를 입을때 앞면을 살짝..
+                {{ printStylingTip(data.styling_tip) }}
+              </p>
+            </div>
+
+            <p class="purchase-info">
+              <a
+                @click="viewModal(data.id)"
+                href="#"
+                class="txt-link"
+                v-if="data.is_sold === 'N'">
+                구매 정보 보기
+              </a>
+            </p>
           </div>
-          <p>
-            <a
-              @click="viewModal(data.id)"
-              class="link-purchase"
-              v-if="data.is_sold === 'N'">
-              구매 정보 보기
-            </a>
-          </p>
         </li>
       </ul>
     </div>
@@ -112,6 +114,32 @@ export default {
     return {
       API_IMAGE_URL: process.env.API_IMAGE_URL,
       dataId: null,
+      EX_pastCloset: [
+        {
+          "id": 342,
+          "subscription_date": "18.05.28",
+          "styling_title": "행복한 오후",
+          "styling_tip": "11",
+          "hashtag": "1111",
+          "images": [
+            "product/2018/04/16/f487b29f-aafb-44de-9c33-7a39caef5344.jpg",
+            "product/2018/04/16/59962728-14f4-4352-be4a-b6facd017ddb.jpg"
+          ],
+          "is_sold": "N"
+        },
+        {
+          "id": 83,
+          "subscription_date": "18.04.30",
+          "styling_title": null,
+          "styling_tip": "styling_tip",
+          "hashtag": "#styling #tag #test",
+          "images": [
+            null,
+            null
+          ],
+          "is_sold": "N"
+        }
+      ],
     };
   },
   components: {
@@ -174,27 +202,21 @@ export default {
   .past {
     padding: 20px;
   }
-  .main-title {
-    font-size: 20px;
-    line-height: 28px;
-    letter-spacing: -1px;
-    margin-bottom: 15px;
+  .txt-main-title {
+    word-break: keep-all;
   }
-  .zuly-line {
-    border-bottom: 2px solid #333;
+  .line {
+    margin-top: 15px;
   }
-  .closet-list {
-    ul {
-      list-style: none;
-      padding: 0;
-    }
+  .list-closet {
     .closet-item {
       border-bottom: 1px solid #e9e9e9;
-      padding-top: 11px;
+      padding-top: 17px;
       padding-bottom: 26px;
     }
     .order {
-      margin-bottom: 11px;
+      margin-bottom: 10px;
+      font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
       .number,
       .date {
         line-height: 21px;
@@ -215,17 +237,15 @@ export default {
         }
       }
     }
-    .product {
-      font-size: 0;
-      margin-bottom: 10px;
-      &-image {
-        display: inline-block;
-        width: 60px;
-        height: 70px;
-        overflow: hidden;
-        margin-left: 8px;
-        &:first-child {
-          margin-left: 0;
+    .list-product {
+      margin-bottom: 16px;
+      .image {
+        width: 48.5745%;
+        &:nth-child(1) {
+          float: left;
+        }
+        &:nth-child(2) {
+          float: right;
         }
         img {
           width: 100%;
@@ -250,96 +270,56 @@ export default {
         color: #797979;
       }
     }
-    .link-purchase {
-      line-height: 25px;
-      font-size: 15px;
-      letter-spacing: -0.4px;
-      color: #566b9c;
-      text-decoration: underline;
+  }
+  @media (min-width: 1279px) {
+    .past {
+      width: 1200px;
+      margin: 0 auto;
+      padding: 34px 0 0 0;
     }
-  }
+    .line {
+      margin-top: 26px;
+      margin-bottom: 5px;
+    }
+    .list-closet {
+      .closet-item {
+        padding-top: 21px;
+        padding-bottom: 30px;
+      }
+      .order {
+        text-indent: 7px;
+        margin-bottom: 15px;
+      }
+      .product-desc {
+        display: flex;
+      }
+      .list-product {
+        margin-bottom: 0;
+        flex: 0 0 234px;
+        .image {
+          width: 112px;
+          height: 132px;
+          &:nth-child(1) {
+            margin-right: 10px;
+          }
+          &:nth-child(2) {
+            float: left;
+          }
+        }
+      }
+      .style-tip {
+        margin-left: 28px;
+        margin-bottom: 0;
+        margin-right: 98px;
+        flex: 0 0 697px;
+        .title {
+          margin-bottom: 10px;
+        }
 
-/*.past-content {
-  padding: 30px 0;
-  border-bottom: solid 2px #e9e9e9;
-}
-
-.content-first-number {
-  display: flex;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: normal;
-  color: #333333;
-}
-
-.content-second {
-  display: flex;
-  justify-content: space-between;
-}
-
-.content-second-text {
-  width: 69.6%;
-  font-size: 16px;
-  letter-spacing: -0.4px;
-  color: #333333;
-}
-
-.content-second-title {
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.content-second-tip {
-  line-height: 1.4;
-}
-
-.content-second-view {
-  width: 11%;
-  text-align: right;
-}
-
-.content-second-view-cell {
-  position: relative;
-  top: 50%;
-  font-size: 16px;
-  color: #566b9c;
-  text-decoration: underline;
-  letter-spacing: -0.8px;
-}
-
-.thumnail-image-area {
-  position: relative;
-  display: inline-block;
-  width: 89px;
-  height: 112px;
-  background-color: #f5f5f5;
-  border: solid 1px #e9e9e9;
-  margin-right: 13px;
-}
-
-.thumnail-image {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%,-50%);
-  width: 89px;
-  height: 112px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-}
-
-@media screen and (max-width: 486px) {
-  .content-second {
-    display: block;
-  }
-
-  .content-second-text, .content-second-view {
-    width: 100%;
-  }
-
-  .content-second-view {
-    text-align: left;
-  }
-}*/
+      }
+      }
+      .purchase-info {
+        margin-top: 62px;
+      }
+    }
 </style>

@@ -193,12 +193,80 @@ export default {
     .login {
       width: 390px;
       margin: 0 auto;
-      padding: 0 0 160px 0;
+      padding: 72px 0 119px 0;
+    }
+    .title {
+      font-size: 32px;
+      line-height: 40px;
+      letter-spacing: -1.4px;
     }
     .menu {
+      margin-top: 25px;
       ul {
-        text-align: center;
       }
+      li {
+        text-align: center;
+        font-size: 15px;
+        letter-spacing: -0.6px;
+        line-height: 23px;
+        margin-right: 0 !important;
+        position: relative;
+        &::after{
+          content: '';
+          display: block;
+          height: 13px;
+          border-right: 1px solid #dadada;
+          position: absolute;
+          right: 0;
+          top: 5px;
+        }
+        &:nth-child(1) {
+          a {
+            padding-left: 38px;
+            padding-right: 39px;
+          }
+        }
+        &:nth-child(2) {
+          a {
+            padding-left: 31px;
+            padding-right: 29px;
+          }
+        }
+        &:nth-child(3) {
+          a {
+            padding-left: 26px;
+            padding-right: 29px;
+          }
+          &::after {
+            display: none;
+          }
+        }
+      }
+    }
+    .line {
+      margin-top: 25px;
+      margin-bottom: 30px;
+    }
+    .custom-checkbox {
+      margin-top: 9px;
+      .custom-control-label {
+        font-size: 15px;
+        &::after {
+          content: '';
+          position: absolute;
+          display: none;
+          left: -21px;
+          top: 5px;
+          width: 7px;
+          height: 14px;
+          border: solid black;
+          border-width: 0 3px 3px 0;
+          transform: rotate(45deg);
+        }
+      }
+    }
+    .btn-login {
+      .btn { height: 60px;}
     }
   }
 </style>

@@ -52,20 +52,24 @@ export default {
     text-shadow: 0px -1px 0 rgba(0, 0, 0, 0.1);
   }
 
-  @media (min-width: 1279px){
+  @media (min-width: 767px) {
     .about {
+      width: 1200px;
+      margin: 0 auto;
       height: 500px;
       background-image: url('/static/img/main/img_about_large.png');
+      background-size: auto;
+      border-top: 2px solid #333;
+      /*padding: 35px 0 35px;*/
       /*background-size: auto;*/
     }
     .about-inner {
-      width: 1280px;
-      margin: 0 auto;
-      padding: 35px 41px 35px 39px;
+      padding: 0;
+      margin: 0 0 33px 39px;
     }
     .txt-main-point {
       margin-left: 2px;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
     .txt-about {
       font-size: 26px;

@@ -109,7 +109,7 @@ export default new Router({
             { path: 'coupon', component: ClosetCoupon },
           ],
           meta: {
-            requiresAuth: true,
+            // requiresAuth: true,
           },
         },
         {

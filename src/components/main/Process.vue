@@ -192,12 +192,12 @@ export default {
       }
     }
   }
-  @media (min-width: 1279px) {
+  @media (min-width: 767px) {
     .process {
-      width: 1280px;
+      width: 1200px;
       margin: 0 auto;
       display: flex;
-      padding: 62px 40px 63px 40px;
+      padding: 65px 0 57px;
     }
     .txt-main-point {
       flex: 0 0 202px;

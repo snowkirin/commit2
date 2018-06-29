@@ -485,4 +485,11 @@ export default {
       }
     }
   }
+  @media (min-width: 1279px) {
+    .style-info {
+      width: 1200px;
+      padding: 20px 0;
+      margin: 0 auto;
+    }
+  }
 </style>

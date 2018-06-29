@@ -5,7 +5,7 @@
     <process></process>
     <faq></faq>
     <main-video></main-video>
-    <event></event>
+    <!--<event></event>-->
   </div>
 </template>
 
@@ -25,7 +25,7 @@ export default {
     Process,
     Faq,
     MainVideo,
-    Event,
+    // Event,
   },
 };
 </script>

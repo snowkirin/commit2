@@ -105,9 +105,11 @@ const mypageSecurity = async ({ commit }, data) => {
     const result = await Auth.mypagePwdCheck({
       ...data,
     });
-
-    if (result.data.result) commit(types.MYPAGE_SECURITY, result.data);
-    else alert('비밀번호를 다시 확인해주세요.');
+    if (result.data.result) {
+      commit(types.MYPAGE_SECURITY, result.data);
+    } else {
+      alert('비밀번호를 다시 확인해주세요.');
+    }
   } catch (e) {
     console.error(e.message);
   }

@@ -112,11 +112,25 @@ ol,dl,ul {
   color: #797979;
 }
 
+// 링크
+.txt-link {
+  line-height: 25px;
+  font-size: 15px;
+  letter-spacing: -0.4px;
+  color: #566b9c;
+  text-decoration: underline;
+}
+
 // Tablet
 @media (min-width: 768px){
 }
 // Desktop
 @media (min-width: 1279px){
+  .txt-main-title {
+    font-size: 26px;
+    line-height: 34px;
+    letter-spacing: -1.4px;
+  }
   .txt-main-point {
     font: {
       size: 17px;
@@ -130,5 +144,9 @@ ol,dl,ul {
     font-size: 15px;
     line-height: 23px;
     letter-spacing: -0.6px;
+  }
+  .txt-hashtag {
+    font-size: 15px;
+    line-height: 23px;
   }
 }

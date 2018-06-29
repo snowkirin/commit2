@@ -217,6 +217,14 @@ export default {
     margin-top: 20px;
   }
 
+  @media (min-width: 1279px) {
+    .coupon {
+      padding: 20px 0;
+      width: 1200px;
+      margin: 0 auto;
+    }
+  }
+
 /*.notice-rows {
   min-height: 50px;
   display: flex;

@@ -1,5 +1,6 @@
 <template>
-  <header class="header">
+  <header
+    class="header">
     <div class="header-inner">
       <router-link to="/" class="logo">
         <img src="/static/img/logo/ZULY-BI.png" alt="ZULY">
@@ -7,11 +8,20 @@
       <nav class="gnb" v-if="!gnbToggle">
         <ul>
           <li>
-            <router-link to="/closet" class="menu-title">나만의 옷장</router-link>
+            <router-link
+              to="/closet/tomorrow"
+              class="menu-title">
+              나만의 옷장
+            </router-link>
           </li>
           <li>
-            <router-link
+            <!--<router-link
               v-if="!Authentication.authenticated"
+              to="/login">
+              로그인
+            </router-link>-->
+            <router-link
+              v-if="Authentication.authenticated"
               to="/login">
               로그인
             </router-link>
@@ -34,7 +44,7 @@ export default {
   name: 'zuly-header',
   data() {
     return {
-      headerLine: false,
+      headerLine: true,
       gnbToggle: false,
     };
   },
@@ -52,9 +62,7 @@ export default {
           this.gnbToggle = true;
         }
       } else if (this.$mq === 'md') {
-        console.log('md');
       } else {
-        console.log('lg');
       }
     },
     headerLineEvt() {
@@ -76,7 +84,6 @@ export default {
 
 <style scoped lang="scss">
   .header {
-    /*height: 56px;*/
     padding: 17px 20px 20px 20px;
     &-inner {
       align-items: center;
@@ -120,11 +127,12 @@ export default {
     }
   }
 
-  @media (min-width: 1279px){
+  @media (min-width: 767px){
     .header {
       width: 1200px;
       margin: 0 auto;
-      padding: 30px 0;
+      padding: 30px 0 31px;
+      border-bottom: 1px solid #dadada;
     }
     .logo {
       width: 90px;

@@ -85,7 +85,7 @@
       </div>
     </div>
     <alert-modal ref="view" width="320" height="190"></alert-modal>-->
-    <div v-if="!isShow">
+    <div v-if="isShow">
       <div class="none">
         <div class="inner">
           <p>
@@ -98,7 +98,7 @@
 
     <div v-else>
       <div>
-        <p class="txt-tomorrow-title">
+        <p class="txt-main-title">
           2가지 데일리룩 후보 중<br/>
           마음에 드는 의상을 선택해주세요.
         </p>
@@ -106,120 +106,142 @@
           (기한 내 미선택 시, 회원님께 더 어울릴 스타일로 자동 지정 후 배송 됩니다.)
         </p>
       </div>
-      <div class="codi-suggestion">
-        <div>
-          <p class="txt-codi-title en-font">A. Codi Look</p>
-          <p class="txt-codi-desc">
-            심플하지만 갖춰입은듯<br/>
-            스타일리쉬 한 룩!
-          </p>
-        </div>
-        <!-- TODO: 스타일로 뺄것. -->
-        <div style="width: 236px; margin: 0 auto;">
+      <div class="clearfix">
+        <div
+          class="codi-suggestion"
+          :class="{selected: this.codiSelected.first}"
+        >
+          <div>
+            <p class="txt-codi-title en-font">A. Codi Look</p>
+            <p class="txt-codi-desc">
+              심플하지만 갖춰입은듯<br/>
+              스타일리쉬 한 룩!
+            </p>
+          </div>
+          <!-- TODO: 스타일로 뺄것. -->
           <div class="list-codi">
-            <div class="image">
-              <img src="http://via.placeholder.com/226x270" alt="상품 이미지"/>
+            <div class="item">
+              <div class="image">
+                <img src="http://via.placeholder.com/226x270" alt="상품 이미지"/>
+              </div>
+              <div
+                class="btn-detail">
+                <button
+                  type="button">
+                  상품 상세보기
+                </button>
+              </div>
             </div>
-            <div
-              class="btn-detail">
-              <button
-                type="button">
-                상품 상세보기
-              </button>
+            <div class="item">
+              <div class="image">
+                <img src="http://via.placeholder.com/226x270" alt="상품 이미지"/>
+              </div>
+              <div
+                class="btn-detail">
+                <button
+                  type="button">
+                  상품 상세보기
+                </button>
+              </div>
             </div>
           </div>
-          <div class="list-codi">
-            <div class="image">
-              <img src="http://via.placeholder.com/226x270" alt="상품 이미지"/>
-            </div>
-            <div
-              class="btn-detail">
-              <button
-                type="button">
-                상품 상세보기
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="zuly-line-short"></div>
-        <div>
-          <p class="txt-tip-title">스타일 팁</p>
-          <!--TODO: 말줄임표 -->
-          <!--<p class="txt-tip-desc">- 허리에서 포켓까지 이어진 바이올렛톤의 새틴 배색이 포인트인 팬츠로, 이러한 디자인의 특징을 살려서.. +더보기</p>-->
-          <p class="txt-tip-desc" v-html="$common.htmlEnterLine(printStyleFirst.stylingTip)"></p>
-          <hr class="zuly-line-dot">
-          <!--<p class="txt-hashtag">-->
-            <!--#ZULY #오피스룩 # 나만의옷장 #모던 #블라우스 #화이트 # 팬츠 #배색 #Ss18 #ZULY #오피스룩 # 나만의옷장 #모던 #블라우스 #화이트 # 팬츠 #배색 #Ss18-->
-          <!--</p>-->
-          <p class="txt-hashtag" v-html="$common.htmlEnterLine(printStyleFirst.hashTag)"></p>
-        </div>
-        <div class="btn-select">
-          <button
-            @click="alertTest('Hello')"
-            type="button">
-            선택하기
-          </button>
-        </div>
-      </div>
-      <div class="codi-suggestion selected">
-        <div>
-          <p class="txt-codi-title en-font">A. Codi Look</p>
-          <p class="txt-codi-desc">
-            심플하지만 갖춰입은듯<br/>
-            스타일리쉬 한 룩!
-          </p>
-        </div>
-        <div style="width: 236px; margin: 0 auto;">
-          <div class="list-codi">
-            <div class="image">
-              <img src="http://via.placeholder.com/226x270" alt="상품 이미지"/>
-            </div>
-            <div
-              class="btn-detail">
-              <button
-                type="button">
-                상품 상세보기
-              </button>
-            </div>
-          </div>
-          <div class="list-codi">
-            <div class="image">
-              <img src="http://via.placeholder.com/226x270" alt="상품 이미지"/>
-            </div>
-            <div
-              class="btn-detail">
-              <button
-                type="button">
-                상품 상세보기
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="zuly-line-short"></div>
-        <div>
-          <p class="txt-tip-title">스타일 팁</p>
-          <!--TODO: 말줄임표 -->
-          <p class="txt-tip-desc">- 허리에서 포켓까지 이어진 바이올렛톤의 새틴 배색이 포인트인 팬츠로, 이러한 디자인의 특징을 살려서.. +더보기</p>
-          <hr class="zuly-line-dot">
-          <p class="txt-hashtag">
-            #ZULY #오피스룩 # 나만의옷장 #모던 #블라우스 #화이트 # 팬츠 #배색 #Ss18 #ZULY #오피스룩 # 나만의옷장 #모던 #블라우스 #화이트 # 팬츠 #배색 #Ss18
-          </p>
-        </div>
-        <div class="btn-select">
-          <button
-            @click="alertTest('Hello')"
-            type="button">
-            선택하기
-          </button>
-        </div>
-        <div class="dim-selected">
-          <p class="txt-heart">♥</p>
-          <p class="txt-selected">
-            좋아요.<br/>
-            선택할게요.
-          </p>
-        </div>
+          <div class="style-explain">
 
+            <p class="txt-tip-title">스타일 팁</p>
+            <!--TODO: 말줄임표 -->
+            <p class="txt-tip-desc">- 허리에서 포켓까지 이어진 바이올렛톤의 새틴 배색이 포인트인 팬츠로, 이러한 디자인의 특징을 살려서.. +더보기</p>
+            <!--<p class="txt-tip-desc" v-html="$common.htmlEnterLine(printStyleFirst.stylingTip)"></p>-->
+            <div class="line line__dashed"></div>
+            <p class="txt-hashtag">
+              #ZULY #오피스룩 # 나만의옷장 #모던 #블라우스 #화이트 # 팬츠 #배색 #Ss18 #ZULY #오피스룩 # 나만의옷장 #모던 #블라우스 #화이트 # 팬츠 #배색 #Ss18
+            </p>
+            <!--<p class="txt-hashtag" v-html="$common.htmlEnterLine(printStyleFirst.hashTag)"></p>-->
+          </div>
+          <div class="btn-select">
+            <button
+              @click="btnSelect('first')"
+              class="btn btn-primary"
+              type="button">
+              선택하기
+            </button>
+          </div>
+
+          <div class="dim-selected">
+            <div class="heart">
+              <img src="/static/img/closet/ico_white.svg" alt="">
+            </div>
+            <p class="txt-selected">
+              좋아요.<br/>
+              선택할게요.
+            </p>
+          </div>
+        </div>
+        <div
+          class="codi-suggestion"
+          :class="{selected: this.codiSelected.second}">
+          <div>
+            <p class="txt-codi-title en-font">A. Codi Look</p>
+            <p class="txt-codi-desc">
+              심플하지만 갖춰입은듯<br/>
+              스타일리쉬 한 룩!
+            </p>
+          </div>
+          <div class="list-codi">
+            <div class="item">
+              <div class="image">
+                <img src="http://via.placeholder.com/226x270" alt="상품 이미지"/>
+              </div>
+              <div
+                class="btn-detail">
+                <button
+                  type="button">
+                  상품 상세보기
+                </button>
+              </div>
+            </div>
+            <div class="item">
+              <div class="image">
+                <img src="http://via.placeholder.com/226x270" alt="상품 이미지"/>
+              </div>
+              <div
+                class="btn-detail">
+                <button
+                  type="button">
+                  상품 상세보기
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="style-explain">
+
+            <p class="txt-tip-title">스타일 팁</p>
+            <!--TODO: 말줄임표 -->
+            <p class="txt-tip-desc">- 허리에서 포켓까지 이어진 바이올렛톤의 새틴 배색이 포인트인 팬츠로, 이러한 디자인의 특징을 살려서.. +더보기</p>
+            <!--<p class="txt-tip-desc" v-html="$common.htmlEnterLine(printStyleFirst.stylingTip)"></p>-->
+            <div class="line line__dashed"></div>
+            <p class="txt-hashtag">
+              #ZULY #오피스룩 # 나만의옷장 #모던 #블라우스 #화이트 # 팬츠 #배색 #Ss18 #ZULY #오피스룩 # 나만의옷장 #모던 #블라우스 #화이트 # 팬츠 #배색 #Ss18
+            </p>
+            <!--<p class="txt-hashtag" v-html="$common.htmlEnterLine(printStyleFirst.hashTag)"></p>-->
+          </div>
+          <div class="btn-select">
+            <button
+              @click="btnSelect('second')"
+              class="btn btn-primary"
+              type="button">
+              선택하기
+            </button>
+          </div>
+          <div class="dim-selected">
+            <div class="heart">
+              <img src="/static/img/closet/ico_white.svg" alt="">
+            </div>
+            <p class="txt-selected">
+              좋아요.<br/>
+              선택할게요.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -241,6 +263,10 @@ export default {
       isShow: false,
       selected: {},
       alertMsg: '',
+      codiSelected: {
+        first: false,
+        second: false,
+      },
     };
   },
   computed: {
@@ -323,8 +349,14 @@ export default {
       setTomorrowCloset: 'mypage/closet/setTomorrowCloset',
       setTomorrowSelect: 'mypage/closet/setTomorrowSelect',
     }),
-    alertTest(data) {
-      alert(data);
+    btnSelect(data) {
+      if (data === 'first') {
+        this.codiSelected.first = true;
+        this.codiSelected.second = false;
+      } else {
+        this.codiSelected.first = false;
+        this.codiSelected.second = true;
+      }
     },
     centerImage(value) {
       for (let i = 0; value.length > i; i += 1) {
@@ -523,13 +555,13 @@ export default {
   .txt-tomorrow-title {
     line-height: 28px;
     font-size: 20px;
-    letter-spacing: -0.8px;
+    letter-spacing: -1px;
     margin-bottom: 2px;
   }
   .txt-tomorrow-caution {
-    line-height: 22px;
-    letter-spacing: -0.8px;
     font-size: 14px;
+    letter-spacing: -0.8px;
+    line-height: 22px;
     color: #797979;
   }
   .codi-suggestion {
@@ -539,8 +571,13 @@ export default {
     text-align: center;
     margin-top: 16px;
     position: relative;
+    .dim-selected {
+      display: none;
+    }
     &.selected {
-      border: 3px solid #000;
+      outline: 3px solid #000;
+      outline-offset: -3px;
+      /*border: 3px solid #000;*/
       .dim-selected {
         color: #fff;
         display: flex;
@@ -553,9 +590,12 @@ export default {
         right: 0;
         background-color: rgba(51, 51, 51, 0.4);
         z-index: 100;
-        .txt-heart {
-          font-size: 50px;
+        .heart {
           margin-bottom: 18px;
+          img {
+            width: 42.8px;
+            height: 37.3px;
+          }
         }
         .txt-selected {
           line-height: 38px;
@@ -566,12 +606,25 @@ export default {
       }
     }
     .list-codi {
-      background-color: #fff;
-      border: 1px solid #c3c3c3;
-      margin-top: 16px;
+      width: 236px;
+      margin: 0 auto;
+      .item {
+        background-color: #fff;
+        border: 1px solid #c3c3c3;
+        margin-top: 10px;
+        &:first-child {
+          margin-top: 16px;
+        }
+      }
       .image {
         padding: 4px 4px 6px;
         border-bottom: 1px solid #c3c3c3;
+        width: 236px;
+        height: 282px;
+        img {
+          width: 100%;
+          height: 100%;
+        }
       }
       .btn-detail {
         button {
@@ -585,6 +638,7 @@ export default {
         }
       }
     }
+
     .txt-codi-title {
       font-size: 17px;
       font-weight: 700;
@@ -598,6 +652,14 @@ export default {
       letter-spacing: -0.7px;
       line-height: 24px;
     }
+    .style-explain {
+      padding-top: 37px;
+      .line {
+        margin-top: 16px;
+        margin-bottom: 16px;
+        border-bottom-color: #a7a7a7;
+      }
+    }
     .txt-tip-title {
       font-size: 15px;
       letter-spacing: -0.6px;
@@ -605,6 +667,17 @@ export default {
       font-weight: 700;
       line-height: 21px;
       margin-bottom: 11px;
+      position: relative;
+      /* TODO : Desktop To Mobile */
+      &::before {
+        content: '';
+        border-bottom: 2px solid #333;
+        width: 29px;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: -12px
+      }
     }
     .txt-tip-desc {
       line-height: 23px;
@@ -612,15 +685,81 @@ export default {
       font-size: 15px;
     }
     .btn-select {
-      margin-top: 25px;
+      margin-top: 27px;
       button {
-        border: 0;
-        color: #fff;
-        font-size: 18px;
-        letter-spacing: -.6px;
-        background-color: #333;
-        line-height: 50px;
         width: 100%;
+      }
+    }
+  }
+  @media (min-width: 1279px) {
+    .tomorrow {
+      padding: 30px 0 20px;
+      width: 1200px;
+      margin: 0 auto;
+    }
+    .txt-tomorrow-caution {
+      font-size: 15px;
+      line-height: 23px;
+      margin-top: 9px;
+      margin-bottom: 28px;
+    }
+    .codi-suggestion {
+      width: 591px;
+      margin-top: 0;
+      padding: 33px 26px 31px 30px;
+      display: inline-block;
+      vertical-align: top;
+      &:nth-child(2){
+        margin-left: 10px;
+      }
+      .txt-codi-title {
+        font-size: 20px;
+        line-height: 25px;
+        margin-bottom: 9px;
+      }
+      .txt-codi-desc {
+        font-size: 24px;
+        line-height: 32px;
+        letter-spacing: -1px;
+      }
+      .list-codi {
+        width: auto;
+        margin-top: 26px;
+        overflow: hidden;
+        .item {
+          float: left;
+          margin-top: 0;
+          &:first-child {
+            margin-top: 0;
+            margin-right: 7px;
+          }
+        }
+        .image {
+          width: 260px;
+          height: 308px;
+        }
+      }
+      /* TODO:  Desktop To Mobile */
+      .style-explain {
+        padding-top: 50px;
+        .line {
+          margin-top: 16px;
+          margin-bottom: 16px;
+        }
+      }
+
+      .txt-tip-title {
+        margin-bottom: 10px;
+        /* TODO : Desktop To Mobile */
+        &::before {
+          width: 48px;
+        }
+      }
+      .btn-select {
+        margin-top: 27px;
+        button {
+          height: 60px;
+        }
       }
     }
   }
