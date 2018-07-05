@@ -1,5 +1,0 @@
-User-agent: *
-Disallow: /login
-Disallow: /closet/*
-
-Sitemap: https://www.zuly.co.kr/sitemap.xml
