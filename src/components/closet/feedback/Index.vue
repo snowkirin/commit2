@@ -1,5 +1,102 @@
 <template>
-  <div class="feedback">
+  <div class="feed">
+    <div class="review">
+      <!--COMMON-->
+      <div
+        v-for="(data, idx) in question.common"
+        :key="idx"
+        class="row">
+        <div class="text">
+          <p class="txt-point">
+            {{ data.question_text }}
+          </p>
+        </div>
+        <div>
+          <ul class="square-list">
+            <li v-for="(data2, idx2) in data.answer_text" :key="idx2">
+              <div class="txt-centering">{{ data2 }}</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- A -->
+      <div v-if="question.A.info" class="row">
+        <div class="text">
+          <p class="txt-point">
+            {{question.A.info.name}}
+          </p>
+        </div>
+        <div class="image">
+          <img :src="$common.IMAGEURL() + question.A.info.image_path" alt="">
+        </div>
+      </div>
+
+      <div class="row" v-for="(data, idx) in question.A.question" :key="idx+'_A'">
+        <div class="text">
+          <p class="txt-point">
+            {{ data.question_text }}
+          </p>
+        </div>
+        <div>
+          <ul class="square-list">
+            <li v-for="(data2, idx2) in data.answer_text" :key="idx2" :class="(data.answer_text.length === 5 && idx2 === 3) ? 'line-break': ''">
+              <div class="txt-centering">{{ data2 }}</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- B -->
+      <div v-if="question.B.info" class="row">
+        <div class="text">
+          <p class="txt-point">
+            {{question.A.info.name}}
+          </p>
+        </div>
+        <div class="image">
+          <img :src="$common.IMAGEURL() + question.B.info.image_path" alt="">
+        </div>
+      </div>
+
+      <div class="row" v-for="(data, idx) in question.B.question" :key="idx+'_B'">
+        <div class="text">
+          <p class="txt-point">
+            {{ data.question_text }}
+          </p>
+        </div>
+        <div>
+          <ul class="square-list">
+            <li v-for="(data2, idx2) in data.answer_text" :key="idx2" :class="(data.answer_text.length === 5 && idx2 === 3) ? 'line-break': ''">
+              <div class="txt-centering">{{ data2 }}</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- NPS-->
+      <div
+        v-if="setNPS"
+        class="row">
+        <div class="text">
+          <p class="txt-point">ZULY 서비스를 지인이나 친구에게 추천하실 의향이 있으신가요?</p>
+          <p class="txt-refer">(적극 추천하는 것을 10점 만점으로 생각하고 점수를 매겨주세요.)</p>
+        </div>
+        <div>
+          <ul class="square-list">
+            <li
+              v-for="(data, idx) in ['10', '9', '8', '7', '6', '5' , '4', '3', '2', '1']"
+              :key="idx">
+              <div class="txt-centering">
+                {{ data }}
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--<div class="feedback">
     <div class="rating">
       <div class="inner">
         <p class="txt-rating">현재 대여 중인 <span class="txt-bold">의상 사이즈</span>가 어떠세요?</p>
@@ -32,17 +129,62 @@
       </div>
       <p class="txt-refer">※ 고객님의 의견은 맞춤형  큰 도움이 됩니다.</p>
     </div>
-
-    <transition>
-      <div
-        v-show="feedback"
+    <div
+        ref="review"
         class="review">
       <p class="txt-review">소중한 이용 후기 부탁드립니다.</p>
       <form>
         <div class="section">
           <div>
-            <div class="section-a">
+            <div class="section-common">
               <div
+                v-for="(data, idx) in question.common"
+                :key="idx"
+                class="row">
+                <div class="text">
+                  <p class="txt-point">
+                    {{ data.question_text }}
+                  </p>
+                </div>
+                <div>
+                  <ul class="square-list">
+                    <li v-for="(data2, idx2) in data.answer_text" :key="idx2">
+                      <div class="txt-centering">{{ data2 }}</div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="section-a">
+
+              <div v-if="question.A.info" class="row">
+                <div class="text">
+                  <p class="txt-point">
+                    {{question.A.info.name}}
+                  </p>
+                </div>
+                <div class="image">
+                  <img :src="$common.IMAGEURL() + question.A.info.image_path" alt="">
+                </div>
+              </div>
+
+              <div class="row" v-for="(data, idx) in question.A.question" :key="idx">
+                <div class="text">
+                  <p class="txt-point">
+                    {{ data.question_text }}
+                  </p>
+                </div>
+                <div>
+                  <ul class="square-list">
+                    <li v-for="(data2, idx2) in data.answer_text" :key="idx2" :class="(data.answer_text.length === 5 && idx2 === 3) ? 'line-break': ''">
+                      <div class="txt-centering">{{ data2 }}</div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+
+              &lt;!&ndash;<div
                 class="row"
                 :style="($mq === 'sm') ? 'padding-top: 36px;': ($mq === 'md') ? 'padding-top: 36px': 'padding-top:35px'">
                 <div class="text">
@@ -151,7 +293,7 @@
                       v-model="feedbackData.a4_1">
                   </div>
                 </div>
-                <!-- 별로를 선택했을때 input 오픈 -->
+                &lt;!&ndash; 별로를 선택했을때 input 오픈 &ndash;&gt;
               </div>
               <div
                 class="row"
@@ -170,7 +312,7 @@
                     </li>
                   </ul>
                 </div>
-              </div>
+              </div>&ndash;&gt;
             </div>
             <div class="section-b">
               <div
@@ -308,34 +450,42 @@
           <button
             class="btn btn-primary"
             type="button"
-            @click="feedback = false">
+            @click="btnSubmit">
             제출 하기
           </button>
         </div>
       </form>
     </div>
-    </transition>
-  </div>
+    <alert-modal ref="view" width="300" height="153"></alert-modal>
+  </div>-->
 </template>
 
 <script>
-import TopSize from '@/components/closet/feedback/TopSize';
-import Deco from '@/components/closet/feedback/Deco';
-import Detail from '@/components/closet/feedback/Detail';
-import Finish from '@/components/closet/feedback/Finish';
+import AlertModal from '@/components/common/AlertModal';
+import Closet from '@/library/api/closet';
+
 
 export default {
   name: 'feedBack',
+
+  // props: {
+  //   subscriptionId,
+  //   dataType: {
+  //     type: String,
+  //     default: 'first',
+  //   },
+  // },
+  props: ['subscriptionId'],
   components: {
-    TopSize,
-    Deco,
-    Detail,
-    Finish,
+    AlertModal,
   },
   data() {
     return {
-      rating: 'bad',
-      feedback: true,
+      feedbackId: null,
+      question: {},
+      result: null,
+      setNPS: null,
+      /*rating: 'null',
       feedbackData: {
         total: '',
         a1: '',
@@ -352,17 +502,33 @@ export default {
         b5: '',
         score: '',
       },
-      viewFeed: 'TopSize',
+      viewFeed: 'TopSize',*/
     };
+  },
+  computed: {
   },
   methods: {
     clickEvt(target, data) {
       this.feedbackData[target] = data;
     },
+    btnSubmit() {
+      this.$common.viewAlertModal('의견 감사합니다.', this.$refs, 'alert');
+    },
     clickRating(data) {
       this.rating = data;
-      this.feedback = true;
+      this.$refs.review.style = 'display: block';
     },
+  },
+  created() {
+    const $this = this;
+    Closet.mypageFeedback($this.subscriptionId).then(function(res) {
+      $this.feedbackId = res.data.feedback_id;
+      $this.question = res.data.question;
+      $this.result = res.data.result;
+      $this.setNPS = res.data.setNPS;
+    }).catch(function(err) {
+      console.log(err);
+    });
   },
 };
 </script>
@@ -474,6 +640,7 @@ export default {
       margin-top: 4px;
     }
     .row {
+      padding-top: 36px;
       .image {
         background-color: #e9e9e9;
         padding-top: 32px;
@@ -504,9 +671,9 @@ export default {
         // 선택되지 않았을 경우 + 기본값
         background-color: #fff;
         font-size: 15px;
-        line-height: 48px;
         color: #bbb;
         text-align: center;
+        word-break: keep-all;
         float: left;
         border: 1px solid #c4c4c4;
         margin-left: -1px;
@@ -517,6 +684,7 @@ export default {
         width: calc(25% - 1px);
         //width: 123px;
         height: 50px;
+        user-select: none;
         &.line-break {
           clear: both;
         }
@@ -540,7 +708,7 @@ export default {
     }
   }
 
-  @media (min-width: 1279px) {
+  @media (min-width: 767px) {
     .feedback {
       margin-left: 0;
       width: auto;

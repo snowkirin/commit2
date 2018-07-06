@@ -76,6 +76,7 @@ export default {
   },
   methods: {
     ...mapActions({
+      getCodes: 'signup/getCodes',
       setManagement: 'signup/setManagement',
       pickManagement: 'signup/pickManagement',
       setMypageStyle: 'mypage/setMypageStyle',

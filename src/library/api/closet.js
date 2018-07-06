@@ -2,6 +2,24 @@ import axios from 'axios';
 
 const API_URL = process.env.API_URL;
 
+
+async function mypageFeedback(id) {
+  try {
+    const result = axios.get(`${API_URL}/subscriptions/feedbacks`, {
+      params: {
+        subscriptionId: id
+      }
+    }).then(function(res) {
+      return res;
+    }).catch(function(error) {
+      return error;
+    });
+    return result;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 const mypageInfo = () => axios.get(`${API_URL}/member/mypage`, {
   withCredentials: true,
 }).then(result => result).catch(err => err.response);
@@ -147,4 +165,5 @@ export default {
   authPhone,
   authPhoneCheck,
   buyUsedProduct,
+  mypageFeedback,
 };

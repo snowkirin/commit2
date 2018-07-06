@@ -730,7 +730,7 @@ export default {
     }
   }
 
-  @media (min-width: 1279px) {
+  @media (min-width: 767px) {
     .mypage {
       width: 1200px;
       padding: {

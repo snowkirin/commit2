@@ -1,31 +1,50 @@
 <template>
-  <div class="current">
+  <div class="container">
     <!--<p class="txt-current-title">
       현재 대여중인 의상이 마음에<br/>
       드신다면?<br/>
       반납 없이 구매할 수 있습니다.
     </p>-->
-    <feedBack ref="feedback"></feedBack>
+
+
+    <div>
+    </div>
+
+
+
+
+    <feedBack ref="feedback" subscriptionId="581"></feedBack>
     <div class="current-styling">
+      <!-- Mobile-->
       <div class="carousel">
-        <p class="txt-rotate">Zuly Style</p>
-        <div class="img-current-styling">
-          <img src="https://picsum.photos/300/300" alt="">
-          <!--<img src="https://picsum.photos/200/300" alt="">-->
-        </div>
-        <p class="txt-tip-today-style en-font"><span>TIP</span> <span class="txt-dash">_</span><br/> <span>TODAY&apos;S STYLE</span></p>
+        <swiper :options="swiperOption">
+          <swiper-slide v-for="(data, idx) in currentCloset.products" :key="idx" v-if="data.id !== null">
+            <img :src="$common.IMAGEURL() + data.image.path"/>
+          </swiper-slide>
+          <div class="swiper-pagination" slot="pagination"></div>
+          <div class="swiper-button-prev" slot="button-prev"></div>
+          <div class="swiper-button-next" slot="button-next"></div>
+        </swiper>
       </div>
+
+      <!--Desktop -->
+      <p class="txt-tip-today-style en-font"><span>TIP</span> <span class="txt-dash">_</span><br/> <span>TODAY&apos;S STYLE</span></p>
       <div class="txt-style-tip">
         <p class="txt-style-tip__title">스타일 팁</p>
         <p class="txt-style-tip__desc">
+          {{ currentCloset.styling_tip }}
+        </p>
+        <!--<p class="txt-style-tip__desc">
           심플하지만 갖춰입은듯 스타일리쉬 한 룩!<br/>
           - 허리에서 포켓까지 이어진 바이올렛톤의 새틴 배색이 포인트인 팬츠로, 이러한 디자인의 특징을 살려서 블라우스를 입을때 앞면을 살짝 넣어서 입어보세요.
           - 허리의 사이즈가 조금 크다면 벨트보다는 옷핀을 바지 안쪽으로 살짝 집어 핏을 잡아주신후, 블라우스 뒷면은 빼서 입어주시면 스타일리쉬함은 물론 체형보완이 되는 핏이 되요. 팬츠는 써머시즌 샌들 등과 잘 어울려요.
-        </p>
+        </p>-->
       </div>
-
       <div class="zuly-line-dot"></div>
-      <p class="txt-hashtag">#ZULY #오피스룩 # 나만의옷장 #모던 #블라우스 #화이트 # 팬츠 #배색 #Ss18</p>
+      <p class="txt-hashtag">
+        {{ currentCloset.hashtag }}
+      </p>
+      <!--<p class="txt-hashtag">#ZULY #오피스룩 # 나만의옷장 #모던 #블라우스 #화이트 # 팬츠 #배색 #Ss18</p>-->
     </div>
     <!--<div class="current-product-list">
       <ul>
@@ -73,6 +92,7 @@
         </button>
       </div>
     </div>-->
+    <detail-modal ref="detail" dataId="address"></detail-modal>
   </div>
   <!--<div class="current mt40">
     <div class="closet-card-none" v-show="currentNone">
@@ -233,13 +253,29 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import { swiper, swiperSlide } from 'vue-awesome-swiper';
+
 import FeedBack from '@/components/closet/feedback/Index';
 import DetailModal from '@/components/common/DetailModal';
+
+import 'swiper/dist/css/swiper.css';
 
 export default {
   name: 'current',
   data() {
     return {
+      // Swiper Options
+      swiperOption: {
+        slidesPerView: 1,
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+      },
       API_IMAGE_URL: process.env.API_IMAGE_URL,
       orderCount: 0,
       productAmount: 0,
@@ -253,6 +289,8 @@ export default {
   components: {
     FeedBack,
     DetailModal,
+    swiper,
+    swiperSlide,
   },
   computed: {
     ...mapGetters({
@@ -330,7 +368,7 @@ export default {
   },
   async created() {
     await this.setCurrentCloset();
-    const productList = this.currentCloset.products;
+    /*const productList = this.currentCloset.products;
     for (let i = 0; productList.length > i; i += 1) {
       if (productList[i].id === null) {
         document.querySelector('.closet-styling-tip').classList.add('closet-styling-one-tip');
@@ -339,13 +377,13 @@ export default {
         if (i === 0) this.firstCurrentCloset = false;
         else this.secondCurrentCloset = false;
       }
-    }
+    }*/
   },
 };
 </script>
 
 <style scoped lang="scss">
-  .current {
+  .container {
     padding: 24px 20px 20px 20px;
   }
   .txt-current-title {
@@ -361,53 +399,82 @@ export default {
       bottom: 31px;
     }
   }
+  .txt-rotate {
+    position: absolute;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    -webkit-transform: rotate(-270deg);
+    -moz-transform: rotate(-270deg);
+    -ms-transform: rotate(-270deg);
+    -o-transform: rotate(-270deg);
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+    left: -10px;
+
+  }
   .carousel {
     position:relative;
-    margin-bottom: 22px;
-    .txt-rotate {
-      position: absolute;
-      font-size: 14px;
-      font-weight: 600;
-      color: #ffffff;
-      -webkit-transform: rotate(-270deg);
-      -moz-transform: rotate(-270deg);
-      -ms-transform: rotate(-270deg);
-      -o-transform: rotate(-270deg);
-      filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
-    }
-    .img-current-styling {
-      width: 226px;
-      height: 264px;
-      margin: 0 auto;
+    width:285px;
+    margin: 0 auto;
+    .swiper-container {
       border: 8px solid #fff;
-      overflow: hidden;
-    }
-    .txt-tip-today-style {
-      font-size: 32px;
-      line-height: 30px;
-      font-weight: 700;
-      white-space: nowrap;
-      position: relative;
-      padding-left: 21px;
-      &:before {
-        content: '#';
-        display: block;
-        left: 0;
-        line-height: 41px;
-        position: absolute;
+      .swiper-slide {
+        img {
+          width: 100%;
+        }
       }
-      .txt-dash {
-        display: inline-block;
-        width: 47px;
-        border-bottom: 3px solid #333;
-        text-indent: -9999em;
-        overflow: hidden;
-        position: relative;
-        top: -3px;
+      .swiper-button-prev,
+      .swiper-button-next {
+        height: 32px;
+        width: 32px;
+        border: 1px solid #b9b9b9;
+        border-width: 1px 1px 0 0;
+        background-image: none;
+      }
+      .swiper-button-prev {
+        -webkit-transform: rotate(-135deg);
+        transform: rotate(-135deg);
+        left: 16px;
+      }
+      .swiper-button-next {
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+        right: 16px;
+      }
+      .swiper-button-disabled {
+        display: none;
       }
     }
   }
-
+  .txt-tip-today-style {
+    font-size: 32px;
+    line-height: 30px;
+    font-weight: 700;
+    white-space: nowrap;
+    position: relative;
+    padding-left: 21px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-block;
+    margin-top: -15px;
+    z-index: 100;
+    &:before {
+      content: '#';
+      display: block;
+      left: 0;
+      line-height: 41px;
+      position: absolute;
+    }
+    .txt-dash {
+      display: inline-block;
+      width: 47px;
+      border-bottom: 3px solid #333;
+      text-indent: -9999em;
+      overflow: hidden;
+      position: relative;
+      top: -3px;
+    }
+  }
   .txt-style-tip {
     font-size: 15px;
     letter-spacing: -0.6px;
@@ -539,6 +606,14 @@ export default {
         color: #fff;
         letter-spacing: -0.6px;
       }
+    }
+  }
+
+  @media (min-width: 767px) {
+    .container {
+      margin: 0 auto;
+      padding: 0;
+      width: 1200px;
     }
   }
 /*.closet-feedback {

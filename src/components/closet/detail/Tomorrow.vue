@@ -1,91 +1,6 @@
 <template>
   <div class="tomorrow">
-    <!--<div class="closet-card-none" v-show="!isShow">
-      <div class="closet-card-none-content">
-        <div class="content-table mauto">
-          <span><b>{{ printDDay(tomorrowCloset.styling_dday) }}</b><br/>옷장이 채워집니다.</span>
-        </div>
-      </div>
-    </div>
-    <div v-show="isShow">
-      <div class="main-point-text closet-title">내일의 옷장</div>
-      <div class="closet-title-text mt15">
-        2가지 데일리룩 후보 중 마음에 드는<br/>
-        의상을 선택해주세요.
-      </div>
-      <div class="closet-title-sub-text">
-        (기한 내 미선택 시, 회원님께 더 어울릴 스타일로 자동 지정 후 배송 됩니다.)
-      </div>
-      <div class="closet-card-area mt30">
-        <div class="closet-card" @click="selectStyle(printStyleFirst, 'first')" data-value="first">
-          <div v-show="isMobile">
-            <i class="fa fa-heart fa-lg heart-icon"></i>
-          </div>
-          <div class="closet-card-title select-title en-font">A. Codi Look</div>
-          <div class="closet-card-images">
-            <template v-for="(image, k) in printStyleFirst.image">
-              <div v-if="image !== null" v-bind:key="k" class="thumnail-image-area">
-                <div class="thumnail-image" v-bind:class="{ 'thumnail-image-left100': centerImage(printStyleFirst.image) }"
-                  v-bind:style="{
-                    'background-image': `url('${$common.IMAGEURL() + image}')`,
-                  }"
-                ></div>
-              </div>
-            </template>
-          </div>
-          <div class="closet-card-text">
-            <div class="closet-card-text-title mt25">스타일 팁</div>
-            <div class="closet-card-text-title-text mt10" v-html="$common.htmlEnterLine(printStyleFirst.stylingTip)">
-            </div>
-          </div>
-          <div class="closet-card-bottom">
-            <div class="dotted-line mt30"></div>
-            <div class="closet-card-hashtag mt20" v-html="$common.htmlEnterLine(printStyleFirst.hashTag)">
-            </div>
-          </div>
-          <div class="closet-card-active">
-            <i class="fa fa-heart fa-4x"></i>
-            <p>좋아요</p>
-            <p>선택할게요</p>
-          </div>
-        </div>
-        <div class="closet-card-block"></div>
-        <div class="closet-card" @click="selectStyle(printStyleSecond, 'second')" data-value="second">
-          <div v-show="isMobile">
-            <i class="fa fa-heart fa-lg heart-icon"></i>
-          </div>
-          <div class="closet-card-title select-title en-font">B. Item Codi</div>
-          <div class="closet-card-images">
-            <template v-for="(image, k) in printStyleSecond.image">
-              <div v-if="image !== null" v-bind:key="k" class="thumnail-image-area">
-                <div class="thumnail-image" v-bind:class="{ 'thumnail-image-left100': centerImage(printStyleSecond.image) }"
-                  v-bind:style="{
-                    'background-image': `url('${$common.IMAGEURL() + image}')`,
-                  }"
-                ></div>
-              </div>
-            </template>
-          </div>
-          <div class="closet-card-text">
-            <div class="closet-card-text-title mt25">스타일 팁</div>
-            <div class="closet-card-text-title-text mt10" v-html="$common.htmlEnterLine(printStyleSecond.stylingTip)">
-            </div>
-          </div>
-          <div class="closet-card-bottom">
-            <div class="dotted-line mt30"></div>
-            <div class="closet-card-hashtag mt20" v-html="$common.htmlEnterLine(printStyleSecond.hashTag)">
-            </div>
-          </div>
-          <div class="closet-card-active">
-            <i class="fa fa-heart fa-4x"></i>
-            <p>좋아요</p>
-            <p>선택할게요</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <alert-modal ref="view" width="320" height="190"></alert-modal>-->
-    <div v-if="isShow">
+    <div v-if="!isShow">
       <div class="none">
         <div class="inner">
           <p>
@@ -95,12 +10,10 @@
         </div>
       </div>
     </div>
-
     <div v-else>
       <div>
-        <p class="txt-main-title">
-          2가지 데일리룩 후보 중<br/>
-          마음에 드는 의상을 선택해주세요.
+        <p class="txt-tomorrow-title">
+          데일리룩 후보 중 마음에 드는 의상을 선택해주세요.
         </p>
         <p class="txt-tomorrow-caution">
           (기한 내 미선택 시, 회원님께 더 어울릴 스타일로 자동 지정 후 배송 됩니다.)
@@ -108,38 +21,22 @@
       </div>
       <div class="clearfix">
         <div
+          ref="codiFirst"
           class="codi-suggestion"
-          :class="{selected: this.codiSelected.first}"
-        >
+          :class="{selected: this.codiSelected.first}">
           <div>
-            <p class="txt-codi-title en-font">A. Codi Look</p>
+            <p class="txt-codi-title en-font">A. Setted Look</p>
             <p class="txt-codi-desc">
-              심플하지만 갖춰입은듯<br/>
-              스타일리쉬 한 룩!
+              {{printStyleFirst.stylingTitle}}
             </p>
           </div>
-          <!-- TODO: 스타일로 뺄것. -->
           <div class="list-codi">
-            <div class="item">
+            <div class="item" v-for="(data, idx) in printStyleFirst.image" v-if="data !== null" :key="idx">
               <div class="image">
-                <img src="http://via.placeholder.com/226x270" alt="상품 이미지"/>
+                <img :src="$common.IMAGEURL() + data" alt="">
               </div>
-              <div
-                class="btn-detail">
-                <button
-                  type="button">
-                  상품 상세보기
-                </button>
-              </div>
-            </div>
-            <div class="item">
-              <div class="image">
-                <img src="http://via.placeholder.com/226x270" alt="상품 이미지"/>
-              </div>
-              <div
-                class="btn-detail">
-                <button
-                  type="button">
+              <div class="btn-detail">
+                <button type="button" :data-attribute="printStyleFirst.productId[idx]">
                   상품 상세보기
                 </button>
               </div>
@@ -149,24 +46,20 @@
 
             <p class="txt-tip-title">스타일 팁</p>
             <!--TODO: 말줄임표 -->
-            <p class="txt-tip-desc">- 허리에서 포켓까지 이어진 바이올렛톤의 새틴 배색이 포인트인 팬츠로, 이러한 디자인의 특징을 살려서.. +더보기</p>
-            <!--<p class="txt-tip-desc" v-html="$common.htmlEnterLine(printStyleFirst.stylingTip)"></p>-->
+            <p class="txt-tip-desc" v-html="$common.htmlEnterLine(printStyleFirst.stylingTip)"></p>
             <div class="line line__dashed"></div>
-            <p class="txt-hashtag">
-              #ZULY #오피스룩 # 나만의옷장 #모던 #블라우스 #화이트 # 팬츠 #배색 #Ss18 #ZULY #오피스룩 # 나만의옷장 #모던 #블라우스 #화이트 # 팬츠 #배색 #Ss18
-            </p>
-            <!--<p class="txt-hashtag" v-html="$common.htmlEnterLine(printStyleFirst.hashTag)"></p>-->
+            <p class="txt-hashtag" v-html="$common.htmlEnterLine(printStyleFirst.hashTag)"></p>
           </div>
-          <div class="btn-select">
+          <div class="btn-select" v-if="$mq !== 'sm'">
             <button
-              @click="btnSelect('first')"
+              @click="selectStyle(printStyleFirst, 'first')"
               class="btn btn-primary"
               type="button">
               선택하기
             </button>
           </div>
 
-          <div class="dim-selected">
+          <div class="dim-selected" v-if="codiSelected.first">
             <div class="heart">
               <img src="/static/img/closet/ico_white.svg" alt="">
             </div>
@@ -177,36 +70,22 @@
           </div>
         </div>
         <div
+          ref="codiSecond"
           class="codi-suggestion"
           :class="{selected: this.codiSelected.second}">
           <div>
-            <p class="txt-codi-title en-font">A. Codi Look</p>
+            <p class="txt-codi-title en-font">B. Item Codi</p>
             <p class="txt-codi-desc">
-              심플하지만 갖춰입은듯<br/>
-              스타일리쉬 한 룩!
+              {{printStyleSecond.stylingTitle}}
             </p>
           </div>
           <div class="list-codi">
-            <div class="item">
+            <div class="item" v-for="(data, idx) in printStyleSecond.image" v-if="data !== null" :key="idx">
               <div class="image">
-                <img src="http://via.placeholder.com/226x270" alt="상품 이미지"/>
+                <img :src="$common.IMAGEURL() + data" alt="">
               </div>
-              <div
-                class="btn-detail">
-                <button
-                  type="button">
-                  상품 상세보기
-                </button>
-              </div>
-            </div>
-            <div class="item">
-              <div class="image">
-                <img src="http://via.placeholder.com/226x270" alt="상품 이미지"/>
-              </div>
-              <div
-                class="btn-detail">
-                <button
-                  type="button">
+              <div class="btn-detail">
+                <button type="button" :data-attribute="printStyleSecond.productId[idx]">
                   상품 상세보기
                 </button>
               </div>
@@ -216,23 +95,19 @@
 
             <p class="txt-tip-title">스타일 팁</p>
             <!--TODO: 말줄임표 -->
-            <p class="txt-tip-desc">- 허리에서 포켓까지 이어진 바이올렛톤의 새틴 배색이 포인트인 팬츠로, 이러한 디자인의 특징을 살려서.. +더보기</p>
-            <!--<p class="txt-tip-desc" v-html="$common.htmlEnterLine(printStyleFirst.stylingTip)"></p>-->
+            <p class="txt-tip-desc" v-html="$common.htmlEnterLine(printStyleSecond.stylingTip)"></p>
             <div class="line line__dashed"></div>
-            <p class="txt-hashtag">
-              #ZULY #오피스룩 # 나만의옷장 #모던 #블라우스 #화이트 # 팬츠 #배색 #Ss18 #ZULY #오피스룩 # 나만의옷장 #모던 #블라우스 #화이트 # 팬츠 #배색 #Ss18
-            </p>
-            <!--<p class="txt-hashtag" v-html="$common.htmlEnterLine(printStyleFirst.hashTag)"></p>-->
+            <p class="txt-hashtag" v-html="$common.htmlEnterLine(printStyleSecond.hashTag)"></p>
           </div>
-          <div class="btn-select">
+          <div class="btn-select" v-if="$mq !== 'sm'">
             <button
-              @click="btnSelect('second')"
+              @click="selectStyle(printStyleSecond, 'second')"
               class="btn btn-primary"
               type="button">
               선택하기
             </button>
           </div>
-          <div class="dim-selected">
+          <div class="dim-selected" v-if="codiSelected.second">
             <div class="heart">
               <img src="/static/img/closet/ico_white.svg" alt="">
             </div>
@@ -244,7 +119,29 @@
         </div>
       </div>
     </div>
-
+    <div
+      v-if="$mq === 'sm'"
+      class="btn-selected">
+      <button
+        type="button"
+        class="btn"
+        @click="selectStyle(printStyleFirst, 'first')"
+        style="width: 50%; float: left;"
+        :class="(codiSelected.first) ? 'btn-primary' : 'btn-secondary'">
+        <span v-if="codiSelected.first">A 선택됨</span>
+        <span v-else>A 선택하기</span>
+      </button>
+      <button
+        type="button"
+        class="btn"
+        style="width: 50%; float: right;"
+        @click="selectStyle(printStyleSecond, 'second')"
+        :class="(codiSelected.second) ? 'btn-primary' : 'btn-secondary'">
+        <span v-if="codiSelected.second">B 선택됨</span>
+        <span v-else>B 선택하기</span>
+      </button>
+    </div>
+    <alert-modal ref="view" width="300" height="153"></alert-modal>
   </div>
 </template>
 
@@ -282,6 +179,7 @@ export default {
         image: [],
         stylingTip: '',
         hashTag: '',
+        stylingTitle: '',
         selected: false,
       };
 
@@ -294,6 +192,7 @@ export default {
           });
 
           firstStyle.stylingTip = this.tomorrowCloset.products[0].styling_tip;
+          firstStyle.stylingTitle = this.tomorrowCloset.products[0].styling_title;
           firstStyle.hashTag = this.tomorrowCloset.products[0].hashtag;
           firstStyle.selected = (this.tomorrowCloset.products[0].selected);
         }
@@ -316,6 +215,7 @@ export default {
         image: [],
         stylingTip: '',
         hashTag: '',
+        stylingTitle: '',
         selected: false,
       };
 
@@ -328,6 +228,7 @@ export default {
           });
 
           secondStyle.stylingTip = this.tomorrowCloset.products[2].styling_tip;
+          secondStyle.stylingTitle = this.tomorrowCloset.products[2].styling_title;
           secondStyle.hashTag = this.tomorrowCloset.products[2].hashtag;
           secondStyle.selected = (this.tomorrowCloset.products[2].selected);
         }
@@ -384,30 +285,49 @@ export default {
       return changeDay;
     },
     async selectStyle(style, type) {
-      if (this.tomorrowCloset.select_dday >= 0) {
+      /*if (this.tomorrowCloset.select_dday >= 0) {
         await this.setTomorrowSelect({
           subscriptionId: this.tomorrowCloset.subscription_id,
           products: [...this.parseIntProduct(...style.productId)],
         });
         if (type === 'first') {
-          this.$common.viewAlertModal('<b class="en-font">A. Codi Look</b> 배송됩니다.', this.$refs, 'alert');
+          this.$common.viewAlertModal('<b class="en-font">A.Setted Look</b> 배송됩니다.', this.$refs, 'alert');
+          this.codiSelected.first = true;
+          this.codiSelected.second = false;
         } else {
-          this.$common.viewAlertModal('<b class="en-font">B. Item Codi</b> 배송됩니다.', this.$refs, 'alert');
+          this.$common.viewAlertModal('<b class="en-font">B.Item Codi</b> 배송됩니다.', this.$refs, 'alert');
+          this.codiSelected.first = false;
+          this.codiSelected.second = true;
         }
       } else {
         this.$common.viewAlertModal('선택기간이 지났습니다.<br />고객센터로 문의해주세요.', this.$refs, 'alert');
         return;
-      }
+      }*/
 
       if (type === 'first') {
-        this.styleOnOff(true, document.querySelector('[data-value="first"]'), true);
-        this.styleOnOff(false, document.querySelector('[data-value="second"]'), false);
-      }
-      if (type === 'second') {
-        this.styleOnOff(false, document.querySelector('[data-value="first"]'), false);
-        this.styleOnOff(true, document.querySelector('[data-value="second"]'), true);
-      }
+        const positionTop = this.$refs.codiFirst.offsetTop;
 
+        const body = document.body; // safari
+        const html = document.documentElement;
+        body.scrollTop = positionTop;
+        html.scrollTop = positionTop;
+
+        this.$common.viewAlertModal('<b class="en-font">A.Setted Look</b> 배송됩니다.', this.$refs, 'alert');
+        this.codiSelected.first = true;
+        this.codiSelected.second = false;
+
+      } else {
+        const positionTop = this.$refs.codiSecond.offsetTop;
+
+        const body = document.body; // safari
+        const html = document.documentElement;
+        body.scrollTop = positionTop;
+        html.scrollTop = positionTop;
+
+        this.$common.viewAlertModal('<b class="en-font">B.Item Codi</b> 배송됩니다.', this.$refs, 'alert');
+        this.codiSelected.first = false;
+        this.codiSelected.second = true;
+      }
       if (this.tomorrowSelect) await this.setTomorrowCloset();
     },
     parseIntProduct(...data) {
@@ -434,95 +354,21 @@ export default {
         description: [...data.description, description],
         image: [...data.image, image],
         stylingTip: data.stylingTip,
+        stylingTitle: data.stylingTitle,
         hashTag: data.hashTag,
         selected: data.selected,
       };
     },
-    styleOnOff(type, target, selected) {
-      const obj = target;
-
-      if (selected) {
-        const card = document.querySelectorAll('.closet-card');
-
-        if (!this.$common.deviceCheck()) {
-          for (let i = 0; i < card.length; i += 1) {
-            card[i].onmouseover = () => {};
-            card[i].onmouseout = () => {};
-          }
-        }
-      }
-
-      if (type) {
-        obj.classList.add('closet-card-on');
-        obj.querySelector('.closet-card-images').classList.add('closet-card-active-color');
-        obj.querySelector('.heart-icon').classList.add('heart-icon-on');
-        obj.querySelector('.select-title').classList.add('select-title-on');
-        obj.querySelector('.closet-card-active').style.display = 'block';
-
-        const thumbImage = obj.querySelectorAll('.thumnail-image');
-
-        for (let i = 0; i < thumbImage.length; i += 1) {
-          thumbImage[i].style.height = '343px';
-          thumbImage[i].style.opacity = '0.4';
-        }
-      } else {
-        obj.classList.remove('closet-card-on');
-        obj.querySelector('.closet-card-images').classList.remove('closet-card-active-color');
-        obj.querySelector('.heart-icon').classList.remove('heart-icon-on');
-        obj.querySelector('.select-title').classList.remove('select-title-on');
-        obj.querySelector('.closet-card-active').style.display = 'none';
-
-        const thumbImage = obj.querySelectorAll('.thumnail-image');
-
-        for (let i = 0; i < thumbImage.length; i += 1) {
-          thumbImage[i].style.height = '343px';
-          thumbImage[i].style.opacity = '1';
-        }
-      }
-    },
-    hoverEvt(target) {
-      const obj = target;
-
-      if (!this.$common.deviceCheck()) {
-        obj.onmouseover = () => {
-          this.styleOnOff(true, obj);
-        };
-
-        obj.onmouseout = () => {
-          this.styleOnOff(false, obj);
-        };
-      } else {
-        obj.onclick = () => {
-          this.styleOnOff(true, obj);
-        };
-      }
-    },
-    mobileVisible() {
-      if (window.outerWidth <= 486) this.isMobile = true;
-      else this.isMobile = false;
-    },
   },
   async created() {
     await this.setTomorrowCloset();
-
-    this.mobileVisible();
-    window.addEventListener('resize', this.mobileVisible);
-
     this.isShowFlag(this.tomorrowCloset);
   },
   mounted() {
-    const card = document.querySelectorAll('.closet-card');
-
-    for (let i = 0; i < card.length; i += 1) {
-      this.hoverEvt(card[i]);
-    }
   },
   updated() {
-    if (this.printStyleFirst.selected) this.styleOnOff(true, document.querySelector('[data-value="first"]'), true);
-    if (this.printStyleSecond.selected) this.styleOnOff(true, document.querySelector('[data-value="second"]'), true);
   },
   destroyed() {
-    window.removeEventListener('resize', this.mobileVisible);
   },
 };
 </script>
@@ -552,11 +398,11 @@ export default {
       line-height: 36px;
     }
   }
+
   .txt-tomorrow-title {
-    line-height: 28px;
-    font-size: 20px;
+    font-size: 16px;
+    line-height: 24px;
     letter-spacing: -1px;
-    margin-bottom: 2px;
   }
   .txt-tomorrow-caution {
     font-size: 14px;
@@ -564,6 +410,7 @@ export default {
     line-height: 22px;
     color: #797979;
   }
+
   .codi-suggestion {
     background-color: #f9f9f9;
     border: 2px solid #e1e1e1;
@@ -610,24 +457,27 @@ export default {
       margin: 0 auto;
       .item {
         background-color: #fff;
-        border: 1px solid #c3c3c3;
+        /*border: 1px solid #e8e8e8;*/
         margin-top: 10px;
         &:first-child {
           margin-top: 16px;
         }
       }
       .image {
-        padding: 4px 4px 6px;
-        border-bottom: 1px solid #c3c3c3;
-        width: 236px;
-        height: 282px;
+        border: 1px solid #e8e8e8;
         img {
+          border: 5px solid #fff;
           width: 100%;
-          height: 100%;
+          /*height: 100%;*/
         }
       }
       .btn-detail {
+        margin-top: -1px;
         button {
+          overflow: hidden;
+          text-indent: -9999em;
+          background: url(/static/img/closet/btn_detail@2x.png) no-repeat 0 0;
+          background-size: 100% 100%;
           border: 0;
           width: 100%;
           height: 100%;
@@ -691,7 +541,25 @@ export default {
       }
     }
   }
-  @media (min-width: 1279px) {
+
+  .btn-selected {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 200;
+    &::after {
+      content: '';
+      display: block;
+      border-right: 1px solid #fff;
+      left: 50%;
+      height: 100%;
+      position: absolute;
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (min-width: 767px) {
     .tomorrow {
       padding: 30px 0 20px;
       width: 1200px;
@@ -763,205 +631,4 @@ export default {
       }
     }
   }
-/*.closet-card-area {
-  display: flex;
-}
-
-.closet-card {
-  display: inline-block;
-  width: 48.6%;
-  height: auto;
-  border: solid 2px #e9e9e9;
-  cursor: pointer;
-  position: relative;
-}
-
-.closet-card-title {
-  text-align: left;
-  line-height: 15px;
-  font-size: 18px;
-  font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  color: #797979;
-  margin: 25px 20px 0 20px;
-}
-
-.closet-card-title-on {
-  color: #333333;
-}
-
-.heart-icon {
-  position: absolute;
-  top: 4.6%;
-  left: 86.5%;
-  line-height: 15px;
-  font-size: 27px;
-  font-weight: 600;
-  font-style: normal;
-  font-stretch: normal;
-  color: #e9e9e9;
-}
-
-.heart-icon-on {
-  color: #f45649;
-}
-
-.select-title-on {
-  color: #333333;
-}
-
-.closet-card-images {
-  margin: 20px 20px 0 20px;
-  height: 343px;
-}
-
-.thumnail-image-area {
-  position: relative;
-  display: inline-block;
-  width: 50%;
-  height: 343px;
-}
-
-.thumnail-image {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  width: 100%;
-  height: 343px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-}
-
-.thumnail-image-left100 {
-  left: 100% !important;
-}
-
-.closet-card-text {
-  margin: 30px 20px 100px 20px;
-}
-
-.closet-card-text-title {
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: -1px;
-  color: #333333;
-}
-
-.closet-card-text-title-text {
-  font-size: 16px;
-  letter-spacing: -0.4px;
-  color: #333333;
-}
-
-.closet-card-hashtag {
-  font-size: 16px;
-  line-height: 1.4;
-  letter-spacing: -0.4px;
-  text-align: left;
-  color: #683b3f;
-  text-transform:capitalize;
-}
-
-.closet-card-on {
-  border: solid 2px #fb5143;
-  background-color: #f5f5f5;
-}
-
-.closet-card-bottom {
-  width: -moz-available;
-  width: -webkit-fill-available;
-  width: fill-available;
-  margin: 20px;
-  position: absolute;
-  bottom: 0;
-}
-
-.closet-card-active {
-  display: none;
-  color: #f45649;
-  text-align: center;
-  position: absolute;
-  top: 35%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-}
-
-.closet-card-active p {
-  font-size: 20px;
-  line-height: 0.5;
-}
-
-.closet-card-active-color {
-  background-color: rgba(0, 0, 0, 1);
-  height: 343px;
-}
-
-@media screen and (max-width: 486px) {
-  .heart-icon {
-    position: absolute;
-    top: 4.6%;
-    line-height: 15px;
-    font-size: 27px;
-    font-weight: 600;
-    font-style: normal;
-    font-stretch: normal;
-    color: #e9e9e9;
-  }
-
-  .heart-icon-on {
-    color: #f45649;
-  }
-
-  .closet-card-area, .closet-card {
-    display: block !important;
-    width: 100% !important;
-  }
-
-  .closet-card-none-content  {
-    width: 90%;
-  }
-
-  .closet-card-active-color {
-    background-color: rgba(0, 0, 0, 1);
-    height: 249px;
-  }
-
-  .closet-card-images {
-    margin: 20px 20px 0 20px;
-    height: 249px;
-  }
-
-  .closet-card-images {
-    display: flex !important;
-    justify-content: space-between !important;
-  }
-
-  .thumnail-image-area {
-    width: 49% !important;
-    height: 250px !important;
-  }
-
-  .thumnail-image {
-    width: 100% !important;
-    height: 250px !important;
-  }
-
-  .closet-card-active {
-    top: 36% !important;
-  }
-
-  .closet-card-active i {
-    display: none !important;
-  }
-
-  .content-table span {
-    font-size: 26px;
-  }
-  .mt50 {
-    margin-top: 30px !important;
-  }
-}*/
 </style>

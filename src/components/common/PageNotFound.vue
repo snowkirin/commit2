@@ -78,7 +78,7 @@ export default {
     text-decoration: underline;
   }
 
-  @media (min-width: 1279px) {
+  @media (min-width: 767px) {
     .contents {
       width: 1210px;
       margin: 0 auto;

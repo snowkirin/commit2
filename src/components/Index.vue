@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <zuly-header v-show="headerShow"></zuly-header>
     <router-view></router-view>
     <zuly-footer v-show="footerShow"></zuly-footer>
@@ -64,11 +64,5 @@ export default {
 };
 </script>
 
-<style scoped>
-  @media (min-width: 1279px){
-    .container {
-      /*width: 1280px;*/
-      /*margin: 0 auto;*/
-    }
-  }
+<style scoped lang="scss">
 </style>

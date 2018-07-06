@@ -12,7 +12,7 @@ import Ellipsis from 'ellipsis-plus';
 import VueGlobalConst from '@/library/VueGlobalConst';
 import VueCommon from '@/library/VueCommon';
 import VueCookies from 'vue-cookies';
-
+import VueLodash from 'vue-lodash';
 import html from '@/library/htmlinjection';
 import sess from '@/library/session';
 import App from './App';
@@ -46,7 +46,7 @@ Vue.use(VueCookies);
 //     sendHitTask: isDev,
 //   },
 // });
-
+Vue.use(VueLodash);
 Vue.use(VueGlobalConst);
 Vue.use(VueCommon);
 Vue.use(VeeValidate);
