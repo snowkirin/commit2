@@ -1,5 +1,6 @@
+<!--TODO: 구조및 스타일 수정할것 2018-06-29 -->
 <template>
-  <div class="faq">
+  <div class="container">
     <p class="txt-main-point">FAQ</p>
     <div class="line line__default"></div>
     <div class="row">
@@ -35,7 +36,7 @@
             <p class="txt-question">
               <span class="q">Q</span>
               <span class="title">회원이 되면 어떤 옷을 받는건가요?</span>
-              <span v-show="$mq === 'md' || $mq === 'lg'" class="icon">
+              <span class="icon">
                 <i class="fa fa-angle-down"></i>
               </span>
             </p>
@@ -57,7 +58,7 @@
             <p class="txt-question">
               <span class="q">Q</span>
               <span class="title">정말 고르지 않아도 나에게 어울리는 옷을 보내주나요?</span>
-              <span v-show="$mq === 'md' || $mq === 'lg'" class="icon">
+              <span class="icon">
                 <i class="fa fa-angle-down"></i>
               </span>
             </p>
@@ -78,7 +79,7 @@
             <p class="txt-question">
               <span class="q">Q</span>
               <span class="title">옷만 이쁘게 입고 세탁/보관 걱정 없이 문 앞에 두면 되는건가요?</span>
-              <span v-show="$mq === 'md' || $mq === 'lg'" class="icon">
+              <span class="icon">
                 <i class="fa fa-angle-down"></i>
               </span>
             </p>
@@ -96,7 +97,7 @@
             <p class="txt-question">
               <span class="q">Q</span>
               <span class="title">서비스 지역의 제한은 있나요?</span>
-              <span v-show="$mq === 'md' || $mq === 'lg'" class="icon">
+              <span class="icon">
                 <i class="fa fa-angle-down"></i>
               </span>
             </p>
@@ -166,7 +167,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .faq {
+  .container {
     padding: 20px 20px 10px 20px;
   }
   .line {
@@ -180,7 +181,8 @@ export default {
   .faq-list {
   }
   .icon {
-    display: none;
+    font-size: 22px;
+    align-self: center;
   }
   .faq-item {
     .question {
@@ -203,6 +205,7 @@ export default {
         line-height: 24px;
         justify-content: space-between;
         word-break: keep-all;
+        cursor: pointer;
         .q {
           flex: 0 0 20px;
         }
@@ -237,7 +240,7 @@ export default {
     }
   }
   @media (min-width: 767px) {
-    .faq {
+    .container {
       width: 1200px;
       margin: 0 auto;
       display: flex;

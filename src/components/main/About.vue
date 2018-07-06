@@ -1,11 +1,7 @@
 <template>
-  <div class="about">
-    <div class="about-inner">
+  <div class="container">
+    <div>
       <p class="txt-main-point" data-color="white">About</p>
-      <!--<p v-if="$mq === 'lg'" class="txt-about">
-        놀라운 편리함, 포기 할 수 없는 아름다움<br/>
-        데일리룩 구독 서비스 줄라이
-      </p>-->
       <p class="txt-about">
         놀라운 편리함,<br v-if="$mq === 'sm'"/>
         포기 할 수 없는 아름다움<br/>
@@ -30,51 +26,47 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .about {
-    background-image: url('/static/img/main/img_about_medium.png');
+  .container {
+    background: {
+      image: url('/static/img/main/img_about_medium.png');
+      repeat: no-repeat;
+      position: 50% 0;
+      size: 100% 100%;
+    }
     height: 250px;
-    background-repeat: no-repeat;
-    background-position: 50% 0;
     display: flex;
     align-items: flex-end;
-    color: #fff;
-    background-color: #fff;
-    // 임시
-    background-size: 100% 100%;
-  }
-  .about-inner {
     padding: 20px 20px 17px 19px;
-  }
-  .txt-about {
-    font-size: 18px;
-    line-height: 24px;
-    letter-spacing: -.5px;
-    text-shadow: 0px -1px 0 rgba(0, 0, 0, 0.1);
+    .txt-about {
+      font-size: 18px;
+      line-height: 24px;
+      letter-spacing: -.5px;
+      text-shadow: 0px -1px 0 rgba(0, 0, 0, 0.1);
+      color: #fff;
+    }
   }
 
   @media (min-width: 767px) {
-    .about {
+    .container {
+      background: {
+        image: url('/static/img/main/img_about_large.png');
+        size: auto;
+      }
+      height: 500px;
       width: 1200px;
       margin: 0 auto;
-      height: 500px;
-      background-image: url('/static/img/main/img_about_large.png');
-      background-size: auto;
       border-top: 2px solid #333;
-      /*padding: 35px 0 35px;*/
-      /*background-size: auto;*/
+      padding: 0 0 33px 39px;
+      .txt-main-point {
+        margin-left: 2px;
+        margin-bottom: 15px;
+      }
+      .txt-about {
+        font-size: 26px;
+        line-height: 36px;
+        letter-spacing: -0.8px;
+      }
     }
-    .about-inner {
-      padding: 0;
-      margin: 0 0 33px 39px;
-    }
-    .txt-main-point {
-      margin-left: 2px;
-      margin-bottom: 15px;
-    }
-    .txt-about {
-      font-size: 26px;
-      line-height: 36px;
-      letter-spacing: -0.8px;
-    }
+
   }
 </style>

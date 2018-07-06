@@ -217,7 +217,7 @@ export default {
     margin-top: 20px;
   }
 
-  @media (min-width: 1279px) {
+  @media (min-width: 767px) {
     .coupon {
       padding: 20px 0;
       width: 1200px;

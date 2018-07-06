@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 const API_URL = process.env.API_URL;
 
 const mypagePwdCheck = ({
@@ -11,7 +10,13 @@ const mypagePwdCheck = ({
 }).then(result => result).catch(err => err.response);
 
 // 자체 회원가입 호출
-const localJoin = ({
+const localJoin = (data) => axios.post(`${API_URL}/auth/join`, { ...data })
+  .then(function(res) {
+    console.log(res, 'Auth - Local Join - Result');
+    return res;
+  })
+  .catch(err => Promise.reject(err));
+/*const localJoin = ({
   sizeData,
   mood,
   prefer,
@@ -61,7 +66,7 @@ const localJoin = ({
   cardPassword,
   lobbyPassword,
   coupon,
-}).then(result => result).catch(err => Promise.reject(err));
+}).then(result => result).catch(err => Promise.reject(err));*/
 
 // 로그인
 const localLogin = ({

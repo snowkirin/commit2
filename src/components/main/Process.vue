@@ -1,5 +1,6 @@
+<!--TODO: 구조및 스타일 수정할것 2018-06-29 -->
 <template>
-  <div class="process">
+  <div class="container">
     <p class="txt-main-point">Process</p>
     <div class="line line__default"></div>
     <div class="step">
@@ -49,8 +50,6 @@
       </div>
     </div>
   </div>
-
-
 </template>
 
 <script>
@@ -60,7 +59,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .process {
+  .container {
     padding: 31px 20px 6px 20px
   }
   .line {
@@ -193,7 +192,7 @@ export default {
     }
   }
   @media (min-width: 767px) {
-    .process {
+    .container {
       width: 1200px;
       margin: 0 auto;
       display: flex;

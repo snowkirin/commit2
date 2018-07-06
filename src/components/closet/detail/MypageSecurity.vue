@@ -76,7 +76,7 @@ export default {
     }
   }
 
-  @media (min-width: 1279px) {
+  @media (min-width: 767px) {
     .mypage-sercurity {
       padding: 20px 0;
       width: 1200px;

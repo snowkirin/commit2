@@ -30,13 +30,12 @@
             <div class="style-tip">
               <p class="title">스타일 팁</p>
               <p class="explain">
-                심플하지만 갖춰입은듯 스타일리쉬 한 룩!
-                - 허리에서 포켓까지 이어진 바이올렛톤의 새틴 배색이 포인트인 팬츠로, 이러한 디자인의 특징을 살려서 블라우스를 입을때 앞면을 살짝..
+                <!--심플하지만 갖춰입은듯 스타일리쉬 한 룩!
+                - 허리에서 포켓까지 이어진 바이올렛톤의 새틴 배색이 포인트인 팬츠로, 이러한 디자인의 특징을 살려서 블라우스를 입을때 앞면을 살짝..-->
                 {{ printStylingTip(data.styling_tip) }}
               </p>
             </div>
-
-            <p class="purchase-info">
+            <div class="list-link">
               <a
                 @click="viewModal(data.id)"
                 href="#"
@@ -44,8 +43,16 @@
                 v-if="data.is_sold === 'N'">
                 구매 정보 보기
               </a>
-            </p>
+              <a
+                @click="viewModal(data.id)"
+                href="#"
+                class="txt-link"
+                v-if="data.is_sold === 'N'">
+                옷장 후기 입력하기
+              </a>
+            </div>
           </div>
+          <!--<feed-back dataType="second" :ref="'feedback' + idx"></feed-back>-->
         </li>
       </ul>
     </div>
@@ -107,7 +114,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import CustomModal from '@/components/common/CustomModal';
-
+import FeedBack from '@/components/closet/feedback/Index';
 export default {
   name: 'past',
   data() {
@@ -115,6 +122,18 @@ export default {
       API_IMAGE_URL: process.env.API_IMAGE_URL,
       dataId: null,
       EX_pastCloset: [
+        {
+          "id": 444,
+          "subscription_date": "18.06.11",
+          "styling_title": "행복한 오전",
+          "styling_tip": "11\n11",
+          "hashtag": "1111",
+          "images": [
+            "product/2018/04/16/79c5a407-2fb5-409c-9c71-232d4385c949.jpg",
+            "product/2018/04/17/72573fe6-a978-44a8-84c2-667558884acb.jpg"
+          ],
+          "is_sold": "N"
+        },
         {
           "id": 342,
           "subscription_date": "18.05.28",
@@ -144,6 +163,7 @@ export default {
   },
   components: {
     CustomModal,
+    FeedBack,
   },
   computed: {
     ...mapGetters({
@@ -271,7 +291,12 @@ export default {
       }
     }
   }
-  @media (min-width: 1279px) {
+  .list-link {
+    a {
+      margin-right: 15px;
+    }
+  }
+  @media (min-width: 767px) {
     .past {
       width: 1200px;
       margin: 0 auto;

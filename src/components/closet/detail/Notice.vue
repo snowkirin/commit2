@@ -187,7 +187,7 @@ export default {
     }
   }
 
-  @media (min-width: 1279px) {
+  @media (min-width: 767px) {
     .notice {
       padding: 0;
       width: 1200px;
