@@ -1,4 +1,6 @@
 import 'es6-promise/auto';
+import 'object-assign-polyfill';
+
 
 import Vue from 'vue';
 import VueLocalStorage from 'vue-localstorage';

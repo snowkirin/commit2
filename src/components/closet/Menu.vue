@@ -75,7 +75,7 @@ export default {
   },
   methods: {
     clickMenu(idx) {
-      this.$refs.mySwiper.swiper.slideTo(idx, 400);
+      this.$refs.mySwiper.swiper.slideTo(idx -2, 400);
     },
   },
   mounted() {
@@ -192,6 +192,11 @@ export default {
   }
 
   @media (min-width: 767px) {
+    .c-menu {
+      padding: 0;
+      margin: 0 auto;
+      width: 1200px;
+    }
     .closet-mobile-menu {
       width: 1200px;
       margin: 0 auto;

@@ -212,6 +212,7 @@ export default {
         top: 29px;
         bottom: 29px;
       }
+      user-select: none;
       &.two-line {
         padding: {
           top: 15px;

@@ -75,19 +75,22 @@ export default {
 
     // 2018-07-04
     [types.SET_SIZE](state, payload) {
+      // _.assign(state.join, {...payload});
       Object.assign(state.join, {...payload});
       // state.join = { ...payload };
     },
     [types.SET_MOOD](state, payload) {
-      state.join.mood = payload;
-      // Object.assign(state.join, {payload});
+      // state.join.mood = payload;
+      Object.assign(state.join, {payload});
       // state.join = { ...payload };
     },
     [types.SET_JOIN_FIRST](state, payload) {
+      // _.assign(state.join, {...payload});
       Object.assign(state.join, {...payload});
       // state.join = { ...payload };
     },
     [types.SET_JOIN_SECOND](state, payload) {
+      // _.assign(state.join, {...payload});
       Object.assign(state.join, {...payload});
       // state.join = { ...payload };
     },
