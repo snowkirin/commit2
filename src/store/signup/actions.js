@@ -3,7 +3,7 @@ import Management from '@/library/api/management';
 import Closet from '@/library/api/closet';
 import types from './mutation-types';
 
-// 2018-07-04
+// 2018-07-06
 
 const setSize = ({ commit }, payload) => {
   console.log(payload, 'SetSize Payload');
@@ -153,15 +153,19 @@ const phoneCheckVerify = async ({ state, commit }, data) => {
   }
 };
 
-const signup = async ({ state }) => {
+// const signup = async ({ state }) => {
+const signup = async ({state}) => {
+  console.log(state.join, '1')
   try {
-    // const join = state.join;
-    const result = await Auth.localJoin(state.join);
-    console.log(result);
-    // if (result.data.paymentRtn) {
-    //   return { msg: '유효한 카드가 아닙니다.<br/>카드정보를 확인하시고 다시 진행해주세요.', result: false };
-    // }
-    // if (result.data.result) return { msg: '회원가입이 완료되었습니다.<br/>로그인 페이지로 이동합니다.', result: true };
+    Auth.memberJoin(state.join).then(function(res) {
+      console.log(res, 'signup Console');
+      if (res.data.paymentRtn) {
+        return { msg: '유효한 카드가 아닙니다.<br/>카드정보를 확인하시고 다시 진행해주세요.', result: false };
+      }
+      if (res.data.result) return { msg: '회원가입이 완료되었습니다.<br/>로그인 페이지로 이동합니다.', result: true };
+    }).catch(function(err) {
+      console.error(err,'error Signup');
+    });
   } catch (e) {
     console.error(e.message);
   }

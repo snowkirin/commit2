@@ -18,7 +18,42 @@ async function mypageFeedback(id) {
   } catch (err) {
     console.log(err);
   }
-}
+};
+
+async function mypageFeedbackAnswer(data) {
+  try {
+    const result = axios.post(`${API_URL}/subscriptions/feedbacks/answers`, data)
+      .then(function(res) {
+        return res;
+      })
+      .catch(function(err) {
+        console.error(err, 'mypageFeedbackAnswer');
+      });
+    return result;
+  } catch(err) {
+    console.log(err);
+  }
+};
+
+async function mypageFeedbackNps(data) {
+  try {
+    const result = axios.post(`${API_URL}/subscriptions/feedbacks/nps`, data)
+      .then(function(res) {
+        return res;
+      })
+      .catch(function(err) {
+        console.error(err, 'mypageFeedbackNps');
+      });
+    return result;
+  } catch(err) {
+    console.log(err);
+  }
+};
+
+
+// const mypageFeedbackAnswer = (data) => axios.post(`${API_URL}/feedbacks/answers`, data, {
+//   withCredentials: true,
+// }).then(result => result).catch(err => err.response);
 
 const mypageInfo = () => axios.get(`${API_URL}/member/mypage`, {
   withCredentials: true,
@@ -166,4 +201,6 @@ export default {
   authPhoneCheck,
   buyUsedProduct,
   mypageFeedback,
+  mypageFeedbackAnswer,
+  mypageFeedbackNps,
 };

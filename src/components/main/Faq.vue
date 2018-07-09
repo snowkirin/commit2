@@ -45,8 +45,8 @@
             <div class="txt-answer">
               <div class="explain">
                 <p>
-                  줄라이는 국내외 떠오르는 최고의 신진 디자이너 브랜드들을 엄선하여, 줄라이의 최고의 스타일링 팀이 직접 고른 의상을 회원님에 제공합니다.
-                  1회 제공되는 의류는 30만원 이상의 가격대의 제품으로 구성되어, 한달에 총 60만원대의 옷을 받게 됩니다.
+                  줄라이는 국내외 떠오르는 최고의 신진 디자이너 브랜드들을 엄선하여, 줄라이의 최고의 스타일링 팀이 직접 고른 의상을 회원님에 제공합니다.<br/>
+                  1회 제공되는 의류는 30만원 이상의 가격대의 제품으로 구성되어, 한달에 총 60만원대의 옷을 받게 됩니다.<br/>
                   스타일링 된 옷을 회원님께 보내기 전, 회원님이 간편하게 고를 수 있도록 2가지 스타일 후보를 제공합니다.
                 </p>
               </div>
@@ -67,7 +67,7 @@
             <div class="txt-answer">
               <div class="explain">
                 <p>
-                  문 앞에 줄라이의 옷이 놓이기 3일 전까지 회원님만의 줄라이 옷장에 추천 스타일이 제공 됩니다.
+                  문 앞에 줄라이의 옷이 놓이기 3일 전까지 회원님만의 줄라이 옷장에 추천 스타일이 제공 됩니다.<br/>
                   해당 스타일은 가입 시 제공 된 정보와 구독 된 옷의 피드백을 통해 점점 더 회원님에게 맞춰지게 될 것입니다.
                 </p>
               </div>
@@ -142,6 +142,26 @@ export default {
         }
       } else if (e.target.tagName === 'P') {
         const item = e.target.parentNode.parentNode.parentNode;
+        const question = item.querySelector('.question');
+        const answer = item.querySelector('.answer');
+        const icon = question.querySelector('.fa');
+        if (answer.style.display === 'none' || !answer.style.display) {
+          if (order === 'last') {
+            question.style.borderBottomColor = '#dadada';
+          }
+          icon.classList.remove('fa-angle-down');
+          icon.classList.add('fa-angle-up');
+          answer.style.display = 'block';
+        } else {
+          if (order === 'last') {
+            question.style.borderBottomColor = '#fff';
+          }
+          icon.classList.remove('fa-angle-up');
+          icon.classList.add('fa-angle-down');
+          answer.style.display = 'none';
+        }
+      } else if (e.target.tagName === 'I') {
+        const item = e.target.parentNode.parentNode.parentNode.parentNode;
         const question = item.querySelector('.question');
         const answer = item.querySelector('.answer');
         const icon = question.querySelector('.fa');

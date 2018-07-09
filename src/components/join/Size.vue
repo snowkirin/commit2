@@ -2,15 +2,10 @@
   <div class="size">
     <p class="size-title">사이즈</p>
     <p
-      v-if="$mq === 'lg'"
       class="size-text">
       즐겨입는 옷의 사이즈와 체형 관련 정보를 입력해주세요.
     </p>
-    <p
-      v-else
-      class="size-text">
-      즐겨입는 옷의 사이즈와 체형 관련 정보를 <br/>입력해주세요.
-    </p>
+
     <div class="line line__default"></div>
     <form>
       <div class="contents">
@@ -215,6 +210,9 @@ export default {
       bottom: 86px;
     }
   }
+  .line {
+    border-width: 2px;
+  }
   .size-title {
     font-size: 26px;
     line-height: 34px;
@@ -337,6 +335,8 @@ export default {
     bottom: 0;
     button {
       width: 100%;
+      height: 60px;
+      font-size: 18px;
     }
   }
 

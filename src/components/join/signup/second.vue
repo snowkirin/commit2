@@ -338,6 +338,7 @@
 import { mapActions, mapGetters } from 'vuex';
 import AlertModal from '@/components/common/AlertModal';
 import Codes from '@/library/api/codes';
+import Auth from '@/library/api/auth';
 
 export default {
   name: 'signUp-second',
@@ -409,7 +410,7 @@ export default {
       return true;
     },
     finalSignup() {
-      const privateFlag = document.querySelector('input[name=private_flag]:checked');
+      /*const privateFlag = document.querySelector('input[name=private_flag]:checked');
       // 배송일 지정
       if (this.joinSecond.deliveryDate === '') {
         this.$common.viewAlertModal('배송일을 선택해주세요.', this.$refs, 'alert');
@@ -419,65 +420,38 @@ export default {
       if (!privateFlag) {
         this.$common.viewAlertModal('구매진행에 동의해주세요.', this.$refs, 'alert');
         return;
+      }*/
+
+      this.setJoinSecond(this.joinSecond);
+      const result = this.signup();
+      console.log(result, '결과값');
+
+      /*const signupRtn = this.signup();
+      console.log(signupRtn, 'signupRTN');
+      if (signupRtn.result) {
+        this.$common.viewAlertModal(signupRtn.msg, this.$refs, 'confirm', '/login');
+      } else {
+        this.$common.viewAlertModal(signupRtn.msg, this.$refs, 'alert');
       }
+      return;*/
 
-      this.$validator.validateAll().then(async (result) => {
+
+      /*this.$validator.validateAll().then(async (result) => {
         if (result) {
-          // const cardExpiry = document.querySelector('input[name=cardExpiry]').value;
-          // const lobbyPwd = document.querySelector('input[name=lobbyPwd]').value;
 
-          this.setJoinSecond(this.joinSecond);
           const signupRtn = await this.signup();
           console.log(signupRtn, 'signupRTN');
-          /*const signupRtn = await this.signup({
-            deliveryDay: this.deliveryDay,
-            cardNumber: document.querySelector('input[name=cardNumber]').value,
-            cardYearExpiry: `20${cardExpiry.substring(2, 4)}`,
-            cardMonthExpiry: cardExpiry.substring(0, 2),
-            userBirth: document.querySelector('input[name=birthDay]').value,
-            cardPassword: document.querySelector('input[name=cardPwd]').value,
-            lobbyPassword: lobbyPwd,
-            coupon: document.querySelector('input[name=coupon]').value,
-          });
-
           if (signupRtn.result) {
             this.$common.viewAlertModal(signupRtn.msg, this.$refs, 'confirm', '/login');
-            for (let i = 1; i <= 14; i += 1) {
-              this.$localStorage.remove(`S${i}`);
-            }
           } else {
             this.$common.viewAlertModal(signupRtn.msg, this.$refs, 'alert');
-          }*/
+          }
           return;
         }
 
         this.$common.viewAlertModal('에러메시지를 확인하시고<br/>입력후 버튼을 눌러주세요.', this.$refs, 'alert');
-      });
+      });*/
     },
-    /*dayHoverEvt(group, cnt, obj) {
-      const target = obj;
-
-      target.onmouseover = () => {
-        if (this.deliveryDay !== target.getAttribute('data-id')) {
-          target.classList.add('day-name-active');
-          if (group[cnt + 1]) group[cnt + 1].classList.add('day-name-active-left');
-        }
-      };
-
-      target.onmouseout = () => {
-        if (this.deliveryDay !== target.getAttribute('data-id')) {
-          target.classList.remove('day-name-active');
-          if (group[cnt + 1]) group[cnt + 1].classList.remove('day-name-active-left');
-        }
-      };
-    },*/
-    // btnFixedEvt() {
-    //   const btn = document.getElementById('next-btn');
-    //   btn.classList.remove('next-btn', 'next-btn-mobile');
-    //
-    //   if (window.scrollY > 800) btn.classList.add('next-btn');
-    //   else btn.classList.add('next-btn-mobile');
-    // },
     calcDate(data, idx) {
       if (idx === 0) {
         if (data.day_of_week === '(월)') {
@@ -683,6 +657,8 @@ export default {
     right: 0;
     button {
       width: 100%;
+      height: 60px;
+      font-size: 18px;
     }
   }
   @media (min-width: 767px) {

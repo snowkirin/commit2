@@ -627,6 +627,9 @@ export default {
       clear: both;
     }
   }
+  .line {
+    border-width: 2px;
+  }
   .container {
     padding: 24px 20px 82px 21px;
     .signup-title {
@@ -661,6 +664,8 @@ export default {
         right: 0;
         button {
           width: 100%;
+          height: 60px;
+          font-size: 18px;
         }
       }
     }

@@ -1,5 +1,5 @@
 <template>
-  <div class="tomorrow">
+  <div class="tomorrow" :style="(!isShow)? 'padding-top:31px': 'padding-top: 25px'">
     <div v-if="!isShow">
       <div class="none">
         <div class="inner">
@@ -12,7 +12,7 @@
     </div>
     <div v-else>
       <div>
-        <p class="txt-tomorrow-title">
+        <p class="txt-main-title">
           데일리룩 후보 중 마음에 드는 의상을 선택해주세요.
         </p>
         <p class="txt-tomorrow-caution">
@@ -120,7 +120,7 @@
       </div>
     </div>
     <div
-      v-if="$mq === 'sm'"
+      v-if="($mq === 'sm' && isShow)"
       class="btn-selected">
       <button
         type="button"
@@ -375,7 +375,7 @@ export default {
 
 <style scoped lang="scss">
   .tomorrow {
-    padding: 24px 20px 20px 20px;
+    padding: 31px 20px 20px 20px;
   }
   .none {
     height: 500px;
@@ -394,8 +394,8 @@ export default {
       vertical-align: middle;
       display: table-cell;
       text-align: center;
-      font-size: 26px;
-      line-height: 36px;
+      font-size: 20px;
+      line-height: 28px;
     }
   }
 
@@ -474,17 +474,22 @@ export default {
       .btn-detail {
         margin-top: -1px;
         button {
-          overflow: hidden;
+          /*overflow: hidden;
           text-indent: -9999em;
           background: url(/static/img/closet/btn_detail@2x.png) no-repeat 0 0;
-          background-size: 100% 100%;
-          border: 0;
+          background-size: 100% 100%;*/
           width: 100%;
           height: 100%;
+          color: #797979;
           background-color: #fff;
-          line-height: 36px;
-          letter-spacing: -1.3px;
-          font-weight: 300;
+          border: 1px solid #e8e8e8;
+          /*line-height: 36px;*/
+          /*letter-spacing: -1.3px;*/
+          font-size: 15px;
+          line-height: 23px;
+          height: 40px;
+          letter-spacing: -0.6px;
+          cursor: pointer;
         }
       }
     }
@@ -548,6 +553,12 @@ export default {
     left: 0;
     width: 100%;
     z-index: 200;
+    button {
+      height: 60px;
+      font-size: 18px;
+      line-height: 18px;
+      letter-spacing: -0.7px;
+    }
     &::after {
       content: '';
       display: block;

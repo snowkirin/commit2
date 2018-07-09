@@ -328,6 +328,8 @@ export default {
     bottom: 0;
     button {
       width: 100%;
+      height: 60px;
+      font-size: 18px;
     }
   }
 

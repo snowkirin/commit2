@@ -172,6 +172,7 @@ export default {
       line-height: 20px;
       letter-spacing: -0.8px;
       color: #797979;
+      margin-top: 3px;
     }
     .line {
       margin-top: 14px;

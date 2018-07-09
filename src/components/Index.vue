@@ -1,8 +1,8 @@
 <template>
   <div>
-    <zuly-header v-show="headerShow"></zuly-header>
+    <zuly-header></zuly-header>
     <router-view></router-view>
-    <zuly-footer v-show="footerShow"></zuly-footer>
+    <zuly-footer></zuly-footer>
   </div>
 </template>
 

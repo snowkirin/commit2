@@ -75,7 +75,7 @@ export default {
   },
   methods: {
     clickMenu(idx) {
-      this.$refs.mySwiper.swiper.slideTo(idx);
+      this.$refs.mySwiper.swiper.slideTo(idx, 400);
     },
   },
   mounted() {
@@ -102,8 +102,8 @@ export default {
       letter-spacing: -1.1px;
       color: #797979;
       display: block;
-      padding-top: 10px;
-      padding-bottom: 15px;
+      padding-top: 14px;
+      padding-bottom: 19px;
       position: relative;
       text-decoration: none;
       user-select: none;
@@ -125,7 +125,7 @@ export default {
       }
     }
     .swiper-container {
-      border-top: 1px solid #ccc;
+      border-top: 1px solid #f3f3f3;
     }
     .swiper-slide {
       width: auto;
@@ -161,8 +161,8 @@ export default {
 
         border-top: 1px solid #f3f3f3;
         .menu {
-          padding-top: 10px;
-          padding-bottom: 12px;
+          padding-top: 11px;
+          padding-bottom: 15px;
           text-decoration: none;
           display: inline-block;
           font-size: 16px;

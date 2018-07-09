@@ -1,102 +1,5 @@
 <template>
-  <div class="feed">
-    <div class="review">
-      <!--COMMON-->
-      <div
-        v-for="(data, idx) in question.common"
-        :key="idx"
-        class="row">
-        <div class="text">
-          <p class="txt-point">
-            {{ data.question_text }}
-          </p>
-        </div>
-        <div>
-          <ul class="square-list">
-            <li v-for="(data2, idx2) in data.answer_text" :key="idx2">
-              <div class="txt-centering">{{ data2 }}</div>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- A -->
-      <div v-if="question.A.info" class="row">
-        <div class="text">
-          <p class="txt-point">
-            {{question.A.info.name}}
-          </p>
-        </div>
-        <div class="image">
-          <img :src="$common.IMAGEURL() + question.A.info.image_path" alt="">
-        </div>
-      </div>
-
-      <div class="row" v-for="(data, idx) in question.A.question" :key="idx+'_A'">
-        <div class="text">
-          <p class="txt-point">
-            {{ data.question_text }}
-          </p>
-        </div>
-        <div>
-          <ul class="square-list">
-            <li v-for="(data2, idx2) in data.answer_text" :key="idx2" :class="(data.answer_text.length === 5 && idx2 === 3) ? 'line-break': ''">
-              <div class="txt-centering">{{ data2 }}</div>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- B -->
-      <div v-if="question.B.info" class="row">
-        <div class="text">
-          <p class="txt-point">
-            {{question.A.info.name}}
-          </p>
-        </div>
-        <div class="image">
-          <img :src="$common.IMAGEURL() + question.B.info.image_path" alt="">
-        </div>
-      </div>
-
-      <div class="row" v-for="(data, idx) in question.B.question" :key="idx+'_B'">
-        <div class="text">
-          <p class="txt-point">
-            {{ data.question_text }}
-          </p>
-        </div>
-        <div>
-          <ul class="square-list">
-            <li v-for="(data2, idx2) in data.answer_text" :key="idx2" :class="(data.answer_text.length === 5 && idx2 === 3) ? 'line-break': ''">
-              <div class="txt-centering">{{ data2 }}</div>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- NPS-->
-      <div
-        v-if="setNPS"
-        class="row">
-        <div class="text">
-          <p class="txt-point">ZULY 서비스를 지인이나 친구에게 추천하실 의향이 있으신가요?</p>
-          <p class="txt-refer">(적극 추천하는 것을 10점 만점으로 생각하고 점수를 매겨주세요.)</p>
-        </div>
-        <div>
-          <ul class="square-list">
-            <li
-              v-for="(data, idx) in ['10', '9', '8', '7', '6', '5' , '4', '3', '2', '1']"
-              :key="idx">
-              <div class="txt-centering">
-                {{ data }}
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--<div class="feedback">
+  <div class="feedback" v-if="result">
     <div class="rating">
       <div class="inner">
         <p class="txt-rating">현재 대여 중인 <span class="txt-bold">의상 사이즈</span>가 어떠세요?</p>
@@ -129,335 +32,127 @@
       </div>
       <p class="txt-refer">※ 고객님의 의견은 맞춤형  큰 도움이 됩니다.</p>
     </div>
-    <div
-        ref="review"
-        class="review">
+    <div class="review">
       <p class="txt-review">소중한 이용 후기 부탁드립니다.</p>
-      <form>
+      <!--COMMON-->
+      <div>
         <div class="section">
-          <div>
-            <div class="section-common">
-              <div
-                v-for="(data, idx) in question.common"
-                :key="idx"
-                class="row">
-                <div class="text">
-                  <p class="txt-point">
-                    {{ data.question_text }}
-                  </p>
-                </div>
-                <div>
-                  <ul class="square-list">
-                    <li v-for="(data2, idx2) in data.answer_text" :key="idx2">
-                      <div class="txt-centering">{{ data2 }}</div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+          <div
+            v-for="(data, idx) in questionCommon"
+            :key="idx"
+            class="row">
+            <div class="text">
+              <p class="txt-point">
+                {{ data.question_text }}
+              </p>
             </div>
-            <div class="section-a">
-
-              <div v-if="question.A.info" class="row">
-                <div class="text">
-                  <p class="txt-point">
-                    {{question.A.info.name}}
-                  </p>
-                </div>
-                <div class="image">
-                  <img :src="$common.IMAGEURL() + question.A.info.image_path" alt="">
-                </div>
-              </div>
-
-              <div class="row" v-for="(data, idx) in question.A.question" :key="idx">
-                <div class="text">
-                  <p class="txt-point">
-                    {{ data.question_text }}
-                  </p>
-                </div>
-                <div>
-                  <ul class="square-list">
-                    <li v-for="(data2, idx2) in data.answer_text" :key="idx2" :class="(data.answer_text.length === 5 && idx2 === 3) ? 'line-break': ''">
-                      <div class="txt-centering">{{ data2 }}</div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-
-              &lt;!&ndash;<div
-                class="row"
-                :style="($mq === 'sm') ? 'padding-top: 36px;': ($mq === 'md') ? 'padding-top: 36px': 'padding-top:35px'">
-                <div class="text">
-                  <p class="txt-point">전체적인 의상 스타일은 어떠세요?</p>
-                </div>
-                <div>
-                  <ul class="square-list">
-                    <li
-                      v-for="(data, idx) in ['러블리', '조금 화려', '시크', '심플']"
-                      :key="idx"
-                      :class="{selected: data === feedbackData.total}"
-                      @click="clickEvt('total', data)">
-                      {{ data }}
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div
-                class="row"
-                :style="($mq === 'sm') ? 'padding-top: 38px;': ($mq === 'md') ? 'padding-top: 36px': 'padding-top:35px'">
-                <div class="text">
-                  <p class="txt-point">A. 반하이 블라우스는 어떠셨나요?</p>
-                </div>
-                <div class="image">
-                  <img src="http://via.placeholder.com/160x190" alt="">
-                </div>
-              </div>
-              <div
-                class="row"
-                :style="($mq === 'sm') ? 'padding-top: 35px;': ($mq === 'md') ? 'padding-top: 36px': 'padding-top:32px'">
-                <div class="text">
-                  <p class="txt-point">A-1. 사이즈</p>
-                </div>
-                <div>
-                  <ul class="square-list">
-                    <li
-                      v-for="(data, idx) in ['딱 맞음', '조금 큼', '많이 큼', '조금 작음', '많이 작음']"
-                      :key="idx"
-                      :class="[(idx === 3) ? 'line-break' : '', {selected: data === feedbackData.a1}]"
-                      @click="clickEvt('a1', data)">
-                      {{ data }}
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div
-                class="row"
-                :style="($mq === 'sm') ? 'padding-top: 37px;': ($mq === 'md') ? 'padding-top: 36px': 'padding-top:34px'">
-                <div class="text">
-                  <p class="txt-point">A-2. 핏</p>
-                </div>
-                <div>
-                  <ul class="square-list">
-                    <li
-                      v-for="(data, idx) in ['오버 핏', '보통', '타이트']"
-                      :key="idx"
-                      :class="{selected: data === feedbackData.a2}"
-                      @click="clickEvt('a2', data)">
-                      {{ data }}
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div
-                class="row"
-                :style="($mq === 'sm') ? 'padding-top: 37px;': ($mq === 'md') ? 'padding-top: 36px': 'padding-top:34px'">
-                <div class="text">
-                  <p class="txt-point">A-3. 착용감이 불편한 부분 </p>
-                </div>
-                <div>
-                  <ul class="square-list">
-                    <li
-                      v-for="(data, idx) in ['어깨', '가슴', '소매 길이', '팔', '허리', '전체 기장']"
-                      :key="idx"
-                      :class="{selected: data === feedbackData.a3}"
-                      @click="clickEvt('a3', data)">
-                      {{ data }}
-                    </li>
-                  </ul>
-                </div>
-
-              </div>
-              <div
-                class="row"
-                :style="($mq === 'sm') ? 'padding-top: 37px;': ($mq === 'md') ? 'padding-top: 36px': 'padding-top:34px'">
-                <div class="text">
-                  <p class="txt-point">A-4. 색상 및 패턴</p>
-                </div>
-                <div>
-                  <ul class="square-list">
-                    <li
-                      v-for="(data, idx) in ['맘에 듦', '무난 함', '별로']"
-                      :key="idx"
-                      :class="{selected: data === feedbackData.a4}"
-                      @click="clickEvt('a4', data)">
-                      {{ data }}
-                    </li>
-                  </ul>
-                  <div
-                    v-if="feedbackData.a4 === '별로'"
-                    class="form-row">
-                    <input
-                      type="text"
-                      class="form-input"
-                      placeholder="색상, 패턴이 맘에 들지 않은 이유를 적어주세요."
-                      v-model="feedbackData.a4_1">
-                  </div>
-                </div>
-                &lt;!&ndash; 별로를 선택했을때 input 오픈 &ndash;&gt;
-              </div>
-              <div
-                class="row"
-                :style="($mq === 'sm') ? 'padding-top: 38px;': ($mq === 'md') ? 'padding-top: 36px': 'padding-top:35px'">
-                <div class="text">
-                  <p class="txt-point">A-5. 소재 및 질감</p>
-                </div>
-                <div>
-                  <ul class="square-list">
-                    <li
-                      v-for="(data, idx) in ['맘에 듦', '무난 함', '별로']"
-                      :key="idx"
-                      :class="{selected: data === feedbackData.a5}"
-                      @click="clickEvt('a5', data)">
-                      {{ data }}
-                    </li>
-                  </ul>
-                </div>
-              </div>&ndash;&gt;
-            </div>
-            <div class="section-b">
-              <div
-                class="row"
-                :style="($mq === 'sm') ? 'padding-top: 0;': ($mq === 'md') ? 'padding-top: 36px': 'padding-top:37px'">
-                <div class="text">
-                  <p class="txt-point">B. 치마는 어떠셨나요?</p>
-                </div>
-                <div class="image">
-                  <img src="http://via.placeholder.com/160x190" alt="">
-                </div>
-              </div>
-              <div
-                class="row"
-                :style="($mq === 'sm') ? 'padding-top: 39px;': ($mq === 'md') ? 'padding-top: 36px': 'padding-top:32px'">
-                <div class="text">
-                  <p class="txt-point">B-1. 사이즈</p>
-                </div>
-                <div>
-                  <ul class="square-list">
-                    <li
-                      v-for="(data, idx) in ['딱 맞음', '조금 큼', '많이 큼', '조금 작음', '많이 작음']"
-                      :key="idx"
-                      :class="[(idx === 3) ? 'line-break' : '', {selected: data === feedbackData.b1}]"
-                      @click="clickEvt('b1', data)">
-                      {{ data }}
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div
-                class="row"
-                :style="($mq === 'sm') ? 'padding-top: 37px;': ($mq === 'md') ? 'padding-top: 36px': 'padding-top:34px'">
-                <div class="text">
-                  <p class="txt-point">B-2. 핏</p>
-                </div>
-                <div>
-                  <ul class="square-list">
-                    <li
-                      v-for="(data, idx) in ['오버 핏', '보통', '타이트']"
-                      :key="idx"
-                      :class="{selected: data === feedbackData.b2}"
-                      @click="clickEvt('b2', data)">
-                      {{ data }}
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div
-                class="row"
-                :style="($mq === 'sm') ? 'padding-top: 37px;': ($mq === 'md') ? 'padding-top: 36px': 'padding-top:34px'">
-                <div class="text">
-                  <p class="txt-point">B-3. 착용감이 불편한 부분 </p>
-                </div>
-                <div>
-                  <ul class="square-list">
-                    <li
-                      v-for="(data, idx) in ['어깨', '가슴', '소매 길이', '팔', '허리', '전체 기장']"
-                      :key="idx"
-                      :class="{selected: data === feedbackData.b3}"
-                      @click="clickEvt('b3', data)">
-                      {{ data }}
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div
-                class="row"
-                :style="($mq === 'sm') ? 'padding-top: 37px;': ($mq === 'md') ? 'padding-top: 36px': 'padding-top:34px'">
-                <div class="text">
-                  <p class="txt-point">B-4. 색상 및 패턴</p>
-                </div>
-                <div>
-                  <ul class="square-list">
-                    <li
-                      v-for="(data, idx) in ['맘에 듦', '무난 함', '별로']"
-                      :key="idx"
-                      :class="{selected: data === feedbackData.b4}"
-                      @click="clickEvt('b4', data)">
-                      {{ data }}
-                    </li>
-                  </ul>
-                  <div
-                    v-if="feedbackData.b4 === '별로'"
-                    class="form-row">
-                    <input
-                      type="text"
-                      class="form-input"
-                      placeholder="색상, 패턴이 맘에 들지 않은 이유를 적어주세요."
-                      v-model="feedbackData.b4_1">
-                  </div>
-                </div>
-              </div>
-              <div
-                class="row"
-                :style="($mq === 'sm') ? 'padding-top: 38px;': ($mq === 'md') ? 'padding-top: 36px': 'padding-top:35px'">
-                <div class="text">
-                  <p class="txt-point">B-5. 소재 및 질감</p>
-                </div>
-                <div>
-                  <ul class="square-list">
-                    <li
-                      v-for="(data, idx) in ['맘에 듦', '무난 함', '별로']"
-                      :key="idx"
-                      :class="{selected: data === feedbackData.b5}"
-                      @click="clickEvt('b5', data)">
-                      {{ data }}
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div
-                class="row"
-                :style="($mq === 'sm') ? 'padding-top: 37px;': ($mq === 'md') ? 'padding-top: 36px': 'padding-top:41px'">
-                <div class="text">
-                  <p class="txt-point">ZULY 서비스를 지인이나 친구에게 추천하실 의향이 있으신가요?</p>
-                  <p class="txt-refer">(적극 추천하는 것을 10점 만점으로 생각하고 점수를 매겨주세요.)</p>
-                </div>
-                <div>
-                  <ul class="square-list">
-                    <li
-                      v-for="(data, idx) in ['10', '9', '8', '7', '6', '5' , '4', '3', '2', '1']"
-                      :key="idx"
-                      :class="{selected: data === feedbackData.score}"
-                      @click="clickEvt('score', data)">
-                      {{ data }}
-                    </li>
-                  </ul>
-                </div>
-              </div>
+            <div>
+              <ul class="square-list">
+                <li
+                  v-for="(data2, idx2) in data.answer_text"
+                  :key="idx2"
+                  @click="clickEvt(data, idx2, $event)">
+                  <div class="txt-centering">{{ data2 }}</div>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
-        <div class="btn-submit">
-          <button
-            class="btn btn-primary"
-            type="button"
-            @click="btnSubmit">
-            제출 하기
-          </button>
+        <!-- A -->
+        <div class="section" v-if="_.isPlainObject(questionA.info)">
+
+          <div class="row">
+            <div class="text">
+              <p class="txt-point">
+                {{question.A.info.name}}
+              </p>
+            </div>
+            <div class="image">
+              <img :src="$common.IMAGEURL() + questionA.info.image_path" alt="">
+            </div>
+          </div>
+          <div class="row" v-for="(data, idx) in questionA.question" :key="idx+'_A'">
+            <div class="text">
+              <p class="txt-point">
+                {{ data.question_text }}
+              </p>
+            </div>
+            <div>
+              <ul class="square-list">
+                :class="(data['answer_text'].length === 5 && idx2 === 3) ? 'line-break': ''"
+                <li
+                  v-for="(data2, idx2) in data.answer_text"
+                  :key="idx2"
+                  @click="clickEvt(data, idx2, $event)">
+                  <div class="txt-centering">{{ data2 }}</div>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
-      </form>
+      </div>
+      <div>
+        <!-- B -->
+        <div class="section" v-if="_.isPlainObject(questionB.info)">
+          <div
+            class="row">
+            <div class="text">
+              <p class="txt-point">
+                {{question.A.info.name}}
+              </p>
+            </div>
+            <div class="image">
+              <img :src="$common.IMAGEURL() + questionB['info'].image_path" alt="">
+            </div>
+          </div>
+          <div
+            class="row"
+            v-for="(data, idx) in questionB.question"
+            :key="idx+'_B'">
+            <div class="text">
+              <p class="txt-point">
+                {{ data.question_text }}
+              </p>
+            </div>
+            <div>
+              <ul class="square-list">
+                :class="(data['answer_text'].length === 5 && idx2 === 3) ? 'line-break': ''"
+                <li
+                  v-for="(data2, idx2) in data.answer_text"
+                  :key="idx2"
+                  @click="clickEvt(data, idx2, $event)">
+                  <div class="txt-centering">{{ data2 }}</div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- NPS-->
+        <div class="section" v-if="setNPS">
+          <div
+            class="row">
+            <div class="text">
+              <p class="txt-point">ZULY 서비스를 지인이나 친구에게 추천하실 의향이 있으신가요?</p>
+              <p class="txt-refer">(적극 추천하는 것을 10점 만점으로 생각하고 점수를 매겨주세요.)</p>
+            </div>
+            <div>
+              <ul class="square-list">
+                <li
+                  v-for="(data, idx) in ['10', '9', '8', '7', '6', '5' , '4', '3', '2', '1']"
+                  @click="clickNps(data, idx, $event)"
+                  :key="idx">
+                  <div class="txt-centering">
+                    {{ data }}
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <alert-modal ref="view" width="300" height="153"></alert-modal>
-  </div>-->
+  </div>
 </template>
 
 <script>
@@ -467,68 +162,95 @@ import Closet from '@/library/api/closet';
 
 export default {
   name: 'feedBack',
-
-  // props: {
-  //   subscriptionId,
-  //   dataType: {
-  //     type: String,
-  //     default: 'first',
-  //   },
-  // },
   props: ['subscriptionId'],
   components: {
     AlertModal,
   },
   data() {
     return {
+      rating: '',
       feedbackId: null,
-      question: {},
+      questionCommon: {},
+      questionA: {},
+      questionB: {},
       result: null,
       setNPS: null,
-      /*rating: 'null',
-      feedbackData: {
-        total: '',
-        a1: '',
-        a2: '',
-        a3: '',
-        a4: '',
-        a4_1: '',
-        a5: '',
-        b1: '',
-        b2: '',
-        b3: '',
-        b4: '',
-        b4_1: '',
-        b5: '',
-        score: '',
-      },
-      viewFeed: 'TopSize',*/
     };
   },
   computed: {
   },
   methods: {
-    clickEvt(target, data) {
-      this.feedbackData[target] = data;
+    clickEvt(data, index, event) {
+      const $this = this;
+      const sendData = {
+        subscriptionId: _.parseInt(this.subscriptionId),
+        feedbackId: _.parseInt(this.feedbackId),
+        barcode: (data.barcode) ? _.parseInt(data.barcode) : null,
+        clothType: _.parseInt(data.cloth_type),
+        questionCode: _.parseInt(data.question_code),
+        answerCode: _.parseInt(data.answer_code[index]),
+      };
+      Closet.mypageFeedbackAnswer(sendData).then(function(res) {
+        _.forEach(event.path[2].querySelectorAll('li'),function(value){
+          value.classList.remove('selected');
+        });
+        event.target.parentNode.classList.add('selected');
+        console.log('Click Feedback');
+      }).catch(function(err) {
+        $this.$common.viewAlertModal('서버와의 통신이 불안정합니다.', $this.$refs, 'alert');
+        console.error(err);
+        return false;
+      });
+    },
+    clickNps(data, index, event) {
+      const $this = this;
+      const sendData = {
+        subscriptionId: _.parseInt(this.subscriptionId),
+        feedbackId: _.parseInt(this.feedbackId),
+        npsScore: _.parseInt(data),
+      };
+      Closet.mypageFeedbackNps(sendData).then(function(res) {
+        _.forEach(event.path[2].querySelectorAll('li'),function(value){
+          value.classList.remove('selected');
+        });
+        event.target.parentNode.classList.add('selected');
+        console.log('Click Nps');
+      }).catch(function(err) {
+        $this.$common.viewAlertModal('서버와의 통신이 불안정합니다.', $this.$refs, 'alert');
+        console.error(err);
+        return false;
+      });
     },
     btnSubmit() {
       this.$common.viewAlertModal('의견 감사합니다.', this.$refs, 'alert');
     },
     clickRating(data) {
       this.rating = data;
-      this.$refs.review.style = 'display: block';
     },
   },
   created() {
     const $this = this;
     Closet.mypageFeedback($this.subscriptionId).then(function(res) {
-      $this.feedbackId = res.data.feedback_id;
-      $this.question = res.data.question;
-      $this.result = res.data.result;
-      $this.setNPS = res.data.setNPS;
+      if (res.data.result) {
+        $this.feedbackId = res.data.feedback_id;
+        $this.questionCommon = res.data.question.common;
+        $this.questionA = res.data.question.A;
+        $this.questionB = res.data.question.B;
+        $this.question = res.data.question;
+        $this.result = res.data.result;
+        $this.setNPS = res.data.setNPS;
+      } else {
+        $this.result = res.data.result;
+        $this.$emit('interface', false);
+
+      }
     }).catch(function(err) {
       console.log(err);
     });
+
+  },
+  beforeMount() {
+
   },
 };
 </script>
@@ -538,6 +260,7 @@ export default {
     // 부모의 패딩값 만큼.
     margin-left: -20px;
     width: 100vw;
+    margin-bottom: 34px;
   }
   .rating {
     text-align: center;
@@ -596,6 +319,8 @@ export default {
     border-bottom: 2px solid #333;
     background-color: #f5f5f5;
     padding-bottom: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
     .txt-review {
       background-color: #797979;
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
@@ -606,6 +331,8 @@ export default {
       text-align: center;
       height: 43px;
       position: relative;
+      margin-left: -20px;
+      width: calc(100% + 40px);
       &::before {
         content: '';
         display: block;
@@ -620,9 +347,9 @@ export default {
     }
     .section {
       background-color: #f5f5f5;
-      padding-left: 20px;
-      padding-right: 20px;
-      padding-bottom: 40px;
+      /*padding-left: 20px;*/
+      /*padding-right: 20px;*/
+      /*padding-bottom: 40px;*/
       /*border-bottom: 2px solid #333;*/
     }
     .section-a {
@@ -812,5 +539,4 @@ export default {
       }
     }
   }
-
 </style>
