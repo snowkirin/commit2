@@ -56,7 +56,7 @@ export default {
       if (this.type === 'confirm') {
         this.$emit('update:isConfirm', true);
         if (this.path !== null) {
-          this.$router.push({ path: this.path });
+          this.$router.go({ path: this.path });
         }
       }
       this.modal.style.display = 'none';
