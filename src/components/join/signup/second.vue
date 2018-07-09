@@ -363,8 +363,8 @@ export default {
         cardMonthExpiry: '',
         userBirth: '',
         cardPassword: '',
-        lobbyPassword: '',
-        coupon: '',
+        lobbyPassword: null,
+        coupon: null,
         membershipId: 1,
         recommendCode: null,
       },
@@ -463,7 +463,8 @@ export default {
             this.$localStorage.removeItem('Mood');
             this.$localStorage.removeItem('Size');
           } else {
-            this.$common.viewAlertModal(signupRtn.msg, this.$refs, 'alert');
+            this.$common.viewAlertModal('통신에러임...', this.$refs, 'alert');
+            // this.$common.viewAlertModal(signupRtn.msg, this.$refs, 'alert');
           }
           return;
         }
