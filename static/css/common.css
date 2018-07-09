@@ -31,6 +31,15 @@ input, textarea, select {
 ::selection {
   background: #f3f3f3; }
 
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 0px white inset;
+  /* Change the color to your own background color */
+  -webkit-text-fill-color: #333; }
+
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 0px white inset;
+  -webkit-text-fill-color: #333; }
+
 .form-group[data-grid="7:3"] {
   display: flex;
   justify-content: space-between; }

@@ -20,7 +20,6 @@ const memberJoin = (data) => axios.post(`${API_URL}/auth/join`, data )
 // 자체 회원가입 호출
 const localJoin = (data) => axios.post(`${API_URL}/auth/join`, { ...data })
   .then(function(res) {
-    console.log(res);
     return res;
   })
   .catch(err => Promise.reject(err));

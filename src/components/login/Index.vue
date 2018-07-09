@@ -181,7 +181,7 @@ export default {
             right: 0;
             height: 14px;
             top: 5px;
-            border-right: 1px solid #cacaca;
+            border-right: 1px solid #dadada;
           }
           &:last-child {
             &::after {
@@ -217,6 +217,10 @@ export default {
             font-size: 15px;
             line-height: 23px;
             letter-spacing: -0.6px;
+            a {
+              padding-left: 26px;
+              padding-right: 26px;
+            }
             &:nth-child(1){
             }
             &:nth-child(2){

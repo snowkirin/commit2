@@ -27,7 +27,7 @@ export default {
   methods: {
     ready(player) {
       this.player = player;
-      this.player.stopVideo();
+      // this.player.stopVideo();
     },
     stop() {
       this.player.stopVideo();
