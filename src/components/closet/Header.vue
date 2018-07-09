@@ -27,7 +27,7 @@ export default {
 
 <style scoped lang="scss">
   .closet-header {
-    padding: 24px 18px 18px;
+    padding: 23px 18px 14px;
   }
   .user-info {
     font-size: 26px;

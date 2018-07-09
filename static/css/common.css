@@ -17,10 +17,19 @@
   color: #797979; }
 
 input, textarea, select {
-  webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  border-radius: 0; }
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  border-radius: 0 !important;
+  background-color: #fff;
+  box-shadow: none !important; }
+
+::-moz-selection {
+  /* Code for Firefox */
+  background: #f3f3f3; }
+
+::selection {
+  background: #f3f3f3; }
 
 .form-group[data-grid="7:3"] {
   display: flex;
@@ -48,7 +57,7 @@ input, textarea, select {
 .btn {
   border: 0;
   padding: 0;
-  font-family: 'Noto Sans KR', '맑은 고딕', 'Malgun Gothic', sans-serif;
+  font-family: 'Source Han Sans KR', 'Noto Sans KR', '맑은 고딕', 'Malgun Gothic', sans-serif;
   font-size: 15px;
   cursor: pointer; }
   .btn-primary {
@@ -89,7 +98,7 @@ input, textarea, select {
       background-color: #fff;
       width: 26px;
       height: 26px;
-      border: 1px solid #999;
+      border: 1px solid #c4c4c4;
       left: -31px;
       top: 0; }
     .custom-checkbox .custom-control-label:after {
@@ -131,6 +140,10 @@ ol, dl, ul {
   padding: 0;
   list-style: none; }
 
+a, a:hover {
+  text-decoration: none;
+  color: inherit; }
+
 .clearfix::after {
   display: block;
   content: '';
@@ -146,7 +159,7 @@ ol, dl, ul {
   border-bottom-color: #333;
   border-bottom-width: 1px; }
   .line__default {
-    border-bottom-width: 2px;
+    border-bottom-width: 1px;
     border-bottom-style: solid; }
   .line__thin {
     border-bottom-style: solid;
@@ -155,8 +168,8 @@ ol, dl, ul {
     border-bottom-style: dashed; }
 
 .txt-main-title {
-  font-size: 20px;
-  line-height: 28px;
+  font-size: 16px;
+  line-height: 24px;
   letter-spacing: -1px; }
 
 .txt-main-point {
@@ -203,6 +216,8 @@ ol, dl, ul {
   letter-spacing: -0.4px;
   color: #566b9c;
   text-decoration: underline; }
+  .txt-link:hover {
+    text-decoration: underline !important; }
 
 .txt-centering {
   display: flex;

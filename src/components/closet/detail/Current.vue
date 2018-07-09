@@ -6,14 +6,7 @@
       반납 없이 구매할 수 있습니다.
     </p>-->
 
-
-    <div>
-    </div>
-
-
-
-
-    <feedBack ref="feedback" subscriptionId="581"></feedBack>
+    <feedBack ref="feedback" :subscriptionId="currentCloset.subscription_id" v-if="currentCloset.subscription_id"></feedBack>
     <div class="current-styling">
       <!-- Mobile-->
       <div class="carousel">
@@ -34,221 +27,15 @@
         <p class="txt-style-tip__desc">
           {{ currentCloset.styling_tip }}
         </p>
-        <!--<p class="txt-style-tip__desc">
-          심플하지만 갖춰입은듯 스타일리쉬 한 룩!<br/>
-          - 허리에서 포켓까지 이어진 바이올렛톤의 새틴 배색이 포인트인 팬츠로, 이러한 디자인의 특징을 살려서 블라우스를 입을때 앞면을 살짝 넣어서 입어보세요.
-          - 허리의 사이즈가 조금 크다면 벨트보다는 옷핀을 바지 안쪽으로 살짝 집어 핏을 잡아주신후, 블라우스 뒷면은 빼서 입어주시면 스타일리쉬함은 물론 체형보완이 되는 핏이 되요. 팬츠는 써머시즌 샌들 등과 잘 어울려요.
-        </p>-->
       </div>
       <div class="zuly-line-dot"></div>
       <p class="txt-hashtag">
         {{ currentCloset.hashtag }}
       </p>
-      <!--<p class="txt-hashtag">#ZULY #오피스룩 # 나만의옷장 #모던 #블라우스 #화이트 # 팬츠 #배색 #Ss18</p>-->
     </div>
-    <!--<div class="current-product-list">
-      <ul>
-        <li>
-          &lt;!&ndash;<div class="item-checkbox">&ndash;&gt;
-            &lt;!&ndash;<label class="container">&ndash;&gt;
-              &lt;!&ndash;<input type="checkbox" name="product">&ndash;&gt;
-              &lt;!&ndash;<span class="checkmark" style="width: 40px; height: 40px;"></span>&ndash;&gt;
-            &lt;!&ndash;</label>&ndash;&gt;
-          &lt;!&ndash;</div>&ndash;&gt;
-          <div class="checkbox">
-            <input type="checkbox" name="" id="">
-          </div>
-          <div class="image">
-            <img src="https://picsum.photos/200/300" alt="상품이미지"/>
-          </div>
-          <div class="information">
-            <p class="title">마누엘에기욤</p>
-            <p class="desc">반하이 블라우스</p>
-            <p class="original-price"><span class="txt-strike en-font">198,000</span>원</p>
-            <p class="sale-price">혜택가<span class="en-font">138,600</span>원 <span class="txt-price-accent en-font">(30%↓)</span></p>
-            <a class="link-detail" href="#">상품 상세보기</a>
-          </div>
-        </li>
-      </ul>
-    </div>
-    <div class="confirm-payment">
-      <p class="title">최종결제 금액 확인</p>
-      <p class="quantity">
-        <span class="text">주문수량</span>
-        <span class="number en-font">0</span>
-      </p>
-      <p class="price">
-        <span class="text">총 상품금액</span>
-        <span class="number"><span class="en-font">0</span>원</span>
-      </p>
-      <p class="final">
-        <span class="text">최종 결제 금액</span>
-        <span class="number"><span class="en-font">0</span>원</span>
-      </p>
-      <div class="btn-confirm">
-        <button
-          type="button">
-          등록된 카드로 결제하기
-        </button>
-      </div>
-    </div>-->
     <detail-modal ref="detail" dataId="address"></detail-modal>
   </div>
-  <!--<div class="current mt40">
-    <div class="closet-card-none" v-show="currentNone">
-      <div class="closet-card-none-content">
-        <div class="content-table mauto">
-          <span>내일의 옷장에서<br/><b>선택하신 옷을 수령</b>하시면<br/>옷장이 채워집니다.</span>
-        </div>
-      </div>
-    </div>
 
-    <div v-show="!currentNone">
-      <div class="main-point-text closet-title">현재의 옷장</div>
-      <div class="closet-title-text mt15">
-        현재 대여중인 의상이 마음에 드신다면?<br/>
-        반납 없이 구매할 수 있습니다.<br/>
-      </div>
-      <div class="closet-feedback mt30">
-        <div class="closet-feedback-content">
-          ZULY 이용에 대한 이야기를 들려주세요.<br/>
-          소중한 의견을 바탕으로 다음 스타일링이 진행됩니다.<br/>
-          <button class="button-survey mt30" style="width: 15%;">피드백 시작하기</button>
-        </div>
-        <div class="custom-btn" @click="closeSurvey">
-          <div class="btn-times"></div>
-        </div>
-      </div>
-      <feedBack ref="feedback"></feedBack>
-      <div class="closet-styling-tip mt30">
-        <div class="closet-styling-rotate-text">
-          ZULY STYLE
-        </div>
-        <div class="closet-styling-image-first" v-if="firstCurrentCloset">
-          <template v-if="currentCloset.products && currentCloset.products.length > 0">
-            <div class="image-area">
-              <div
-                v-if="currentCloset.products[0].image.width <= 600"
-                class="image-area-detail"
-                v-bind:style="{
-                  'background-image': `url(${API_IMAGE_URL}${currentCloset.products[0].image.path})`,
-                }"
-              ></div>
-              <div
-                v-else
-                class="image-area-detail"
-                v-bind:style="{
-                  'background-image': `url(${API_IMAGE_URL}medium/${currentCloset.products[0].image.path})`,
-                }"
-              ></div>
-            </div>
-          </template>
-        </div>
-        <div class="closet-styling-image-second" v-if="secondCurrentCloset">
-          <template v-if="currentCloset.products && currentCloset.products.length > 1">
-            <div class="image-area">
-              <div
-                v-if="currentCloset.products[1].image.width <= 600"
-                class="image-area-detail"
-                v-bind:style="{
-                  'background-image': `url(${API_IMAGE_URL}${currentCloset.products[1].image.path})`,
-                }"
-              ></div>
-              <div
-                v-else
-                class="image-area-detail"
-                v-bind:style="{
-                  'background-image': `url(${API_IMAGE_URL}medium/${currentCloset.products[1].image.path})`,
-                }"
-              ></div>
-            </div>
-          </template>
-        </div>
-        <div class="closet-styling-image-title first-title">
-          #TIP
-          <div class="third-line"></div>
-        </div>
-        <div class="closet-styling-image-title second-title">
-          TODAY'S STYLE
-        </div>
-      </div>
-      <div class="closet-styling-tip-title">스타일 팁</div>
-      <div class="closet-styling-tip-text" v-html="printStylingTip">
-        &lt;!&ndash; div class="closet-styling-tip-stylist mt30">
-          - 담당 스타일리스트 한영진님
-        </div &ndash;&gt;
-      </div>
-      <div class="closet-styling-tip-hashtag">
-        <div class="dotted-line-hashtag"></div>
-        <div class="mt20" v-html="currentCloset.hashtag">
-        </div>
-      </div>
-      <div class="current-closet-item-list mt30" style="display: flex;">
-        <div class="current-closet-item" style="padding-top:20px">
-          <template v-for="(closet, k) in currentCloset.products">
-            <div v-if="closet.id !== null" v-bind:key="k" class="closet-item-card mt10">
-              <div class="item-checkbox" v-show="closet.sold_flag !== 1">
-                <label class="container">
-                  <input type="checkbox" name="product" :value="closet.id" @click="productEvt($event, k)">
-                  <span class="checkmark" style="width: 40px; height: 40px;"></span>
-                </label>
-              </div>
-              <div class="thumnail-image-area">
-                <div
-                  class="thumnail-image"
-                  v-bind:style="{
-                    'background-image': `url(${API_IMAGE_URL}small/${closet.image.path})`,
-                  }"
-                ></div>
-              </div>
-              <div class="item-content">
-                <div style="padding-top: 25px;">
-                  <span style="font-weight: 600;">[{{ closet.brand_kor_name }}]</span><br/>
-                  <span style="line-height: 2;">{{ closet.name }}</span>
-                  <div style="padding-top: 8px;">
-                    <span class="normal-price">{{ $common.numberWithCommas(closet.sale_price) }}원</span><br/>
-                    <span style="line-height: 1.8;">혜택가 {{ $common.numberWithCommas(closet.used_price) }}원 <span class="normal-price-percent">({{ closet.discount_rate }}%↓)</span></span>
-                  </div>
-                  <span class="product-detail" @click="viewModal(closet, currentCloset.images[k])">
-                    상품 상세보기
-                  </span>
-                </div>
-              </div>
-            </div>
-          </template>
-        </div>
-        <div style="display: inline-block; width: 1.3%;"></div>
-        <div class="current-closet-item-buy">
-          <div class="item-buy-title mt30">최종결제 금액확인</div>
-          <div class="mt30" style="height: 1px; background-color: #333333; opacity: 0.5;"></div>
-          <div class="mt50 item-buy-row">
-            <div class="item-buy-row-title">주문 수량</div>
-            <div class="item-buy-row-right">
-              {{ orderCount }}
-            </div>
-          </div>
-          <div class="mt50 item-buy-row">
-            <div class="item-buy-row-title">총 상품금액</div>
-            <div class="item-buy-row-right">
-              {{ $common.numberWithCommas(productAmount) }}원
-            </div>
-          </div>
-          <div class="mt30 item-buy-row" style="background-color: #f5f5f5; padding: 31px 23px; margin-left: 2px;">
-            <div class="item-buy-row-title">최종 결제 금액</div>
-            <div class="item-buy-row-right">
-              <span>{{ $common.numberWithCommas(productAmount) }}</span>원
-            </div>
-          </div>
-          <div style="margin: 23px;">
-            <button class="button-login" @click="paymentConfirm()">
-              {{ printBtnText }} 등록된 카드로 결제하기
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <detail-modal ref="detail" dataId="address"></detail-modal>
-  </div>-->
 </template>
 
 <script>
@@ -384,7 +171,7 @@ export default {
 
 <style scoped lang="scss">
   .container {
-    padding: 24px 20px 20px 20px;
+    padding: 15px 20px 20px 20px;
   }
   .txt-current-title {
     font-size: 20px;

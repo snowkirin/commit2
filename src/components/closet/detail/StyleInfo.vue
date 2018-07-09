@@ -380,10 +380,10 @@ export default {
 
 <style scoped lang="scss">
   .style-info {
-    padding: 20px;
+    padding: 25px 20px 20px 20px;
   }
   .line {
-    margin-top: 15px;
+    margin-top: 10px;
     margin-bottom: 16px;
   }
   // Image List
@@ -392,7 +392,11 @@ export default {
     font-size: 0;
     .item {
       display: inline-block;
+      width: 77px;
       margin-left: 6.6px;
+      img {
+        width: 100%;
+      }
       &:first-child {
         margin-left: 0;
       }
@@ -440,8 +444,8 @@ export default {
       bottom: 20px;
     }
     border: {
-      top: 2px solid rgba(51,51,51,0.5);
-      bottom: 2px solid rgba(51,51,51,0.5);
+      top: 1px solid rgba(51,51,51,0.5);
+      bottom: 1px solid rgba(51,51,51,0.5);
     }
     margin: {
       top: 20px;

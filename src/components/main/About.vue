@@ -41,7 +41,6 @@ export default {
       font-size: 18px;
       line-height: 24px;
       letter-spacing: -.5px;
-      text-shadow: 0px -1px 0 rgba(0, 0, 0, 0.1);
       color: #fff;
     }
   }

@@ -1,7 +1,7 @@
 <template>
   <div class="customer-service">
     <p class="txt-main-title">
-      고객님의 소 중한 의견으로 한 뼘 더 자라는 줄라이가 되겠습니다.
+      고객님의 소중한 의견으로 더 자라는 줄라이가 되겠습니다.
     </p>
     <div class="flex-list">
       <ul>
@@ -19,6 +19,7 @@
       v-show="showContent === 'write'">
       <form>
         <div class="form-row">
+          <label class="select-label"></label>
           <select class="custom-select" name="inquiries_type">
             <option value="">문의종류를 선택해주세요.</option>
             <option :value="$const.INQUIRIES_SUBSCRIBE">구독문의</option>
@@ -186,9 +187,21 @@ export default {
 <style scoped lang="scss">
   @import '../style';
   .customer-service {
-    padding: 20px;
+    padding: 25px 20px 20px 20px;
+  }
+  .select-label {
+    position: absolute;
+    margin-left: 80%;
+    margin-top: 10px;
+  }
+
+  .select-label:after {
+    content:"\f0dd";
+    font-family: "FontAwesome";
+    font-size: 16px;
   }
   .flex-list {
+    margin-top: 20px;
     ul {
       list-style: none;
       padding: 0;
@@ -203,6 +216,9 @@ export default {
       text-align: center;
       color: #bbb;
       letter-spacing: -0.6px;
+      cursor: pointer;
+      user-select: none;
+      font-size: 15px;
       &:first-child {
         margin-left: 0;
       }
@@ -210,8 +226,8 @@ export default {
         font-weight: 700;
         color: #333;
         z-index: 10;
-        outline: 2px solid #333;
-        outline-offset: -2px;
+        outline: 1px solid #333;
+        outline-offset: -1px;
       }
     }
   }

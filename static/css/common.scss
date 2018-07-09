@@ -19,6 +19,11 @@ ol,dl,ul {
   list-style: none;
 }
 
+a, a:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
 .clearfix {
   &::after {
     display: block;
@@ -43,7 +48,7 @@ ol,dl,ul {
   }
   &__default {
     border-bottom: {
-      width: 2px;
+      width: 1px;
       style: solid;
     }
   }
@@ -64,8 +69,8 @@ ol,dl,ul {
 
 // Text Common Style
 .txt-main-title {
-  font-size: 20px;
-  line-height: 28px;
+  font-size: 16px;
+  line-height: 24px;
   letter-spacing: -1px;
 }
 .txt-main-point {
@@ -121,6 +126,9 @@ ol,dl,ul {
   letter-spacing: -0.4px;
   color: #566b9c;
   text-decoration: underline;
+  &:hover {
+    text-decoration: underline !important;
+  }
 }
 
 .txt-centering {

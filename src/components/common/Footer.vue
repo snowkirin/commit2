@@ -128,6 +128,7 @@ export default {
       white-space: nowrap;
       .txt-link {
         color: #566b9c;
+        font-size: 14px;
       }
     }
   }
@@ -149,7 +150,7 @@ export default {
           height: 12px;
           border-right: 1px solid #212121;
           right: 0;
-          top: 4px;
+          top: 5px;
         }
       }
       &:nth-child(2) {

@@ -56,6 +56,7 @@ export default {
         display: block;
         padding: 20px;
         background-color: #333;
+        height: 60px;
         &:hover {
           background-color: #fb5143;
         }

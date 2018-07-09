@@ -139,7 +139,7 @@ export default {
 
 <style scoped lang="scss">
   .coupon {
-    padding: 20px;
+    padding: 25px 20px 20px 20px;
   }
   .coupon-list {
     table {

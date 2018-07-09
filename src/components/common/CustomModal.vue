@@ -98,7 +98,7 @@ export default {
 .custom-modal-title {
   width: 100%;
   padding: 25px;
-  font-size: 26px;
+  font-size: 20px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
@@ -149,7 +149,6 @@ div.btn-times:before, div.btn-times:after {
   background-color: #333333;
   border-radius: 2px;
   top: 23px;
-  box-shadow: 0 0 2px 0 #ccc;
 }
 
 div.btn-times:before {

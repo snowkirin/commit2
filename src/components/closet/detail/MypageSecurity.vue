@@ -67,10 +67,10 @@ export default {
 
 <style scoped lang="scss">
   .mypage-sercurity {
-    padding: 20px;
+    padding: 25px 20px 20px 20px;
     .line {
       margin: {
-        top: 15px;
+        top: 10px;
         bottom: 15px;
       }
     }
