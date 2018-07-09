@@ -375,8 +375,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      signup: 'signup/signup',
       setJoinSecond: 'signup/setJoinSecond',
+      signup: 'signup/signup',
     }),
     selectDay(param) {
       this.joinSecond.deliveryDate = param;
@@ -421,10 +421,25 @@ export default {
         this.$common.viewAlertModal('구매진행에 동의해주세요.', this.$refs, 'alert');
         return;
       }*/
-
       this.setJoinSecond(this.joinSecond);
-      const result = this.signup();
-      console.log(result, '결과값');
+      console.log(this.$store.state.signup.join ,'콘솔로그');
+
+      this.$validator.validateAll().then(async (result) => {
+        if (result) {
+
+          const signupRtn = await this.signup();
+          console.log(signupRtn, 'signupRTN');
+          console.log(signupRtn);
+          if (signupRtn.result) {
+            this.$common.viewAlertModal(signupRtn.msg, this.$refs, 'confirm', '/login');
+          } else {
+            this.$common.viewAlertModal(signupRtn.msg, this.$refs, 'alert');
+          }
+          return;
+        }
+
+        this.$common.viewAlertModal('에러메시지를 확인하시고<br/>입력후 버튼을 눌러주세요.', this.$refs, 'alert');
+      });
 
       /*const signupRtn = this.signup();
       console.log(signupRtn, 'signupRTN');
