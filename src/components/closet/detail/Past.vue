@@ -42,6 +42,7 @@
                 v-if="data.is_sold === 'N'">
                 구매 정보 보기
               </a>
+              <br v-if="$mq !== 'sm'">
               <a
                 href="#"
                 @click="clickSample"

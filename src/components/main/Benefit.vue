@@ -100,6 +100,7 @@ export default {
           width: 320px;
           padding: 24px 20px;
           box-shadow: 0.5px 7px 7px 0 rgba(0, 0, 0, 0.18);
+          height: auto;
           .icon-arrow {
             width: 33px;
             height: 22px;
