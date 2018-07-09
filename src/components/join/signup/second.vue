@@ -366,7 +366,7 @@ export default {
         lobbyPassword: '',
         coupon: '',
         membershipId: 1,
-        recommendCode: '',
+        recommendCode: null,
       },
       price: {
         basicPrice: 78000,
@@ -440,7 +440,7 @@ export default {
       }
     },
     finalSignup() {
-      /*const privateFlag = document.querySelector('input[name=private_flag]:checked');
+      const privateFlag = document.querySelector('input[name=private_flag]:checked');
       // 배송일 지정
       if (this.joinSecond.deliveryDate === '') {
         this.$common.viewAlertModal('배송일을 선택해주세요.', this.$refs, 'alert');
@@ -450,24 +450,23 @@ export default {
       if (!privateFlag) {
         this.$common.viewAlertModal('구매진행에 동의해주세요.', this.$refs, 'alert');
         return;
-      }*/
+      }
       this.setJoinSecond(this.joinSecond);
       console.log(this.$store.state.signup.join ,'콘솔로그');
 
       this.$validator.validateAll().then(async (result) => {
         if (result) {
-
           const signupRtn = await this.signup();
-          console.log(signupRtn, 'signupRTN');
-          console.log(signupRtn);
           if (signupRtn.result) {
             this.$common.viewAlertModal(signupRtn.msg, this.$refs, 'confirm', '/login');
+            this.$localStorage.removeItem('JoinFirst');
+            this.$localStorage.removeItem('Mood');
+            this.$localStorage.removeItem('Size');
           } else {
             this.$common.viewAlertModal(signupRtn.msg, this.$refs, 'alert');
           }
           return;
         }
-
         this.$common.viewAlertModal('에러메시지를 확인하시고<br/>입력후 버튼을 눌러주세요.', this.$refs, 'alert');
       });
 

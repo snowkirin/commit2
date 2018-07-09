@@ -80,8 +80,7 @@ export default {
       // state.join = { ...payload };
     },
     [types.SET_MOOD](state, payload) {
-      // state.join.mood = payload;
-      Object.assign(state.join, {payload});
+      state.join.mood = payload;
       // state.join = { ...payload };
     },
     [types.SET_JOIN_FIRST](state, payload) {

@@ -42,8 +42,9 @@ export default {
         top: 17px;
         right: 32px;
         bottom: 19px;
-        left: 26px;
+        left: 0px;
       }
+      font-weight: 300;
     }
     .user-info {
       font-size: 42px;
