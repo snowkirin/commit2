@@ -149,13 +149,14 @@
                 v-model="joinSecond.recommendCode">
               <button
                 type="button"
+                @click="recommendVerify"
                 class="btn btn-secondary">
                 확인
               </button>
             </div>
           </div>
           <!-- 쿠폰 -->
-          <div class="coupon">
+          <!--<div class="coupon">
             <p class="txt-point">쿠폰</p>
             <div class="form-row form-group" data-grid="7:3">
               <input
@@ -170,7 +171,7 @@
                 확인
               </button>
             </div>
-          </div>
+          </div>-->
           <!-- 주문합계 -->
           <div class="order-total">
             <div>
@@ -187,13 +188,20 @@
                 <tfoot>
                 <tr>
                   <td>총 가격</td>
-                  <td><span class="txt-number">78,000</span> <span class="txt-unit">원</span></td>
+                  <td>
+                    <span class="txt-number">
+                      <vue-numeric separator="," v-model="price.promotionPrice" read-only></vue-numeric>
+                    </span>
+                    <span class="txt-unit">원</span>
+                  </td>
                 </tr>
                 </tfoot>
                 <tbody>
                 <tr>
                   <td>월 2회 단일 요금제</td>
-                  <td><span class="txt-number">78,000</span> <span class="txt-unit">원</span></td>
+                  <td>
+                    <span class="txt-number"><vue-numeric separator="," v-model="price.basicPrice" read-only></vue-numeric></span>
+                    <span class="txt-unit">원</span></td>
                 </tr>
                 </tbody>
               </table>
@@ -337,13 +345,14 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import AlertModal from '@/components/common/AlertModal';
+import VueNumeric from 'vue-numeric';
 import Codes from '@/library/api/codes';
-import Auth from '@/library/api/auth';
 
 export default {
   name: 'signUp-second',
   components: {
     AlertModal,
+    VueNumeric,
   },
   data() {
     return {
@@ -358,6 +367,10 @@ export default {
         coupon: '',
         membershipId: 1,
         recommendCode: '',
+      },
+      price: {
+        basicPrice: 78000,
+        promotionPrice: 78000,
       },
       setDeliveryDay: {},
       deliveryDay: '',
@@ -408,6 +421,23 @@ export default {
       if (!this.$common.InputDataValidation(coupon, '쿠폰을 입력해주세요.', true)) return false;
 
       return true;
+    },
+    recommendVerify() {
+      const $this = this;
+      if (this.joinSecond.recommendCode === '') {
+        this.$common.viewAlertModal('추천인을 입력해 주세요.', this.$refs, 'alert');
+      } else {
+        Codes.getRecommendCode(this.joinSecond.membershipId, this.joinSecond.recommendCode).then(function(res) {
+          if (res.data.result) {
+            $this.price.promotionPrice = res.data.total_price;
+            $this.$common.viewAlertModal('정상등록 되었습니다.', $this.$refs, 'alert');
+          } else {
+            $this.$common.viewAlertModal('추천인을 정확하게 입력해 주세요.', $this.$refs, 'alert');
+          }
+        }).catch(function(err) {
+          console.error(err)
+        });
+      }
     },
     finalSignup() {
       /*const privateFlag = document.querySelector('input[name=private_flag]:checked');
@@ -484,15 +514,22 @@ export default {
     },
   },
   mounted() {
-    /*const dayName = document.querySelectorAll('.day-name');
-    for (let i = 0; i < dayName.length; i += 1) {
-      this.dayHoverEvt(dayName, i, dayName[i]);
-    }*/
   },
   created() {
     const $this = this;
     Codes.getFirstDeliveryDays().then(function(res) {
       $this.setDeliveryDay = res.data.result;
+    }).catch(function(err) {
+      console.error(err);
+    });
+    Codes.getMembership().then(function(res) {
+      if (res.data.result) {
+        console.log(res);
+        $this.price.basicPrice = res.data.data.price;
+        $this.price.promotionPrice = res.data.data.promotion_price;
+      } else {
+        return false;
+      }
     }).catch(function(err) {
       console.error(err);
     });
@@ -710,7 +747,6 @@ export default {
             font-size: 34px;
             line-height: 36px;
             letter-spacing: 0;
-            font-weight: 300;
           }
         }
       }

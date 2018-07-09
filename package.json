@@ -29,6 +29,7 @@
     "vue-localstorage": "^0.6.2",
     "vue-lodash": "^2.0.0",
     "vue-momentjs": "^0.1.2",
+    "vue-numeric": "^2.3.0",
     "vue-router": "^3.0.1",
     "vue-session": "^1.0.0",
     "vue-slider-component": "^2.7.2",

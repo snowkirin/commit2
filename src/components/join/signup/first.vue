@@ -750,6 +750,7 @@ export default {
           text-align: right;
           button {
             width: 392px;
+            font-size: 16px;
           }
         }
 
