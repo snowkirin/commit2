@@ -463,7 +463,8 @@ export default {
             this.$localStorage.removeItem('Mood');
             this.$localStorage.removeItem('Size');
           } else {
-            this.$common.viewAlertModal(signupRtn.msg, this.$refs, 'alert');
+            this.$common.viewAlertModal('통신에러임...', this.$refs, 'alert');
+            // this.$common.viewAlertModal(signupRtn.msg, this.$refs, 'alert');
           }
           return;
         }
