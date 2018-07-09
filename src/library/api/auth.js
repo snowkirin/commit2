@@ -9,27 +9,18 @@ const mypagePwdCheck = ({
   withCredentials: true,
 }).then(result => result).catch(err => err.response);
 
-async function memberJoin(data) {
-  console.log(data, 'memberJoin,1');
-  try {
-    const result = axios.post(`${API_URL}/auth/join`, data)
-      .then(function(res) {
-        console.log(res, 'result REES!!!!');
-        return res;
-      })
-      .catch(function(err) {
-        console.error(err, 'memberJoin');
-      });
-    return result;
-  } catch (err) {
-    console.log(err);
-  }
-}
+
+const memberJoin = (data) => axios.post(`${API_URL}/auth/join`, data )
+  .then(function(res) {
+    console.log(res, 'Auth - Local Join - Result');
+    return res;
+  })
+  .catch(err => Promise.reject(err));
 
 // 자체 회원가입 호출
 const localJoin = (data) => axios.post(`${API_URL}/auth/join`, { ...data })
   .then(function(res) {
-    console.log(res, 'Auth - Local Join - Result');
+    console.log(res);
     return res;
   })
   .catch(err => Promise.reject(err));

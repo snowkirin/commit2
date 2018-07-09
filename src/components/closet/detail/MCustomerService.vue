@@ -175,7 +175,6 @@ export default {
   },
   created() {
     this.setInquiriesList();
-    console.log(this.$common);
   },
   updated() {
     const inquiriesHtml = document.querySelectorAll('.cs-left-data-title .subject');
