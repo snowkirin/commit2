@@ -220,7 +220,7 @@ const signup = async ({ state }) => {
     if (result.data.result) {
       console.log(result, ' action signup');
       return {
-        msg: '회원가입이 완료되었습니다.<br/>로그인 페이지로 이동합니다.',
+        msg: '회원가입이 완료되었습니다.<br/>추가정보 입력 페이지로 이동합니다.',
         result: true,
       };
     }

@@ -397,7 +397,7 @@ export default {
         email: '',
         password: '',
         phone: '',
-        ann: '',
+        ann: null,
         zipcode: '',
         addr: '',
         addrDetail: '',
@@ -518,10 +518,15 @@ export default {
             return;
           }
           if (this.phoneAuth) {
+
+            if (this.joinFirst.ann !== null) {
+              this.joinFirst.ann = this.$moment(this.joinFirst.ann).format('MM.DD');
+            }
+
             // LocalStorage에 보내기
             this.$localStorage.set('JoinFirst', JSON.stringify(_.omit(this.joinFirst, ['password'])));
             // Store에 보내기
-            this.setJoinFirst(_.update(this.joinFirst, 'ann', function(value) { return $this.$moment(value).format('MM.DD') }));
+            this.setJoinFirst(this.joinFirst);
             this.$router.push({ path: '/join/signup/2' });
             return;
           }

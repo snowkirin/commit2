@@ -458,7 +458,7 @@ export default {
         if (result) {
           const signupRtn = await this.signup();
           if (signupRtn.result) {
-            this.$common.viewAlertModal(signupRtn.msg, this.$refs, 'confirm', '/join/addInfo');
+            this.$common.viewAlertModal(signupRtn.msg, this.$refs, 'confirm', '/join/addinfo');
           } else {
             // this.$common.viewAlertModal('통신에러임...', this.$refs, 'alert');
             this.$common.viewAlertModal(signupRtn.msg, this.$refs, 'alert');
