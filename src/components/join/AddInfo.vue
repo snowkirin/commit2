@@ -40,7 +40,7 @@
         <input
           type="text"
           placeholder="한 개 이상인 경우 콤마(,)로 구분하여 입력해 주세요"
-          v-mdodel="memberStyle.preferBrand">
+          v-model="memberStyle.preferBrand">
       </div>
     </div>
 
