@@ -440,6 +440,7 @@ export default {
       }
     },
     finalSignup() {
+
       const privateFlag = document.querySelector('input[name=private_flag]:checked');
       // 배송일 지정
       if (this.joinSecond.deliveryDate === '') {
@@ -452,19 +453,15 @@ export default {
         return;
       }
       this.setJoinSecond(this.joinSecond);
-      console.log(this.$store.state.signup.join ,'콘솔로그');
 
       this.$validator.validateAll().then(async (result) => {
         if (result) {
           const signupRtn = await this.signup();
           if (signupRtn.result) {
-            this.$common.viewAlertModal(signupRtn.msg, this.$refs, 'confirm', '/login');
-            this.$localStorage.removeItem('JoinFirst');
-            this.$localStorage.removeItem('Mood');
-            this.$localStorage.removeItem('Size');
+            this.$common.viewAlertModal(signupRtn.msg, this.$refs, 'confirm', '/join/addInfo');
           } else {
-            this.$common.viewAlertModal('통신에러임...', this.$refs, 'alert');
-            // this.$common.viewAlertModal(signupRtn.msg, this.$refs, 'alert');
+            // this.$common.viewAlertModal('통신에러임...', this.$refs, 'alert');
+            this.$common.viewAlertModal(signupRtn.msg, this.$refs, 'alert');
           }
           return;
         }

@@ -157,6 +157,59 @@ const phoneCheckVerify = async ({ state, commit }, data) => {
 // const signup = async ({ state }) => {
 const signup = async ({ state }) => {
   try {
+    _.forEach(state.join, function(value, key) {
+      if (value === null || value === undefined) {
+        if (key === 'tallSize' || key === 'bustSize' || key === 'blouseSize'  || key === 'skirtSize' || key === 'pantsSize' || key === 'bodyType') {
+          return {
+            msg: '사이즈가 정상적으로 입력되지 않았습니다. 다시 진행해주세요.',
+            result: false,
+          };
+        } else if (key === 'mood') {
+          return {
+            msg: '선호 스타일이 정상적으로 입력되지 않았습니다. 다시 진행해주세요',
+            result: false,
+          };
+        } else if (key === 'email') {
+          return {
+            msg: '이메일을 정상적으로 입력되지 않았습니다. 다시 진행해주세요',
+            result: false,
+          };
+        } else if (key === 'name') {
+          return {
+            msg: '이름이 정상적으로 입력되지 않았습니다. 다시 진행해주세요',
+            result: false,
+          };
+        } else if (key === 'phone') {
+          return {
+            msg: '핸드폰 번호가 정상적으로 입력되지 않았습니다. 다시 진행해주세요',
+            result: false,
+          };
+        } else if (key === 'addr') {
+          return {
+            msg: '주소를 정상적으로 입력되지 않았습니다. 다시 진행해주세요',
+            result: false,
+          };
+        } else if (key === 'addrDetail') {
+          return {
+            msg: '주소 상세를 정상적으로 입력되지 않았습니다. 다시 진행해주세요',
+            result: false,
+          };
+        } else if (key === 'zip') {
+          return {
+            msg: '우편번호를 정상적으로 입력되지 않았습니다. 다시 진행해주세요',
+            result: false,
+          };
+        }
+      }
+      if (key === 'cardNumber') {
+        if (value === null || value === '') {
+          return {
+            msg: '카드번호를 잘못 입력하셨습니다. 다시 입력해주세요.',
+            result: false,
+          };
+        }
+      }
+    });
     const result = await Auth.localJoin(state.join);
     if (result.data.paymentRtn) {
       return {
@@ -165,6 +218,7 @@ const signup = async ({ state }) => {
       };
     }
     if (result.data.result) {
+      console.log(result, ' action signup');
       return {
         msg: '회원가입이 완료되었습니다.<br/>로그인 페이지로 이동합니다.',
         result: true,

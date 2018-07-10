@@ -18,7 +18,7 @@ const memberJoin = (data) => axios.post(`${API_URL}/auth/join`, data )
   .catch(err => Promise.reject(err));
 
 // 자체 회원가입 호출
-const localJoin = (data) => axios.post(`${API_URL}/auth/join`, { ...data })
+const localJoin = (data) => axios.post(`${API_URL}/auth/join`, { ...data }, { withCredentials: true })
   .then(function(res) {
     return res;
   })
