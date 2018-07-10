@@ -662,6 +662,7 @@ export default {
         left: 0;
         bottom: 0;
         right: 0;
+        z-index: 100;
         button {
           width: 100%;
           height: 60px;

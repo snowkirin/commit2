@@ -28,6 +28,8 @@ const JoinSignUp = () => import('@/components/join/SignUp');
 const JoinSignUpFirst = () => import('@/components/join/signup/first');
 const JoinSignUpSecond = () => import('@/components/join/signup/second');
 
+const JoinAddInfo = () => import('@/components/join/AddInfo');
+
 const Closet = () => import('@/components/closet/Index');
 const ClosetTomorrow = () => import('@/components/closet/detail/Tomorrow');
 const ClosetCurrent = () => import('@/components/closet/detail/Current');
@@ -91,6 +93,7 @@ export default new Router({
               ],
             },
             { path: 'colors', component: JoinColors, meta: { mobile: true } },
+            { path: 'addinfo', component: JoinAddInfo, meta: { mobile: true } },
           ],
         },
         {
