@@ -45,6 +45,98 @@ const PageNotFound = () => import('@/components/common/PageNotFound');
 
 Vue.use(Router);
 
+const router = new Router({
+  mode: 'history',
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    }
+    return { x: 0, y: 0 };
+  },
+  routes: [
+    {
+      path: '/',
+      component: Index,
+      meta: {
+        title: 'ZULY',
+      },
+      children: [
+        { path: '/', name: 'IndexMain', component: Main, meta: { title: 'ZULY' } },
+        { path: '/login', component: Login },
+        { path: '/find/id', component: FindId },
+        { path: '/find/id/complete', component: Success },
+        { path: '/find/password', component: FindPwd },
+        { path: '/find/password/complete', component: PwdSuccess },
+        {
+          path: '/join',
+          name: 'Join',
+          component: Join,
+          children: [
+            { path: 'size', component: JoinSize, meta: { mobile: true } },
+            { path: 'blouse', component: JoinBlouse, meta: { mobile: true } },
+            { path: 'tshirt', component: JoinTshirt, meta: { mobile: true } },
+            { path: 'skirt', component: JoinSkirt, meta: { mobile: true } },
+            { path: 'knitvest', component: JoinKintVest, meta: { mobile: true } },
+            { path: 'shirt', component: JoinShirt, meta: { mobile: true } },
+            { path: 'pants', component: JoinPants, meta: { mobile: true } },
+            { path: 'onepiece', component: JoinOnePiece, meta: { mobile: true } },
+            { path: 'patterns', component: JoinPatterns, meta: { mobile: true } },
+            { path: 'material', component: JoinMaterial, meta: { mobile: true } },
+            { path: 'styling', component: JoinStyling, meta: { mobile: true } },
+            { path: 'requirement', component: JoinRequirement, meta: { mobile: true } },
+            {
+              path: 'signup',
+              component: JoinSignUp,
+              children: [
+                { path: '1', component: JoinSignUpFirst, alias: '' },
+                { path: '2', component: JoinSignUpSecond },
+              ],
+            },
+            { path: 'colors', component: JoinColors, meta: { mobile: true } },
+            { path: 'addinfo', component: JoinAddInfo, meta: { mobile: true } },
+          ],
+        },
+        {
+          path: '/closet',
+          component: Closet,
+          children: [
+            { path: '', name: 'ClosetTomorrow', component: ClosetTomorrow },
+            { path: 'tomorrow', component: ClosetTomorrow },
+            { path: 'current', component: ClosetCurrent },
+            { path: 'past', component: ClosetPast },
+            { path: 'cs', component: ClosetRespView },
+            { path: 'notice', component: ClosetNotice },
+            { path: 'security', component: ClosetMypageSecurity },
+            { path: 'mypage', component: ClosetMypage },
+            { path: 'style', component: ClosetStyleInfo },
+            { path: 'coupon', component: ClosetCoupon },
+          ],
+          meta: {
+            // requiresAuth: true,
+          },
+        },
+        {
+          path: '*',
+          component: PageNotFound,
+        },
+      ],
+    },
+  ],
+});
+
+
+router.beforeResolve((to, from, next) => {
+  if (to.name) {
+   NProgress.start();
+  }
+  next();
+});
+
+router.afterEach((to, from) => {
+  NProgress.done();
+});
+
+/*
 export default new Router({
   mode: 'history',
   scrollBehavior(to, from, savedPosition) {
@@ -123,3 +215,6 @@ export default new Router({
     },
   ],
 });
+*/
+
+export default router;

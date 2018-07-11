@@ -31,7 +31,7 @@ export default {
   }
   .user-info {
     font-size: 26px;
-    letter-spacing: -1.4px;
+    letter-spacing: -1.8px;
     line-height: 34px;
   }
   @media (min-width: 767px) {

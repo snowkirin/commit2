@@ -113,7 +113,7 @@ export default {
       &.active {
         color: #333;
         font-weight: 700;
-        letter-spacing: -0.6px;
+        letter-spacing: -1px;
         &::after {
           content: '';
           display: block;

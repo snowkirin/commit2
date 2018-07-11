@@ -396,6 +396,7 @@ export default {
       text-align: center;
       font-size: 20px;
       line-height: 28px;
+      letter-spacing: -1px;
     }
   }
 
