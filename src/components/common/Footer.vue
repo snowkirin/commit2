@@ -123,7 +123,7 @@ export default {
     .txt-operation {
       font-size: 14px;
       line-height: 22px;
-      letter-spacing: -0.6px;
+      letter-spacing: -0.8px;
       margin-top: 12px;
       white-space: nowrap;
       .txt-link {
@@ -141,6 +141,7 @@ export default {
         weight: 700;
       }
       position: relative;
+      letter-spacing: -1px;
       &:nth-child(1) {
         padding-right: 10px;
         &::after {
@@ -164,7 +165,7 @@ export default {
     .txt-copyright {
       font-size: 12px;
       line-height: 20px;
-      letter-spacing: -0.5px;
+      letter-spacing: -0.8px;
       color: #797979;
     }
   }
@@ -194,7 +195,11 @@ export default {
         .txt-operation {
           font-size: 16px;
           line-height: 24px;
-          letter-spacing: -1px;
+          letter-spacing: -0.8px;
+          .txt-link {
+            font-size: 16px;
+            letter-spacing: -0.6px;
+          }
         }
       }
       .footer-layer2 {
@@ -205,6 +210,7 @@ export default {
             size: 15px;
           }
           position: relative;
+          letter-spacing: -0.8px;
           &:nth-child(1) {
             padding-right: 14px;
             &::after {
@@ -224,7 +230,7 @@ export default {
         .txt-copyright {
           font-size: 14px;
           line-height: 22px;
-          letter-spacing: -0.8px;
+          letter-spacing: -0.6px;
         }
         .txt-copyright {
           font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
