@@ -489,11 +489,9 @@
     margin-top: 35px;
   }
   .btn-complete {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    z-index: 100;
+    margin-top: 48px;
+    margin-left: -20px;
+    width: calc( 100% + 20px + 20px);
     button {
       width: 100%;
       height: 60px;

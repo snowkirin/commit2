@@ -54,17 +54,20 @@
           </div>
         </div>
       </div>
+    <alert-modal ref="view" width="320" height="190"></alert-modal>
     </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import AlertModal from '@/components/common/AlertModal';
 import StyleMenu from '@/components/join/common/StyleMenu';
 
 export default {
   name: 'styling',
   components: {
     StyleMenu,
+    AlertModal,
   },
   data() {
     return {
@@ -246,7 +249,7 @@ export default {
     },
     moveNext() {
       if (this.recentMood === null) {
-        alert('선호 스타일을 선택해 주세요.');
+        this.$common.viewAlertModal('선호 스타일을 선택해 주세요.', this.$refs, 'alert');
         return;
       }
       this.setMood(this.recentMood);
@@ -322,11 +325,9 @@ export default {
   }
 
   .btn-next {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 100;
+    margin-left: -20px;
+    margin-top: 36px;
+    width: calc(100% + 40px);
     button {
       width: 100%;
       height: 60px;

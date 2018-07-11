@@ -1,11 +1,9 @@
 <template>
   <div class="size">
     <p class="size-title">사이즈</p>
-    <p
-      class="size-text">
+    <p class="size-text">
       즐겨입는 옷의 사이즈와 체형 관련 정보를 입력해주세요.
     </p>
-
     <div class="line line__default"></div>
     <form>
       <div class="contents">
@@ -99,7 +97,9 @@
           <div class="body-type">
             <p class="txt-point">체형</p>
             <div>
-              <p class="text" ref="bodyTypeText">마른 일자형 몸매로, 허리둘레와 엉덩이 둘레가 거의  같고 상체에 곡선이 발달되지 않았습니다.</p>
+              <p class="text" v-if="bodyTypeText">
+                {{ bodyTypeText }}
+              </p>
               <ul class="body-type-list">
                 <template v-for="(data, idx) in setSize.body_type">
                   <li
@@ -126,11 +126,13 @@
         </button>
       </div>
     </form>
+    <alert-modal ref="view" width="320" height="190"></alert-modal>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import AlertModal from '@/components/common/AlertModal';
 import Codes from '@/library/api/codes';
 
 export default {
@@ -138,6 +140,7 @@ export default {
   data() {
     return {
       setSize: {},
+      bodyTypeText: '',
       sizeData: {
         tallSize: null,
         bustSize: null,
@@ -149,6 +152,7 @@ export default {
     };
   },
   components: {
+    AlertModal,
   },
   computed: {
     ...mapGetters({
@@ -166,10 +170,27 @@ export default {
     setData(type, data) {
       this.sizeData[type] = data.code;
       if (type === 'bodyType') {
-        this.$refs.bodyTypeText.innerText = data.description;
+        this.bodyTypeText = data.description;
       }
     },
     btnNextStep() {
+      if (this.sizeData.blouseSize === null) {
+        this.$common.viewAlertModal('블라우스/셔츠 항목을 확인해 주세요.', this.$refs, 'alert');
+        return false;
+      }
+      if (this.sizeData.skirtSize === null) {
+        this.$common.viewAlertModal('치마 항목을 확인해 주세요.', this.$refs, 'alert');
+        return false;
+      }
+      if (this.sizeData.pantsSize === null) {
+        this.$common.viewAlertModal('바지 항목을 확인해 주세요.', this.$refs, 'alert');
+        return false;
+      }
+      if (this.sizeData.bodyType === null) {
+        this.$common.viewAlertModal('체형 항목을 확인해 주세요.', this.$refs, 'alert');
+        return false;
+      }
+
       this.$validator.validateAll().then((result) => {
         if (result) {
           this.$localStorage.set('Size', JSON.stringify(this.sizeData));
@@ -178,7 +199,7 @@ export default {
             path: 'styling',
           });
         } else {
-          alert('Error');
+          this.$common.viewAlertModal('필수 입력 항목을 확인해 주세요.', this.$refs, 'alert');
         }
       });
     },
@@ -187,6 +208,17 @@ export default {
     const localStorage = this.$localStorage.get('Size');
     if (localStorage) {
       this.sizeData = JSON.parse(localStorage);
+      if (this.sizeData.bodyType === 12701) {
+        this.bodyTypeText = '허리둘레와 엉덩이 둘레가 거의 같으며 골격이 잘 발달되지 않은 보이쉬한 일자형 체형입니다.';
+      } else if (this.sizeData.bodyType === 12702) {
+        this.bodyTypeText = '전체적으로 어깨가 잘 발달되어 상체가 넓고 아래로 내려갈수록 점점 작아지는 체형입니다.';
+      } else if (this.sizeData.bodyType === 12703) {
+        this.bodyTypeText = '전반적으로 상체에 살이 많고 배가 조금 나온, 둥글둥글한 모습을 띠고 있는 체형입니다.';
+      } else if (this.sizeData.bodyType === 12704) {
+        this.bodyTypeText = '어깨에 비해서 히프 사이즈가 크고 하체로 갈수록 점점 넓어지는 한국인에게 흔히 볼 수 있는 체형입니다.';
+      } else if (this.sizeData.bodyType === 12705) {
+        this.bodyTypeText = '가슴둘레와 엉덩이 둘레는 거의 비슷한데, 허리는 가는 이상적인 체형입니다.'
+      }
     }
   },
   created() {
@@ -329,11 +361,9 @@ export default {
     }
   }
   .btn-next {
-    position: fixed;
-    left:0;
-    right: 0;
-    bottom: 0;
-    z-index: 100;
+    margin-top: 26px;
+    margin-left: -20px;
+    width: calc(100% + 40px);
     button {
       width: 100%;
       height: 60px;
