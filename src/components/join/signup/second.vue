@@ -44,7 +44,7 @@
                   <li
                     v-for="(data, idx) in setDeliveryDay"
                     :key="idx"
-                    @click="selectDay(data.solar_date)"
+                    @click="selectDay(data)"
                     :class="{'selected': joinSecond.deliveryDate === data.solar_date}"
                     :style="calcDate(data, idx)">
                     <span class="en-font">{{data.month_day}}</span>
@@ -53,10 +53,11 @@
                   </li>
                 </ul>
               </div>
-              <p class="text">
-                ※ 신청 주에 수령을 원하시면 별도 연락 부탁드립니다.<br/>
-                (010-2712-6010)
-              </p>
+              <div class="text">
+                <p v-if="deliveryDay.monthDay || deliveryDay.dayOfWeek" style="color: #333;">※ {{ msgDeliveryDay }}</p>
+                <p>신청 주에 수령을 원하시면 별도 연락 부탁드립니다.<br/>
+                (010-2712-6010)</p>
+              </div>
             </div>
           </div>
           <!-- 카드 결제 정보-->
@@ -130,7 +131,7 @@
           </div>
           <!-- 개인정보 -->
           <div class="personal-info">
-            <p class="txt-point">개인 정보 (배송을 위해 현관 비밀번호를 알려주세요)</p>
+            <p class="txt-point">공동 현관 비밀번호 (문 앞까지 가기 전에 공동 현관이 있는 경우)</p>
             <div class="form-row">
               <input
                 type="text"
@@ -187,10 +188,10 @@
                 </thead>
                 <tfoot>
                 <tr>
-                  <td>총 가격</td>
+                  <td>총 결제금액</td>
                   <td>
                     <span class="txt-number">
-                      <vue-numeric separator="," v-model="price.promotionPrice" read-only></vue-numeric>
+                      <vue-numeric separator="," v-model="price.totalPrice" read-only></vue-numeric>
                     </span>
                     <span class="txt-unit">원</span>
                   </td>
@@ -201,7 +202,22 @@
                   <td>월 2회 단일 요금제</td>
                   <td>
                     <span class="txt-number"><vue-numeric separator="," v-model="price.basicPrice" read-only></vue-numeric></span>
-                    <span class="txt-unit">원</span></td>
+                    <span class="txt-unit">원</span>
+                  </td>
+                </tr>
+                <tr v-if="price.promotionPrice !== price.basicPrice">
+                  <td>프로모션 기간 금액</td>
+                  <td>
+                    <span class="txt-number"><vue-numeric separator="," v-model="price.promotionPrice" read-only></vue-numeric></span>
+                    <span class="txt-unit">원</span>
+                  </td>
+                </tr>
+                <tr v-if="price.salePrice !== 0">
+                  <td>추천인 할인</td>
+                  <td>
+                    <span class="txt-number">(-) <vue-numeric separator="," v-model="price.salePrice" read-only></vue-numeric></span>
+                    <span class="txt-unit">원</span>
+                  </td>
                 </tr>
                 </tbody>
               </table>
@@ -369,11 +385,16 @@ export default {
         recommendCode: null,
       },
       price: {
-        basicPrice: 78000,
-        promotionPrice: 78000,
+        basicPrice: 0,
+        promotionPrice: 0,
+        salePrice: 0,
+        totalPrice: 0,
       },
       setDeliveryDay: {},
-      deliveryDay: '',
+      deliveryDay: {
+        monthDay: '',
+        dayOfWeek: '',
+      },
       cardVerify: false,
       cardVerifyMsg: '',
       birthVerify: false,
@@ -385,6 +406,11 @@ export default {
     ...mapGetters({
       Join: 'signup/getJoin',
     }),
+    msgDeliveryDay() {
+      const date = _.split(this.deliveryDay.monthDay, '/');
+      const week = _.trim(this.deliveryDay.dayOfWeek, '()');
+      return `${date[0]}월 ${date[1]}일 첫 배송 후 격주 ${week}요일에 배송됩니다.`;
+    },
   },
   methods: {
     ...mapActions({
@@ -392,7 +418,9 @@ export default {
       signup: 'signup/signup',
     }),
     selectDay(param) {
-      this.joinSecond.deliveryDate = param;
+      this.joinSecond.deliveryDate = param.solar_date;
+      this.deliveryDay.monthDay = param.month_day;
+      this.deliveryDay.dayOfWeek = param.day_of_week;
     },
     checkCardExpiry(evt) {
       const cardReg = /^(0?[1-9]|1[0-2]|12)(1[9]|[2-9][0-9]|99)$/;
@@ -424,12 +452,14 @@ export default {
     },
     recommendVerify() {
       const $this = this;
-      if (this.joinSecond.recommendCode === '') {
+      if (this.joinSecond.recommendCode === '' || this.joinSecond.recommendCode === null) {
         this.$common.viewAlertModal('추천인을 입력해 주세요.', this.$refs, 'alert');
       } else {
         Codes.getRecommendCode(this.joinSecond.membershipId, this.joinSecond.recommendCode).then(function(res) {
           if (res.data.result) {
-            $this.price.promotionPrice = res.data.total_price;
+            console.log(res);
+            $this.price.totalPrice = res.data.total_price;
+            $this.price.salePrice = res.data.sale_price;
             $this.$common.viewAlertModal('정상등록 되었습니다.', $this.$refs, 'alert');
           } else {
             $this.$common.viewAlertModal('추천인을 정확하게 입력해 주세요.', $this.$refs, 'alert');
@@ -523,6 +553,11 @@ export default {
       if (res.data.result) {
         $this.price.basicPrice = res.data.data.price;
         $this.price.promotionPrice = res.data.data.promotion_price;
+        if (!res.data.data.promotion_price) {
+          $this.price.totalPrice = res.data.data.price;
+        } else {
+          $this.price.totalPrice = res.data.data.promotion_price;
+        }
       } else {
         return false;
       }
@@ -611,7 +646,8 @@ export default {
   .payment-info,
   .personal-info,
   .coupon,
-  .order-total {
+  .order-total,
+  .recommendation {
     margin-top: 36px;
   }
   .form-row {
