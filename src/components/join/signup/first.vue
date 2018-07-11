@@ -272,6 +272,7 @@
     <address-modal ref="address" dataId="address"></address-modal>
     <signup-modal ref="private" dataId="private" title="개인정보 관리 지침" :content="privateText"></signup-modal>
     <signup-modal ref="use" dataId="use" title="이용약관"></signup-modal>
+    <alert-modal ref="view" width="320" height="190"></alert-modal>
   </div>
   <!--<div class="signup subContent mauto">
     <div class="content-title mt70">정기구독/회원가입</div>
@@ -374,7 +375,7 @@ import Datepicker from 'vuejs-datepicker';
 import AddressModal from '@/components/common/AddressModal';
 import SignupModal from '@/components/common/SignupModal';
 import PrivateText from '@/info/private';
-
+import AlertModal from '@/components/common/AlertModal';
 
 export default {
   name: 'signUp-first',
@@ -382,6 +383,7 @@ export default {
     Datepicker,
     AddressModal,
     SignupModal,
+    AlertModal,
   },
   data() {
     return {
@@ -466,8 +468,8 @@ export default {
 
             return true;
           }
-
-          alert('올바른 휴대폰번호를 입력해주세요.');
+          this.$common.viewAlertModal('올바른 휴대폰번호를 입력해주세요.', this.$refs, 'alert');
+          // alert('올바른 휴대폰번호를 입력해주세요.');
         }
 
         phone.focus();
@@ -478,7 +480,8 @@ export default {
       const phoneAuthNumber = document.querySelector('input[name=phone_auth_number]');
 
       if (!this.phoneAuthKey) {
-        alert('먼저 휴대전화를 입력하고 인증버튼을 눌러주세요.');
+        this.$common.viewAlertModal('먼저 휴대전화를 입력하고 인증버튼을 눌러주세요.', this.$refs, 'alert');
+        // alert('먼저 휴대전화를 입력하고 인증버튼을 눌러주세요.');
         return false;
       }
 
@@ -497,7 +500,7 @@ export default {
         phone.disabled = true;
         phoneAuthNumber.disabled = true;
         this.authErr = false;
-      } else alert('인증번호를 다시 확인하시고 진행해주세요.');
+      } else this.$common.viewAlertModal('인증번호를 다시 확인하시고 진행해주세요.', this.$refs, 'alert'); /*alert('인증번호를 다시 확인하시고 진행해주세요.');*/
 
       return true;
     },
@@ -510,11 +513,13 @@ export default {
           const privateFlag = joinForm.private_flag.checked;
           const useFlag = joinForm.use_flag.checked;
           if (!privateFlag) {
-            alert('개인정보의 수집 및 이용에 동의해주세요.');
+            this.$common.viewAlertModal('개인정보의 수집 및 이용에 동의해주세요.', this.$refs, 'alert');
+            // alert('개인정보의 수집 및 이용에 동의해주세요.');
             return;
           }
           if (!useFlag) {
-            alert('이용약관을 확인해주세요.');
+            this.$common.viewAlertModal('이용약관을 확인해주세요.', this.$refs, 'alert');
+            // alert('이용약관을 확인해주세요.');
             return;
           }
           if (this.phoneAuth) {
@@ -530,7 +535,8 @@ export default {
             this.$router.push({ path: '/join/signup/2' });
             return;
           }
-          alert('휴대전화 인증을 진행해주세요.');
+          this.$common.viewAlertModal('휴대전화 인증을 진행해주세요.', this.$refs, 'alert');
+          // alert('휴대전화 인증을 진행해주세요.');
           return;
         }
         document.querySelectorAll('div.error')[0].setAttribute('tabindex', -1);
@@ -663,11 +669,9 @@ export default {
         }
       }
       .btn-next {
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        z-index: 100;
+        margin-left: -21px;
+        margin-top: 32px;
+        width: calc( 100% + 21px + 20px);
         button {
           width: 100%;
           height: 60px;

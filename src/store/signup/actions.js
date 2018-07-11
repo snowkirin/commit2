@@ -6,7 +6,6 @@ import types from './mutation-types';
 // 2018-07-06
 
 const setSize = ({ commit }, payload) => {
-  console.log(payload, 'SetSize Payload');
   commit(types.SET_SIZE, payload);
 };
 const setMood = ({ commit }, payload) => {

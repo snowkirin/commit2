@@ -435,7 +435,7 @@ export default {
             $this.$common.viewAlertModal('추천인을 정확하게 입력해 주세요.', $this.$refs, 'alert');
           }
         }).catch(function(err) {
-          console.error(err)
+          console.error(err);
         });
       }
     },
@@ -521,7 +521,6 @@ export default {
     });
     Codes.getMembership().then(function(res) {
       if (res.data.result) {
-        console.log(res);
         $this.price.basicPrice = res.data.data.price;
         $this.price.promotionPrice = res.data.data.promotion_price;
       } else {
@@ -700,10 +699,9 @@ export default {
     }
   }
   .btn-complete {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    right: 0;
+    margin-top: 71px;
+    margin-left: -20px;
+    width: calc( 100% + 20px + 20px);
     button {
       width: 100%;
       height: 60px;
