@@ -1,6 +1,24 @@
 import axios from 'axios';
 const API_URL = process.env.API_URL;
 
+const getFeedbackDirect = (data) => axios.get(`${API_URL}/subscriptions/feedbacks/directs/${data}`)
+  .then(function(res) {
+    return res;
+  })
+  .catch(function(err) {
+    return res;
+  });
+
+/*function getFeedbackDirect(data) {
+  const result = axios.get(`${API_URL}/subscriptions/feedbacks/directs/${data}`)
+    .then(function(res) {
+      return res;
+    }).catch(function(err) {
+      return err;
+    });
+  return result;
+}*/
+
 const mypagePwdCheck = ({
   password,
 }) => axios.post(`${API_URL}/auth/password`, {
@@ -8,14 +26,6 @@ const mypagePwdCheck = ({
 }, {
   withCredentials: true,
 }).then(result => result).catch(err => err.response);
-
-
-const memberJoin = (data) => axios.post(`${API_URL}/auth/join`, data )
-  .then(function(res) {
-    console.log(res, 'Auth - Local Join - Result');
-    return res;
-  })
-  .catch(err => Promise.reject(err));
 
 // 자체 회원가입 호출
 const localJoin = (data) => axios.post(`${API_URL}/auth/join`, { ...data }, { withCredentials: true })
@@ -159,5 +169,5 @@ export default {
   authFindPwd,
   finalAuth,
   findPwdComplete,
-  memberJoin,
+  getFeedbackDirect,
 };

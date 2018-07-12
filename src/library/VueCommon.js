@@ -6,7 +6,6 @@ VueCommon.install = (Vue) => {
     getServerMode() {
       return process.env.NODE_ENV;
     },
-
     IMAGEURL() {
       return process.env.API_IMAGE_URL;
     },
