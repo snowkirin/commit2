@@ -4,8 +4,8 @@
       <div class="none">
         <div class="inner">
           <p>
-            <strong>{{ printDDay(tomorrowCloset.styling_dday) }}</strong> <br>
-            옷장이 채워집니다.
+            조금만 기다리세요<br/>
+            곧 옷장이 채워집니다.
           </p>
         </div>
       </div>

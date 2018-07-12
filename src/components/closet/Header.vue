@@ -1,8 +1,7 @@
 <template>
   <div class="closet-header">
     <p class="user-info">
-      {{ name }}님 옷장
-      <!--{{ Authentication.userName }}님 옷장-->
+      {{ Authentication.userName }}님 옷장
     </p>
   </div>
 </template>
@@ -14,7 +13,6 @@ export default {
   name: 'closet-header',
   data() {
     return {
-      name: '김용주',
     };
   },
   computed: mapGetters({
