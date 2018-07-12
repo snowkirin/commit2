@@ -56,7 +56,7 @@
               <div class="text">
                 <p v-if="deliveryDay.monthDay || deliveryDay.dayOfWeek" style="color: #333;">※ {{ msgDeliveryDay }}</p>
                 <p>신청 주에 수령을 원하시면 별도 연락 부탁드립니다.<br/>
-                (010-2712-6010)</p>
+                (02-6929-3823)</p>
               </div>
             </div>
           </div>
@@ -131,7 +131,7 @@
           </div>
           <!-- 개인정보 -->
           <div class="personal-info">
-            <p class="txt-point">공동 현관 비밀번호 (문 앞까지 가기 전에 공동 현관이 있는 경우)</p>
+            <p class="txt-point">공동 현관 비밀번호 <br/> <span class="txt-entrance">(문 앞까지 가기 전에 공동 현관이 있는 경우)</span></p>
             <div class="form-row">
               <input
                 type="text"
@@ -227,7 +227,7 @@
           <div class="custom-checkbox">
             <input class="custom-control-input" type="checkbox" name="private_flag" id="private_flag">
             <label class="custom-control-label" for="private_flag">
-              상기 결제정보를 확인하였으며, 구매진행에 동의합니다.
+              상기 결제정보를 확인하였으며, 구매진행에 동의합니다. 첫번째 결제는 구독 상품 배송이 시작될때 이루어집니다.
             </label>
           </div>
           <div class="btn-complete">
@@ -556,6 +556,13 @@ export default {
         }
       }
     }
+  }
+  .txt-entrance {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.8px;
+    color: #797979;
+    font-weight: 400;
   }
   .order-total {
     margin-bottom: 15px;
