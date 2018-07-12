@@ -54,26 +54,6 @@ async function getMembership() {
   }
 }
 
-/*async function postMemberImages(data) {
-  try {
-    const result = axios.post(`${API_URL}/member/images`, data,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        withCredentials: true,
-      })
-      .then(function(res) {
-        return res;
-      })
-      .catch(function(err) {
-        return err;
-      });
-    return result;
-  } catch (err) {
-    console.error(err);
-  }
-}*/
 async function getOptions() {
   try {
     const result = axios.get(`${API_URL}/code/customer/options`, {
@@ -129,6 +109,8 @@ async function postMemberImageStyle(imageData, styleData) {
     console.log(err);
   }
 }
+
+
 
 export default {
   getSize,

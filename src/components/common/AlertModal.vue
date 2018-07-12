@@ -18,7 +18,7 @@ export default {
   },
   data() {
     return {
-      content: '',
+      content: '의견감사합니다.',
       type: 'alert',
       path: null,
       modal: null,

@@ -18,12 +18,11 @@
             <ul
               class="list-product clearfix">
               <li
-
                 v-for="(img, idx2) in data.images"
                 :key="idx2"
                 class="image"
               >
-                <img :src="(img !== null)? API_IMAGE_URL + 'small/' + img : 'http://via.placeholder.com/60x70?text=Image '" alt=""/>
+                <img :src="(img !== null)? API_IMAGE_URL + img : 'http://via.placeholder.com/60x70?text=Image '" alt=""/>
               </li>
             </ul>
             <div class="style-tip">
@@ -45,14 +44,20 @@
               <br v-if="$mq !== 'sm'">
               <a
                 href="#"
-                @click="clickSample"
+                @click.prevent="clickShowFeedback(idx)"
                 class="txt-link">
                 옷장 후기 입력하기
               </a>
             </div>
           </div>
-
-          <feedBack ref="feedback" :subscriptionId="data.id" v-if="data.id"></feedBack>
+          <feedBack
+            :ref="'feedback'+idx"
+            :subscriptionId="data.id"
+            :data="feedbackData[idx]"
+            :type="'past'"
+            v-if="feedbackToggle(idx)">
+            <!--type="past"-->
+          </feedBack>
         </li>
       </ul>
     </div>
@@ -71,6 +76,7 @@ export default {
   data() {
     return {
       API_IMAGE_URL: process.env.API_IMAGE_URL,
+      feedbackData: [],
       dataId: null,
     };
   },
@@ -88,8 +94,23 @@ export default {
     ...mapActions({
       setPastCloset: 'mypage/closet/setPastCloset',
     }),
-    clickSample() {
-      console.log(this.pastCloset);
+    clickShowFeedback(idx) {
+      const feedback = this.$refs['feedback'+idx][0];
+      const review = feedback.$refs.review;
+      const elem = document.documentElement.scrollTop ? document.documentElement : document.body;
+      if (review.style.display !== 'block') {
+        review.style.display = 'block';
+        elem.scrollTop = feedback.$el.offsetTop;
+      }
+    },
+    feedbackToggle(idx) {
+      if (this.feedbackData[idx]) {
+        if (this.feedbackData[idx].result) {
+          return true;
+        }
+      } else {
+        return false;
+      }
     },
     viewModal(id) {
       this.dataId = id.toString();
@@ -127,9 +148,21 @@ export default {
 
       return printData;
     },
+    feedbackInfo(data) {
+      const $this = this;
+      _.forEach(data, function (value) {
+        const subscriptionId = value.id;
+        Closet.mypageFeedback(subscriptionId).then(function (res) {
+          $this.feedbackData = _.concat($this.feedbackData, res.data);
+        }).catch(function (err) {
+          console.log(err);
+        });
+      });
+    }
   },
-  created() {
-    this.setPastCloset();
+  async created() {
+    await this.setPastCloset();
+    await this.feedbackInfo(this.pastCloset);
   },
 };
 </script>

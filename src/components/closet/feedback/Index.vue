@@ -1,57 +1,58 @@
 <template>
-  <div class="feedback" v-if="result">
-    <div class="rating">
+  <div class="feedback">
+    <div class="rating" v-if="type === 'current' || type === 'direct'">
       <div class="inner">
         <p class="txt-rating">현재 대여 중인 <span class="txt-bold">의상 사이즈</span>가 어떠세요?</p>
         <ul class="list-rating">
           <li
             :class="{selected : rating === 'love'}"
-            @click="clickRating('love')">
+            @click="clickRating(questionCommon[0], 0, 'love')">
             <div class="image">
-              <img :src="(rating !== 'love') ? '/static/img/closet/ico_feedback1.png' : '/static/img/closet/ico_feedback1_active.png'">
+              <img :src="(rating !== 'love') ? '/static/img/closet/ico_feedback1.svg' : '/static/img/closet/ico_feedback1_active.svg'">
             </div>
-            <p class="text">완전 좋아요!</p>
+            <p class="text">{{ questionCommon[0].answer_text[0] }}</p>
           </li>
           <li
             :class="{selected : rating === 'okay'}"
-            @click="clickRating('okay')">
+            @click="clickRating(questionCommon[0], 1, 'okay')">
             <div class="image">
-              <img :src="(rating !== 'okay') ? '/static/img/closet/ico_feedback2.png' : '/static/img/closet/ico_feedback2_active.png'">
+              <img :src="(rating !== 'okay') ? '/static/img/closet/ico_feedback2.svg' : '/static/img/closet/ico_feedback2_active.svg'">
             </div>
-            <p class="text">괜찮아요!</p>
+            <p class="text">{{ questionCommon[0].answer_text[1] }}</p>
           </li>
           <li
             :class="{selected : rating === 'bad'}"
-            @click="clickRating('bad')">
+            @click="clickRating(questionCommon[0], 2, 'bad')">
             <div class="image">
-              <img :src="(rating !== 'bad') ? '/static/img/closet/ico_feedback3.png' : '/static/img/closet/ico_feedback3_active.png'">
+              <img :src="(rating !== 'bad') ? '/static/img/closet/ico_feedback3.svg' : '/static/img/closet/ico_feedback3_active.svg'">
             </div>
-            <p class="text">아쉬워요!</p>
+            <p class="text">{{ questionCommon[0].answer_text[2] }}</p>
           </li>
         </ul>
       </div>
       <p class="txt-refer">※ 고객님의 의견은 맞춤형  큰 도움이 됩니다.</p>
     </div>
-    <div class="review">
-      <p class="txt-review">소중한 이용 후기 부탁드립니다.</p>
+    <div
+      class="review"
+      ref="review"
+      style="display: none">
+      <p class="txt-review" v-if="type === 'current' || type === 'direct'">소중한 이용 후기 부탁드립니다.</p>
       <!--COMMON-->
       <div>
         <div class="section">
           <div
-            v-for="(data, idx) in questionCommon"
-            :key="idx"
             class="row">
             <div class="text">
               <p class="txt-point">
-                {{ data.question_text }}
+                {{ questionCommon[1].question_text }}
               </p>
             </div>
             <div>
               <ul class="square-list">
                 <li
-                  v-for="(data2, idx2) in data.answer_text"
+                  v-for="(data2, idx2) in questionCommon[1].answer_text"
                   :key="idx2"
-                  @click="clickEvt(data, idx2, $event)">
+                  @click="clickEvt(questionCommon[1], idx2, $event)">
                   <div class="txt-centering">{{ data2 }}</div>
                 </li>
               </ul>
@@ -64,7 +65,7 @@
           <div class="row">
             <div class="text">
               <p class="txt-point">
-                {{question.A.info.name}}
+                A. {{question.A.info.name}}
               </p>
             </div>
             <div class="image">
@@ -74,15 +75,15 @@
           <div class="row" v-for="(data, idx) in questionA.question" :key="idx+'_A'">
             <div class="text">
               <p class="txt-point">
-                {{ data.question_text }}
+                A-{{ idx+1 }}.{{ data.question_text }}
               </p>
             </div>
             <div>
               <ul class="square-list">
-                :class="(data['answer_text'].length === 5 && idx2 === 3) ? 'line-break': ''"
                 <li
                   v-for="(data2, idx2) in data.answer_text"
                   :key="idx2"
+                  :class="(data['answer_text'].length === 5 && idx2 === 3) ? 'line-break': ''"
                   @click="clickEvt(data, idx2, $event)">
                   <div class="txt-centering">{{ data2 }}</div>
                 </li>
@@ -98,7 +99,7 @@
             class="row">
             <div class="text">
               <p class="txt-point">
-                {{question.A.info.name}}
+                B. {{question.B.info.name}}
               </p>
             </div>
             <div class="image">
@@ -111,7 +112,7 @@
             :key="idx+'_B'">
             <div class="text">
               <p class="txt-point">
-                {{ data.question_text }}
+                B-{{ idx+1 }}.{{ data.question_text }}
               </p>
             </div>
             <div>
@@ -150,6 +151,15 @@
           </div>
         </div>
       </div>
+
+      <div class="btn-submit">
+        <button
+          type="button"
+          @click="btnSubmit"
+          class="btn btn-primary">
+          제출 하기
+        </button>
+      </div>
     </div>
     <alert-modal ref="view" width="300" height="153"></alert-modal>
   </div>
@@ -162,18 +172,30 @@ import Closet from '@/library/api/closet';
 
 export default {
   name: 'feedBack',
-  props: ['subscriptionId'],
+  props: {
+    data: {
+      type: Object,
+    },
+    type: {
+      type: String,
+      default: 'current',
+    },
+    subscriptionId: {
+      type: Number,
+    },
+  },
   components: {
     AlertModal,
   },
   data() {
     return {
       rating: '',
+      subId: null,
       feedbackId: null,
       questionCommon: {},
       questionA: {},
       questionB: {},
-      result: null,
+      result: false,
       setNPS: null,
     };
   },
@@ -183,7 +205,7 @@ export default {
     clickEvt(data, index, event) {
       const $this = this;
       const sendData = {
-        subscriptionId: _.parseInt(this.subscriptionId),
+        subscriptionId: this.subId,
         feedbackId: _.parseInt(this.feedbackId),
         barcode: (data.barcode) ? _.parseInt(data.barcode) : null,
         clothType: _.parseInt(data.cloth_type),
@@ -195,7 +217,6 @@ export default {
           value.classList.remove('selected');
         });
         event.target.parentNode.classList.add('selected');
-        console.log('Click Feedback');
       }).catch(function(err) {
         $this.$common.viewAlertModal('서버와의 통신이 불안정합니다.', $this.$refs, 'alert');
         console.error(err);
@@ -205,7 +226,7 @@ export default {
     clickNps(data, index, event) {
       const $this = this;
       const sendData = {
-        subscriptionId: _.parseInt(this.subscriptionId),
+        subscriptionId: _.parseInt(this.subId),
         feedbackId: _.parseInt(this.feedbackId),
         npsScore: _.parseInt(data),
       };
@@ -214,7 +235,6 @@ export default {
           value.classList.remove('selected');
         });
         event.target.parentNode.classList.add('selected');
-        console.log('Click Nps');
       }).catch(function(err) {
         $this.$common.viewAlertModal('서버와의 통신이 불안정합니다.', $this.$refs, 'alert');
         console.error(err);
@@ -223,34 +243,46 @@ export default {
     },
     btnSubmit() {
       this.$common.viewAlertModal('의견 감사합니다.', this.$refs, 'alert');
+      if (this.type === 'direct'){
+        this.$router.push({ path: '/login' });
+      }
+      this.$refs.review.style.display = 'none';
     },
-    clickRating(data) {
-      this.rating = data;
+    clickRating(data, index, string) {
+      const $this = this;
+      const sendData = {
+        subscriptionId: this.subId,
+        feedbackId: _.parseInt(this.feedbackId),
+        barcode: (data.barcode) ? _.parseInt(data.barcode) : null,
+        clothType: _.parseInt(data.cloth_type),
+        questionCode: _.parseInt(data.question_code),
+        answerCode: _.parseInt(data.answer_code[index]),
+      };
+      Closet.mypageFeedbackAnswer(sendData).then(function(res) {
+        console.log(res)
+      }).catch(function(err) {
+        $this.$common.viewAlertModal('서버와의 통신이 불안정합니다.', $this.$refs, 'alert');
+        console.error(err);
+        return false;
+      });
+      this.rating = string;
+      this.$refs.review.style.display = 'block';
     },
   },
   created() {
-    const $this = this;
-    Closet.mypageFeedback($this.subscriptionId).then(function(res) {
-      if (res.data.result) {
-        $this.feedbackId = res.data.feedback_id;
-        $this.questionCommon = res.data.question.common;
-        $this.questionA = res.data.question.A;
-        $this.questionB = res.data.question.B;
-        $this.question = res.data.question;
-        $this.result = res.data.result;
-        $this.setNPS = res.data.setNPS;
-      } else {
-        $this.result = res.data.result;
-        $this.$emit('interface', false);
-
-      }
-    }).catch(function(err) {
-      console.log(err);
-    });
-
-  },
-  beforeMount() {
-
+    if (this.data.result) {
+      console.log(this.data);
+      this.subId = this.subscriptionId;
+      this.feedbackId = this.data.feedback_id;
+      this.questionCommon = this.data.question.common;
+      this.questionA = this.data.question.A;
+      this.questionB = this.data.question.B;
+      this.question = this.data.question;
+      this.result = this.data.result;
+      this.setNPS = this.data.setNPS;
+    } else {
+      this.result = this.data.result;
+    }
   },
 };
 </script>
@@ -427,8 +459,7 @@ export default {
       }
     }
     .btn-submit {
-      padding-left: 20px;
-      padding-right: 20px;
+      margin-top: 40px;
       button {
         width: 100%;
       }

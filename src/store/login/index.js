@@ -10,6 +10,11 @@ export default {
       userName: '',
       userStyleList: '',
     },
+    feedbackDirect: {
+      result: false,
+      subscription_id: null,
+      feedback_id: null,
+    },
   },
   mutations: {
     [types.LOGIN_SUCCESS](state, data) {
@@ -29,10 +34,17 @@ export default {
       state.login = false;
       state.Authentication.authenticated = false;
     },
+    [types.FEEDBACK_DIRECT](state, data) {
+      state.feedbackDirect.result = data.result;
+      state.feedbackDirect.subscription_id = data.info.subscription_id;
+      state.feedbackDirect.feedback_id = data.info.feedback_id;
+      state.Authentication.userName = data.info.user_name;
+    },
   },
   actions,
   getters: {
     isLogin: state => state.login,
     Authentication: state => state.Authentication,
+    feedbackDirect: state => state.feedbackDirect,
   },
 };

@@ -5,9 +5,14 @@
       드신다면?<br/>
       반납 없이 구매할 수 있습니다.
     </p>-->
-
-    <feedBack ref="feedback" :subscriptionId="currentCloset.subscription_id" v-if="currentCloset.subscription_id"></feedBack>
-    <div class="current-styling">
+    <feedBack
+      ref="feedback"
+      v-if="!_.isEmpty(feedbackData)"
+      :data="feedbackData"
+      :subscriptionId="feedbackDirect.subscription_id ? feedbackDirect.subscription_id : currentCloset.subscription_id"
+      :type="directFeedbackCheck ? 'direct' : 'current'">
+    </feedBack>
+    <div class="current-styling" v-show="!directFeedbackCheck">
       <!-- Mobile-->
       <div class="carousel">
         <swiper :options="swiperOption">
@@ -45,6 +50,8 @@ import { swiper, swiperSlide } from 'vue-awesome-swiper';
 import FeedBack from '@/components/closet/feedback/Index';
 import DetailModal from '@/components/common/DetailModal';
 
+import Closet from '@/library/api/closet';
+
 import 'swiper/dist/css/swiper.css';
 
 export default {
@@ -71,6 +78,8 @@ export default {
       buyProductArr: [],
       firstCurrentCloset: true,
       secondCurrentCloset: true,
+      feedbackData: {},
+      directFeedbackCheck: false,
     };
   },
   components: {
@@ -84,6 +93,8 @@ export default {
       currentCloset: 'mypage/closet/getCurrentCloset',
       currentNone: 'mypage/closet/getCurrentNone',
       paymentCurrent: 'mypage/closet/getPaymentCurrent',
+      feedbackDirect: 'login/feedbackDirect',
+      isLogin: 'login/isLogin',
     }),
     printStylingTip() {
       let printData = this.currentCloset.styling_tip;
@@ -152,9 +163,31 @@ export default {
     viewModal(closetInfo, closetImage) {
       this.$refs.detail.openModal(closetInfo, closetImage);
     },
+    feedbackInfo() {
+      const $this = this;
+      const subscriptionId = this.feedbackDirect.subscription_id ? this.feedbackDirect.subscription_id : this.currentCloset.subscription_id;
+      Closet.mypageFeedback(subscriptionId)
+        .then(function(res) {
+          if (res.data.result) {
+            console.log('hello');
+            $this.feedbackData = res.data;
+          } else {
+            console.log('world');
+          }
+        });
+    },
   },
   async created() {
-    await this.setCurrentCloset();
+    if (!this.isLogin) {
+      if (this.feedbackDirect.result) {
+        this.directFeedbackCheck = true;
+      }
+    } else {
+      await this.setCurrentCloset();
+    }
+
+    this.feedbackInfo();
+
     /*const productList = this.currentCloset.products;
     for (let i = 0; productList.length > i; i += 1) {
       if (productList[i].id === null) {
@@ -166,6 +199,9 @@ export default {
       }
     }*/
   },
+  beforeCreated() {
+    console.log('Hello world');
+  }
 };
 </script>
 
@@ -403,437 +439,4 @@ export default {
       width: 1200px;
     }
   }
-/*.closet-feedback {
-  display: none;
-  height: 330px;
-  background: url('/static/img/closet/img_feedback.png');
-  background-repeat: no-repeat;
-  background-position: 50% 0;
-  position: relative;
-}
-
-.closet-feedback-content {
-  position: relative;
-  top: 30%;
-  font-size: 27px;
-  line-height: 1.3;
-  letter-spacing: -1.6px;
-  text-align: center;
-  color: #ffffff;
-}
-
-.custom-btn {
-  cursor: pointer;
-  width: 48px;
-  height: 48px;
-  position: absolute;
-  opacity: 1;
-  top: 8%;
-  left: 97.5%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
-
-div.btn-times {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  border-radius: 6px;
-}
-
-div.btn-times:before, div.btn-times:after {
-  content: '';
-  position: absolute;
-  width: 30px;
-  height: 2px;
-  background-color: #FFFFFF;
-  border-radius: 2px;
-  top: 23px;
-  box-shadow: 0 0 2px 0 #ccc;
-}
-
-div.btn-times:before {
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  transform: rotate(45deg);
-  left: 9px;
-}
-
-div.btn-times:after {
-  -webkit-transform: rotate(-45deg);
-  -moz-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-  right: 9px;
-}
-
-.closet-styling-tip {
-  height: 570px;
-  background-color: #dbdbdb;
-  position: relative;
-}
-
-.closet-styling-rotate-text {
-  position: absolute;
-  top: 63.7%;
-  left: 14.5%;
-  width: 81px;
-  font-size: 14px;
-  font-weight: 600;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #ffffff;
-  -webkit-transform: rotate(-270deg);
-  -moz-transform: rotate(-270deg);
-  -ms-transform: rotate(-270deg);
-  -o-transform: rotate(-270deg);
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
-}
-
-.closet-styling-image-first {
-  width: 352px;
-  height: 400px;
-  background-color: #FFFFFF;
-  position: absolute;
-  left: 19.3%;
-  top: 9.8%;
-}
-
-.closet-styling-image-second {
-  width: 352px;
-  height: 400px;
-  background-color: #FFFFFF;
-  position: absolute;
-  left: 51.3%;
-  top: 22.3%;
-}
-
-.closet-styling-image-title {
-  font-size: 58px;
-  font-weight: 600;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 0.41;
-  letter-spacing: normal;
-  color: #333333;
-}
-
-.first-title {
-  position: absolute;
-  left: 20.5%;
-  top: 79.3%;
-}
-
-.second-title {
-  position: absolute;
-  left: 23.7%;
-  top: 89.2%;
-}
-
-.third-line {
-  height: 4px;
-  background-color: #333333;
-  position: relative;
-  left: 153.5px;
-  top: -7.5px;
-}
-
-.closet-styling-tip-text {
-  background-color: #dbdbdb;
-  text-align: left;
-  word-wrap:break-word;
-  padding: 0 19.4% 20px 23.9%;
-  font-size: 16px;
-}
-.closet-styling-tip-hashtag{
-  background-color: #dbdbdb;
-  text-align: left;
-  word-wrap:break-word;
-  padding: 0 19.4% 60px 23.9%;
-  font-size: 16px;
-  color: #683b3f;
-  text-transform:capitalize;
-}
-
-.closet-styling-tip-title {
-  background-color: #dbdbdb;
-  text-align: left;
-  word-wrap:break-word;
-  padding: 0 19.4% 0px 23.9%;
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: -1px;
-  color: #333333;
-  line-height: 3;
-}
-.closet-styling-tip-stylist {
-  font-size: 16px;
-  font-weight: normal;
-  line-height: 1;
-  letter-spacing: -1px;
-  color: #797979;
-}
-
-.closet-card-hashtag {
-  font-size: 16px;
-  line-height: 1.4;
-  letter-spacing: -0.4px;
-  text-align: left;
-  color: #683b3f;
-  margin-bottom: 20px;
-}
-
-.current-closet-item {
-  display: inline-block;
-  width: 58%;
-  background-color: #ffffff;
-  border: solid 2px #e9e9e9;
-}
-
-.current-closet-item-buy {
-  display: inline-block;
-  width: 40%;
-  border: solid 2px #333333;
-}
-
-.item-buy-title {
-  text-align: center;
-  font-size: 24px;
-  font-weight: 600;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1;
-  letter-spacing: normal;
-  color: #333333;
-}
-
-.item-buy-row {
-  display: flex;
-  padding-left: 23px;
-  padding-right: 23px;
-}
-
-.item-buy-row-title {
-  width: 40%;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  letter-spacing: -0.8px;
-  line-height: 1;
-  color: #797979;
-}
-
-.item-buy-row-right {
-  width: 60%;
-  font-size: 18px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1;
-  letter-spacing: normal;
-  text-align: right;
-  color: #333333;
-}
-
-.item-buy-row-right span {
-  color: #f45649;
-}
-
-.closet-item-card {
-  padding-left: 22px;
-  font-size: 16px;
-  line-height: 1;
-  color: #333333;
-}
-
-.closet-item-card:last-of-type {
-  margin-bottom: 35px;
-}
-
-.image-area {
-  position: relative;
-  width: 352px;
-  height: 400px;
-  background-color: #f5f5f5;
-}
-
-.image-area-detail {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%,-50%);
-  width: 89%;
-  height: 91%;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-}
-
-.thumnail-image-area {
-  position: relative;
-  display: inline-block;
-  width: 130px;
-  height: 181px;
-  background-color: #f5f5f5;
-  border: solid 1px #e9e9e9;
-  margin-left: 52px;
-}
-
-.thumnail-image {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%,-50%);
-  width: 130px;
-  height: 181px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-}
-
-.item-content {
-  vertical-align: top;
-  display: inline-block;
-  margin-left: 21px;
-}
-
-.container .checkmark:after {
-  left: 14px !important;
-  top: 8px !important;
-  width: 10px !important;
-  height: 15px !important;
-}
-
-.normal-price {
-  color: #797979;
-}
-
-.normal-price-percent {
-  color: #f45649;
-  letter-spacing: -0.7px;
-}
-
-.product-detail {
-  cursor: pointer;
-  height: 18px;
-  font-size: 16px;
-  letter-spacing: -0.5px;
-  text-align: left;
-  position: relative;
-  top: 17px;
-  border-bottom: 1px solid #566b9c;
-  color: #566b9c;
-}
-
-@media screen and (max-width: 900px) {
-  .current-closet-item-list {
-   display: block !important;
-  }
-
-  .current-closet-item {
-    width: 100%;
-  }
-
-  .current-closet-item-buy {
-    width: 100%;
-  }
-}
-
-@media screen and (max-width: 486px) {
-  .closet-styling-tip {
-    height: 900px;
-    display: block;
-  }
-
-  .closet-styling-one-tip {
-    height: 440px;
-  }
-
-  .closet-styling-image-first,
-  .closet-styling-image-second {
-    display: inline-block;
-    padding: 30px;
-    width: 100%;
-    box-sizing: border-box;
-    position: unset;
-    margin: 0 auto;
-    left: 0;
-    top: 0;
-    background-color: unset;
-  }
-
-  .closet-styling-image-second {
-    margin-top: 30px !important;
-  }
-
-  .image-area {
-    width: 100% !important;
-    height: 400px !important;
-    background-color: #FFFFFF;
-  }
-
-  .closet-styling-rotate-text {
-    top: 88%;
-    left: -6%;
-  }
-
-  .first-title {
-    left: 7.7%;
-    top: 94.3%;
-  }
-
-  .second-title {
-    left: 7.7%;
-    top: 98.2%;
-  }
-
-  .onepiece-second-title {
-    top: 102.3%;
-  }
-
-  .closet-styling-image-title {
-    font-size: 42px;
-  }
-
-  .closet-styling-tip-text {
-    padding: 0px 8% 30px 8%;
-  }
-  .closet-styling-tip-title {
-    padding: 20px 8% 0px 8%;
-  }
-  .onepiece-closet-styling-tip-title {
-    padding: 45px 8% 0px 8%;
-  }
- .closet-styling-tip-hashtag {
-    padding: 0px 8% 25px 8%;
-  }
-  .thumnail-image,
-  .thumnail-image-area {
-    width: 80px;
-    height: 100px;
-  }
-
-  .item-content {
-    margin-left: 5px;
-  }
-
-  .item-content > div {
-    padding-top: 15px !important;
-    padding-left: 45px !important;
-  }
-
-  .closet-card-none-content {
-    width: 90%;
-  }
-
-  .content-table span {
-    font-size: 26px;
-  }
-}
-
-@media screen and (max-width: 400px) {
-  .closet-styling-image-title {
-    font-size: 32px;
-  }
-}*/
 </style>
