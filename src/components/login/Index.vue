@@ -116,7 +116,7 @@ export default {
       else this.redirectCloset();
     },
     redirectCloset() {
-      if (this.$store.state.login.Authentication.authenticated) this.$router.push({ path: '/closet' });
+      if (this.$store.state.login.Authentication.authenticated) this.$router.push({ path: '/closet/tomorrow' });
     },
   },
   created() {
