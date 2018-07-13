@@ -234,12 +234,20 @@ export default {
 </script>
 
 <style scoped lang="scss">
+  @mixin clearfix {
+    &:after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+  }
+
   .size {
     padding: {
       top: 24px;
       left: 20px;
       right: 20px;
-      bottom: 86px;
+      bottom: 17px;
     }
   }
   .line {
@@ -289,18 +297,14 @@ export default {
 
   .flex-list {
     ul {
-      list-style: none;
-      padding: 0;
-      display: flex;
-      flex-wrap: wrap;
       margin-left: 1px;
       margin-top: 1px;
       background: #f5f5f5;
+      font-size: 0;
     }
     li {
-      flex-grow: 0;
-      flex-shrink: 4;
-      flex-basis: calc(25% - 1px);
+      display: inline-block;
+      width: calc(25% + 1px);
       position: relative;
       border: 1px solid #c4c4c4;
       margin-left: -1px;
@@ -308,10 +312,12 @@ export default {
       line-height: 48px;
       text-align: center;
       color: #bbb;
-      letter-spacing: -0.6px;
-      background: #fff;
+      letter-spacing: -0.2px;
+      background-color: #fff;
       user-select: none;
       cursor: pointer;
+      font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
+      font-size: 15px;
       &.selected {
         font-weight: 700;
         color: #333;
@@ -363,72 +369,13 @@ export default {
     }
   }
   .btn-next {
-    margin-top: 26px;
-    margin-left: -20px;
-    width: calc(100% + 40px);
+    width: 100%;
+    margin-top: 41px;
     button {
       width: 100%;
-      height: 60px;
-      font-size: 18px;
+      height: 50px;
     }
   }
-
-.sizeLine {
-  height: 1px;
-  opacity: 0.2;
-  background-color: #333333;
-}
-
-.size-tt-text {
-  width: 392px;
-  text-align: left;
-  font-size: 16px;
-  font-weight: 600;
-  font-style: normal;
-  font-stretch: normal;
-  letter-spacing: -0.4px;
-  color: #333333;
-}
-
-.fa-exclamation-circle {
-  display: none;
-}
-
-.tooltipLocation {
-  position: absolute;
-  z-index: 5;
-  left: -1%;
-  top: 24%;
-}
-
-.tall-input-group {
-  width: 392px;
-  display: table;
-  table-layout: fixed;
-  padding: 0;
-  height: 50px;
-}
-
-.tall-input {
-  display: table-cell;
-  text-align: center;
-  width: 75%;
-}
-
-.tall-input-unit {
-  display: table-cell;
-  vertical-align:bottom;
-  text-align: left;
-  padding-left: 15px;
-  height: 50px;
-  font-size: 16px;
-  font-weight: 300;
-  padding-bottom: 10px;
-}
-
-.field {
-  text-align: left;
-}
 
 /* Desktop Style */
 @media screen and (min-width:767px){

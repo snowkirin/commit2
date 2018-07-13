@@ -642,7 +642,7 @@ export default {
     border-width: 2px;
   }
   .container {
-    padding: 24px 20px 82px 21px;
+    padding: 24px 20px 32px 21px;
     .signup-title {
       font-size: 26px;
       line-height: 34px;
@@ -669,13 +669,11 @@ export default {
         }
       }
       .btn-next {
-        margin-left: -21px;
-        margin-top: 32px;
-        width: calc( 100% + 21px + 20px);
+        width: 100%;
+        margin-top: 41px;
         button {
           width: 100%;
-          height: 60px;
-          font-size: 18px;
+          height: 50px;
         }
       }
     }

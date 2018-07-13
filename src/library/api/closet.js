@@ -50,6 +50,20 @@ async function mypageFeedbackNps(data) {
   }
 };
 
+async function mypageFeedbackAnswerReason(data) {
+  try {
+    const result = axios.post(`${API_URL}/subscriptions/feedbacks/answers-reasons`, data)
+      .then(function(res) {
+        return res;
+      })
+      .catch(function(err) {
+        console.error(err, 'feedbacks/answer-reasons');
+      });
+    return result;
+  } catch(err) {
+    console.log(err);
+  }
+};
 
 // const mypageFeedbackAnswer = (data) => axios.post(`${API_URL}/feedbacks/answers`, data, {
 //   withCredentials: true,
@@ -203,4 +217,5 @@ export default {
   mypageFeedback,
   mypageFeedbackAnswer,
   mypageFeedbackNps,
+  mypageFeedbackAnswerReason,
 };

@@ -507,6 +507,9 @@ export default {
       font-weight: 300;
       letter-spacing: -0.7px;
       line-height: 24px;
+      width: 180px;
+      text-align: center;
+      margin: 0 auto;
     }
     .style-explain {
       padding-top: 37px;
@@ -580,7 +583,7 @@ export default {
     .txt-tomorrow-caution {
       font-size: 15px;
       line-height: 23px;
-      margin-top: 9px;
+      margin-top: 5px;
       margin-bottom: 28px;
     }
     .codi-suggestion {
@@ -601,11 +604,17 @@ export default {
         font-size: 24px;
         line-height: 32px;
         letter-spacing: -1px;
+        width: 240px;
+        text-align: center;
+        margin: 0 auto;
       }
       .list-codi {
         width: auto;
         margin-top: 26px;
         overflow: hidden;
+        margin-left: auto;
+        margin-right: auto;
+        display: inline-block;
         .item {
           float: left;
           margin-top: 0;
