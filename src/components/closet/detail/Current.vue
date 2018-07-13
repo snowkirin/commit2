@@ -203,17 +203,6 @@ export default {
         this.feedbackInfo();
       }
     }
-    // this.feedbackInfo();
-    /*const productList = this.currentCloset.products;
-    for (let i = 0; productList.length > i; i += 1) {
-      if (productList[i].id === null) {
-        document.querySelector('.closet-styling-tip').classList.add('closet-styling-one-tip');
-        document.querySelector('.second-title').classList.add('onepiece-second-title');
-        document.querySelector('.closet-styling-tip-title').classList.add('onepiece-closet-styling-tip-title');
-        if (i === 0) this.firstCurrentCloset = false;
-        else this.secondCurrentCloset = false;
-      }
-    }*/
   },
 };
 </script>
