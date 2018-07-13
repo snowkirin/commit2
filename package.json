@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "babel-polyfill": "^6.26.0",
     "ellipsis-plus": "^1.0.1",
     "es6-promise": "^4.2.4",
     "js-base64": "^2.4.3",

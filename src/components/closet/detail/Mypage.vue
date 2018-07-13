@@ -624,7 +624,9 @@ export default {
   .form-group {
     &[data-grid="7:3"]{
       input {
-        flex: 0 0 65.8%;
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: 65.8%;
         /*flex-basis: 65.8%;*/
         margin-right: 2.86%;
       }
@@ -691,7 +693,9 @@ export default {
     }
     li {
       height: 50px;
-      flex: 0 0 57px;
+      flex-grow: 0;
+      flex-shrink: 0;
+      flex-basis: 57px;
       border: 1px solid #c4c4c4;
       margin-left: -1px;
       text-align: center;
@@ -770,7 +774,9 @@ export default {
     }
     .delivery-date {
       li {
-        flex: 0 0 99px;
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: 99px;
         font-size: 16px;
       }
     }

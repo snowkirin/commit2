@@ -552,7 +552,9 @@ export default {
           margin-right: 8px;
         }
         &:nth-child(2){
-          flex: 0 0 106px;
+          flex-grow: 0;
+          flex-shrink: 0;
+          flex-basis: 106px;
         }
       }
     }

@@ -269,7 +269,9 @@ export default {
       }
       .list-product {
         margin-bottom: 0;
-        flex: 0 0 234px;
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: 234px;
         .image {
           width: 112px;
           height: 132px;
@@ -285,7 +287,9 @@ export default {
         margin-left: 28px;
         margin-bottom: 0;
         margin-right: 98px;
-        flex: 0 0 697px;
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: 697px;
         .title {
           margin-bottom: 10px;
         }

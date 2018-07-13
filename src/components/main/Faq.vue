@@ -228,10 +228,14 @@ export default {
         word-break: keep-all;
         cursor: pointer;
         .q {
-          flex: 0 0 20px;
+          flex-grow: 0;
+          flex-shrink: 0;
+          flex-basis: 20px;
         }
         .title {
-          flex: 1 1 auto;
+          flex-grow: 1;
+          flex-shrink: 1;
+          flex-basis: auto;
         }
       }
     }
@@ -278,7 +282,9 @@ export default {
       font-size: 39px;
     }
     .txt-main-point {
-      flex: 0 0 202px;
+      flex-grow: 0;
+      flex-shrink: 0;
+      flex-basis: 202px;
     }
     .row {
       margin-top: 42px;
@@ -301,10 +307,14 @@ export default {
           letter-spacing: -0.7px;
           line-height: 38px;
           .q {
-            flex: 0 0 24px;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: 24px;
           }
           .title {
-            flex: 1 1 auto;
+            flex-grow: 1;
+            flex-shrink: 1;
+            flex-basis: auto;
           }
         }
       }

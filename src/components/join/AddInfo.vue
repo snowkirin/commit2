@@ -349,7 +349,7 @@ export default {
       width: calc((100% / 3) - 7px);
       height: 50px;
       border: 1px solid #c4c4c4;
-      background-size: 110%;
+      background-size: contain;
       display: inline-block;
       margin-left: 7px;
       color: #bbb;
@@ -505,6 +505,15 @@ export default {
       height: 60px;
       font-size: 18px;
       letter-spacing: -0.7px;
+    }
+  }
+
+  @media (min-width: 767px) {
+    .container {
+      width: 1200px;
+      margin: 0 auto;
+      padding-left: 0;
+      padding-right: 0;
     }
   }
 
