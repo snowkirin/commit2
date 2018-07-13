@@ -74,8 +74,14 @@
           (상, 하의를 볼 수 있는 착장샷이 좋아요)
         </p>
       </div>
-      <div class="image-preview" v-if="previewImage">
+      <div class="image-preview" style="display: none;" ref="imagePreview">
         <div>
+          <svg version="1.1" id="L3" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve" width="50" style="margin: 0 auto;">
+            <circle fill="none" stroke="#333" stroke-width="4" cx="50" cy="50" r="44" style="opacity:0.5;"></circle>
+            <circle fill="none" stroke="#333" stroke-width="3" cx="8" cy="54" r="6" transform="rotate(323.517 50 51.5946)">
+              <animateTransform attributeName="transform" dur="2s" type="rotate" from="0 50 48" to="360 50 52" repeatCount="indefinite"></animateTransform>
+            </circle>
+          </svg>
           <img :src="previewImage" width="163" alt="">
         </div>
       </div>
@@ -96,186 +102,181 @@
 </template>
 
 <script>
-  import { mapActions, mapGetters } from 'vuex';
-  import Codes from '@/library/api/codes';
+import { mapActions, mapGetters } from 'vuex';
+import Codes from '@/library/api/codes';
 
-  export default {
-    name: 'addinfo',
-    components: {
-    },
-    computed: {
-    },
-    data() {
-      return {
-        addInfoData: {
-        },
-        memberStyle: {
-          preferColor: null,
-          preferPattern: null,
-          preferBrand: null,
-          dressCode: null,
-          requirement: null,
-        },
-        imageFile: {},
-        previewImage: '',
+export default {
+  name: 'addinfo',
+  components: {
+  },
+  computed: {
+  },
+  data() {
+    return {
+      addInfoData: {
+      },
+      memberStyle: {
+        preferColor: null,
+        preferPattern: null,
+        preferBrand: null,
+        dressCode: null,
+        requirement: null,
+      },
+      imageFile: {},
+      previewImage: '',
+    }
+  },
+  methods: {
+    clickColor(data, event){
+      const $parent = document.querySelector('.list-color');
+      let eleTarget = null;
+      if (event.target.nodeName === 'DIV') {
+        eleTarget = event.path[1];
+      } else if (event.target.nodeName === 'SPAN') {
+        eleTarget = event.path[2];
+      } else {
+        return false;
       }
+      _.forEach($parent.querySelectorAll('li'), function(value) {
+        value.style.backgroundColor = '#fff';
+        value.classList.remove('selected');
+      });
+      switch (data.name) {
+        case '무채색':
+          eleTarget.style.backgroundColor = '#bbbbbb';
+          break;
+        case '녹색':
+          eleTarget.style.backgroundColor = '#749c09';
+          break;
+        case '베이지':
+          eleTarget.style.backgroundColor = '#e3cea9';
+          break;
+        case '보라':
+          eleTarget.style.backgroundColor = '#960af1';
+          break;
+        case '빨강':
+          eleTarget.style.backgroundColor = '#dc3f39';
+          break;
+        case '노랑':
+          eleTarget.style.backgroundColor = '#eacd1b';
+          break;
+        case '파랑':
+          eleTarget.style.backgroundColor = '#0e7fc9';
+          break;
+        case '상관없음':
+          eleTarget.style.backgroundColor = '#333333';
+          break;
+        default:
+          break;
+      }
+      eleTarget.classList.add('selected');
+      this.memberStyle.preferColor = data.code;
     },
-    methods: {
-      clickColor(data, event){
-        // TODO: 데이터 집어넣는거 할것.
-        let $parent = document.querySelector('.list-color');
-        let eleTarget = null;
-        if (event.target.nodeName === 'DIV') {
-          eleTarget = event.path[1];
-        } else if (event.target.nodeName === 'SPAN') {
-          eleTarget = event.path[2];
-        } else {
-          return false;
-        }
+    clickPattern(data, event) {
+      const $parent = document.querySelector('.list-pattern');
+      let eleTarget = null;
+      if (event.target.nodeName === 'DIV') {
+        eleTarget = event.path[1];
+      } else if (event.target.nodeName === 'SPAN') {
+        eleTarget = event.path[2];
+      } else {
+        return false;
+      }
+
+      if (eleTarget.classList.contains('selected')) {
+        eleTarget.classList.remove('selected');
+        this.memberStyle.preferPattern = null;
+      } else {
         _.forEach($parent.querySelectorAll('li'), function(value) {
           value.style.backgroundColor = '#fff';
           value.classList.remove('selected');
         });
-        switch (data.name) {
-          case '무채색':
-            eleTarget.style.backgroundColor = '#bbbbbb';
-            break;
-          case '녹색':
-            eleTarget.style.backgroundColor = '#749c09';
-            break;
-          case '베이지':
-            eleTarget.style.backgroundColor = '#e3cea9';
-            break;
-          case '보라':
-            eleTarget.style.backgroundColor = '#960af1';
-            break;
-          case '빨강':
-            eleTarget.style.backgroundColor = '#dc3f39';
-            break;
-          case '노랑':
-            eleTarget.style.backgroundColor = '#eacd1b';
-            break;
-          case '파랑':
-            eleTarget.style.backgroundColor = '#0e7fc9';
-            break;
-          case '상관없음':
-            eleTarget.style.backgroundColor = '#333333';
-            break;
-          default:
-            console.log('Noting');
-        }
         eleTarget.classList.add('selected');
-        this.memberStyle.preferColor = data.code;
-      },
-      clickPattern(data, event) {
-        let $parent = document.querySelector('.list-pattern');
-        let eleTarget = null;
-        if (event.target.nodeName === 'DIV') {
-          eleTarget = event.path[1];
-        } else if (event.target.nodeName === 'SPAN') {
-          eleTarget = event.path[2];
-        } else {
-          return false;
-        }
+        this.memberStyle.preferPattern = data.code;
+      }
+    },
+    clickDressCode(data, event) {
+      const $parent = document.querySelector('.list-dresscode');
+      let eleTarget = null;
+      if (event.target.nodeName === 'SPAN') {
+        eleTarget = event.path[1];
+      } else if (event.target.nodeName === 'LI') {
+        eleTarget = event.path[0];
+      }
+      _.forEach($parent.querySelectorAll('li'), function(value) {
+        value.classList.remove('selected');
+      });
+      eleTarget.classList.add('selected');
+      this.memberStyle.dressCode = data.code;
+    },
+    clickImageUpload() {
+      this.$refs.imageFileInput.click();
+    },
+    clickComplete() {
+      const $this = this;
+      const formData = new FormData();
+      formData.append('userImages', $this.imageFile);
+      Codes.postMemberImageStyle(formData, $this.memberStyle).then(function(res) {
+      });
 
-        if (eleTarget.classList.contains('selected')) {
-          eleTarget.classList.remove('selected');
-          this.memberStyle.preferPattern = null;
-        } else {
-          _.forEach($parent.querySelectorAll('li'), function(value) {
-            value.style.backgroundColor = '#fff';
-            value.classList.remove('selected');
-          });
-          eleTarget.classList.add('selected');
-          this.memberStyle.preferPattern = data.code;
-        }
-      },
-      clickDressCode(data, event) {
-        let $parent = document.querySelector('.list-dresscode');
-        let eleTarget = null;
-        if (event.target.nodeName === 'SPAN') {
-          eleTarget = event.path[1];
-        } else if (event.target.nodeName === 'LI') {
-          eleTarget = event.path[0];
-        }
-        _.forEach($parent.querySelectorAll('li'), function(value) {
-          value.classList.remove('selected');
-        });
-        eleTarget.classList.add('selected');
-        this.memberStyle.dressCode = data.code;
-      },
-      clickImageUpload() {
-        this.$refs.imageFileInput.click();
-      },
-      clickComplete() {
-        const $this = this;
-        let formData = new FormData();
-        formData.append('userImages', $this.imageFile);
-        Codes.postMemberImageStyle(formData, $this.memberStyle).then(function(res) {
-          console.log(res);
-        });
-
-        this.$router.push({ path: '/closet/tomorrow' });
-      },
-      changeImage(event) {
+      this.$router.push({ path: '/closet/tomorrow' });
+    },
+    changeImage(event) {
+      if (event.target.files.length !== 0) {
         this.imageFile = event.target.files[0];
         this.renderPreviewImage(this.imageFile);
-        console.log(this.imageFile.name);
-      },
-      renderPreviewImage(file) {
-        let image = new Image();
-        let reader = new FileReader();
-        const $this = this;
-
-        /*reader.onprogress = (e) => {
-          console.log('Progress');
-        };
-        reader.onloadstart = (e) => {
-          console.log('load start');
-        }
-        reader.onloadend = (e) => {
-          console.log('load end');
-        }*/
-
-        reader.onload = (e) => {
-          console.log(e.target);
-          $this.previewImage = e.target.result;
-        };
-        reader.readAsDataURL(file);
-
-      },
-      patternName(data) {
-        if (data === '스트라이프') {
-          return 'stripe';
-        } else if (data === '체크') {
-          return 'check';
-        } else {
-          return 'floral';
-        }
-      },
-      dressCodeName(data) {
-        if (data === '캐주얼') {
-          return 'casual';
-        } else if (data === '캐주얼 정장') {
-          return 'casual-suit';
-        } else if (data === '세미 정장') {
-          return 'semi-suit';
-        } else if (data === '정장') {
-          return 'suit';
-        }
-      },
+      }
     },
-    created() {
+    renderPreviewImage(file) {
+      const image = new Image();
+      const reader = new FileReader();
       const $this = this;
-      Codes.getOptions().then(function(res) {
-        $this.addInfoData = res.data;
-      }).catch(function(err) {
-        console.log(err);
-      })
+      reader.onloadstart = (e) => {
+        this.$refs.imagePreview.style.display = 'block';
+        this.$refs.imagePreview.querySelector('img').style.display = 'none';
+        this.$refs.imagePreview.querySelector('svg').style.display = 'block';
+      }
+      reader.onloadend = (e) => {
+        this.$refs.imagePreview.querySelector('svg').style.display = 'none';
+        this.$refs.imagePreview.querySelector('img').style.display = 'block';
+      }
+      reader.onload = (e) => {
+        $this.previewImage = e.target.result;
+      };
+      reader.readAsDataURL(file);
     },
-    mounted() {
+    patternName(data) {
+      if (data === '스트라이프') {
+        return 'stripe';
+      } else if (data === '체크') {
+        return 'check';
+      } else {
+        return 'floral';
+      }
     },
-  };
+    dressCodeName(data) {
+      if (data === '캐주얼') {
+        return 'casual';
+      } else if (data === '캐주얼 정장') {
+        return 'casual-suit';
+      } else if (data === '세미 정장') {
+        return 'semi-suit';
+      } else if (data === '정장') {
+        return 'suit';
+      }
+    },
+  },
+  created() {
+    const $this = this;
+    Codes.getOptions().then(function(res) {
+      $this.addInfoData = res.data;
+    }).catch(function(err) {
+      console.error(err);
+    })
+  },
+  mounted() {
+  },
+};
 </script>
 
 <style scoped lang="scss">
@@ -297,6 +298,7 @@
   .container {
     padding-left: 20px;
     padding-right: 20px;
+    padding-bottom: 100px;
   }
   .title-addinfo {
     font-size: 26px;
@@ -322,7 +324,8 @@
       user-select: none;
       cursor: pointer;
       display: inline-block;
-      width: 163px;
+      width: calc((100% / 2) - 9px);
+      /*width: 163px;*/
       height: 50px;
       color: #bbb;
       border: 1px solid #c4c4c4;
@@ -343,16 +346,13 @@
       @include txtListStyle;
       user-select: none;
       cursor: pointer;
-      width: 106px;
+      width: calc((100% / 3) - 7px);
       height: 50px;
       border: 1px solid #c4c4c4;
       background-size: 110%;
       display: inline-block;
       margin-left: 7px;
       color: #bbb;
-      size: 15px;
-      line-height: 25px;
-      letter-spacing: -.6px;
       &:first-child {
         margin-left: 0;
       }
@@ -386,13 +386,16 @@
     li {
       user-select: none;
       display: inline-block;
-      width: 163px;
+      /*width: 163px;*/
+      width: calc((100% / 2) - 8px);
       height: 245px;
       margin-left: 8px;
       margin-top: 10px;
       cursor: pointer;
       /* 임시 */
-      background-size: cover;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: 50%;
       position: relative;
       border: 1px solid #e9e9e9;
       .text {
@@ -462,12 +465,15 @@
   }
 
   .image-preview {
-    width: 336px;
+    width: 100%;
     background-color: #f9f9f9;
     border: 1px solid #e9e9e9;
     text-align: center;
-    padding: 30px 0;
+    padding: 30px;
     margin: 17px auto 0;
+    img {
+      width: 100%;
+    }
   }
   .textarea-required {
     textarea {
@@ -489,9 +495,11 @@
     margin-top: 35px;
   }
   .btn-complete {
-    margin-top: 48px;
-    margin-left: -20px;
-    width: calc( 100% + 20px + 20px);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
     button {
       width: 100%;
       height: 60px;
