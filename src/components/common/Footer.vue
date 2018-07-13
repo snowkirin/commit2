@@ -10,8 +10,8 @@
           </p>
           <a
             class="txt-tel"
-            href="tel:02-6929-3821">
-            02-6929-3821
+            href="tel:02-6929-3823">
+            02-6929-3823
           </a>
           <p class="txt-operation">
             평일 오전 10 시 ~ 오후 5시
@@ -37,14 +37,14 @@
           <p class="txt-info" v-if="$mq === 'sm'">
             법인명(상호) : 주식 회사 어니언 그라운드(<span class="en-font">Onion Ground</span>) |
             대표자(성명) : 김경규, 이시진 |
-            개인정보보호책임자 : 김용주(<a class="en-font" href="mailto:admin@onionground.com">admin@onionground.com</a>) <br v-show="$mq === 'lg'">
+            개인정보보호책임자 : 황우진(<a class="en-font" href="mailto:admin@onionground.com">admin@onionground.com</a>) <br v-show="$mq === 'lg'">
             사업자 등록 번호 : 729-81-00963 |
             서울 특별시 테헤란로 78길 14-6 동성빌딩 7층 <br v-show="$mq === 'lg'">
             입점 문의 및 마케팅 제휴 : <a class="en-font" href="mailto:sjsj00@onionground.com">sjsj00@onionground.com</a> |
             기타 문의 : <a class="en-font" href="mailto:admin@onionground.com">admin@onionground.com</a>
           </p>
           <p v-else class="txt-info">
-            법인명(상호) : 주식 회사 어니언 그라운드(Onion Ground) 대표자(성명) : 김경규, 이시진개인정보보호책임자 : 김용주(<a class="en-font" href="mailto:admin@onionground.com">admin@onionground.com</a>)<br/>
+            법인명(상호) : 주식 회사 어니언 그라운드(Onion Ground) 대표자(성명) : 김경규, 이시진 개인정보보호책임자 : 황우진(<a class="en-font" href="mailto:admin@onionground.com">admin@onionground.com</a>)<br/>
             사업자 등록 번호 : 729-81-00963서울 특별시 테헤란로 78길 14-6 동성빌딩 7층<br/>
             입점 문의 및 마케팅 제휴 : <a class="en-font" href="mailto:sjsj00@onionground.com">sjsj00@onionground.com</a> 기타 문의 : <a class="en-font" href="mailto:admin@onionground.com">admin@onionground.com</a><br/>
           </p>
