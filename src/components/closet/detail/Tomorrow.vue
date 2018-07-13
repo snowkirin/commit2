@@ -268,8 +268,6 @@ export default {
     isShowFlag(tmr) {
       if (tmr.products) {
         this.isShow = true;
-      } else if (tmr.select_dday > 0) {
-        this.isShow = false;
       }
 
       return true;
