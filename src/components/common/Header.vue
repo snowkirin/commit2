@@ -49,12 +49,10 @@ export default {
   }),
   methods: {
     headerMediaQueries() {
-      if (this.$mq === 'sm') {
-        if (this.$route.path.indexOf('join') !== -1) {
-          this.gnbToggle = false;
-        }
-      } else if (this.$mq === 'md') {
+      if (this.$route.path.indexOf('join') !== -1) {
+        this.gnbToggle = true;
       } else {
+        this.gnbToggle = false;
       }
     },
     headerLineEvt() {

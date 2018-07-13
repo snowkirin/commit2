@@ -1,6 +1,7 @@
 @charset "UTF-8";
 @import '_reboot.css';
 @import '_form.scss';
+@import '_nprogress';
 /* Common Style */
 
 body {
@@ -150,9 +151,12 @@ a, a:hover {
 // Tablet
 @media (min-width: 768px){
   .txt-main-title {
-    font-size: 26px;
-    line-height: 34px;
+    font-size: 20px;
+    line-height: 26px;
     letter-spacing: -1.4px;
+    //font-size: 26px;
+    //line-height: 34px;
+    //letter-spacing: -1.4px;
   }
   .txt-main-point {
     font: {

@@ -88,6 +88,18 @@
                   <div class="txt-centering">{{ data2 }}</div>
                 </li>
               </ul>
+              <div
+                class="form-row"
+                style="display: none;"
+                ref="reasons"
+                v-if="data.question_text === '색상 및 패턴'"
+                :data-questionCode="data.question_code"
+                :data-clothType="data.cloth_type">
+                <input
+                  type="text"
+                  placeholder="색상, 패턴이 맘에 들지 않은 이유를 적어주세요."
+                  class="form-input">
+              </div>
             </div>
           </div>
         </div>
@@ -117,14 +129,26 @@
             </div>
             <div>
               <ul class="square-list">
-                :class="(data['answer_text'].length === 5 && idx2 === 3) ? 'line-break': ''"
                 <li
                   v-for="(data2, idx2) in data.answer_text"
+                  :class="(data['answer_text'].length === 5 && idx2 === 3) ? 'line-break': ''"
                   :key="idx2"
                   @click="clickEvt(data, idx2, $event)">
                   <div class="txt-centering">{{ data2 }}</div>
                 </li>
               </ul>
+              <div
+                style="display: none;"
+                class="form-row"
+                v-if="data.question_text === '색상 및 패턴'"
+                ref="reasons"
+                :data-questionCode="data.question_code"
+                :data-clothType="data.cloth_type">
+                <input
+                  type="text"
+                  placeholder="색상, 패턴이 맘에 들지 않은 이유를 적어주세요."
+                  class="form-input">
+              </div>
             </div>
           </div>
         </div>
@@ -212,6 +236,15 @@ export default {
         questionCode: _.parseInt(data.question_code),
         answerCode: _.parseInt(data.answer_code[index]),
       };
+      if (data.question_text === '색상 및 패턴') {
+        if (data.answer_text[index] === '별로') {
+          event.path[3].querySelector('.form-row').style.display = 'block';
+          event.path[3].querySelector('.form-row').setAttribute('data-answerCode', data.answer_code[index]);
+        } else {
+          event.path[3].querySelector('.form-row').style.display = 'none';
+          event.path[3].querySelector('.form-row').querySelector('input').value = '';
+        }
+      }
       Closet.mypageFeedbackAnswer(sendData).then(function(res) {
         _.forEach(event.path[2].querySelectorAll('li'),function(value){
           value.classList.remove('selected');
@@ -242,11 +275,41 @@ export default {
       });
     },
     btnSubmit() {
-      this.$common.viewAlertModal('의견 감사합니다.', this.$refs, 'alert');
+      const $this = this;
+      let flag = false;
+      if (this.$refs.reasons.length !== 0) {
+        const reasons = this.$refs.reasons;
+        _.forEach(reasons, function(data) {
+          if (data.style.display === 'block'){
+            if (data.querySelector('input').value === '') {
+              alert('별로인 이유를 적어주세요.');
+              data.querySelector('input').focus();
+              flag = true;
+            } else {
+              const sendData = {
+                subscriptionId: _.parseInt($this.subId),
+                feedbackId: _.parseInt($this.feedbackId),
+                clothType: _.parseInt(data.dataset.clothtype),
+                questionCode: _.parseInt(data.dataset.questioncode),
+                answerReason: data.querySelector('input').value,
+                answerCode: _.parseInt(data.dataset.answercode),
+              };
+              Closet.mypageFeedbackAnswerReason(sendData).then(function(res) {
+                console.log(res);
+              }).catch(function(err) {
+                console.log(err);
+              });
+            }
+          }
+        });
+      }
       if (this.type === 'direct'){
         this.$router.push({ path: '/login' });
       }
-      this.$refs.review.style.display = 'none';
+      if (!flag) {
+        this.$common.viewAlertModal('의견 감사합니다.', this.$refs, 'alert');
+        this.$refs.review.style.display = 'none';
+      }
     },
     clickRating(data, index, string) {
       const $this = this;
@@ -259,7 +322,6 @@ export default {
         answerCode: _.parseInt(data.answer_code[index]),
       };
       Closet.mypageFeedbackAnswer(sendData).then(function(res) {
-        console.log(res)
       }).catch(function(err) {
         $this.$common.viewAlertModal('서버와의 통신이 불안정합니다.', $this.$refs, 'alert');
         console.error(err);
@@ -271,7 +333,6 @@ export default {
   },
   created() {
     if (this.data.result) {
-      console.log(this.data);
       this.subId = this.subscriptionId;
       this.feedbackId = this.data.feedback_id;
       this.questionCommon = this.data.question.common;
@@ -290,14 +351,16 @@ export default {
 <style scoped lang="scss">
   .feedback {
     // 부모의 패딩값 만큼.
-    margin-left: -20px;
     width: 100vw;
+    margin-left: -20px;
     margin-bottom: 34px;
+    margin-top: 16px;
   }
   .rating {
     text-align: center;
     padding-left: 20px;
     padding-right: 20px;
+    padding-top: 14px;
     .inner {
       background-image: url('/static/img/closet/img_feedback.png');
       height: 187px;
@@ -357,11 +420,11 @@ export default {
       background-color: #797979;
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
       color: #fff;
-      line-height: 43px;
-      font-size: 16px;
+      line-height: 40px;
+      font-size: 15px;
       letter-spacing: -1px;
       text-align: center;
-      height: 43px;
+      height: 40px;
       position: relative;
       margin-left: -20px;
       width: calc(100% + 40px);
@@ -369,10 +432,10 @@ export default {
         content: '';
         display: block;
         position: absolute;
-        border-bottom: 11px solid #797979;
-        border-left: 11px solid transparent;
-        border-right: 11px solid transparent;
-        top: -11px;
+        border-bottom: 8px solid #797979;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        top: -8px;
         left: 50%;
         transform: translateX(-50%);
       }
@@ -431,6 +494,7 @@ export default {
         background-color: #fff;
         font-size: 15px;
         color: #bbb;
+        letter-spacing: -0.6px;
         text-align: center;
         word-break: keep-all;
         float: left;
@@ -476,6 +540,7 @@ export default {
       margin: 0 auto;
       padding-left: 0;
       padding-right: 0;
+      padding-top: 14px;
       .inner {
         height: 254px;
         padding-top: 52px;

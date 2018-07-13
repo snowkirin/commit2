@@ -44,6 +44,7 @@
               <br v-if="$mq !== 'sm'">
               <a
                 href="#"
+                v-if="feedbackToggle(idx)"
                 @click.prevent="clickShowFeedback(idx)"
                 class="txt-link">
                 옷장 후기 입력하기
@@ -56,7 +57,6 @@
             :data="feedbackData[idx]"
             :type="'past'"
             v-if="feedbackToggle(idx)">
-            <!--type="past"-->
           </feedBack>
         </li>
       </ul>

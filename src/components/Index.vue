@@ -28,8 +28,10 @@ export default {
     toggleFooter() {
       if (this.$route.path.indexOf('join') !== -1) {
         this.footerShow = false;
+      } else {
+        this.footerShow = true;
       }
-    }
+    },
   },
   created() {
     this.toggleFooter();

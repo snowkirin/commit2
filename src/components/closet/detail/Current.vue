@@ -5,14 +5,25 @@
       드신다면?<br/>
       반납 없이 구매할 수 있습니다.
     </p>-->
-    <feedBack
+    <div v-if="showCurrent">
+      <div class="none">
+        <div class="inner">
+          <p>
+            조금만 기다리세요<br/>
+            곧 옷장이 채워집니다.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div v-else>
+      <feedBack
       ref="feedback"
       v-if="!_.isEmpty(feedbackData)"
       :data="feedbackData"
       :subscriptionId="feedbackDirect.subscription_id ? feedbackDirect.subscription_id : currentCloset.subscription_id"
       :type="directFeedbackCheck ? 'direct' : 'current'">
     </feedBack>
-    <div class="current-styling" v-show="!directFeedbackCheck">
+      <div class="current-styling" v-show="!directFeedbackCheck">
       <!-- Mobile-->
       <div class="carousel">
         <swiper :options="swiperOption">
@@ -38,7 +49,8 @@
         {{ currentCloset.hashtag }}
       </p>
     </div>
-    <detail-modal ref="detail" dataId="address"></detail-modal>
+      <detail-modal ref="detail" dataId="address"></detail-modal>
+    </div>
   </div>
 
 </template>
@@ -80,6 +92,7 @@ export default {
       secondCurrentCloset: true,
       feedbackData: {},
       directFeedbackCheck: false,
+      showCurrent: true,
     };
   },
   components: {
@@ -169,10 +182,7 @@ export default {
       Closet.mypageFeedback(subscriptionId)
         .then(function(res) {
           if (res.data.result) {
-            console.log('hello');
             $this.feedbackData = res.data;
-          } else {
-            console.log('world');
           }
         });
     },
@@ -180,14 +190,20 @@ export default {
   async created() {
     if (!this.isLogin) {
       if (this.feedbackDirect.result) {
+        this.showCurrent = false;
         this.directFeedbackCheck = true;
+        this.feedbackInfo();
       }
     } else {
       await this.setCurrentCloset();
+      if (_.isEmpty(this.currentCloset)) {
+        this.showCurrent = true;
+      } else {
+        this.showCurrent = false;
+        this.feedbackInfo();
+      }
     }
-
-    this.feedbackInfo();
-
+    // this.feedbackInfo();
     /*const productList = this.currentCloset.products;
     for (let i = 0; productList.length > i; i += 1) {
       if (productList[i].id === null) {
@@ -199,9 +215,6 @@ export default {
       }
     }*/
   },
-  beforeCreated() {
-    console.log('Hello world');
-  }
 };
 </script>
 
@@ -209,6 +222,30 @@ export default {
   .container {
     padding: 15px 20px 20px 20px;
   }
+
+  .none {
+    height: 500px;
+    background: url(/static/img/closet/img_none.png) no-repeat 50% 0;
+    display: flex;
+    justify-content: center;
+    .inner {
+      margin: auto;
+      height: 160px;
+      background-color: #fafafa;
+      display: table;
+      width: 90%;
+    }
+    p {
+      height: 100%;
+      vertical-align: middle;
+      display: table-cell;
+      text-align: center;
+      font-size: 20px;
+      line-height: 28px;
+      letter-spacing: -1px;
+    }
+  }
+
   .txt-current-title {
     font-size: 20px;
     line-height: 28px;

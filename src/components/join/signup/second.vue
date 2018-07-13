@@ -434,7 +434,7 @@ export default {
 
 <style scoped lang="scss">
   .signup {
-    padding: 23px 20px 123px;
+    padding: 23px 20px 41px;
   }
   .contents {
   }
@@ -515,6 +515,7 @@ export default {
     .form-input {
       &[readonly]{
         border: 2px solid #333;
+        font-weight: 700;
       }
     }
   }
@@ -602,13 +603,10 @@ export default {
     }
   }
   .btn-complete {
-    margin-top: 71px;
-    margin-left: -20px;
-    width: calc( 100% + 20px + 20px);
+    margin-top: 40px;
+    width: 100%;
     button {
       width: 100%;
-      height: 60px;
-      font-size: 18px;
     }
   }
   @media (min-width: 767px) {

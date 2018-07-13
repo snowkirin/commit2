@@ -279,7 +279,7 @@ export default {
 
 <style scoped lang="scss">
   .styling {
-    padding: 20px;
+    padding: 20px 20px 17px 20px;
   }
   .styling-title {
     font-size: 26px;
@@ -325,13 +325,11 @@ export default {
   }
 
   .btn-next {
-    margin-left: -20px;
-    margin-top: 36px;
-    width: calc(100% + 40px);
+    width: 100%;
+    margin-top: 61px;
     button {
       width: 100%;
-      height: 60px;
-      font-size: 18px;
+      height: 50px;
     }
   }
 
