@@ -2,7 +2,7 @@
   <div>
     <zuly-header></zuly-header>
     <router-view></router-view>
-    <zuly-footer></zuly-footer>
+    <zuly-footer v-if="footerShow"></zuly-footer>
   </div>
 </template>
 
@@ -23,43 +23,18 @@ export default {
     ZulyFooter,
   },
   watch: {
-    // $route() {
-    //   this.mobileVisible();
-    // },
-    $route() {
-      this.footerVisible();
-    },
   },
   methods: {
-    footerVisible() {
-      if (this.$mq === 'sm') {
-        if (this.$route.path.indexOf('join') !== -1) {
-          this.footerShow = false;
-        }
+    toggleFooter() {
+      if (this.$route.path.indexOf('join') !== -1) {
+        this.footerShow = false;
       }
-    },
-    // mobileVisible() {
-    //   if (window.outerWidth <= 486) {
-    //     if (this.$route.meta.mobile) {
-    //       this.headerShow = false;
-    //       this.footerShow = false;
-    //     } else {
-    //       this.headerShow = true;
-    //       this.footerShow = true;
-    //     }
-    //   } else {
-    //     this.headerShow = true;
-    //     this.footerShow = true;
-    //   }
-    // },
+    }
   },
   created() {
-    this.footerVisible();
-    // this.mobileVisible();
-    // window.addEventListener('resize', this.mobileVisible);
+    this.toggleFooter();
   },
   destroyed() {
-    // window.removeEventListener('resize', this.mobileVisible);
   },
 };
 </script>
