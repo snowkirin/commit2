@@ -103,7 +103,9 @@ export default {
     margin-top: 35px;
     .image {
       margin-left: -3px;
-      flex: 0 0 68px;
+      flex-grow: 0;
+      flex-shrink: 0;
+      flex-basis: 68px;
     }
     .detail {
       padding-left: 18px;
@@ -126,7 +128,9 @@ export default {
   .step2 {
     margin-top: 32px;
     .image {
-      flex: 0 0 70px;
+      flex-grow: 0;
+      flex-shrink: 0;
+      flex-basis: 70px;
       margin-left: -4px;
     }
     .detail {
@@ -149,7 +153,9 @@ export default {
   .step3 {
     margin-top: 31px;
     .image {
-      flex: 0 0 70px;
+      flex-grow: 0;
+      flex-shrink: 0;
+      flex-basis: 70px;
       margin-left: -4px;
     }
     .detail {
@@ -172,7 +178,9 @@ export default {
   .step4 {
     margin-top: 33px;
     .image {
-      flex: 0 0 66px;
+      flex-grow: 0;
+      flex-shrink: 0;
+      flex-basis: 66px;
     }
     .detail {
       padding-left: 17px;
@@ -199,7 +207,9 @@ export default {
       padding: 65px 0 57px;
     }
     .txt-main-point {
-      flex: 0 0 202px;
+      flex-grow: 0;
+      flex-shrink: 0;
+      flex-basis: 202px;
     }
     .line {
       display: none;
@@ -209,12 +219,16 @@ export default {
       margin-top: 2px;
       flex: 1;
       .left {
-        flex: 1 0 50%;
+        flex-grow: 1;
+        flex-shrink: 0;
+        flex-basis: 50%;
         border-right: 1px solid #dadada;
         margin-top: 3px;
       }
       .right {
-        flex: 1 0 50%;
+        flex-grow: 1;
+        flex-shrink: 0;
+        flex-basis: 50%;
         padding-left: 48px;
       }
     }
@@ -243,7 +257,9 @@ export default {
     .step1 {
       margin-top: 0;
       .image {
-        flex: 0 0 90px;
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: 90px;
         margin-left: -5px;
       }
       .detail {

@@ -298,7 +298,9 @@ export default {
       background: #f5f5f5;
     }
     li {
-      flex: 0 4 calc(25% + 1px);
+      flex-grow: 0;
+      flex-shrink: 4;
+      flex-basis: calc(25% - 1px);
       position: relative;
       border: 1px solid #c4c4c4;
       margin-left: -1px;

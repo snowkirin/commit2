@@ -261,7 +261,9 @@ export default {
     height: 473px;
   }
   .contact-detail {
-    flex: 1 1 31.59340659340659%;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 31.59340659340659%;
 
     .top {
       display: flex;
@@ -338,7 +340,9 @@ export default {
     }
   }
   .contact-chat {
-    flex: 1 1 68.40659340659341%;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 68.40659340659341%;
     background-color: #f4f4f4;
     padding: 0 20px;
     .top {
