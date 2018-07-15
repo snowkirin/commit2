@@ -3,9 +3,9 @@
     <div>
       <p class="txt-main-point">BENEFIT</p>
       <p class="txt-benefit">
-        쇼핑, 세탁, 보관 걱정 없는<br/>
-        나만의 옷장<br/>
-        지금 무료로 경험하세요.
+        사지 말고 경험하세요.<br/>
+        패션 구독 서비스<br/>
+        <strong>첫 달 구독료 선착순 <span class="txt-discount">30%</span></strong>할인!
       </p>
     </div>
     <div class="event">
@@ -13,20 +13,47 @@
         class="btn-free-month"
         v-if="!Authentication.authenticated"
         to="/join/size">
-        정기 구독 신청
+        할인 가입 신청 (잔여 <span class="txt-count">{{count}}</span>명)
         <span class="icon-arrow">&rightarrow;</span>
       </router-link>
+
+      <!--<router-link
+        class="btn-free-month"
+        v-if="!Authentication.authenticated"
+        to="/join/size">
+        정기 구독 신청
+        <span class="icon-arrow">&rightarrow;</span>
+      </router-link>-->
     </div>
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex';
+import Member from '@/library/api/member';
+
 export default {
   name: 'benefit',
+  data() {
+    return {
+      count: 0,
+    }
+  },
   computed: mapGetters({
     Authentication: 'login/Authentication',
   }),
   methods: {
+  },
+  created() {
+    const $this = this;
+    Member.getMemberCount()
+      .then(function(res) {
+        if (res.data.result) {
+          $this.count = 100 - res.data.count;
+        }
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
   },
 };
 </script>
@@ -36,10 +63,16 @@ export default {
     padding: 19px 19px 35px;
     .txt-benefit {
       font-size: 26px;
-      letter-spacing: -1.4px;
+      letter-spacing: -1.8px;
       line-height: 34px;
       margin-left: -2px;
-      user-select: none;          /* Likely future */
+      user-select: none;
+      .txt-discount {
+        font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
+        font-size: 28px;
+        line-height: 34px;
+        letter-spacing: -0.4px;
+      }
     }
     .event {
       position: fixed;
@@ -61,10 +94,11 @@ export default {
           background-color: #fb5143;
         }
       }
+      .txt-count {
+        font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
+      }
       .icon-arrow {
         display: block;
-        /*width: 66px;*/
-        /*height: 44px;*/
         background: url(/static/img/icons/arrow.png) no-repeat 0 0;
         background-size: cover;
         text-indent: -9999em;
