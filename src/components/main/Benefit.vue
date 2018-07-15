@@ -16,14 +16,6 @@
         할인 가입 신청 (잔여 <span class="txt-count">{{count}}</span>명)
         <span class="icon-arrow">&rightarrow;</span>
       </router-link>
-
-      <!--<router-link
-        class="btn-free-month"
-        v-if="!Authentication.authenticated"
-        to="/join/size">
-        정기 구독 신청
-        <span class="icon-arrow">&rightarrow;</span>
-      </router-link>-->
     </div>
   </div>
 </template>
@@ -46,12 +38,12 @@ export default {
   created() {
     const $this = this;
     Member.getMemberCount()
-      .then(function(res) {
+      .then((res) => {
         if (res.data.result) {
           $this.count = 100 - res.data.count;
         }
       })
-      .catch(function(err) {
+      .catch((err) => {
         console.log(err);
       });
   },
