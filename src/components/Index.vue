@@ -1,6 +1,6 @@
 <template>
   <div>
-    <zuly-header></zuly-header>
+    <zuly-header :closetCheck="checkCloset"></zuly-header>
     <router-view></router-view>
     <zuly-footer v-if="footerShow"></zuly-footer>
   </div>
@@ -16,6 +16,7 @@ export default {
     return {
       headerShow: true,
       footerShow: true,
+      checkCloset: false,
     };
   },
   components: {
@@ -23,9 +24,20 @@ export default {
     ZulyFooter,
   },
   watch: {
+    $route() {
+      this.checkPathJoin();
+      this.checkPathCloset();
+    },
   },
   methods: {
-    toggleFooter() {
+    checkPathCloset() {
+      if (this.$route.path.indexOf('closet') !== -1) {
+        this.checkCloset = true;
+      } else {
+        this.checkCloset = false;
+      }
+    },
+    checkPathJoin() {
       if (this.$route.path.indexOf('join') !== -1) {
         this.footerShow = false;
       } else {
@@ -34,7 +46,11 @@ export default {
     },
   },
   created() {
-    this.toggleFooter();
+    this.checkPathJoin();
+    this.checkPathCloset();
+  },
+  mounted() {
+
   },
   destroyed() {
   },

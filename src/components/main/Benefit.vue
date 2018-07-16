@@ -62,7 +62,6 @@ export default {
       .txt-discount {
         font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
         font-size: 28px;
-        line-height: 34px;
         letter-spacing: -0.4px;
       }
     }
@@ -115,6 +114,10 @@ export default {
         letter-spacing: -3.5px;
         line-height: 68px;
         margin-left: -3px;
+        .txt-discount {
+          font-size: 63px;
+          letter-spacing: 0;
+        }
       }
       .event {
         position: absolute;

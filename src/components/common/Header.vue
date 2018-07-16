@@ -26,6 +26,7 @@
         </li>
       </ul>
     </nav>
+    <div class="header-line" v-if="!closetCheck"></div>
   </header>
 </template>
 
@@ -36,13 +37,20 @@ export default {
   name: 'zuly-header',
   data() {
     return {
-      headerLine: true,
+      headerLine: false,
       gnbToggle: false,
+      isClose: false,
     };
   },
+  props: {
+    closetCheck: {
+      type: Boolean,
+    },
+  },
   watch: {
-    // $route: 'headerLineEvt',
-    $route: 'headerMediaQueries',
+    $rotue(to, from) {
+      this.headerMediaQueries();
+    },
   },
   computed: mapGetters({
     Authentication: 'login/Authentication',
@@ -55,18 +63,12 @@ export default {
         this.gnbToggle = false;
       }
     },
-    headerLineEvt() {
-      if (this.$route.path.indexOf('closet') !== -1) this.headerLine = false;
-      else if (this.$route.path !== '/') this.headerLine = true;
-      else this.headerLine = false;
-    },
     doLogout() {
       document.cookie = `${process.env.TOKEN_NAME}=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=${process.env.HOST}`;
       this.$router.push({ path: '/login' });
     },
   },
   created() {
-    this.headerLineEvt();
     this.headerMediaQueries();
   },
 };
@@ -116,7 +118,6 @@ export default {
       width: 1200px;
       margin: 0 auto;
       padding: 30px 0 31px;
-      border-bottom: 1px solid #dadada;
       .logo {
         width: 90px;
         height: 27px;
@@ -133,6 +134,14 @@ export default {
             border-radius: 2px;
           }
         }
+      }
+      .header-line {
+        width: 100%;
+        height: 1px;
+        position: absolute;
+        left: 0;
+        top: 87px;
+        background-color: #e9e9e9;
       }
     }
   }

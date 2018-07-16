@@ -2,7 +2,7 @@
   <div class="customer-service">
     <div>
       <!--TITLE -->
-      <p class="title">고객님의 소중한 의견으로<br/>한 뼘 더 자라는 줄라이가 되겠습니다.</p>
+      <p class="txt-main-title">고객님의 소중한 의견으로<br/>한 뼘 더 자라는 줄라이가 되겠습니다.</p>
       <div class="content">
         <!-- Left -->
         <div class="contact-detail">
@@ -375,6 +375,7 @@ export default {
   @media (min-width: 767px) {
     .customer-service {
       width: 1200px;
+      padding-top: 25px;
     }
   }
 .greyLine {

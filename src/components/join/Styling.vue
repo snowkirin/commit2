@@ -1,11 +1,14 @@
 <template>
-  <div class="styling">
+  <div class="container">
+    <div class="container-header">
       <p class="styling-title">
         <span v-show="!this.Authentication.authenticated">선호 스타일</span>
         <styleMenu v-show="this.Authentication.authenticated" menuTitle="선호 스타일"></styleMenu>
       </p>
       <p class="styling-text">줄라이는 베이직 스타일을 기본으로 합니다.</p>
       <div class="line line__default"></div>
+    </div>
+    <div class="contents">
       <div>
         <div class="styling-form" style="width: 100%;">
           <div class="zuly-style-circle mauto">
@@ -54,6 +57,8 @@
           </div>
         </div>
       </div>
+    </div>
+
     <alert-modal ref="view" width="320" height="190"></alert-modal>
     </div>
 </template>
@@ -278,27 +283,29 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .styling {
-    padding: 20px 20px 17px 20px;
+  .container {
+    padding: 24px 20px 17px 20px;
+    .container-header {
+      .styling-title {
+        font-size: 26px;
+        line-height: 34px;
+        letter-spacing: -1.4px;
+        text-align: center;
+      }
+      .styling-text {
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: -0.8px;
+        color: #797979;
+        text-align: center;
+      }
+      .line {
+        border-width: 2px;
+        margin-top: 16px;
+        margin-bottom: 70px;
+      }
+    }
   }
-  .styling-title {
-    font-size: 26px;
-    line-height: 34px;
-    letter-spacing: -1.4px;
-    text-align: center;
-  }
-  .styling-text {
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: -0.8px;
-    color: #797979;
-    text-align: center;
-  }
-  .line {
-    margin-top: 16px;
-    margin-bottom: 70px;
-  }
-
   .styling-form {
     margin-top: 70px;
   }
@@ -310,7 +317,6 @@ export default {
     opacity: 0.2;
     background-color: #333333;
   }
-
   .styling-card {
     width: 489px;
     height: 240px;
@@ -332,24 +338,6 @@ export default {
       height: 50px;
     }
   }
-
-  .styling-text {
-    /*font-size: 16px;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    letter-spacing: normal;
-    text-align: center;
-    color: #333333;
-    padding-bottom: 15px;
-    position: absolute;
-    opacity: 1;
-    top: 92%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);*/
-  }
-
   .styling-btn {
     width: 49px;
     height: 49px;
@@ -643,22 +631,24 @@ export default {
     }
   }
 
-  @media (min-width: 767px) {
-    .styling {
+  @media (min-width: 768px) {
+    .container {
       width: 1200px;
       margin: 0 auto;
       padding: 74px 0 20px 0;
-    }
-    .styling-title {
-      font-size: 32px;
-      line-height: 40px;
-      letter-spacing: -1.7px;
-    }
-    .styling-text {
-      font-size: 16px;
-      line-height: 23px;
-      letter-spacing: -0.6px;
-      margin-top: 5px;
+      .container-header {
+        .styling-title {
+          font-size: 32px;
+          line-height: 40px;
+          letter-spacing: -1.7px;
+        }
+        .styling-text {
+          font-size: 16px;
+          line-height: 23px;
+          letter-spacing: -0.6px;
+          margin-top: 5px;
+        }
+      }
     }
     .btn-next {
       position: relative;

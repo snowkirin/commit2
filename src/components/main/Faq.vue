@@ -220,7 +220,7 @@ export default {
         }
       }
       .txt-question {
-        font-size: 18px;
+        font-size: 17px;
         display: flex;
         letter-spacing: -0.5px;
         line-height: 24px;
@@ -248,9 +248,10 @@ export default {
         letter-spacing: -1px;
         .emphasis {
           font-weight: 700;
-          line-height: 25px;
+          line-height: 23px;
           margin-bottom: 5px;
           color: #212121;
+          font-size: 15px;
         }
         .explain {
           line-height: 23px;

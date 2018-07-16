@@ -1,56 +1,60 @@
 <template>
-  <div class="find-pw">
-    <div>
-      <p class="title">비밀번호 찾기</p>
-      <p class="explain">가입 당시 입력한 아이디, 휴대전화 번호를 통해 비밀번호를 찾을 수 있습니다.</p>
+  <div class="container">
+    <div class="container-header">
+      <div>
+        <p class="title">비밀번호 찾기</p>
+        <p class="explain">가입 당시 입력한 아이디, 휴대전화 번호를 통해 비밀번호를 찾을 수 있습니다.</p>
+      </div>
+      <div class="line line__default"></div>
     </div>
-    <div class="line line__default"></div>
-    <form>
-      <div class="row">
-        <input
-          class="form-input"
-          type="email"
-          name="email"
-          placeholder="아이디"
-          v-validate="'required'" />
-      </div>
-      <div class="row">
-        <input
-          class="form-input"
-          type="tel"
-          name="phone"
-          placeholder="휴대전화"
-          v-validate="'required'" />
-      </div>
-      <div class="row form-group" data-grid="7:3">
-        <input
-          class="form-input"
-          type="number"
-          name=""
-          id=""
-          placeholder="인증번호" />
-        <button
-          type="button"
-          class="btn btn-secondary"
-          @click="phoneVerify">
-          인증
-        </button>
-      </div>
-      <div
-        class="findId-wait"
-        v-show="authErr"
-        v-html="authErrMessage">
-      </div>
-      <div class="button">
-        <!-- TODO: Submit?? -->
-        <button
-          type="button"
-          class="btn btn-primary"
-          @click="authKeyConfirm">
-          다음
-        </button>
-      </div>
-    </form>
+    <div class="contents">
+      <form>
+        <div class="row">
+          <input
+            class="form-input"
+            type="email"
+            name="email"
+            placeholder="아이디"
+            v-validate="'required'" />
+        </div>
+        <div class="row">
+          <input
+            class="form-input"
+            type="tel"
+            name="phone"
+            placeholder="휴대전화"
+            v-validate="'required'" />
+        </div>
+        <div class="row form-group" data-grid="7:3">
+          <input
+            class="form-input"
+            type="number"
+            name=""
+            id=""
+            placeholder="인증번호" />
+          <button
+            type="button"
+            class="btn btn-secondary"
+            @click="phoneVerify">
+            인증
+          </button>
+        </div>
+        <div
+          class="findId-wait"
+          v-show="authErr"
+          v-html="authErrMessage">
+        </div>
+        <div class="button">
+          <!-- TODO: Submit?? -->
+          <button
+            type="button"
+            class="btn btn-primary"
+            @click="authKeyConfirm">
+            다음
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -159,8 +163,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .find-pw {
-    padding: 20px;
+  .container {
+    padding: 24px 20px 121px;
     text-align: center;
     .title {
       font-size: 26px;

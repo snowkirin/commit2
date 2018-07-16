@@ -36,7 +36,10 @@
                 <img :src="$common.IMAGEURL() + data" alt="">
               </div>
               <div class="btn-detail">
-                <button type="button" :data-attribute="printStyleFirst.productId[idx]">
+                <button
+                  type="button"
+                  :data-attribute="printStyleFirst.productId[idx]"
+                  @click="(idx === 0) ? openDetailModal(products[0]) : openDetailModal(products[1])">
                   상품 상세보기
                 </button>
               </div>
@@ -85,7 +88,10 @@
                 <img :src="$common.IMAGEURL() + data" alt="">
               </div>
               <div class="btn-detail">
-                <button type="button" :data-attribute="printStyleSecond.productId[idx]">
+                <button
+                  type="button"
+                  :data-attribute="printStyleSecond.productId[idx]"
+                  @click="(idx === 0) ? openDetailModal(products[2]) : openDetailModal(products[3])">
                   상품 상세보기
                 </button>
               </div>
@@ -142,17 +148,24 @@
       </button>
     </div>
     <alert-modal ref="view" width="300" height="153"></alert-modal>
+    <detail-modal
+      ref="detailModal"
+      v-if="detailModalShow"
+      :detailData="detailModalData"
+      @closeDetailModal="closeDetailModal"></detail-modal>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import AlertModal from '@/components/common/AlertModal';
+import DetailModal from '@/components/common/DetailPopup';
 
 export default {
   name: 'tomorrow',
   components: {
     AlertModal,
+    DetailModal,
   },
   data() {
     return {
@@ -164,6 +177,9 @@ export default {
         first: false,
         second: false,
       },
+      detailModalShow: false,
+      detailModalData: {},
+      products: [],
     };
   },
   computed: {
@@ -181,6 +197,7 @@ export default {
         hashTag: '',
         stylingTitle: '',
         selected: false,
+        productOptions: [],
       };
 
       if (Array.isArray(this.tomorrowCloset.products)) {
@@ -189,12 +206,14 @@ export default {
             prdId: this.tomorrowCloset.products[0].id,
             description: this.tomorrowCloset.products[0].description,
             image: this.tomorrowCloset.products[0].image,
+            prdOption: this.tomorrowCloset.products[0].product_options,
           });
 
           firstStyle.stylingTip = this.tomorrowCloset.products[0].styling_tip;
           firstStyle.stylingTitle = this.tomorrowCloset.products[0].styling_title;
           firstStyle.hashTag = this.tomorrowCloset.products[0].hashtag;
           firstStyle.selected = (this.tomorrowCloset.products[0].selected);
+
         }
 
         if (this.tomorrowCloset.products[1]) {
@@ -202,6 +221,7 @@ export default {
             prdId: this.tomorrowCloset.products[1].id,
             description: this.tomorrowCloset.products[1].description,
             image: this.tomorrowCloset.products[1].image,
+            prdOption: this.tomorrowCloset.products[1].product_options,
           });
         }
       }
@@ -217,6 +237,7 @@ export default {
         hashTag: '',
         stylingTitle: '',
         selected: false,
+        productOptions: [],
       };
 
       if (Array.isArray(this.tomorrowCloset.products)) {
@@ -225,6 +246,7 @@ export default {
             prdId: this.tomorrowCloset.products[2].id,
             description: this.tomorrowCloset.products[2].description,
             image: this.tomorrowCloset.products[2].image,
+            prdOption: this.tomorrowCloset.products[2].product_options,
           });
 
           secondStyle.stylingTip = this.tomorrowCloset.products[2].styling_tip;
@@ -238,6 +260,7 @@ export default {
             prdId: this.tomorrowCloset.products[3].id,
             description: this.tomorrowCloset.products[3].description,
             image: this.tomorrowCloset.products[3].image,
+            prdOption: this.tomorrowCloset.products[3].product_options,
           });
         }
       }
@@ -250,6 +273,15 @@ export default {
       setTomorrowCloset: 'mypage/closet/setTomorrowCloset',
       setTomorrowSelect: 'mypage/closet/setTomorrowSelect',
     }),
+
+    openDetailModal(data) {
+      this.detailModalShow = true;
+      this.detailModalData = data;
+    },
+    closeDetailModal() {
+      this.detailModalShow = false;
+    },
+
     btnSelect(data) {
       if (data === 'first') {
         this.codiSelected.first = true;
@@ -346,11 +378,12 @@ export default {
 
       return rtn;
     },
-    setArrayData(data, { prdId, description, image }) {
+    setArrayData(data, { prdId, description, image, prdOption }) {
       return {
         productId: [...data.productId, prdId],
         description: [...data.description, description],
         image: [...data.image, image],
+        productOptions: [...data.productOptions, prdOption],
         stylingTip: data.stylingTip,
         stylingTitle: data.stylingTitle,
         hashTag: data.hashTag,
@@ -361,6 +394,7 @@ export default {
   async created() {
     await this.setTomorrowCloset();
     this.isShowFlag(this.tomorrowCloset);
+    this.products = this.tomorrowCloset.products;
   },
   mounted() {
   },
@@ -456,7 +490,6 @@ export default {
       margin: 0 auto;
       .item {
         background-color: #fff;
-        /*border: 1px solid #e8e8e8;*/
         margin-top: 10px;
         &:first-child {
           margin-top: 16px;
@@ -467,23 +500,15 @@ export default {
         img {
           border: 5px solid #fff;
           width: 100%;
-          /*height: 100%;*/
         }
       }
       .btn-detail {
         margin-top: -1px;
         button {
-          /*overflow: hidden;
-          text-indent: -9999em;
-          background: url(/static/img/closet/btn_detail@2x.png) no-repeat 0 0;
-          background-size: 100% 100%;*/
           width: 100%;
-          height: 100%;
           color: #797979;
           background-color: #fff;
           border: 1px solid #e8e8e8;
-          /*line-height: 36px;*/
-          /*letter-spacing: -1.3px;*/
           font-size: 15px;
           line-height: 23px;
           height: 40px;

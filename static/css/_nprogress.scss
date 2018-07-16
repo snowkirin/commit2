@@ -1,6 +1,5 @@
 /* Make clicks pass-through */
-
-$color: #29d;
+$color: #333; // original : #29d;
 
 #nprogress {
   pointer-events: none;
