@@ -90,7 +90,9 @@ export default {
         font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
       }
       .txt-title {
-        font-size: 18px;
+        font-size: 17px;
+        letter-spacing: -1px;
+        margin: 6px 0;
       }
       .txt-desc {
         font-size: 15px;
@@ -113,7 +115,7 @@ export default {
         margin-top: 4px;
       }
       .txt-title {
-        font-size: 18px;
+        font-size: 17px;
         letter-spacing: -1px;
         margin: 6px 0;
       }

@@ -189,80 +189,12 @@ export default {
 
   @media (min-width: 767px) {
     .notice {
-      padding: 0;
+      padding-top: 20px;
+      padding-right: 0;
+      padding-bottom: 0;
+      padding-left: 0;
       width: 1200px;
       margin: 0 auto;
     }
   }
-/*.notice-rows {
-  display: flex;
-  justify-content: space-between;
-  font-size: 16px;
-  font-style: normal;
-  font-stretch: normal;
-  letter-spacing: -0.4px;
-  color: #333333;
-  border-bottom: solid 2px #e9e9e9;
-  cursor: pointer;
-}
-
-.notice-header {
-  height: 40px;
-  line-height: 40px;
-  font-weight: 600;
-}
-
-.notice-content {
-  height: 50px;
-  line-height: 50px;
-}
-
-.notice-number {
-  width: 6%;
-  text-align: center;
-}
-
-.notice-subject {
-  width: 84%;
-}
-
-.notice-regdate {
-  width: 10%;
-  text-align: center;
-}
-
-.no-data {
-  justify-content: center;
-}
-
-.new-content {
-  font-size: 14px;
-  font-weight: 600;
-  font-style: normal;
-  font-stretch: normal;
-  letter-spacing: normal;
-  color: #f45649;
-}
-
-.notice-rows-data {
-  display: none;
-  background-color: #f5f5f5;
-  padding: 22px 30px;
-  line-height: 1.4;
-  font-size: 14px;
-}
-
-@media screen and (max-width: 486px) {
-  .notice-number {
-    width: 15% !important;
-  }
-
-  .notice-subject {
-    width: 60% !important;
-  }
-
-  .notice-regdate {
-    width: 25% !important;
-  }
-}*/
 </style>

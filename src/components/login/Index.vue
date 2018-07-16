@@ -129,7 +129,7 @@ export default {
   .container {
     text-align: center;
     margin: 0 auto;
-    padding: 14px 21px 121px;
+    padding: 24px 20px 121px;
     .txt-title {
       font-size: 26px;
       line-height: 34px;

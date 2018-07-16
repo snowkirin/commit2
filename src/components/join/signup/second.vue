@@ -1,5 +1,5 @@
 <template>
-  <div class="signup">
+  <div class="container">
     <div class="contents clearfix">
       <div class="signup-text content">
         <div class="signup-title">
@@ -433,8 +433,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .signup {
-    padding: 23px 20px 41px;
+  .container {
+    padding: 24px 20px 41px;
   }
   .contents {
   }
@@ -465,7 +465,6 @@ export default {
       }
     }
   }
-
   .txt-point {
     margin-bottom: 12px;
   }
@@ -474,7 +473,6 @@ export default {
       font-size: 0;
       background-color: #f5f5f5;
       outline: 1px solid #f5f5f5;
-
     }
     li {
       user-select: none;
@@ -609,8 +607,8 @@ export default {
       width: 100%;
     }
   }
-  @media (min-width: 767px) {
-    .signup {
+  @media (min-width: 768px) {
+    .container {
       margin: 0 auto;
       width: 1200px;
       padding: 0;

@@ -1,48 +1,52 @@
 <template>
-  <div class="find-id">
-    <div>
-      <p class="title">아이디 찾기</p>
-      <p class="explain">가입 당시 입력한 휴대전화 번호를 통해 아이디를 찾을 수 있습니다.</p>
+  <div class="container">
+    <div class="container-header">
+      <div>
+        <p class="title">아이디 찾기</p>
+        <p class="explain">가입 당시 입력한 휴대전화 번호를 통해 아이디를 찾을 수 있습니다.</p>
+      </div>
+      <div class="line line__default"></div>
     </div>
-    <div class="line line__default"></div>
-    <form>
-      <div class="row">
-        <input
-          class="form-input"
-          type="text"
-          name=""
-          id=""
-          placeholder="이름">
-      </div>
-      <div class="row">
-        <input
-          class="form-input"
-          type="tel"
-          name=""
-          id=""
-          placeholder="휴대전화">
-      </div>
-      <div class="row form-group" data-grid="7:3">
-        <input
-          class="form-input"
-          type="number"
-          name=""
-          id=""
-          placeholder="인증번호">
-        <button
-          class="btn btn-secondary"
-          type="button">
-          인증
-        </button>
-      </div>
-      <div class="button">
-        <!--TODO: submit?-->
-        <button
-          type="button"
-          class="btn btn-primary"
-        >로그인</button>
-      </div>
-    </form>
+    <div class="contents">
+      <form>
+        <div class="row">
+          <input
+            class="form-input"
+            type="text"
+            name=""
+            id=""
+            placeholder="이름">
+        </div>
+        <div class="row">
+          <input
+            class="form-input"
+            type="tel"
+            name=""
+            id=""
+            placeholder="휴대전화">
+        </div>
+        <div class="row form-group" data-grid="7:3">
+          <input
+            class="form-input"
+            type="number"
+            name=""
+            id=""
+            placeholder="인증번호">
+          <button
+            class="btn btn-secondary"
+            type="button">
+            인증
+          </button>
+        </div>
+        <div class="button">
+          <!--TODO: submit?-->
+          <button
+            type="button"
+            class="btn btn-primary"
+          >로그인</button>
+        </div>
+      </form>
+    </div>
   </div>
   <!--<div class="find-id">
     <p>Title</p>
@@ -193,8 +197,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .find-id {
-    padding: 20px;
+  .container {
+    padding: 24px 20px 121px;
     text-align: center;
     .title {
       font-size: 26px;
@@ -211,6 +215,7 @@ export default {
     .line {
       margin-top: 14px;
       margin-bottom: 19px;
+      border-width: 2px;
     }
     .row {
       margin-bottom: 10px;

@@ -1,10 +1,10 @@
 <template>
-  <div class="size">
-    <p class="size-title">사이즈</p>
-    <p class="size-text">
-      즐겨입는 옷의 사이즈와 체형 관련 정보를 입력해주세요.
-    </p>
-    <div class="line line__default"></div>
+  <div class="container">
+    <div class="container-header">
+      <p class="size-title">사이즈</p>
+      <p class="size-text">즐겨입는 옷의 사이즈와 체형 관련 정보를 입력해주세요.</p>
+      <div class="line line__default"></div>
+    </div>
     <form>
       <div class="contents">
         <div class="content">
@@ -115,7 +115,6 @@
           </div>
         </div>
       </div>
-
       <div class="btn-next">
         <button
           type="button"
@@ -190,7 +189,6 @@ export default {
         this.$common.viewAlertModal('체형 항목을 확인해 주세요.', this.$refs, 'alert');
         return false;
       }
-
       this.$validator.validateAll().then((result) => {
         if (result) {
           this.$localStorage.set('Size', JSON.stringify(this.sizeData));
@@ -223,14 +221,13 @@ export default {
   },
   created() {
     const $this = this;
-    Codes.getSize().then(function(res) {
+    Codes.getSize().then((res) => {
       $this.setSize = res.data;
-    }).catch(function(err) {
+    }).catch((err) => {
       console.error(err);
     });
   },
 };
-
 </script>
 
 <style scoped lang="scss">
@@ -241,217 +238,214 @@ export default {
       clear: both;
     }
   }
-
-  .size {
+  .container {
     padding: {
       top: 24px;
       left: 20px;
       right: 20px;
       bottom: 17px;
     }
-  }
-  .line {
-    border-width: 2px;
-  }
-  .size-title {
-    font-size: 26px;
-    line-height: 34px;
-    letter-spacing: -1.4px;
-    text-align: center;
-  }
-  .size-text {
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: -0.8px;
-    color: #797979;
-    text-align: center;
-    margin-top: 3px;
-  }
-  .txt-point {
-    margin-bottom: 13px;
-  }
-
-  .line {
-    margin-top: 17px;
-    margin-bottom: 17px;
-  }
-  .blouse {
-
-  }
-  .skirt {
-    // 35.8
-    margin-top: 36px;
-  }
-  .pants {
-    margin-top: 36px;
-  }
-  .height {
-    margin-top: 36px;
-  }
-  .chest {
-    margin-top: 35px;
-  }
-  .body-type {
-    margin-top: 36px;
-  }
-
-  .flex-list {
-    ul {
-      margin-left: 1px;
-      margin-top: 1px;
-      background: #f5f5f5;
-      font-size: 0;
-    }
-    li {
-      display: inline-block;
-      width: calc(25% + 1px);
-      position: relative;
-      border: 1px solid #c4c4c4;
-      margin-left: -1px;
-      margin-top: -1px;
-      line-height: 48px;
-      text-align: center;
-      color: #bbb;
-      letter-spacing: -0.2px;
-      background-color: #fff;
-      user-select: none;
-      cursor: pointer;
-      font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
-      font-size: 15px;
-      &.selected {
-        font-weight: 700;
-        color: #333;
-        z-index: 10;
-        outline: 2px solid #333;
-        outline-offset: -2px;
+    .container-header {
+      .line {
+        border-width: 2px;
+        margin-top: 17px;
+        margin-bottom: 17px;
+      }
+      .size-title {
+        font-size: 26px;
+        line-height: 34px;
+        letter-spacing: -1.4px;
+        text-align: center;
+      }
+      .size-text {
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: -0.8px;
+        color: #797979;
+        text-align: center;
+        margin-top: 3px;
       }
     }
-  }
-  .body-type {
-    .text {
-      text-align: center;
-      font-size: 14px;
-      color: #797979;
-      line-height: 20px;
-      letter-spacing: -0.8px;
-      padding: 9px 27px 11.3px;
-      background-color: #f5f5f5;
-      margin-bottom: 10px;
-    }
-    .body-type-list {
-      list-style: none;
-      font-size: 0;
-      text-align: center;
-      margin-left: -8px;
-      margin-top: -10px;
-      li {
-        display: inline-block;
-        margin-left: 8px;
-        margin-top: 10px;
-        width: 106px;
-        height: 178px;
-        border: 1px solid #c4c4c4;
-        cursor: pointer;
-        img {
-          max-width: 100%;
-          max-height: 100%;
-          opacity: 0.3;
+    .contents {
+      .txt-point {
+        margin-bottom: 13px;
+      }
+      .blouse {
+      }
+      .skirt {
+        // 35.8
+        margin-top: 36px;
+      }
+      .pants {
+        margin-top: 36px;
+      }
+      .height {
+        margin-top: 36px;
+      }
+      .chest {
+        margin-top: 35px;
+      }
+      .body-type {
+        margin-top: 36px;
+      }
+      .flex-list {
+        ul {
+          margin-left: 1px;
+          margin-top: 1px;
+          background: #f5f5f5;
+          font-size: 0;
         }
-        &.selected {
-          outline: 2px solid #333;
-          outline-offset: -2px;
-          opacity: 1;
-          img {
-            opacity: 1;
+        li {
+          display: inline-block;
+          width: calc(25% + 1px);
+          position: relative;
+          border: 1px solid #c4c4c4;
+          margin-left: -1px;
+          margin-top: -1px;
+          line-height: 48px;
+          text-align: center;
+          color: #bbb;
+          letter-spacing: -0.2px;
+          background-color: #fff;
+          user-select: none;
+          cursor: pointer;
+          font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
+          font-size: 15px;
+          &.selected {
+            font-weight: 700;
+            color: #333;
+            z-index: 10;
+            outline: 2px solid #333;
+            outline-offset: -2px;
+          }
+        }
+      }
+      .body-type {
+        .text {
+          text-align: center;
+          font-size: 14px;
+          color: #797979;
+          line-height: 20px;
+          letter-spacing: -0.8px;
+          padding: 9px 27px 11.3px;
+          background-color: #f5f5f5;
+          margin-bottom: 10px;
+        }
+        .body-type-list {
+          list-style: none;
+          font-size: 0;
+          text-align: center;
+          margin-left: -8px;
+          margin-top: -10px;
+          li {
+            display: inline-block;
+            margin-left: 8px;
+            margin-top: 10px;
+            width: 106px;
+            height: 178px;
+            border: 1px solid #c4c4c4;
+            cursor: pointer;
+            img {
+              max-width: 100%;
+              max-height: 100%;
+              opacity: 0.3;
+            }
+            &.selected {
+              outline: 2px solid #333;
+              outline-offset: -2px;
+              opacity: 1;
+              img {
+                opacity: 1;
+              }
+            }
           }
         }
       }
     }
-  }
-  .btn-next {
-    width: 100%;
-    margin-top: 41px;
-    button {
+    .btn-next {
       width: 100%;
-      height: 50px;
+      margin-top: 41px;
+      button {
+        width: 100%;
+        height: 50px;
+      }
     }
   }
-
 /* Desktop Style */
-@media screen and (min-width:767px){
-  .size {
+@media screen and (min-width:768px){
+  .container {
     width: 795px;
     margin: 0 auto;
     padding: 74px 0 0 0;
-  }
-  .size-title {
-    font-size: 32px;
-    line-height: 40px;
-    letter-spacing: -1.7px;
-  }
-  .size-text {
-    font-size: 16px;
-    line-height: 23px;
-    letter-spacing: -0.6px;
-    margin-top: 5px;
-  }
-  .line {
-    margin-top: 26px;
-    margin-bottom: 24px;
-  }
-  .contents {
-    display: flex;
-    border-bottom: 1px solid #333;
-    padding-bottom: 30px;
-    .content {
-      &:nth-child(1){
-        width: 387.5px;
-        padding-right: 53.5px;
-        border-right: 1px solid #e9e9e9;
+    .container-header {
+      .size-title {
+        font-size: 32px;
+        line-height: 40px;
+        letter-spacing: -1.7px;
       }
-      &:nth-child(2){
-        width: 405.5px;
-        padding-left: 39.5px;
-        padding-right: 32px;
+      .size-text {
+        font-size: 16px;
+        line-height: 23px;
+        letter-spacing: -0.6px;
+        margin-top: 5px;
+      }
+      .line {
+        margin-top: 26px;
+        margin-bottom: 24px;
       }
     }
-  }
-  .skirt {
-    margin-top: 33px;
-  }
-  .pants {
-    margin-top: 35px;
-  }
-  .height {
-    margin-top: 33px;
-  }
-  .chest {
-    margin-top: 0;
-  }
-  .body-type {
-    margin-top: 33px;
-    .text {
-      font-size: 15px;
-      line-height: 23px;
-      letter-spacing: -0.6px;
-      padding: 12px 27px;
+    .contents {
+      display: flex;
+      border-bottom: 1px solid #333;
+      padding-bottom: 30px;
+      .content {
+        &:nth-child(1){
+          width: 387.5px;
+          padding-right: 53.5px;
+          border-right: 1px solid #e9e9e9;
+        }
+        &:nth-child(2){
+          width: 405.5px;
+          padding-left: 39.5px;
+          padding-right: 32px;
+        }
+      }
+      .skirt {
+        margin-top: 33px;
+      }
+      .pants {
+        margin-top: 35px;
+      }
+      .height {
+        margin-top: 33px;
+      }
+      .chest {
+        margin-top: 0;
+      }
+      .body-type {
+        margin-top: 33px;
+        .text {
+          font-size: 15px;
+          line-height: 23px;
+          letter-spacing: -0.6px;
+          padding: 12px 27px;
+        }
+        .body-type-list {
+          text-align: center;
+        }
+      }
     }
-    .body-type-list {
-      text-align: left;
-      li {
-        text-align: center;
+    .btn-next {
+      position: relative;
+      text-align: right;
+      button {
+        width: 288px;
+        height: 60px;
+        margin-top: 29px;
+        font-size: 16px;
       }
     }
   }
-  .btn-next {
-    position: relative;
-    text-align: right;
-    button {
-      width: 288px;
-      height: 60px;
-      margin-top: 29px;
-      font-size: 16px;
-    }
-  }
+
 }
 </style>

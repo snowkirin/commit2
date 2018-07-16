@@ -3,32 +3,33 @@
     <div>
       <div :class="[$route.path === '/' ? 'main-footer-area' : 'footer-area']">
         <div class="footer-layer1">
-          <p
-            class="txt-main-point"
-            :style="pathCheck">
-            Help
-          </p>
-          <a
-            class="txt-tel"
-            href="tel:02-6929-3823">
-            02-6929-3823
-          </a>
-          <p class="txt-operation">
-            평일 오전 10 시 ~ 오후 5시
-            <br v-show="$mq === 'sm'">
-            / 점심 시간 오후 12시30분 ~ 오후 1시 30분
-            <br/>
-            고객 센터가 종료된 오후 5시 이후와 일요일,
-            <br v-show="$mq === 'sm'">
-            공휴일에는
-            <router-link
-              class="txt-link"
-              to="/closet/cs">
-              나의 옷장 문의 게시판
-            </router-link>
-            을 이용해 주세요.
-          </p>
+          <div>
+            <p
+              class="txt-main-point"
+              :style="pathCheck">
+              Help
+            </p>
+            <a
+              class="txt-tel"
+              href="tel:02-6929-3823">
+              02-6929-3823
+            </a>
+            <p class="txt-operation">
+              평일 오전 10 시 ~ 오후 5시
+              <br v-show="$mq === 'sm'">
+              / 점심 시간 오후 12시30분 ~ 오후 1시 30분
+              <br/>
+              고객 센터가 종료된 오후 5시 이후와 일요일,
+              <br v-show="$mq === 'sm'">
+              공휴일에는
+              <router-link
+                class="txt-link"
+                to="/closet/cs">나의 옷장 문의 게시판</router-link>을 이용해 주세요.
+            </p>
+          </div>
+
         </div>
+        <div class="footer-line"></div>
         <div class="footer-layer2">
           <a href="#">이용 약관</a>
           <a href="#">개인 정보 취급 방침</a>
@@ -93,25 +94,14 @@ export default {
 
 <style scoped lang="scss">
   .footer {
-  padding: {
-    top: 30px;
-    right: 20px;
-    bottom: 78px;
-    left: 20px;
-  }
-  .footer-layer1 {
-    position: relative;
-    padding-bottom: 16px;
-    /* Line */
-    &::after {
-      content: '';
-      display: block;
-      border-bottom: 1px solid #e1e1e1;
-      position: absolute;
-      bottom: 0;
-      width: calc(100% + 20px);
+    padding: {
+      top: 30px;
+      right: 20px;
+      bottom: 78px;
+      left: 20px;
     }
-
+  .footer-layer1 {
+    padding-bottom: 16px;
     .txt-tel {
       font: {
         size: 26px;
@@ -169,6 +159,12 @@ export default {
       color: #797979;
     }
   }
+  .footer-line {
+    width: calc(100% - 20px);
+    height: 1px;
+    background-color: #e9e9e9;
+    position: absolute;
+  }
 }
   @media (min-width: 767px) {
     .footer {
@@ -177,25 +173,25 @@ export default {
       padding: {
         top: 60px;
         right: 0px;
-        bottom: 60px;
+        bottom: 125px;
         left: 0px;
       }
       .footer-layer1 {
         position: relative;
-        padding-bottom: 16px;
+        padding-bottom: 26px;
         &::after {
           width: 100%;
         }
 
         .txt-tel {
-          font: {
-            size: 28px;
-          }
+          font-size: 28px;
+          display: block;
+          margin-top: 12px;
         }
         .txt-operation {
           font-size: 16px;
-          line-height: 24px;
-          letter-spacing: -0.8px;
+          line-height: 25px;
+          letter-spacing: -0.5px;
           .txt-link {
             font-size: 16px;
             letter-spacing: -0.6px;
@@ -204,7 +200,7 @@ export default {
       }
       .footer-layer2 {
         font-size: 0;
-        margin-top: 16px;
+        margin-top: 32px;
         a {
           font: {
             size: 15px;
@@ -236,7 +232,11 @@ export default {
           font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
         }
       }
-    }
 
+      .footer-line {
+        width: 100%;
+        left: 0;
+      }
+    }
   }
 </style>

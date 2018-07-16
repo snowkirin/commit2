@@ -1,7 +1,9 @@
 <template>
   <div class="container">
-    <p class="signup-title">정기구독/회원가입</p>
-    <div class="line line__default"></div>
+    <div class="container-header">
+      <p class="signup-title">정기구독/회원가입</p>
+      <div class="line line__default"></div>
+    </div>
     <div class="contents">
       <form name="joinForm">
         <div class="inner">
@@ -638,16 +640,20 @@ export default {
       clear: both;
     }
   }
-  .line {
-    border-width: 2px;
-  }
   .container {
-    padding: 24px 20px 32px 21px;
-    .signup-title {
-      font-size: 26px;
-      line-height: 34px;
-      letter-spacing: -1.4px;
-      text-align: center;
+    padding: {
+      top: 24px;
+      left: 20px;
+      right: 20px;
+      bottom: 17px;
+    }
+    .container-header {
+      .signup-title {
+        font-size: 26px;
+        line-height: 34px;
+        letter-spacing: -1.4px;
+        text-align: center;
+      }
     }
     .contents {
       .content {
@@ -687,45 +693,9 @@ export default {
   }
   .line {
     margin: 16px 0;
+    border-width: 2px;
   }
-
-  .signupLine {
-  height: 1px;
-  opacity: 0.2;
-  background-color: #333333;
-}
-.signup-area {
-  width: 392px;
-}
-.signup-title-detail {
-  font-size: 16px;
-  font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  letter-spacing: normal;
-  text-align: left;
-  color: #333333;
-}
-.signup-chk-area {
-  height: 24px;
-  display: table;
-  cursor: pointer;
-}
-.checkboxText {
-  text-align: left;
-  display: table-cell;
-  vertical-align: bottom;
-  letter-spacing: -0.4px;
-}
-.checkboxText span {
-  color: #566b9c;
-  text-decoration: underline;
-}
-.field {
-  text-align: left;
-}
-
-  @media (min-width:767px) {
+  @media (min-width:768px) {
     .container {
       width: 1200px;
       padding: 24px 0 82px 0;
