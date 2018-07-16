@@ -428,16 +428,16 @@ export default {
           }
         }
         .casual {
-          background-image: url(/static/img/signup/img_clothes_1.png);
+          background-image: url(/static/img/signup/img_clothes_1.jpg);
         }
         .casual-suit {
-          background-image: url(/static/img/signup/img_clothes_2.png);
+          background-image: url(/static/img/signup/img_clothes_2.jpg);
         }
         .semi-suit {
-          background-image: url(/static/img/signup/img_clothes_3.png);
+          background-image: url(/static/img/signup/img_clothes_3.jpg);
         }
         .suit {
-          background-image: url(/static/img/signup/img_clothes_4.png);
+          background-image: url(/static/img/signup/img_clothes_4.jpg);
         }
       }
       .image-upload {
