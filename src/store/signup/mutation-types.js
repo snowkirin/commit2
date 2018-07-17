@@ -18,6 +18,11 @@ const PICK_REMOVE_MANAGEMENT = 'PICK_REMOVE_MANAGEMENT';
 
 const PICK_MOOD = 'PICK_MOOD';
 
+const SET_SIZE = 'SET_SIZE'; // 사이즈 저장
+const SET_MOOD = 'SET_MOOD'; // MOOD 저장
+const SET_JOIN_FIRST = 'SET_JOIN_FIRST'; // 회원가입 1-1
+const SET_JOIN_SECOND = 'SET_JOIN_SECOND'; // 회원가입 1-2
+
 export default {
   SET_SIGNUP_FIRST_DATA,
   SET_SIGNUP_SIZE,
@@ -35,4 +40,8 @@ export default {
   PICK_MANAGEMENT,
   PICK_REMOVE_MANAGEMENT,
   PICK_MOOD,
+  SET_SIZE,
+  SET_MOOD,
+  SET_JOIN_FIRST,
+  SET_JOIN_SECOND,
 };

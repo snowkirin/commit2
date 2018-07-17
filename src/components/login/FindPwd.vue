@@ -1,25 +1,59 @@
 <template>
-  <div class="findId subContent side-margin-50">
-    <div class="findId-title mt70">비밀번호 찾기</div>
-    <div class="explain mt10">
-      가입 당시 입력한 아이디, 휴대전화 번호를 통해 비밀번호를 찾을 수 있습니다.
+  <div class="container">
+    <div class="container-header">
+      <div>
+        <p class="title">비밀번호 찾기</p>
+        <p class="explain">가입 당시 입력한 아이디, 휴대전화 번호를 통해 비밀번호를 찾을 수 있습니다.</p>
+      </div>
+      <div class="line line__default"></div>
     </div>
-    <div class="findIdLine mt25"></div>
-    <div class="findId-form mt40" style="width: 392px; margin: auto;">
-      <input type="text" name="email" class="form-login-input mt10" placeholder="아이디" v-validate="'required'" />
-      <input type="text" name="phone" class="form-login-input mt10" placeholder="휴대전화" v-validate="'required'" />
-      <div class="inputGroup">
-        <input type="text" name="phone_auth_number" class="form-login-group mt10" placeholder="인증번호" style="width: 72%;"/>
-        <div style="display: inline-table; width: 3%;"></div>
-        <button  class="button-grey" style="width: 25%;" @click="phoneVerify">인증</button>
-      </div>
-      <div class="findId-wait mt10" v-show="authErr" v-html="authErrMessage">
-      </div>
-      <div class="mt10">
-        <button class="button-login" @click="authKeyConfirm">
-          다음
-        </button>
-      </div>
+    <div class="contents">
+      <form>
+        <div class="row">
+          <input
+            class="form-input"
+            type="email"
+            name="email"
+            placeholder="아이디"
+            v-validate="'required'" />
+        </div>
+        <div class="row">
+          <input
+            class="form-input"
+            type="tel"
+            name="phone"
+            placeholder="휴대전화"
+            v-validate="'required'" />
+        </div>
+        <div class="row form-group" data-grid="7:3">
+          <input
+            class="form-input"
+            type="number"
+            name=""
+            id=""
+            placeholder="인증번호" />
+          <button
+            type="button"
+            class="btn btn-secondary"
+            @click="phoneVerify">
+            인증
+          </button>
+        </div>
+        <div
+          class="findId-wait"
+          v-show="authErr"
+          v-html="authErrMessage">
+        </div>
+        <div class="button">
+          <!-- TODO: Submit?? -->
+          <button
+            type="button"
+            class="btn btn-primary"
+            @click="authKeyConfirm">
+            다음
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </template>
@@ -128,8 +162,39 @@ export default {
 };
 </script>
 
-<style scoped>
-.findId {
+<style scoped lang="scss">
+  .container {
+    padding: 24px 20px 121px;
+    text-align: center;
+    .title {
+      font-size: 26px;
+      line-height: 36px;
+      letter-spacing: -1.4px;
+    }
+    .explain {
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: -0.8px;
+      color: #797979;
+      margin-top: 3px;
+    }
+    .line {
+      margin-top: 14px;
+      margin-bottom: 19px;
+    }
+    .row {
+      margin-bottom: 10px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .button {
+      button {
+        width: 100%;
+      }
+    }
+  }
+/*.findId {
   width: 820px;
   text-align: center;
   margin: auto;
@@ -208,5 +273,5 @@ export default {
   .findId-form {
     width: 100% !important;
   }
-}
+}*/
 </style>

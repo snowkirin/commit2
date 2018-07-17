@@ -1,5 +1,5 @@
 <template>
-  <div class="closet mauto">
+  <div>
     <closet-header></closet-header>
     <closet-menu></closet-menu>
     <router-view></router-view>
@@ -20,7 +20,4 @@ export default {
 </script>
 
 <style scoped>
-.closet {
-  padding-bottom: 410px;
-}
 </style>

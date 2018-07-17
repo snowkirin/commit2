@@ -1,5 +1,197 @@
 <template>
-  <div class="style mt40">
+  <div class="style-info">
+    <p class="txt-main-title">줄라이는 베이직 스타일을 기본으로 합니다.</p>
+    <div class="line line__default"></div>
+
+    <div>
+      <!-- 스타일 유형-->
+      <div class="style-type">
+        <p class="txt-point">스타일 유형</p>
+        <div>
+          <ul class="image-list">
+            <li class="item">
+              <img src="http://via.placeholder.com/65x100" alt="">
+            </li>
+            <li class="item">
+              <img src="http://via.placeholder.com/65x100" alt="">
+            </li>
+            <li class="item">
+              <img src="http://via.placeholder.com/65x100" alt="">
+            </li>
+            <li class="item">
+              <img src="http://via.placeholder.com/65x100" alt="">
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="detail">
+        <!--사이즈-->
+        <div class="size">
+          <p class="txt-point">사이즈</p>
+          <div>
+            <p class="text">
+              키 165 cm, 가슴(브래지어) 85B<br/>
+              블라우스/셔츠 44, 치마 55, 바지 27 inch
+              <!--{{ this.printSize }}-->
+            </p>
+          </div>
+        </div>
+        <!-- 체형 -->
+        <div class="body-type">
+          <p class="txt-point">체형</p>
+          <div>
+            <ul class="text-list large" data-size="large">
+              <li class="item">
+                일자형 몸매
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- 선호 옷 색상, 패턴 -->
+        <div class="prefer-color">
+          <p class="txt-point">선호 옷 색상, 패턴</p>
+          <div>
+            <ul class="text-list">
+              <li class="item">흰색</li>
+              <li class="item">노란</li>
+              <!--<template v-if="printPreferColors.length > 0">-->
+                <!--<template v-for="(prefer, k) in printPreferColors">-->
+                  <!--<li v-bind:key="k" class="item">-->
+                    <!--{{ prefer }}-->
+                  <!--</li>-->
+                <!--</template>-->
+              <!--</template>-->
+              <!--<template v-else>-->
+                <!--<li class="item">-->
+                  <!--선택없음-->
+                <!--</li>-->
+              <!--</template>-->
+            </ul>
+          </div>
+        </div>
+        <div class="brand">
+          <p class="txt-point">주로 구매하는 브랜드</p>
+          <div>
+            <ul class="text-list">
+              <li class="item">
+                흰색
+              </li>
+              <li class="item">
+                노란
+              </li>
+              <li class="item">
+                흰색
+              </li>
+              <li class="item">
+                흰색
+              </li>
+              <li class="item">
+                노란
+              </li>
+              <li class="item">
+                흰색
+              </li>
+              <li class="item">
+                흰색
+              </li>
+              <li class="item">
+                노란
+              </li>
+              <li class="item">
+                흰색
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="dress-code">
+          <p class="txt-point">주로 활동하는 드레스 코드</p>
+          <div>
+            <ul class="text-list">
+              <li class="item">
+                흰색
+              </li>
+              <li class="item">
+                노란
+              </li>
+              <li class="item">
+                흰색
+              </li>
+              <li class="item">
+                흰색
+              </li>
+              <li class="item">
+                노란
+              </li>
+              <li class="item">
+                흰색
+              </li>
+              <li class="item">
+                흰색
+              </li>
+              <li class="item">
+                노란
+              </li>
+              <li class="item">
+                흰색
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="request">
+          <p class="txt-point">요청사항</p>
+          <div>
+            <p class="text">
+              따로 요청하신 사항이 존재하지 않습니다.
+            </p>
+            <!--<p
+              v-if="mypageStyleData.etc"
+              v-html="contentReplace(mypageStyleData.etc)"
+              class="text"
+            >
+            </p>
+            <p
+              v-else
+             class="text">
+              따로 요청하신 사항이 존재하지 않습니다.
+            </p>-->
+          </div>
+        </div>
+        <div class="daily-look">
+          <p class="txt-point">My Daily Look</p>
+          <div>
+            <ul class="image-list">
+              <li class="item">
+                <img src="http://via.placeholder.com/65x100" alt="">
+              </li>
+              <li class="item">
+                <img src="http://via.placeholder.com/65x100" alt="">
+              </li>
+              <li class="item">
+                <img src="http://via.placeholder.com/65x100" alt="">
+              </li>
+              <li class="item">
+                <img src="http://via.placeholder.com/65x100" alt="">
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="btn-area">
+        <button
+          class="btn btn-primary"
+          type="button">
+          스타일 유형<br/> 수정하기
+        </button>
+        <button
+          class="btn btn-primary"
+          type="button">
+          사이즈 및 선호 <br/>정보 수정하기
+        </button>
+      </div>
+    </div>
+
+  </div>
+  <!--<div class="style mt40">
     <div class="main-point-text closet-title">스타일정보</div>
     <div class="closet-title-text mt15">
       줄라이는 베이직 스타일을 기본으로 합니다.
@@ -106,7 +298,7 @@
     <div class="style-modify-btn mt30">
       <button class="button-login" style="float: right; width: 202px;" @click="moveNext">정보수정</button>
     </div>
-  </div>
+  </div>-->
 </template>
 
 <script>
@@ -186,75 +378,122 @@ export default {
 };
 </script>
 
-<style scoped>
-.style-modify-btn {
-  height: 150px;
-}
-
-.style-content {
-  border-top: 2px solid #333333;
-  border-bottom: 2px solid #333333;
-}
-
-.style-content-area {
-  display: flex;
-}
-
-.style-content-center {
-  width: 0.1%;
-  background-color: #797979;
-  margin: 30px;
-  opacity: 0.5;
-}
-
-.style-content-left, .style-content-right {
-  width: 49.8%;
-}
-
-.style-content-row {
-  margin-top: 40px;
-}
-
-.style-content-header {
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: -0.4px;
-  color: #333333;
-}
-
-.style-content-data {
-  font-size: 16px;
-  line-height: 1.6;
-  color: #333333;
-}
-
-.style-content-header span {
-  font-weight: normal;
-}
-
-.style-point-box {
-  display: inline-block;
-  margin-top: 10px;
-  margin-right: 10px;
-  height: 20px;
-  line-height: 20px;
-  background-color: #f4f4f4;
-  padding: 5px 10px;
-}
-
-@media screen and (max-width: 486px) {
-  .style-content-area {
-    display: block;
+<style scoped lang="scss">
+  .style-info {
+    padding: 25px 20px 20px 20px;
   }
-
-  .style-content-left,
-  .style-content-right {
-    width: 100%;
+  .line {
+    margin-top: 10px;
+    margin-bottom: 16px;
   }
-
-  .style-content-right {
-    margin-bottom: 40px;
+  // Image List
+  .image-list {
+    list-style: none;
+    font-size: 0;
+    .item {
+      display: inline-block;
+      width: 77px;
+      margin-left: 6.6px;
+      img {
+        width: 100%;
+      }
+      &:first-child {
+        margin-left: 0;
+      }
+    }
   }
-}
+  // Text List
+  .text-list {
+    list-style: none;
+    font-size: 0;
+    margin-left: -8px;
+    margin-top: 8px;
+    &.large {
+      li {
+        padding: 0 10.6px;
+      }
+    }
+    li {
+      padding: 0 6.8px;
+      margin-left: 8px;
+      margin-top: 8px;
+      line-height: 28px;
+      display: inline-block;
+      font-size: 15px;
+      letter-spacing: -0.6px;
+      color: #797979;
+      text-align: center;
+      background-color: #f4f4f4;
+    }
+  }
+  .text {
+    font-size: 15px;
+    line-height: 23px;
+    letter-spacing: -0.6px;
+    color: #797979;
+    margin-top: 7px;
+  }
+  .style-type {
+    .image-list {
+      margin-top: 10px;
+    }
+  }
+  .detail {
+    padding: {
+      top: 14px;
+      bottom: 20px;
+    }
+    border: {
+      top: 1px solid rgba(51,51,51,0.5);
+      bottom: 1px solid rgba(51,51,51,0.5);
+    }
+    margin: {
+      top: 20px;
+      bottom: 20px;
+    }
+    .size {
+    }
+    .body-type,
+    .prefer-color,
+    .brand,
+    .dress-code,
+    .request,
+    .daily-look {
+      margin-top: 35px;
+    }
+
+    .body-type {
+    }
+    .prefer-color {
+    }
+    .brand {
+    }
+    .dress-code {
+    }
+    .request {
+    }
+    .daily-look {
+      .image-list {
+        margin-top: 14px;
+      }
+    }
+  }
+  .btn-area {
+    display: flex;
+    .btn-primary {
+      font-size: 15px;
+      line-height: 18px;
+      flex: 1;
+      &:first-child {
+        margin-right: 8px;
+      }
+    }
+  }
+  @media (min-width: 767px) {
+    .style-info {
+      width: 1200px;
+      padding: 20px 0;
+      margin: 0 auto;
+    }
+  }
 </style>

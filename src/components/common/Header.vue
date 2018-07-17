@@ -1,31 +1,32 @@
 <template>
-  <header class="side-margin-50 pd20">
-    <div class="zuly-logo left" style="padding-top: 10px;">
-      <router-link to="/">
-         <div class="logo"></div>
-      </router-link>
-    </div>
-    <div class="zuly-menu right talign-right">
-      <ul class="header-menu" style="display: inline-flex; list-style: none;">
+  <header class="header clearfix">
+    <router-link to="/" class="logo">
+      <img src="/static/img/logo/ZULY-BI.png" alt="ZULY">
+    </router-link>
+    <nav class="global-navigation" v-if="!gnbToggle">
+      <ul>
         <li>
-          <router-link to="/closet" class="menu-title">
+          <router-link
+            to="/closet/tomorrow"
+            class="menu-title">
             나만의 옷장
           </router-link>
         </li>
-        <li class="interval">
-          <span class="mobile-point" style="display: inline-block; width:3px; height:3px; background-color: #333333; opacity: 0.5;"></span>
-        </li>
         <li>
-          <span v-if="Authentication.authenticated" class="menu-title" @click="doLogout">
-            로그아웃
-          </span>
-          <router-link v-else to="/login" class="menu-title">
+          <router-link
+            v-if="!Authentication.authenticated"
+            to="/login">
             로그인
           </router-link>
+          <span
+            v-else
+            @click="doLogout">
+              로그아웃
+            </span>
         </li>
       </ul>
-    </div>
-    <div v-show="headerLine" class="headerLine mt60"></div>
+    </nav>
+    <div class="header-line" v-if="!closetCheck"></div>
   </header>
 </template>
 
@@ -37,19 +38,30 @@ export default {
   data() {
     return {
       headerLine: false,
+      gnbToggle: false,
+      isClose: false,
     };
   },
+  props: {
+    closetCheck: {
+      type: Boolean,
+    },
+  },
   watch: {
-    $route: 'headerLineEvt',
+    $rotue(to, from) {
+      this.headerMediaQueries();
+    },
   },
   computed: mapGetters({
     Authentication: 'login/Authentication',
   }),
   methods: {
-    headerLineEvt() {
-      if (this.$route.path.indexOf('closet') !== -1) this.headerLine = false;
-      else if (this.$route.path !== '/') this.headerLine = true;
-      else this.headerLine = false;
+    headerMediaQueries() {
+      if (this.$route.path.indexOf('join') !== -1) {
+        this.gnbToggle = true;
+      } else {
+        this.gnbToggle = false;
+      }
     },
     doLogout() {
       document.cookie = `${process.env.TOKEN_NAME}=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=${process.env.HOST}`;
@@ -57,82 +69,80 @@ export default {
     },
   },
   created() {
-    this.headerLineEvt();
+    this.headerMediaQueries();
   },
 };
 </script>
 
-<style scoped>
-.side-margin-50 {
-  margin: 0 50px 0 53px;
-}
-
-.logo {
-  width: 99px;
-  height: 30px;
-  background-image: url('/static/img/logo/ZULY-BI.png');
-  background-size: 100% 100%;
-}
-
-div.headerLine {
-  width: 100%;
-  height: 3px;
-  background-color: #333333;
-}
-
-ul.header-menu {
-  padding: 0;
-  position: relative;
-  top: -6px;
-}
-
-li.interval {
-  margin: 0 15px;
-}
-
-span.menu-title {
-  cursor: pointer;
-}
-
-@media screen and (max-width: 486px) {
-  div.headerLine {
-    display: inline-block;
+<style scoped lang="scss">
+  .header {
+    padding: 17px 20px 20px 20px;
+    .logo {
+      float: left;
+      width: 64px;
+      height: 19px;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .global-navigation {
+      float: right;
+      margin-top: 5px;
+      font-size: 0;
+      li {
+        display: inline-block;
+        font-size: 15px;
+        letter-spacing: -1px;
+        margin-right: 20px;
+        position: relative;
+        &:last-child {
+          margin-right: 0;
+        }
+        &:not(:last-child):after {
+          position: absolute;
+          right: -13px;
+          top: 5px;
+          display: inline-block;
+          content: '';
+          width: 3px;
+          height: 3px;
+          background-color: #797979;
+          overflow: hidden;
+        }
+      }
+    }
   }
-
-  .mt60 {
-    margin-top: 15px !important;
+  @media (min-width: 767px) {
+    .header {
+      width: 1200px;
+      margin: 0 auto;
+      padding: 30px 0 31px;
+      .logo {
+        width: 90px;
+        height: 27px;
+      }
+      .global-navigation {
+        margin-top: 0;
+        li {
+          font-size: 20px;
+          letter-spacing: -1.3px;
+          margin-right: 26px;
+          &:not(:last-child):after {
+            right: -13px;
+            top: 9px;
+            border-radius: 2px;
+          }
+        }
+      }
+      .header-line {
+        width: 100%;
+        height: 1px;
+        position: absolute;
+        left: 0;
+        top: 87px;
+        background-color: #e9e9e9;
+      }
+    }
   }
-
-  .zuly-menu {
-    margin-top: 5px !important;
-  }
-
-  .logo {
-    width: 73px;
-    height: 22px;
-  }
-
-  .pd20 {
-    padding-top: 10px !important;
-  }
-
-  ul.header-menu {
-    padding: 0;
-    position: relative;
-    top: -11px;
-  }
-
-  li.interval {
-    margin: 0 10px;
-  }
-
-  span.mobile-point {
-    top: -3px;
-    position: relative;
-  }
-
-  .menu-title {
-    letter-spacing: -1px;
-  }
-}
 </style>

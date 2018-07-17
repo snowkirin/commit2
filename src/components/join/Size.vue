@@ -1,277 +1,451 @@
 <template>
-  <div class="size subContent mauto size-margin">
-    <div class="content-title mt70">
-      <span v-show="!this.Authentication.authenticated">사이즈</span>
-      <styleMenu v-show="this.Authentication.authenticated" menuTitle="사이즈"></styleMenu>
+  <div class="container">
+    <div class="container-header">
+      <p class="size-title">사이즈</p>
+      <p class="size-text">즐겨입는 옷의 사이즈와 체형 관련 정보를 입력해주세요.</p>
+      <div class="line line__default"></div>
     </div>
-    <div class="explain mt10">
-      다음 질문들은 스타일리스트가 체형을 정확히 파악하여 연출하는데 도움이 됩니다.
-    </div>
-    <div class="sizeLine mt25"></div>
-    <div class="content-form mauto">
-      <sizeTooltip ref="tall" :dataId="0" sizeTitle="키" customTooltip="최근에 측정된 키를 입력해주세요."></sizeTooltip>
-      <div class="tall-input-group" :class="{ error: errors.has('tall') }">
-        <div class="tall-input">
-          <input type="number" name="tall" class="form-login-input" placeholder="최근 측정한 키를 입력" v-validate="'required'" maxlength="3"/>
+    <form>
+      <div class="contents">
+        <div class="content">
+          <div class="blouse">
+            <p class="txt-point">블라우스/셔츠</p>
+            <div class="flex-list">
+              <ul>
+                <li
+                  v-for="(data, idx) in setSize.blouse"
+                  :key="idx"
+                  @click="setData('blouseSize', data)"
+                  :class="{selected: sizeData.blouseSize  === data.code}">
+                  {{ data.name }}
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="skirt">
+            <p class="txt-point">치마</p>
+            <div class="flex-list">
+              <ul>
+                <li
+                  v-for="(data, idx) in setSize.skirt"
+                  :key="idx"
+                  :class="{selected: sizeData.skirtSize === data.code}"
+                  @click="setData('skirtSize', data)">
+                  {{ data.name }}
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="pants">
+            <p class="txt-point">바지 (inch)</p>
+            <div class="flex-list">
+              <ul>
+                <li
+                  v-for="(data, idx) in setSize.pants"
+                  :key="idx"
+                  :class="{selected: sizeData.pantsSize === data.code}"
+                  @click="setData('pantsSize', data)">
+                  {{ data.name }}
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="height">
+            <p class="txt-point">키 (cm)</p>
+            <div
+              :class="{error: errors.has('height')}">
+              <div>
+                <input
+                  type="number"
+                  class="form-input"
+                  name="height"
+                  maxlength="3"
+                  v-model.number="sizeData.tallSize"
+                  v-validate="'required'"
+                  placeholder="최근 측정한 키를 입력해주세요.">
+              </div>
+              <p
+                class="txt-error"
+                v-show="errors.has('height')">
+                키를 입력해주세요.
+              </p>
+            </div>
+          </div>
         </div>
-        <div class="tall-input-unit">cm</div>
+        <div class="content">
+          <div class="chest">
+            <p class="txt-point">가슴 (브래지어)</p>
+            <div
+              :class="{error: errors.has('chest')}">
+              <div>
+                <input
+                  type="text"
+                  class="form-input"
+                  v-model="sizeData.bustSize"
+                  name="chest"
+                  v-validate="'required'"
+                  placeholder="예) 80A">
+              </div>
+              <p
+                class="txt-error"
+                v-if="errors.has('chest')">
+                가슴을 입력해주세요.
+              </p>
+            </div>
+
+          </div>
+          <div class="body-type">
+            <p class="txt-point">체형</p>
+            <div>
+              <p class="text" v-if="bodyTypeText">
+                {{ bodyTypeText }}
+              </p>
+              <ul class="body-type-list">
+                <template v-for="(data, idx) in setSize.body_type">
+                  <li
+                    :class="{selected: sizeData.bodyType === data.code}"
+                    @click="setData('bodyType', data)"
+                    :key="idx">
+                    <img :src="data.url"/>
+                    {{data }}
+                  </li>
+                </template>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="field">
-        <span class="error" v-show="errors.has('tall')" style="text">키를 입력해주세요.</span>
+      <div class="btn-next">
+        <button
+          type="button"
+          class="btn btn-primary"
+          @click="btnNextStep">
+          <span v-if="$mq !== 'sm'">정보 수정하기</span>
+          <span v-else>다음</span>
+        </button>
       </div>
-      <sizeTooltip
-        ref="bust"
-        :bustError.sync="bustError"
-        :dataId="1"
-        :dataSet="[75, 80, 85, 90]"
-        :initData="initData"
-        sizeUnit="cm"
-        sizeTitle="가슴"
-        customTooltip="평상시 착용 하시는 브래지어 사이즈에서 앞에 있는 숫자를 입력해 주세요. 예를 들어 지금 착용하신 브래지어에 80A 이라고 라벨에 적혀 있다면, 80 이라고 입력 해주세요.">
-      </sizeTooltip>
-      <div class="field">
-        <span class="error" v-show="!initFlag && bustError">가슴 사이즈를 선택해주세요.</span>
-      </div>
-      <sizeTooltip
-        ref="waist"
-        :waistError.sync="waistError"
-        :dataId="2"
-        :dataSet="[24, 26, 28, 30]"
-        :initData="initData"
-        sizeUnit="inch"
-        sizeTitle="허리"
-        customTooltip="즐겨 입으시는 바지의 인치를 입력 해주세요.">
-      </sizeTooltip>
-      <div class="field">
-        <span class="error" v-show="!initFlag && waistError">허리 사이즈를 선택해주세요.</span>
-      </div>
-      <sizeTooltip
-        ref="hip"
-        :hipError.sync="hipError"
-        :dataId="3"
-        :dataSet="[80, 85, 90, 95]"
-        :initData="initData"
-        sizeUnit="cm"
-        sizeTitle="힙"
-        customTooltip="평상시 착용 하시는 팬티의 사이즈 숫자를 입력해 주세요. 예를 들어 지금 착용하신 팬티에 90 이라고 라벨에 적혀 있다면, 90이라고 입력 해주세요.">
-      </sizeTooltip>
-      <div class="field">
-        <span class="error" v-show="!initFlag && hipError">힙 사이즈를 선택해주세요.</span>
-      </div>
-      <styleButton currentLocation="size" currentNumber="1"></styleButton>
-    </div>
+    </form>
+    <alert-modal ref="view" width="320" height="190"></alert-modal>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import SizeTooltip from '@/components/join/SizeTooltip';
-import StyleMenu from '@/components/join/common/StyleMenu';
-import StyleButton from '@/components/join/common/StyleButton';
-import ToolTip from '@/components/join/common/ToolTip';
+import AlertModal from '@/components/common/AlertModal';
+import Codes from '@/library/api/codes';
 
 export default {
   name: 'size',
   data() {
     return {
-      clickCount: 0,
-      initFlag: true,
-      bustError: true,
-      waistError: true,
-      hipError: true,
-      initData: {},
+      setSize: {},
+      bodyTypeText: '',
+      sizeData: {
+        tallSize: null,
+        bustSize: null,
+        blouseSize: null,
+        skirtSize: null,
+        pantsSize: null,
+        bodyType: null,
+      },
     };
   },
   components: {
-    SizeTooltip,
-    StyleMenu,
-    StyleButton,
-    ToolTip,
+    AlertModal,
   },
   computed: {
     ...mapGetters({
       Authentication: 'login/Authentication',
-      mypageStyleData: 'mypage/getMypageStyleData',
+      // mypageStyleData: 'mypage/getMypageStyleData',
     }),
   },
   methods: {
     ...mapActions({
-      setSizeData: 'signup/setSizeData',
-      setMypageStyle: 'mypage/setMypageStyle',
-      setMypageCache: 'mypage/setMypageCache',
+      btnSetSize: 'signup/setSize',
+      // setSizeData: 'signup/setSizeData',
+      // setMypageStyle: 'mypage/setMypageStyle',
+      // setMypageCache: 'mypage/setMypageCache',
     }),
-    toolTipEvt() {
-      this.$refs.mtooltip.toolTipEvt();
+    setData(type, data) {
+      this.sizeData[type] = data.code;
+      if (type === 'bodyType') {
+        this.bodyTypeText = data.description;
+      }
     },
-    loadSize(type) {
-      let rtn = 0;
-      if (type === 'tall') rtn = (this.mypageStyleData.tall_size) ? this.mypageStyleData.tall_size : 0;
-      else if (type === 'bust') rtn = (this.mypageStyleData.bust_size) ? this.mypageStyleData.bust_size : 0;
-      else if (type === 'waist') rtn = (this.mypageStyleData.waist_size) ? this.mypageStyleData.waist_size : 0;
-      else if (type === 'hip') rtn = (this.mypageStyleData.hip_size) ? this.mypageStyleData.hip_size : 0;
-
-      return rtn;
-    },
-    stylingMenuOnoff() {
-      const mnu = document.querySelector('.content-menu-box');
-
-      if (mnu.style.display === 'none') mnu.style.display = 'block';
-      else mnu.style.display = 'none';
-    },
-    async saveSize() {
-      const sizeData = {
-        tall: document.querySelector('input[name=tall]').value,
-        bust: this.$refs.bust.value,
-        waist: this.$refs.waist.value,
-        hip: this.$refs.hip.value,
-      };
-      await this.setSizeData(sizeData);
-      this.$localStorage.set('S1', JSON.stringify(sizeData));
-    },
-    moveNext() {
-      this.initFlag = false;
+    btnNextStep() {
+      if (this.sizeData.blouseSize === null) {
+        this.$common.viewAlertModal('블라우스/셔츠 항목을 확인해 주세요.', this.$refs, 'alert');
+        return false;
+      }
+      if (this.sizeData.skirtSize === null) {
+        this.$common.viewAlertModal('치마 항목을 확인해 주세요.', this.$refs, 'alert');
+        return false;
+      }
+      if (this.sizeData.pantsSize === null) {
+        this.$common.viewAlertModal('바지 항목을 확인해 주세요.', this.$refs, 'alert');
+        return false;
+      }
+      if (this.sizeData.bodyType === null) {
+        this.$common.viewAlertModal('체형 항목을 확인해 주세요.', this.$refs, 'alert');
+        return false;
+      }
       this.$validator.validateAll().then((result) => {
         if (result) {
-          if (!this.bustError && !this.waistError && !this.hipError) {
-            this.saveSize();
-            this.$router.push({ path: 'styling' });
-          }
+          this.$localStorage.set('Size', JSON.stringify(this.sizeData));
+          this.btnSetSize(this.sizeData);
+          this.$router.push({
+            path: 'styling',
+          });
+        } else {
+          this.$common.viewAlertModal('필수 입력 항목을 확인해 주세요.', this.$refs, 'alert');
         }
       });
     },
   },
-  async mounted() {
-    let localStorage = this.$localStorage.get('S1');
-
-    if (this.Authentication.authenticated) {
-      if (!this.mypageStyleData.bust_size) await this.setMypageStyle();
-      document.querySelector('input[name=tall]').value = this.mypageStyleData.tall_size;
-      this.initData = {
-        bust: this.mypageStyleData.bust_size,
-        waist: this.mypageStyleData.waist_size,
-        hip: this.mypageStyleData.hip_size,
-      };
-    } else if (localStorage) {
-      localStorage = JSON.parse(localStorage);
-      document.querySelector('input[name=tall]').value = localStorage.tall;
-      this.setMypageCache({
-        tall_size: localStorage.tall,
-        bust_size: localStorage.bust,
-        waist_size: localStorage.waist,
-        hip_size: localStorage.hip,
-      });
-      this.initData = {
-        bust: localStorage.bust,
-        waist: localStorage.waist,
-        hip: localStorage.hip,
-      };
+  mounted() {
+    const localStorage = this.$localStorage.get('Size');
+    if (localStorage) {
+      this.sizeData = JSON.parse(localStorage);
+      if (this.sizeData.bodyType === 12701) {
+        this.bodyTypeText = '허리둘레와 엉덩이 둘레가 거의 같으며 골격이 잘 발달되지 않은 보이쉬한 일자형 체형입니다.';
+      } else if (this.sizeData.bodyType === 12702) {
+        this.bodyTypeText = '전체적으로 어깨가 잘 발달되어 상체가 넓고 아래로 내려갈수록 점점 작아지는 체형입니다.';
+      } else if (this.sizeData.bodyType === 12703) {
+        this.bodyTypeText = '전반적으로 상체에 살이 많고 배가 조금 나온, 둥글둥글한 모습을 띠고 있는 체형입니다.';
+      } else if (this.sizeData.bodyType === 12704) {
+        this.bodyTypeText = '어깨에 비해서 히프 사이즈가 크고 하체로 갈수록 점점 넓어지는 한국인에게 흔히 볼 수 있는 체형입니다.';
+      } else if (this.sizeData.bodyType === 12705) {
+        this.bodyTypeText = '가슴둘레와 엉덩이 둘레는 거의 비슷한데, 허리는 가는 이상적인 체형입니다.'
+      }
     }
+  },
+  created() {
+    const $this = this;
+    Codes.getSize().then((res) => {
+      $this.setSize = res.data;
+    }).catch((err) => {
+      console.error(err);
+    });
   },
 };
 </script>
 
-<style scoped>
-.size {
-  position: relative;
-  text-align: center;
-}
-
-.sizeLine {
-  height: 1px;
-  opacity: 0.2;
-  background-color: #333333;
-}
-
-.size-tt-text {
-  width: 392px;
-  text-align: left;
-  font-size: 16px;
-  font-weight: 600;
-  font-style: normal;
-  font-stretch: normal;
-  letter-spacing: -0.4px;
-  color: #333333;
-}
-
-.fa-exclamation-circle {
-  display: none;
-}
-
-.tooltipLocation {
-  position: absolute;
-  z-index: 5;
-  left: -1%;
-  top: 24%;
-}
-
-.tall-input-group {
-  width: 392px;
-  display: table;
-  table-layout: fixed;
-  padding: 0;
-  height: 50px;
-}
-
-.tall-input {
-  display: table-cell;
-  text-align: center;
-  width: 75%;
-}
-
-.tall-input-unit {
-  display: table-cell;
-  vertical-align:bottom;
-  text-align: left;
-  padding-left: 15px;
-  height: 50px;
-  font-size: 16px;
-  font-weight: 300;
-  padding-bottom: 10px;
-}
-
-.field {
-  text-align: left;
-}
-
-@media screen and (max-width: 486px) {
-  .size-tt-text {
-    width: 100%;
+<style scoped lang="scss">
+  @mixin clearfix {
+    &:after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+  }
+  .container {
+    padding: {
+      top: 24px;
+      left: 20px;
+      right: 20px;
+      bottom: 17px;
+    }
+    .container-header {
+      .line {
+        border-width: 2px;
+        margin-top: 17px;
+        margin-bottom: 17px;
+      }
+      .size-title {
+        font-size: 26px;
+        line-height: 34px;
+        letter-spacing: -1.4px;
+        text-align: center;
+      }
+      .size-text {
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: -0.8px;
+        color: #797979;
+        text-align: center;
+        margin-top: 3px;
+      }
+    }
+    .contents {
+      .txt-point {
+        margin-bottom: 13px;
+      }
+      .blouse {
+      }
+      .skirt {
+        // 35.8
+        margin-top: 36px;
+      }
+      .pants {
+        margin-top: 36px;
+      }
+      .height {
+        margin-top: 36px;
+      }
+      .chest {
+        margin-top: 35px;
+      }
+      .body-type {
+        margin-top: 36px;
+      }
+      .flex-list {
+        ul {
+          margin-left: 1px;
+          margin-top: 1px;
+          background: #f5f5f5;
+          font-size: 0;
+        }
+        li {
+          display: inline-block;
+          width: calc(25% + 1px);
+          position: relative;
+          border: 1px solid #c4c4c4;
+          margin-left: -1px;
+          margin-top: -1px;
+          line-height: 48px;
+          text-align: center;
+          color: #bbb;
+          letter-spacing: -0.2px;
+          background-color: #fff;
+          user-select: none;
+          cursor: pointer;
+          font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
+          font-size: 15px;
+          &.selected {
+            font-weight: 700;
+            color: #333;
+            z-index: 10;
+            outline: 2px solid #333;
+            outline-offset: -2px;
+          }
+        }
+      }
+      .body-type {
+        .text {
+          text-align: center;
+          font-size: 14px;
+          color: #797979;
+          line-height: 20px;
+          letter-spacing: -0.8px;
+          padding: 9px 27px 11.3px;
+          background-color: #f5f5f5;
+          margin-bottom: 10px;
+        }
+        .body-type-list {
+          list-style: none;
+          font-size: 0;
+          text-align: center;
+          margin-left: -8px;
+          margin-top: -10px;
+          li {
+            display: inline-block;
+            margin-left: 8px;
+            margin-top: 10px;
+            width: 106px;
+            height: 178px;
+            border: 1px solid #c4c4c4;
+            cursor: pointer;
+            img {
+              max-width: 100%;
+              max-height: 100%;
+              opacity: 0.3;
+            }
+            &.selected {
+              outline: 2px solid #333;
+              outline-offset: -2px;
+              opacity: 1;
+              img {
+                opacity: 1;
+              }
+            }
+          }
+        }
+      }
+    }
+    .btn-next {
+      width: 100%;
+      margin-top: 41px;
+      button {
+        width: 100%;
+        height: 50px;
+      }
+    }
+  }
+/* Desktop Style */
+@media screen and (min-width:768px){
+  .container {
+    width: 795px;
+    margin: 0 auto;
+    padding: 74px 0 0 0;
+    .container-header {
+      .size-title {
+        font-size: 32px;
+        line-height: 40px;
+        letter-spacing: -1.7px;
+      }
+      .size-text {
+        font-size: 16px;
+        line-height: 23px;
+        letter-spacing: -0.6px;
+        margin-top: 5px;
+      }
+      .line {
+        margin-top: 26px;
+        margin-bottom: 24px;
+      }
+    }
+    .contents {
+      display: flex;
+      border-bottom: 1px solid #333;
+      padding-bottom: 30px;
+      .content {
+        &:nth-child(1){
+          width: 387.5px;
+          padding-right: 53.5px;
+          border-right: 1px solid #e9e9e9;
+        }
+        &:nth-child(2){
+          width: 405.5px;
+          padding-left: 39.5px;
+          padding-right: 32px;
+        }
+      }
+      .skirt {
+        margin-top: 33px;
+      }
+      .pants {
+        margin-top: 35px;
+      }
+      .height {
+        margin-top: 33px;
+      }
+      .chest {
+        margin-top: 0;
+      }
+      .body-type {
+        margin-top: 33px;
+        .text {
+          font-size: 15px;
+          line-height: 23px;
+          letter-spacing: -0.6px;
+          padding: 12px 27px;
+        }
+        .body-type-list {
+          text-align: center;
+        }
+      }
+    }
+    .btn-next {
+      position: relative;
+      text-align: right;
+      button {
+        width: 288px;
+        height: 60px;
+        margin-top: 29px;
+        font-size: 16px;
+      }
+    }
   }
 
-  .fa-exclamation-circle {
-    display: inline-block;
-    color: #aaaaaa;
-    cursor: pointer;
-  }
-
-  .size-margin {
-    margin-left: 20px;
-    padding-right: 20px;
-    overflow-x:hidden;
-  }
-
-  .tall-input-group {
-    width: 100%;
-    display: table;
-    table-layout: fixed;
-    padding: 0;
-    height: 50px;
-  }
-
-  .tall-input {
-    display: table-cell;
-    text-align: center;
-    width: 75%;
-  }
-
-  .tall-input-unit {
-    display: table-cell;
-    vertical-align:bottom;
-    text-align: left;
-    padding-left: 15px;
-    height: 50px;
-    font-size: 16px;
-    font-weight: 300;
-  }
 }
 </style>

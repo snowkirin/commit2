@@ -1,203 +1,245 @@
 <template>
-  <div class="closet-mobile-menu">
-    <div class="closet-menu" @touchend="touchEnd">
-      <div class="close-mobile-slide">
-        <div id="tomorrow" class="menu" data-id="tomorrow" :class="{ 'closet_active' : activeMenuName === 'tomorrow' }" @click="menuClick('/closet/tomorrow', 0)">내일의옷장</div>
-        <div id="current" class="menu" data-id="current" :class="{ 'closet_active' : activeMenuName === 'current' }" @click="menuClick('/closet/current', 1)">현재의옷장</div>
-        <div id="past" class="menu" data-id="past" :class="{ 'closet_active' : activeMenuName === 'past' }" @click="menuClick('/closet/past', 2)">과거의옷장</div>
-        <div id="style" class="menu" data-id="style" :class="{ 'closet_active' : activeMenuName === 'style' }" @click="menuClick('/closet/style', 3)">스타일정보</div>
-        <div id="mypage" class="menu" data-id="mypage" :class="{ 'closet_active' : activeMenuName === 'mypage' }" @click="menuClick('/closet/security', 4)">나의정보관리</div>
-        <!-- div class="menu" data-id="payment">지불정보</div -->
-        <div id="coupon" class="menu" data-id="coupon" :class="{ 'closet_active' : activeMenuName === 'coupon' }" @click="menuClick('/closet/coupon', 5)">쿠폰</div>
-        <div id="cs" class="menu" data-id="cs" :class="{ 'closet_active' : activeMenuName === 'cs' }" @click="menuClick('/closet/cs', 6)">문의내역</div>
-        <div id="notice" class="menu" data-id="notice" :class="{ 'closet_active' : activeMenuName === 'notice' }" @click="menuClick('/closet/notice', 7)">공지사항</div>
-      </div>
-    </div>
+  <div class="c-menu">
+    <swiper :options="swiperOption" ref="mySwiper">
+      <swiper-slide
+        v-for="(data, idx) in routerJSON"
+        :key="idx" @click.native="clickMenu(idx)">
+        <router-link
+          :to="data.path"
+          class="closet-link"
+          active-class="active">
+          {{ data.text }}
+        </router-link>
+      </swiper-slide>
+    </swiper>
   </div>
 </template>
 
 <script>
+import { swiper, swiperSlide } from 'vue-awesome-swiper';
+import 'swiper/dist/css/swiper.css';
 
 export default {
   name: 'closet-menu',
   watch: {
-    $route: 'activeMenuEvt',
+  },
+  components: {
+    swiper,
+    swiperSlide,
   },
   data() {
     return {
-      activeMenuName: '',
-      clickPosition: 0,
+      swiperOption: {
+        slidesPerView: 'auto',
+        spaceBetween: 20,
+        breakpoints: {
+          320: {
+          },
+        },
+      },
+      routerJSON: [
+        {
+          text: '내일의옷장',
+          path: '/closet/tomorrow',
+        },
+        {
+          text: '현재의옷장',
+          path: '/closet/current',
+        },
+        {
+          text: '과거의옷장',
+          path: '/closet/past',
+        },
+        // {
+        //   text: '스타일정보',
+        //   path: '/closet/style',
+        // },
+        {
+          text: '나의정보관리',
+          path: '/closet/security',
+        },
+        {
+          text: '쿠폰',
+          path: '/closet/coupon',
+        },
+        {
+          text: '문의내역',
+          path: '/closet/cs',
+        },
+        {
+          text: '공지사항',
+          path: '/closet/notice',
+        },
+      ],
     };
   },
   methods: {
-    menuClick(menu, idx) {
-      this.$router.push({ path: menu });
-      this.activeMenuPosition(idx);
-    },
-    activeMenuPosition(idx) {
-      if (!this.$common.deviceCheck()) return;
-      let XPosition = 0;
-      if (idx < 3) {
-        XPosition = 0;
-      } else if (idx === 3) {
-        XPosition = -140;
-      } else if (idx === 4) {
-        XPosition = -230;
-      } else {
-        XPosition = -284;
-      }
-      this.clickPosition = XPosition;
-      document.querySelector('.close-mobile-slide').style.transform = `translate3d(${XPosition}px, 0px, 0px)`;
-    },
-    touchMove() {
-      // document.querySelector('.close-mobile-slide').style.transform = `translate3d(${e.touches[0].pageX}px, 0px, 0px)`;
-      document.querySelector('.close-mobile-slide').style.transform = 'translate3d(0px, 0px, 0px)';
-    },
-    touchEnd(e) {
-      const XPosition = e.changedTouches[0].pageX;
-      if (XPosition < -284) {
-        document.querySelector('.close-mobile-slide').style.transform = `translate3d(${this.clickPosition}px, 0px, 0px)`;
-      } else if (XPosition > 284) {
-        document.querySelector('.close-mobile-slide').style.transform = `translate3d(${this.clickPosition}px, 0px, 0px)`;
-      }
-    },
-    hoverEvt(target) {
-      const obj = target;
-      if (!this.$common.deviceCheck()) {
-        obj.onmouseover = () => {
-          obj.classList.add('closet_active');
-        };
-        obj.onmouseout = () => {
-          if (obj.id !== this.activeMenuName) {
-            obj.classList.remove('closet_active');
-          }
-        };
-      } else {
-        obj.onclick = () => {
-          this.activeMenuEvt();
-        };
-      }
-    },
-    menuEvt() {
-      const menu = document.querySelectorAll('.menu');
-
-      for (let i = 0; i < menu.length; i += 1) {
-        this.hoverEvt(menu[i]);
-      }
-    },
-    activeMenuEvt() {
-      let idx = 0;
-      if (this.$route.path === '/closet' || this.$route.path === '/closet/tomorrow') {
-        this.activeMenuName = 'tomorrow';
-        idx = 0;
-      } else if (this.$route.path === '/closet/current') {
-        this.activeMenuName = 'current';
-        idx = 1;
-      } else if (this.$route.path === '/closet/past') {
-        this.activeMenuName = 'past';
-        idx = 2;
-      } else if (this.$route.path === '/closet/style') {
-        this.activeMenuName = 'style';
-        idx = 3;
-      } else if (this.$route.path === '/closet/security') {
-        this.activeMenuName = 'mypage';
-        idx = 4;
-      } else {
-        idx = 5;
-        this.activeMenuName = this.$route.path.replace('/closet/', '');
-      }
-      this.activeMenuPosition(idx);
+    clickMenu(idx) {
+      this.$refs.mySwiper.swiper.slideTo(idx -2, 400);
     },
   },
   mounted() {
-    this.menuEvt();
-    this.activeMenuEvt();
   },
 };
 </script>
 
-<style scoped>
-.closet-menu {
-  margin-top:30px;
-  height: 45px;
-  border-bottom: 1px solid #b9b9b9;
-}
-
-.menu {
-  display: inline-block;
-  font-size: 18px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  letter-spacing: -1px;
-  text-align: left;
-  color: #797979;
-  margin-right: 20px;
-  height: 42px;
-  cursor: pointer;
-}
-
-.menu a {
-  color: #797979;
-  text-decoration: none;
-}
-
-.menu.closet_active {
-  font-weight: 600;
-  color: #333333;
-  border-bottom: 4px solid #333333;
-}
-
-@media screen and (max-width: 1024px) {
-  .closet-mobile-menu {
+<style scoped lang="scss">
+  .c-menu {
+    padding-left: 20px;
+    padding-right: 20px;
     position: relative;
-    overflow-y: hidden !important;
-    -webkit-overflow-scrolling: touch !important;
+    &::after {
+      content: '';
+      display: block;
+      border-bottom: 3px solid #dadada;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      left: 0;
+    }
+    .closet-link {
+      font-size: 16px;
+      letter-spacing: -1.1px;
+      color: #797979;
+      display: block;
+      padding-top: 14px;
+      padding-bottom: 19px;
+      position: relative;
+      text-decoration: none;
+      user-select: none;
+      cursor: pointer;
+      padding-left: 1px;
+      padding-right: 1px;
+      &.active {
+        color: #333;
+        font-weight: 700;
+        letter-spacing: -1px;
+        &::after {
+          content: '';
+          display: block;
+          position: absolute;
+          bottom: 0;
+          border-bottom: 3px solid #f45649;
+          width: 100%;
+        }
+      }
+    }
+    .swiper-container {
+      border-top: 1px solid #f3f3f3;
+    }
+    .swiper-slide {
+      width: auto;
+    }
   }
+  /*.closet-mobile-menu {
+    padding: 0 20px;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+    &::after {
+      position: absolute;
+      content: '';
+      width: calc(100%);
+      border-bottom: 3px solid #dadada;
+      bottom: 0;
+      left: 0;
+      display: block;
+    }
+    .closet-menu {
+      white-space: nowrap;
+      font-size: 0  ;
+      transition: -ms-transform 0.5s,-webkit-transform 0.5s,transform 0.5s;
+      overflow: {
+        x: auto;
+        y: hidden;
+      }
+      &::-webkit-scrollbar {
+        -webkit-appearance: none;
+        display: none;
+      }
+      .close-mobile-slide {
 
-  .closet-menu {
-    white-space: nowrap !important;
-    margin-top: 20px !important;
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    transition: -ms-transform 0.5s,-webkit-transform 0.5s,transform 0.5s !important;
-  }
+        border-top: 1px solid #f3f3f3;
+        .menu {
+          padding-top: 11px;
+          padding-bottom: 15px;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          letter-spacing: -1px;
+          color: #797979;
+          margin-left: 20px;
+          position: relative;
+          &.closet_active {
+            font-weight: 700;
+            color: #333;
+            &::after {
+              position: absolute;
+              content: '';
+              display: block;
+              border-bottom: 3px solid #f45649;
+              bottom: 0;
+              width: 100%;
+              z-index: 10;
+            }
+          }
+          &:first-child {
+            margin-left: 0;
+          }
+        }
+      }
+    }
+  }*/
 
-  .closet-menu::-webkit-scrollbar {
-    -webkit-appearance: none !important;
-    display: none !important;
+  @media (min-width: 768px) {
+    .c-menu {
+      padding: 0;
+      margin: 0 auto;
+      width: 1200px;
+      &::after {
+        border-bottom: 1px solid #dadada;
+      }
+      .closet-link {
+        font-size: 18px;
+        letter-spacing: -1.2px;
+        padding-top: 20px;
+        padding-bottom: 19px;
+        padding-left: 1px;
+        padding-right: 1px;
+        &.active {
+          letter-spacing: -1.2px;
+          &::after {
+            content: '';
+            display: block;
+            position: absolute;
+            bottom: 0;
+            border-bottom: 4px solid #f45649;
+            width: 100%;
+          }
+        }
+      }
+      .swiper-container {
+        border-top: 1px solid #f3f3f3;
+      }
+      .swiper-slide {
+        width: auto;
+      }
+    }
+    /*.closet-mobile-menu {
+      width: 1200px;
+      margin: 0 auto;
+      padding: 0;
+      .close-mobile-slide {
+        .menu {
+          font-size: 18px;
+          letter-spacing: -1.2px;
+          padding-top: 25px;
+          padding-bottom: 16px;
+          margin-left: 27px;
+          &.closet_active {
+            border-bottom: 3px solid #333;
+          }
+        }
+      }
+    }*/
   }
-
-  .close-mobile-slide {
-    width: 100%;
-    visibility: visible;
-    transition: -ms-transform 0.5s,-webkit-transform 0.5s,transform 0.5s !important;
-  }
-
-  .menu {
-    display: inline-block;
-    font-size: 16px;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    letter-spacing: -1px;
-    text-align: left;
-    color: #797979;
-    margin-right: 10px;
-    height: 38px;
-    cursor: pointer;
-    line-height: 1;
-  }
-
-  .menu a {
-    color: #797979;
-    text-decoration: none;
-  }
-
-  .closet_active {
-    font-weight: 600 !important;
-    color: #333333 !important;
-    border-bottom: 4px solid #333333 !important;
-  }
-}
 </style>

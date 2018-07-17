@@ -3,6 +3,24 @@ import Management from '@/library/api/management';
 import Closet from '@/library/api/closet';
 import types from './mutation-types';
 
+// 2018-07-06
+
+const setSize = ({ commit }, payload) => {
+  commit(types.SET_SIZE, payload);
+};
+const setMood = ({ commit }, payload) => {
+  commit(types.SET_MOOD, payload);
+};
+const setJoinFirst = ({ commit }, payload) => {
+  commit(types.SET_JOIN_FIRST, payload);
+};
+
+const setJoinSecond = ({ commit }, payload) => {
+    commit(types.SET_JOIN_SECOND, payload);
+};
+
+// 2018-07-04
+
 const setFirstData = ({ commit }, data) => {
   commit(types.SET_SIGNUP_FIRST_DATA, data);
 };
@@ -135,82 +153,158 @@ const phoneCheckVerify = async ({ state, commit }, data) => {
   }
 };
 
-const signup = async ({ state }, data) => {
+// const signup = async ({ state }) => {
+const signup = async ({ state }) => {
   try {
-    let clothes = [];
-
-    if (state.selected.blouse.length > 0) clothes = [...new Set([...clothes, ...state.selected.blouse])];
-    else clothes = [...clothes, 12857];
-    if (state.selected.knitvest.length > 0) clothes = [...new Set([...clothes, ...state.selected.knitvest])];
-    else clothes = [...clothes, 12862];
-    if (state.selected.tshirt.length > 0) clothes = [...new Set([...clothes, ...state.selected.tshirt])];
-    else clothes = [...clothes, 12861];
-    if (state.selected.shirt.length > 0) clothes = [...new Set([...clothes, ...state.selected.shirt])];
-    else clothes = [...clothes, 12858];
-    if (state.selected.skirt.length > 0) clothes = [...new Set([...clothes, ...state.selected.skirt])];
-    else clothes = [...clothes, 12859];
-    if (state.selected.pants.length > 0) clothes = [...new Set([...clothes, ...state.selected.pants])];
-    else clothes = [...clothes, 12863];
-    if (state.selected.onepiece.length > 0) clothes = [...new Set([...clothes, ...state.selected.onepiece])];
-    else clothes = [...clothes, 12860];
-
-    if (state.sizeData === undefined || Object.keys(state.sizeData).length === 0) {
-      return { msg: '사이즈가 정상적으로 입력되지 않았습니다. 다시 진행해주세요.', result: false };
-    } else if (state.mood === undefined || state.mood === null) {
-      return { msg: '선호 스타일이 정상적으로 입력되지 않았습니다. 다시 진행해주세요.', result: false };
-    } else if (state.firstData.name === undefined || state.firstData.name === null) {
-      return { msg: '이름이 정상적으로 입력되지 않았습니다. 다시 진행해주세요.', result: false };
-    } else if (state.firstData.email === undefined || state.firstData.email === null) {
-      return { msg: '이메일을 정상적으로 입력되지 않았습니다. 다시 진행해주세요.', result: false };
-    } else if (state.firstData.phone === undefined || state.firstData.phone === null) {
-      return { msg: '핸드폰 번호가 정상적으로 입력되지 않았습니다. 다시 진행해주세요.', result: false };
-    } else if (state.firstData.addr === undefined || state.firstData.addr === null) {
-      return { msg: '주소를 정상적으로 입력되지 않았습니다. 다시 진행해주세요.', result: false };
-    } else if (state.firstData.addrDetail === undefined || state.firstData.addrDetail === null) {
-      return { msg: '주소 상세를 정상적으로 입력되지 않았습니다. 다시 진행해주세요.', result: false };
-    } else if (state.firstData.zipcode === undefined || state.firstData.zipcode === null) {
-      return { msg: '우편번호를 정상적으로 입력되지 않았습니다. 다시 진행해주세요.', result: false };
-    } if (data.cardNumber.length <= 14) {
-      return { msg: '카드번호를 잘못 입력하셨습니다. 다시 입력해주세요.', result: false };
-    }
-
-    const result = await Auth.localJoin({
-      sizeData: state.sizeData,
-      mood: state.mood,
-      prefer: state.colors.prefer,
-      except: state.colors.except,
-      clothes,
-      pattern: (state.selected.pattern.length !== 0) ? state.selected.pattern : [10399],
-      material: (state.selected.material.length !== 0) ? state.selected.material : [10299],
-      requirement: state.requirement,
-      name: state.firstData.name,
-      email: state.firstData.email,
-      password: state.firstData.password,
-      phone: state.firstData.phone,
-      ann: state.firstData.ann,
-      zipcode: state.firstData.zipcode,
-      addr: state.firstData.addr,
-      addrDetail: state.firstData.addrDetail,
-      deliveryDay: data.deliveryDay,
-      cardNumber: data.cardNumber,
-      cardYearExpiry: data.cardYearExpiry,
-      cardMonthExpiry: data.cardMonthExpiry,
-      userBirth: data.userBirth,
-      cardPassword: data.cardPassword,
-      lobbyPassword: data.lobbyPassword,
-      coupon: data.coupon,
+    _.forEach(state.join, function(value, key) {
+      if (value === null || value === undefined) {
+        if (key === 'tallSize' || key === 'bustSize' || key === 'blouseSize'  || key === 'skirtSize' || key === 'pantsSize' || key === 'bodyType') {
+          return {
+            msg: '사이즈가 정상적으로 입력되지 않았습니다. 다시 진행해주세요.',
+            result: false,
+          };
+        } else if (key === 'mood') {
+          return {
+            msg: '선호 스타일이 정상적으로 입력되지 않았습니다. 다시 진행해주세요',
+            result: false,
+          };
+        } else if (key === 'email') {
+          return {
+            msg: '이메일을 정상적으로 입력되지 않았습니다. 다시 진행해주세요',
+            result: false,
+          };
+        } else if (key === 'name') {
+          return {
+            msg: '이름이 정상적으로 입력되지 않았습니다. 다시 진행해주세요',
+            result: false,
+          };
+        } else if (key === 'phone') {
+          return {
+            msg: '핸드폰 번호가 정상적으로 입력되지 않았습니다. 다시 진행해주세요',
+            result: false,
+          };
+        } else if (key === 'addr') {
+          return {
+            msg: '주소를 정상적으로 입력되지 않았습니다. 다시 진행해주세요',
+            result: false,
+          };
+        } else if (key === 'addrDetail') {
+          return {
+            msg: '주소 상세를 정상적으로 입력되지 않았습니다. 다시 진행해주세요',
+            result: false,
+          };
+        } else if (key === 'zip') {
+          return {
+            msg: '우편번호를 정상적으로 입력되지 않았습니다. 다시 진행해주세요',
+            result: false,
+          };
+        }
+      }
+      if (key === 'cardNumber') {
+        if (value === null || value === '') {
+          return {
+            msg: '카드번호를 잘못 입력하셨습니다. 다시 입력해주세요.',
+            result: false,
+          };
+        }
+      }
     });
-
+    const result = await Auth.localJoin(state.join);
     if (result.data.paymentRtn) {
-      return { msg: '유효한 카드가 아닙니다.<br/>카드정보를 확인하시고 다시 진행해주세요.', result: false };
+      return {
+        msg: '유효한 카드가 아닙니다.<br/>카드정보를 확인하시고 다시 진행해주세요.',
+        result: false,
+      };
     }
-    if (result.data.result) return { msg: '회원가입이 완료되었습니다.<br/>로그인 페이지로 이동합니다.', result: true };
-  } catch (e) {
-    console.error(e.message);
+    if (result.data.result) {
+      console.log(result, ' action signup');
+      return {
+        msg: '회원가입이 완료되었습니다.<br/>추가정보 입력 페이지로 이동합니다.',
+        result: true,
+      };
+    }
+  } catch(e) {
+    console.error(e);
   }
-
   return false;
 };
+
+// const signup = async ({ state }, data) => {
+//   try {
+//     let clothes = [];
+//
+//     if (state.selected.blouse.length > 0) clothes = [...new Set([...clothes, ...state.selected.blouse])];
+//     else clothes = [...clothes, 12857];
+//     if (state.selected.knitvest.length > 0) clothes = [...new Set([...clothes, ...state.selected.knitvest])];
+//     else clothes = [...clothes, 12862];
+//     if (state.selected.tshirt.length > 0) clothes = [...new Set([...clothes, ...state.selected.tshirt])];
+//     else clothes = [...clothes, 12861];
+//     if (state.selected.shirt.length > 0) clothes = [...new Set([...clothes, ...state.selected.shirt])];
+//     else clothes = [...clothes, 12858];
+//     if (state.selected.skirt.length > 0) clothes = [...new Set([...clothes, ...state.selected.skirt])];
+//     else clothes = [...clothes, 12859];
+//     if (state.selected.pants.length > 0) clothes = [...new Set([...clothes, ...state.selected.pants])];
+//     else clothes = [...clothes, 12863];
+//     if (state.selected.onepiece.length > 0) clothes = [...new Set([...clothes, ...state.selected.onepiece])];
+//     else clothes = [...clothes, 12860];
+//
+//     if (state.sizeData === undefined || Object.keys(state.sizeData).length === 0) {
+//       return { msg: '사이즈가 정상적으로 입력되지 않았습니다. 다시 진행해주세요.', result: false };
+//     } else if (state.mood === undefined || state.mood === null) {
+//       return { msg: '선호 스타일이 정상적으로 입력되지 않았습니다. 다시 진행해주세요.', result: false };
+//     } else if (state.firstData.name === undefined || state.firstData.name === null) {
+//       return { msg: '이름이 정상적으로 입력되지 않았습니다. 다시 진행해주세요.', result: false };
+//     } else if (state.firstData.email === undefined || state.firstData.email === null) {
+//       return { msg: '이메일을 정상적으로 입력되지 않았습니다. 다시 진행해주세요.', result: false };
+//     } else if (state.firstData.phone === undefined || state.firstData.phone === null) {
+//       return { msg: '핸드폰 번호가 정상적으로 입력되지 않았습니다. 다시 진행해주세요.', result: false };
+//     } else if (state.firstData.addr === undefined || state.firstData.addr === null) {
+//       return { msg: '주소를 정상적으로 입력되지 않았습니다. 다시 진행해주세요.', result: false };
+//     } else if (state.firstData.addrDetail === undefined || state.firstData.addrDetail === null) {
+//       return { msg: '주소 상세를 정상적으로 입력되지 않았습니다. 다시 진행해주세요.', result: false };
+//     } else if (state.firstData.zipcode === undefined || state.firstData.zipcode === null) {
+//       return { msg: '우편번호를 정상적으로 입력되지 않았습니다. 다시 진행해주세요.', result: false };
+//     } if (data.cardNumber.length <= 14) {
+//       return { msg: '카드번호를 잘못 입력하셨습니다. 다시 입력해주세요.', result: false };
+//     }
+//
+//     const result = await Auth.localJoin({
+//       sizeData: state.sizeData,
+//       mood: state.mood,
+//       prefer: state.colors.prefer,
+//       except: state.colors.except,
+//       clothes,
+//       pattern: (state.selected.pattern.length !== 0) ? state.selected.pattern : [10399],
+//       material: (state.selected.material.length !== 0) ? state.selected.material : [10299],
+//       requirement: state.requirement,
+//       name: state.firstData.name,
+//       email: state.firstData.email,
+//       password: state.firstData.password,
+//       phone: state.firstData.phone,
+//       ann: state.firstData.ann,
+//       zipcode: state.firstData.zipcode,
+//       addr: state.firstData.addr,
+//       addrDetail: state.firstData.addrDetail,
+//       deliveryDay: data.deliveryDay,
+//       cardNumber: data.cardNumber,
+//       cardYearExpiry: data.cardYearExpiry,
+//       cardMonthExpiry: data.cardMonthExpiry,
+//       userBirth: data.userBirth,
+//       cardPassword: data.cardPassword,
+//       lobbyPassword: data.lobbyPassword,
+//       coupon: data.coupon,
+//     });
+//
+//     if (result.data.paymentRtn) {
+//       return { msg: '유효한 카드가 아닙니다.<br/>카드정보를 확인하시고 다시 진행해주세요.', result: false };
+//     }
+//     if (result.data.result) return { msg: '회원가입이 완료되었습니다.<br/>로그인 페이지로 이동합니다.', result: true };
+//   } catch (e) {
+//     console.error(e.message);
+//   }
+//
+//   return false;
+// };
 
 const saveExit = async ({ state }, origin) => {
   let rtn = false;
@@ -260,4 +354,9 @@ export default {
   pickMood,
   signup,
   saveExit,
+  // 2018-07-04
+  setSize,
+  setMood,
+  setJoinFirst,
+  setJoinSecond,
 };

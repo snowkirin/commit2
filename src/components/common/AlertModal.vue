@@ -2,7 +2,11 @@
 <div class="alert-frame">
   <div class="alert-content">
     <div class="alert-message en-font" v-html="content"></div>
-    <a class="button-alert" @click="closeModal">확인</a>
+    <button
+      type="button"
+      class="btn btn-primary"
+      @click="closeModal"
+    >확인</button>
   </div>
 </div>
 </template>
@@ -14,7 +18,7 @@ export default {
   },
   data() {
     return {
-      content: '',
+      content: '의견감사합니다.',
       type: 'alert',
       path: null,
       modal: null,
@@ -64,7 +68,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .alert-frame {
   display: none;
   position: fixed;
@@ -89,9 +93,8 @@ export default {
   height: inherit;
   padding: 25px;
   background-color: #ffffff;
-  box-shadow: rgba(0, 0, 0, 0.2) 5px 5px 30px 0px;
+  box-shadow: rgba(0, 0, 0, 0.2) 5px 5px 30px 0;
   border: solid 1px #333333 !important;
-  border: solid 1px var(--black-two);
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
 }
@@ -107,6 +110,9 @@ export default {
   letter-spacing: -0.4px;
   text-align: center;
   color: #333333;
+}
+.btn {
+  width: 120px;
 }
 
 @media screen and (max-width: 486px) {

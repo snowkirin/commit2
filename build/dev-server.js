@@ -29,10 +29,12 @@ const compiler = webpack(webpackConfig)
 
 const devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
-  quiet: true
-})
+  quiet: true,
+  poll: false
+});
 
 const hotMiddleware = require('webpack-hot-middleware')(compiler, {
+  path: '/__webpack_hmr',
   log: false
 })
 // force page reload when html-webpack-plugin template changes

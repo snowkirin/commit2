@@ -1,58 +1,96 @@
 <template>
-  <div class="mobile-customer-service mt40">
-    <div class="main-point-text closet-title">문의 신청 / 내역</div>
-    <div class="closet-title-text mt15">
-      고객님의 소중한 의견으로 한 뼘 더 자라는 줄라이가 되겠습니다.
+  <div class="customer-service">
+    <p class="txt-main-title">
+      고객님의 소중한 의견으로 더 자라는 줄라이가 되겠습니다.
+    </p>
+    <div class="flex-list">
+      <ul>
+        <li
+          v-bind:class="{ 'seleted': showContent === 'write' }"
+          @click="activeContent('write')">1:1 문의</li>
+        <li
+          v-bind:class="{ 'seleted': showContent === 'list' }"
+          @click="activeContent('list')">문의내역</li>
+      </ul>
     </div>
-    <div class="cs-menu mt30">
-      <div class="day-name-group">
-        <div class="day-name" v-bind:class="{ 'day-name-active': showContent === 'write' }" @click="activeContent('write')">1:1 문의</div>
-        <div class="day-name" v-bind:class="{ 'day-name-active': showContent === 'list' }" @click="activeContent('list')">문의내역</div>
-      </div>
-    </div>
-    <div class="content-form" data-value="write" v-show="showContent === 'write'">
-      <div class="mt10">
-        <label name="select-title"></label>
-        <select class="cs-select-box" name="inquiries_type">
-          <option value="">문의종류를 선택해주세요.</option>
-          <option :value="$const.INQUIRIES_SUBSCRIBE">구독문의</option>
-          <option :value="$const.INQUIRIES_ORDER">주문문의</option>
-          <option :value="$const.INQUIRIES_DELIVERY">배송문의</option>
-          <option :value="$const.INQUIRIES_NORMAL">일반(기타)문의</option>
-        </select>
-      </div>
-      <div class="mt10">
-        <input type="text" name="subject" class="form-login-input" placeholder="제목을 입력해주세요."/>
-      </div>
-      <div class="mt10">
-        <textarea name="content" class="requirement-textarea" placeholder="문의 내용을 입력해주세요."></textarea>
-      </div>
-      <div class="req-btn-area mt10">
-        <button class="button-login" @click="setInquiries">
-          문의하기
-        </button>
-      </div>
-    </div>
-    <div class="mt10" data-value="list" v-show="showContent === 'list'">
-      <template v-for="(inquiries, k) in inquiriesList">
-        <div v-bind:key="k" class="list-data-rows" @click="viewInquiries(inquiries.id)">
-          <div class="subject">{{ inquiries.subject }}</div>
-          <div class="date">
-              {{ inquiries.inserted.substring(2, 10) }}
-          </div>
+    <!-- 1:1 문의 -->
+    <div
+      data-value="write"
+      v-show="showContent === 'write'">
+      <form>
+        <div class="form-row">
+          <label class="select-label"></label>
+          <select class="custom-select" name="inquiries_type">
+            <option value="">문의종류를 선택해주세요.</option>
+            <option :value="$const.INQUIRIES_SUBSCRIBE">구독문의</option>
+            <option :value="$const.INQUIRIES_ORDER">주문문의</option>
+            <option :value="$const.INQUIRIES_DELIVERY">배송문의</option>
+            <option :value="$const.INQUIRIES_NORMAL">일반(기타)문의</option>
+          </select>
         </div>
-        <div v-bind:key="'ct_'+ k" class="list-data-content" :data-id="inquiries.id">
-          <div class="inquiries-type">문의유형 : {{ printInquiriesInfo.type_name }}</div>
-          <template v-for="(lis, k) in printInquiriesInfo.list">
-            <div v-bind:key="k" class="inquiries-subject">
-              {{ lis.content_type_name }}
-            </div>
-            <div v-bind:key="'ct_'+ k" class="inquiries-content">
-              {{ lis.content }}
-            </div>
-          </template>
+        <div class="form-row">
+          <input type="text"
+                 name="subject"
+                 class="form-input"
+                 placeholder="제목을 입력해주세요."/>
         </div>
-      </template>
+        <div class="form-row">
+          <textarea
+            name="content"
+            class="requirement-textarea"
+            placeholder="문의 내용을 입력해주세요.">
+          </textarea>
+        </div>
+        <div class="req-btn-area">
+          <button
+            class="btn btn-primary"
+            @click="setInquiries">
+            문의하기
+          </button>
+        </div>
+      </form>
+    </div>
+    <!-- 문의 내역 -->
+    <div data-value="list" v-show="showContent === 'list'">
+      <table class="table" cellpadding="0" cellspacing="0">
+        <colgroup>
+          <col v-if="$mq !== 'sm'" width="82">
+          <col width="*">
+          <col :width="$mq === 'sm' ? 86 : 166">
+        </colgroup>
+        <thead v-if="$mq !== 'sm'">
+        <tr>
+          <th class="txt-index">번호</th>
+          <th class="txt-title">제목</th>
+          <th class="txt-date">등록일</th>
+        </tr>
+        </thead>
+        <tbody
+          v-for="(item, idx) in inquiriesList"
+          :key="idx">
+        <tr
+          @click="viewInquiries(item.id)">
+          <td v-if="$mq !== 'sm'" class="txt-index">{{ idx+1 }}</td>
+          <td class="txt-title">{{ item.subject }}</td>
+          <td class="txt-date">{{ item.inserted.substring(0, 10) }}</td>
+        </tr>
+        <tr
+          class="content"
+          :data-id="item.id">
+          <td
+            :colspan="$mq === 'sm'? 2 : 3">
+            <div class="inner">
+              <p class="type">문의유형 : {{ printInquiriesInfo.type_name }}</p>
+              <div v-for="(item2, idx2) in printInquiriesInfo.list" :key="idx2">
+                <p class="desc" style="white-space: pre-line">
+                  {{ item2 .content }}
+                </p>
+              </div>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
@@ -65,7 +103,8 @@ export default {
   data() {
     return {
       showId: null,
-      showContent: 'write',
+      // showContent: 'write',
+      showContent: 'list',
     };
   },
   computed: {
@@ -98,18 +137,20 @@ export default {
       this.showContent = content;
     },
     viewInquiries(id) {
-      const target = document.querySelector(`.list-data-content[data-id="${id}"]`);
+      const target = document.querySelector(`[data-id="${id}"]`);
 
       if (this.showId && this.showId === id) {
         target.style.display = 'none';
+        this.showId = null;
       } else {
         this.setInquiriesInfo(id);
-        const content = document.querySelectorAll('.list-data-content');
+
+        const content = document.querySelectorAll('.content');
         for (let i = 0; i < content.length; i += 1) {
           content[i].style.display = 'none';
         }
 
-        target.style.display = 'block';
+        target.style.display = 'table-row';
         this.showId = id;
       }
     },
@@ -125,7 +166,7 @@ export default {
       await this.setMobileInquiries({
         type: inquiriesType.value,
         subject: subject.value,
-        text: content.value,
+        text: content.value.trim(),
       });
 
       if (this.isInquiries) {
@@ -148,92 +189,216 @@ export default {
 };
 </script>
 
-<style scoped>
-.mobile-customer-service {
-  padding-bottom: 410px;
-}
+<style scoped lang="scss">
+  @import '../style';
+  .customer-service {
+    padding: 25px 20px 20px 20px;
+  }
+  .select-label {
+    position: absolute;
+    right: 13px;
+    top: 10px;
+  }
+  .select-label:after {
+    content:"\f0dd";
+    font-family: "FontAwesome";
+    font-size: 16px;
+  }
+  .flex-list {
+    margin-top: 20px;
+    margin-bottom: 25px;
+    ul {
+      font-size: 0;
+      position: relative;
+      &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        height: 1px;
+        width: 100%;
+        background-color: #c4c4c4;
+        bottom: 0;
+        z-index: -1;
+      }
+    }
+    li {
+      text-align: center;
+      display: inline-block;
+      font-size: 15px;
+      letter-spacing: -0.6px;
+      width: 50%;
+      height: 50px;
+      color: #bbb;
+      border: 1px solid #c4c4c4;
+      line-height: 48px; // Center
+      &:first-child {}
+      &.seleted {
+        color: #333;
+        font-weight: 700;
+        outline: 1px solid #333;
+        outline-offset: -1px;
+      }
+    }
+  }
 
-.day-name-group {
-  height: 50px !important;
-}
+  div[data-value="write"] {
+    .form-row {
+      margin-top: 10px;
+      position: relative;
+    }
+    .custom-select {
+      width: 100%;
+      height: 50px;
+      padding-left: 9px;
+      border: 1px solid #c4c4c4;
+    }
+    .requirement-textarea {
+      width: 100%;
+      height: 100px;
+      border: 1px solid #c4c4c4;
+      padding: 3px 11px 5px 10px;
+      resize: none;
+      font-size: 15px;
+      line-height: 25px;
+      letter-spacing: -0.6px;
+    }
+    .req-btn-area {
+      margin-top: 20px;
+      button {
+        width: 100%;
+      }
+    }
+  }
+  div[data-value="list"] {
+    .table {
+      width: 100%;
+      table-layout: fixed;
+      border-top: 1px solid #e9e9e9;
+      position: relative;
+      &::after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 1px;
+        background-color: #333;
+        position: absolute;
+        bottom: 0;
+      }
+      .txt-index,
+      .txt-date {
+        text-align: center;
+      }
+      tbody {
+        .txt-index,
+        .txt-title,
+        .txt-date {
+          border-bottom: 1px solid #e9e9e9;
+          height: 53px;
+          font-size: 15px;
+          line-height: 23px;
+          letter-spacing: -0.6px;
+        }
+        .txt-index,
+        .txt-date {
+          font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
+        }
+        .txt-date {
+          letter-spacing: 0;
+        }
+      }
+      .content {
+        display: none;
+        .inner {
+          background-color: #f5f5f5;
+          padding: 10px;
+          .type,
+          .desc {
+            font-size: 14px;
+          }
+          .type {
+            line-height: 22px;
+            letter-spacing: -0.6px;
+            margin-bottom: 4px;
+            color: #333;
+          }
+          .desc {
+            line-height: 20px;
+            letter-spacing: -0.8px;
+            color: #797979;
+          }
+        }
+      }
+    }
+  }
 
-.cs-select-box {
-  height: 50px;
-  width: 100%;
-  font-size: 16px;
-  font-weight: 300;
-  padding-left: 10px;
-}
+  @media (min-width: 768px) {
+    .customer-service {
+      padding: 32px 0 0 0;
+      width: 1200px;
+      margin: 0 auto;
+    }
+    .flex-list {
+      ul {
+      }
+      li {
+        font-size: 16px;
+        letter-spacing: -1px;
+        width: 195px;
+        &:first-child {}
+        &.seleted {
+          outline: 2px solid #333;
+          outline-offset: -2px;
+        }
+      }
+    }
 
-.requirement-textarea {
-  width: 88%;
-  height: 250px;
-  background-color: #ffffff;
-  border-top: solid 1px #999999;
-  padding: 20px;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  letter-spacing: -0.2px;
-  text-align: left;
-  color: #797979;
-}
+    div[data-value="list"] {
+      .table {
+        border-top: 2px solid #333;
 
-.list-data-rows {
-  width: 100%;
-  padding: 30px 0;
-  display: block;
-  border-bottom: solid 1px #dadada;
-  cursor: pointer;
-}
-
-.list-data-rows > .subject {
-  width: 75%;
-  display: inline-block;
-  font-size: 16px;
-  line-height: 1;
-  letter-spacing: -0.5px;
-  color: #333333;
-}
-
-.list-data-rows > .date {
-  display: inline-block;
-  float: right;
-  font-size: 16px;
-  line-height: 1;
-  letter-spacing: -0.4px;
-  color: #797979;
-}
-
-.list-data-content {
-  display: none;
-  background-color: #f5f5f5;
-  padding: 20px;
-  line-height: 1;
-  word-wrap: break-word;
-}
-
-.inquiries-type {
-  line-height: 2;
-  border-bottom: 1px solid #333333;
-}
-
-.inquiries-subject {
-  line-height: 2;
-}
-
-
-label {
-  position: absolute;
-  margin-left: 80%;
-  margin-top: 10px;
-}
-
-label:after {
-  content:"\f0dd";
-  font-family: "FontAwesome";
-  font-size: 16px;
-}
-
+        .txt-title {
+          padding-left: 30px;
+        }
+        .txt-date {
+          padding-right: 39px;
+        }
+        thead {
+          display: table-row-group;
+          th {
+            height: 43px;
+            font-size: 15px;
+            line-height: 21px;
+            letter-spacing: -1px;
+            color: #333;
+            border-bottom: 1px solid #e9e9e9;
+          }
+        }
+        tbody {
+          .txt-index,
+          .txt-title,
+          .txt-date {
+            font-size: 16px;
+            letter-spacing: -1px;
+          }
+        }
+        .content {
+          .inner {
+            padding: 25px 30px;
+            .type,
+            .desc {
+              font-size: 15px;
+              letter-spacing: -1px;
+            }
+            .type {
+              margin-bottom: 4px;
+              letter-spacing: -1px;
+            }
+            .desc {
+              letter-spacing: -1px;
+            }
+          }
+        }
+      }
+    }
+  }
 </style>

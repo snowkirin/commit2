@@ -2,6 +2,73 @@ import axios from 'axios';
 
 const API_URL = process.env.API_URL;
 
+
+async function mypageFeedback(id) {
+  try {
+    const result = axios.get(`${API_URL}/subscriptions/feedbacks`, {
+      params: {
+        subscriptionId: id
+      }
+    }).then(function(res) {
+      return res;
+    }).catch(function(error) {
+      return error;
+    });
+    return result;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+async function mypageFeedbackAnswer(data) {
+  try {
+    const result = axios.post(`${API_URL}/subscriptions/feedbacks/answers`, data)
+      .then(function(res) {
+        return res;
+      })
+      .catch(function(err) {
+        console.error(err, 'mypageFeedbackAnswer');
+      });
+    return result;
+  } catch(err) {
+    console.log(err);
+  }
+};
+
+async function mypageFeedbackNps(data) {
+  try {
+    const result = axios.post(`${API_URL}/subscriptions/feedbacks/nps`, data)
+      .then(function(res) {
+        return res;
+      })
+      .catch(function(err) {
+        console.error(err, 'mypageFeedbackNps');
+      });
+    return result;
+  } catch(err) {
+    console.log(err);
+  }
+};
+
+async function mypageFeedbackAnswerReason(data) {
+  try {
+    const result = axios.post(`${API_URL}/subscriptions/feedbacks/answers-reasons`, data)
+      .then(function(res) {
+        return res;
+      })
+      .catch(function(err) {
+        console.error(err, 'feedbacks/answer-reasons');
+      });
+    return result;
+  } catch(err) {
+    console.log(err);
+  }
+};
+
+// const mypageFeedbackAnswer = (data) => axios.post(`${API_URL}/feedbacks/answers`, data, {
+//   withCredentials: true,
+// }).then(result => result).catch(err => err.response);
+
 const mypageInfo = () => axios.get(`${API_URL}/member/mypage`, {
   withCredentials: true,
 }).then(result => result).catch(err => err.response);
@@ -147,4 +214,8 @@ export default {
   authPhone,
   authPhoneCheck,
   buyUsedProduct,
+  mypageFeedback,
+  mypageFeedbackAnswer,
+  mypageFeedbackNps,
+  mypageFeedbackAnswerReason,
 };

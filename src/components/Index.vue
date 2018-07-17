@@ -1,8 +1,8 @@
 <template>
-  <div class="main">
-    <zuly-header v-show="headerShow"></zuly-header>
+  <div>
+    <zuly-header :closetCheck="checkCloset"></zuly-header>
     <router-view></router-view>
-    <zuly-footer v-show="footerShow"></zuly-footer>
+    <zuly-footer v-if="footerShow"></zuly-footer>
   </div>
 </template>
 
@@ -16,6 +16,7 @@ export default {
     return {
       headerShow: true,
       footerShow: true,
+      checkCloset: false,
     };
   },
   components: {
@@ -24,34 +25,37 @@ export default {
   },
   watch: {
     $route() {
-      this.mobileVisible();
+      this.checkPathJoin();
+      this.checkPathCloset();
     },
   },
   methods: {
-    mobileVisible() {
-      if (window.outerWidth <= 486) {
-        if (this.$route.meta.mobile) {
-          this.headerShow = false;
-          this.footerShow = false;
-        } else {
-          this.headerShow = true;
-          this.footerShow = true;
-        }
+    checkPathCloset() {
+      if (this.$route.path.indexOf('closet') !== -1) {
+        this.checkCloset = true;
       } else {
-        this.headerShow = true;
+        this.checkCloset = false;
+      }
+    },
+    checkPathJoin() {
+      if (this.$route.path.indexOf('join') !== -1) {
+        this.footerShow = false;
+      } else {
         this.footerShow = true;
       }
     },
   },
   created() {
-    this.mobileVisible();
-    window.addEventListener('resize', this.mobileVisible);
+    this.checkPathJoin();
+    this.checkPathCloset();
+  },
+  mounted() {
+
   },
   destroyed() {
-    window.removeEventListener('resize', this.mobileVisible);
   },
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 </style>

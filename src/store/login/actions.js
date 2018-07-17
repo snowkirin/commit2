@@ -6,9 +6,11 @@ const doLogin = async ({ commit }, loginInfo) => {
     const result = await Auth.localLogin({
       ...loginInfo,
     });
-
-    if (result.data.result) commit(types.LOGIN_SUCCESS, result.data);
-    else commit(types.LOGIN_FAILURE);
+    if (result.data.result) {
+      commit(types.LOGIN_SUCCESS, result.data);
+    } else {
+      commit(types.LOGIN_FAILURE);
+    }
   } catch (e) {
     commit(types.LOGIN_ERROR, e.message);
   }
@@ -28,9 +30,30 @@ const loginStatusCheck = async ({ commit }) => {
   }
 };
 
+const doFeedbackDirect = async ({ commit }, data) => {
+  try {
+    const result = await Auth.getFeedbackDirect(data);
+    if (result.data.result){
+      commit(types.FEEDBACK_DIRECT, result.data);
+      return result;
+    } else {
+      alert('잘못된 주소로 접속하셨습니다.');
+      return {
+        data: {
+          result: false,
+        }
+      }
+    }
+  } catch(err) {
+    console.error(err);
+  }
+}
+
+
 export default {
   doLogin,
   doLogout,
   doCheckEmail,
   loginStatusCheck,
+  doFeedbackDirect,
 };

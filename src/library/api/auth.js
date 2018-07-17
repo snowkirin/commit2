@@ -1,6 +1,23 @@
 import axios from 'axios';
-
 const API_URL = process.env.API_URL;
+
+const getFeedbackDirect = (data) => axios.get(`${API_URL}/subscriptions/feedbacks/directs/${data}`)
+  .then(function(res) {
+    return res;
+  })
+  .catch(function(err) {
+    return res;
+  });
+
+/*function getFeedbackDirect(data) {
+  const result = axios.get(`${API_URL}/subscriptions/feedbacks/directs/${data}`)
+    .then(function(res) {
+      return res;
+    }).catch(function(err) {
+      return err;
+    });
+  return result;
+}*/
 
 const mypagePwdCheck = ({
   password,
@@ -11,7 +28,12 @@ const mypagePwdCheck = ({
 }).then(result => result).catch(err => err.response);
 
 // 자체 회원가입 호출
-const localJoin = ({
+const localJoin = (data) => axios.post(`${API_URL}/auth/join`, { ...data }, { withCredentials: true })
+  .then(function(res) {
+    return res;
+  })
+  .catch(err => Promise.reject(err));
+/*const localJoin = ({
   sizeData,
   mood,
   prefer,
@@ -61,7 +83,7 @@ const localJoin = ({
   cardPassword,
   lobbyPassword,
   coupon,
-}).then(result => result).catch(err => Promise.reject(err));
+}).then(result => result).catch(err => Promise.reject(err));*/
 
 // 로그인
 const localLogin = ({
@@ -147,4 +169,5 @@ export default {
   authFindPwd,
   finalAuth,
   findPwdComplete,
+  getFeedbackDirect,
 };
