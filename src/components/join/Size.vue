@@ -120,8 +120,7 @@
           type="button"
           class="btn btn-primary"
           @click="btnNextStep">
-          <span v-if="$mq !== 'sm'">정보 수정하기</span>
-          <span v-else>다음</span>
+          <span>다음</span>
         </button>
       </div>
     </form>
