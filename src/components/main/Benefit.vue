@@ -34,6 +34,7 @@ export default {
     Authentication: 'login/Authentication',
   }),
   methods: {
+
   },
   created() {
     const $this = this;

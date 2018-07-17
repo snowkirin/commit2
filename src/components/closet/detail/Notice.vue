@@ -8,16 +8,16 @@
     <div
       v-if="noticeList.length > 0">
       <table class="table table-notice">
-        <!--<colgroup>
-          <col width="27">
+        <colgroup>
+          <col :width="$mq !== 'sm'? 82 : 30">
           <col width="*">
-          <col width="90">
-        </colgroup>-->
+          <col :width="$mq !== 'sm'? 166 : 86">
+        </colgroup>
         <thead>
         <tr>
-          <th class="number">번호</th>
-          <th class="title">제목</th>
-          <th class="date">등록일</th>
+          <th class="txt-index">번호</th>
+          <th class="txt-title">제목</th>
+          <th class="txt-date">등록일</th>
         </tr>
         </thead>
         <tbody
@@ -25,10 +25,10 @@
           :key="index"
           @click="noticeView(data.id)">
         <tr class="row row-info">
-          <td class="number">
+          <td class="txt-index">
             {{ data.id }}
           </td>
-          <td class="title">
+          <td class="txt-title">
             {{ data.title }}
             <!--TODO: 콘솔 warning check-->
             <span
@@ -37,7 +37,7 @@
               New
             </span>
           </td>
-          <td class="date">{{ data.inserted }}</td>
+          <td class="txt-date">{{ data.inserted }}</td>
         </tr>
         <tr
           v-bind:key="'data_'+ index"
@@ -130,17 +130,17 @@ export default {
       width: 100%;
       table-layout: fixed;
       border-bottom: 1px solid #333;
-      .number,
-      .date {
+      .txt-index,
+      .txt-date {
         text-align: center;
       }
-      .number {
+      .txt-index {
         width: 29px;
       }
-      .title {
+      .txt-title {
         padding-left: 17px;
       }
-      .date {
+      .txt-date {
         width: 103px;
       }
       thead {
@@ -165,10 +165,10 @@ export default {
             line-height: 23px;
             letter-spacing: -0.6px;
           }
-          .number {
+          .txt-index {
             text-align: center;
           }
-          .date {
+          .txt-date {
             font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
             letter-spacing: 0;
           }
@@ -195,9 +195,37 @@ export default {
       padding-left: 0;
       width: 1200px;
       margin: 0 auto;
+      .table-notice {
+        thead {
+          th {
+            height: 43px;
+            font-size: 15px;
+            line-height: 21px;
+            letter-spacing: -1px;
+            color: #333;
+          }
+        }
+        tbody {
+          .txt-index,
+          .txt-title,
+          .txt-date {
+            font-size: 16px;
+            letter-spacing: -1px;
+          }
+          .row-content {
+            td {
+              padding: 25px 30px;
+              background-color: #f5f5f5;
+              font-size: 15px;
+              letter-spacing: -0.6px;
+            }
+          }
+        }
+      }
     }
     .line {
       border-width: 2px;
     }
+
   }
 </style>

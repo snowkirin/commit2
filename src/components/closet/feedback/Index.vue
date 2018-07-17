@@ -442,11 +442,6 @@ export default {
       background-color: #f5f5f5;
     }
     .section {
-
-      /*padding-left: 20px;*/
-      /*padding-right: 20px;*/
-      /*padding-bottom: 40px;*/
-      /*border-bottom: 2px solid #333;*/
     }
     .section-a {
       padding-bottom: 30px;

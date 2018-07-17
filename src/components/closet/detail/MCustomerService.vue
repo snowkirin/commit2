@@ -56,7 +56,7 @@
         <colgroup>
           <col v-if="$mq !== 'sm'" width="82">
           <col width="*">
-          <col :width="$mq === 'sm' ? 86 : 166">
+          <col :width="$mq !== 'sm' ? 166 : 86">
         </colgroup>
         <thead v-if="$mq !== 'sm'">
         <tr>
