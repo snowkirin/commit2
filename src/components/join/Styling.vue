@@ -633,9 +633,12 @@ export default {
 
   @media (min-width: 768px) {
     .container {
-      width: 1200px;
-      margin: 0 auto;
-      padding: 74px 0 20px 0;
+      width: 795px;
+      margin-top: 0px;
+      margin-right: auto;
+      margin-bottom: 0px;
+      margin-left: auto;
+      padding: 74px 0 0 0;
       .container-header {
         .styling-title {
           font-size: 32px;

@@ -615,7 +615,7 @@ export default {
     }
     .contents {
       margin: 74px auto 0;
-      width: 784px;
+      width: 795px;
     }
     .signup-text {
       margin-bottom: 0;
@@ -627,7 +627,7 @@ export default {
       }
       &:nth-child(2) {
         float: right;
-        width: 334px;
+        width: 382px;
       }
     }
     .signup-text {

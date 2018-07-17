@@ -127,7 +127,7 @@ export default {
   methods: {
     clickColor(data, event){
       const $parent = document.querySelector('.list-color');
-      let eleTarget = null;
+      let eleTarget;
       if (event.target.nodeName === 'DIV') {
         eleTarget = event.path[1];
       } else if (event.target.nodeName === 'SPAN') {

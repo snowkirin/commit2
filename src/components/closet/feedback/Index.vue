@@ -580,6 +580,7 @@ export default {
       margin-right: auto;
       border-bottom: 0 none;
       background-color: transparent;
+      padding: 0;
       .txt-review {
         line-height: 48px;
         height: 48px;

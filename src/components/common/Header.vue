@@ -3,7 +3,7 @@
     <router-link to="/" class="logo">
       <img src="/static/img/logo/ZULY-BI.png" alt="ZULY">
     </router-link>
-    <nav class="global-navigation" v-if="!gnbToggle">
+    <nav class="global-navigation">
       <ul>
         <li>
           <router-link
