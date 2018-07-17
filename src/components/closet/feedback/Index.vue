@@ -37,140 +37,138 @@
       ref="review"
       style="display: none">
       <p class="txt-review" v-if="type === 'current' || type === 'direct'">소중한 이용 후기 부탁드립니다.</p>
-      <!--COMMON-->
-      <div>
-        <div class="section">
-          <div
-            class="row">
-            <div class="text">
-              <p class="txt-point">
-                {{ questionCommon[1].question_text }}
-              </p>
-            </div>
-            <div>
-              <ul class="square-list">
-                <li
-                  v-for="(data2, idx2) in questionCommon[1].answer_text"
-                  :key="idx2"
-                  @click="clickEvt(questionCommon[1], idx2, $event)">
-                  <div class="txt-centering">{{ data2 }}</div>
-                </li>
-              </ul>
+      <div class="clearfix section-wrapper">
+        <div class="section-left">
+          <div class="section">
+            <div
+              class="row">
+              <div class="text">
+                <p class="txt-point">
+                  {{ questionCommon[1].question_text }}
+                </p>
+              </div>
+              <div>
+                <ul class="square-list">
+                  <li
+                    v-for="(data2, idx2) in questionCommon[1].answer_text"
+                    :key="idx2"
+                    @click="clickEvt(questionCommon[1], idx2, $event)">
+                    <div class="txt-centering">{{ data2 }}</div>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-        <!-- A -->
-        <div class="section" v-if="_.isPlainObject(questionA.info)">
+          <div class="section" v-if="_.isPlainObject(questionA.info)">
 
-          <div class="row">
-            <div class="text">
-              <p class="txt-point">
-                A. {{question.A.info.name}}
-              </p>
+            <div class="row">
+              <div class="text">
+                <p class="txt-point">
+                  A. {{question.A.info.name}}
+                </p>
+              </div>
+              <div class="image">
+                <img :src="$common.IMAGEURL() + questionA.info.image_path" alt="">
+              </div>
             </div>
-            <div class="image">
-              <img :src="$common.IMAGEURL() + questionA.info.image_path" alt="">
-            </div>
-          </div>
-          <div class="row" v-for="(data, idx) in questionA.question" :key="idx+'_A'">
-            <div class="text">
-              <p class="txt-point">
-                A-{{ idx+1 }}.{{ data.question_text }}
-              </p>
-            </div>
-            <div>
-              <ul class="square-list">
-                <li
-                  v-for="(data2, idx2) in data.answer_text"
-                  :key="idx2"
-                  :class="(data['answer_text'].length === 5 && idx2 === 3) ? 'line-break': ''"
-                  @click="clickEvt(data, idx2, $event)">
-                  <div class="txt-centering">{{ data2 }}</div>
-                </li>
-              </ul>
-              <div
-                class="form-row"
-                style="display: none;"
-                ref="reasons"
-                v-if="data.question_text === '색상 및 패턴'"
-                :data-questionCode="data.question_code"
-                :data-clothType="data.cloth_type">
-                <input
-                  type="text"
-                  placeholder="색상, 패턴이 맘에 들지 않은 이유를 적어주세요."
-                  class="form-input">
+            <div class="row" v-for="(data, idx) in questionA.question" :key="idx+'_A'">
+              <div class="text">
+                <p class="txt-point">
+                  A-{{ idx+1 }}.{{ data.question_text }}
+                </p>
+              </div>
+              <div>
+                <ul class="square-list">
+                  <li
+                    v-for="(data2, idx2) in data.answer_text"
+                    :key="idx2"
+                    :class="(data['answer_text'].length === 5 && idx2 === 3) ? 'line-break': ''"
+                    @click="clickEvt(data, idx2, $event)">
+                    <div class="txt-centering">{{ data2 }}</div>
+                  </li>
+                </ul>
+                <div
+                  class="form-row"
+                  style="display: none;"
+                  ref="reasons"
+                  v-if="data.question_text === '색상 및 패턴'"
+                  :data-questionCode="data.question_code"
+                  :data-clothType="data.cloth_type">
+                  <input
+                    type="text"
+                    placeholder="색상, 패턴이 맘에 들지 않은 이유를 적어주세요."
+                    class="form-input">
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div>
-        <!-- B -->
-        <div class="section" v-if="_.isPlainObject(questionB.info)">
-          <div
-            class="row">
-            <div class="text">
-              <p class="txt-point">
-                B. {{question.B.info.name}}
-              </p>
+        <div class="section-right">
+          <div class="section" v-if="_.isPlainObject(questionB.info)">
+            <div
+              class="row">
+              <div class="text">
+                <p class="txt-point">
+                  B. {{question.B.info.name}}
+                </p>
+              </div>
+              <div class="image">
+                <img :src="$common.IMAGEURL() + questionB['info'].image_path" alt="">
+              </div>
             </div>
-            <div class="image">
-              <img :src="$common.IMAGEURL() + questionB['info'].image_path" alt="">
-            </div>
-          </div>
-          <div
-            class="row"
-            v-for="(data, idx) in questionB.question"
-            :key="idx+'_B'">
-            <div class="text">
-              <p class="txt-point">
-                B-{{ idx+1 }}.{{ data.question_text }}
-              </p>
-            </div>
-            <div>
-              <ul class="square-list">
-                <li
-                  v-for="(data2, idx2) in data.answer_text"
-                  :class="(data['answer_text'].length === 5 && idx2 === 3) ? 'line-break': ''"
-                  :key="idx2"
-                  @click="clickEvt(data, idx2, $event)">
-                  <div class="txt-centering">{{ data2 }}</div>
-                </li>
-              </ul>
-              <div
-                style="display: none;"
-                class="form-row"
-                v-if="data.question_text === '색상 및 패턴'"
-                ref="reasons"
-                :data-questionCode="data.question_code"
-                :data-clothType="data.cloth_type">
-                <input
-                  type="text"
-                  placeholder="색상, 패턴이 맘에 들지 않은 이유를 적어주세요."
-                  class="form-input">
+            <div
+              class="row"
+              v-for="(data, idx) in questionB.question"
+              :key="idx+'_B'">
+              <div class="text">
+                <p class="txt-point">
+                  B-{{ idx+1 }}.{{ data.question_text }}
+                </p>
+              </div>
+              <div>
+                <ul class="square-list">
+                  <li
+                    v-for="(data2, idx2) in data.answer_text"
+                    :class="(data['answer_text'].length === 5 && idx2 === 3) ? 'line-break': ''"
+                    :key="idx2"
+                    @click="clickEvt(data, idx2, $event)">
+                    <div class="txt-centering">{{ data2 }}</div>
+                  </li>
+                </ul>
+                <div
+                  style="display: none;"
+                  class="form-row"
+                  v-if="data.question_text === '색상 및 패턴'"
+                  ref="reasons"
+                  :data-questionCode="data.question_code"
+                  :data-clothType="data.cloth_type">
+                  <input
+                    type="text"
+                    placeholder="색상, 패턴이 맘에 들지 않은 이유를 적어주세요."
+                    class="form-input">
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <!-- NPS-->
-        <div class="section" v-if="setNPS">
-          <div
-            class="row">
-            <div class="text">
-              <p class="txt-point">ZULY 서비스를 지인이나 친구에게 추천하실 의향이 있으신가요?</p>
-              <p class="txt-refer">(적극 추천하는 것을 10점 만점으로 생각하고 점수를 매겨주세요.)</p>
-            </div>
-            <div>
-              <ul class="square-list">
-                <li
-                  v-for="(data, idx) in ['10', '9', '8', '7', '6', '5' , '4', '3', '2', '1']"
-                  @click="clickNps(data, idx, $event)"
-                  :key="idx">
-                  <div class="txt-centering">
-                    {{ data }}
-                  </div>
-                </li>
-              </ul>
+          <div class="section" v-if="setNPS">
+            <div
+              class="row">
+              <div class="text">
+                <p class="txt-point">ZULY 서비스를 지인이나 친구에게 추천하실 의향이 있으신가요?</p>
+                <p class="txt-refer">(적극 추천하는 것을 10점 만점으로 생각하고 점수를 매겨주세요.)</p>
+              </div>
+              <div>
+                <ul class="square-list">
+                  <li
+                    v-for="(data, idx) in ['10', '9', '8', '7', '6', '5' , '4', '3', '2', '1']"
+                    @click="clickNps(data, idx, $event)"
+                    :key="idx">
+                    <div class="txt-centering">
+                      {{ data }}
+                    </div>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -238,15 +236,15 @@ export default {
       };
       if (data.question_text === '색상 및 패턴') {
         if (data.answer_text[index] === '별로') {
-          event.path[3].querySelector('.form-row').style.display = 'block';
-          event.path[3].querySelector('.form-row').setAttribute('data-answerCode', data.answer_code[index]);
+          event.target.parentElement.parentElement.parentElement.querySelector('.form-row').style.display = 'block';
+          event.target.parentElement.parentElement.parentElement.querySelector('.form-row').setAttribute('data-answerCode', data.answer_code[index]);
         } else {
-          event.path[3].querySelector('.form-row').style.display = 'none';
-          event.path[3].querySelector('.form-row').querySelector('input').value = '';
+          event.target.parentElement.parentElement.parentElement.querySelector('.form-row').style.display = 'none';
+          event.target.parentElement.parentElement.parentElement.querySelector('.form-row').querySelector('input').value = '';
         }
       }
       Closet.mypageFeedbackAnswer(sendData).then(function(res) {
-        _.forEach(event.path[2].querySelectorAll('li'),function(value){
+        _.forEach(event.target.parentElement.parentElement.querySelectorAll('li'),function(value){
           value.classList.remove('selected');
         });
         event.target.parentNode.classList.add('selected');
@@ -264,7 +262,7 @@ export default {
         npsScore: _.parseInt(data),
       };
       Closet.mypageFeedbackNps(sendData).then(function(res) {
-        _.forEach(event.path[2].querySelectorAll('li'),function(value){
+        _.forEach(event.target.parentElement.parentElement.querySelectorAll('li'),function(value){
           value.classList.remove('selected');
         });
         event.target.parentNode.classList.add('selected');
@@ -411,7 +409,7 @@ export default {
   }
   .review {
     margin-top: 26px;
-    border-bottom: 2px solid #333;
+    border-bottom: 1px solid #333;
     background-color: #f5f5f5;
     padding-bottom: 40px;
     padding-left: 20px;
@@ -440,8 +438,11 @@ export default {
         transform: translateX(-50%);
       }
     }
-    .section {
+    .section-wrapper {
       background-color: #f5f5f5;
+    }
+    .section {
+
       /*padding-left: 20px;*/
       /*padding-right: 20px;*/
       /*padding-bottom: 40px;*/
@@ -449,9 +450,9 @@ export default {
     }
     .section-a {
       padding-bottom: 30px;
-      border-bottom: 1px dashed #a7a7a7;
     }
     .section-b {
+      border-top: 1px dashed #a7a7a7;
       padding-top: 27px;
     }
     .text {
@@ -585,24 +586,20 @@ export default {
         line-height: 48px;
         height: 48px;
       }
+      .section-wrapper {
+        border-bottom: 2px solid #333;
+        font-size: 0;
+        padding-bottom: 40px;
+        position: relative;
+      }
       .section {
         padding-left: 0px;
         padding-right: 0px;
-        padding-bottom: 40px;
+        padding-bottom: 0px;
         font-size: 0;
-        border-bottom: 2px solid #333;
         position: relative;
-        &::after {
-          position: absolute;
-          content: '';
-          border-right: 1px solid #e9e9e9;
-          height: 92.899%;
-          left: calc(50% - 1px);
-          top: 56px;
-        }
-
       }
-      .section-a {
+      .section-left {
         padding-bottom: 0;
         border-bottom: 0 none;
         display: inline-block;
@@ -612,13 +609,24 @@ export default {
         padding-right: 70px;
 
       }
-      .section-b {
+      .section-right {
         padding-top: 0;
         display: inline-block;
         vertical-align: top;
         width: 50%;
         padding-left: 50px;
         padding-right: 59px;
+        &::before {
+          position: absolute;
+          content: '';
+          display: block;
+          top: 55px;
+          left: 50%;
+          transform: translateX(-50%);
+          height: calc(100% - 42px - 55px);
+          width: 1px;
+          background-color: #e9e9e9;
+        }
       }
       .text {
         margin-bottom: 12px;
@@ -631,6 +639,7 @@ export default {
         button {
           width: 287px;
           font-size: 16px;
+          height: 60px;
           letter-spacing: -0.6px;
         }
       }

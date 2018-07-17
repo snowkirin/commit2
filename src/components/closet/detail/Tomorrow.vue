@@ -315,6 +315,40 @@ export default {
       return changeDay;
     },
     async selectStyle(style, type) {
+      console.log(this.tomorrowCloset.subscription_id);
+      console.log([...this.parseIntProduct(...style.productId)]);
+      if (this.tomorrowCloset) {
+        await this.setTomorrowSelect({
+          subscriptionId: this.tomorrowCloset.subscription_id,
+          products: [...this.parseIntProduct(...style.productId)],
+        });
+        if (type === 'first') {
+          const positionTop = this.$refs.codiFirst.offsetTop;
+
+          const body = document.body; // safari
+          const html = document.documentElement;
+          body.scrollTop = positionTop;
+          html.scrollTop = positionTop;
+
+          this.$common.viewAlertModal('<b class="en-font">A.Setted Look</b> 배송됩니다.', this.$refs, 'alert');
+          this.codiSelected.first = true;
+          this.codiSelected.second = false;
+
+        } else {
+          const positionTop = this.$refs.codiSecond.offsetTop;
+
+          const body = document.body; // safari
+          const html = document.documentElement;
+          body.scrollTop = positionTop;
+          html.scrollTop = positionTop;
+
+          this.$common.viewAlertModal('<b class="en-font">B.Item Codi</b> 배송됩니다.', this.$refs, 'alert');
+          this.codiSelected.first = false;
+          this.codiSelected.second = true;
+        }
+      } else {
+        this.$common.viewAlertModal('선택기간이 지났습니다.<br />고객센터로 문의해주세요.', this.$refs, 'alert');
+      }
       /*if (this.tomorrowCloset.select_dday >= 0) {
         await this.setTomorrowSelect({
           subscriptionId: this.tomorrowCloset.subscription_id,
@@ -333,40 +367,15 @@ export default {
         this.$common.viewAlertModal('선택기간이 지났습니다.<br />고객센터로 문의해주세요.', this.$refs, 'alert');
         return;
       }*/
-
-      if (type === 'first') {
-        const positionTop = this.$refs.codiFirst.offsetTop;
-
-        const body = document.body; // safari
-        const html = document.documentElement;
-        body.scrollTop = positionTop;
-        html.scrollTop = positionTop;
-
-        this.$common.viewAlertModal('<b class="en-font">A.Setted Look</b> 배송됩니다.', this.$refs, 'alert');
-        this.codiSelected.first = true;
-        this.codiSelected.second = false;
-
-      } else {
-        const positionTop = this.$refs.codiSecond.offsetTop;
-
-        const body = document.body; // safari
-        const html = document.documentElement;
-        body.scrollTop = positionTop;
-        html.scrollTop = positionTop;
-
-        this.$common.viewAlertModal('<b class="en-font">B.Item Codi</b> 배송됩니다.', this.$refs, 'alert');
-        this.codiSelected.first = false;
-        this.codiSelected.second = true;
-      }
-      if (this.tomorrowSelect) await this.setTomorrowCloset();
     },
     parseIntProduct(...data) {
       const rtn = [];
 
       for (let i = 0; i < data.length; i += 1) {
-        rtn.push(parseInt(data[i], 10));
+        if (data[i] !== null) {
+          rtn.push(parseInt(data[i], 10));
+        }
       }
-
       return rtn;
     },
     printArrText(desc) {

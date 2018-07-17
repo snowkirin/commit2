@@ -223,6 +223,8 @@ export default {
     }
     li {
       text-align: center;
+      cursor: pointer;
+      user-select: none;
       display: inline-block;
       font-size: 15px;
       letter-spacing: -0.6px;
