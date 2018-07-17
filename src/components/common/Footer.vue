@@ -31,8 +31,8 @@
         </div>
         <div class="footer-line"></div>
         <div class="footer-layer2">
-          <a href="#">이용 약관</a>
-          <a href="#">개인 정보 취급 방침</a>
+          <a href="#" @click.prevent="viewModal('use')">이용 약관</a>
+          <a href="#" @click.prevent="viewModal('private')">개인 정보 취급 방침</a>
         </div>
         <div class="footer-layer3">
           <p class="txt-info" v-if="$mq === 'sm'">
@@ -53,29 +53,30 @@
         </div>
       </div>
     </div>
+    <signup-modal ref="private" dataId="private" title="개인 정보 관리 지침" :content="personalText"></signup-modal>
+    <signup-modal ref="use" dataId="use" title="서비스 약관" :content="termsText"></signup-modal>
   </footer>
 </template>
 
 <script>
+import SignupModal from '@/components/common/SignupModal';
+import Info from '@/info';
+
 export default {
   name: 'zuly-footer',
-  methods: {
-    pointTextEvt() {
-      const target = document.querySelector('footer .txt-main-point');
-      if (this.$route.path !== '/') {
-        target.classList.add('tc-black');
-      } else {
-        target.classList.remove('tc-black');
-      }
-    },
+  components: {
+    SignupModal,
   },
   watch: {
     $route() {
       this.pointTextEvt();
     },
   },
-  mounted() {
-    this.pointTextEvt();
+  data() {
+    return {
+      personalText: Info.Personal.text, // 개인정보취급방침
+      termsText: Info.Terms.text, // 서비스 약관
+    };
   },
   computed: {
     pathCheck() {
@@ -88,6 +89,26 @@ export default {
         color: '#333',
       };
     },
+  },
+  methods: {
+    pointTextEvt() {
+      const target = document.querySelector('footer .txt-main-point');
+      if (this.$route.path !== '/') {
+        target.classList.add('tc-black');
+      } else {
+        target.classList.remove('tc-black');
+      }
+    },
+    viewModal(ref) {
+      this.$refs[ref].openModal();
+    },
+    closeModal(ref) {
+      this.$refs[ref].closeModal();
+    },
+  },
+  mounted() {
+    this.pointTextEvt();
+    console.log(this.personalText);
   },
 };
 </script>

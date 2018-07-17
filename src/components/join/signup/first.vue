@@ -261,7 +261,7 @@
                   for="marketingFlag">
                   [선택] 마케팅 정보 수신 동의
                 </label>
-                <a href="#" class="custom-control-link" @click="viewModal('use')">자세히보기</a>
+                <a href="#" class="custom-control-link" @click="viewModal('marketing')">자세히보기</a>
               </div>
             </div>
           </div>
@@ -272,8 +272,9 @@
       </form>
     </div>
     <address-modal ref="address" dataId="address"></address-modal>
-    <signup-modal ref="private" dataId="private" title="개인정보 관리 지침" :content="privateText"></signup-modal>
-    <signup-modal ref="use" dataId="use" title="이용약관"></signup-modal>
+    <signup-modal ref="private" dataId="private" title="개인 정보 관리 지침" :content="personalText"></signup-modal>
+    <signup-modal ref="use" dataId="use" title="서비스 약관" :content="termsText"></signup-modal>
+    <signup-modal ref="marketing" dataId="marketing" title="마케팅 정보 수신 동의" :content="marketingText"></signup-modal>
     <alert-modal ref="view" width="320" height="190"></alert-modal>
   </div>
   <!--<div class="signup subContent mauto">
@@ -376,7 +377,7 @@ import { mapGetters, mapActions } from 'vuex';
 import Datepicker from 'vuejs-datepicker';
 import AddressModal from '@/components/common/AddressModal';
 import SignupModal from '@/components/common/SignupModal';
-import PrivateText from '@/info/private';
+import Info from '@/info';
 import AlertModal from '@/components/common/AlertModal';
 
 export default {
@@ -395,7 +396,9 @@ export default {
       isPwdConfirm: false,
       authErr: false,
       authErrMessage: '',
-      privateText: PrivateText.text,
+      personalText: Info.Personal.text, // 개인정보취급방침
+      termsText: Info.Terms.text, // 서비스 약관
+      marketingText: Info.Marketing.text,
       joinFirst: {
         name: '',
         email: '',

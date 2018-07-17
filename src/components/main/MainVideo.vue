@@ -11,7 +11,7 @@
       @pause="pause"
       :player-width="calcSize().width"
       :player-height="calcSize().height"
-      :player-vars="{autoplay: 1}">
+      :player-vars="{autoplay: 0}">
     </youtube>
   </div>
 </template>
@@ -25,9 +25,8 @@ Vue.use(VueYouTubeEmbed);
 export default {
   name: 'main-video',
   methods: {
-    ready(player) {
-      this.player = player;
-      // this.player.stopVideo();
+    ready(event) {
+      this.player = event.player;
     },
     stop() {
       this.player.stopVideo();
