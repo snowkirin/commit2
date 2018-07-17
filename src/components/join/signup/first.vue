@@ -716,6 +716,9 @@ export default {
           line-height: 40px;
           letter-spacing: -1.7px;
         }
+        .line {
+          margin: 26px 0 24px 0;
+        }
       }
       .contents {
         display: table;

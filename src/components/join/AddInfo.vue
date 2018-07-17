@@ -1,96 +1,98 @@
 <template>
   <div class="container">
-    <div class="container-header">
-      <p class="title-addinfo">
-        {{ '김용주'}}님 <br/>
-        가입을 환영합니다.
-      </p>
-      <p class="txt-addinfo">고객님에 대해 조금 더 자세히 알려주시면 더 어울리는 아이템을 보내드릴 수 있습니다.</p>
-    </div>
-    <div class="contents">
-      <!-- Color & Pattern -->
-      <div class="row content">
-        <p class="txt-point">[선택] 손이 가는 옷 색상이나 패턴</p>
-        <div>
-          <ul class="list-color">
-            <li
-              v-for="(data, idx) in addInfoData.prefer_color"
-              :key="idx"
-              @click="clickColor(data, $event)">
-              <div class="txt-centering" >
-                <span>{{data.name}}</span>
-              </div>
-            </li>
-          </ul>
-          <ul class="list-pattern">
-            <li
-              v-for="(data, idx) in addInfoData.prefer_pattern"
-              :key="idx"
-              @click="clickPattern(data, $event)"
-              :class="patternName(data.name)">
-              <div class="txt-centering">
-                <span>{{data.name}}</span>
-              </div>
-            </li>
-          </ul>
-        </div>
+    <div class="container-inner clearfix">
+      <div class="container-header">
+        <p class="title-addinfo">
+          {{ '김용주'}}님 <br/>
+          가입을 환영합니다.
+        </p>
+        <p class="txt-addinfo">고객님에 대해 조금 더 자세히 알려주시면 <br v-if="mq !== 'sm'">더 어울리는 아이템을 보내드릴 수 있습니다.</p>
       </div>
-      <!-- Brand -->
-      <div class="row content">
-        <p class="txt-point">[선택] 주로 구매하는 브랜드?</p>
-        <div>
-          <input
-            type="text"
-            class="form-input"
-            placeholder="한 개 이상인 경우 콤마(,)로 구분하여 입력해 주세요"
-            v-model="memberStyle.preferBrand">
-        </div>
-      </div>
-      <!--Dress Code-->
-      <div class="row content">
-        <p class="txt-point">[선택] 내가 주로 활동 하는 곳의 드레스 코드는?</p>
-        <ul class="list-dresscode">
-          <li
-            v-for="(data, idx) in addInfoData.dress_code"
-            :class="dressCodeName(data.name)"
-            @click="clickDressCode(data, $event)"
-            :key="idx">
-            <span class="text">{{ data.name }}</span>
-          </li>
-        </ul>
-      </div>
-      <!-- 업로드 -->
-      <div class="row content">
-        <p class="txt-point">[선택] My Daily Look - 사진을 올려주세요.</p>
-        <div>
-          <div class="image-upload">
-            <input class="form-input" readonly type="text" placeholder="사진을 올려주세요." v-model="imageFile.name">
-            <button type="button" class="btn btn-secondary" @click="clickImageUpload">업로드</button>
-            <input type="file" ref="imageFileInput" accept="image/*" id="imageUpload" @change="changeImage">
-          </div>
-          <p class="txt-image-upload">
-            ※ 고객님 일상에서 자연스러운 사진을 업로드 하시면<br/>
-            스타일링 추천에 많은 도움이 됩니다.<br/>
-            (상, 하의를 볼 수 있는 착장샷이 좋아요)
-          </p>
-        </div>
-        <div class="image-preview" style="display: none;" ref="imagePreview">
+      <div class="contents">
+        <!-- Color & Pattern -->
+        <div class="row content">
+          <p class="txt-point">[선택] 손이 가는 옷 색상이나 패턴</p>
           <div>
-            <svg version="1.1" id="L3" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve" width="50" style="margin: 0 auto;">
-            <circle fill="none" stroke="#333" stroke-width="4" cx="50" cy="50" r="44" style="opacity:0.5;"></circle>
-            <circle fill="none" stroke="#333" stroke-width="3" cx="8" cy="54" r="6" transform="rotate(323.517 50 51.5946)">
-              <animateTransform attributeName="transform" dur="2s" type="rotate" from="0 50 48" to="360 50 52" repeatCount="indefinite"></animateTransform>
-            </circle>
-          </svg>
-            <img :src="previewImage" width="163" alt="">
+            <ul class="list-color">
+              <li
+                v-for="(data, idx) in addInfoData.prefer_color"
+                :key="idx"
+                @click="clickColor(data, $event)">
+                <div class="txt-centering" >
+                  <span>{{data.name}}</span>
+                </div>
+              </li>
+            </ul>
+            <ul class="list-pattern">
+              <li
+                v-for="(data, idx) in addInfoData.prefer_pattern"
+                :key="idx"
+                @click="clickPattern(data, $event)"
+                :class="patternName(data.name)">
+                <div class="txt-centering">
+                  <span>{{data.name}}</span>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
-      </div>
-      <!-- 추가 요청사항-->
-      <div class="row content">
-        <p class="txt-point">[선택] 추가 요청사항</p>
-        <div class="textarea-required">
-          <textarea placeholder="신체적인 특징이나 싫어하는 스타일, 장식등 별도 요청사항을 적어주세요." v-model="memberStyle.requirement"></textarea>
+        <!-- Brand -->
+        <div class="row content">
+          <p class="txt-point">[선택] 주로 구매하는 브랜드?</p>
+          <div>
+            <input
+              type="text"
+              class="form-input"
+              placeholder="한 개 이상인 경우 콤마(,)로 구분하여 입력해 주세요"
+              v-model="memberStyle.preferBrand">
+          </div>
+        </div>
+        <!--Dress Code-->
+        <div class="row content">
+          <p class="txt-point">[선택] 내가 주로 활동 하는 곳의 드레스 코드는?</p>
+          <ul class="list-dresscode">
+            <li
+              v-for="(data, idx) in addInfoData.dress_code"
+              :class="dressCodeName(data.name)"
+              @click="clickDressCode(data, $event)"
+              :key="idx">
+              <span class="text">{{ data.name }}</span>
+            </li>
+          </ul>
+        </div>
+        <!-- 업로드 -->
+        <div class="row content">
+          <p class="txt-point">[선택] My Daily Look - 사진을 올려주세요.</p>
+          <div>
+            <div class="image-upload">
+              <input class="form-input" readonly type="text" placeholder="사진을 올려주세요." v-model="imageFile.name">
+              <button type="button" class="btn btn-secondary" @click="clickImageUpload">업로드</button>
+              <input type="file" ref="imageFileInput" accept="image/*" id="imageUpload" @change="changeImage">
+            </div>
+            <p class="txt-image-upload">
+              ※ 고객님 일상에서 자연스러운 사진을 업로드 하시면<br/>
+              스타일링 추천에 많은 도움이 됩니다.<br/>
+              (상, 하의를 볼 수 있는 착장샷이 좋아요)
+            </p>
+          </div>
+          <div class="image-preview" style="display: none;" ref="imagePreview">
+            <div>
+              <svg version="1.1" id="L3" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve" width="50" style="margin: 0 auto;">
+              <circle fill="none" stroke="#333" stroke-width="4" cx="50" cy="50" r="44" style="opacity:0.5;"></circle>
+              <circle fill="none" stroke="#333" stroke-width="3" cx="8" cy="54" r="6" transform="rotate(323.517 50 51.5946)">
+                <animateTransform attributeName="transform" dur="2s" type="rotate" from="0 50 48" to="360 50 52" repeatCount="indefinite"></animateTransform>
+              </circle>
+            </svg>
+              <img :src="previewImage" width="163" alt="">
+            </div>
+          </div>
+        </div>
+        <!-- 추가 요청사항-->
+        <div class="row content">
+          <p class="txt-point">[선택] 추가 요청사항</p>
+          <div class="textarea-required">
+            <textarea placeholder="신체적인 특징이나 싫어하는 스타일, 장식등 별도 요청사항을 적어주세요." v-model="memberStyle.requirement"></textarea>
+          </div>
         </div>
       </div>
     </div>
@@ -509,13 +511,54 @@ export default {
       }
     }
   }
-  @media (min-width: 767px) {
+  @media (min-width: 768px) {
     .container {
-      width: 1200px;
+      width: 795px;
       margin: 0 auto;
       padding-left: 0;
       padding-right: 0;
+      padding-top: 74px;
+      .container-header {
+        float: left;
+        width: 302px;
+        .title-addinfo {
+          font-size: 32px;
+          line-height: 40px;
+          letter-spacing: -1.7px;
+        }
+        .txt-addinfo {
+          font-size: 16px;
+          line-height: 24px;
+          letter-spacing: -1px;
+        }
+      }
+      .contents {
+        float: right;
+        width: 382px;
+        .content {
+          &:nth-child(1) {
+            margin-top: 0;
+          }
+        }
+      }
+      .btn-complete {
+        position: relative;
+        left: auto;
+        right: auto;
+        top: auto;
+        bottom: auto;
+        float: right;
+        width: 382px;
+        margin-top: 40px;
+        button {
+          width: 100%;
+          height: 60px;
+          font-size: 16px;
+          letter-spacing: -0.7px;
+        }
+      }
     }
+
   }
 
 </style>

@@ -651,6 +651,9 @@ export default {
           letter-spacing: -0.6px;
           margin-top: 5px;
         }
+        .line {
+          margin-top: 26px;
+        }
       }
     }
     .btn-next {
