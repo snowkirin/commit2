@@ -4,7 +4,6 @@
     class="container">
     <youtube
       style="text-align: center;"
-      v-if="$common.getServerMode()!=='production'"
       video-id="oRPTT363lMw"
       @ready="ready"
       @stop="stop"
