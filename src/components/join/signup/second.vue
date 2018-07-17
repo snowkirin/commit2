@@ -356,8 +356,12 @@ export default {
         });
       }
     },
+    clearStorage() {
+      this.$localStorage.remove('joinFirst');
+      this.$localStorage.remove('Mood');
+      this.$localStorage.remove('Size');
+    },
     finalSignup() {
-
       const privateFlag = document.querySelector('input[name=private_flag]:checked');
       // 배송일 지정
       if (this.joinSecond.deliveryDate === '') {
@@ -375,6 +379,7 @@ export default {
         if (result) {
           const signupRtn = await this.signup();
           if (signupRtn.result) {
+            this.clearStorage();
             this.$common.viewAlertModal(signupRtn.msg, this.$refs, 'confirm', '/join/addinfo');
           } else {
             this.$common.viewAlertModal(signupRtn.msg, this.$refs, 'alert');
@@ -615,7 +620,7 @@ export default {
     }
     .contents {
       margin: 74px auto 0;
-      width: 784px;
+      width: 795px;
     }
     .signup-text {
       margin-bottom: 0;
@@ -627,7 +632,7 @@ export default {
       }
       &:nth-child(2) {
         float: right;
-        width: 334px;
+        width: 382px;
       }
     }
     .signup-text {

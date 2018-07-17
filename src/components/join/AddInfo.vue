@@ -127,11 +127,11 @@ export default {
   methods: {
     clickColor(data, event){
       const $parent = document.querySelector('.list-color');
-      let eleTarget = null;
+      let eleTarget;
       if (event.target.nodeName === 'DIV') {
-        eleTarget = event.path[1];
+        eleTarget = event.target.parentElement;
       } else if (event.target.nodeName === 'SPAN') {
-        eleTarget = event.path[2];
+        eleTarget = event.target.parentElement.parentElement;
       } else {
         return false;
       }
@@ -174,9 +174,9 @@ export default {
       const $parent = document.querySelector('.list-pattern');
       let eleTarget = null;
       if (event.target.nodeName === 'DIV') {
-        eleTarget = event.path[1];
+        eleTarget = event.target.parentElement;
       } else if (event.target.nodeName === 'SPAN') {
-        eleTarget = event.path[2];
+        eleTarget = event.target.parentElement.parentElement;
       } else {
         return false;
       }
@@ -197,9 +197,9 @@ export default {
       const $parent = document.querySelector('.list-dresscode');
       let eleTarget = null;
       if (event.target.nodeName === 'SPAN') {
-        eleTarget = event.path[1];
+        eleTarget = event.target.parentElement;
       } else if (event.target.nodeName === 'LI') {
-        eleTarget = event.path[0];
+        eleTarget = event.target;
       }
       _.forEach($parent.querySelectorAll('li'), function(value) {
         value.classList.remove('selected');

@@ -8,7 +8,7 @@
         <strong>첫 달 구독료 선착순 <span class="txt-discount">30%</span></strong>할인!
       </p>
     </div>
-    <div class="event">
+    <div class="event" v-if="count !== 0">
       <router-link
         class="btn-free-month"
         v-if="!Authentication.authenticated"
@@ -34,6 +34,7 @@ export default {
     Authentication: 'login/Authentication',
   }),
   methods: {
+
   },
   created() {
     const $this = this;

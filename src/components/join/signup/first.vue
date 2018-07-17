@@ -152,6 +152,8 @@
                       placeholder="우편번호"
                       v-validate="'required'"
                       v-model="joinFirst.zipcode"
+                      @click="openDaumPopup"
+                      readonly
                       name="zipcode">
                     <button
                       type="button"
@@ -170,8 +172,10 @@
                       class="form-input"
                       placeholder="주소"
                       v-validate="'required'"
+                      readonly
                       maxlength="30"
                       v-model="joinFirst.addr"
+                      @click="openDaumPopup"
                       name="address">
                   </div>
                   <p
@@ -700,9 +704,19 @@ export default {
   }
   @media (min-width:768px) {
     .container {
-      width: 1200px;
-      padding: 24px 0 82px 0;
-      margin: 0 auto;
+      width: 795px;
+      margin-top: 0px;
+      margin-right: auto;
+      margin-bottom: 0px;
+      margin-left: auto;
+      padding: 74px 0 0 0;
+      .container-header {
+        .signup-title {
+          font-size: 32px;
+          line-height: 40px;
+          letter-spacing: -1.7px;
+        }
+      }
       .contents {
         display: table;
         margin: 0 auto;
@@ -710,7 +724,7 @@ export default {
           @include clearfix;
         }
         .content {
-          width: 392px;
+          width: 382px;
           &:nth-child(1) {
             float: left;
             margin-right: 30px;
@@ -730,7 +744,7 @@ export default {
           right: auto;
           text-align: right;
           button {
-            width: 392px;
+            width: 382px;
             font-size: 16px;
           }
         }

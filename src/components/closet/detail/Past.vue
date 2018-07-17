@@ -38,6 +38,7 @@
                 @click="viewModal(data.id)"
                 href="#"
                 class="txt-link"
+                style="display: none;"
                 v-if="data.is_sold === 'N'">
                 구매 정보 보기
               </a>
