@@ -749,6 +749,7 @@ export default {
           button {
             width: 382px;
             font-size: 16px;
+            height: 60px;
           }
         }
 

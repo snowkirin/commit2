@@ -610,6 +610,7 @@ export default {
     width: 100%;
     button {
       width: 100%;
+      height: 60px;
     }
   }
   @media (min-width: 768px) {
