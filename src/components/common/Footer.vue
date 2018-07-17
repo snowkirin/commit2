@@ -108,7 +108,6 @@ export default {
   },
   mounted() {
     this.pointTextEvt();
-    console.log(this.personalText);
   },
 };
 </script>

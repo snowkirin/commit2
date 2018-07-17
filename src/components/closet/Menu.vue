@@ -50,10 +50,10 @@ export default {
           text: '과거의옷장',
           path: '/closet/past',
         },
-        {
-          text: '스타일정보',
-          path: '/closet/style',
-        },
+        // {
+        //   text: '스타일정보',
+        //   path: '/closet/style',
+        // },
         {
           text: '나의정보관리',
           path: '/closet/security',
@@ -130,9 +130,8 @@ export default {
     .swiper-slide {
       width: auto;
     }
-
   }
-  .closet-mobile-menu {
+  /*.closet-mobile-menu {
     padding: 0 20px;
     -webkit-overflow-scrolling: touch;
     position: relative;
@@ -189,15 +188,43 @@ export default {
         }
       }
     }
-  }
+  }*/
 
-  @media (min-width: 767px) {
+  @media (min-width: 768px) {
     .c-menu {
       padding: 0;
       margin: 0 auto;
       width: 1200px;
+      &::after {
+        border-bottom: 1px solid #dadada;
+      }
+      .closet-link {
+        font-size: 18px;
+        letter-spacing: -1.2px;
+        padding-top: 20px;
+        padding-bottom: 19px;
+        padding-left: 1px;
+        padding-right: 1px;
+        &.active {
+          letter-spacing: -1.2px;
+          &::after {
+            content: '';
+            display: block;
+            position: absolute;
+            bottom: 0;
+            border-bottom: 4px solid #f45649;
+            width: 100%;
+          }
+        }
+      }
+      .swiper-container {
+        border-top: 1px solid #f3f3f3;
+      }
+      .swiper-slide {
+        width: auto;
+      }
     }
-    .closet-mobile-menu {
+    /*.closet-mobile-menu {
       width: 1200px;
       margin: 0 auto;
       padding: 0;
@@ -213,6 +240,6 @@ export default {
           }
         }
       }
-    }
+    }*/
   }
 </style>

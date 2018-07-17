@@ -6,13 +6,14 @@
         입력된 아이디는 가입되지 않은 계정입니다.
       </div>
       <div class="contents">
-        <div class="form">
+        <form class="form">
           <div class="form-row email">
             <input
               class="form-input"
               type="email"
               name="email"
               :value="(this.$cookies.isKey('email_session')) ? this.$cookies.get('email_session') : ''"
+              autocomplete="username"
               placeholder="아이디" />
             <!--<input type="text" name="email" class="form-login-input" placeholder="아이디 (이메일 주소)를 입력하세요." />-->
           </div>
@@ -22,6 +23,7 @@
               type="password"
               name="password"
               placeholder="패스워드"
+              autocomplete="current-password"
               @keydown="$common.submitEvt($event, login)"
             />
           </div>
@@ -48,7 +50,7 @@
               로그인
             </button>
           </div>
-        </div>
+        </form>
         <div class="menu-login">
           <ul>
             <li>

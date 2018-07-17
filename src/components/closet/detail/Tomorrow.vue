@@ -1,5 +1,5 @@
 <template>
-  <div class="tomorrow" :style="(!isShow)? 'padding-top:31px': 'padding-top: 25px'">
+  <div class="tomorrow" :style="(!isShow)? 'padding-top:31px': 'padding-top: 32px'">
     <div v-if="!isShow">
       <div class="none">
         <div class="inner">

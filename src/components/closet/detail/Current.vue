@@ -5,7 +5,7 @@
       드신다면?<br/>
       반납 없이 구매할 수 있습니다.
     </p>-->
-    <div v-if="showCurrent">
+    <div v-if="showCurrent" :style="$mq === 'sm'? 'padding-top: 17px;': 'padding-top: 32px;'">
       <div class="none">
         <div class="inner">
           <p>

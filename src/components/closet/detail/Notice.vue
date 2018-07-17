@@ -187,14 +187,17 @@ export default {
     }
   }
 
-  @media (min-width: 767px) {
+  @media (min-width: 768px) {
     .notice {
-      padding-top: 20px;
+      padding-top: 32px;
       padding-right: 0;
       padding-bottom: 0;
       padding-left: 0;
       width: 1200px;
       margin: 0 auto;
+    }
+    .line {
+      border-width: 2px;
     }
   }
 </style>

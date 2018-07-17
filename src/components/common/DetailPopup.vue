@@ -25,7 +25,7 @@
         <div class="detail-view">
           <div class="clearfix">
             <div class="images">
-              <img :src="$common.IMAGEURL() + detailData.image" alt="" width="400"/>
+              <img :src="$common.IMAGEURL() + detailData.image" alt=""/>
             </div>
             <div class="explain">
               <p class="txt-product" ref="product">{{ detailData.product_options[0].name }}</p>
@@ -144,56 +144,62 @@ export default {
       left: 0;
       top: 0;
       background-color: rgba(0, 0, 0, 0.3);
+      cursor: pointer;
     }
     .modal-inner {
       padding: 25px 27px;
-      width: 873px;
+      width: 90%;
+      height: 90%;
+      overflow-y: auto;
       position: absolute;
       border: 1px solid #212121;
       background-color: #fff;
       box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.17);
       .thumbnail {
-        float: left;
         height: 100%;
+        cursor: pointer;
+        /* 아직 사용여부 정해지지 않음. */
+        display: none;
         .item {
           margin-bottom: 5px;
         }
       }
       .detail-view {
-        float: left;
-        margin-left: 15px;
         .images {
-          float: left;
-          width: 400px;
+          img {
+            width: 100%;
+          }
         }
         .explain {
-          margin-left: 25px;
-          float: left;
-          width: 288px;
           .txt-product {
-            font-size: 18px;
-            line-height: 28px;
-            color: #212121;
-            font-weight: 700;
-          }
-          .txt-options {
             font-size: 16px;
             line-height: 24px;
             color: #212121;
-            margin-top: 19px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-top: 10px;
+          }
+          .txt-options {
+            font-size: 14px;
+            line-height: 22px;
+            color: #212121;
+            letter-spacing: -0.8px;
+            margin-top: 10px;
             &:first-child {
-              margin-top: 25px;
+              margin-top: 20px;
             }
           }
         }
       }
       .btn-close {
         position: absolute;
-        right: 26px;
-        top: 26px;
+        right: 2px;
+        top: 2px;
         border: 0;
         margin: 0;
         background-color: transparent;
+        padding: 0;
+        cursor: pointer;
         span {
           width: 24px;
           height: 24px;
@@ -224,35 +230,19 @@ export default {
   }
   @media (min-width: 768px) {
     .modal {
-      width: 100%;
-      height: 100%;
-      position: fixed;
-      left: 0;
-      top: 0;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      z-index: 1000;
-      .dim {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        left: 0;
-        top: 0;
-        background-color: rgba(0, 0, 0, 0.3);
-      }
       .modal-inner {
-        padding: 25px 27px;
         width: 873px;
-        position: absolute;
-        border: 1px solid #212121;
-        background-color: #fff;
-        box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.17);
+        height: auto;
         .thumbnail {
           float: left;
           height: 100%;
+          display: block;
           .item {
             margin-bottom: 5px;
+            border: 1px solid #212121;
+            img {
+
+            }
           }
         }
         .detail-view {
@@ -269,14 +259,14 @@ export default {
             .txt-product {
               font-size: 18px;
               line-height: 28px;
-              color: #212121;
-              font-weight: 700;
+              letter-spacing: 0;
+              margin-top: 0;
             }
             .txt-options {
               font-size: 16px;
               line-height: 24px;
-              color: #212121;
               margin-top: 19px;
+              letter-spacing: 0;
               &:first-child {
                 margin-top: 25px;
               }
@@ -284,37 +274,8 @@ export default {
           }
         }
         .btn-close {
-          position: absolute;
           right: 26px;
           top: 26px;
-          border: 0;
-          margin: 0;
-          background-color: transparent;
-          span {
-            width: 24px;
-            height: 24px;
-            position: relative;
-            text-indent: -9999px;
-            overflow: hidden;
-            display: block;
-            &::before, &::after {
-              position: absolute;
-              width: 100%;
-              height: 2px;
-              background-color: #212121;
-              content: '';
-              display: block;
-              left: 50%;
-              top: 50%;
-              transform-origin: 0 0;
-            }
-            &::after {
-              transform: rotate(45deg) translate(-50%, -50%);
-            }
-            &::before {
-              transform: rotate(-45deg) translate(-50%, -50%);
-            }
-          }
         }
       }
     }

@@ -372,10 +372,10 @@ export default {
     }
   }
 
-  @media (min-width: 767px) {
+  @media (min-width: 768px) {
     .customer-service {
       width: 1200px;
-      padding-top: 25px;
+      padding-top: 32px;
     }
   }
 .greyLine {

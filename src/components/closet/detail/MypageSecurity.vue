@@ -78,9 +78,12 @@ export default {
 
   @media (min-width: 767px) {
     .mypage-sercurity {
-      padding: 20px 0;
+      padding: 32px 0 20px 0;
       width: 1200px;
       margin: 0 auto;
+      .line {
+        border-width: 2px;
+      }
     }
   }
 </style>

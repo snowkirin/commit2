@@ -52,24 +52,33 @@
     </div>
     <!-- 문의 내역 -->
     <div data-value="list" v-show="showContent === 'list'">
-      <table class="table">
+      <table class="table" cellpadding="0" cellspacing="0">
         <colgroup>
+          <col v-if="$mq !== 'sm'" width="82">
           <col width="*">
-          <col width="82">
+          <col :width="$mq === 'sm' ? 86 : 166">
         </colgroup>
+        <thead v-if="$mq !== 'sm'">
+        <tr>
+          <th class="txt-index">번호</th>
+          <th class="txt-title">제목</th>
+          <th class="txt-date">등록일</th>
+        </tr>
+        </thead>
         <tbody
           v-for="(item, idx) in inquiriesList"
           :key="idx">
         <tr
           @click="viewInquiries(item.id)">
-          <td class="title">{{ item.subject }}</td>
-          <td class="date">{{ item.inserted.substring(0, 10) }}</td>
+          <td v-if="$mq !== 'sm'" class="txt-index">{{ idx+1 }}</td>
+          <td class="txt-title">{{ item.subject }}</td>
+          <td class="txt-date">{{ item.inserted.substring(0, 10) }}</td>
         </tr>
         <tr
           class="content"
           :data-id="item.id">
           <td
-            colspan="2">
+            :colspan="$mq === 'sm'? 2 : 3">
             <div class="inner">
               <p class="type">문의유형 : {{ printInquiriesInfo.type_name }}</p>
               <div v-for="(item2, idx2) in printInquiriesInfo.list" :key="idx2">
@@ -78,12 +87,9 @@
                 </p>
               </div>
             </div>
-
-
           </td>
         </tr>
         </tbody>
-
       </table>
     </div>
   </div>
@@ -190,10 +196,9 @@ export default {
   }
   .select-label {
     position: absolute;
-    margin-left: 80%;
-    margin-top: 10px;
+    right: 13px;
+    top: 10px;
   }
-
   .select-label:after {
     content:"\f0dd";
     font-family: "FontAwesome";
@@ -201,38 +206,45 @@ export default {
   }
   .flex-list {
     margin-top: 20px;
+    margin-bottom: 25px;
     ul {
-      list-style: none;
-      padding: 0;
-      display: flex;
+      font-size: 0;
+      position: relative;
+      &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        height: 1px;
+        width: 100%;
+        background-color: #c4c4c4;
+        bottom: 0;
+        z-index: -1;
+      }
     }
     li {
-      flex: 1;
-      position: relative;
-      border: 1px solid #c4c4c4;
-      margin-left: -1px;
-      line-height: 48px;
       text-align: center;
-      color: #bbb;
-      letter-spacing: -0.6px;
-      cursor: pointer;
-      user-select: none;
+      display: inline-block;
       font-size: 15px;
-      &:first-child {
-        margin-left: 0;
-      }
+      letter-spacing: -0.6px;
+      width: 50%;
+      height: 50px;
+      color: #bbb;
+      border: 1px solid #c4c4c4;
+      line-height: 48px; // Center
+      &:first-child {}
       &.seleted {
-        font-weight: 700;
         color: #333;
-        z-index: 10;
+        font-weight: 700;
         outline: 1px solid #333;
         outline-offset: -1px;
       }
     }
   }
+
   div[data-value="write"] {
     .form-row {
       margin-top: 10px;
+      position: relative;
     }
     .custom-select {
       width: 100%;
@@ -261,128 +273,132 @@ export default {
     .table {
       width: 100%;
       table-layout: fixed;
-      text-align: left;
-      .title,
-      .date {
-        font-size: 15px;
-        line-height: 23px;
-        height: 50px;
-        border-top: 1px solid #e7e7e7;
+      border-top: 1px solid #e9e9e9;
+      position: relative;
+      &::after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 1px;
+        background-color: #333;
+        position: absolute;
+        bottom: 0;
       }
-      .title {
-        letter-spacing: -0.6px;
+      .txt-index,
+      .txt-date {
+        text-align: center;
       }
-      .date {
-        font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
+      tbody {
+        .txt-index,
+        .txt-title,
+        .txt-date {
+          border-bottom: 1px solid #e9e9e9;
+          height: 53px;
+          font-size: 15px;
+          line-height: 23px;
+          letter-spacing: -0.6px;
+        }
+        .txt-index,
+        .txt-date {
+          font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
+        }
+        .txt-date {
+          letter-spacing: 0;
+        }
       }
       .content {
         display: none;
         .inner {
           background-color: #f5f5f5;
           padding: 10px;
-          .type {
+          .type,
+          .desc {
             font-size: 14px;
+          }
+          .type {
             line-height: 22px;
             letter-spacing: -0.6px;
             margin-bottom: 4px;
+            color: #333;
           }
           .desc {
-            font-size: 14px;
             line-height: 20px;
             letter-spacing: -0.8px;
             color: #797979;
           }
         }
       }
-
     }
   }
 
-/*.mobile-customer-service {
-  padding-bottom: 410px;
-}
+  @media (min-width: 768px) {
+    .customer-service {
+      padding: 32px 0 0 0;
+      width: 1200px;
+      margin: 0 auto;
+    }
+    .flex-list {
+      ul {
+      }
+      li {
+        font-size: 16px;
+        letter-spacing: -1px;
+        width: 195px;
+        &:first-child {}
+        &.seleted {
+          outline: 2px solid #333;
+          outline-offset: -2px;
+        }
+      }
+    }
 
-.day-name-group {
-  height: 50px !important;
-}
+    div[data-value="list"] {
+      .table {
+        border-top: 2px solid #333;
 
-.cs-select-box {
-  height: 50px;
-  width: 100%;
-  font-size: 16px;
-  font-weight: 300;
-  padding-left: 10px;
-}
-
-.requirement-textarea {
-  width: 88%;
-  height: 250px;
-  background-color: #ffffff;
-  border-top: solid 1px #999999;
-  padding: 20px;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  letter-spacing: -0.2px;
-  text-align: left;
-  color: #797979;
-}
-
-.list-data-rows {
-  width: 100%;
-  padding: 30px 0;
-  display: block;
-  border-bottom: solid 1px #dadada;
-  cursor: pointer;
-}
-
-.list-data-rows > .subject {
-  width: 75%;
-  display: inline-block;
-  font-size: 16px;
-  line-height: 1;
-  letter-spacing: -0.5px;
-  color: #333333;
-}
-
-.list-data-rows > .date {
-  display: inline-block;
-  float: right;
-  font-size: 16px;
-  line-height: 1;
-  letter-spacing: -0.4px;
-  color: #797979;
-}
-
-.list-data-content {
-  display: none;
-  background-color: #f5f5f5;
-  padding: 20px;
-  line-height: 1;
-  word-wrap: break-word;
-}
-
-.inquiries-type {
-  line-height: 2;
-  border-bottom: 1px solid #333333;
-}
-
-.inquiries-subject {
-  line-height: 2;
-}
-
-
-label {
-  position: absolute;
-  margin-left: 80%;
-  margin-top: 10px;
-}
-
-label:after {
-  content:"\f0dd";
-  font-family: "FontAwesome";
-  font-size: 16px;
-}*/
-
+        .txt-title {
+          padding-left: 30px;
+        }
+        .txt-date {
+          padding-right: 39px;
+        }
+        thead {
+          display: table-row-group;
+          th {
+            height: 43px;
+            font-size: 15px;
+            line-height: 21px;
+            letter-spacing: -1px;
+            color: #333;
+            border-bottom: 1px solid #e9e9e9;
+          }
+        }
+        tbody {
+          .txt-index,
+          .txt-title,
+          .txt-date {
+            font-size: 16px;
+            letter-spacing: -1px;
+          }
+        }
+        .content {
+          .inner {
+            padding: 25px 30px;
+            .type,
+            .desc {
+              font-size: 15px;
+              letter-spacing: -1px;
+            }
+            .type {
+              margin-bottom: 4px;
+              letter-spacing: -1px;
+            }
+            .desc {
+              letter-spacing: -1px;
+            }
+          }
+        }
+      }
+    }
+  }
 </style>

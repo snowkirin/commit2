@@ -32,22 +32,23 @@ export default {
     letter-spacing: -1.8px;
     line-height: 34px;
   }
-  @media (min-width: 767px) {
+  @media (min-width: 768px) {
     .closet-header {
       width: 1200px;
       margin: 0 auto;
       padding: {
-        top: 17px;
+        top: 9px;
         right: 32px;
-        bottom: 19px;
+        bottom: 20px;
         left: 0px;
       }
       font-weight: 300;
     }
     .user-info {
-      font-size: 42px;
-      letter-spacing: -3px;
-      line-height: 62px;
+      font-size: 40px;
+      letter-spacing: -2.9px;
+      line-height: 59px;
+      font-weight: 300;
     }
   }
 </style>

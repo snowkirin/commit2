@@ -245,15 +245,16 @@ export default {
       margin-right: 15px;
     }
   }
-  @media (min-width: 767px) {
+  @media (min-width: 768px) {
     .past {
       width: 1200px;
       margin: 0 auto;
-      padding: 34px 0 0 0;
+      padding: 32px 0 0 0;
     }
     .line {
       margin-top: 26px;
       margin-bottom: 5px;
+      border-width: 2px;
     }
     .list-closet {
       .closet-item {
