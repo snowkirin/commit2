@@ -31,6 +31,7 @@ export default {
     font-size: 26px;
     letter-spacing: -1.8px;
     line-height: 34px;
+    margin-left: -2px;
   }
   @media (min-width: 768px) {
     .closet-header {

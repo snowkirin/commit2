@@ -96,6 +96,7 @@ export default {
         letter-spacing: -1px;
         margin-right: 20px;
         position: relative;
+        cursor: pointer;
         &:last-child {
           margin-right: 0;
         }

@@ -27,6 +27,20 @@ const setTomorrowSelect = async ({ commit }, data) => {
   }
 };
 
+const setTomorrowSelectDirect = async ({ commit }, data) => {
+
+  try {
+    const result = await Closet.mypageTomorrowSelectDirect({
+      ...data,
+    });
+    console.log(result);
+    if (result.data.result) commit(types.SET_TOMORROW_SELECT);
+    else alert('시스템에 문제가 발생했습니다.\n잠시 후 다시 시도해주세요.');
+  } catch (e) {
+    console.error(e.message);
+  }
+};
+
 const setPastCloset = async ({ commit }) => {
   try {
     const result = await Closet.mypagePastCloset();
@@ -120,4 +134,5 @@ export default {
   setCurrentCloset,
   buyUsedProduct,
   initPaymentCurrent,
+  setTomorrowSelectDirect,
 };

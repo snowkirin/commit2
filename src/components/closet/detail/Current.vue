@@ -39,7 +39,7 @@
       <!--Desktop -->
       <p class="txt-tip-today-style en-font"><span>TIP</span> <span class="txt-dash">_</span><br/> <span>TODAY&apos;S STYLE</span></p>
       <div class="txt-style-tip">
-        <p class="txt-style-tip__title">스타일 팁</p>
+        <p class="txt-style-tip__title">ZULY Comment</p>
         <p class="txt-style-tip__desc">
           {{ currentCloset.styling_tip }}
         </p>
