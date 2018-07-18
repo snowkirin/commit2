@@ -69,7 +69,7 @@ export default {
       position: 50% 0;
       size: 100% 100%;
     }
-    height: 250px;
+    height: 240px;
     display: flex;
     justify-content: center;
     align-items: center;
