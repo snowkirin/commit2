@@ -43,12 +43,12 @@ export default {
   @keyframes fadeInupRotate {
     0% {
       opacity: 0;
-      transform: translate3d(0,300%,0) rotate(-10deg);
+      transform: translate3d(0,300%,0) rotate(-15deg);
     }
 
     to {
       opacity: 1;
-      transform: translate3d(0,0,0) rotate(-10deg)
+      transform: translate3d(0,0,0) rotate(-15deg)
     }
   }
 

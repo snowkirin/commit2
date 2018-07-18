@@ -179,8 +179,9 @@ export default {
           td {
             padding: 10px;
             background-color: #f5f5f5;
-            font-size: 14px;
+            font-size: 13px;
             letter-spacing: -0.6px;
+            line-height: 19px;
           }
         }
       }
@@ -216,8 +217,9 @@ export default {
             td {
               padding: 25px 30px;
               background-color: #f5f5f5;
-              font-size: 15px;
+              font-size: 14px;
               letter-spacing: -0.6px;
+              line-height: 21px;
             }
           }
         }
