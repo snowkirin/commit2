@@ -5,7 +5,7 @@
       <div class="content">
         <div class="name row">
           <p class="txt-point">이름</p>
-          <p class="txt-name">김용주</p>
+          <p class="txt-name"></p>
         </div>
         <div class="email row">
           <p class="txt-point">이메일</p>

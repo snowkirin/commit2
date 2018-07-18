@@ -3,7 +3,6 @@
     <div class="container-inner clearfix">
       <div class="container-header">
         <p class="title-addinfo">
-          {{ '김용주'}}님 <br/>
           가입을 환영합니다.
         </p>
         <p class="txt-addinfo">고객님에 대해 조금 더 자세히 알려주시면 <br v-if="$mq !== 'sm'">더 어울리는 아이템을 보내드릴 수 있습니다.</p>
