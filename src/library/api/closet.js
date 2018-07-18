@@ -91,6 +91,17 @@ const mypageTomorrowSelect = ({
   withCredentials: true,
 }).then(result => result).catch(err => err.response);
 
+const mypageTomorrowSelectDirect = ({
+  subscriptionId,
+  products,
+  memberId,
+}) => axios.put(`${API_URL}/subscriptions/tomorrow/direct`, {
+  subscription_id: subscriptionId,
+  products,
+  member_id: memberId,
+}).then(result => result).catch(err => err.response);
+
+
 const mypagePastCloset = () => axios.get(`${API_URL}/subscriptions/past`, {
   withCredentials: true,
 }).then(result => result).catch(err => err.response);
@@ -218,4 +229,5 @@ export default {
   mypageFeedbackAnswer,
   mypageFeedbackNps,
   mypageFeedbackAnswerReason,
+  mypageTomorrowSelectDirect
 };

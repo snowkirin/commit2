@@ -25,7 +25,7 @@
           class="codi-suggestion"
           :class="{selected: this.codiSelected.first}">
           <div>
-            <p class="txt-codi-title en-font">A. Setted Look</p>
+            <p class="txt-codi-title en-font">TYPE A</p>
             <p class="txt-codi-desc">
               {{printStyleFirst.stylingTitle}}
             </p>
@@ -47,7 +47,7 @@
           </div>
           <div class="style-explain">
 
-            <p class="txt-tip-title">스타일 팁</p>
+            <p class="txt-tip-title">ZULY Comment</p>
             <!--TODO: 말줄임표 -->
             <p class="txt-tip-desc" v-html="$common.htmlEnterLine(printStyleFirst.stylingTip)"></p>
             <div class="line line__dashed"></div>
@@ -77,7 +77,7 @@
           class="codi-suggestion"
           :class="{selected: this.codiSelected.second}">
           <div>
-            <p class="txt-codi-title en-font">B. Item Codi</p>
+            <p class="txt-codi-title en-font">TYPE B</p>
             <p class="txt-codi-desc">
               {{printStyleSecond.stylingTitle}}
             </p>
@@ -99,7 +99,7 @@
           </div>
           <div class="style-explain">
 
-            <p class="txt-tip-title">스타일 팁</p>
+            <p class="txt-tip-title">ZULY Comment</p>
             <!--TODO: 말줄임표 -->
             <p class="txt-tip-desc" v-html="$common.htmlEnterLine(printStyleSecond.stylingTip)"></p>
             <div class="line line__dashed"></div>
@@ -169,6 +169,10 @@ export default {
   },
   data() {
     return {
+      connectType: '',
+      // 직접접속할때 필요함
+      memberId: 0,
+      tomorrowData: {},
       isMobile: false,
       isShow: false,
       selected: {},
@@ -187,6 +191,8 @@ export default {
       tomorrowCloset: 'mypage/closet/getTomorrowCloset',
       tomorrowNone: 'mypage/closet/getTomorrowNone',
       tomorrowSelect: 'mypage/closet/getTomorrowSelect',
+      tomorrowDirect: 'login/tomorrowDirect',
+      isLogin: 'login/isLogin',
     }),
     printStyleFirst() {
       let firstStyle = {
@@ -200,28 +206,28 @@ export default {
         productOptions: [],
       };
 
-      if (Array.isArray(this.tomorrowCloset.products)) {
-        if (this.tomorrowCloset.products[0]) {
+      if (Array.isArray(this.tomorrowData.products)) {
+        if (this.tomorrowData.products[0]) {
           firstStyle = this.setArrayData(firstStyle, {
-            prdId: this.tomorrowCloset.products[0].id,
-            description: this.tomorrowCloset.products[0].description,
-            image: this.tomorrowCloset.products[0].image,
-            prdOption: this.tomorrowCloset.products[0].product_options,
+            prdId: this.tomorrowData.products[0].id,
+            description: this.tomorrowData.products[0].description,
+            image: this.tomorrowData.products[0].image,
+            prdOption: this.tomorrowData.products[0].product_options,
           });
 
-          firstStyle.stylingTip = this.tomorrowCloset.products[0].styling_tip;
-          firstStyle.stylingTitle = this.tomorrowCloset.products[0].styling_title;
-          firstStyle.hashTag = this.tomorrowCloset.products[0].hashtag;
-          firstStyle.selected = (this.tomorrowCloset.products[0].selected);
+          firstStyle.stylingTip = this.tomorrowData.products[0].styling_tip;
+          firstStyle.stylingTitle = this.tomorrowData.products[0].styling_title;
+          firstStyle.hashTag = this.tomorrowData.products[0].hashtag;
+          firstStyle.selected = (this.tomorrowData.products[0].selected);
 
         }
 
-        if (this.tomorrowCloset.products[1]) {
+        if (this.tomorrowData.products[1]) {
           firstStyle = this.setArrayData(firstStyle, {
-            prdId: this.tomorrowCloset.products[1].id,
-            description: this.tomorrowCloset.products[1].description,
-            image: this.tomorrowCloset.products[1].image,
-            prdOption: this.tomorrowCloset.products[1].product_options,
+            prdId: this.tomorrowData.products[1].id,
+            description: this.tomorrowData.products[1].description,
+            image: this.tomorrowData.products[1].image,
+            prdOption: this.tomorrowData.products[1].product_options,
           });
         }
       }
@@ -240,27 +246,27 @@ export default {
         productOptions: [],
       };
 
-      if (Array.isArray(this.tomorrowCloset.products)) {
-        if (this.tomorrowCloset.products[2]) {
+      if (Array.isArray(this.tomorrowData.products)) {
+        if (this.tomorrowData.products[2]) {
           secondStyle = this.setArrayData(secondStyle, {
-            prdId: this.tomorrowCloset.products[2].id,
-            description: this.tomorrowCloset.products[2].description,
-            image: this.tomorrowCloset.products[2].image,
-            prdOption: this.tomorrowCloset.products[2].product_options,
+            prdId: this.tomorrowData.products[2].id,
+            description: this.tomorrowData.products[2].description,
+            image: this.tomorrowData.products[2].image,
+            prdOption: this.tomorrowData.products[2].product_options,
           });
 
-          secondStyle.stylingTip = this.tomorrowCloset.products[2].styling_tip;
-          secondStyle.stylingTitle = this.tomorrowCloset.products[2].styling_title;
-          secondStyle.hashTag = this.tomorrowCloset.products[2].hashtag;
-          secondStyle.selected = (this.tomorrowCloset.products[2].selected);
+          secondStyle.stylingTip = this.tomorrowData.products[2].styling_tip;
+          secondStyle.stylingTitle = this.tomorrowData.products[2].styling_title;
+          secondStyle.hashTag = this.tomorrowData.products[2].hashtag;
+          secondStyle.selected = (this.tomorrowData.products[2].selected);
         }
 
-        if (this.tomorrowCloset.products[3]) {
+        if (this.tomorrowData.products[3]) {
           secondStyle = this.setArrayData(secondStyle, {
-            prdId: this.tomorrowCloset.products[3].id,
-            description: this.tomorrowCloset.products[3].description,
-            image: this.tomorrowCloset.products[3].image,
-            prdOption: this.tomorrowCloset.products[3].product_options,
+            prdId: this.tomorrowData.products[3].id,
+            description: this.tomorrowData.products[3].description,
+            image: this.tomorrowData.products[3].image,
+            prdOption: this.tomorrowData.products[3].product_options,
           });
         }
       }
@@ -272,8 +278,8 @@ export default {
     ...mapActions({
       setTomorrowCloset: 'mypage/closet/setTomorrowCloset',
       setTomorrowSelect: 'mypage/closet/setTomorrowSelect',
+      setTomorrowSelectDirect: 'mypage/closet/setTomorrowSelectDirect',
     }),
-
     openDetailModal(data) {
       this.detailModalShow = true;
       this.detailModalData = data;
@@ -315,13 +321,21 @@ export default {
       return changeDay;
     },
     async selectStyle(style, type) {
-      console.log(this.tomorrowCloset.subscription_id);
-      console.log([...this.parseIntProduct(...style.productId)]);
-      if (this.tomorrowCloset) {
-        await this.setTomorrowSelect({
-          subscriptionId: this.tomorrowCloset.subscription_id,
-          products: [...this.parseIntProduct(...style.productId)],
-        });
+      if (this.tomorrowData) {
+        if (this.connectType === 'direct') {
+          // 직접접속했을경우
+          await this.setTomorrowSelectDirect({
+            subscriptionId: this.tomorrowData.subscription_id,
+            products: [...this.parseIntProduct(...style.productId)],
+            memberId: this.memberId,
+          });
+        } else {
+          // 아닐경우
+          await this.setTomorrowSelect({
+            subscriptionId: this.tomorrowData.subscription_id,
+            products: [...this.parseIntProduct(...style.productId)],
+          });
+        }
         if (type === 'first') {
           const positionTop = this.$refs.codiFirst.offsetTop;
 
@@ -330,7 +344,7 @@ export default {
           body.scrollTop = positionTop;
           html.scrollTop = positionTop;
 
-          this.$common.viewAlertModal('<b class="en-font">A.Setted Look</b> 배송됩니다.', this.$refs, 'alert');
+          this.$common.viewAlertModal('<b class="en-font">TYPE A</b> 배송됩니다.', this.$refs, 'alert');
           this.codiSelected.first = true;
           this.codiSelected.second = false;
 
@@ -342,31 +356,11 @@ export default {
           body.scrollTop = positionTop;
           html.scrollTop = positionTop;
 
-          this.$common.viewAlertModal('<b class="en-font">B.Item Codi</b> 배송됩니다.', this.$refs, 'alert');
+          this.$common.viewAlertModal('<b class="en-font">TYPE B</b> 배송됩니다.', this.$refs, 'alert');
           this.codiSelected.first = false;
           this.codiSelected.second = true;
         }
-      } else {
-        this.$common.viewAlertModal('선택기간이 지났습니다.<br />고객센터로 문의해주세요.', this.$refs, 'alert');
       }
-      /*if (this.tomorrowCloset.select_dday >= 0) {
-        await this.setTomorrowSelect({
-          subscriptionId: this.tomorrowCloset.subscription_id,
-          products: [...this.parseIntProduct(...style.productId)],
-        });
-        if (type === 'first') {
-          this.$common.viewAlertModal('<b class="en-font">A.Setted Look</b> 배송됩니다.', this.$refs, 'alert');
-          this.codiSelected.first = true;
-          this.codiSelected.second = false;
-        } else {
-          this.$common.viewAlertModal('<b class="en-font">B.Item Codi</b> 배송됩니다.', this.$refs, 'alert');
-          this.codiSelected.first = false;
-          this.codiSelected.second = true;
-        }
-      } else {
-        this.$common.viewAlertModal('선택기간이 지났습니다.<br />고객센터로 문의해주세요.', this.$refs, 'alert');
-        return;
-      }*/
     },
     parseIntProduct(...data) {
       const rtn = [];
@@ -401,9 +395,24 @@ export default {
     },
   },
   async created() {
-    await this.setTomorrowCloset();
-    this.isShowFlag(this.tomorrowCloset);
-    this.products = this.tomorrowCloset.products;
+    if (this.isLogin) {
+      this.connectType = 'login';
+      await this.setTomorrowCloset();
+      this.tomorrowData = this.tomorrowCloset;
+    } else {
+      this.connectType = 'direct';
+      this.tomorrowData = this.tomorrowDirect.data;
+      this.memberId = this.tomorrowDirect.info.member_id;
+      this.$store.state.login.Authentication.userName = this.tomorrowDirect.info.name;
+    }
+    if (this.tomorrowData.products[0].selected) {
+      this.codiSelected.first = true;
+    } else if (this.tomorrowData.products[2].selected) {
+      this.codiSelected.second = true;
+    }
+    this.isShowFlag(this.tomorrowData);
+    this.products = this.tomorrowData.products;
+
   },
   mounted() {
   },

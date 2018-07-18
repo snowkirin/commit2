@@ -15,6 +15,7 @@ export default {
       subscription_id: null,
       feedback_id: null,
     },
+    tomorrowDirect: {},
   },
   mutations: {
     [types.LOGIN_SUCCESS](state, data) {
@@ -40,11 +41,15 @@ export default {
       state.feedbackDirect.feedback_id = data.info.feedback_id;
       state.Authentication.userName = data.info.user_name;
     },
+    [types.TOMORROW_DIRECT](state, data) {
+      state.tomorrowDirect = data;
+    },
   },
   actions,
   getters: {
     isLogin: state => state.login,
     Authentication: state => state.Authentication,
     feedbackDirect: state => state.feedbackDirect,
+    tomorrowDirect: state => state.tomorrowDirect,
   },
 };

@@ -6,7 +6,15 @@ const getFeedbackDirect = (data) => axios.get(`${API_URL}/subscriptions/feedback
     return res;
   })
   .catch(function(err) {
+    return err;
+  });
+
+const getTomorrowDirect = (data) => axios.get(`${API_URL}/subscriptions/tomorrow/${data}`)
+  .then(function(res) {
     return res;
+  })
+  .catch(function(err) {
+    return err;
   });
 
 /*function getFeedbackDirect(data) {
@@ -170,4 +178,5 @@ export default {
   finalAuth,
   findPwdComplete,
   getFeedbackDirect,
+  getTomorrowDirect
 };

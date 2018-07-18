@@ -19,7 +19,7 @@ export default {
                   if (res.data.result) {
                     $router.options.routes[0].children[7].children[2].meta.requiresAuth = false;
                     next({
-                      path: '/closet/current'
+                      path: '/closet/current'+`?access_token=${token}`,
                     });
                   } else {
                     const query = to.fullPath.match(/^\/$/) ? {} : { redirect: to.fullPath };
@@ -37,13 +37,41 @@ export default {
                   query,
                 });
               }
-            } else {
+            } /*else {
               alert('로그인 하셔야만 이용이 가능합니다.');
               const query = to.fullPath.match(/^\/$/) ? {} : { redirect: to.fullPath };
               next({
                 path: '/login',
                 query,
               });
+            }*/
+            if (to.path === '/closet/tomorrow') {
+              // 쿼리문이 있다면
+              if (!_.isEmpty(to.query)) {
+                const token = to.query.access_token;
+                $store.dispatch('login/doTomorrowDirect', token).then((res) => {
+                  if (res.data.result) {
+
+                    $router.options.routes[0].children[7].children[1].meta.requiresAuth = false;
+                    next({
+                      path: '/closet/tomorrow'+`?access_token=${token}`,
+                    });
+                  } else {
+                    const query = to.fullPath.match(/^\/$/) ? {} : { redirect: to.fullPath };
+                    next({
+                      path: '/login',
+                      query,
+                    });
+                  }
+                });
+              } else {
+                alert('로그인 하셔야만 이용이 가능합니다.');
+                const query = to.fullPath.match(/^\/$/) ? {} : { redirect: to.fullPath };
+                next({
+                  path: '/login',
+                  query,
+                });
+              }
             }
             return;
           }

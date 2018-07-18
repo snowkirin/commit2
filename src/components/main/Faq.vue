@@ -110,7 +110,7 @@
               </span>
             </p>
           </div>
-          <div class="answer">
+          <div class="answer" style="margin-bottom: 20px;">
             <div class="txt-answer">
               <div class="explain">
                 <p>현재 서울, 경기도 분당, 하남 지역에 국한하여 서비스를 제공하고 있습니다. 추후 다른 지역으로도 확대 예정입니다.</p>
@@ -199,9 +199,11 @@ export default {
     padding: 20px 20px 10px 20px;
   }
   .line {
-    position: absolute;
-    width: calc(100% - 20px);
+    /*position: absolute;*/
+    width: 100%;
+    /*width: calc(100% - 20px);*/
     margin-top: 9px;
+    border-width: 2px;
   }
   .row {
     margin-top: 21px;
@@ -264,6 +266,7 @@ export default {
         .explain {
           line-height: 23px;
           color: #333;
+          font-size: 15px;
         }
       }
     }
@@ -285,6 +288,7 @@ export default {
       order: -1;
       left: 203px;
       width: 997px;
+      position: absolute;
     }
     .icon {
       display: block;

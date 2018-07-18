@@ -39,7 +39,7 @@
       <!--Desktop -->
       <p class="txt-tip-today-style en-font"><span>TIP</span> <span class="txt-dash">_</span><br/> <span>TODAY&apos;S STYLE</span></p>
       <div class="txt-style-tip">
-        <p class="txt-style-tip__title">스타일 팁</p>
+        <p class="txt-style-tip__title">ZULY Comment</p>
         <p class="txt-style-tip__desc">
           {{ currentCloset.styling_tip }}
         </p>
@@ -394,7 +394,7 @@ export default {
         letter-spacing: -0.6px;
         white-space: nowrap;
         .txt-price-accent {
-          color: #f45649;
+          color: #f16458;
           letter-spacing: -0.4px;
         }
       }
@@ -439,7 +439,7 @@ export default {
     .final {
       background-color: #f5f5f5;
       .number {
-        color: #f45649;
+        color: #f16458;
       }
     }
     .btn-confirm {
