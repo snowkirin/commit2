@@ -77,7 +77,7 @@ export default {
     color: #fff;
     .txt-about1 {
       font-size: 19px;
-      letter-spacing: -1px;
+      letter-spacing: -1.2px;
       line-height: 25px;
       text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
     }
