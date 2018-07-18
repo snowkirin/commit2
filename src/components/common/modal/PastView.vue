@@ -18,7 +18,7 @@
             <div class="price mt20">
               <span class="normal-price">{{ $common.numberWithCommas(detail.used_price) }}원</span>
               <div class="vertical-line"></div>
-              혜택가 {{ $common.numberWithCommas(detail.used_price) }}원 <span style="color: #f45649;">({{ detail.discount_rate }}%↓)</span>
+              혜택가 {{ $common.numberWithCommas(detail.used_price) }}원 <span style="color: #f16458;">({{ detail.discount_rate }}%↓)</span>
             </div>
           </div>
         </div>
@@ -108,7 +108,7 @@ export default {
 
 .past-view-text span {
   font-weight: 600;
-  color: #f45649;
+  color: #f16458;
 }
 
 .past-view-text-print {

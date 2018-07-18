@@ -129,7 +129,7 @@ export default {
           display: block;
           position: absolute;
           bottom: 0;
-          border-bottom: 3px solid #f45649;
+          border-bottom: 3px solid #f16458;
           width: 100%;
         }
       }
@@ -224,7 +224,7 @@ export default {
             display: block;
             position: absolute;
             bottom: 0;
-            border-bottom: 4px solid #f45649;
+            border-bottom: 4px solid #f16458;
             width: 100%;
           }
         }

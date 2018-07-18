@@ -82,7 +82,7 @@ export default {
     pathCheck() {
       if (this.$route.path === '/') {
         return {
-          color: '#f45649',
+          color: '#f16458',
         };
       }
       return {

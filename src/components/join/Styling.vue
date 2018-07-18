@@ -504,7 +504,7 @@ export default {
     font-size: 27px;
     line-height: 0.96;
     letter-spacing: -0.7px;
-    color: #f45649;
+    color: #f16458;
   }
 
   .zuly-circle-active-second {
@@ -526,7 +526,7 @@ export default {
     font-size: 27px;
     line-height: 0.96;
     letter-spacing: -0.7px;
-    color: #f45649;
+    color: #f16458;
   }
 
   .zuly-circle-pick-second {

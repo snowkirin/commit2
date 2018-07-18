@@ -394,7 +394,7 @@ export default {
         letter-spacing: -0.6px;
         white-space: nowrap;
         .txt-price-accent {
-          color: #f45649;
+          color: #f16458;
           letter-spacing: -0.4px;
         }
       }
@@ -439,7 +439,7 @@ export default {
     .final {
       background-color: #f5f5f5;
       .number {
-        color: #f45649;
+        color: #f16458;
       }
     }
     .btn-confirm {
