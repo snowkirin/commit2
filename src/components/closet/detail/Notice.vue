@@ -49,7 +49,7 @@
       </table>
     </div>
     <div v-else>
-      <p>등록된 내용이 없는걸?</p>
+      <p>등록된 내용이 없습니다.</p>
     </div>
 
     <!--<div class="closet-content mt30">-->
