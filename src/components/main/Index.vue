@@ -4,8 +4,8 @@
     <about></about>
     <process></process>
     <faq></faq>
+    <new-arrivals></new-arrivals>
     <main-video></main-video>
-    <!--<event></event>-->
   </div>
 </template>
 
@@ -15,7 +15,7 @@ import About from '@/components/main/About';
 import Process from '@/components/main/Process';
 import Faq from '@/components/main/Faq';
 import MainVideo from '@/components/main/MainVideo';
-import Event from '@/components/main/Event';
+import NewArrivals from '@/components/main/NewArrivals';
 
 export default {
   name: 'maix-index',
@@ -25,7 +25,7 @@ export default {
     Process,
     Faq,
     MainVideo,
-    // Event,
+    NewArrivals,
   },
 };
 </script>

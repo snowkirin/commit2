@@ -2,7 +2,7 @@
   <div class="container">
     <div class="bounceInLeft">
       <p class="txt-about1 fadeInUp">놀라운 편리함, 포기 할 수 없는 아름다움</p>
-      <span class="txt-about2 fadeInUp">\</span>
+      <span class="txt-about2 fadeInupRotate">\</span>
       <p class="txt-about3 fadeInUp">데일리룩 구독 서비스 줄라이</p>
       <!--<p class="txt-main-point" data-color="white">About</p>-->
       <!--<p class="txt-about">-->
@@ -40,9 +40,25 @@ export default {
       transform: none
     }
   }
+  @keyframes fadeInupRotate {
+    0% {
+      opacity: 0;
+      transform: translate3d(0,300%,0) rotate(-10deg);
+    }
+
+    to {
+      opacity: 1;
+      transform: translate3d(0,0,0) rotate(-10deg)
+    }
+  }
 
   .fadeInUp {
     animation-name: fadeInUp;
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+  }
+  .fadeInupRotate {
+    animation-name: fadeInupRotate;
     animation-duration: 0.5s;
     animation-fill-mode: both;
   }
@@ -63,7 +79,6 @@ export default {
       font-size: 18px;
       letter-spacing: -1px;
       line-height: 24px;
-      font-weight: 500;
       text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
     }
     .txt-about2 {
@@ -71,7 +86,7 @@ export default {
       line-height: 30px;
       letter-spacing: -1.2px;
       font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
-      font-weight: 600;
+      font-weight: 500;
       display: block;
       animation-delay: 500ms;
     }
@@ -79,7 +94,6 @@ export default {
       font-size: 14px;
       line-height: 24px;
       letter-spacing: -0.8px;
-      font-weight: 500;
       text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
       animation-delay: 1000ms;
     }

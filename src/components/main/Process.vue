@@ -63,9 +63,11 @@ export default {
     padding: 31px 20px 6px 20px
   }
   .line {
-    position: absolute;
-    width: calc(100% - 20px);
+
+    /*width: calc(100% - 20px);*/
+    width: 100%;
     margin-top: 6px;
+    border-width: 2px;
   }
   .step1,
   .step2,
