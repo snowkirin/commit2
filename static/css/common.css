@@ -160,23 +160,34 @@ input:-webkit-autofill:focus {
   transform: rotate(3deg) translate(0px, -4px); }
 
 /* Remove these to get rid of the spinner */
-#nprogress .spinner {
-  display: block;
+#nprogress .spinner::before {
+  content: "";
+  z-index: 1;
   position: fixed;
-  z-index: 1031;
-  top: 15px;
-  right: 15px; }
-
-#nprogress .spinner-icon {
-  width: 18px;
-  height: 18px;
-  box-sizing: border-box;
-  border: solid 2px transparent;
-  border-top-color: #333;
-  border-left-color: #333;
-  border-radius: 50%;
-  -webkit-animation: nprogress-spinner 400ms linear infinite;
-  animation: nprogress-spinner 400ms linear infinite; }
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0; }
+#nprogress .spinner::after {
+  z-index: 2;
+  content: "";
+  height: 24px;
+  width: 24px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -15px 0 0 -15px;
+  transition: all .75s ease 0s;
+  border-radius: 100%;
+  border-right: 4px solid #111;
+  border-top: 4px solid #ddd;
+  border-left: 4px solid #ddd;
+  border-bottom: 4px solid #ddd;
+  -webkit-animation: nprogress-spinner .45s infinite linear;
+  animation: nprogress-spinner .45s infinite linear;
+  -webkit-transform-origin: center;
+  transform-origin: center;
+  opacity: 1; }
 
 .nprogress-custom-parent {
   overflow: hidden;

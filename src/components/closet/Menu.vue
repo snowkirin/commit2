@@ -54,14 +54,14 @@ export default {
         //   text: '스타일정보',
         //   path: '/closet/style',
         // },
-        {
-          text: '나의정보관리',
-          path: '/closet/security',
-        },
-        {
-          text: '쿠폰',
-          path: '/closet/coupon',
-        },
+        // {
+        //   text: '나의정보관리',
+        //   path: '/closet/security',
+        // },
+        // {
+        //   text: '쿠폰',
+        //   path: '/closet/coupon',
+        // },
         {
           text: '문의내역',
           path: '/closet/cs',

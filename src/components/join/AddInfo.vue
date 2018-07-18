@@ -6,7 +6,7 @@
           {{ '김용주'}}님 <br/>
           가입을 환영합니다.
         </p>
-        <p class="txt-addinfo">고객님에 대해 조금 더 자세히 알려주시면 <br v-if="mq !== 'sm'">더 어울리는 아이템을 보내드릴 수 있습니다.</p>
+        <p class="txt-addinfo">고객님에 대해 조금 더 자세히 알려주시면 <br v-if="$mq !== 'sm'">더 어울리는 아이템을 보내드릴 수 있습니다.</p>
       </div>
       <div class="contents">
         <!-- Color & Pattern -->
@@ -56,6 +56,7 @@
               :class="dressCodeName(data.name)"
               @click="clickDressCode(data, $event)"
               :key="idx">
+              <img :src="dressCodeImage(data.name)"/>
               <span class="text">{{ data.name }}</span>
             </li>
           </ul>
@@ -200,8 +201,8 @@ export default {
       let eleTarget = null;
       if (event.target.nodeName === 'SPAN') {
         eleTarget = event.target.parentElement;
-      } else if (event.target.nodeName === 'LI') {
-        eleTarget = event.target;
+      } else if (event.target.nodeName === 'IMG') {
+        eleTarget = event.target.parentElement;
       }
       _.forEach($parent.querySelectorAll('li'), function(value) {
         value.classList.remove('selected');
@@ -254,15 +255,30 @@ export default {
       }
     },
     dressCodeName(data) {
+      let codeName = '';
       if (data === '캐주얼') {
-        return 'casual';
+        codeName = 'casual';
       } else if (data === '캐주얼 정장') {
-        return 'casual-suit';
+        codeName = 'casual-suit';
       } else if (data === '세미 정장') {
-        return 'semi-suit';
+        codeName = 'semi-suit';
       } else if (data === '정장') {
-        return 'suit';
+        codeName = 'suit';
       }
+      return codeName;
+    },
+    dressCodeImage(data) {
+      let imageUrl = '';
+      if (data === '캐주얼') {
+        imageUrl = '/static/img/signup/img_clothes_1.jpg';
+      } else if (data === '캐주얼 정장') {
+        imageUrl = '/static/img/signup/img_clothes_2.jpg';
+      } else if (data === '세미 정장') {
+        imageUrl = '/static/img/signup/img_clothes_3.jpg';
+      } else if (data === '정장') {
+        imageUrl = '/static/img/signup/img_clothes_4.jpg';
+      }
+      return imageUrl;
     },
   },
   created() {
@@ -394,7 +410,7 @@ export default {
           display: inline-block;
           /*width: 163px;*/
           width: calc((100% / 2) - 8px);
-          height: 245px;
+          /*height: 245px;*/
           margin-left: 8px;
           margin-top: 10px;
           cursor: pointer;
@@ -419,6 +435,9 @@ export default {
             color: #bbb;
             text-align: center;
           }
+          img {
+            width: 100%;
+          }
           &.selected {
             outline: 2px solid #333;
             outline-offset: -2px;
@@ -429,18 +448,18 @@ export default {
             }
           }
         }
-        .casual {
-          background-image: url(/static/img/signup/img_clothes_1.jpg);
-        }
-        .casual-suit {
-          background-image: url(/static/img/signup/img_clothes_2.jpg);
-        }
-        .semi-suit {
-          background-image: url(/static/img/signup/img_clothes_3.jpg);
-        }
-        .suit {
-          background-image: url(/static/img/signup/img_clothes_4.jpg);
-        }
+        /*.casual {*/
+          /*background-image: url(/static/img/signup/img_clothes_1.jpg);*/
+        /*}*/
+        /*.casual-suit {*/
+          /*background-image: url(/static/img/signup/img_clothes_2.jpg);*/
+        /*}*/
+        /*.semi-suit {*/
+          /*background-image: url(/static/img/signup/img_clothes_3.jpg);*/
+        /*}*/
+        /*.suit {*/
+          /*background-image: url(/static/img/signup/img_clothes_4.jpg);*/
+        /*}*/
       }
       .image-upload {
         font-size: 0;

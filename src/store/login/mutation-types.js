@@ -4,7 +4,7 @@ const LOGIN_ERROR = 'LOGIN_ERROR';
 const LOGOUT = 'LOGOUT';
 const SET_CODE = 'SET_CODE';
 const FEEDBACK_DIRECT = 'FEEDBACK_DIRECT';
-
+const TOMORROW_DIRECT = 'TOMORROW_DIRECT';
 export default {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
@@ -12,4 +12,5 @@ export default {
   LOGOUT,
   SET_CODE,
   FEEDBACK_DIRECT,
+  TOMORROW_DIRECT,
 };

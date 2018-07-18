@@ -26,7 +26,7 @@
               </li>
             </ul>
             <div class="style-tip">
-              <p class="title">스타일 팁</p>
+              <p class="title">ZULY Comment</p>
               <p class="explain">
                 <!--심플하지만 갖춰입은듯 스타일리쉬 한 룩!
                 - 허리에서 포켓까지 이어진 바이올렛톤의 새틴 배색이 포인트인 팬츠로, 이러한 디자인의 특징을 살려서 블라우스를 입을때 앞면을 살짝..-->

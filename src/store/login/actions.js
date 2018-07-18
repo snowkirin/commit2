@@ -50,10 +50,31 @@ const doFeedbackDirect = async ({ commit }, data) => {
 }
 
 
+const doTomorrowDirect = async ({ commit }, data) => {
+  try {
+    const result = await Auth.getTomorrowDirect(data);
+    if (result.data.result){
+      commit(types.TOMORROW_DIRECT, result.data);
+      return result;
+    } else {
+      alert('잘못된 주소로 접속하셨습니다.');
+      return {
+        data: {
+          result: false,
+        }
+      }
+    }
+  } catch(err) {
+    console.error(err);
+  }
+}
+
+
 export default {
   doLogin,
   doLogout,
   doCheckEmail,
   loginStatusCheck,
   doFeedbackDirect,
+  doTomorrowDirect,
 };
