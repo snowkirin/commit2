@@ -85,7 +85,7 @@ export default {
   },
   methods: {
     clickMenu(idx) {
-      this.$refs.mySwiper.swiper.slideTo(idx -2, 400);
+      this.$refs.mySwiper.swiper.slideTo(idx - 2, 400);
     },
   },
   mounted() {
