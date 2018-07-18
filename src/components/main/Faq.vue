@@ -266,6 +266,7 @@ export default {
         .explain {
           line-height: 23px;
           color: #333;
+          font-size: 15px;
         }
       }
     }
