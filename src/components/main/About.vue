@@ -76,9 +76,9 @@ export default {
     text-align: center;
     color: #fff;
     .txt-about1 {
-      font-size: 18px;
+      font-size: 19px;
       letter-spacing: -1px;
-      line-height: 24px;
+      line-height: 25px;
       text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
     }
     .txt-about2 {
@@ -91,8 +91,8 @@ export default {
       animation-delay: 500ms;
     }
     .txt-about3 {
-      font-size: 14px;
-      line-height: 24px;
+      font-size: 15px;
+      line-height: 25px;
       letter-spacing: -0.8px;
       text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
       animation-delay: 1000ms;
