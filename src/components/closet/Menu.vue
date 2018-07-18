@@ -1,9 +1,19 @@
 <template>
   <div class="c-menu">
-    <swiper :options="swiperOption" ref="mySwiper">
+    <div v-show="$mq !== 'sm'" class="menu-container">
+      <template v-for="(data, idx) in routerJSON">
+        <router-link
+          :to="data.path"
+          class="closet-link"
+          active-class="active">
+          {{ data.text }}
+        </router-link>
+      </template>
+    </div>
+    <swiper :options="swiperOption" ref="mySwiper" v-show="$mq === 'sm'">
       <swiper-slide
         v-for="(data, idx) in routerJSON"
-        :key="idx" @click.native="clickMenu(idx)">
+        :key="idx" @click="clickMenu(idx)">
         <router-link
           :to="data.path"
           class="closet-link"
@@ -205,6 +215,8 @@ export default {
         padding-bottom: 19px;
         padding-left: 1px;
         padding-right: 1px;
+        display: inline-block;
+        margin-right: 27px;
         &.active {
           letter-spacing: -1.2px;
           &::after {
@@ -217,7 +229,7 @@ export default {
           }
         }
       }
-      .swiper-container {
+      .menu-container {
         border-top: 1px solid #f3f3f3;
       }
       .swiper-slide {
