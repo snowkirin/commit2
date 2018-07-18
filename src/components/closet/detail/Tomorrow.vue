@@ -344,7 +344,7 @@ export default {
           body.scrollTop = positionTop;
           html.scrollTop = positionTop;
 
-          this.$common.viewAlertModal('<b class="en-font">A.Setted Look</b> 배송됩니다.', this.$refs, 'alert');
+          this.$common.viewAlertModal('<b class="en-font">TYPE A</b> 배송됩니다.', this.$refs, 'alert');
           this.codiSelected.first = true;
           this.codiSelected.second = false;
 
@@ -356,7 +356,7 @@ export default {
           body.scrollTop = positionTop;
           html.scrollTop = positionTop;
 
-          this.$common.viewAlertModal('<b class="en-font">B.Item Codi</b> 배송됩니다.', this.$refs, 'alert');
+          this.$common.viewAlertModal('<b class="en-font">TYPE B</b> 배송됩니다.', this.$refs, 'alert');
           this.codiSelected.first = false;
           this.codiSelected.second = true;
         }
@@ -405,7 +405,11 @@ export default {
       this.memberId = this.tomorrowDirect.info.member_id;
       this.$store.state.login.Authentication.userName = this.tomorrowDirect.info.name;
     }
-    console.log(this.tomorrowDirect);
+    if (this.tomorrowData.products[0].selected) {
+      this.codiSelected.first = true;
+    } else if (this.tomorrowData.products[2].selected) {
+      this.codiSelected.second = true;
+    }
     this.isShowFlag(this.tomorrowData);
     this.products = this.tomorrowData.products;
 

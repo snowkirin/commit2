@@ -83,7 +83,7 @@
                   class="form-input"
                   v-model="sizeData.bustSize"
                   name="chest"
-                  v-validate="'required'"
+                  v-validate="{ required: true, regex: /([0-9]{2,3})([a-fA-F]{1})$/ }"
                   placeholder="예) 80A">
               </div>
               <p

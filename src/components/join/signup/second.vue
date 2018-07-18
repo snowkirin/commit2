@@ -118,6 +118,7 @@
                   class="form-input"
                   placeholder="비밀번호"
                   v-model="joinSecond.cardPassword"
+                  maxlength="2"
                   v-validate="'required'"
                   style="width: 106px;"
                   name="cardPwd">
