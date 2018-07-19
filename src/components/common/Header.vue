@@ -101,8 +101,8 @@ export default {
     padding: 17px 20px 20px 20px;
     .logo {
       float: left;
-      width: 64px;
-      height: 19px;
+      width: 66px;
+      height: 21px;
       img {
         width: 100%;
         height: 100%;
@@ -114,7 +114,7 @@ export default {
       font-size: 0;
       li {
         display: inline-block;
-        font-size: 15px;
+        font-size: 16px;
         letter-spacing: -1px;
         margin-right: 20px;
         position: relative;

@@ -187,9 +187,10 @@ export default {
       }
     }
     .none {
-      margin-top: 20px;
-      text-align: center;
-      font-size: 24px;
+      margin-top: 30px;
+      font-size: 15px;
+      color: #797979;
+      letter-spacing: -1px;
     }
   }
 
@@ -230,8 +231,7 @@ export default {
         }
       }
       .none {
-        margin-top: 30px;
-        font-size: 34px;
+        font-size: 16px;
       }
     }
     .line {

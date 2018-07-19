@@ -1,7 +1,6 @@
 'use strict'
 // see http://vuejs-templates.github.io/webpack for documentation.
 const path = require('path');
-console.log(path);
 module.exports = {
   build: {
     env: require('./prod.env'),
