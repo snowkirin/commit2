@@ -6,7 +6,7 @@
     <div class="line line__default"></div>
 
     <div
-      v-if="!noticeList.length > 0">
+      v-if="noticeList.length > 0">
       <table class="table table-notice">
         <colgroup>
           <col :width="$mq !== 'sm'? 82 : 30">
