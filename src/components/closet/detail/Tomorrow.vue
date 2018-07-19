@@ -2,7 +2,7 @@
   <div class="tomorrow" :style="(!isShow)? 'padding-top:31px': 'padding-top: 32px'">
     <div v-if="!isShow">
       <div class="none">
-        <div class="inner">
+        <div class="inner txt-centering">
           <p>
             조금만 기다리세요<br/>
             곧 옷장이 채워집니다.
@@ -53,7 +53,7 @@
             <div class="line line__dashed"></div>
             <p class="txt-hashtag" v-html="$common.htmlEnterLine(printStyleFirst.hashTag)"></p>
           </div>
-          <div class="btn-select" v-if="$mq !== 'sm'">
+          <div class="btn-select" v-if="$mq !== 'sm' && selectButtonShow">
             <button
               @click="selectStyle(printStyleFirst, 'first')"
               class="btn btn-primary"
@@ -105,7 +105,7 @@
             <div class="line line__dashed"></div>
             <p class="txt-hashtag" v-html="$common.htmlEnterLine(printStyleSecond.hashTag)"></p>
           </div>
-          <div class="btn-select" v-if="$mq !== 'sm'">
+          <div class="btn-select" v-if="$mq !== 'sm' && selectButtonShow">
             <button
               @click="selectStyle(printStyleSecond, 'second')"
               class="btn btn-primary"
@@ -126,7 +126,7 @@
       </div>
     </div>
     <div
-      v-if="($mq === 'sm' && isShow)"
+      v-if="($mq === 'sm' && isShow && selectButtonShow)"
       class="btn-selected">
       <button
         type="button"
@@ -182,6 +182,7 @@ export default {
         second: false,
       },
       detailModalShow: false,
+      selectButtonShow: true,
       detailModalData: {},
       products: [],
     };
@@ -322,43 +323,35 @@ export default {
     },
     async selectStyle(style, type) {
       if (this.tomorrowData) {
+        let checkSuccess = '';
         if (this.connectType === 'direct') {
           // 직접접속했을경우
           await this.setTomorrowSelectDirect({
             subscriptionId: this.tomorrowData.subscription_id,
             products: [...this.parseIntProduct(...style.productId)],
             memberId: this.memberId,
+          }).then((res) => {
+            checkSuccess = res.data.result;
           });
         } else {
           // 아닐경우
           await this.setTomorrowSelect({
             subscriptionId: this.tomorrowData.subscription_id,
             products: [...this.parseIntProduct(...style.productId)],
+          }).then((res) => {
+            checkSuccess = res.data.result;
           });
         }
-        if (type === 'first') {
-          const positionTop = this.$refs.codiFirst.offsetTop;
-
-          const body = document.body; // safari
-          const html = document.documentElement;
-          body.scrollTop = positionTop;
-          html.scrollTop = positionTop;
-
-          this.$common.viewAlertModal('<b class="en-font">TYPE A</b> 배송됩니다.', this.$refs, 'alert');
-          this.codiSelected.first = true;
-          this.codiSelected.second = false;
-
-        } else {
-          const positionTop = this.$refs.codiSecond.offsetTop;
-
-          const body = document.body; // safari
-          const html = document.documentElement;
-          body.scrollTop = positionTop;
-          html.scrollTop = positionTop;
-
-          this.$common.viewAlertModal('<b class="en-font">TYPE B</b> 배송됩니다.', this.$refs, 'alert');
-          this.codiSelected.first = false;
-          this.codiSelected.second = true;
+        if (checkSuccess) {
+          if (type === 'first') {
+            this.$common.viewAlertModal('<b class="en-font">TYPE A</b> 배송됩니다.', this.$refs, 'alert');
+            this.codiSelected.first = true;
+            this.codiSelected.second = false;
+          } else {
+            this.$common.viewAlertModal('<b class="en-font">TYPE B</b> 배송됩니다.', this.$refs, 'alert');
+            this.codiSelected.first = false;
+            this.codiSelected.second = true;
+          }
         }
       }
     },
@@ -412,7 +405,12 @@ export default {
     }
     this.isShowFlag(this.tomorrowData);
     this.products = this.tomorrowData.products;
-
+    if (this.tomorrowData.subscription_status === 14404) {
+      // 보이면 안된다.
+      this.selectButtonShow = false;
+    } else {
+      this.selectButtonShow = true;
+    }
   },
   mounted() {
   },
@@ -430,23 +428,21 @@ export default {
   .none {
     height: 500px;
     background: url(/static/img/closet/img_none.png) no-repeat 50% 0;
-    display: flex;
-    justify-content: center;
+    position: relative;
     .inner {
-      margin: auto;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
       height: 160px;
       background-color: #fafafa;
-      display: table;
       width: 90%;
     }
     p {
-      height: 100%;
-      vertical-align: middle;
-      display: table-cell;
       text-align: center;
-      font-size: 20px;
+      font-size: 18px;
       line-height: 28px;
-      letter-spacing: -1px;
+      letter-spacing: -1.2px;
     }
   }
 

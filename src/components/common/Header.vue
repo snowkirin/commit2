@@ -73,8 +73,7 @@ export default {
       this.$router.push({ path: '/login' });
     },
     checkMain() {
-      console.log(this.$route);
-      if (this.$route.name === 'IndexMain' || this.$route.name === 'Login' || this.$route.name === 'Find' || this.$route.path.indexOf('/join') !== -1) {
+      if (this.$route.name === 'IndexMain' || this.$route.name === 'Login' || this.$route.path.indexOf('/find') !== -1 || this.$route.path.indexOf('/join') !== -1) {
         if (this.Authentication.authenticated) {
           this.menu.login = false;
           this.menu.closet = true;
@@ -89,7 +88,6 @@ export default {
     },
   },
   created() {
-    console.log(this.$route);
     this.headerMediaQueries();
     this.checkMain();
   },

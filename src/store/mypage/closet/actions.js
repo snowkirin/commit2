@@ -14,14 +14,17 @@ const setTomorrowCloset = async ({ commit }) => {
 };
 
 const setTomorrowSelect = async ({ commit }, data) => {
-
   try {
     const result = await Closet.mypageTomorrowSelect({
       ...data,
     });
-    console.log(result);
-    if (result.data.result) commit(types.SET_TOMORROW_SELECT);
-    else alert('시스템에 문제가 발생했습니다.\n잠시 후 다시 시도해주세요.');
+    if (result.data.result) {
+      commit(types.SET_TOMORROW_SELECT);
+      return result;
+    } else {
+      alert('시스템에 문제가 발생했습니다.\n잠시 후 다시 시도해주세요.');
+      return result;
+    }
   } catch (e) {
     console.error(e.message);
   }
@@ -33,9 +36,13 @@ const setTomorrowSelectDirect = async ({ commit }, data) => {
     const result = await Closet.mypageTomorrowSelectDirect({
       ...data,
     });
-    console.log(result);
-    if (result.data.result) commit(types.SET_TOMORROW_SELECT);
-    else alert('시스템에 문제가 발생했습니다.\n잠시 후 다시 시도해주세요.');
+    if (result.data.result) {
+      commit(types.SET_TOMORROW_SELECT);
+      return result;
+    } else {
+      alert('시스템에 문제가 발생했습니다.\n잠시 후 다시 시도해주세요.');
+      return result;
+    }
   } catch (e) {
     console.error(e.message);
   }
