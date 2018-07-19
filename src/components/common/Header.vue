@@ -100,7 +100,7 @@ export default {
     .logo {
       float: left;
       width: 66px;
-      height: 21px;
+      height: 20px;
       img {
         width: 100%;
         height: 100%;
