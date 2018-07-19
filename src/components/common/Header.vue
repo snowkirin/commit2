@@ -5,14 +5,14 @@
     </router-link>
     <nav class="global-navigation">
       <ul>
-        <li>
+        <li v-if="menu.closet">
           <router-link
             to="/closet/tomorrow"
             class="menu-title">
             나만의 옷장
           </router-link>
         </li>
-        <li>
+        <li v-if="menu.login">
           <router-link
             v-if="!Authentication.authenticated"
             to="/login">
@@ -40,6 +40,10 @@ export default {
       headerLine: false,
       gnbToggle: false,
       isClose: false,
+      menu: {
+        closet: false,
+        login: false,
+      },
     };
   },
   props: {
@@ -48,8 +52,9 @@ export default {
     },
   },
   watch: {
-    $rotue(to, from) {
+    '$route' (to, from) {
       this.headerMediaQueries();
+      this.checkMain();
     },
   },
   computed: mapGetters({
@@ -67,9 +72,26 @@ export default {
       document.cookie = `${process.env.TOKEN_NAME}=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=${process.env.HOST}`;
       this.$router.push({ path: '/login' });
     },
+    checkMain() {
+      console.log(this.$route);
+      if (this.$route.name === 'IndexMain' || this.$route.name === 'Login' || this.$route.name === 'Find' || this.$route.path.indexOf('/join') !== -1) {
+        if (this.Authentication.authenticated) {
+          this.menu.login = false;
+          this.menu.closet = true;
+        } else {
+          this.menu.login = true;
+          this.menu.closet = false;
+        }
+      } else {
+        this.menu.closet = true;
+        this.menu.login = true;
+      }
+    },
   },
   created() {
+    console.log(this.$route);
     this.headerMediaQueries();
+    this.checkMain();
   },
 };
 </script>

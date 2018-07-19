@@ -2,7 +2,7 @@
   <div class="container">
     <div class="bounceInLeft">
       <p class="txt-about1 fadeInUp">놀라운 편리함, 포기 할 수 없는 아름다움</p>
-      <span class="txt-about2 fadeInupRotate">\</span>
+      <span class="txt-about2 fadeInupRotate" v-if="$mq !== 'sm'">\</span>
       <p class="txt-about3 fadeInUp">데일리룩 구독 서비스 줄라이</p>
       <!--<p class="txt-main-point" data-color="white">About</p>-->
       <!--<p class="txt-about">-->
@@ -76,9 +76,9 @@ export default {
     text-align: center;
     color: #fff;
     .txt-about1 {
-      font-size: 19px;
+      font-size: 18px;
       letter-spacing: -1.2px;
-      line-height: 25px;
+      line-height: 30px;
       text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
     }
     .txt-about2 {
@@ -91,15 +91,15 @@ export default {
       animation-delay: 500ms;
     }
     .txt-about3 {
-      font-size: 15px;
+      font-size: 18px;
       line-height: 25px;
       letter-spacing: -0.8px;
       text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-      animation-delay: 1000ms;
+      animation-delay: 500ms;
     }
   }
 
-  @media (min-width: 767px) {
+  @media (min-width: 768px) {
     .container {
       background: {
         image: url('/static/img/main/img_about_large.png');
@@ -122,9 +122,10 @@ export default {
         line-height: 1;
       }
       .txt-about3 {
-        font-size: 22px;
+        font-size: 24px;
         line-height: 1;
         letter-spacing: -0.9px;
+        animation-delay: 1000ms;
       }
     }
 
