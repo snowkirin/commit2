@@ -186,7 +186,7 @@ export default {
     position: absolute;
   }
 }
-  @media (min-width: 767px) {
+  @media (min-width: 768px) {
     .footer {
       width: 1200px;
       margin: 0 auto;

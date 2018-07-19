@@ -201,7 +201,7 @@ export default {
     }
   }
 
-  @media (min-width: 767px) {
+  @media (min-width: 768px) {
     .container {
       width: 390px;
       margin: 0 auto;

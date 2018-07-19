@@ -48,8 +48,8 @@
         </tbody>
       </table>
     </div>
-    <div v-else>
-      <p>등록된 내용이 없습니다.</p>
+    <div v-else class="none">
+      <p>공지사항이 없습니다.</p>
     </div>
 
     <!--<div class="closet-content mt30">-->
@@ -179,11 +179,17 @@ export default {
           td {
             padding: 10px;
             background-color: #f5f5f5;
-            font-size: 14px;
+            font-size: 13px;
             letter-spacing: -0.6px;
+            line-height: 19px;
           }
         }
       }
+    }
+    .none {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 24px;
     }
   }
 
@@ -216,16 +222,22 @@ export default {
             td {
               padding: 25px 30px;
               background-color: #f5f5f5;
-              font-size: 15px;
+              font-size: 14px;
               letter-spacing: -0.6px;
+              line-height: 21px;
             }
           }
         }
+      }
+      .none {
+        margin-top: 30px;
+        font-size: 34px;
       }
     }
     .line {
       border-width: 2px;
     }
+
 
   }
 </style>

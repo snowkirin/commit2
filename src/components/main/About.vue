@@ -2,14 +2,7 @@
   <div class="container">
     <div class="bounceInLeft">
       <p class="txt-about1 fadeInUp">놀라운 편리함, 포기 할 수 없는 아름다움</p>
-      <span class="txt-about2 fadeInupRotate">\</span>
       <p class="txt-about3 fadeInUp">데일리룩 구독 서비스 줄라이</p>
-      <!--<p class="txt-main-point" data-color="white">About</p>-->
-      <!--<p class="txt-about">-->
-        <!--놀라운 편리함,<br v-if="$mq === 'sm'"/>-->
-        <!--포기 할 수 없는 아름다움<br/>-->
-        <!--데일리룩 구독 서비스 줄라이-->
-      <!--</p>-->
     </div>
   </div>
 
@@ -43,12 +36,12 @@ export default {
   @keyframes fadeInupRotate {
     0% {
       opacity: 0;
-      transform: translate3d(0,300%,0) rotate(-10deg);
+      transform: translate3d(0,300%,0) rotate(-15deg);
     }
 
     to {
       opacity: 1;
-      transform: translate3d(0,0,0) rotate(-10deg)
+      transform: translate3d(0,0,0) rotate(-15deg)
     }
   }
 
@@ -76,22 +69,13 @@ export default {
     text-align: center;
     color: #fff;
     .txt-about1 {
-      font-size: 19px;
+      font-size: 18px;
       letter-spacing: -1.2px;
-      line-height: 25px;
+      line-height: 30px;
       text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
     }
-    .txt-about2 {
-      font-size: 20px;
-      line-height: 30px;
-      letter-spacing: -1.2px;
-      font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
-      font-weight: 500;
-      display: block;
-      animation-delay: 500ms;
-    }
     .txt-about3 {
-      font-size: 15px;
+      font-size: 18px;
       line-height: 25px;
       letter-spacing: -0.8px;
       text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
@@ -99,7 +83,7 @@ export default {
     }
   }
 
-  @media (min-width: 767px) {
+  @media (min-width: 768px) {
     .container {
       background: {
         image: url('/static/img/main/img_about_large.png');
@@ -110,19 +94,14 @@ export default {
       margin: 0 auto;
 
       .txt-about1 {
-        font-size: 36px;
+        font-size: 34px;
         line-height: 1;
         letter-spacing: -1.4px;
+        margin-bottom: 31px;
 
       }
-      .txt-about2 {
-        margin-top: 20px;
-        margin-bottom: 27px;
-        font-size: 35px;
-        line-height: 1;
-      }
       .txt-about3 {
-        font-size: 22px;
+        font-size: 24px;
         line-height: 1;
         letter-spacing: -0.9px;
       }

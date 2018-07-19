@@ -62,11 +62,11 @@ const router = new Router({
       },
       children: [
         { path: '/', name: 'IndexMain', component: Main, meta: { title: 'ZULY' } },
-        { path: '/login', component: Login },
-        { path: '/find/id', component: FindId },
-        { path: '/find/id/complete', component: Success },
-        { path: '/find/password', component: FindPwd },
-        { path: '/find/password/complete', component: PwdSuccess },
+        { path: '/login', name: 'Login', component: Login },
+        { path: '/find/id', name: 'Find', component: FindId },
+        { path: '/find/id/complete', name: 'Find', component: Success },
+        { path: '/find/password', name: 'Find', component: FindPwd },
+        { path: '/find/password/complete', name: 'Find', component: PwdSuccess },
         {
           path: '/join',
           name: 'Join',

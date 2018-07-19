@@ -3,6 +3,7 @@
     <div class="container-inner clearfix">
       <div class="container-header">
         <p class="title-addinfo">
+          {{ Authentication.userName }}님 <br/>
           가입을 환영합니다.
         </p>
         <p class="txt-addinfo">고객님에 대해 조금 더 자세히 알려주시면 <br v-if="$mq !== 'sm'">더 어울리는 아이템을 보내드릴 수 있습니다.</p>
@@ -103,14 +104,16 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import Codes from '@/library/api/codes';
 
 export default {
   name: 'addinfo',
   components: {
   },
-  computed: {
-  },
+  computed: mapGetters({
+    Authentication: 'login/Authentication',
+  }),
   data() {
     return {
       addInfoData: {
@@ -447,18 +450,6 @@ export default {
             }
           }
         }
-        /*.casual {*/
-          /*background-image: url(/static/img/signup/img_clothes_1.jpg);*/
-        /*}*/
-        /*.casual-suit {*/
-          /*background-image: url(/static/img/signup/img_clothes_2.jpg);*/
-        /*}*/
-        /*.semi-suit {*/
-          /*background-image: url(/static/img/signup/img_clothes_3.jpg);*/
-        /*}*/
-        /*.suit {*/
-          /*background-image: url(/static/img/signup/img_clothes_4.jpg);*/
-        /*}*/
       }
       .image-upload {
         font-size: 0;
