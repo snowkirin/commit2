@@ -78,11 +78,72 @@
           </div>
         </div>
         <!--카드번호-->
-        <div class="card row">
+
+        <div class="payment-info">
           <p class="txt-point">카드 결제 정보</p>
-          <div class="form-group" data-grid="7:3">
-            <input type="number" name="" id="" class="form-input" placeholder="카드번호">
-            <button type="button" class="btn btn-secondary">카드 변경</button>
+          <div class="form-row">
+            <div class="form-card">
+              <input
+                autocomplete="cc-exp"
+                type="number"
+                class="form-input"
+                placeholder="카드 번호 (-없이 16자리 입력)"
+                maxlength="16"
+                @keydown="$common.NumberValidateEvt"
+                v-validate="'required'"
+                name="cardNumber"
+              >
+              <input
+                autocomplete="cc-exp"
+                type="text"
+                class="form-input"
+                placeholder="MMYY"
+                v-validate="'required'"
+                @keyup="checkCardExpiry"
+                name="cardExpiry"
+              >
+            </div>
+            <p
+              class="txt-error"
+              v-show="(errors.has('cardNumber') || errors.has('cardExpiry'))">
+              카드번호 & 유효기간을 입력해주세요.
+            </p>
+            <p
+              class="txt-error"
+              v-show="cardVerify">
+              {{ cardVerifyMsg }}
+            </p>
+          </div>
+          <div class="form-row">
+            <div>
+              <input
+                type="text"
+                class="form-input"
+                name="birthDay"
+                placeholder="생년월일(YYMMDD)"
+                v-validate="'required'"
+                @keyup="checkBirthExpiry">
+            </div>
+            <p class="txt-error" v-show="errors.has('birthDay')">생년월일을 입력해주세요.</p>
+            <p class="txt-error" v-show="birthVerify">{{ birthVerifyMsg }}</p>
+          </div>
+          <div class="form-row">
+            <div>
+              <input
+                type="password"
+                class="form-input"
+                placeholder="비밀번호"
+                maxlength="2"
+                v-validate="'required'"
+                style="width: 106px;"
+                name="cardPwd">
+              <div class="last-two-digits">
+                <span>닷</span>
+                <span>닷</span>
+              </div>
+              <button type="button" class="btn btn-secondary">카드 변경</button>
+            </div>
+            <p class="txt-error" v-show="errors.has('cardPwd')">카드비밀번호 앞 2자리를 입력해주세요.</p>
           </div>
         </div>
         <!--<div class="name row">
@@ -678,7 +739,6 @@ export default {
     line-height: 18px;
     height: 50px;
   }
-
   .mypage {
     padding: {
       top: 24px;
@@ -714,7 +774,6 @@ export default {
       color: #797979;
     }
   }
-
   .password,
   .address {
     .form-group {
@@ -724,7 +783,6 @@ export default {
       }
     }
   }
-
   .delivery-date {
     ul {
       list-style: none;
@@ -770,6 +828,39 @@ export default {
   .btn-modify {
     button {
       width: 100%;
+    }
+  }
+
+
+  .payment-info {
+    .form-card {
+      display: flex;
+      input {
+        &:nth-child(1){
+          margin-right: 8px;
+        }
+        &:nth-child(2){
+          flex-grow: 0;
+          flex-shrink: 0;
+          flex-basis: 106px;
+        }
+      }
+    }
+    .last-two-digits {
+      display: inline-block;
+      font-size: 0;
+      margin-left: 4px;
+      span {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        background-color: #333;
+        border-radius: 50%;
+        overflow: hidden;
+        &:first-child {
+          margin-right: 10px;
+        }
+      }
     }
   }
 
