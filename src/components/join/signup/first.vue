@@ -201,6 +201,7 @@
                     v-if="errors.has('detail_address')">
                     상세주소가 입력되지 않았습니다.
                   </p>
+                  <p class="txt-delivery">※ 현재 서울, 경기도 분당, 하남 지역에 국한하여 서비스를 제공하고 있습니다.</p>
                 </div>
               </div>
             </div>
@@ -691,7 +692,13 @@ export default {
       }
     }
   }
-
+  .txt-delivery {
+    font-size: 14px;
+    letter-spacing: -0.6px;
+    line-height: 20px;
+    margin-top: 10px;
+    color: #797979;
+  }
   .txt-point {
     margin-bottom: 13px;
   }

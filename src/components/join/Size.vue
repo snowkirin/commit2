@@ -14,6 +14,7 @@
               <ul>
                 <li
                   v-for="(data, idx) in setSize.blouse"
+                  v-if="!(data.name === '44'|| data.name === '77')"
                   :key="idx"
                   @click="setData('blouseSize', data)"
                   :class="{selected: sizeData.blouseSize  === data.code}">
@@ -28,6 +29,7 @@
               <ul>
                 <li
                   v-for="(data, idx) in setSize.skirt"
+                  v-if="!(data.name === '44'|| data.name === '77')"
                   :key="idx"
                   :class="{selected: sizeData.skirtSize === data.code}"
                   @click="setData('skirtSize', data)">
@@ -42,6 +44,7 @@
               <ul>
                 <li
                   v-for="(data, idx) in setSize.pants"
+                  v-if="!(data.name === '25'|| data.name === '31')"
                   :key="idx"
                   :class="{selected: sizeData.pantsSize === data.code}"
                   @click="setData('pantsSize', data)">
