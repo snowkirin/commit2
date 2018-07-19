@@ -3,7 +3,89 @@
     <p class="txt-main-title">나의 정보를 변경 하실 수 있습니다.</p>
     <div class="contents" :class="{clearfix: $mq !== 'sm'}">
       <div class="content">
-        <div class="name row">
+        <div class="phone row">
+          <p class="txt-point">휴대폰 번호 변경</p>
+          <div>
+            <div class="form-group" data-grid="7:3" :class="{error: errors.has('phone')}">
+              <input
+                type="tel"
+                class="form-input"
+                v-validate="'required'"
+                name="phone"
+                maxlength="14"
+                placeholder="새로운 휴대전화번호">
+              <button
+                class="btn btn-secondary"
+                @click="phoneVerify"
+                type="button">인증</button>
+            </div>
+            <p
+              class="txt-error"
+              v-show="errors.has('phone')">
+              키를 입력해주세요.
+            </p>
+          </div>
+
+          <div>
+            <div class="form-group" data-grid="7:3" :class="{error : errors.has('phone_auth_number')}">
+              <input
+                type="tel-extension"
+                class="form-input"
+                name="phone_auth_number"
+                v-validate="'required'"
+                placeholder="인증번호">
+              <button
+                class="btn btn-secondary"
+                id="authKeyConfirm"
+                @click="authKeyConfirm"
+                type="button">확인</button>
+            </div>
+            <p
+              class="txt-error"
+              v-if="authErr">
+              {{ authErrMessage }}
+            </p>
+          </div>
+        </div>
+        <div class="password row">
+          <p class="txt-point">비밀번호 변경</p>
+          <div>
+            <div class="form-group" data-grid="7:3">
+              <input
+                placeholder="현재 비밀번호"
+                class="form-input"
+                type="password">
+            </div>
+          </div>
+          <div>
+            <div class="form-group" data-grid="7:3">
+              <input
+                placeholder="새로운 비밀번호"
+                class="form-input"
+                type="password">
+            </div>
+          </div>
+          <div class="form-group" data-grid="7:3">
+            <input
+              placeholder="새로운 비밀번호 확인"
+              class="form-input"
+              type="password">
+            <button
+              class="btn btn-secondary"
+              type="button">
+              비밀번호 변경
+            </button>
+          </div>
+        </div>
+        <!--카드번호-->
+        <div class="card row">
+          <p class="txt-point">카드 결제 정보</p>
+          <div class="form-group" data-grid="7:3">
+            <input type="number" name="" id="" class="form-input" placeholder="카드번호">
+            <button type="button" class="btn btn-secondary">카드 변경</button>
+          </div>
+        </div>
+        <!--<div class="name row">
           <p class="txt-point">이름</p>
           <p class="txt-name"></p>
         </div>
@@ -17,50 +99,7 @@
               이메일 변경
             </button>
           </div>
-        </div>
-        <div class="password row">
-          <p class="txt-point">비밀번호 변경</p>
-          <div class="form-group" data-grid="7:3">
-            <input
-              class="form-input"
-              type="password">
-          </div>
-          <div class="form-group" data-grid="7:3">
-            <input
-              class="form-input"
-              type="password">
-          </div>
-          <div class="form-group" data-grid="7:3">
-            <input
-              class="form-input"
-              type="password">
-            <button
-              class="btn btn-secondary"
-              type="button">
-              비밀번호 변경
-            </button>
-          </div>
-        </div>
-        <div class="phone row">
-          <p class="txt-point">휴대폰 번호 변경</p>
-          <div class="form-group" data-grid="7:3">
-            <input
-              type="tel"
-              class="form-input"
-              placeholder="휴대전화번호">
-            <button
-              class="btn btn-secondary"
-              type="button">휴대폰 번호<br v-show="$mq === 'sm'"/> 변경</button>
-          </div>
-        </div>
-        <!--카드번호-->
-        <div class="card row">
-          <p class="txt-point">카드 결제 정보</p>
-          <div class="form-group" data-grid="7:3">
-            <input type="number" name="" id="" class="form-input" placeholder="카드번호">
-            <button type="button" class="btn btn-secondary">카드 변경</button>
-          </div>
-        </div>
+        </div>-->
       </div>
       <div class="content">
         <!--주소-->
@@ -79,12 +118,13 @@
         <!--기념일-->
         <div class="anniversary row">
           <p class="txt-point">기념일</p>
-          <div class="form-group">
+          <div class="form-group" data-grid="7:3">
             <input type="date" class="form-input">
+            <button type="button" class="btn btn-secondary">변경</button>
           </div>
         </div>
         <!--배송일-->
-        <div class="delivery-date row">
+        <!--<div class="delivery-date row">
           <p class="txt-point">배송일 지정</p>
           <div>
             <ul>
@@ -95,17 +135,18 @@
               <li>금</li>
             </ul>
           </div>
-        </div>
+        </div>-->
         <!--현관 번호-->
         <div class="entrance-number row">
           <div>
             <p class="txt-point">공동 현관 번호</p>
             <p class="txt-entrance-number">(배송을 위해 공동현관 비밀번호 알려주세요)</p>
           </div>
-          <div>
+          <div class="form-group" data-grid="7:3">
             <input
               class="form-input"
               type="text">
+            <button type="button" class="btn btn-secondary">변경</button>
           </div>
         </div>
       </div>
@@ -366,29 +407,6 @@ export default {
       actPhoneVerify: 'mypage/phoneVerify',
       actPhoneCheckVerify: 'mypage/phoneCheckVerify',
     }),
-    selectDay(day) {
-      this.delivery_day = day;
-    },
-    viewModal(ref) {
-      this.$refs[ref].openModal();
-    },
-    closeModal(ref) {
-      this.$refs[ref].closeModal();
-    },
-    checkCardExpiry(evt) {
-      const cardReg = /^(0?[1-9]|1[0-2]|12)(1[9]|[2-9][0-9]|99)$/;
-      if (!cardReg.test(evt.target.value)) {
-        this.cardVerify = true;
-        this.cardVerifyMsg = '카드유효기간을 MMYY(월년) 형태로 입력해주세요. (ex: 0323)';
-      } else this.cardVerify = false;
-    },
-    checkBirthExpiry(evt) {
-      const birthReg = /^([0-9][0-9]|99)(0?[1-9]|1[0-2]|12)(0?[1-9]|[12][0-9]|3[01])$/;
-      if (!birthReg.test(evt.target.value)) {
-        this.birthVerify = true;
-        this.birthVerifyMsg = '생년월일을 YYMMDD(년월일) 형태로 입력해주세요. (ex: 851211)';
-      } else this.birthVerify = false;
-    },
     async phoneVerify() {
       const phone = document.querySelector('input[name=phone]');
 
@@ -398,16 +416,12 @@ export default {
             this.actPhoneVerify({
               phone: phone.value.split('-').join(''),
             });
-
             this.startTimer();
             this.authErr = true;
-
             return true;
           }
-
           alert('올바른 휴대폰번호를 입력해주세요.');
         }
-
         phone.focus();
         return false;
       });
@@ -440,7 +454,32 @@ export default {
 
       return true;
     },
-    displayEvt(id, buttonArea, beforeText) {
+
+    selectDay(day) {
+      this.delivery_day = day;
+    },
+    viewModal(ref) {
+      this.$refs[ref].openModal();
+    },
+    closeModal(ref) {
+      this.$refs[ref].closeModal();
+    },
+    checkCardExpiry(evt) {
+      const cardReg = /^(0?[1-9]|1[0-2]|12)(1[9]|[2-9][0-9]|99)$/;
+      if (!cardReg.test(evt.target.value)) {
+        this.cardVerify = true;
+        this.cardVerifyMsg = '카드유효기간을 MMYY(월년) 형태로 입력해주세요. (ex: 0323)';
+      } else this.cardVerify = false;
+    },
+    checkBirthExpiry(evt) {
+      const birthReg = /^([0-9][0-9]|99)(0?[1-9]|1[0-2]|12)(0?[1-9]|[12][0-9]|3[01])$/;
+      if (!birthReg.test(evt.target.value)) {
+        this.birthVerify = true;
+        this.birthVerifyMsg = '생년월일을 YYMMDD(년월일) 형태로 입력해주세요. (ex: 851211)';
+      } else this.birthVerify = false;
+    },
+
+    /*displayEvt(id, buttonArea, beforeText) {
       const target = document.getElementById(id);
       const textbtn = document.getElementById(buttonArea);
 
@@ -451,7 +490,7 @@ export default {
         target.style.display = 'block';
         textbtn.innerHTML = '변경 취소';
       }
-    },
+    },*/
     async actEmailChange() {
       const email = document.querySelector('input[name=changeEmail]');
 
