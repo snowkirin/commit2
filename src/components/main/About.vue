@@ -83,7 +83,7 @@ export default {
     }
   }
 
-  @media (min-width: 767px) {
+  @media (min-width: 768px) {
     .container {
       background: {
         image: url('/static/img/main/img_about_large.png');

@@ -489,7 +489,7 @@ export default {
       }
     }
   }
-  @media (min-width: 767px) {
+  @media (min-width: 768px) {
     .style-info {
       width: 1200px;
       padding: 20px 0;

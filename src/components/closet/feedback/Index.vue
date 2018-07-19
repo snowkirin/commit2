@@ -526,7 +526,7 @@ export default {
     }
   }
 
-  @media (min-width: 767px) {
+  @media (min-width: 768px) {
     .feedback {
       margin-left: 0;
       width: auto;

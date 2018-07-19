@@ -615,7 +615,7 @@ export default {
     }
   }
 
-  @media (min-width: 767px) {
+  @media (min-width: 768px) {
     .tomorrow {
       padding: 30px 0 20px;
       width: 1200px;

@@ -458,7 +458,7 @@ export default {
     }
   }
 
-  @media (min-width: 767px) {
+  @media (min-width: 768px) {
     .container {
       margin: 0 auto;
       padding: 0;

@@ -104,7 +104,7 @@ export default {
     }
   }
 
-  @media (min-width: 767px) {
+  @media (min-width: 768px) {
     .container {
       padding: 63px 0 65px;
       width: 1200px;

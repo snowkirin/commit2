@@ -6,7 +6,7 @@
     <div class="line line__default"></div>
 
     <div
-      v-if="noticeList.length > 0">
+      v-if="!noticeList.length > 0">
       <table class="table table-notice">
         <colgroup>
           <col :width="$mq !== 'sm'? 82 : 30">
@@ -48,8 +48,8 @@
         </tbody>
       </table>
     </div>
-    <div v-else>
-      <p>등록된 내용이 없는걸?</p>
+    <div v-else class="none">
+      <p>공지사항이 없습니다.</p>
     </div>
 
     <!--<div class="closet-content mt30">-->
@@ -186,6 +186,11 @@ export default {
         }
       }
     }
+    .none {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 24px;
+    }
   }
 
   @media (min-width: 768px) {
@@ -224,10 +229,15 @@ export default {
           }
         }
       }
+      .none {
+        margin-top: 30px;
+        font-size: 34px;
+      }
     }
     .line {
       border-width: 2px;
     }
+
 
   }
 </style>
