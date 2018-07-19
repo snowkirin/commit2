@@ -2,7 +2,7 @@
   <div class="tomorrow" :style="(!isShow)? 'padding-top:31px': 'padding-top: 32px'">
     <div v-if="!isShow">
       <div class="none">
-        <div class="inner">
+        <div class="inner txt-centering">
           <p>
             조금만 기다리세요<br/>
             곧 옷장이 채워집니다.
@@ -428,19 +428,17 @@ export default {
   .none {
     height: 500px;
     background: url(/static/img/closet/img_none.png) no-repeat 50% 0;
-    display: flex;
-    justify-content: center;
+    position: relative;
     .inner {
-      margin: auto;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
       height: 160px;
       background-color: #fafafa;
-      display: table;
       width: 90%;
     }
     p {
-      height: 100%;
-      vertical-align: middle;
-      display: table-cell;
       text-align: center;
       font-size: 18px;
       line-height: 28px;

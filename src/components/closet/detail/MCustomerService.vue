@@ -18,28 +18,34 @@
       data-value="write"
       v-show="showContent === 'write'">
       <form>
-        <div class="form-row">
-          <label class="select-label"></label>
-          <select class="custom-select" name="inquiries_type">
-            <option value="">문의종류를 선택해주세요.</option>
-            <option :value="$const.INQUIRIES_SUBSCRIBE">구독문의</option>
-            <option :value="$const.INQUIRIES_ORDER">주문문의</option>
-            <option :value="$const.INQUIRIES_DELIVERY">배송문의</option>
-            <option :value="$const.INQUIRIES_NORMAL">일반(기타)문의</option>
-          </select>
-        </div>
-        <div class="form-row">
-          <input type="text"
-                 name="subject"
-                 class="form-input"
-                 placeholder="제목을 입력해주세요."/>
-        </div>
-        <div class="form-row">
-          <textarea
-            name="content"
-            class="requirement-textarea"
-            placeholder="문의 내용을 입력해주세요.">
-          </textarea>
+        <div class="write-inner">
+          <div class="write-header">
+            <div class="form-row">
+            <label class="select-label"></label>
+            <select class="custom-select" name="inquiries_type">
+              <option value="">문의종류를 선택해주세요.</option>
+              <option :value="$const.INQUIRIES_SUBSCRIBE">구독문의</option>
+              <option :value="$const.INQUIRIES_ORDER">주문문의</option>
+              <option :value="$const.INQUIRIES_DELIVERY">배송문의</option>
+              <option :value="$const.INQUIRIES_NORMAL">일반(기타)문의</option>
+            </select>
+          </div>
+            <div class="form-row">
+            <input type="text"
+                   name="subject"
+                   class="form-input"
+                   placeholder="제목을 입력해주세요."/>
+          </div>
+          </div>
+          <div class="write-body">
+            <div class="form-row">
+            <textarea
+              name="content"
+              class="requirement-textarea"
+              placeholder="문의 내용을 입력해주세요.">
+            </textarea>
+            </div>
+          </div>
         </div>
         <div class="req-btn-area">
           <button
@@ -80,11 +86,14 @@
           <td
             :colspan="$mq === 'sm'? 2 : 3">
             <div class="inner">
-              <p class="type">문의유형 : {{ printInquiriesInfo.type_name }}</p>
-              <div v-for="(item2, idx2) in printInquiriesInfo.list" :key="idx2">
-                <p class="desc" style="white-space: pre-line">
-                  {{ item2 .content }}
-                </p>
+              <div class="header-inquiries">
+                <p class="type">문의유형 : {{ printInquiriesInfo.type_name }}</p>
+                <p
+                  class="desc"
+                  style="white-space: pre-line"
+                  v-for="(item2, idx2) in printInquiriesInfo.list"
+                  :class="item2.content_type_name === '문의' ? 'desc-inquiries' : 'desc-answer'"
+                  :key="idx2">{{ item2 .content }}</p>
               </div>
             </div>
           </td>
@@ -191,19 +200,17 @@ export default {
 
 <style scoped lang="scss">
   @import '../style';
+  @mixin clearfix {
+    &:after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+  }
   .customer-service {
     padding: 25px 20px 20px 20px;
   }
-  .select-label {
-    position: absolute;
-    right: 13px;
-    top: 10px;
-  }
-  .select-label:after {
-    content:"\f0dd";
-    font-family: "FontAwesome";
-    font-size: 16px;
-  }
+
   .flex-list {
     margin-top: 20px;
     margin-bottom: 25px;
@@ -248,11 +255,24 @@ export default {
       margin-top: 10px;
       position: relative;
     }
+    .select-label {
+      position: absolute;
+      right: 13px;
+      top: 10px;
+    }
+    .select-label:after {
+      content:"\f0dd";
+      font-family: "FontAwesome";
+      font-size: 16px;
+    }
     .custom-select {
       width: 100%;
       height: 50px;
       padding-left: 9px;
       border: 1px solid #c4c4c4;
+      font-size: 15px;
+      line-height: 23px;
+      letter-spacing: -0.6px;
     }
     .requirement-textarea {
       width: 100%;
@@ -263,6 +283,9 @@ export default {
       font-size: 15px;
       line-height: 25px;
       letter-spacing: -0.6px;
+      &::placeholder {
+        color: #bbb;
+      }
     }
     .req-btn-area {
       margin-top: 20px;
@@ -327,8 +350,29 @@ export default {
             line-height: 20px;
             letter-spacing: -0.8px;
             color: #797979;
+            &.desc-answer {
+              margin-top: 20px;
+              padding-top: 21px;
+              border-top: 1px dashed #a7a7a7;
+              &::before {
+                content: '답변';
+                display: block;
+                font-size: 14px;
+                line-height: 20px;
+                letter-spacing: -0.8px;
+                color: #333;
+                font-weight: 500;
+                margin-bottom: 5px;
+              }
+            }
           }
         }
+      }
+      .header-inquiries {
+        padding-bottom: 10px;
+      }
+      .body-inquiries {
+        padding-top: 10px;
       }
     }
   }
@@ -353,7 +397,41 @@ export default {
         }
       }
     }
-
+    div[data-value="write"] {
+      .write-header {
+        @include clearfix();
+        padding-top: 22px;
+        position: relative;
+        border-top: 2px solid #333;
+        .form-row {
+          float: left;
+          margin-top: 0;
+          &:nth-child(1) {
+            // Selectbox
+            width: 300px;
+          }
+          &:nth-child(2) {
+            margin-left: 15px;
+            width: calc(100% - 300px - 15px)
+          }
+        }
+      }
+      .write-body {
+        padding-bottom: 21px;
+        border-bottom: 1px solid #333;
+      }
+      .requirement-textarea {
+        height: 300px;
+        padding: 10px 44px 13px;
+      }
+      .req-btn-area {
+        text-align: right;
+        .btn {
+          width: 287px;
+          height: 60px;
+        }
+      }
+    }
     div[data-value="list"] {
       .table {
         border-top: 2px solid #333;
@@ -390,17 +468,29 @@ export default {
             .desc {
               font-size: 15px;
               letter-spacing: -1px;
+              line-height: 23px;
             }
             .type {
-              margin-bottom: 4px;
+              margin-bottom: 10px;
               letter-spacing: -1px;
             }
             .desc {
+              &.desc-answer {
+                padding-top: 16px;
+                margin-top: 16px;
+                &::before {
+                  margin-bottom: 10px;
+                  font-size: 15px;
+                  letter-spacing: -1px;
+                  line-height: 23px;
+                }
+              }
               letter-spacing: -1px;
             }
           }
         }
       }
     }
+
   }
 </style>

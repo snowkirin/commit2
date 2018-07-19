@@ -372,8 +372,9 @@ export default {
       return result;
     },
   },
-  created() {
-    this.setMypageStyle();
+  async created() {
+    await this.setMypageStyle();
+    console.log(this.mypageStyleData);
   },
 };
 </script>
