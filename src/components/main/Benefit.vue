@@ -55,14 +55,14 @@ export default {
   .container {
     padding: 19px 19px 35px;
     .txt-benefit {
-      font-size: 26px;
-      letter-spacing: -1.8px;
-      line-height: 34px;
+      font-size: 24px;
+      letter-spacing: -1.4px;
+      line-height: 32px;
       margin-left: -2px;
       user-select: none;
       .txt-discount {
         font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
-        font-size: 28px;
+        font-size: 26px;
         letter-spacing: -0.4px;
       }
     }
@@ -111,12 +111,12 @@ export default {
       margin: 3px auto 0;
       position: relative;
       .txt-benefit {
-        font-size: 58px;
-        letter-spacing: -4.5px;
-        line-height: 68px;
+        font-size: 55px;
+        letter-spacing: -3.2px;
+        line-height: 65px;
         margin-left: -3px;
         .txt-discount {
-          font-size: 63px;
+          font-size: 58px;
           letter-spacing: 0;
         }
       }

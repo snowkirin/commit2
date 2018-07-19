@@ -76,7 +76,7 @@
           :key="idx">
         <tr
           @click="viewInquiries(item.id)">
-          <td v-if="$mq !== 'sm'" class="txt-index">{{ idx+1 }}</td>
+          <td v-if="$mq !== 'sm'" class="txt-index">{{inquiriesList.length - idx}}</td>
           <td class="txt-title">{{ item.subject }}</td>
           <td class="txt-date">{{ item.inserted.substring(0, 10) }}</td>
         </tr>
