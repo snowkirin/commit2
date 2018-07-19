@@ -229,9 +229,9 @@ export default {
       vertical-align: middle;
       display: table-cell;
       text-align: center;
-      font-size: 20px;
+      font-size: 18px;
       line-height: 28px;
-      letter-spacing: -1px;
+      letter-spacing: -1.2px;
     }
   }
 

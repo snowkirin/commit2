@@ -37,14 +37,7 @@ export default {
                   query,
                 });
               }
-            } /*else {
-              alert('로그인 하셔야만 이용이 가능합니다.');
-              const query = to.fullPath.match(/^\/$/) ? {} : { redirect: to.fullPath };
-              next({
-                path: '/login',
-                query,
-              });
-            }*/
+            }
             if (to.path === '/closet/tomorrow') {
               // 쿼리문이 있다면
               if (!_.isEmpty(to.query)) {
