@@ -317,7 +317,7 @@ export default {
         }
         .txt-question {
           font-size: 22px;
-          letter-spacing: -0.7px;
+          letter-spacing: -1.2px;
           line-height: 38px;
           .q {
             flex-grow: 0;

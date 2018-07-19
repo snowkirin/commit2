@@ -642,7 +642,7 @@ export default {
         .text {
           font-size: 32px;
           line-height: 40px;
-          letter-spacing: -1.7px;
+          letter-spacing: -2.2px;
           font-weight: 500;
           span {
             font-size: 34px;
