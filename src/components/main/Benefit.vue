@@ -112,7 +112,7 @@ export default {
       position: relative;
       .txt-benefit {
         font-size: 58px;
-        letter-spacing: -3.5px;
+        letter-spacing: -4.5px;
         line-height: 68px;
         margin-left: -3px;
         .txt-discount {

@@ -533,12 +533,12 @@ export default {
         .title-addinfo {
           font-size: 32px;
           line-height: 40px;
-          letter-spacing: -1.7px;
+          letter-spacing: -2.2px;
         }
         .txt-addinfo {
           font-size: 16px;
           line-height: 24px;
-          letter-spacing: -1px;
+          letter-spacing: -1.2px;
         }
       }
       .contents {

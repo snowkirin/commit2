@@ -13,7 +13,6 @@ export default {
   name: 'about',
   data() {
     return {
-      outerWidth: window.outerWidth,
     };
   },
   methods: {
@@ -96,7 +95,7 @@ export default {
       .txt-about1 {
         font-size: 34px;
         line-height: 1;
-        letter-spacing: -1.4px;
+        letter-spacing: -1.8px;
         margin-bottom: 31px;
 
       }
