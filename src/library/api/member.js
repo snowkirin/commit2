@@ -2,18 +2,15 @@ import axios from 'axios';
 
 const API_URL = process.env.API_URL;
 
-async function getMemberCount() {
-  try {
-    axios.get(`${API_URL}/member/count`)
-      .then((res) => {
-        return res;
-      })
-      .catch((error) => {
-        return error;
-      });
-  } catch (err) {
-    console.error(err, 'member/count');
-  }
+function getMemberCount() {
+  const result = axios.get(`${API_URL}/member/count`)
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      return error;
+    });
+  return result;
 }
 
 function patchMemberAddress(data) {
