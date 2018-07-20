@@ -39,7 +39,7 @@
       <!--Desktop -->
       <p class="txt-tip-today-style en-font"><span>TIP</span> <span class="txt-dash">_</span><br/> <span>TODAY&apos;S STYLE</span></p>
       <div class="txt-style-tip">
-        <p class="txt-style-tip__title">ZULY Comment</p>
+        <!--<p class="txt-style-tip__title">ZULY Comment</p>-->
         <p class="txt-style-tip__desc">
           {{ currentCloset.styling_tip }}
         </p>
@@ -304,6 +304,7 @@ export default {
     transform: translateX(-50%);
     display: inline-block;
     margin-top: -15px;
+    margin-bottom: 25px;
     z-index: 100;
     &:before {
       content: '#';

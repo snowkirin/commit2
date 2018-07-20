@@ -3,9 +3,9 @@
     <p class="txt-main-title">나의 정보를 변경 하실 수 있습니다.</p>
     <div class="contents" :class="{clearfix: $mq !== 'sm'}">
       <div class="content">
-        <div class="phone row">
+        <div class="phone">
           <p class="txt-point">휴대폰 번호 변경</p>
-          <div>
+          <div class="row">
             <div class="form-group" data-grid="7:3" :class="{error: errors.has('phone')}">
               <input
                 type="tel"
@@ -21,12 +21,11 @@
             </div>
             <p
               class="txt-error"
-              v-show="errors.has('phone')">
-              키를 입력해주세요.
+              v-if="errors.has('phone')">
+              휴대전화 번호를 입력해주세요.
             </p>
           </div>
-
-          <div>
+          <div class="row">
             <div class="form-group" data-grid="7:3" :class="{error : errors.has('phone_auth_number')}">
               <input
                 type="tel-extension"
@@ -35,7 +34,7 @@
                 v-validate="'required'"
                 placeholder="인증번호">
               <button
-                class="btn btn-secondary"
+                class="btn btn-primary"
                 id="authKeyConfirm"
                 @click="authKeyConfirm"
                 type="button">확인</button>
@@ -47,178 +46,227 @@
             </p>
           </div>
         </div>
-        <div class="password row">
+        <div class="password">
           <p class="txt-point">비밀번호 변경</p>
-          <div>
-            <div class="form-group" data-grid="7:3">
-              <input
-                placeholder="현재 비밀번호"
-                class="form-input"
-                type="password">
+          <form data-vv-scope="password">
+            <div class="row">
+              <div class="form-group" data-grid="7:3">
+                <input
+                  placeholder="현재 비밀번호"
+                  class="form-input"
+                  name="currentPassword"
+                  v-validate="'required'"
+                  v-model="password.cur_password"
+                  ref="currentPassword"
+                  type="password">
+              </div>
+              <p class="txt-error" v-if="errors.has('password.currentPassword')">현재 비밀번호를 입력해주세요.</p>
             </div>
+            <div class="row">
+              <div class="form-group" data-grid="7:3">
+                <input
+                  placeholder="새로운 비밀번호"
+                  class="form-input"
+                  name="newPassword"
+                  ref="newPassword"
+                  v-model="password.new_password"
+                  v-validate="{ required: true, regex: pwdRegex }"
+                  @keyup="pwdCheck(errors.has('password.newPassword'))"
+                  type="password">
+              </div>
+              <p class="txt-error" v-if="errors.has('password.newPassword')">{{ pwdMsg }}</p>
           </div>
-          <div>
-            <div class="form-group" data-grid="7:3">
-              <input
-                placeholder="새로운 비밀번호"
-                class="form-input"
-                type="password">
+            <div class="row">
+              <div class="form-group" data-grid="7:3">
+                <input
+                  placeholder="새로운 비밀번호 확인"
+                  class="form-input"
+                  name="newPasswordConfirm"
+                  v-model="password.chk_new_password"
+                  v-validate="'required|confirmed:newPassword'"
+                  type="password">
+                <button
+                  class="btn btn-primary"
+                  type="button"
+                  @click="pwdChange">
+                  변경
+                </button>
+              </div>
+              <p class="txt-error" v-if="errors.has('password.newPasswordConfirm')">비밀번호가 일치하지 않습니다.</p>
             </div>
-          </div>
-          <div class="form-group" data-grid="7:3">
-            <input
-              placeholder="새로운 비밀번호 확인"
-              class="form-input"
-              type="password">
-            <button
-              class="btn btn-secondary"
-              type="button">
-              비밀번호 변경
-            </button>
-          </div>
+          </form>
         </div>
         <!--카드번호-->
-
         <div class="payment-info">
           <p class="txt-point">카드 결제 정보</p>
-          <div class="form-row">
-            <div class="form-card">
-              <input
-                autocomplete="cc-exp"
-                type="number"
-                class="form-input"
-                placeholder="카드 번호 (-없이 16자리 입력)"
-                maxlength="16"
-                @keydown="$common.NumberValidateEvt"
-                v-validate="'required'"
-                name="cardNumber"
-              >
-              <input
-                autocomplete="cc-exp"
-                type="text"
-                class="form-input"
-                placeholder="MMYY"
-                v-validate="'required'"
-                @keyup="checkCardExpiry"
-                name="cardExpiry"
-              >
-            </div>
-            <p
-              class="txt-error"
-              v-show="(errors.has('cardNumber') || errors.has('cardExpiry'))">
-              카드번호 & 유효기간을 입력해주세요.
-            </p>
-            <p
-              class="txt-error"
-              v-show="cardVerify">
-              {{ cardVerifyMsg }}
-            </p>
-          </div>
-          <div class="form-row">
-            <div>
-              <input
-                type="text"
-                class="form-input"
-                name="birthDay"
-                placeholder="생년월일(YYMMDD)"
-                v-validate="'required'"
-                @keyup="checkBirthExpiry">
-            </div>
-            <p class="txt-error" v-show="errors.has('birthDay')">생년월일을 입력해주세요.</p>
-            <p class="txt-error" v-show="birthVerify">{{ birthVerifyMsg }}</p>
-          </div>
-          <div class="form-row">
-            <div>
-              <input
-                type="password"
-                class="form-input"
-                placeholder="비밀번호"
-                maxlength="2"
-                v-validate="'required'"
-                style="width: 106px;"
-                name="cardPwd">
-              <div class="last-two-digits">
-                <span>닷</span>
-                <span>닷</span>
+          <p class="txt-current-card">(현재 카드 마지막 3자리 : {{cardNumberSubString}})</p>
+          <form data-vv-scope="card">
+            <div class="row">
+              <div class="form-card">
+                <input
+                  autocomplete="cc-exp"
+                  type="text"
+                  class="form-input"
+                  placeholder="카드 번호 (-없이 16자리 입력)"
+                  maxlength="16"
+                  @keydown="$common.NumberValidateEvt"
+                  v-validate="{required: true,}"
+                  v-model="cardPayment.cardNumber"
+                  name="cardNumber"
+                >
+                <input
+                  autocomplete="cc-exp"
+                  type="text"
+                  class="form-input"
+                  placeholder="MMYY"
+                  ref="cardExpiry"
+                  v-validate="{required: true}"
+                  @keyup="checkCardExpiry"
+                  name="cardExpiry"
+                >
               </div>
-              <button type="button" class="btn btn-secondary">카드 변경</button>
+              <p
+                class="txt-error"
+                v-if="(errors.has('card.cardNumber') || errors.has('card.cardExpiry'))">
+                카드번호 & 유효기간을 입력해주세요.
+              </p>
+              <p
+                class="txt-error"
+                v-if="cardVerify">
+                {{ cardVerifyMsg }}
+              </p>
             </div>
-            <p class="txt-error" v-show="errors.has('cardPwd')">카드비밀번호 앞 2자리를 입력해주세요.</p>
-          </div>
+            <div class="row">
+              <div>
+                <input
+                  type="text"
+                  class="form-input"
+                  name="birthDay"
+                  placeholder="생년월일(YYMMDD)"
+                  v-model="cardPayment.userBirth"
+                  @keyup="checkBirthExpiry"
+                  v-validate="{ required: true}">
+              </div>
+              <p class="txt-error" v-if="errors.has('card.birthDay')">생년월일을 입력해주세요.</p>
+              <p class="txt-error" v-if="birthVerify && !errors.has('card.birthDay')">{{ birthVerifyMsg }}</p>
+            </div>
+            <div class="row">
+              <div>
+                <input
+                  type="password"
+                  class="form-input"
+                  placeholder="비밀번호"
+                  maxlength="2"
+                  v-validate="'required'"
+                  style="width: 106px;"
+                  v-model="cardPayment.cardPassword"
+                  name="cardPwd">
+                <div class="last-two-digits">
+                  <span>닷</span>
+                  <span>닷</span>
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  style="float: right; width: 31.48%;"
+                  @click="clickCard">변경</button>
+              </div>
+              <p class="txt-error" v-if="errors.has('card.cardPwd')">카드비밀번호 앞 2자리를 입력해주세요.</p>
+            </div>
+          </form>
         </div>
-        <!--<div class="name row">
-          <p class="txt-point">이름</p>
-          <p class="txt-name"></p>
-        </div>
-        <div class="email row">
-          <p class="txt-point">이메일</p>
-          <div class="form-group" data-grid="7:3">
-            <input type="email" class="form-input">
-            <button
-              class="btn btn-secondary"
-              type="button">
-              이메일 변경
-            </button>
-          </div>
-        </div>-->
       </div>
       <div class="content">
         <!--주소-->
-        <div class="address row">
+        <div class="address">
           <p class="txt-point">주소</p>
-          <div class="form-group">
-            <input type="text" class="form-input">
+          <div class="row">
+            <div class="form-group" data-grid="7:3">
+              <input
+                type="text"
+                class="form-input"
+                placeholder="우편번호"
+                readonly
+                ref="addrZipcode"
+                name="zipcode"
+                v-model="address.zipcode"
+                @click="openDaumPopup">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                @click="openDaumPopup">주소 찾기</button>
+            </div>
           </div>
-          <div class="form-group">
-            <input type="text" class="form-input">
+          <div class="row">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-input"
+                placeholder="주소"
+                readonly
+                ref="addrAddress"
+                name="address"
+                v-model="address.addr"
+                @click="openDaumPopup">
+            </div>
           </div>
-          <div class="form-group">
-            <input type="text" class="form-input">
+          <div class="row">
+            <div class="form-group" data-grid="7:3">
+              <input
+                type="text"
+                class="form-input"
+                ref="addrDetailAddress"
+                name="detailAddress"
+                v-model="address.addrDetail"
+                placeholder="상세정보">
+              <button
+                type="button"
+                class="btn btn-primary"
+                @click="clickAddress">변경</button>
+            </div>
           </div>
         </div>
         <!--기념일-->
-        <div class="anniversary row">
+        <div class="anniversary">
           <p class="txt-point">기념일</p>
-          <div class="form-group" data-grid="7:3">
-            <input type="date" class="form-input">
-            <button type="button" class="btn btn-secondary">변경</button>
+          <div class="row">
+            <div class="form-group" data-grid="7:3">
+              <datepicker
+                style="width:65.8%"
+                name="ann"
+                input-class="form-input"
+                placeholder="기념일을 입력하시면, 기념일날 할인 쿠폰 지급"
+                language="ko"
+                v-model="ann"
+                format="MM.dd">
+              </datepicker>
+              <button type="button" class="btn btn-primary" @click="clickMemorialDay">변경</button>
+            </div>
           </div>
+
         </div>
-        <!--배송일-->
-        <!--<div class="delivery-date row">
-          <p class="txt-point">배송일 지정</p>
-          <div>
-            <ul>
-              <li class="selected">월</li>
-              <li>화</li>
-              <li>수</li>
-              <li>목</li>
-              <li>금</li>
-            </ul>
-          </div>
-        </div>-->
-        <!--현관 번호-->
-        <div class="entrance-number row">
+        <div class="entrance-number">
           <div>
             <p class="txt-point">공동 현관 번호</p>
             <p class="txt-entrance-number">(배송을 위해 공동현관 비밀번호 알려주세요)</p>
           </div>
-          <div class="form-group" data-grid="7:3">
-            <input
-              class="form-input"
-              type="text">
-            <button type="button" class="btn btn-secondary">변경</button>
+          <div class="row">
+            <div class="form-group" data-grid="7:3">
+              <input
+                class="form-input"
+                placeholder="현관 비밀번호"
+                v-model="lobbyPassword"
+                type="text">
+              <button
+                type="button"
+                class="btn btn-primary"
+                @click="clickLobbyPassword">변경</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="btn-modify">
-      <button
-        type="button"
-        class="btn btn-primary">
-        정보 수정하기
-      </button>
-    </div>
+    <address-modal ref="address" dataId="address"></address-modal>
   </div>
   <!--<div class="mypage mt40">
     <div class="main-point-text closet-title">나의 정보관리</div>
@@ -422,6 +470,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import Member from '@/library/api/member';
 import Datepicker from 'vuejs-datepicker';
 import AddressModal from '@/components/common/AddressModal';
 
@@ -433,7 +482,6 @@ export default {
   },
   data() {
     return {
-      delivery_day: null,
       pwdRegex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/,
       pwdMsg: '신규 비밀번호를 입력해주세요.',
       isPwd: false,
@@ -444,6 +492,29 @@ export default {
       cardVerifyMsg: '',
       birthVerify: false,
       birthVerifyMsg: '',
+      password: {
+        cur_password: '',
+        new_password: '',
+        chk_new_password: '',
+      },
+      cardPayment: {
+        cardNumber: '',
+        cardYearExpiry: '',
+        cardMonthExpiry: '',
+        userBirth: '',
+        cardPassword: '',
+      },
+      // 기념일
+      ann: '',
+      // 주소
+      address: {
+        zipcode: '',
+        addr: '',
+        addrDetail: '',
+      },
+      // 공동 현관 번호
+      lobbyPassword: '',
+      currentCardNumber: '51316582313212313',
     };
   },
   computed: {
@@ -456,6 +527,13 @@ export default {
       phoneAuthKey: 'mypage/getPhoneAuthKey',
       phoneAuth: 'mypage/getPhoneAuth',
     }),
+    cardNumberSubString() {
+      const cardNumber = this.mypageData.card_number;
+      if (cardNumber) {
+        const result = cardNumber.substring(cardNumber.length - 3, cardNumber.length);
+        return result;
+      }
+    },
   },
   methods: {
     ...mapActions({
@@ -468,6 +546,14 @@ export default {
       actPhoneVerify: 'mypage/phoneVerify',
       actPhoneCheckVerify: 'mypage/phoneCheckVerify',
     }),
+    // 공통
+    viewModal(ref) {
+      this.$refs[ref].openModal();
+    },
+    closeModal(ref) {
+      this.$refs[ref].closeModal();
+    },
+    // 휴대폰 번호
     async phoneVerify() {
       const phone = document.querySelector('input[name=phone]');
 
@@ -486,6 +572,32 @@ export default {
         phone.focus();
         return false;
       });
+    },
+    startTimer() {
+      const timer = Date.parse(new Date(new Date().getTime() + (3 * 60 * 1000))) / 1000;
+      let minutes;
+      let seconds;
+
+      if (window.interval) clearInterval(window.interval);
+
+      const interval = setInterval(() => {
+        const currentTime = Date.parse(new Date()) / 1000;
+        const printTimer = timer - currentTime;
+
+        minutes = parseInt(printTimer / 60, 10);
+        seconds = parseInt(printTimer % 60, 10);
+
+        minutes = (minutes < 10) ? `0${minutes}` : minutes;
+        seconds = (seconds < 10) ? `0${seconds}` : seconds;
+
+        this.authErrMessage = `메시지를 확인하시고 인증번호를 입력해주세요.  ${minutes}:${seconds}`;
+
+        if (printTimer <= 0) {
+          clearInterval(interval);
+        }
+      }, 1000);
+
+      window.interval = interval;
     },
     async authKeyConfirm() {
       const phoneAuthNumber = document.querySelector('input[name=phone_auth_number]');
@@ -516,15 +628,70 @@ export default {
       return true;
     },
 
-    selectDay(day) {
-      this.delivery_day = day;
+    // 비밀번호
+    async pwdChange() {
+      const passwordData = _.pick(this.password, ['cur_password', 'new_password']);
+      const $this = this;
+      this.$validator.validateAll('password').then((result) => {
+        if (result) {
+          Member.patchMemberPassword(passwordData)
+            .then((res) => {
+              if (res.data.result) {
+                alert('비밀번호가 정상적으로 변경되었습니다.');
+                _.forEach(this.password, function(value, key) {
+                  $this.password[key] = '';
+                });
+                setTimeout(() => {
+                  this.errors.clear('password');
+                }, 0);
+              } else {
+                if (res.data.uncorrect) {
+                  alert('현재 비밀번호가 틀렸습니다.');
+                  this.$refs.currentPassword.focus();
+                }
+              }
+            });
+        }
+      });
+      // if (!await this.$validator.validate('cur_password')) return;
+      // if (!await this.$validator.validate('new_password')) return;
+      // if (!this.isPwdConfirm) return;
+      //
+      // const curPwd = document.querySelector('input[name=cur_password]');
+      // const newPwd = document.querySelector('input[name=new_password]');
+      // const newPwdCf = document.querySelector('input[name=new_password_confirm]');
+      //
+      // await this.changePwd({
+      //   curPassword: curPwd.value,
+      //   newPassword: newPwd.value,
+      // });
+      //
+      // if (this.mypagePwdFlag) {
+      //   alert('비밀번호 변경이 완료되었습니다.');
+      //   curPwd.value = '';
+      //   newPwd.value = '';
+      //   newPwdCf.value = '';
+      //   this.changeFlag('pwd');
+      // }
     },
-    viewModal(ref) {
-      this.$refs[ref].openModal();
+    pwdCheck(isBoolean) {
+      const pwd = this.$refs.newPassword;
+      let checkBoolean = isBoolean;
+      if (pwd.value === '') {
+        if (!checkBoolean) checkBoolean = !checkBoolean;
+        this.pwdMsg = '비밀번호를 입력해주세요.';
+      } else {
+        this.pwdMsg = '비밀번호가 안전하지 않습니다. (최소 8자리 이상, 대문자/숫자/특수문자 포함)';
+      }
+      if (checkBoolean) this.isPwd = false;
+      else this.isPwd = true;
     },
-    closeModal(ref) {
-      this.$refs[ref].closeModal();
+    pwdConfirm(isBoolean) {
+      if (isBoolean) this.isPwdConfirm = false;
+      else this.isPwdConfirm = true;
     },
+
+    // 카드 결제
     checkCardExpiry(evt) {
       const cardReg = /^(0?[1-9]|1[0-2]|12)(1[9]|[2-9][0-9]|99)$/;
       if (!cardReg.test(evt.target.value)) {
@@ -539,56 +706,42 @@ export default {
         this.birthVerifyMsg = '생년월일을 YYMMDD(년월일) 형태로 입력해주세요. (ex: 851211)';
       } else this.birthVerify = false;
     },
-
-    /*displayEvt(id, buttonArea, beforeText) {
-      const target = document.getElementById(id);
-      const textbtn = document.getElementById(buttonArea);
-
-      if (target.style.display === 'block') {
-        target.style.display = 'none';
-        textbtn.innerHTML = beforeText;
-      } else {
-        target.style.display = 'block';
-        textbtn.innerHTML = '변경 취소';
+    clickCard() {
+      const $this = this;
+      if (this.cardVerify) {
+        // 카드유효기간 체크
+        alert('카드유효기간을 정확히 입력해주세요.');
+        return false;
       }
-    },*/
-    async actEmailChange() {
-      const email = document.querySelector('input[name=changeEmail]');
-
-      if (!this.$common.InputDataValidation(email, '변경할 이메일을 입력해주세요.', true, true)) return;
-
-      await this.changeEmail(email.value);
-
-      if (this.mypageEmailFlag) {
-        alert('이메일 변경이 완료되었습니다.');
-        await this.setMypage();
-        email.value = '';
-        this.displayEvt('emailarea', 'changeEmail', '이메일 변경');
-        this.changeFlag('email');
+      if (this.birthVerify) {
+        // 생년월일 체크.
+        alert('생년월일을 정확히 입력해주세요.');
+        return false;
       }
-    },
-    async pwdChange() {
-      if (!await this.$validator.validate('cur_password')) return;
-      if (!await this.$validator.validate('new_password')) return;
-      if (!this.isPwdConfirm) return;
-
-      const curPwd = document.querySelector('input[name=cur_password]');
-      const newPwd = document.querySelector('input[name=new_password]');
-      const newPwdCf = document.querySelector('input[name=new_password_confirm]');
-
-      await this.changePwd({
-        curPassword: curPwd.value,
-        newPassword: newPwd.value,
+      this.$validator.validateAll('card').then((result) => {
+        if (result) {
+          const cardExpiry = this.$refs.cardExpiry;
+          this.cardPayment.cardYearExpiry = `20${cardExpiry.value.substring(2, 4)}`;
+          this.cardPayment.cardMonthExpiry = cardExpiry.value.substring(0, 2);
+          Member.patchMemberPayment(this.cardPayment).then((res) => {
+            if (res.data.result) {
+              alert('카드 결제 정보 변경이 완료되었습니다.');
+              _.forEach(this.cardPayment, function(value, key) {
+                $this.cardPayment[key] = '';
+              });
+              setTimeout(() => {
+                this.errors.clear('card');
+                // 정보 새로 업데이트 (카드 뒷자리 3개 변경)
+                this.setMypage();
+              }, 0);
+            } else {
+              alert('카드 결제 정보를 정확히 입력해 주세요.');
+            }
+          });
+        }
       });
-
-      if (this.mypagePwdFlag) {
-        alert('비밀번호 변경이 완료되었습니다.');
-        curPwd.value = '';
-        newPwd.value = '';
-        newPwdCf.value = '';
-        this.changeFlag('pwd');
-      }
     },
+    /* TODO: 사용될지 안될지 모름.*/
     async paymentChange() {
       if (!await this.$validator.validate('cardNumber')) return;
       if (!await this.$validator.validate('cardExpiry')) return;
@@ -619,29 +772,57 @@ export default {
         this.changeFlag('payment');
       }
     },
-    pwdCheck(isBoolean) {
-      const pwd = document.querySelector('input[name=new_password]');
-
-      let checkBoolean = isBoolean;
-      if (pwd.value === '') {
-        if (!checkBoolean) checkBoolean = !checkBoolean;
-        this.pwdMsg = '비밀번호를 입력해주세요.';
-      } else {
-        this.pwdMsg = '비밀번호가 안전하지 않습니다. (최소 8자리 이상, 대문자/숫자/특수문자 포함)';
+    getCardInfo() {
+      if (this.mypageData.card_name !== null && this.mypageData.card_name !== undefined) {
+        return `${this.mypageData.card_name} ${this.mypageData.card_number}`;
       }
-
-      if (checkBoolean) this.isPwd = false;
-      else this.isPwd = true;
+      return '';
     },
-    pwdConfirm(isBoolean) {
-      if (isBoolean) this.isPwdConfirm = false;
-      else this.isPwdConfirm = true;
+    // 기념일
+    clickMemorialDay() {
+      const $this = this;
+      if (this.ann === '') {
+        alert('기념일을 선택해 주세요.');
+        return false;
+      } else {
+        const memorialDayData = {
+          ann: this.$moment(this.ann).format('MM.DD'),
+        };
+        Member.patchMemberMemorialDay(memorialDayData)
+          .then((res) => {
+            if (res.data.result) {
+              alert('기념일이 변경되었습니다.');
+              $this.ann = '';
+            } else {
+              alert('통신중 오류가 발생되었습니다.');
+            }
+          });
+      }
     },
+    // 공동 현관 번호
+    clickLobbyPassword() {
+      const $this = this;
+      if (this.lobbyPassword === '') {
+        alert('비밀번호를 입력해 주세요.');
+      } else {
+        const lobbyPasswordData = {
+          lobbyPassword: this.lobbyPassword,
+        };
+        Member.patchMemberLobbyPassword(lobbyPasswordData)
+          .then((res) => {
+            if (res.data.result) {
+              alert('현관 비밀번호가 변경되었습니다.');
+              $this.lobbyPassword = '';
+            } else {
+              alert('통신중 오류가 발생되었습니다.');
+            }
+          });
+      }
+    },
+    // 주소
     openDaumPopup() {
       this.viewModal('address');
-      const zipcode = document.querySelector('input[name=zipcode]');
-      const address = document.querySelector('input[name=address]');
-      const detailAddress = document.querySelector('input[name=detail_address]');
+      const detailAddress = this.$refs.addrDetailAddress;
 
       const daum = window.daum;
 
@@ -655,64 +836,74 @@ export default {
             }
           },
           oncomplete: (data) => {
-            zipcode.value = data.zonecode;
-
-            if (data.userSelectedType === 'R') address.value = data.roadAddress;
-            else address.value = data.jibunAddress;
-
-            this.$validator.validate('zipcode');
-            this.$validator.validate('address');
-
+            this.address.zipcode = data.zonecode;
+            if (data.userSelectedType === 'R') {
+              this.address.addr = data.roadAddress;
+            } else {
+              this.address.addr = data.jibunAddress;
+            }
             detailAddress.focus();
           },
         }).embed(document.querySelector('div[name=addressArea]'), {});
       });
     },
-    startTimer() {
-      const timer = Date.parse(new Date(new Date().getTime() + (3 * 60 * 1000))) / 1000;
-      let minutes;
-      let seconds;
+    clickAddress() {
+      const addressData = this.address;
+      const $this = this;
+      let checkAddressData = true;
 
-      if (window.interval) clearInterval(window.interval);
-
-      const interval = setInterval(() => {
-        const currentTime = Date.parse(new Date()) / 1000;
-        const printTimer = timer - currentTime;
-
-        minutes = parseInt(printTimer / 60, 10);
-        seconds = parseInt(printTimer % 60, 10);
-
-        minutes = (minutes < 10) ? `0${minutes}` : minutes;
-        seconds = (seconds < 10) ? `0${seconds}` : seconds;
-
-        this.authErrMessage = `메시지를 확인하시고 인증번호를 입력해주세요.  ${minutes}:${seconds}`;
-
-        if (printTimer <= 0) {
-          clearInterval(interval);
+      _.forEach(addressData, function(value) {
+        if (value === '') {
+          alert('주소를 입력해주세요');
+          checkAddressData = false;
+          return false;
         }
-      }, 1000);
-
-      window.interval = interval;
-    },
-    getCardInfo() {
-      if (this.mypageData.card_name !== null && this.mypageData.card_name !== undefined) {
-        return `${this.mypageData.card_name} ${this.mypageData.card_number}`;
+      });
+      if (checkAddressData) {
+        Member.patchMemberAddress(addressData)
+          .then((res) => {
+            if (res.data.result) {
+              alert('주소가 변경되었습니다.');
+              _.forEach($this.address, function(value, key) {
+                $this.address[key] = '';
+              });
+            } else {
+              alert('통신중 오류가 발생되었습니다.');
+            }
+          });
       }
-      return '';
     },
+
+
+
+
+    async actEmailChange() {
+      const email = document.querySelector('input[name=changeEmail]');
+
+      if (!this.$common.InputDataValidation(email, '변경할 이메일을 입력해주세요.', true, true)) return;
+
+      await this.changeEmail(email.value);
+
+      if (this.mypageEmailFlag) {
+        alert('이메일 변경이 완료되었습니다.');
+        await this.setMypage();
+        email.value = '';
+        this.displayEvt('emailarea', 'changeEmail', '이메일 변경');
+        this.changeFlag('email');
+      }
+    },
+
   },
   async created() {
-    // if (!this.mypageAuth) {
-    //   alert('잘못된 접근입니다.');
-    //   this.$router.push({ path: '/closet/security' });
-    // } else {
-    //   const htmlScript = document.createElement('script');
-    //   htmlScript.setAttribute('src', 'https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js?autoload=false');
-    //   document.head.appendChild(htmlScript);
-    //
-    //   await this.setMypage();
-    //   this.delivery_day = this.mypageData.delivery_day;
-    // }
+    if (!this.mypageAuth) {
+      alert('잘못된 접근입니다.');
+      this.$router.push({ path: '/closet/security' });
+    } else {
+      await this.setMypage();
+      const htmlScript = document.createElement('script');
+      htmlScript.setAttribute('src', 'https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js?autoload=false');
+      document.head.appendChild(htmlScript);
+    }
   },
   destroyed() {
     this.securityDestroyed();
@@ -756,13 +947,35 @@ export default {
     border-bottom: 2px solid #333;
   }
 
-  .row {
+  .phone {
     margin-bottom: 35px;
   }
-  .txt-point {
-    margin-bottom: 12px;
+  .password {
+    margin-bottom: 27px;
+  }
+  .payment-info {
+    margin-bottom: 30px;
+  }
+  .address {
+    margin-bottom: 30px;
+  }
+  .anniversary{
+    margin-bottom: 30px;
+  }
+  .row {
+    margin-top: 10px;
   }
 
+  .phone,
+  .password,
+  .address
+  .anniversary,
+  .entrance-number {
+  }
+
+  .txt-point {
+    padding-bottom: 3px;
+  }
   .name {
     .txt-point {
       margin-bottom: 7px;
@@ -776,47 +989,8 @@ export default {
   }
   .password,
   .address {
-    .form-group {
-      margin-bottom: 10px;
-      &:last-child{
-        margin-bottom: 0;
-      }
-    }
-  }
-  .delivery-date {
-    ul {
-      list-style: none;
-      display: flex;
-    }
-    li {
-      height: 50px;
-      flex-grow: 0;
-      flex-shrink: 0;
-      flex-basis: 57px;
-      border: 1px solid #c4c4c4;
-      margin-left: -1px;
-      text-align: center;
-      line-height: 48px;
-      position: relative;
-      color: #bbb;
-      font-size: 15px;
-      letter-spacing: -0.6px;
-      &:first-child {
-        margin-left: 0;
-      }
-      &.selected {
-        outline: 2px solid #333;
-        outline-offset: -2px;
-        z-index: 10;
-        color: #333;
-      }
-    }
   }
   .entrance-number {
-    margin-bottom: 0;
-    .txt-point {
-      margin-bottom: 2px;
-    }
     .txt-entrance-number {
       font-size: 15px;
       line-height: 23px;
@@ -825,13 +999,6 @@ export default {
       margin-bottom: 13px;
     }
   }
-  .btn-modify {
-    button {
-      width: 100%;
-    }
-  }
-
-
   .payment-info {
     .form-card {
       display: flex;
@@ -862,6 +1029,12 @@ export default {
         }
       }
     }
+    .txt-current-card {
+      font-size: 15px;
+      line-height: 23px;
+      letter-spacing: -0.6px;
+      color: #797979;
+    }
   }
 
   @media (min-width: 768px) {
@@ -881,8 +1054,21 @@ export default {
     }
     .contents {
       margin-top: 27px;
-      margin-bottom: 18px;
+      margin-bottom: 39px;
       padding-top: 24px;
+      border-bottom: 1px solid #e9e9e9;
+      position: relative;
+      &::before {
+        position: absolute;
+        left: 50%;
+        top: 24px;
+        display: block;
+        content: '';
+        width: 1px;
+        height: calc(100% - 24px - 39px);
+        background-color: #e9e9e9;
+        transform: translateX(-50%);
+      }
     }
     .content {
       width: 490px;
@@ -900,7 +1086,6 @@ export default {
       }
     }
     .row {
-      margin-bottom: 33px;
     }
     .delivery-date {
       li {
@@ -915,6 +1100,13 @@ export default {
       button {
         width: 287px;
         height: 60px;
+      }
+    }
+    .payment-info {
+      margin-bottom: 0;
+      .txt-current-card {
+        font-size: 16px;
+        letter-spacing: -0.8px;
       }
     }
   }

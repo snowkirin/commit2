@@ -73,7 +73,7 @@ export default {
       right: 0;
       z-index: 100;
       .btn-free-month {
-        font-size: 18px;
+        font-size: 17px;
         letter-spacing: -.9px;
         cursor: pointer;
         color: #fff;
@@ -111,7 +111,7 @@ export default {
       margin: 3px auto 0;
       position: relative;
       .txt-benefit {
-        font-size: 55px;
+        font-size: 54px;
         letter-spacing: -3.2px;
         line-height: 65px;
         margin-left: -3px;
@@ -125,10 +125,10 @@ export default {
         left:auto;
         bottom: 72px;
         .btn-free-month {
-          font-size: 22px;
+          font-size: 20px;
           letter-spacing: -1.1px;
           width: 320px;
-          padding: 24px 20px;
+          padding: 22px 20px;
           box-shadow: 0.5px 7px 7px 0 rgba(0, 0, 0, 0.18);
           height: auto;
           .icon-arrow {
