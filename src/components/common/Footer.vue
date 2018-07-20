@@ -124,9 +124,9 @@ export default {
     padding-bottom: 16px;
     .txt-tel {
       font: {
-        size: 26px;
+        size: 22px;
         weight: 700;
-        family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif
+        family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
       }
       letter-spacing: 0.4px;
     }
@@ -204,9 +204,10 @@ export default {
         }
 
         .txt-tel {
-          font-size: 28px;
+          font-size: 24px;
           display: block;
           margin-top: 12px;
+          line-height: 18px;
         }
         .txt-operation {
           font-size: 16px;

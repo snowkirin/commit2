@@ -230,10 +230,10 @@ export default {
         }
       }
       .txt-question {
-        font-size: 17px;
+        font-size: 16px;
         display: flex;
         letter-spacing: -0.5px;
-        line-height: 24px;
+        line-height: 23px;
         justify-content: space-between;
         word-break: keep-all;
         cursor: pointer;
@@ -316,7 +316,7 @@ export default {
           }
         }
         .txt-question {
-          font-size: 22px;
+          font-size: 20px;
           letter-spacing: -1.2px;
           line-height: 38px;
           .q {

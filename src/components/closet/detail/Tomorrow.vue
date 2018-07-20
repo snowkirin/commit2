@@ -50,8 +50,9 @@
             <p class="txt-tip-title">ZULY Comment</p>
             <!--TODO: 말줄임표 -->
             <p class="txt-tip-desc" v-html="$common.htmlEnterLine(printStyleFirst.stylingTip)"></p>
-            <div class="line line__dashed"></div>
-            <p class="txt-hashtag" v-html="$common.htmlEnterLine(printStyleFirst.hashTag)"></p>
+            <!--TODO: 추후에 사용될지 모르는 Hash . 확정될시 변경할 것-->
+            <!--<div class="line line__dashed"></div>
+            <p class="txt-hashtag" v-html="$common.htmlEnterLine(printStyleFirst.hashTag)"></p>-->
           </div>
           <div class="btn-select" v-if="$mq !== 'sm' && selectButtonShow">
             <button
@@ -102,8 +103,9 @@
             <p class="txt-tip-title">ZULY Comment</p>
             <!--TODO: 말줄임표 -->
             <p class="txt-tip-desc" v-html="$common.htmlEnterLine(printStyleSecond.stylingTip)"></p>
-            <div class="line line__dashed"></div>
-            <p class="txt-hashtag" v-html="$common.htmlEnterLine(printStyleSecond.hashTag)"></p>
+            <!--TODO: 추후에 사용될지 모르는 Hash . 확정될시 변경할 것-->
+            <!--<div class="line line__dashed"></div>
+            <p class="txt-hashtag" v-html="$common.htmlEnterLine(printStyleSecond.hashTag)"></p>-->
           </div>
           <div class="btn-select" v-if="$mq !== 'sm' && selectButtonShow">
             <button
@@ -492,9 +494,9 @@ export default {
           }
         }
         .txt-selected {
-          line-height: 38px;
-          font-size: 28px;
-          letter-spacing: -1.9px;
+          line-height: 34px;
+          font-size: 24px;
+          letter-spacing: -1.2px;
           font-weight: 300;
         }
       }
@@ -523,7 +525,7 @@ export default {
           color: #797979;
           background-color: #fff;
           border: 1px solid #e8e8e8;
-          font-size: 15px;
+          font-size: 14px;
           line-height: 23px;
           height: 40px;
           letter-spacing: -0.6px;
@@ -533,14 +535,14 @@ export default {
     }
 
     .txt-codi-title {
-      font-size: 17px;
+      font-size: 15px;
       font-weight: 700;
       line-height: 21px;
       margin-bottom: 6px;
       letter-spacing: 0 !important;
     }
     .txt-codi-desc {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 300;
       letter-spacing: -0.7px;
       line-height: 24px;
@@ -633,15 +635,15 @@ export default {
         margin-left: 10px;
       }
       .txt-codi-title {
-        font-size: 20px;
+        font-size: 18px;
         line-height: 25px;
         margin-bottom: 9px;
       }
       .txt-codi-desc {
-        font-size: 24px;
+        font-size: 22px;
         line-height: 32px;
         letter-spacing: -1px;
-        width: 240px;
+        width: 230px;
         text-align: center;
         margin: 0 auto;
       }
@@ -667,7 +669,7 @@ export default {
       }
       /* TODO:  Desktop To Mobile */
       .style-explain {
-        padding-top: 50px;
+        padding-top: 45px;
         .line {
           margin-top: 16px;
           margin-bottom: 16px;
@@ -675,10 +677,10 @@ export default {
       }
 
       .txt-tip-title {
-        margin-bottom: 10px;
+        margin-bottom: 20px;
         /* TODO : Desktop To Mobile */
         &::before {
-          width: 48px;
+          width: 35px;
         }
       }
       .btn-select {
