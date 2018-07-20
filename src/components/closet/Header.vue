@@ -46,7 +46,7 @@ export default {
       font-weight: 300;
     }
     .user-info {
-      font-size: 28px;
+      font-size: 38px;
       letter-spacing: -3.4px;
       line-height: 57px;
       font-weight: 300;

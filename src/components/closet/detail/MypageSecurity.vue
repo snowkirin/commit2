@@ -85,5 +85,8 @@ export default {
         border-width: 2px;
       }
     }
+    .form-group {
+      width: 480px;
+    }
   }
 </style>

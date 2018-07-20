@@ -463,5 +463,8 @@ export default {
       padding: 0;
       width: 1200px;
     }
+    .current-styling {
+      margin-top: 36px;
+    }
   }
 </style>
