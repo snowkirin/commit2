@@ -538,7 +538,7 @@ export default {
       padding-right: 0;
       padding-top: 14px;
       .inner {
-        height: 254px;
+        height: 244px;
         padding-top: 52px;
         margin-bottom: 20px;
       }

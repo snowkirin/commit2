@@ -167,8 +167,8 @@ export default {
     padding: 24px 20px 121px;
     text-align: center;
     .title {
-      font-size: 26px;
-      line-height: 36px;
+      font-size: 24px;
+      line-height: 32px;
       letter-spacing: -1.4px;
     }
     .explain {

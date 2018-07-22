@@ -321,8 +321,8 @@ export default {
     }
     .container-header {
       .title-addinfo {
-        font-size: 26px;
-        line-height: 34px;
+        font-size: 24px;
+        line-height: 32px;
         letter-spacing: -1.4px;
       }
       .txt-addinfo {

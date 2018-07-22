@@ -466,5 +466,15 @@ export default {
     .current-styling {
       margin-top: 36px;
     }
+    .txt-tip-today-style {
+      font-size: 44px;
+      letter-spacing: -0.5px;
+      line-height: 1;
+      &::before {
+        left: -6px;
+        top: 8px;
+
+      }
+    }
   }
 </style>

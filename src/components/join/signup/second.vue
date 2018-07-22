@@ -451,12 +451,12 @@ export default {
     .signup-title {
       margin-bottom: 12px;
       .text {
-        font-size: 26px;
-        line-height: 34px;
+        font-size: 24px;
+        line-height: 32px;
         letter-spacing: -1.4px;
         span {
-          font-size: 28px;
-          line-height: 36px;
+          font-size: 24px;
+          line-height: 32px;
           letter-spacing: 0;
           font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
         }

@@ -286,8 +286,8 @@ export default {
     padding: 24px 20px 17px 20px;
     .container-header {
       .styling-title {
-        font-size: 26px;
-        line-height: 34px;
+        font-size: 24px;
+        line-height: 32px;
         letter-spacing: -1.4px;
         text-align: center;
       }
