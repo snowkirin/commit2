@@ -259,14 +259,14 @@ export default {
             .txt-product {
               font-size: 18px;
               line-height: 28px;
-              letter-spacing: 0;
+              letter-spacing: -1.2px;
               margin-top: 0;
             }
             .txt-options {
               font-size: 16px;
               line-height: 24px;
               margin-top: 19px;
-              letter-spacing: 0;
+              letter-spacing: -1px;
               &:first-child {
                 margin-top: 25px;
               }

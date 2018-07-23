@@ -218,7 +218,7 @@ export default {
           li {
             font-size: 15px;
             line-height: 23px;
-            letter-spacing: -0.6px;
+            letter-spacing: -0.9px;
             a {
               padding-left: 26px;
               padding-right: 26px;
@@ -238,6 +238,7 @@ export default {
       margin-top: 9px;
       .custom-control-label {
         font-size: 15px;
+        letter-spacing: -0.9px;
         &::after {
           content: '';
           position: absolute;

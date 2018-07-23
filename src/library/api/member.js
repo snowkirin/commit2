@@ -13,6 +13,17 @@ function getMemberCount() {
   return result;
 }
 
+function getMemberStyle() {
+  const result = axios.get(`${API_URL}/member/style`, { withCredentials: true })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    })
+  return result;
+}
+
 function patchMemberAddress(data) {
   const result = axios.patch(`${API_URL}/member/address`, data, { withCredentials: true })
     .then((res) => {
@@ -73,8 +84,12 @@ function patchMemberPayment(data) {
   return result;
 }
 
+
+
+
 export default {
   getMemberCount,
+  getMemberStyle,
   patchMemberAddress,
   patchMemberMemorialDay,
   patchMemberLobbyPassword,

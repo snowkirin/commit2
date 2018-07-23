@@ -21,6 +21,7 @@ export default {
     phoneAuth: false,
     phoneAuthKey: null,
     phoneAuthCnt: 0,
+    styleData: {},
   },
   mutations: {
     [types.MYPAGE_SECURITY](state) {
@@ -51,6 +52,9 @@ export default {
     [types.PHONE_VERIFY_COUNT](state) {
       state.phoneAuthCnt += 1;
     },
+    [types.SET_MEMBER_STYLE](state, data) {
+      state.styleData = data;
+    },
   },
   actions,
   getters: {
@@ -62,5 +66,6 @@ export default {
     getMypagePaymentFlag: state => state.mypageChangePayment,
     getPhoneAuth: state => state.phoneAuth,
     getPhoneAuthKey: state => state.phoneAuthKey,
+    getStyleData: state => state.styleData,
   },
 };

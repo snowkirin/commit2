@@ -257,7 +257,7 @@ export default {
     -o-transform: rotate(-270deg);
     filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
     left: -10px;
-
+    letter-spacing: -0.8px;
   }
   .carousel {
     position:relative;
@@ -325,7 +325,7 @@ export default {
   }
   .txt-style-tip {
     font-size: 15px;
-    letter-spacing: -0.6px;
+    letter-spacing: -0.9px;
     &__title {
       line-height: 21px;
       font-weight: 700;
@@ -370,37 +370,36 @@ export default {
         font-size: 15px;
         line-height: 21px;
         font-weight: 700;
-        letter-spacing: -0.6px;
+        letter-spacing: -0.9px;
       }
       .desc {
         font-size: 15px;
         line-height: 23px;
-        letter-spacing: -0.6px;
+        letter-spacing: -0.9px;
       }
       .original-price {
-        letter-spacing: -0.6px;
+        letter-spacing: -0.9px;
         line-height: 23px;
         font-size: 15px;
         color: #797979;
         .txt-strike {
           font-size: 14px;
           line-height: 25px;
-          letter-spacing: 0;
+          letter-spacing: -0.8px;
         }
       }
       .sale-price {
         font-size: 15px;
-        letter-spacing: -0.6px;
+        letter-spacing: -0.9px;
         white-space: nowrap;
         .txt-price-accent {
           color: #f16458;
-          letter-spacing: -0.4px;
         }
       }
       .link-detail {
         font-size: 15px;
         line-height: 25px;
-        letter-spacing: -0.4px;
+        letter-spacing: -0.9px;
         color: #566b9c;
         text-decoration: underline;
       }
@@ -429,7 +428,7 @@ export default {
       .text {
         font-size: 15px;
         line-height: 23px;
-        letter-spacing: -0.6px;
+        letter-spacing: -0.9px;
       }
       .number {
         font-weight: 700;
@@ -452,7 +451,7 @@ export default {
         line-height: 50px;
         background-color: #333;
         color: #fff;
-        letter-spacing: -0.6px;
+        letter-spacing: -0.9px;
       }
     }
   }

@@ -400,10 +400,12 @@ export default {
       this.memberId = this.tomorrowDirect.info.member_id;
       this.$store.state.login.Authentication.userName = this.tomorrowDirect.info.name;
     }
-    if (this.tomorrowData.products[0].selected) {
-      this.codiSelected.first = true;
-    } else if (this.tomorrowData.products[2].selected) {
-      this.codiSelected.second = true;
+    if (this.tomorrowData.products) {
+      if (this.tomorrowData.products[0].selected) {
+        this.codiSelected.first = true;
+      } else if (this.tomorrowData.products[2].selected) {
+        this.codiSelected.second = true;
+      }
     }
     this.isShowFlag(this.tomorrowData);
     this.products = this.tomorrowData.products;
@@ -528,7 +530,7 @@ export default {
           font-size: 14px;
           line-height: 23px;
           height: 40px;
-          letter-spacing: -0.6px;
+          letter-spacing: -0.8px;
           cursor: pointer;
         }
       }
@@ -539,7 +541,7 @@ export default {
       font-weight: 700;
       line-height: 21px;
       margin-bottom: 6px;
-      letter-spacing: 0 !important;
+      letter-spacing: -0.9px !important;
     }
     .txt-codi-desc {
       font-size: 17px;
@@ -560,7 +562,7 @@ export default {
     }
     .txt-tip-title {
       font-size: 15px;
-      letter-spacing: -0.6px;
+      letter-spacing: -0.9px;
       color: #333;
       font-weight: 700;
       line-height: 21px;
@@ -579,7 +581,7 @@ export default {
     }
     .txt-tip-desc {
       line-height: 23px;
-      letter-spacing: -0.6px;
+      letter-spacing: -0.9px;
       font-size: 15px;
     }
     .btn-select {
@@ -600,7 +602,7 @@ export default {
       height: 60px;
       font-size: 18px;
       line-height: 18px;
-      letter-spacing: -0.7px;
+      letter-spacing: -1.2px;
     }
     &::after {
       content: '';
@@ -620,10 +622,11 @@ export default {
       margin: 0 auto;
     }
     .txt-tomorrow-caution {
-      font-size: 15px;
-      line-height: 23px;
+      font-size: 14px;
+      line-height: 18px;
       margin-top: 5px;
       margin-bottom: 28px;
+      letter-spacing: -0.8px;
     }
     .codi-suggestion {
       width: 591px;
@@ -638,6 +641,7 @@ export default {
         font-size: 18px;
         line-height: 25px;
         margin-bottom: 9px;
+        letter-spacing: -1.2px;
       }
       .txt-codi-desc {
         font-size: 22px;

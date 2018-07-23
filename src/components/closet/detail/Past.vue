@@ -192,6 +192,7 @@ export default {
         line-height: 21px;
         font-size: 16px;
         font-weight: 700;
+        letter-spacing: -1px;
       }
       .number {
         position: relative;
@@ -228,7 +229,7 @@ export default {
       .title,
       .explain {
         font-size: 15px;
-        letter-spacing: -0.6px;
+        letter-spacing: -0.9px;
       }
       .title {
         line-height: 21px;

@@ -219,7 +219,7 @@ export default {
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
-  letter-spacing: -0.5px;
+  letter-spacing: -1px;
   color: #333333;
   cursor: pointer;
   margin-top: 12px;

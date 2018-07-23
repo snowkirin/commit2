@@ -284,7 +284,7 @@ export default {
       .text {
         font-size: 15px;
         line-height: 21px;
-        letter-spacing: -0.7px;
+        letter-spacing: -0.9px;
         font-weight: 700;
         margin-right: 15px;
       }
@@ -317,7 +317,7 @@ export default {
         .title {
           font-size: 15px;
           line-height: 23px;
-          letter-spacing: -0.6px;
+          letter-spacing: -0.9px;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -633,7 +633,7 @@ export default {
   border: solid 1px #e9e9e9;
   font-size: 14px;
   line-height: 50px;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.8px;
   color: #797979;
   cursor: pointer;
 }

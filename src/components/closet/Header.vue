@@ -46,9 +46,9 @@ export default {
       font-weight: 300;
     }
     .user-info {
-      font-size: 38px;
-      letter-spacing: -3.4px;
-      line-height: 57px;
+      font-size: 34px;
+      letter-spacing: -3px;
+      line-height: 50px;
       font-weight: 300;
     }
   }

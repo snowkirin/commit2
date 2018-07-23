@@ -45,6 +45,7 @@ export default {
     font-size: 15px;
     line-height: 25px;
     font-weight: 700;
+    letter-spacing: -0.9px;
     position: relative;
     &:after {
       content: '';
@@ -68,13 +69,13 @@ export default {
   .reason {
     font-size: 15px;
     line-height: 23px;
-    letter-spacing: -0.6px;
+    letter-spacing: -0.9px;
   }
   .response {
     color: #566b9c;
     font-size: 15px;
     line-height: 25px;
-    letter-spacing: -0.4px;
+    letter-spacing: -0.9px;
     text-decoration: underline;
   }
 

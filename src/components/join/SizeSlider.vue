@@ -203,7 +203,7 @@ export default {
   font-style: normal;
   font-stretch: normal;
   line-height: 2.67;
-  letter-spacing: -2px;
+  letter-spacing: -1px;
   color: #333333;
   width: 32px;
 }
@@ -255,7 +255,7 @@ export default {
   font-style: normal;
   font-stretch: normal;
   line-height: 1;
-  letter-spacing: -0.4px;
+  letter-spacing: -1px;
   text-align: left;
   color: #797979;
   display: none;

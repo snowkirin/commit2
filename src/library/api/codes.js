@@ -96,13 +96,10 @@ function postMemberStyle(data) {
     });
   return result;
 }
-
 async function postMemberImageStyle(imageData, styleData) {
   try {
     const result = axios.all([postMemberImages(imageData), postMemberStyle(styleData)])
       .then(axios.spread(function(acct,perms) {
-        console.log(acct, '헬로');
-        console.log(perms, '월드');
       }));
     return result;
   } catch(err) {
@@ -110,7 +107,28 @@ async function postMemberImageStyle(imageData, styleData) {
   }
 }
 
+function patchMeberStyle(data) {
+  const result = axios.patch(`${API_URL}/member/style`, data, {
+    withCredentials: true,
+  }).then((res) => {
+    return res;
+  }).catch((err) => {
+    return err;
+  });
+  return result;
+}
 
+function patchMemberImageStyle(styleData, imageData) {
+  const result = axios.all([patchMeberStyle(styleData), postMemberImages(imageData)])
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      alert(err);
+      return err;
+    });
+  return result;
+}
 
 export default {
   getSize,
@@ -121,4 +139,6 @@ export default {
   postMemberImages,
   postMemberStyle,
   postMemberImageStyle,
+  patchMemberImageStyle,
+  patchMeberStyle,
 };

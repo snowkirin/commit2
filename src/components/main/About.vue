@@ -76,7 +76,7 @@ export default {
     .txt-about3 {
       font-size: 18px;
       line-height: 25px;
-      letter-spacing: -0.8px;
+      letter-spacing: -1.2px;
       text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
       animation-delay: 1000ms;
     }
@@ -95,14 +95,14 @@ export default {
       .txt-about1 {
         font-size: 28px;
         line-height: 1;
-        letter-spacing: -1.8px;
-        margin-bottom: 31px;
+        letter-spacing: -1.4px;
+        margin-bottom: 25px;
 
       }
       .txt-about3 {
-        font-size: 24px;
+        font-size: 28px;
         line-height: 1;
-        letter-spacing: -0.9px;
+        letter-spacing: -1.4px;
       }
     }
 

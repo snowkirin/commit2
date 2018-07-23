@@ -149,7 +149,7 @@ export default {
     }
     th, td {
       font-size: 15px;
-      letter-spacing: -0.6px;
+      letter-spacing: -0.9px;
     }
     thead {
       th {
@@ -192,6 +192,7 @@ export default {
     .percent {
       font-size: 15px;
       font-weight: 700;
+      letter-spacing: -0.9px;
     }
     .text {
       transform-origin: 0 0;
