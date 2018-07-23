@@ -1,7 +1,8 @@
 <template>
 <div class="address-frame">
   <div class="address-content">
-    <div class="custom-modal-title">주소찾기
+    <div class="custom-modal-title">
+      <div>주소찾기</div>
       <div class="custom-modal-btn" @click="closeModal">
         <div class="btn-times"></div>
       </div>

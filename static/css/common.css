@@ -275,12 +275,12 @@ a, a:hover {
 .txt-hashtag {
   font-size: 14px;
   line-height: 22px;
-  letter-spacing: -0.6px;
+  letter-spacing: -0.8px;
   color: #683b3f; }
 
 .txt-error {
   font-size: 14px;
-  letter-spacing: -0.4px;
+  letter-spacing: -0.8px;
   color: #ec4b1a;
   margin-top: 8px; }
 
@@ -296,7 +296,7 @@ a, a:hover {
 .txt-link {
   line-height: 25px;
   font-size: 15px;
-  letter-spacing: -0.8px;
+  letter-spacing: -0.9px;
   color: #566b9c;
   text-decoration: underline; }
   .txt-link:hover {
@@ -315,12 +315,13 @@ a, a:hover {
 
 @media (min-width: 768px) {
   .txt-main-title {
-    font-size: 20px;
+    font-size: 18px;
     line-height: 26px;
-    letter-spacing: -1.4px; }
+    letter-spacing: -1px; }
 
   .txt-main-point {
-    font-size: 17px; }
+    font-size: 17px;
+    font-margin-bottom: 4px; }
 
   .txt-point {
     font-size: 16px;

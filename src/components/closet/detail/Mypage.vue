@@ -983,7 +983,7 @@ export default {
     .txt-name {
       font-size: 15px;
       line-height: 23px;
-      letter-spacing: -0.6px;
+      letter-spacing: -0.9px;
       color: #797979;
     }
   }
@@ -994,7 +994,7 @@ export default {
     .txt-entrance-number {
       font-size: 15px;
       line-height: 23px;
-      letter-spacing: -0.6px;
+      letter-spacing: -0.9px;
       color: #797979;
       margin-bottom: 13px;
     }
@@ -1032,7 +1032,7 @@ export default {
     .txt-current-card {
       font-size: 15px;
       line-height: 23px;
-      letter-spacing: -0.6px;
+      letter-spacing: -0.9px;
       color: #797979;
     }
   }
@@ -1051,6 +1051,7 @@ export default {
     .name .txt-name,
     .entrance-number .txt-entrance-number {
       font-size: 16px;
+      letter-spacing: -1px;
     }
     .contents {
       margin-top: 27px;
@@ -1093,6 +1094,7 @@ export default {
         flex-shrink: 0;
         flex-basis: 99px;
         font-size: 16px;
+        letter-spacing: -1px;
       }
     }
     .btn-modify {

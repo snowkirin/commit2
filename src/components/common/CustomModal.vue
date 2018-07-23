@@ -117,7 +117,7 @@ export default {
   font-style: normal;
   font-stretch: normal;
   line-height: 1.71;
-  letter-spacing: -0.4px;
+  letter-spacing: -0.8px;
   text-align: left;
   color: #333333;
 }

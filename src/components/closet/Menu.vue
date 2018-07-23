@@ -3,6 +3,7 @@
     <div v-show="$mq !== 'sm'" class="menu-container">
       <template v-for="(data, idx) in routerJSON">
         <router-link
+          :key="idx"
           :to="data.path"
           class="closet-link"
           active-class="active">
@@ -10,10 +11,13 @@
         </router-link>
       </template>
     </div>
-    <swiper :options="swiperOption" ref="mySwiper" v-show="$mq === 'sm'">
+    <swiper
+      :options="swiperOption"
+      ref="mySwiper"
+      v-show="$mq === 'sm'">
       <swiper-slide
         v-for="(data, idx) in routerJSON"
-        :key="idx" @click="clickMenu(idx)">
+        :key="idx" @click.native="clickMenu(idx)">
         <router-link
           :to="data.path"
           class="closet-link"
@@ -26,6 +30,10 @@
 </template>
 
 <script>
+  /*
+  *  vue-awesome-swiper 클릭 이벤트 제대로 작동 안할시 참고 할것
+  *  https://github.com/surmon-china/vue-awesome-swiper/issues/226
+  * */
 import { swiper, swiperSlide } from 'vue-awesome-swiper';
 import 'swiper/dist/css/swiper.css';
 
@@ -42,10 +50,6 @@ export default {
       swiperOption: {
         slidesPerView: 'auto',
         spaceBetween: 20,
-        breakpoints: {
-          320: {
-          },
-        },
       },
       routerJSON: [
         {
@@ -60,10 +64,10 @@ export default {
           text: '과거의옷장',
           path: '/closet/past',
         },
-        // {
-        //   text: '스타일정보',
-        //   path: '/closet/style',
-        // },
+        {
+          text: '스타일정보',
+          path: '/closet/style',
+        },
         {
           text: '나의정보관리',
           path: '/closet/security',
@@ -85,7 +89,7 @@ export default {
   },
   methods: {
     clickMenu(idx) {
-      this.$refs.mySwiper.swiper.slideTo(idx - 2, 400);
+      this.$refs.mySwiper.swiper.slideTo(idx - 1, 400);
     },
   },
   mounted() {

@@ -101,6 +101,7 @@ export default {
         font-size: 15px;
         line-height: 23px;
         word-break: keep-all;
+        letter-spacing: -0.9px;
       }
     }
   }
@@ -125,7 +126,7 @@ export default {
       .txt-desc {
         font-size: 15px;
         line-height: 23px;
-        letter-spacing: -.3px;
+        letter-spacing: -.9px;
         word-break: keep-all;
       }
     }
@@ -245,6 +246,7 @@ export default {
       .detail {
         .txt-step {
           font-size: 14px;
+          letter-spacing: -0.8px;
         }
         .txt-title {
           font-size: 20px;
@@ -255,7 +257,7 @@ export default {
           font-size: 16px;
           line-height: 24px;
           word-break: keep-all;
-          letter-spacing: -0.5px;
+          letter-spacing: -1px;
         }
       }
     }

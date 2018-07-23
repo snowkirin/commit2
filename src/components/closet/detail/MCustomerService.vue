@@ -234,7 +234,7 @@ export default {
       user-select: none;
       display: inline-block;
       font-size: 15px;
-      letter-spacing: -0.6px;
+      letter-spacing: -0.9px;
       width: 50%;
       height: 50px;
       color: #bbb;
@@ -272,7 +272,7 @@ export default {
       border: 1px solid #c4c4c4;
       font-size: 15px;
       line-height: 23px;
-      letter-spacing: -0.6px;
+      letter-spacing: -0.9px;
     }
     .requirement-textarea {
       width: 100%;
@@ -282,7 +282,7 @@ export default {
       resize: none;
       font-size: 15px;
       line-height: 25px;
-      letter-spacing: -0.6px;
+      letter-spacing: -0.9px;
       &::placeholder {
         color: #bbb;
       }
@@ -321,7 +321,7 @@ export default {
           height: 53px;
           font-size: 15px;
           line-height: 23px;
-          letter-spacing: -0.6px;
+          letter-spacing: -0.9px;
         }
         .txt-index,
         .txt-date {
@@ -342,13 +342,12 @@ export default {
           }
           .type {
             line-height: 22px;
-            letter-spacing: -0.6px;
+            leeter-spacing: -0.8px;
             margin-bottom: 4px;
             color: #333;
           }
           .desc {
             line-height: 20px;
-            letter-spacing: -0.8px;
             color: #797979;
             &.desc-answer {
               margin-top: 20px;
@@ -448,7 +447,7 @@ export default {
             height: 43px;
             font-size: 15px;
             line-height: 21px;
-            letter-spacing: -1px;
+            letter-spacing: -0.9px;
             color: #333;
             border-bottom: 1px solid #e9e9e9;
           }
@@ -467,7 +466,7 @@ export default {
             .type,
             .desc {
               font-size: 15px;
-              letter-spacing: -1px;
+              letter-spacing: -0.9px;
               line-height: 23px;
             }
             .type {
@@ -481,7 +480,7 @@ export default {
                 &::before {
                   margin-bottom: 10px;
                   font-size: 15px;
-                  letter-spacing: -1px;
+                  letter-spacing: -0.9px;
                   line-height: 23px;
                 }
               }

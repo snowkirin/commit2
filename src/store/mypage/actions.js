@@ -1,5 +1,6 @@
 import Auth from '@/library/api/auth';
 import Closet from '@/library/api/closet';
+import Member from '@/library/api/member';
 import types from './mutation-types';
 
 const changeEmail = async ({ commit }, data) => {
@@ -146,6 +147,26 @@ const securityDestroyed = ({ commit }) => {
   commit(types.MYPAGE_SECURITY_DESTROYED);
 };
 
+
+/*
+* Date: 2018-07-23
+* Author: JIM
+* */
+const setMemberStyle = async ({ commit }) => {
+  try {
+    const result = await Member.getMemberStyle();
+    if (result.data.result) {
+      commit(types.SET_MEMBER_STYLE, result.data.data);
+      return result;
+    } else {
+      alert('서비스에 문제가 발생하였습니다.\n새로고침 후 다시 시도해주세요');
+
+    }
+  } catch (e) {
+    console.error(e.message);
+  }
+};
+
 export default {
   changePwd,
   changeEmail,
@@ -158,4 +179,5 @@ export default {
   setMypageCache,
   phoneVerify,
   phoneCheckVerify,
+  setMemberStyle,
 };

@@ -147,7 +147,7 @@ export default {
         th {
           font-size: 15px;
           line-height: 21px;
-          letter-spacing: -0.6px;
+          letter-spacing: -0.9px;
           height: 43px;
         }
 
@@ -163,7 +163,7 @@ export default {
             height: 54px;
             font-size: 15px;
             line-height: 23px;
-            letter-spacing: -0.6px;
+            letter-spacing: -0.9px;
           }
           .txt-index {
             text-align: center;
@@ -190,7 +190,7 @@ export default {
       margin-top: 30px;
       font-size: 15px;
       color: #797979;
-      letter-spacing: -1px;
+      letter-spacing: -0.9px;
     }
   }
 
@@ -208,7 +208,7 @@ export default {
             height: 43px;
             font-size: 15px;
             line-height: 21px;
-            letter-spacing: -1px;
+            letter-spacing: -0.9px;
             color: #333;
           }
         }
@@ -224,7 +224,7 @@ export default {
               padding: 25px 30px;
               background-color: #f5f5f5;
               font-size: 14px;
-              letter-spacing: -0.6px;
+              letter-spacing: -0.8px;
               line-height: 21px;
             }
           }

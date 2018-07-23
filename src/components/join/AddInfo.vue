@@ -15,7 +15,7 @@
           <div>
             <ul class="list-color">
               <li
-                v-for="(data, idx) in addInfoData.prefer_color"
+                v-for="(data, idx) in addInfoCode.prefer_color"
                 :key="idx"
                 @click="clickColor(data, $event)">
                 <div class="txt-centering" >
@@ -25,7 +25,7 @@
             </ul>
             <ul class="list-pattern">
               <li
-                v-for="(data, idx) in addInfoData.prefer_pattern"
+                v-for="(data, idx) in addInfoCode.prefer_pattern"
                 :key="idx"
                 @click="clickPattern(data, $event)"
                 :class="patternName(data.name)">
@@ -52,7 +52,7 @@
           <p class="txt-point">[선택] 내가 주로 활동 하는 곳의 드레스 코드는?</p>
           <ul class="list-dresscode">
             <li
-              v-for="(data, idx) in addInfoData.dress_code"
+              v-for="(data, idx) in addInfoCode.dress_code"
               :class="dressCodeName(data.name)"
               @click="clickDressCode(data, $event)"
               :key="idx">
@@ -79,11 +79,11 @@
           <div class="image-preview" style="display: none;" ref="imagePreview">
             <div>
               <svg version="1.1" id="L3" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve" width="50" style="margin: 0 auto;">
-              <circle fill="none" stroke="#333" stroke-width="4" cx="50" cy="50" r="44" style="opacity:0.5;"></circle>
-              <circle fill="none" stroke="#333" stroke-width="3" cx="8" cy="54" r="6" transform="rotate(323.517 50 51.5946)">
-                <animateTransform attributeName="transform" dur="2s" type="rotate" from="0 50 48" to="360 50 52" repeatCount="indefinite"></animateTransform>
-              </circle>
-            </svg>
+                <circle fill="none" stroke="#333" stroke-width="4" cx="50" cy="50" r="44" style="opacity:0.5;"></circle>
+                <circle fill="none" stroke="#333" stroke-width="3" cx="8" cy="54" r="6" transform="rotate(323.517 50 51.5946)">
+                  <animateTransform attributeName="transform" dur="2s" type="rotate" from="0 50 48" to="360 50 52" repeatCount="indefinite"></animateTransform>
+                </circle>
+              </svg>
               <img :src="previewImage" width="163" alt="">
             </div>
           </div>
@@ -116,7 +116,7 @@ export default {
   }),
   data() {
     return {
-      addInfoData: {
+      addInfoCode: {
       },
       memberStyle: {
         preferColor: null,
@@ -286,7 +286,7 @@ export default {
   created() {
     const $this = this;
     Codes.getOptions().then((res) => {
-      $this.addInfoData = res.data;
+      $this.addInfoCode = res.data;
     }).catch((err) => {
       console.error(err);
     });
@@ -307,7 +307,7 @@ export default {
   @mixin txtListStyle {
     font-size: 15px;
     line-height: 25px;
-    letter-spacing: -0.6px;
+    letter-spacing: -0.9px;
     &.selected {
       font-weight: 700;
     }
@@ -328,7 +328,7 @@ export default {
       .txt-addinfo {
         font-size: 15px;
         line-height: 23px;
-        letter-spacing: -0.6px;
+        letter-spacing: -0.9px;
         margin-top: 11px;
       }
     }
@@ -433,7 +433,7 @@ export default {
             background-color: #fff;
             font-size: 15px;
             line-height: 25px;
-            letter-spacing: -0.6px;
+            letter-spacing: -0.9px;
             color: #bbb;
             text-align: center;
           }
@@ -497,7 +497,7 @@ export default {
           resize: none;
           padding: 3px 12px 5px;
           line-height: 25px;
-          letter-spacing: -0.6px;
+          letter-spacing: -0.9px;
           font-size: 15px;
           color: #797979;
         }
@@ -516,7 +516,7 @@ export default {
         width: 100%;
         height: 60px;
         font-size: 18px;
-        letter-spacing: -0.7px;
+        letter-spacing: -1.2px;
       }
     }
   }

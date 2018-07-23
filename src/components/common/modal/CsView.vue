@@ -213,7 +213,7 @@ export default {
   padding: 10px 15px;
   font-size: 14px;
   line-height: 1.56;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.8px;
   color: #333333;
 }
 

@@ -232,7 +232,7 @@ export default {
       .txt-question {
         font-size: 16px;
         display: flex;
-        letter-spacing: -0.5px;
+        letter-spacing: -1px;
         line-height: 23px;
         justify-content: space-between;
         word-break: keep-all;
@@ -262,11 +262,13 @@ export default {
           margin-bottom: 5px;
           color: #212121;
           font-size: 15px;
+          letter-spacing: -0.9px;
         }
         .explain {
           line-height: 23px;
           color: #333;
           font-size: 15px;
+          letter-spacing: -0.9px;
         }
       }
     }
@@ -335,11 +337,12 @@ export default {
         padding: 23px 30px 26px;
         .txt-answer {
           word-break: keep-all;
-          letter-spacing: -0.4px;
+          letter-spacing: -1px;
           .emphasis {
             font-size: 16px;
             line-height: 28px;
             margin-bottom: 15px;
+            letter-spacing: -1px;
             color: #333;
           }
           .explain {

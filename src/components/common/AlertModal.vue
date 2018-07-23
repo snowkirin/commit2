@@ -107,7 +107,7 @@ export default {
   font-style: normal;
   font-stretch: normal;
   line-height: 1.4;
-  letter-spacing: -0.4px;
+  letter-spacing: -1px;
   text-align: center;
   color: #333333;
 }
