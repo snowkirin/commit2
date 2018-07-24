@@ -8,7 +8,7 @@
             :class="{selected : rating === 'love'}"
             @click="clickRating(questionCommon[0], 0, 'love')">
             <div class="image">
-              <img :src="(rating !== 'love') ? '/static/img/closet/ico_feedback1.svg' : '/static/img/closet/ico_feedback1_active.svg'">
+              <img :src="(rating === 'love') ? '/static/img/closet/ico_feedback1_active.svg': '/static/img/closet/ico_feedback1.svg'">
             </div>
             <p class="text">{{ questionCommon[0].answer_text[0] }}</p>
           </li>
@@ -16,7 +16,7 @@
             :class="{selected : rating === 'okay'}"
             @click="clickRating(questionCommon[0], 1, 'okay')">
             <div class="image">
-              <img :src="(rating !== 'okay') ? '/static/img/closet/ico_feedback2.svg' : '/static/img/closet/ico_feedback2_active.svg'">
+              <img :src="(rating === 'okay') ? '/static/img/closet/ico_feedback2_active.svg' : '/static/img/closet/ico_feedback2.svg'">
             </div>
             <p class="text">{{ questionCommon[0].answer_text[1] }}</p>
           </li>
@@ -24,7 +24,7 @@
             :class="{selected : rating === 'bad'}"
             @click="clickRating(questionCommon[0], 2, 'bad')">
             <div class="image">
-              <img :src="(rating !== 'bad') ? '/static/img/closet/ico_feedback3.svg' : '/static/img/closet/ico_feedback3_active.svg'">
+              <img :src="(rating === 'bad') ? '/static/img/closet/ico_feedback3_active.svg' : '/static/img/closet/ico_feedback3.svg'">
             </div>
             <p class="text">{{ questionCommon[0].answer_text[2] }}</p>
           </li>
@@ -35,13 +35,12 @@
     <div
       class="review"
       ref="review"
-      style="display: none">
+      :style="(type === 'direct') ? 'display:block;': 'display: none;'">
       <p class="txt-review" v-if="type === 'current' || type === 'direct'">소중한 이용 후기 부탁드립니다.</p>
       <div class="clearfix section-wrapper">
         <div class="section-left">
           <div class="section">
-            <div
-              class="row">
+            <div class="row">
               <div class="text">
                 <p class="txt-point">
                   {{ questionCommon[1].question_text }}
@@ -52,6 +51,7 @@
                   <li
                     v-for="(data2, idx2) in questionCommon[1].answer_text"
                     :key="idx2"
+                    :class="{selected:  questionCommon[1].customer_answer === questionCommon[1].answer_code[idx2]}"
                     @click="clickEvt(questionCommon[1], idx2, $event)">
                     <div class="txt-centering">{{ data2 }}</div>
                   </li>
@@ -82,14 +82,14 @@
                   <li
                     v-for="(data2, idx2) in data.answer_text"
                     :key="idx2"
-                    :class="(data['answer_text'].length === 5 && idx2 === 3) ? 'line-break': ''"
+                    :class="[(data['answer_text'].length === 5 && idx2 === 3) ? 'line-break': '', {selected: data.customer_answer === data.answer_code[idx2]}]"
                     @click="clickEvt(data, idx2, $event)">
                     <div class="txt-centering">{{ data2 }}</div>
                   </li>
                 </ul>
                 <div
                   class="form-row"
-                  style="display: none;"
+                  :style="data.customer_answer === '13003' || data.customer_answer === '14003' ? 'display:block;' : 'display: none;'"
                   ref="reasons"
                   v-if="data.question_text === '색상 및 패턴'"
                   :data-questionCode="data.question_code"
@@ -97,6 +97,7 @@
                   <input
                     type="text"
                     placeholder="색상, 패턴이 맘에 들지 않은 이유를 적어주세요."
+                    :value="data.customer_answer_reason === 'null' ? '' : data.customer_answer_reason"
                     class="form-input">
                 </div>
               </div>
@@ -129,14 +130,14 @@
                 <ul class="square-list">
                   <li
                     v-for="(data2, idx2) in data.answer_text"
-                    :class="(data['answer_text'].length === 5 && idx2 === 3) ? 'line-break': ''"
+                    :class="[(data['answer_text'].length === 5 && idx2 === 3) ? 'line-break': '', {selected: data.customer_answer === data.answer_code[idx2]}]"
                     :key="idx2"
                     @click="clickEvt(data, idx2, $event)">
                     <div class="txt-centering">{{ data2 }}</div>
                   </li>
                 </ul>
                 <div
-                  style="display: none;"
+                  :style="data.customer_answer && data.customer_answer.indexOf('003') !== -1 ? 'display:block;' : 'display: none;'"
                   class="form-row"
                   v-if="data.question_text === '색상 및 패턴'"
                   ref="reasons"
@@ -145,6 +146,7 @@
                   <input
                     type="text"
                     placeholder="색상, 패턴이 맘에 들지 않은 이유를 적어주세요."
+                    :value="data.customer_answer_reason === 'null' ? '' : data.customer_answer_reason"
                     class="form-input">
                 </div>
               </div>
@@ -162,6 +164,7 @@
                   <li
                     v-for="(data, idx) in ['10', '9', '8', '7', '6', '5' , '4', '3', '2', '1']"
                     @click="clickNps(data, idx, $event)"
+                    :class="{selected: scoreNPS === parseInt(data)}"
                     :key="idx">
                     <div class="txt-centering">
                       {{ data }}
@@ -191,6 +194,7 @@
 import AlertModal from '@/components/common/AlertModal';
 import Closet from '@/library/api/closet';
 
+import VueJsonPretty from 'vue-json-pretty';
 
 export default {
   name: 'feedBack',
@@ -208,6 +212,7 @@ export default {
   },
   components: {
     AlertModal,
+    VueJsonPretty
   },
   data() {
     return {
@@ -219,6 +224,7 @@ export default {
       questionB: {},
       result: false,
       setNPS: null,
+      scoreNPS: null,
     };
   },
   computed: {
@@ -309,8 +315,11 @@ export default {
         this.$refs.review.style.display = 'none';
       }
     },
+
+
     clickRating(data, index, string) {
       const $this = this;
+
       const sendData = {
         subscriptionId: this.subId,
         feedbackId: _.parseInt(this.feedbackId),
@@ -339,8 +348,18 @@ export default {
       this.question = this.data.question;
       this.result = this.data.result;
       this.setNPS = this.data.setNPS;
+      this.scoreNPS = this.data.nps_score;
     } else {
       this.result = this.data.result;
+    }
+  },
+  mounted() {
+    if (this.questionCommon[0].customer_answer === '10001') {
+      this.rating = 'love';
+    } else if (this.questionCommon[0].customer_answer === '10002') {
+      this.rating = 'okay';
+    } else if (this.questionCommon[0].customer_answer === '10003') {
+      this.rating = 'bad';
     }
   },
 };
