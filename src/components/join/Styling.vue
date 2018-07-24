@@ -286,8 +286,8 @@ export default {
     padding: 24px 20px 17px 20px;
     .container-header {
       .styling-title {
-        font-size: 26px;
-        line-height: 34px;
+        font-size: 24px;
+        line-height: 32px;
         letter-spacing: -1.4px;
         text-align: center;
       }
@@ -427,6 +427,7 @@ export default {
     line-height: 1;
     text-align: center;
     color: #333333;
+    letter-spacing: -1px;
   }
 
   .zuly-detail-circle-text span.description {
@@ -434,6 +435,7 @@ export default {
     margin-top: 8px;
     font-size: 14px;
     line-height: 1.4;
+    letter-spacing: -0.8px;
     color: #797979;
   }
 
@@ -647,7 +649,7 @@ export default {
         .styling-text {
           font-size: 16px;
           line-height: 23px;
-          letter-spacing: -0.6px;
+          letter-spacing: -1px;
           margin-top: 5px;
         }
         .line {
@@ -665,6 +667,7 @@ export default {
         width: 280px;
         height: 60px;
         font-size: 16px;
+        letter-spacing: -1px;
       }
     }
   }

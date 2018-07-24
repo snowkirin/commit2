@@ -13,7 +13,7 @@
             <div class="flex-list">
               <ul>
                 <li
-                  v-for="(data, idx) in setSize.blouse"
+                  v-for="(data, idx) in sizeCode.blouse"
                   v-if="!(data.name === '44'|| data.name === '77')"
                   :key="idx"
                   @click="setData('blouseSize', data)"
@@ -28,7 +28,7 @@
             <div class="flex-list">
               <ul>
                 <li
-                  v-for="(data, idx) in setSize.skirt"
+                  v-for="(data, idx) in sizeCode.skirt"
                   v-if="!(data.name === '44'|| data.name === '77')"
                   :key="idx"
                   :class="{selected: sizeData.skirtSize === data.code}"
@@ -43,7 +43,7 @@
             <div class="flex-list">
               <ul>
                 <li
-                  v-for="(data, idx) in setSize.pants"
+                  v-for="(data, idx) in sizeCode.pants"
                   v-if="!(data.name === '25'|| data.name === '31')"
                   :key="idx"
                   :class="{selected: sizeData.pantsSize === data.code}"
@@ -104,7 +104,7 @@
                 {{ bodyTypeText }}
               </p>
               <ul class="body-type-list">
-                <template v-for="(data, idx) in setSize.body_type">
+                <template v-for="(data, idx) in sizeCode.body_type">
                   <li
                     :class="{selected: sizeData.bodyType === data.code}"
                     @click="setData('bodyType', data)"
@@ -140,7 +140,7 @@ export default {
   name: 'size',
   data() {
     return {
-      setSize: {},
+      sizeCode: {},
       bodyTypeText: '',
       sizeData: {
         tallSize: null,
@@ -224,7 +224,7 @@ export default {
   created() {
     const $this = this;
     Codes.getSize().then((res) => {
-      $this.setSize = res.data;
+      $this.sizeCode = res.data;
     }).catch((err) => {
       console.error(err);
     });
@@ -254,8 +254,8 @@ export default {
         margin-bottom: 17px;
       }
       .size-title {
-        font-size: 26px;
-        line-height: 34px;
+        font-size: 24px;
+        line-height: 32px;
         letter-spacing: -1.4px;
         text-align: center;
       }
@@ -307,7 +307,7 @@ export default {
           line-height: 48px;
           text-align: center;
           color: #bbb;
-          letter-spacing: -0.2px;
+          letter-spacing: -0.9px;
           background-color: #fff;
           user-select: none;
           cursor: pointer;
@@ -388,7 +388,7 @@ export default {
       .size-text {
         font-size: 16px;
         line-height: 23px;
-        letter-spacing: -0.6px;
+        letter-spacing: -1px;
         margin-top: 5px;
       }
       .line {
@@ -429,7 +429,7 @@ export default {
         .text {
           font-size: 15px;
           line-height: 23px;
-          letter-spacing: -0.6px;
+          letter-spacing: -0.9px;
           padding: 12px 27px;
         }
         .body-type-list {
@@ -445,6 +445,7 @@ export default {
         height: 60px;
         margin-top: 29px;
         font-size: 16px;
+        letter-spacing: -1px;
       }
     }
   }

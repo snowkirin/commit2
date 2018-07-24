@@ -29,7 +29,7 @@
             :navigationEnabled="navigationEnabled"
             :paginationEnabled="paginationEnabled">
             <slide v-for="(image, idx) in closetImage.path" v-bind:key="idx" :data-index="idx">
-              <img class="main-image" :src="(closetImage.width[idx] > 600) ? API_IMAGE_URL+'medium/'+image : API_IMAGE_URL+image" />
+              <img class="main-image" :src="(closetImage.width[idx] > 600) ? API_IMAGE_URL+image : API_IMAGE_URL+image" />
             </slide>
           </carousel>
           <div class="carousel-pagination" v-if="isMobile">

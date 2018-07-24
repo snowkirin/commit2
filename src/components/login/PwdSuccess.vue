@@ -119,7 +119,7 @@ export default {
   font-style: normal;
   font-stretch: normal;
   line-height: 2;
-  letter-spacing: -0.2px;
+  letter-spacing: -1px;
   color: #333333;
 }
 
@@ -141,7 +141,7 @@ export default {
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
-  letter-spacing: -0.1px;
+  letter-spacing: -0.8px;
   text-align: left;
   color: #333333;
 }
@@ -156,7 +156,7 @@ export default {
 
 .findId-form span {
   font-size: 16px;
-  letter-spacing: -0.5px;
+  letter-spacing: -1px;
   text-align: center;
   color: #ec4b1a;
 }

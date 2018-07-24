@@ -204,7 +204,7 @@ export default {
         }
 
         .txt-tel {
-          font-size: 24px;
+          font-size: 26px;
           display: block;
           margin-top: 12px;
           line-height: 18px;
@@ -212,10 +212,10 @@ export default {
         .txt-operation {
           font-size: 16px;
           line-height: 25px;
-          letter-spacing: -0.5px;
+          letter-spacing: -1px;
           .txt-link {
             font-size: 16px;
-            letter-spacing: -0.6px;
+            letter-spacing: -1px;
           }
         }
       }
@@ -247,7 +247,7 @@ export default {
         .txt-copyright {
           font-size: 14px;
           line-height: 22px;
-          letter-spacing: -0.6px;
+          letter-spacing: -0.8px;
         }
         .txt-copyright {
           font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;

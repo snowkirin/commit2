@@ -381,7 +381,7 @@ export default {
         display: inline-block;
         color: #fff;
         font-size: 14px;
-        letter-spacing: -0.6px;
+        letter-spacing: -0.8px;
         opacity: 0.6;
         &:nth-child(1) {
           margin-left: 0;
@@ -420,7 +420,7 @@ export default {
       color: #fff;
       line-height: 40px;
       font-size: 15px;
-      letter-spacing: -1px;
+      letter-spacing: -0.9px;
       text-align: center;
       height: 40px;
       position: relative;
@@ -490,7 +490,7 @@ export default {
         background-color: #fff;
         font-size: 15px;
         color: #bbb;
-        letter-spacing: -0.6px;
+        letter-spacing: -0.9px;
         text-align: center;
         word-break: keep-all;
         float: left;
@@ -538,7 +538,7 @@ export default {
       padding-right: 0;
       padding-top: 14px;
       .inner {
-        height: 254px;
+        height: 244px;
         padding-top: 52px;
         margin-bottom: 20px;
       }
@@ -550,6 +550,7 @@ export default {
         margin-top: 24px;
         li {
           font-size: 15px;
+          letter-spacing: -0.9px;
           opacity: 0.6;
           &:nth-child(2) {
             margin-left: 52px;

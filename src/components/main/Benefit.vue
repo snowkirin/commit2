@@ -113,7 +113,7 @@ export default {
       .txt-benefit {
         font-size: 54px;
         letter-spacing: -3.2px;
-        line-height: 65px;
+        line-height: 66px;
         margin-left: -3px;
         .txt-discount {
           font-size: 58px;

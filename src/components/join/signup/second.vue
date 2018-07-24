@@ -451,12 +451,12 @@ export default {
     .signup-title {
       margin-bottom: 12px;
       .text {
-        font-size: 26px;
-        line-height: 34px;
+        font-size: 24px;
+        line-height: 32px;
         letter-spacing: -1.4px;
         span {
-          font-size: 28px;
-          line-height: 36px;
+          font-size: 24px;
+          line-height: 32px;
           letter-spacing: 0;
           font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
         }
@@ -465,7 +465,7 @@ export default {
     .explain {
       font-size: 15px;
       line-height: 23px;
-      letter-spacing: -0.6px;
+      letter-spacing: -0.9px;
       span {
         color: #797979;
       }
@@ -491,7 +491,7 @@ export default {
       position: relative;
       color: #bbb;
       font-size: 15px;
-      letter-spacing: 0;
+      letter-spacing: -0.9px;
       text-align: center;
       line-height: 18px;
       padding-top: 6px;
@@ -578,12 +578,12 @@ export default {
       width: 100%;
       font-size: 15px;
       line-height: 23px;
-      letter-spacing: -0.6px;
+      letter-spacing: -0.9px;
       .txt-number {
         font-size: 18px;
         font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
         line-height: 25px;
-        letter-spacing: 0;
+        letter-spacing: -1.2px;
       }
       th, td {
         border-bottom: 1px solid #e9e9e9;
@@ -660,6 +660,7 @@ export default {
 
     .order-total-table {
       font-size: 16px;
+      letter-spacing: -1px;
       .txt-number {
         font-size: 22px;
       }

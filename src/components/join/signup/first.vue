@@ -657,8 +657,8 @@ export default {
     }
     .container-header {
       .signup-title {
-        font-size: 26px;
-        line-height: 34px;
+        font-size: 24px;
+        line-height: 32px;
         letter-spacing: -1.4px;
         text-align: center;
       }
@@ -694,7 +694,7 @@ export default {
   }
   .txt-delivery {
     font-size: 14px;
-    letter-spacing: -0.6px;
+    letter-spacing: -0.8px;
     line-height: 20px;
     margin-top: 10px;
     color: #797979;
@@ -757,6 +757,7 @@ export default {
             width: 382px;
             font-size: 16px;
             height: 60px;
+            letter-spacing: -1px;
           }
         }
 

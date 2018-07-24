@@ -77,7 +77,7 @@ export default {
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
-  letter-spacing: -0.2px;
+  letter-spacing: -1px;
   text-align: left;
   color: #797979;
 }
