@@ -137,7 +137,7 @@
                   </li>
                 </ul>
                 <div
-                  :style="data.customer_answer.indexOf('003') !== -1 ? 'display:block;' : 'display: none;'"
+                  :style="data.customer_answer && data.customer_answer.indexOf('003') !== -1 ? 'display:block;' : 'display: none;'"
                   class="form-row"
                   v-if="data.question_text === '색상 및 패턴'"
                   ref="reasons"
@@ -194,6 +194,8 @@
 import AlertModal from '@/components/common/AlertModal';
 import Closet from '@/library/api/closet';
 
+import VueJsonPretty from 'vue-json-pretty';
+
 export default {
   name: 'feedBack',
   props: {
@@ -210,6 +212,7 @@ export default {
   },
   components: {
     AlertModal,
+    VueJsonPretty
   },
   data() {
     return {
