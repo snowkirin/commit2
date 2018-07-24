@@ -486,7 +486,6 @@ export default {
         img {
           border: 5px solid #fff;
           width: 170px;
-          height: 200px;
         }
       }
     }
