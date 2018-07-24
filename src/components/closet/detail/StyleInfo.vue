@@ -199,7 +199,7 @@
                 <animateTransform attributeName="transform" dur="2s" type="rotate" from="0 50 48" to="360 50 52" repeatCount="indefinite"></animateTransform>
               </circle>
             </svg>
-            <img :src="previewImage ? previewImage : (styleData.image_path === null) ? null : API_IMAGE_URL + styleData.image_path " width="163" alt="">
+            <img :src="previewImage ? previewImage : (styleData.image_path === null) ? null : IMAGE_URL + styleData.image_path " width="163" alt="">
           </div>
         </div>
       </div>
@@ -236,7 +236,7 @@ export default {
   },
   data() {
     return {
-      API_IMAGE_URL: process.env.API_IMAGE_URL,
+      IMAGE_URL: process.env.API_ORIGINAL_IMAGE_URL,
       styleData: {
         member_id: 0,
         tall_size: 0,
