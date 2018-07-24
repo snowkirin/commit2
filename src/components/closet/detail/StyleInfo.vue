@@ -98,9 +98,9 @@
         <div class="body-type">
           <p class="txt-point">체형</p>
           <div>
-            <!--<p class="text" v-if="bodyTypeText">-->
-              <!--{{ bodyTypeText }}-->
-            <!--</p>-->
+            <p class="text" v-if="bodyTypeText">
+              {{ bodyTypeText }}
+            </p>
             <ul class="body-type-list">
               <template v-for="(data, idx) in sizeCode.body_type">
                 <li
@@ -117,7 +117,7 @@
       </div>
       <!-- Color & Pattern -->
       <div class="row content">
-        <p class="txt-point">[선택] 손이 가는 옷 색상이나 패턴</p>
+        <p class="txt-point">손이 가는 옷 색상이나 패턴</p>
         <div>
           <ul class="list-color">
             <li
@@ -145,7 +145,7 @@
       </div>
       <!-- Brand -->
       <div class="row content">
-        <p class="txt-point">[선택] 주로 구매하는 브랜드?</p>
+        <p class="txt-point">주로 구매하는 브랜드?</p>
         <div>
           <input
             type="text"
@@ -156,7 +156,7 @@
       </div>
       <!--Dress Code-->
       <div class="row content">
-        <p class="txt-point">[선택] 내가 주로 활동 하는 곳의 드레스 코드는?</p>
+        <p class="txt-point">내가 주로 활동 하는 곳의 드레스 코드는?</p>
         <ul class="list-dresscode">
           <li
             v-for="(data, idx) in addInfoCode.dress_code"
@@ -170,11 +170,13 @@
       </div>
       <!-- 업로드 -->
       <div class="row content">
-        <p class="txt-point">[선택] My Daily Look - 사진을 올려주세요.</p>
+        <div class="image-upload-header clearfix">
+          <p class="txt-point">My Daily Look</p>
+          <button type="button" class="btn btn-secondary" @click="clickImageUpload">업로드</button>
+        </div>
         <div>
           <div class="image-upload">
-            <input class="form-input" readonly type="text" placeholder="사진을 올려주세요." v-model="styleData.image_name">
-            <button type="button" class="btn btn-secondary" @click="clickImageUpload">업로드</button>
+            <input class="form-input" readonly type="text" placeholder="사진을 올려주세요." v-model="styleData.image_name" style="display: none;">
             <input type="file" ref="imageFileInput" accept="image/*" id="imageUpload" @change="changeImage">
           </div>
           <p class="txt-image-upload">
@@ -183,9 +185,15 @@
             (상, 하의를 볼 수 있는 착장샷이 좋아요)
           </p>
         </div>
-        <div class="image-preview" style="display: block;" ref="imagePreview" v-show="previewImage || styleData.image_path">
+        <div class="image-preview" style="display: block;" ref="imagePreview" v-if="previewImage || styleData.image_path">
           <div>
-            <svg version="1.1" id="L3" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve" width="50" style="margin: 0 auto; display: none;">
+            <svg
+              version="1.1"
+              id="L3"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve"
+              width="50"
+              style="margin: 0 auto; display: none;">
               <circle fill="none" stroke="#333" stroke-width="4" cx="50" cy="50" r="44" style="opacity:0.5;"></circle>
               <circle fill="none" stroke="#333" stroke-width="3" cx="8" cy="54" r="6" transform="rotate(323.517 50 51.5946)">
                 <animateTransform attributeName="transform" dur="2s" type="rotate" from="0 50 48" to="360 50 52" repeatCount="indefinite"></animateTransform>
@@ -197,7 +205,7 @@
       </div>
       <!-- 추가 요청사항-->
       <div class="row content">
-        <p class="txt-point">[선택] 추가 요청사항</p>
+        <p class="txt-point">추가 요청사항</p>
         <div class="textarea-required">
           <textarea placeholder="신체적인 특징이나 싫어하는 스타일, 장식등 별도 요청사항을 적어주세요." v-model="styleData.etc"></textarea>
         </div>
@@ -256,6 +264,7 @@ export default {
       // 받은 코드
       sizeCode: {},
       addInfoCode: {},
+      bodyTypeText: '',
     };
   },
   methods: {
@@ -264,6 +273,9 @@ export default {
     }),
     clickSetSize(type, data, event) {
       this.styleData[type] = data.code;
+      if (type === 'body_type') {
+        this.bodyTypeText = data.description;
+      }
     },
 
     // 추가 정보 입력
@@ -283,35 +295,27 @@ export default {
       switch (data.name) {
         case '무채색':
           colorClassName = 'achromatic-color';
-          // eleSelf.style.backgroundColor = '#bbbbbb';
           break;
         case '녹색':
           colorClassName = 'green-color';
-          // eleSelf.style.backgroundColor = '#749c09';
           break;
         case '베이지':
           colorClassName = 'beige-color';
-          // eleSelf.style.backgroundColor = '#e3cea9';
           break;
         case '보라':
           colorClassName = 'purple-color';
-          // eleSelf.style.backgroundColor = '#960af1';
           break;
         case '빨강':
           colorClassName = 'red-color';
-          // eleSelf.style.backgroundColor = '#dc3f39';
           break;
         case '노랑':
           colorClassName = 'yellow-color';
-          // eleSelf.style.backgroundColor = '#eacd1b';
           break;
         case '파랑':
           colorClassName = 'blue-color';
-          // eleSelf.style.backgroundColor = '#0e7fc9';
           break;
         case '상관없음':
           colorClassName = 'dont-care';
-          // eleSelf.style.backgroundColor = '#333333';
           break;
         default:
           break;
@@ -410,7 +414,6 @@ export default {
         dressCode: styleData.dress_code,
         requirement: styleData.etc,
       };
-      console.log($this.imageFile);
       formData.append('userImages', $this.imageFile);
 
       if ($this.previewImage === '') {
@@ -433,7 +436,6 @@ export default {
     if (_.isEmpty(this.storeStyleData)) {
       await this.setMemberStyle();
     }
-    _.assignIn($this.styleData, $this.storeStyleData);
     Codes.getSize().then((res) => {
       $this.sizeCode = res.data;
     }).catch((err) => {
@@ -445,6 +447,19 @@ export default {
     }).catch((err) => {
       console.error(err);
     });
+    _.assignIn($this.styleData, $this.storeStyleData);
+
+    if (this.styleData.body_type === 12701) {
+      this.bodyTypeText = '허리둘레와 엉덩이 둘레가 거의 같으며 골격이 잘 발달되지 않은 보이쉬한 일자형 체형입니다.';
+    } else if (this.styleData.body_type === 12702) {
+      this.bodyTypeText = '전체적으로 어깨가 잘 발달되어 상체가 넓고 아래로 내려갈수록 점점 작아지는 체형입니다.';
+    } else if (this.styleData.body_type === 12703) {
+      this.bodyTypeText = '전반적으로 상체에 살이 많고 배가 조금 나온, 둥글둥글한 모습을 띠고 있는 체형입니다.';
+    } else if (this.styleData.body_type === 12704) {
+      this.bodyTypeText = '어깨에 비해서 히프 사이즈가 크고 하체로 갈수록 점점 넓어지는 한국인에게 흔히 볼 수 있는 체형입니다.';
+    } else if (this.styleData.body_type === 12705) {
+      this.bodyTypeText = '가슴둘레와 엉덩이 둘레는 거의 비슷한데, 허리는 가는 이상적인 체형입니다.'
+    }
   },
 };
 </script>
@@ -803,6 +818,18 @@ export default {
             background-color: #333;
           }
         }
+      }
+    }
+    .image-upload-header {
+      margin-bottom: 13px;
+      .txt-point {
+        margin-bottom: 0;
+        float: left;
+        line-height: 50px;
+      }
+      .btn {
+        float: right;
+        width: 120px;
       }
     }
     .image-upload {
