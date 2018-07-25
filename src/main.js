@@ -10,7 +10,6 @@ import moment from 'moment';
 import VueMomentJS from 'vue-momentjs';
 import VueMq from 'vue-mq';
 import Ellipsis from 'ellipsis-plus';
-// import VueAnalytics from 'vue-analytics';
 import VueGlobalConst from '@/library/VueGlobalConst';
 import VueCommon from '@/library/VueCommon';
 import VueCookies from 'vue-cookies';
@@ -39,15 +38,6 @@ Vue.use(VueLocalStorage, {
   bind: true,
 });
 Vue.use(VueCookies);
-// const isDev = process.env.NODE_ENV === 'development';
-// Vue.use(VueAnalytics, {
-//   id: process.env.GA_ID,
-//   router,
-//   debug: {
-//     enabled: !isDev,
-//     sendHitTask: isDev,
-//   },
-// });
 Vue.use(VueLodash);
 Vue.use(VueGlobalConst);
 Vue.use(VueCommon);
