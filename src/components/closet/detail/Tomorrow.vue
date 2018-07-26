@@ -409,7 +409,7 @@ export default {
     }
     this.isShowFlag(this.tomorrowData);
     this.products = this.tomorrowData.products;
-    if (this.tomorrowData.subscription_status === 14404) {
+    if (this.tomorrowData.subscription_status === 14404 || this.tomorrowData.subscription_status === 14405) {
       // 보이면 안된다.
       this.selectButtonShow = false;
     } else {
@@ -668,7 +668,6 @@ export default {
         }
         .image {
           width: 260px;
-          height: 308px;
         }
       }
       /* TODO:  Desktop To Mobile */

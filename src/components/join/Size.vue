@@ -381,9 +381,9 @@ export default {
     padding: 74px 0 0 0;
     .container-header {
       .size-title {
-        font-size: 32px;
-        line-height: 40px;
-        letter-spacing: -1.7px;
+        font-size: 30px;
+        line-height: 38px;
+        letter-spacing: -2.2px;
       }
       .size-text {
         font-size: 16px;

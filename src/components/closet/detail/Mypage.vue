@@ -1083,7 +1083,6 @@ export default {
       }
       &:nth-child(2) {
         float: right;
-        margin-right: 59px;
       }
     }
     .row {

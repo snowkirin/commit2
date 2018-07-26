@@ -38,9 +38,9 @@ export default {
       width: 1200px;
       margin: 0 auto;
       padding: {
-        top: 9px;
+        top: 11px;
         right: 32px;
-        bottom: 20px;
+        bottom: 11px;
         left: 0px;
       }
       font-weight: 300;

@@ -299,9 +299,7 @@ export default {
                 answerCode: _.parseInt(data.dataset.answercode),
               };
               Closet.mypageFeedbackAnswerReason(sendData).then(function(res) {
-                console.log(res);
               }).catch(function(err) {
-                console.log(err);
               });
             }
           }
@@ -402,6 +400,7 @@ export default {
         font-size: 14px;
         letter-spacing: -0.8px;
         opacity: 0.6;
+        cursor: pointer;
         &:nth-child(1) {
           margin-left: 0;
         }
@@ -486,7 +485,6 @@ export default {
         img {
           border: 5px solid #fff;
           width: 170px;
-          height: 200px;
         }
       }
     }
@@ -600,6 +598,8 @@ export default {
       .txt-review {
         line-height: 48px;
         height: 48px;
+        width: 100%;
+        margin-left: 0;
       }
       .section-wrapper {
         border-bottom: 2px solid #333;

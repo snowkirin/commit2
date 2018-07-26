@@ -1,10 +1,5 @@
 <template>
   <div class="container">
-    <!--<p class="txt-current-title">
-      현재 대여중인 의상이 마음에<br/>
-      드신다면?<br/>
-      반납 없이 구매할 수 있습니다.
-    </p>-->
     <div v-if="showCurrent" :style="$mq === 'sm'? 'padding-top: 17px;': 'padding-top: 32px;'">
       <div class="none">
         <div class="inner txt-centering">
@@ -25,29 +20,44 @@
     </feedBack>
       <div class="current-styling" v-show="!directFeedbackCheck">
       <!-- Mobile-->
-      <div class="carousel">
-        <swiper :options="swiperOption">
-          <swiper-slide v-for="(data, idx) in currentCloset.products" :key="idx" v-if="data.id !== null">
-            <img :src="$common.IMAGEURL() + data.image.path"/>
-          </swiper-slide>
-          <div class="swiper-pagination" slot="pagination"></div>
-          <div class="swiper-button-prev" slot="button-prev"></div>
-          <div class="swiper-button-next" slot="button-next"></div>
-        </swiper>
+        <div class="mobile-carousel">
+          <div class="carousel txt-zuly">
+            <swiper :options="swiperOption">
+              <swiper-slide v-for="(data, idx) in currentCloset.products" :key="idx" v-if="data.id !== null">
+                <img :src="$common.IMAGEURL() + data.image.path"/>
+              </swiper-slide>
+              <div class="swiper-pagination" slot="pagination"></div>
+              <div class="swiper-button-prev" slot="button-prev"></div>
+              <div class="swiper-button-next" slot="button-next"></div>
+            </swiper>
+          </div>
+          <p class="txt-tip-today-style en-font"><span>TIP</span> <span class="txt-dash">_</span><br/> <span>TODAY&apos;S STYLE</span></p>
+          <div class="txt-style-tip">
+            <p class="txt-style-tip__desc">
+              {{ currentCloset.styling_tip }}
+            </p>
+          </div>
+        </div>
+      <!--<vue-json-pretty :data="currentCloset"></vue-json-pretty>-->
+        <!--<div>{{currentCloset.products.length}}</div>-->
+      <div class="desktop-carousel">
+        <div class="inner">
+          <ul class="images">
+            <li v-for="(data, idx) in currentCloset.products" :key="idx" v-if="data.id !== null" :class="{'txt-zuly': idx === 0}">
+              <img :src="$common.IMAGEURL() + data.image.path"/>
+            </li>
+          </ul>
+          <p
+            class="txt-tip-today-style en-font"
+            :style="(currentCloset.products.length === 1 ) ? 'margin-top: 30px' : ''"><span class="txt-tip">TIP</span><br/> <span>TODAY&apos;S STYLE</span></p>
+          <p class="txt-style-tip__desc">
+            {{ currentCloset.styling_tip }}
+          </p>
+        </div>
       </div>
-
       <!--Desktop -->
-      <p class="txt-tip-today-style en-font"><span>TIP</span> <span class="txt-dash">_</span><br/> <span>TODAY&apos;S STYLE</span></p>
-      <div class="txt-style-tip">
-        <!--<p class="txt-style-tip__title">ZULY Comment</p>-->
-        <p class="txt-style-tip__desc">
-          {{ currentCloset.styling_tip }}
-        </p>
-      </div>
+
       <div class="zuly-line-dot"></div>
-      <p class="txt-hashtag">
-        {{ currentCloset.hashtag }}
-      </p>
     </div>
       <detail-modal ref="detail" dataId="address"></detail-modal>
     </div>
@@ -65,6 +75,8 @@ import DetailModal from '@/components/common/DetailModal';
 import Closet from '@/library/api/closet';
 
 import 'swiper/dist/css/swiper.css';
+
+import VueJsonPretty from 'vue-json-pretty';
 
 export default {
   name: 'current',
@@ -100,6 +112,7 @@ export default {
     DetailModal,
     swiper,
     swiperSlide,
+    VueJsonPretty,
   },
   computed: {
     ...mapGetters({
@@ -232,6 +245,23 @@ export default {
       letter-spacing: -1.2px;
     }
   }
+  .txt-zuly {
+    position: relative;
+    &::before {
+      position: absolute;
+      content: 'ZULY STYLE';
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 14px;
+      color: #fff;
+      font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
+      transform: rotate(90deg);
+      transform-origin: 0 0;
+      left: -10px;
+      bottom: 60px;
+    }
+  }
 
   .txt-current-title {
     font-size: 20px;
@@ -303,8 +333,8 @@ export default {
     left: 50%;
     transform: translateX(-50%);
     display: inline-block;
-    margin-top: -15px;
-    margin-bottom: 25px;
+    margin-top: 25px;
+    margin-bottom: 15px;
     z-index: 100;
     &:before {
       content: '#';
@@ -326,6 +356,7 @@ export default {
   .txt-style-tip {
     font-size: 15px;
     letter-spacing: -0.9px;
+    text-align: center;
     &__title {
       line-height: 21px;
       font-weight: 700;
@@ -334,6 +365,7 @@ export default {
     &__desc {
       font-size: 15px;
       line-height: 23px;
+      letter-spacing: -0.9px;
     }
   }
   .txt-strike {
@@ -455,6 +487,9 @@ export default {
       }
     }
   }
+  .desktop-carousel {
+    display: none;
+  }
 
   @media (min-width: 768px) {
     .container {
@@ -464,15 +499,71 @@ export default {
     }
     .current-styling {
       margin-top: 36px;
+      padding-top: 50px;
+      padding-bottom: 50px;
     }
-    .txt-tip-today-style {
-      font-size: 44px;
-      letter-spacing: -0.5px;
-      line-height: 1;
-      &::before {
-        left: -6px;
-        top: 8px;
+    .mobile-carousel {
+      display: none;
+    }
+    .desktop-carousel {
+      display: block;
+      text-align: center;
+      .inner {
+        display: inline-block;
+        text-align: left;
+      }
+      .txt-zuly {
+        &::before {
+          font-size: 14px;
+          left: -20px;
+          bottom: 100px;
+        }
+      }
+      .images {
+        font-size: 0;
+        text-align: center;
+        li {
+          display: inline-block;
+          width: 280px;
+          border: 10px solid #fff;
+          vertical-align: top;
+          img {
+            width: 100%;
+          }
+          &:nth-child(2) {
+            margin-left: 30px;
+            margin-top: 70px;
+          }
+        }
+      }
+      .txt-tip-today-style {
+        left: 0;
+        transform: translateX(0);
+        margin-top: -60px;
+        margin-bottom: 20px;
+        margin-left: -30px;
+        letter-spacing: -0.5px !important;
+        font-size: 44px;
+        line-height: 1;
+        &::before {
+          left: -6px;
+          top: 2px;
 
+        }
+        .txt-tip {
+          position: relative;
+          &::after {
+            content: '';
+            display: block;
+            width: 130px;
+            position: absolute;
+            height: 4px;
+            background-color: #333;
+            right: -139px;
+            top: 50%;
+            margin-top: -2px
+          }
+        }
       }
     }
   }

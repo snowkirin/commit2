@@ -125,8 +125,8 @@ export default {
         left:auto;
         bottom: 72px;
         .btn-free-month {
-          font-size: 20px;
-          letter-spacing: -1.1px;
+          font-size: 18px;
+          letter-spacing: -1.2px;
           width: 320px;
           padding: 22px 20px;
           box-shadow: 0.5px 7px 7px 0 rgba(0, 0, 0, 0.18);

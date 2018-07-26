@@ -4,210 +4,214 @@
       <p class="txt-main-title">줄라이는 베이직 스타일을 기본으로 합니다.</p>
       <div class="line line__default"></div>
     </div>
-    <div class="contents">
-      <div class="content">
-        <div class="blouse">
-          <p class="txt-point">블라우스/셔츠</p>
-          <div class="flex-list">
-            <ul>
-              <li
-                v-for="(data, idx) in sizeCode.blouse"
-                v-if="!(data.name === '44'|| data.name === '77')"
-                :key="idx"
-                :class="{selected: styleData.blouse_size  === data.code}"
-                @click="clickSetSize('blouse_size', data)">
-                {{ data.name }}
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="skirt">
-          <p class="txt-point">치마</p>
-          <div class="flex-list">
-            <ul>
-              <li
-                v-for="(data, idx) in sizeCode.skirt"
-                v-if="!(data.name === '44'|| data.name === '77')"
-                :key="idx"
-                :class="{selected: styleData.skirt_size  === data.code}"
-                @click="clickSetSize('skirt_size', data)">
-                {{ data.name }}
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="pants">
-          <p class="txt-point">바지 (inch)</p>
-          <div class="flex-list">
-            <ul>
-              <li
-                v-for="(data, idx) in sizeCode.pants"
-                v-if="!(data.name === '25'|| data.name === '31')"
-                :key="idx"
-                :class="{selected: styleData.pants_size  === data.code}"
-                @click="clickSetSize('pants_size', data)">
-                {{ data.name }}
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="height">
-          <p class="txt-point">키 (cm)</p>
-          <div
-            :class="{error: errors.has('height')}">
-            <div>
-              <input
-                type="number"
-                class="form-input"
-                name="height"
-                maxlength="3"
-                v-model.number="styleData.tall_size"
-                v-validate="'required'"
-                placeholder="최근 측정한 키를 입력해주세요.">
-            </div>
-            <p
-              class="txt-error"
-              v-show="errors.has('height')">
-              키를 입력해주세요.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="content">
-        <div class="chest">
-          <p class="txt-point">가슴 (브래지어)</p>
-          <div
-            :class="{error: errors.has('chest')}">
-            <div>
-              <input
-                type="text"
-                class="form-input"
-                v-model="styleData.bust_size"
-                name="chest"
-                v-validate="{ required: true, regex: /([0-9]{2,3})([a-fA-F]{1})$/ }"
-                placeholder="예) 80A">
-            </div>
-            <p
-              class="txt-error"
-              v-if="errors.has('chest')">
-              가슴을 입력해주세요.
-            </p>
-          </div>
-
-        </div>
-        <div class="body-type">
-          <p class="txt-point">체형</p>
-          <div>
-            <p class="text" v-if="bodyTypeText">
-              {{ bodyTypeText }}
-            </p>
-            <ul class="body-type-list">
-              <template v-for="(data, idx) in sizeCode.body_type">
+    <div class="contents clearfix">
+      <div class="left">
+        <div class="content">
+          <div class="blouse">
+            <p class="txt-point">블라우스/셔츠</p>
+            <div class="flex-list">
+              <ul>
                 <li
-                  :class="{selected: styleData.body_type  === data.code}"
-                  @click="clickSetSize('body_type', data)"
-                  :key="idx">
-                  <img :src="data.url"/>
-                  {{data }}
+                  v-for="(data, idx) in sizeCode.blouse"
+                  v-if="!(data.name === '44'|| data.name === '77')"
+                  :key="idx"
+                  :class="{selected: styleData.blouse_size  === data.code}"
+                  @click="clickSetSize('blouse_size', data)">
+                  {{ data.name }}
                 </li>
-              </template>
+              </ul>
+            </div>
+          </div>
+          <div class="skirt">
+            <p class="txt-point">치마</p>
+            <div class="flex-list">
+              <ul>
+                <li
+                  v-for="(data, idx) in sizeCode.skirt"
+                  v-if="!(data.name === '44'|| data.name === '77')"
+                  :key="idx"
+                  :class="{selected: styleData.skirt_size  === data.code}"
+                  @click="clickSetSize('skirt_size', data)">
+                  {{ data.name }}
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="pants">
+            <p class="txt-point">바지 (inch)</p>
+            <div class="flex-list">
+              <ul>
+                <li
+                  v-for="(data, idx) in sizeCode.pants"
+                  v-if="!(data.name === '25'|| data.name === '31')"
+                  :key="idx"
+                  :class="{selected: styleData.pants_size  === data.code}"
+                  @click="clickSetSize('pants_size', data)">
+                  {{ data.name }}
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="height">
+            <p class="txt-point">키 (cm)</p>
+            <div
+              :class="{error: errors.has('height')}">
+              <div>
+                <input
+                  type="number"
+                  class="form-input"
+                  name="height"
+                  maxlength="3"
+                  v-model.number="styleData.tall_size"
+                  v-validate="'required'"
+                  placeholder="최근 측정한 키를 입력해주세요.">
+              </div>
+              <p
+                class="txt-error"
+                v-show="errors.has('height')">
+                키를 입력해주세요.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="content">
+          <div class="chest">
+            <p class="txt-point">가슴 (브래지어)</p>
+            <div
+              :class="{error: errors.has('chest')}">
+              <div>
+                <input
+                  type="text"
+                  class="form-input"
+                  v-model="styleData.bust_size"
+                  name="chest"
+                  v-validate="{ required: true, regex: /([0-9]{2,3})([a-fA-F]{1})$/ }"
+                  placeholder="예) 80A">
+              </div>
+              <p
+                class="txt-error"
+                v-if="errors.has('chest')">
+                가슴을 입력해주세요.
+              </p>
+            </div>
+
+          </div>
+          <div class="body-type">
+            <p class="txt-point">체형</p>
+            <div>
+              <p class="text" v-if="bodyTypeText">
+                {{ bodyTypeText }}
+              </p>
+              <ul class="body-type-list">
+                <template v-for="(data, idx) in sizeCode.body_type">
+                  <li
+                    :class="{selected: styleData.body_type  === data.code}"
+                    @click="clickSetSize('body_type', data)"
+                    :key="idx">
+                    <img :src="data.url"/>
+                    {{data }}
+                  </li>
+                </template>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right">
+        <!-- Color & Pattern -->
+        <div class="row content">
+          <p class="txt-point">손이 가는 옷 색상이나 패턴</p>
+          <div>
+            <ul class="list-color">
+              <li
+                :key="idx"
+                v-for="(data, idx) in addInfoCode.prefer_color"
+                :class="[{selected: data.code === styleData.prefer_color}, colorName(data)]"
+                @click="clickColor(data, $event)">
+                <div class="txt-centering" >
+                  <span>{{data.name}}</span>
+                </div>
+              </li>
+            </ul>
+            <ul class="list-pattern">
+              <li
+                v-for="(data, idx) in addInfoCode.prefer_pattern"
+                :key="idx"
+                @click="clickPattern(data, $event)"
+                :class="[patternName(data.name), {selected: data.code === styleData.prefer_pattern}]">
+                <div class="txt-centering">
+                  <span>{{data.name}}</span>
+                </div>
+              </li>
             </ul>
           </div>
         </div>
-      </div>
-      <!-- Color & Pattern -->
-      <div class="row content">
-        <p class="txt-point">손이 가는 옷 색상이나 패턴</p>
-        <div>
-          <ul class="list-color">
-            <li
-              :key="idx"
-              v-for="(data, idx) in addInfoCode.prefer_color"
-              :class="[{selected: data.code === styleData.prefer_color}, colorName(data)]"
-              @click="clickColor(data, $event)">
-              <div class="txt-centering" >
-                <span>{{data.name}}</span>
-              </div>
-            </li>
-          </ul>
-          <ul class="list-pattern">
-            <li
-              v-for="(data, idx) in addInfoCode.prefer_pattern"
-              :key="idx"
-              @click="clickPattern(data, $event)"
-              :class="[patternName(data.name), {selected: data.code === styleData.prefer_pattern}]">
-              <div class="txt-centering">
-                <span>{{data.name}}</span>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <!-- Brand -->
-      <div class="row content">
-        <p class="txt-point">주로 구매하는 브랜드?</p>
-        <div>
-          <input
-            type="text"
-            class="form-input"
-            placeholder="한 개 이상인 경우 콤마(,)로 구분하여 입력해 주세요"
-            v-model="styleData.prefer_brand">
-        </div>
-      </div>
-      <!--Dress Code-->
-      <div class="row content">
-        <p class="txt-point">내가 주로 활동 하는 곳의 드레스 코드는?</p>
-        <ul class="list-dresscode">
-          <li
-            v-for="(data, idx) in addInfoCode.dress_code"
-            @click="clickDressCode(data, $event)"
-            :class="{selected: data.code === styleData.dress_code}"
-            :key="idx">
-            <img :src="dressCodeImage(data.name)"/>
-            <span class="text">{{ data.name }}</span>
-          </li>
-        </ul>
-      </div>
-      <!-- 업로드 -->
-      <div class="row content">
-        <div class="image-upload-header clearfix">
-          <p class="txt-point">My Daily Look</p>
-          <button type="button" class="btn btn-secondary" @click="clickImageUpload">업로드</button>
-        </div>
-        <div>
-          <div class="image-upload">
-            <input class="form-input" readonly type="text" placeholder="사진을 올려주세요." v-model="styleData.image_name" style="display: none;">
-            <input type="file" ref="imageFileInput" accept="image/*" id="imageUpload" @change="changeImage">
-          </div>
-          <p class="txt-image-upload">
-            ※ 고객님 일상에서 자연스러운 사진을 업로드 하시면<br/>
-            스타일링 추천에 많은 도움이 됩니다.<br/>
-            (상, 하의를 볼 수 있는 착장샷이 좋아요)
-          </p>
-        </div>
-        <div class="image-preview" style="display: block;" ref="imagePreview" v-if="previewImage || styleData.image_path">
+        <!-- Brand -->
+        <div class="row content">
+          <p class="txt-point">주로 구매하는 브랜드?</p>
           <div>
-            <svg
-              version="1.1"
-              id="L3"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve"
-              width="50"
-              style="margin: 0 auto; display: none;">
-              <circle fill="none" stroke="#333" stroke-width="4" cx="50" cy="50" r="44" style="opacity:0.5;"></circle>
-              <circle fill="none" stroke="#333" stroke-width="3" cx="8" cy="54" r="6" transform="rotate(323.517 50 51.5946)">
-                <animateTransform attributeName="transform" dur="2s" type="rotate" from="0 50 48" to="360 50 52" repeatCount="indefinite"></animateTransform>
-              </circle>
-            </svg>
-            <img :src="previewImage ? previewImage : (styleData.image_path === null) ? null : IMAGE_URL + styleData.image_path " width="163" alt="">
+            <input
+              type="text"
+              class="form-input"
+              placeholder="한 개 이상인 경우 콤마(,)로 구분하여 입력해 주세요"
+              v-model="styleData.prefer_brand">
           </div>
         </div>
-      </div>
-      <!-- 추가 요청사항-->
-      <div class="row content">
-        <p class="txt-point">추가 요청사항</p>
-        <div class="textarea-required">
-          <textarea placeholder="신체적인 특징이나 싫어하는 스타일, 장식등 별도 요청사항을 적어주세요." v-model="styleData.etc"></textarea>
+        <!--Dress Code-->
+        <div class="row content">
+          <p class="txt-point">내가 주로 활동 하는 곳의 드레스 코드는?</p>
+          <ul class="list-dresscode">
+            <li
+              v-for="(data, idx) in addInfoCode.dress_code"
+              @click="clickDressCode(data, $event)"
+              :class="{selected: data.code === styleData.dress_code}"
+              :key="idx">
+              <img :src="dressCodeImage(data.name)"/>
+              <span class="text">{{ data.name }}</span>
+            </li>
+          </ul>
+        </div>
+        <!-- 업로드 -->
+        <div class="row content">
+          <div class="image-upload-header clearfix">
+            <p class="txt-point">My Daily Look</p>
+            <button type="button" class="btn btn-secondary" @click="clickImageUpload">업로드</button>
+          </div>
+          <div>
+            <div class="image-upload">
+              <input class="form-input" readonly type="text" placeholder="사진을 올려주세요." v-model="styleData.image_name" style="display: none;">
+              <input type="file" ref="imageFileInput" accept="image/*" id="imageUpload" @change="changeImage">
+            </div>
+            <p class="txt-image-upload">
+              ※ 고객님 일상에서 자연스러운 사진을 업로드 하시면<br/>
+              스타일링 추천에 많은 도움이 됩니다.<br/>
+              (상, 하의를 볼 수 있는 착장샷이 좋아요)
+            </p>
+          </div>
+          <div class="image-preview" style="display: block;" ref="imagePreview" v-if="previewImage || styleData.image_path">
+            <div>
+              <svg
+                version="1.1"
+                id="L3"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve"
+                width="50"
+                style="margin: 0 auto; display: none;">
+                <circle fill="none" stroke="#333" stroke-width="4" cx="50" cy="50" r="44" style="opacity:0.5;"></circle>
+                <circle fill="none" stroke="#333" stroke-width="3" cx="8" cy="54" r="6" transform="rotate(323.517 50 51.5946)">
+                  <animateTransform attributeName="transform" dur="2s" type="rotate" from="0 50 48" to="360 50 52" repeatCount="indefinite"></animateTransform>
+                </circle>
+              </svg>
+              <img :src="previewImage ? previewImage : (styleData.image_path === null) ? null : IMAGE_URL + styleData.image_path " width="163" alt="">
+            </div>
+          </div>
+        </div>
+        <!-- 추가 요청사항-->
+        <div class="row content">
+          <p class="txt-point">추가 요청사항</p>
+          <div class="textarea-required">
+            <textarea placeholder="신체적인 특징이나 싫어하는 스타일, 장식등 별도 요청사항을 적어주세요." v-model="styleData.etc"></textarea>
+          </div>
         </div>
       </div>
     </div>
@@ -903,6 +907,40 @@ export default {
       width: 1200px;
       padding: 20px 0;
       margin: 0 auto;
+    }
+    .contents {
+      position: relative;
+      margin-bottom: 39px;
+      border-bottom: 1px solid #e9e9e9;
+      padding-bottom: 50px;
+      &::before {
+        position: absolute;
+        left: 50%;
+        top: 24px;
+        display: block;
+        content: '';
+        width: 1px;
+        height: calc(100% - 24px - 50px);
+        background-color: #e9e9e9;
+        transform: translateX(-50%);
+      }
+    }
+    .left,
+    .right {
+      width: 490px;
+    }
+    .left {
+      float: left;
+    }
+    .right {
+      float: right;
+    }
+    .btn-floating {
+      position: relative;
+      text-align: right;
+      .btn {
+        width: 288px;
+      }
     }
   }
 </style>
