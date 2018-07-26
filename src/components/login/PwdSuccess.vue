@@ -1,24 +1,62 @@
 <template>
-  <div class="findId subContent side-margin-50">
-    <div class="findId-title">비밀번호 찾기</div>
-    <div class="explain mt10">
-      새로운 비밀번호를 입력하시고 변경버튼을 눌러주세요.
+  <div class="container">
+    <div>
+      <p class="title">비밀번호 찾기</p>
+      <p class="explain">새로운 비밀번호를 입력하시고 변경버튼을 눌러주세요.</p>
     </div>
-    <div class="findIdLine mt25"></div>
-    <div class="findId-form mt40" style="width: 392px; margin: auto;">
-      <div class="field" :class="{ error: errors.has('password') }">
-        <input type="password" name="password" class="form-login-input mt12" placeholder="비밀번호 8자리 이상의 영문,숫자,특수문자 포함" v-validate="{ required: true, regex: pwdRegex }" @keyup="pwdCheck(errors.has('password'))" />
-        <span class="error" v-show="errors.has('password')">{{ pwdMsg }}</span>
+    <div class="line line__default"></div>
+    <div class="contents">
+      <div class="content">
+        <div class="row">
+          <div>
+            <input
+              type="password"
+              name="password"
+              class="form-input"
+              placeholder="비밀번호 8자리 이상의 영문,숫자,특수문자 포함"
+              v-validate="{ required: true, regex: pwdRegex }"
+              @keyup="pwdCheck(errors.has('password'))" />
+          </div>
+          <p class="txt-error" v-show="errors.has('password')">{{ pwdMsg }}</p>
+        </div>
+        <div class="row">
+          <div>
+            <input
+              type="password"
+              name="password_confirm"
+              class="form-input"
+              placeholder="비밀번호 확인"
+              v-validate="'required|confirmed:password'"
+              @change="pwdConfirm(errors.has('passwordConfirmation'))" />
+          </div>
+          <p class="txt-error" v-show="errors.has('password_confirm')">비밀번호가 일치하지 않습니다.</p>
+        </div>
       </div>
-      <div class="field" :class="{ error: errors.has('password_confirm') }">
-        <input type="password" name="password_confirm" class="form-login-input mt12" placeholder="비밀번호 확인" v-validate="'required|confirmed:password'" @change="pwdConfirm(errors.has('passwordConfirmation'))" />
-        <span class="error" v-show="errors.has('password_confirm')">비밀번호가 일치하지 않습니다.</span>
-      </div>
-      <div class="mt30">
-        <button class="button-login" @click="changePassword">비밀번호 변경</button>
-      </div>
+    </div>
+    <div class="button">
+      <button class="btn btn-primary" @click="changePassword">비밀번호 변경</button>
     </div>
   </div>
+  <!--<div class="findId subContent side-margin-50">-->
+    <!--<div class="findId-title">비밀번호 찾기</div>-->
+    <!--<div class="explain mt10">-->
+      <!--새로운 비밀번호를 입력하시고 변경버튼을 눌러주세요.-->
+    <!--</div>-->
+    <!--<div class="findIdLine mt25"></div>-->
+    <!--<div class="findId-form mt40" style="width: 392px; margin: auto;">-->
+      <!--<div class="field" :class="{ error: errors.has('password') }">-->
+        <!--<input type="password" name="password" class="form-login-input mt12" placeholder="비밀번호 8자리 이상의 영문,숫자,특수문자 포함" v-validate="{ required: true, regex: pwdRegex }" @keyup="pwdCheck(errors.has('password'))" />-->
+        <!--<span class="error" v-show="errors.has('password')">{{ pwdMsg }}</span>-->
+      <!--</div>-->
+      <!--<div class="field" :class="{ error: errors.has('password_confirm') }">-->
+        <!--<input type="password" name="password_confirm" class="form-login-input mt12" placeholder="비밀번호 확인" v-validate="'required|confirmed:password'" @change="pwdConfirm(errors.has('passwordConfirmation'))" />-->
+        <!--<span class="error" v-show="errors.has('password_confirm')">비밀번호가 일치하지 않습니다.</span>-->
+      <!--</div>-->
+      <!--<div class="mt30">-->
+        <!--<button class="button-login" @click="changePassword">비밀번호 변경</button>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
 </template>
 
 <script>
@@ -78,86 +116,76 @@ export default {
 };
 </script>
 
-<style scoped>
-.findId {
-  width: 820px;
-  text-align: center;
-  margin: auto;
-}
-
-.findId-title {
-  font-size: 32px;
-  font-weight: 400;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.26;
-  letter-spacing: -0.4px;
-  text-align: center;
-  color: #333333;
-}
-
-.findIdLine {
-  height: 1px;
-  opacity: 0.2;
-  background-color: #333333;
-}
-
-.findId-chk-area {
-  height: 24px;
-  display: table;
-}
-
-.checkboxText {
-  text-align: left;
-  display: table-cell;
-  vertical-align: bottom;
-}
-
-.findIdMenu {
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 2;
-  letter-spacing: -1px;
-  color: #333333;
-}
-
-.findIdMenuSide {
-  width: 33%;
-  display: table-cell;
-}
-
-.findIdMenuCenter {
-  width: 34%;
-  border-left: 1px solid #999999;
-  border-right: 1px solid #999999;
-  display: table-cell;
-}
-
-.findId-wait {
-  text-align: left;
-  font-size: 14px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  letter-spacing: -0.8px;
-  text-align: left;
-  color: #333333;
-}
-
-.findId-wait span {
-  color: #ec4b1a;
-}
-
-.inputGroup input {
-  vertical-align: bottom;
-}
-
-.findId-form span {
-  font-size: 16px;
-  letter-spacing: -1px;
-  text-align: center;
-  color: #ec4b1a;
-}
+<style scoped lang="scss">
+  .container {
+    padding: 24px 20px 121px;
+    text-align: center;
+    .title {
+      font-size: 24px;
+      line-height: 32px;
+      letter-spacing: -1.4px;
+    }
+    .explain {
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: -0.8px;
+      color: #797979;
+      margin-top: 3px;
+    }
+    .line {
+      margin-top: 14px;
+      margin-bottom: 19px;
+      border-width: 2px;
+    }
+    .row {
+      margin-bottom: 10px;
+    }
+    .form-group {
+    }
+    .button {
+      button {
+        width: 100%;
+      }
+    }
+    .txt-count {
+      text-align: left;
+      margin-bottom: 10px;
+      font-size: 15px;
+      letter-spacing: -0.9px;
+      line-height: 23px;
+      color: #797979;
+      text-indent: 13px;
+    }
+    .txt-error {
+      text-align: left;
+      text-indent: 13px;
+    }
+  }
+  @media (min-width: 768px) {
+    .container {
+      width: 390px;
+      margin: 0 auto;
+      padding: 72px 0 119px 0;
+      .title {
+        font-size: 32px;
+        line-height: 40px;
+        letter-spacing: -1.7px;
+      }
+      .explain {
+        font-size: 16px;
+        line-height: 23px;
+        letter-spacing: -1px;
+        margin-top: 5px;
+      }
+      .line {
+        margin-top: 25px;
+        margin-bottom: 30px;
+      }
+      .button {
+        button {
+          height: 60px;
+        }
+      }
+    }
+  }
 </style>

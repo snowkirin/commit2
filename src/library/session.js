@@ -47,7 +47,7 @@ export default {
 
                     $router.options.routes[0].children[7].children[1].meta.requiresAuth = false;
                     next({
-                      path: '/closet/tomorrow'+`?access_token=${token}`,
+                      path: '/closet/tomorrow' + `?access_token=${token}`,
                     });
                   } else {
                     const query = to.fullPath.match(/^\/$/) ? {} : { redirect: to.fullPath };

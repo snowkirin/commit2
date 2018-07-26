@@ -402,6 +402,7 @@ export default {
         font-size: 14px;
         letter-spacing: -0.8px;
         opacity: 0.6;
+        cursor: pointer;
         &:nth-child(1) {
           margin-left: 0;
         }

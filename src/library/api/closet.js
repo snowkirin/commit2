@@ -7,8 +7,8 @@ async function mypageFeedback(id) {
   try {
     const result = axios.get(`${API_URL}/subscriptions/feedbacks`, {
       params: {
-        subscriptionId: id
-      }
+        subscriptionId : id,
+      },
     }).then(function(res) {
       return res;
     }).catch(function(error) {

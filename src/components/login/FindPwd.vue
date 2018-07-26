@@ -3,7 +3,7 @@
     <div class="container-header">
       <div>
         <p class="title">비밀번호 찾기</p>
-        <p class="explain">가입 당시 입력한 아이디, 휴대전화 번호를 통해 비밀번호를 찾을 수 있습니다.</p>
+        <p class="explain">가입 당시 입력한 아이디, 휴대전화 번호를 통해 <br>비밀번호를 찾을 수 있습니다.</p>
       </div>
       <div class="line line__default"></div>
     </div>
@@ -17,21 +17,13 @@
             placeholder="아이디"
             v-validate="'required'" />
         </div>
-        <div class="row">
+        <div class="row form-group" data-grid="7:3">
           <input
             class="form-input"
             type="tel"
             name="phone"
             placeholder="휴대전화"
             v-validate="'required'" />
-        </div>
-        <div class="row form-group" data-grid="7:3">
-          <input
-            class="form-input"
-            type="number"
-            name=""
-            id=""
-            placeholder="인증번호" />
           <button
             type="button"
             class="btn btn-secondary"
@@ -39,19 +31,26 @@
             인증
           </button>
         </div>
-        <div
-          class="findId-wait"
-          v-show="authErr"
-          v-html="authErrMessage">
+        <div class="row form-group" data-grid="7:3">
+          <input
+            class="form-input"
+            type="number"
+            name="phone_auth_number"
+            placeholder="인증번호" />
+          <button
+            type="button"
+            class="btn btn-secondary"
+            @click="authKeyConfirm">
+            확인
+          </button>
         </div>
+        <p class="txt-count" v-show="authErr" v-html="authErrMessage"></p>
         <div class="button">
           <!-- TODO: Submit?? -->
           <button
             type="button"
             class="btn btn-primary"
-            @click="authKeyConfirm">
-            다음
-          </button>
+            @click="clickNext">다음</button>
         </div>
       </form>
     </div>
@@ -127,7 +126,8 @@ export default {
 
       if (this.phoneAuth) {
         alert('인증되었습니다.');
-        this.$router.push({ path: '/find/password/complete' });
+        clearInterval(window.interval);
+        this.authErrMessage = '';
       } else alert('인증번호를 다시 확인하시고 진행해주세요.');
 
       return true;
@@ -158,6 +158,9 @@ export default {
 
       window.interval = interval;
     },
+    clickNext() {
+      this.$router.push({ path: '/find/password/complete' });
+    }
   },
 };
 </script>
@@ -181,97 +184,53 @@ export default {
     .line {
       margin-top: 14px;
       margin-bottom: 19px;
+      border-width: 2px;
     }
     .row {
       margin-bottom: 10px;
     }
     .form-group {
-      margin-bottom: 20px;
     }
     .button {
       button {
         width: 100%;
       }
     }
+    .txt-count {
+      text-align: left;
+      margin-bottom: 10px;
+      font-size: 15px;
+      letter-spacing: -0.9px;
+      line-height: 23px;
+      color: #797979;
+      text-indent: 13px;
+    }
   }
-/*.findId {
-  width: 820px;
-  text-align: center;
-  margin: auto;
-}
-
-.findId-title {
-  font-size: 32px;
-  font-weight: 400;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.26;
-  letter-spacing: -0.4px;
-  text-align: center;
-  color: #333333;
-}
-
-.findIdLine {
-  height: 1px;
-  opacity: 0.2;
-  background-color: #333333;
-}
-
-.findId-chk-area {
-  height: 24px;
-  display: table;
-}
-
-.checkboxText {
-  text-align: left;
-  display: table-cell;
-  vertical-align: bottom;
-}
-
-.findIdMenu {
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 2;
-  letter-spacing: -0.2px;
-  color: #333333;
-}
-
-.findIdMenuSide {
-  width: 33%;
-  display: table-cell;
-}
-
-.findIdMenuCenter {
-  width: 34%;
-  border-left: 1px solid #999999;
-  border-right: 1px solid #999999;
-  display: table-cell;
-}
-
-.findId-wait {
-  text-align: left;
-  font-size: 14px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  letter-spacing: -0.1px;
-  text-align: left;
-  color: #333333;
-}
-
-.findId-wait span {
-  color: #ec4b1a;
-}
-
-.inputGroup input {
-  vertical-align: bottom;
-}
-
-@media screen and (max-width: 486px) {
-  .findId-form {
-    width: 100% !important;
+  @media (min-width: 768px) {
+    .container {
+      width: 390px;
+      margin: 0 auto;
+      padding: 72px 0 119px 0;
+      .title {
+        font-size: 32px;
+        line-height: 40px;
+        letter-spacing: -1.7px;
+      }
+      .explain {
+        font-size: 16px;
+        line-height: 23px;
+        letter-spacing: -1px;
+        margin-top: 5px;
+      }
+      .line {
+        margin-top: 25px;
+        margin-bottom: 30px;
+      }
+      .button {
+        button {
+          height: 60px;
+        }
+      }
+    }
   }
-}*/
 </style>

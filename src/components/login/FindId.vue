@@ -13,37 +13,41 @@
           <input
             class="form-input"
             type="text"
-            name=""
-            id=""
+            v-validate="'required'"
+            name="name"
             placeholder="이름">
-        </div>
-        <div class="row">
-          <input
-            class="form-input"
-            type="tel"
-            name=""
-            id=""
-            placeholder="휴대전화">
         </div>
         <div class="row form-group" data-grid="7:3">
           <input
             class="form-input"
-            type="number"
-            name=""
-            id=""
+            type="tel"
+            v-validate="'required'"
+            name="phone"
+            placeholder="휴대전화">
+            <button
+              class="btn btn-secondary"
+              type="button"
+              :disabled="authErr"
+              @click="phoneVerify">인증</button>
+        </div>
+        <div class="row form-group" data-grid="7:3">
+          <input
+            class="form-input"
+            type="text"
+            v-validate="'required'"
+            name="phone_auth_number"
             placeholder="인증번호">
           <button
             class="btn btn-secondary"
-            type="button">
-            인증
-          </button>
+            type="button"
+            @click="authKeyConfirm">확인</button>
         </div>
+        <p class="txt-count" v-show="authErr" v-html="authErrMessage"></p>
         <div class="button">
-          <!--TODO: submit?-->
           <button
             type="button"
             class="btn btn-primary"
-          >로그인</button>
+            @click="clickNext">다음</button>
         </div>
       </form>
     </div>
@@ -161,9 +165,11 @@ export default {
 
       if (this.phoneAuth) {
         alert('인증되었습니다.');
-        this.$router.push({ path: '/find/id/complete' });
-      } else alert('인증번호를 다시 확인하시고 진행해주세요.');
-
+        clearInterval(window.interval);
+        this.authErrMessage = '';
+      } else {
+        alert('인증번호를 다시 확인하시고 진행해주세요.');
+      }
       return true;
     },
     startTimer() {
@@ -191,6 +197,9 @@ export default {
       }, 1000);
 
       window.interval = interval;
+    },
+    clickNext() {
+      this.$router.push({ path: '/find/id/complete' });
     },
   },
 };
@@ -223,6 +232,43 @@ export default {
     .button  {
       button {
         width: 100%;
+      }
+    }
+    .txt-count {
+      text-align: left;
+      margin-bottom: 10px;
+      font-size: 15px;
+      letter-spacing: -0.9px;
+      line-height: 23px;
+      color: #797979;
+      text-indent: 13px;
+    }
+  }
+  @media (min-width: 768px) {
+    .container {
+      width: 390px;
+      margin: 0 auto;
+      padding: 72px 0 119px 0;
+      .title {
+        font-size: 32px;
+        line-height: 40px;
+        letter-spacing: -1.7px;
+      }
+      .explain {
+        font-size: 16px;
+        line-height: 23px;
+        letter-spacing: -1px;
+        margin-top: 5px;
+        white-space: nowrap;
+      }
+      .line {
+        margin-top: 25px;
+        margin-bottom: 30px;
+      }
+      .button {
+        button {
+          height: 60px;
+        }
       }
     }
   }
