@@ -640,12 +640,12 @@ export default {
     .signup-text {
       .signup-title {
         .text {
-          font-size: 32px;
-          line-height: 40px;
+          font-size: 30px;
+          line-height: 38px;
           letter-spacing: -2.2px;
           font-weight: 500;
           span {
-            font-size: 34px;
+            font-size: 32px;
             line-height: 36px;
             letter-spacing: 0;
           }

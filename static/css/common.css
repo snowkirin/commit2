@@ -253,9 +253,9 @@ a, a:hover {
     border-bottom-style: dashed; }
 
 .txt-main-title {
-  font-size: 16px;
+  font-size: 15px;
   line-height: 24px;
-  letter-spacing: -1px; }
+  letter-spacing: -0.9px; }
 
 .txt-main-point {
   color: #f16458;
@@ -319,7 +319,7 @@ a, a:hover {
   .txt-main-title {
     font-size: 18px;
     line-height: 26px;
-    letter-spacing: -1px; }
+    letter-spacing: -1.2px; }
 
   .txt-main-point {
     font-size: 17px;

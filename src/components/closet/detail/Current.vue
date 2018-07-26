@@ -194,7 +194,6 @@ export default {
       const subscriptionId = this.feedbackDirect.subscription_id ? this.feedbackDirect.subscription_id : this.currentCloset.subscription_id;
       Closet.mypageFeedback(subscriptionId)
         .then(function(res) {
-          console.log(res);
           if (res.data.result) {
             $this.feedbackData = res.data;
           }
@@ -202,23 +201,17 @@ export default {
     },
   },
   async created() {
-    console.log(1);
     if (!this.isLogin) {
-      console.log(2);
       if (this.feedbackDirect.result) {
-        console.log(3);
         this.showCurrent = false;
         this.directFeedbackCheck = true;
         this.feedbackInfo();
       }
     } else {
-      console.log(4);
       await this.setCurrentCloset();
       if (_.isEmpty(this.currentCloset)) {
-        console.log(5);
         this.showCurrent = true;
       } else {
-        console.log(6);
         this.showCurrent = false;
         this.feedbackInfo();
       }
