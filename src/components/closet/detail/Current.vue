@@ -365,6 +365,7 @@ export default {
     &__desc {
       font-size: 15px;
       line-height: 23px;
+      letter-spacing: -0.9px;
     }
   }
   .txt-strike {
