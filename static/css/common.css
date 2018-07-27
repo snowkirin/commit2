@@ -319,7 +319,8 @@ a, a:hover {
   .txt-main-title {
     font-size: 18px;
     line-height: 26px;
-    letter-spacing: -1.2px; }
+    letter-spacing: -1.2px;
+    padding-top: 6px; }
 
   .txt-main-point {
     font-size: 17px;
