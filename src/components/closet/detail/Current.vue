@@ -49,7 +49,7 @@
           </ul>
           <p
             class="txt-tip-today-style en-font"
-            :style="(currentCloset.products.length === 1 ) ? 'margin-top: 30px' : ''"><span class="txt-tip">TIP</span><br/> <span>TODAY&apos;S STYLE</span></p>
+            :style="(currentCloset.products && currentCloset.products.length === 1) ? 'margin-top: 30px' : ''"><span class="txt-tip">TIP</span><br/> <span>TODAY&apos;S STYLE</span></p>
           <p class="txt-style-tip__desc">
             {{ currentCloset.styling_tip }}
           </p>
