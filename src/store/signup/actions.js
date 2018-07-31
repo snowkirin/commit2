@@ -16,7 +16,7 @@ const setJoinFirst = ({ commit }, payload) => {
 };
 
 const setJoinSecond = ({ commit }, payload) => {
-    commit(types.SET_JOIN_SECOND, payload);
+  commit(types.SET_JOIN_SECOND, payload);
 };
 
 // 2018-07-04
@@ -156,9 +156,9 @@ const phoneCheckVerify = async ({ state, commit }, data) => {
 // const signup = async ({ state }) => {
 const signup = async ({ state }) => {
   try {
-    _.forEach(state.join, function(value, key) {
+    _.forEach(state.join, (value, key) => {
       if (value === null || value === undefined) {
-        if (key === 'tallSize' || key === 'bustSize' || key === 'blouseSize'  || key === 'skirtSize' || key === 'pantsSize' || key === 'bodyType') {
+        if (key === 'tallSize' || key === 'bustSize' || key === 'blouseSize' || key === 'skirtSize' || key === 'pantsSize' || key === 'bodyType') {
           return {
             msg: '사이즈가 정상적으로 입력되지 않았습니다. 다시 진행해주세요.',
             result: false,
@@ -217,13 +217,12 @@ const signup = async ({ state }) => {
       };
     }
     if (result.data.result) {
-      console.log(result, ' action signup');
       return {
         msg: '회원가입이 완료되었습니다.<br/>추가정보 입력 페이지로 이동합니다.',
         result: true,
       };
     }
-  } catch(e) {
+  } catch (e) {
     console.error(e);
   }
   return false;

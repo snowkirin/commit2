@@ -38,8 +38,6 @@
             </p>
           </div>
         </div>
-      <!--<vue-json-pretty :data="currentCloset"></vue-json-pretty>-->
-        <!--<div>{{currentCloset.products.length}}</div>-->
       <div class="desktop-carousel">
         <div class="inner">
           <ul class="images">
