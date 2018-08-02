@@ -235,6 +235,7 @@ export default {
       }
       .menu-container {
         border-top: 1px solid #f3f3f3;
+        margin-bottom: 10px;
       }
       .swiper-slide {
         width: auto;

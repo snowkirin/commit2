@@ -132,9 +132,9 @@ export default {
           box-shadow: 0.5px 7px 7px 0 rgba(0, 0, 0, 0.18);
           height: auto;
           .icon-arrow {
-            width: 33px;
-            height: 22px;
-            top: 24px;
+            width: 29px;
+            height: 18px;
+            top: 22px;
           }
         }
       }

@@ -322,7 +322,7 @@ export default {
         this.cardVerify = false;
         this.joinSecond.cardMonthExpiry = cardMonth;
         this.joinSecond.cardYearExpiry = _.padStart(cardYear, 4, '20');
-      };
+      }
     },
     checkBirthExpiry(evt) {
       const birthReg = /^([0-9][0-9]|99)(0?[1-9]|1[0-2]|12)(0?[1-9]|[12][0-9]|3[01])$/;
@@ -343,16 +343,15 @@ export default {
       if (this.joinSecond.recommendCode === '' || this.joinSecond.recommendCode === null) {
         this.$common.viewAlertModal('추천인을 입력해 주세요.', this.$refs, 'alert');
       } else {
-        Codes.getRecommendCode(this.joinSecond.membershipId, this.joinSecond.recommendCode).then(function(res) {
+        Codes.getRecommendCode(this.joinSecond.membershipId, this.joinSecond.recommendCode).then((res) => {
           if (res.data.result) {
-            console.log(res);
             $this.price.totalPrice = res.data.total_price;
             $this.price.salePrice = res.data.sale_price;
             $this.$common.viewAlertModal('정상등록 되었습니다.', $this.$refs, 'alert');
           } else {
             $this.$common.viewAlertModal('추천인을 정확하게 입력해 주세요.', $this.$refs, 'alert');
           }
-        }).catch(function(err) {
+        }).catch((err) => {
           console.error(err);
         });
       }
@@ -383,7 +382,11 @@ export default {
             this.clearStorage();
             this.$common.viewAlertModal(signupRtn.msg, this.$refs, 'confirm', '/join/addinfo');
           } else {
-            this.$common.viewAlertModal(signupRtn.msg, this.$refs, 'alert');
+            if (signupRtn.msg) {
+              this.$common.viewAlertModal(signupRtn.msg, this.$refs, 'alert');
+            } else {
+              this.$common.viewAlertModal('시스템 오류입니다. 관리자에게 문의하세요.', this.$refs, 'alert');
+            }
           }
           return;
         }
@@ -393,16 +396,15 @@ export default {
     calcDate(data, idx) {
       if (idx === 0) {
         if (data.day_of_week === '(월)') {
-          return { marginLeft: '0%'};
+          return { marginLeft: '0%' };
         } else if (data.day_of_week === '(화)') {
-          return { marginLeft: '20%'};
+          return { marginLeft: '20%' };
         } else if (data.day_of_week === '(수)') {
-          return { marginLeft: '40%'};
+          return { marginLeft: '40%' };
         } else if (data.day_of_week === '(목)') {
-          return { marginLeft: '60%'};
-        } else {
-          return { marginLeft: '80%'};
+          return { marginLeft: '60%' };
         }
+        return { marginLeft: '80%' };
       }
     },
   },
@@ -410,12 +412,12 @@ export default {
   },
   created() {
     const $this = this;
-    Codes.getFirstDeliveryDays().then(function(res) {
+    Codes.getFirstDeliveryDays().then((res) => {
       $this.setDeliveryDay = res.data.result;
-    }).catch(function(err) {
+    }).catch((err) => {
       console.error(err);
     });
-    Codes.getMembership().then(function(res) {
+    Codes.getMembership().then((res) => {
       if (res.data.result) {
         $this.price.basicPrice = res.data.data.price;
         $this.price.promotionPrice = res.data.data.promotion_price;
@@ -427,7 +429,7 @@ export default {
       } else {
         return false;
       }
-    }).catch(function(err) {
+    }).catch((err) => {
       console.error(err);
     });
   },
