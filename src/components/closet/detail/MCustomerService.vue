@@ -50,6 +50,7 @@
         <div class="req-btn-area">
           <button
             class="btn btn-primary"
+            type="button"
             @click="setInquiries">
             문의하기
           </button>

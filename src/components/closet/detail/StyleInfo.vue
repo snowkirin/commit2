@@ -905,7 +905,7 @@ export default {
   @media (min-width: 768px) {
     .style-info {
       width: 1200px;
-      padding: 20px 0;
+      padding: 32px 0 20px 0;
       margin: 0 auto;
     }
     .contents {
@@ -924,6 +924,9 @@ export default {
         background-color: #e9e9e9;
         transform: translateX(-50%);
       }
+    }
+    .line {
+      border-bottom-width: 2px;
     }
     .left,
     .right {
