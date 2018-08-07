@@ -440,6 +440,7 @@ export default {
     .btn-next {
       position: relative;
       text-align: right;
+      margin-top: 0;
       button {
         width: 288px;
         height: 60px;

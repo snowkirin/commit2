@@ -254,8 +254,7 @@ export default {
       padding: 32px 0 0 0;
     }
     .line {
-      margin-top: 26px;
-      margin-bottom: 5px;
+      margin-bottom: 15px;
       border-width: 2px;
     }
     .list-closet {
