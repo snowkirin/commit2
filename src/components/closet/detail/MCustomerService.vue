@@ -190,7 +190,6 @@ export default {
     },
   },
   created() {
-    this.setInquiriesList();
   },
   updated() {
     const inquiriesHtml = document.querySelectorAll('.cs-left-data-title .subject');
