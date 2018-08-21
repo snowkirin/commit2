@@ -53,7 +53,7 @@
         </form>
         <div class="menu-login">
           <ul>
-            <li>
+            <li v-if="false">
               <router-link
                 to="/join/size">
                 회원가입

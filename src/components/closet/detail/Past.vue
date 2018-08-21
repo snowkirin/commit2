@@ -22,7 +22,7 @@
                 :key="idx2"
                 class="image"
               >
-                <img :src="(img !== null)? API_IMAGE_URL + img : 'http://via.placeholder.com/60x70?text=Image '" alt=""/>
+                <img :src="(img !== null)? API_IMAGE_URL + img : 'http://via.placeholder.com/112x132?text=Image '" alt=""/>
               </li>
             </ul>
             <div class="style-tip">
