@@ -315,6 +315,14 @@ a, a:hover {
   .swiper-pagination-bullet.swiper-pagination-bullet-active {
     background-color: #333 !important; }
 
+.custom-modal-content .table {
+  width: 100%; }
+  .custom-modal-content .table th, .custom-modal-content .table td {
+    border: 1px solid #ddd;
+    padding: 7px 10px; }
+  .custom-modal-content .table thead th {
+    background-color: #f0f0f0; }
+
 @media (min-width: 768px) {
   .txt-main-title {
     font-size: 18px;

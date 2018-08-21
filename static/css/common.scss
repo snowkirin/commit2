@@ -149,6 +149,21 @@ a, a:hover {
   }
 }
 
+.custom-modal-content {
+  .table {
+    width: 100%;
+    th, td {
+      border: 1px solid #ddd;
+      padding: 7px 10px;
+    }
+    thead {
+      th {
+        background-color: #f0f0f0;
+      }
+    }
+  }
+}
+
 
 // Tablet
 @media (min-width: 768px){
