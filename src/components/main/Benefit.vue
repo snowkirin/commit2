@@ -4,8 +4,8 @@
       <p class="txt-main-point">BENEFIT</p>
       <p class="txt-benefit">
         사지 말고 경험하세요.<br/>
-        패션 구독 서비스<br/>
-        <strong>첫 달 구독료 선착순 <span class="txt-discount">30%</span></strong>할인!
+        패션 구독 서비스 줄라이<br/>
+        <strong>9월 5일 시작합니다</strong>
       </p>
     </div>
     <div class="event" v-if="count !== 0">
