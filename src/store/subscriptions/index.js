@@ -23,6 +23,9 @@ export default {
     [types.GET_TOMORROW](state, data) {
       state.Tomorrow.data = data;
     },
+    [types.PUT_TOMORROW](state, data) {
+
+    },
     [types.GET_PRODUCT_DETAIL](state, data) {
       _.assign(state.Tomorrow.productDetail, data);
     },

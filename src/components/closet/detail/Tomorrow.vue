@@ -5,10 +5,12 @@
       <p>(기한 내 미선택 시, 회원님께 더 어울릴 스타일로 자동 지정 후 배송 됩니다.)</p>
     </div>
     <div class="content">
-
       <div class="grid-flex">
         <div class="column">
-          <div class="product">
+          <div
+            class="product"
+            :class="{selected: tomorrowData.selected === 'typeA'}"
+          >
             <div class="product-top">
               <!-- Text ZONE-->
               <p class="txt-type">TYPE A</p>
@@ -38,6 +40,7 @@
               <button
                 type="button"
                 class="btn btn-primary h-56"
+                @click="clickSelected('typeA')"
               >
                 선택하기
               </button>
@@ -45,7 +48,10 @@
           </div>
         </div>
         <div class="column">
-          <div class="product">
+          <div
+            class="product"
+            :class="{selected: tomorrowData.selected === 'typeB'}"
+          >
             <div class="product-top">
               <!-- Text ZONE-->
               <p class="txt-type">TYPE B</p>
@@ -75,6 +81,7 @@
               <button
                 type="button"
                 class="btn btn-primary h-56"
+                @click="clickSelected('typeB')"
               >
                 선택하기
               </button>
@@ -102,6 +109,7 @@ export default {
         subscriptionStatus: null,
         subscriptionId: null,
         subscriptionDate: '',
+        selected: '',
         productA: {},
         productB: {}
       }
@@ -116,6 +124,7 @@ export default {
   methods: {
     ...mapActions({
       getTomorrow: 'subscriptions/getTomorrow',
+      putTomorrow: 'subscriptions/putTomorrow',
       getProductDetail: 'subscriptions/getProductDetail'
     }),
     processingData() {
@@ -139,6 +148,9 @@ export default {
           if (idx === 0) {
             const pickData = _.pick(value, selectArray);
             const omitData = _.omit(value, selectArray);
+            if (value.selected !== null) {
+              this.tomorrowData.selected = 'typeA';
+            }
             productA.stylingTip = pickData.styling_tip;
             productA.stylingTitle = pickData.styling_title;
             productA.hashtag = pickData.hashtag;
@@ -150,10 +162,14 @@ export default {
           if (idx === 2) {
             const pickData = _.pick(value, selectArray);
             const omitData = _.omit(value, selectArray);
+            if (value.selected !== null) {
+              this.tomorrowData.selected = 'typeB';
+            }
             productB.stylingTip = pickData.styling_tip;
             productB.stylingTitle = pickData.styling_title;
             productB.hashtag = pickData.hashtag;
             productB.products.push(omitData);
+
           } else {
             productB.products.push(value);
           }
@@ -189,6 +205,36 @@ export default {
           {data: this.Tomorrow.productDetail[productCode]},
           modalConfig
         );
+      }
+    },
+    clickSelected(type) {
+      if (type === 'typeA') {
+      //  typeA를 선택하였을 경우
+      //   const productId = _.map([this.tomorrowData.productA.products[0].product_id, this.tomorrowData.productA.products[1].product_id], _.parseInt);
+        const productId = _.map([this.tomorrowData.productA.products[0].id, this.tomorrowData.productA.products[1].id], _.parseInt);
+        const formData = {
+          subscription_id: this.tomorrowData.subscriptionId,
+          products: productId
+        };
+        this.putTomorrow(formData).then(res => {
+          if (res.data.result) {
+            this.tomorrowData.selected = type;
+          }
+        });
+      }
+      else {
+        // typeB를 선택하였을 경우
+        const productId = _.map([this.tomorrowData.productB.products[0].id, this.tomorrowData.productB.products[1].id], _.parseInt);
+        const formData = {
+          subscription_id: this.tomorrowData.subscriptionId,
+          products: productId
+        };
+        this.putTomorrow(formData).then(res => {
+          if (res.data.result) {
+            this.tomorrowData.selected = type;
+          }
+        });
+
       }
     }
   },
@@ -243,6 +289,39 @@ export default {
   border: 2px solid #e1e1e1;
   padding: 25px 20px 35px;
   text-align: center;
+  position: relative;
+  &.selected {
+    &::before {
+      @include fontSize(20px);
+      font-weight: 100;
+      color: #fff;
+      white-space: pre;
+      content: '좋아요.\A선택할께요.';
+      background: {
+        image: url(~@/assets/img/closet/ico_white.svg);
+        repeat: no-repeat;
+        position-x: 50%;
+        size: 43px 38px;
+      }
+      padding-top: 60px;
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+    }
+    &::after {
+      content: '';
+      display: block;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      background-color: rgba(51, 51, 51, 0.4);
+      position: absolute;
+    }
+  }
   .product-top {
     margin-bottom: 21px;
     .txt-type {

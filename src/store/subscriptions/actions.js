@@ -1,6 +1,5 @@
 import Subscriptions from '@/library/api/subscriptions';
 import types from './mutation-types';
-
 export default {
   getCurrent({ commit }) {
     return Subscriptions.getCurrent().then(res => {
@@ -20,18 +19,23 @@ export default {
       return res;
     });
   },
-  getProductDetail({ commit }, data) {
-    return Subscriptions.getProductDetail(data)
+  putTomorrow({ commit }, data ) {
+    return Subscriptions.putTomorrow(data)
       .then(res => {
-        if (res.data.result) {
-          let obj = {};
-          obj[data] = res.data.data;
-          commit(types.GET_PRODUCT_DETAIL, obj);
-        } else {
-          alert('상품 정보가 없습니다.')
-        }
         return res;
       })
+  },
+  getProductDetail({ commit }, data) {
+    return Subscriptions.getProductDetail(data).then(res => {
+      if (res.data.result) {
+        let obj = {};
+        obj[data] = res.data.data;
+        commit(types.GET_PRODUCT_DETAIL, obj);
+      } else {
+        alert('상품 정보가 없습니다.');
+      }
+      return res;
+    });
   },
   getFeedbacks({ commit }, data) {
     return Subscriptions.getFeedbacks(data).then(res => {

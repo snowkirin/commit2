@@ -1,5 +1,5 @@
-import Auth from "@/library/api/auth";
-import types from "./mutation-types";
+import Auth from '@/library/api/auth';
+import types from './mutation-types';
 
 export default {
   postPassword({ commit }, data) {

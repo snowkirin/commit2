@@ -9,6 +9,7 @@ import member from './member';
 import payment from './payment';
 import auth from './auth';
 import subscriptions from './subscriptions';
+import notices from './notices';
 
 Vue.use(Vuex);
 
@@ -22,6 +23,7 @@ export default new Vuex.Store({
     codes,
     payment,
     auth,
-    subscriptions
+    subscriptions,
+    notices
   }
 });

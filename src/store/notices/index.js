@@ -4,15 +4,15 @@ import actions from './actions';
 export default {
   namespaced: true,
   state: {
-    noticeList: []
+    Notices: {}
   },
   mutations: {
-    [types.SET_NOTICE_LIST](state, data) {
-      state.noticeList = [...data];
+    [types.GET_NOTICES](state, data) {
+      state.Notices = data;
     }
   },
   actions,
   getters: {
-    getNoticeList: state => state.noticeList
+    Notices: state => state.Notices
   }
 };

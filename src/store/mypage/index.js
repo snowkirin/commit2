@@ -1,6 +1,5 @@
 import types from './mutation-types';
 import actions from './actions';
-import notice from './notice';
 import inquiries from './inquiries';
 import closet from './closet';
 
@@ -8,7 +7,6 @@ export default {
   namespaced: true,
   modules: {
     inquiries,
-    notice,
     closet
   },
   state: {

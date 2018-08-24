@@ -18,19 +18,7 @@ const getManagementCodes = ({ code }) =>
     .then(result => result)
     .catch(err => err.response);
 
-const getNoticeList = () =>
-  axios
-    .get(`${API_URL}/notices`, {
-      params: {
-        size: 9999,
-        page: 1
-      }
-    })
-    .then(result => result)
-    .catch(err => err.response);
-
 export default {
   getSingupManagement,
-  getManagementCodes,
-  getNoticeList
+  getManagementCodes
 };
