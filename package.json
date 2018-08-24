@@ -7,7 +7,7 @@
     "build": "vue-cli-service build --mode prod",
     "lint": "vue-cli-service lint",
     "start": "vue-cli-service serve --mode staging --open --port 9000",
-    "build:dev": "vue-cli-service build --mode dev"
+    "dev:build": "vue-cli-service build --mode dev"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.2.0",
