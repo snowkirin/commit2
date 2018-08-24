@@ -44,7 +44,7 @@ export default {
         return {
           ...err.response,
           message: err.message
-        }
+        };
       });
   },
   getRecommendCode(membership, codeData) {
@@ -52,7 +52,7 @@ export default {
       .get(`${API_URL}/payment/recommendCode`, {
         params: {
           id: membership,
-          code: codeData,
+          code: codeData
         }
       })
       .then(res => {
@@ -62,8 +62,8 @@ export default {
         return {
           ...err.response,
           message: err.message
-        }
-      })
+        };
+      });
   },
   getOptions() {
     /*
@@ -81,9 +81,9 @@ export default {
         return {
           ...err.response,
           message: err.message
-        }
+        };
       });
-  },
+  }
 };
 
 // async function getSizes() {

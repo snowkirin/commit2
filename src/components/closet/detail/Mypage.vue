@@ -281,14 +281,14 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import Member from '@/library/api/member';
-import Datepicker from 'vuejs-datepicker';
+// import Datepicker from 'vuejs-datepicker';
 import AddressModal from '@/components/common/AddressModal';
 
 export default {
   name: 'mypage',
   components: {
-    Datepicker,
-    AddressModal,
+    // Datepicker,
+    AddressModal
   },
   data() {
     return {
@@ -305,14 +305,14 @@ export default {
       password: {
         cur_password: '',
         new_password: '',
-        chk_new_password: '',
+        chk_new_password: ''
       },
       cardPayment: {
         cardNumber: '',
         cardYearExpiry: '',
         cardMonthExpiry: '',
         userBirth: '',
-        cardPassword: '',
+        cardPassword: ''
       },
       // 기념일
       ann: '',
@@ -320,11 +320,11 @@ export default {
       address: {
         zipcode: '',
         addr: '',
-        addrDetail: '',
+        addrDetail: ''
       },
       // 공동 현관 번호
       lobbyPassword: '',
-      currentCardNumber: '51316582313212313',
+      currentCardNumber: '51316582313212313'
     };
   },
   computed: {
@@ -336,15 +336,18 @@ export default {
       mypageEmailFlag: 'mypage/getMypageEmailFlag',
       mypagePaymentFlag: 'mypage/getMypagePaymentFlag',
       phoneAuthKey: 'mypage/getPhoneAuthKey',
-      phoneAuth: 'mypage/getPhoneAuth',
+      phoneAuth: 'mypage/getPhoneAuth'
     }),
     cardNumberSubString() {
       const cardNumber = this.mypageData.card_number;
       if (cardNumber) {
-        const result = cardNumber.substring(cardNumber.length - 3, cardNumber.length);
+        const result = cardNumber.substring(
+          cardNumber.length - 3,
+          cardNumber.length
+        );
         return result;
       }
-    },
+    }
   },
   methods: {
     ...mapActions({
@@ -356,7 +359,7 @@ export default {
       changePayment: 'mypage/changePayment',
       changeFlag: 'mypage/changeFlag',
       actPhoneVerify: 'mypage/phoneVerify',
-      actPhoneCheckVerify: 'mypage/phoneCheckVerify',
+      actPhoneCheckVerify: 'mypage/phoneCheckVerify'
     }),
     // 공통
     viewModal(ref) {
@@ -369,11 +372,11 @@ export default {
     async phoneVerify() {
       const phone = document.querySelector('input[name=phone]');
 
-      this.$validator.validate('phone', phone.value).then((result) => {
+      this.$validator.validate('phone', phone.value).then(result => {
         if (result) {
           if (this.$common.phoneValidation(phone.value)) {
             this.actPhoneVerify({
-              phone: phone.value.split('-').join(''),
+              phone: phone.value.split('-').join('')
             });
             this.startTimer();
             this.authErr = true;
@@ -386,7 +389,8 @@ export default {
       });
     },
     startTimer() {
-      const timer = Date.parse(new Date(new Date().getTime() + (3 * 60 * 1000))) / 1000;
+      const timer =
+        Date.parse(new Date(new Date().getTime() + 3 * 60 * 1000)) / 1000;
       let minutes;
       let seconds;
 
@@ -399,8 +403,8 @@ export default {
         minutes = parseInt(printTimer / 60, 10);
         seconds = parseInt(printTimer % 60, 10);
 
-        minutes = (minutes < 10) ? `0${minutes}` : minutes;
-        seconds = (seconds < 10) ? `0${seconds}` : seconds;
+        minutes = minutes < 10 ? `0${minutes}` : minutes;
+        seconds = seconds < 10 ? `0${seconds}` : seconds;
 
         this.authErrMessage = `메시지를 확인하시고 인증번호를 입력해주세요.  ${minutes}:${seconds}`;
 
@@ -412,17 +416,26 @@ export default {
       window.interval = interval;
     },
     async authKeyConfirm() {
-      const phoneAuthNumber = document.querySelector('input[name=phone_auth_number]');
+      const phoneAuthNumber = document.querySelector(
+        'input[name=phone_auth_number]'
+      );
 
       if (!this.phoneAuthKey) {
         alert('먼저 휴대전화를 입력하고 인증버튼을 눌러주세요.');
         return false;
       }
 
-      if (!this.$common.InputDataValidation(phoneAuthNumber, '인증번호를 입력해주세요.', true)) return false;
+      if (
+        !this.$common.InputDataValidation(
+          phoneAuthNumber,
+          '인증번호를 입력해주세요.',
+          true
+        )
+      )
+        return false;
 
       await this.actPhoneCheckVerify({
-        authNumber: phoneAuthNumber.value,
+        authNumber: phoneAuthNumber.value
       });
 
       if (this.phoneAuth) {
@@ -442,27 +455,29 @@ export default {
 
     // 비밀번호
     async pwdChange() {
-      const passwordData = _.pick(this.password, ['cur_password', 'new_password']);
+      const passwordData = _.pick(this.password, [
+        'cur_password',
+        'new_password'
+      ]);
       const $this = this;
-      this.$validator.validateAll('password').then((result) => {
+      this.$validator.validateAll('password').then(result => {
         if (result) {
-          Member.patchMemberPassword(passwordData)
-            .then((res) => {
-              if (res.data.result) {
-                alert('비밀번호가 정상적으로 변경되었습니다.');
-                _.forEach(this.password, function(value, key) {
-                  $this.password[key] = '';
-                });
-                setTimeout(() => {
-                  this.errors.clear('password');
-                }, 0);
-              } else {
-                if (res.data.uncorrect) {
-                  alert('현재 비밀번호가 틀렸습니다.');
-                  this.$refs.currentPassword.focus();
-                }
+          Member.patchMemberPassword(passwordData).then(res => {
+            if (res.data.result) {
+              alert('비밀번호가 정상적으로 변경되었습니다.');
+              _.forEach(this.password, function(value, key) {
+                $this.password[key] = '';
+              });
+              setTimeout(() => {
+                this.errors.clear('password');
+              }, 0);
+            } else {
+              if (res.data.uncorrect) {
+                alert('현재 비밀번호가 틀렸습니다.');
+                this.$refs.currentPassword.focus();
               }
-            });
+            }
+          });
         }
       });
     },
@@ -473,7 +488,8 @@ export default {
         if (!checkBoolean) checkBoolean = !checkBoolean;
         this.pwdMsg = '비밀번호를 입력해주세요.';
       } else {
-        this.pwdMsg = '비밀번호가 안전하지 않습니다. (최소 8자리 이상, 대문자/숫자/특수문자 포함)';
+        this.pwdMsg =
+          '비밀번호가 안전하지 않습니다. (최소 8자리 이상, 대문자/숫자/특수문자 포함)';
       }
       if (checkBoolean) this.isPwd = false;
       else this.isPwd = true;
@@ -488,14 +504,16 @@ export default {
       const cardReg = /^(0?[1-9]|1[0-2]|12)(1[9]|[2-9][0-9]|99)$/;
       if (!cardReg.test(evt.target.value)) {
         this.cardVerify = true;
-        this.cardVerifyMsg = '카드유효기간을 MMYY(월년) 형태로 입력해주세요. (ex: 0323)';
+        this.cardVerifyMsg =
+          '카드유효기간을 MMYY(월년) 형태로 입력해주세요. (ex: 0323)';
       } else this.cardVerify = false;
     },
     checkBirthExpiry(evt) {
       const birthReg = /^([0-9][0-9]|99)(0?[1-9]|1[0-2]|12)(0?[1-9]|[12][0-9]|3[01])$/;
       if (!birthReg.test(evt.target.value)) {
         this.birthVerify = true;
-        this.birthVerifyMsg = '생년월일을 YYMMDD(년월일) 형태로 입력해주세요. (ex: 851211)';
+        this.birthVerifyMsg =
+          '생년월일을 YYMMDD(년월일) 형태로 입력해주세요. (ex: 851211)';
       } else this.birthVerify = false;
     },
     clickCard() {
@@ -510,12 +528,15 @@ export default {
         alert('생년월일을 정확히 입력해주세요.');
         return false;
       }
-      this.$validator.validateAll('card').then((result) => {
+      this.$validator.validateAll('card').then(result => {
         if (result) {
           const cardExpiry = this.$refs.cardExpiry;
-          this.cardPayment.cardYearExpiry = `20${cardExpiry.value.substring(2, 4)}`;
+          this.cardPayment.cardYearExpiry = `20${cardExpiry.value.substring(
+            2,
+            4
+          )}`;
           this.cardPayment.cardMonthExpiry = cardExpiry.value.substring(0, 2);
-          Member.patchMemberPayment(this.cardPayment).then((res) => {
+          Member.patchMemberPayment(this.cardPayment).then(res => {
             if (res.data.result) {
               alert('카드 결제 정보 변경이 완료되었습니다.');
               _.forEach(this.cardPayment, function(value, key) {
@@ -535,10 +556,10 @@ export default {
     },
     /* TODO: 사용될지 안될지 모름.*/
     async paymentChange() {
-      if (!await this.$validator.validate('cardNumber')) return;
-      if (!await this.$validator.validate('cardExpiry')) return;
-      if (!await this.$validator.validate('birthDay')) return;
-      if (!await this.$validator.validate('cardPwd')) return;
+      if (!(await this.$validator.validate('cardNumber'))) return;
+      if (!(await this.$validator.validate('cardExpiry'))) return;
+      if (!(await this.$validator.validate('birthDay'))) return;
+      if (!(await this.$validator.validate('cardPwd'))) return;
 
       const cardNumber = document.querySelector('input[name=cardNumber]');
       const cardExpiry = document.querySelector('input[name=cardExpiry]');
@@ -550,7 +571,7 @@ export default {
         cardYearExpiry: `20${cardExpiry.value.substring(2, 4)}`,
         cardMonthExpiry: cardExpiry.value.substring(0, 2),
         userBirth: birthDay.value,
-        cardPassword: cardPwd.value,
+        cardPassword: cardPwd.value
       });
 
       if (this.mypagePaymentFlag) {
@@ -565,7 +586,10 @@ export default {
       }
     },
     getCardInfo() {
-      if (this.mypageData.card_name !== null && this.mypageData.card_name !== undefined) {
+      if (
+        this.mypageData.card_name !== null &&
+        this.mypageData.card_name !== undefined
+      ) {
         return `${this.mypageData.card_name} ${this.mypageData.card_number}`;
       }
       return '';
@@ -578,17 +602,16 @@ export default {
         return false;
       } else {
         const memorialDayData = {
-          ann: this.$moment(this.ann).format('MM.DD'),
+          ann: this.$moment(this.ann).format('MM.DD')
         };
-        Member.patchMemberMemorialDay(memorialDayData)
-          .then((res) => {
-            if (res.data.result) {
-              alert('기념일이 변경되었습니다.');
-              $this.ann = '';
-            } else {
-              alert('통신중 오류가 발생되었습니다.');
-            }
-          });
+        Member.patchMemberMemorialDay(memorialDayData).then(res => {
+          if (res.data.result) {
+            alert('기념일이 변경되었습니다.');
+            $this.ann = '';
+          } else {
+            alert('통신중 오류가 발생되었습니다.');
+          }
+        });
       }
     },
     // 공동 현관 번호
@@ -598,17 +621,16 @@ export default {
         alert('비밀번호를 입력해 주세요.');
       } else {
         const lobbyPasswordData = {
-          lobbyPassword: this.lobbyPassword,
+          lobbyPassword: this.lobbyPassword
         };
-        Member.patchMemberLobbyPassword(lobbyPasswordData)
-          .then((res) => {
-            if (res.data.result) {
-              alert('현관 비밀번호가 변경되었습니다.');
-              $this.lobbyPassword = '';
-            } else {
-              alert('통신중 오류가 발생되었습니다.');
-            }
-          });
+        Member.patchMemberLobbyPassword(lobbyPasswordData).then(res => {
+          if (res.data.result) {
+            alert('현관 비밀번호가 변경되었습니다.');
+            $this.lobbyPassword = '';
+          } else {
+            alert('통신중 오류가 발생되었습니다.');
+          }
+        });
       }
     },
     // 주소
@@ -622,12 +644,12 @@ export default {
         new window.daum.Postcode({
           width: '100%',
           height: '433',
-          onclose: (state) => {
+          onclose: state => {
             if (state === 'COMPLETE_CLOSE') {
               this.closeModal('address');
             }
           },
-          oncomplete: (data) => {
+          oncomplete: data => {
             this.address.zipcode = data.zonecode;
             if (data.userSelectedType === 'R') {
               this.address.addr = data.roadAddress;
@@ -635,7 +657,7 @@ export default {
               this.address.addr = data.jibunAddress;
             }
             detailAddress.focus();
-          },
+          }
         }).embed(document.querySelector('div[name=addressArea]'), {});
       });
     },
@@ -652,27 +674,31 @@ export default {
         }
       });
       if (checkAddressData) {
-        Member.patchMemberAddress(addressData)
-          .then((res) => {
-            if (res.data.result) {
-              alert('주소가 변경되었습니다.');
-              _.forEach($this.address, function(value, key) {
-                $this.address[key] = '';
-              });
-            } else {
-              alert('통신중 오류가 발생되었습니다.');
-            }
-          });
+        Member.patchMemberAddress(addressData).then(res => {
+          if (res.data.result) {
+            alert('주소가 변경되었습니다.');
+            _.forEach($this.address, function(value, key) {
+              $this.address[key] = '';
+            });
+          } else {
+            alert('통신중 오류가 발생되었습니다.');
+          }
+        });
       }
     },
-
-
-
 
     async actEmailChange() {
       const email = document.querySelector('input[name=changeEmail]');
 
-      if (!this.$common.InputDataValidation(email, '변경할 이메일을 입력해주세요.', true, true)) return;
+      if (
+        !this.$common.InputDataValidation(
+          email,
+          '변경할 이메일을 입력해주세요.',
+          true,
+          true
+        )
+      )
+        return;
 
       await this.changeEmail(email.value);
 
@@ -683,15 +709,13 @@ export default {
         this.displayEvt('emailarea', 'changeEmail', '이메일 변경');
         this.changeFlag('email');
       }
-    },
-
+    }
   },
   async created() {
     // if (!this.PasswordAuth) {
     //   alert('잘못된 접근입니다.');
     //   this.$router.push({ path: '/closet/security' });
     // }
-
     // 삭제할것
     // if (!this.mypageAuth) {
     //   alert('잘못된 접근입니다.');
@@ -705,209 +729,209 @@ export default {
   },
   destroyed() {
     this.destroyPasswordAuth();
-  },
+  }
 };
 </script>
 
-<style scoped lang="scss" src="@/assets/css/closet-style.scss"></style>
+<style scoped lang="scss" src="@/assets/css/closet-style.scss">
+</style>
 <style scoped lang="scss">
-  .form-group {
-    &[data-grid="7:3"]{
-      input {
+.form-group {
+  &[data-grid="7:3"] {
+    input {
+      flex-grow: 0;
+      flex-shrink: 0;
+      flex-basis: 65.8%;
+      /*flex-basis: 65.8%;*/
+      margin-right: 2.86%;
+    }
+    button {
+      flex-basis: 31.48%;
+    }
+  }
+}
+.btn-secondary {
+  line-height: 18px;
+  height: 50px;
+}
+.mypage {
+  padding: {
+    top: 24px;
+    right: 20px;
+    bottom: 20px;
+    left: 20px;
+  }
+}
+.contents {
+  margin-top: 13px;
+  margin-bottom: 20px;
+  padding-top: 16px;
+  padding-bottom: 29px;
+  border-top: 2px solid #333;
+  border-bottom: 2px solid #333;
+}
+
+.phone {
+  margin-bottom: 35px;
+}
+.password {
+  margin-bottom: 27px;
+}
+.payment-info {
+  margin-bottom: 30px;
+}
+.address {
+  margin-bottom: 30px;
+}
+.anniversary {
+  margin-bottom: 30px;
+}
+.row {
+  margin-top: 10px;
+}
+
+.phone,
+.password,
+.address .anniversary,
+.entrance-number {
+}
+
+.txt-point {
+  padding-bottom: 3px;
+}
+.name {
+  .txt-point {
+    margin-bottom: 7px;
+  }
+  .txt-name {
+    font-size: 15px;
+    line-height: 23px;
+    letter-spacing: -0.9px;
+    color: #797979;
+  }
+}
+.password,
+.address {
+}
+.entrance-number {
+  .txt-entrance-number {
+    font-size: 15px;
+    line-height: 23px;
+    letter-spacing: -0.9px;
+    color: #797979;
+    margin-bottom: 13px;
+  }
+}
+.payment-info {
+  .form-card {
+    display: flex;
+    input {
+      &:nth-child(1) {
+        margin-right: 8px;
+      }
+      &:nth-child(2) {
         flex-grow: 0;
         flex-shrink: 0;
-        flex-basis: 65.8%;
-        /*flex-basis: 65.8%;*/
-        margin-right: 2.86%;
-      }
-      button {
-        flex-basis: 31.48%;
+        flex-basis: 106px;
       }
     }
   }
-  .btn-secondary {
-    line-height: 18px;
-    height: 50px;
+  .last-two-digits {
+    display: inline-block;
+    font-size: 0;
+    margin-left: 4px;
+    span {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background-color: #333;
+      border-radius: 50%;
+      overflow: hidden;
+      &:first-child {
+        margin-right: 10px;
+      }
+    }
   }
+  .txt-current-card {
+    font-size: 15px;
+    line-height: 23px;
+    letter-spacing: -0.9px;
+    color: #797979;
+  }
+}
+
+@media (min-width: 768px) {
   .mypage {
+    width: 1200px;
     padding: {
-      top: 24px;
-      right: 20px;
-      bottom: 20px;
-      left: 20px;
+      top: 30px;
+      right: 0;
+      bottom: 0;
+      left: 0;
     }
+    margin: 0 auto;
+  }
+  .name .txt-name,
+  .entrance-number .txt-entrance-number {
+    font-size: 16px;
+    letter-spacing: -1px;
   }
   .contents {
-    margin-top: 13px;
-    margin-bottom: 20px;
-    padding-top: 16px;
-    padding-bottom: 29px;
-    border-top: 2px solid #333;
-    border-bottom: 2px solid #333;
+    margin-top: 27px;
+    margin-bottom: 39px;
+    padding-top: 24px;
+    border-bottom: 1px solid #e9e9e9;
+    position: relative;
+    &::before {
+      position: absolute;
+      left: 50%;
+      top: 24px;
+      display: block;
+      content: "";
+      width: 1px;
+      height: calc(100% - 24px - 39px);
+      background-color: #e9e9e9;
+      transform: translateX(-50%);
+    }
   }
-
-  .phone {
-    margin-bottom: 35px;
-  }
-  .password {
-    margin-bottom: 27px;
-  }
-  .payment-info {
-    margin-bottom: 30px;
-  }
-  .address {
-    margin-bottom: 30px;
-  }
-  .anniversary{
-    margin-bottom: 30px;
+  .content {
+    width: 490px;
+    .row {
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    &:nth-child(1) {
+      float: left;
+    }
+    &:nth-child(2) {
+      float: right;
+    }
   }
   .row {
-    margin-top: 10px;
   }
-
-  .phone,
-  .password,
-  .address
-  .anniversary,
-  .entrance-number {
-  }
-
-  .txt-point {
-    padding-bottom: 3px;
-  }
-  .name {
-    .txt-point {
-      margin-bottom: 7px;
-    }
-    .txt-name {
-      font-size: 15px;
-      line-height: 23px;
-      letter-spacing: -0.9px;
-      color: #797979;
-    }
-  }
-  .password,
-  .address {
-  }
-  .entrance-number {
-    .txt-entrance-number {
-      font-size: 15px;
-      line-height: 23px;
-      letter-spacing: -0.9px;
-      color: #797979;
-      margin-bottom: 13px;
-    }
-  }
-  .payment-info {
-    .form-card {
-      display: flex;
-      input {
-        &:nth-child(1){
-          margin-right: 8px;
-        }
-        &:nth-child(2){
-          flex-grow: 0;
-          flex-shrink: 0;
-          flex-basis: 106px;
-        }
-      }
-    }
-    .last-two-digits {
-      display: inline-block;
-      font-size: 0;
-      margin-left: 4px;
-      span {
-        display: inline-block;
-        width: 8px;
-        height: 8px;
-        background-color: #333;
-        border-radius: 50%;
-        overflow: hidden;
-        &:first-child {
-          margin-right: 10px;
-        }
-      }
-    }
-    .txt-current-card {
-      font-size: 15px;
-      line-height: 23px;
-      letter-spacing: -0.9px;
-      color: #797979;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .mypage {
-      width: 1200px;
-      padding: {
-        top: 30px;
-        right: 0;
-        bottom: 0;
-        left: 0;
-      }
-      margin: 0 auto;
-    }
-    .name .txt-name,
-    .entrance-number .txt-entrance-number {
+  .delivery-date {
+    li {
+      flex-grow: 0;
+      flex-shrink: 0;
+      flex-basis: 99px;
       font-size: 16px;
       letter-spacing: -1px;
     }
-    .contents {
-      margin-top: 27px;
-      margin-bottom: 39px;
-      padding-top: 24px;
-      border-bottom: 1px solid #e9e9e9;
-      position: relative;
-      &::before {
-        position: absolute;
-        left: 50%;
-        top: 24px;
-        display: block;
-        content: '';
-        width: 1px;
-        height: calc(100% - 24px - 39px);
-        background-color: #e9e9e9;
-        transform: translateX(-50%);
-      }
-    }
-    .content {
-      width: 490px;
-      .row {
-        &:last-child {
-          margin-bottom: 0;
-        }
-      }
-      &:nth-child(1) {
-        float: left;
-      }
-      &:nth-child(2) {
-        float: right;
-      }
-    }
-    .row {
-    }
-    .delivery-date {
-      li {
-        flex-grow: 0;
-        flex-shrink: 0;
-        flex-basis: 99px;
-        font-size: 16px;
-        letter-spacing: -1px;
-      }
-    }
-    .btn-modify {
-      text-align: right;
-      button {
-        width: 287px;
-        height: 60px;
-      }
-    }
-    .payment-info {
-      margin-bottom: 0;
-      .txt-current-card {
-        font-size: 16px;
-        letter-spacing: -0.8px;
-      }
+  }
+  .btn-modify {
+    text-align: right;
+    button {
+      width: 287px;
+      height: 60px;
     }
   }
+  .payment-info {
+    margin-bottom: 0;
+    .txt-current-card {
+      font-size: 16px;
+      letter-spacing: -0.8px;
+    }
+  }
+}
 </style>

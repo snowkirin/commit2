@@ -33,12 +33,12 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import Simplert from 'vue2-simplert'
+import Simplert from 'vue2-simplert';
 const alertObject = {
   type: 'alert', // 타입
   customClass: 'popup-custom-class', // 커스텀 클래스 네임
   disableOverlayClick: false, // 오버레이 클릭시 닫기 방지
-  customCloseBtnText: '확인', // 닫기 버튼 텍스트
+  customCloseBtnText: '확인' // 닫기 버튼 텍스트
 };
 
 export default {
@@ -81,9 +81,13 @@ export default {
     },
     clickLogout() {
       this.doLogout().then(() => {
-        document.cookie = `${process.env.VUE_APP_TOKEN_NAME}=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=${process.env.VUE_APP_HOST}`;
+        document.cookie = `${
+          process.env.VUE_APP_TOKEN_NAME
+        }=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=${
+          process.env.VUE_APP_HOST
+        }`;
         _.assign(alertObject, {
-          message: '로그아웃 되었습니다.',
+          message: '로그아웃 되었습니다.'
         });
         this.$refs.alert.openSimplert(alertObject);
         this.$router.push({ path: "/login" });

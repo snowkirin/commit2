@@ -67,7 +67,7 @@ export default {
   name: 'detail-modal',
   components: {
     Carousel,
-    Slide,
+    Slide
   },
   data() {
     return {
@@ -82,11 +82,10 @@ export default {
       closetOption: {},
       closetImage: {},
       materialList: [],
-      API_IMAGE_URL: process.env.API_IMAGE_URL,
+      API_IMAGE_URL: process.env.API_IMAGE_URL
     };
   },
-  props: {
-  },
+  props: {},
   methods: {
     openModal(infos, images) {
       this.closetInfo = infos;
@@ -98,7 +97,7 @@ export default {
         if (material[i].type.label === '겉감') {
           this.materialList.push({
             kind: material[i].kind.label,
-            percent: material[i].percent,
+            percent: material[i].percent
           });
         }
       }
@@ -155,14 +154,14 @@ export default {
       } else {
         this.clickThum(this.navigateTo);
       }
-    },
+    }
   },
   mounted() {
     this.modal = document.querySelector('div.detail-frame');
     if (window.outerWidth <= 486) {
       this.isMobile = true;
     }
-  },
+  }
 };
 </script>
 
@@ -215,29 +214,29 @@ export default {
 }
 
 .detail-info-header {
-  word-break:normal;
-  white-space:normal;
+  word-break: normal;
+  white-space: normal;
   display: block;
-  text-align:left;
+  text-align: left;
   font-size: 20px;
-  font-weight:bold;
+  font-weight: bold;
   margin-bottom: 18px;
   line-height: 1.3;
 }
 
 .detail-info-subheader {
-  word-break:normal;
-  white-space:normal;
+  word-break: normal;
+  white-space: normal;
   display: block;
-  text-align:left;
+  text-align: left;
   font-size: 16px;
-  font-weight:bold;
+  font-weight: bold;
   margin-bottom: 18px;
 }
 
 .detail-info {
-  word-break:normal;
-  white-space:normal;
+  word-break: normal;
+  white-space: normal;
   display: block;
   text-align: left;
   margin-bottom: 5px;
@@ -276,8 +275,9 @@ div.btn-times {
   border-radius: 6px;
 }
 
-div.btn-times:before, div.btn-times:after {
-  content: '';
+div.btn-times:before,
+div.btn-times:after {
+  content: "";
   position: absolute;
   width: 30px;
   height: 2px;
@@ -321,21 +321,25 @@ div.btn-times:after {
 }
 
 .detail-image-area {
-  display:table;
+  display: table;
 }
 
 .detail-mainimage {
   position: relative;
-  float: left; width: 400px;
+  float: left;
+  width: 400px;
   margin: 0 20px 0 15px;
 }
 
 .detail-subimage {
-  float: left; width: 60px;
+  float: left;
+  width: 60px;
 }
 
 .detail-maininfo {
-  float: left; width: 230px; margin-top: 0px !important;
+  float: left;
+  width: 230px;
+  margin-top: 0px !important;
 }
 
 .prev-navigation {
@@ -355,7 +359,8 @@ div.btn-times:after {
 }
 
 .nav-svg-size {
-  width: 30px; height: 50px;
+  width: 30px;
+  height: 50px;
 }
 
 .thumnail-image-area {
@@ -390,7 +395,7 @@ div.btn-times:after {
   }
   .detail-frame {
     top: 0;
-    background: rgba(0,0,0,.7);
+    background: rgba(0, 0, 0, 0.7);
   }
 
   .detail-modal-btn {
@@ -415,12 +420,14 @@ div.btn-times:after {
     width: 100%;
   }
 
-  .prev-navigation, .next-navigation {
+  .prev-navigation,
+  .next-navigation {
     top: 40%;
   }
 
   .nav-svg-size {
-    width: 25px; height: 50px;
+    width: 25px;
+    height: 50px;
   }
 
   .carousel-pagination {
@@ -439,7 +446,8 @@ div.btn-times:after {
   .carousel-dot {
     display: inline-block;
     cursor: pointer;
-    margin-top: 20px; padding: 10px;
+    margin-top: 20px;
+    padding: 10px;
   }
 
   .carousel-dot-button {
@@ -451,7 +459,8 @@ div.btn-times:after {
     border-radius: 100%;
     outline: none;
     cursor: pointer;
-    width: 10px; height: 10px;
+    width: 10px;
+    height: 10px;
     background-color: #333333;
     opacity: 0.1;
   }
@@ -464,6 +473,5 @@ div.btn-times:after {
   .detail-content {
     padding: 20px 25px 25px 25px;
   }
-
 }
 </style>

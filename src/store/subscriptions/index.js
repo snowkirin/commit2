@@ -1,5 +1,5 @@
-import types from "./mutation-types";
-import actions from "./actions";
+import types from './mutation-types';
+import actions from './actions';
 
 export default {
   namespaced: true,
@@ -12,6 +12,7 @@ export default {
     },
     Tomorrow: {
       data: {},
+      productDetail: {},
     }
   },
   mutations: {
@@ -21,6 +22,9 @@ export default {
     },
     [types.GET_TOMORROW](state, data) {
       state.Tomorrow.data = data;
+    },
+    [types.GET_PRODUCT_DETAIL](state, data) {
+      _.assign(state.Tomorrow.productDetail, data);
     },
     [types.GET_CURRENT_FEEDBACKS](state, data) {
       state.Current.feedbacks = data;

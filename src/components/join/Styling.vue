@@ -84,12 +84,12 @@ export default {
   },
   computed: {
     ...mapGetters({
-      Authentication: "login/Authentication",
+      Authentication: "login/Authentication"
     })
   },
   methods: {
     ...mapActions({
-      setMood: "signup/setMood",
+      setMood: "signup/setMood"
     }),
     selectStyle(data) {
       const imageTarget = document.querySelector(".circle-pick");
@@ -179,7 +179,7 @@ export default {
       } else if (main === this.classic) {
         target.style.cssText =
           "display: block; width: 100%; height: 124%; top: 55%; left: 26.3%;";
-        target.style.backgroundImage =  `url(${require('@/assets/img/signup/hover_classic.png')})`;
+        target.style.backgroundImage = `url(${require('@/assets/img/signup/hover_classic.png')})`;
       } else if (main === this.modern) {
         target.style.cssText =
           "display: block; width: 100%; height: 124%; top: 55%; left: 73.7%;";

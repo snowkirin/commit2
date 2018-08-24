@@ -134,8 +134,7 @@ import Members from '@/library/api/member';
 
 export default {
   name: 'addinfo',
-  components: {
-  },
+  components: {},
   computed: mapGetters({
     Authentication: 'login/Authentication',
     Options: 'codes/Options'
@@ -147,19 +146,22 @@ export default {
         preferPattern: null,
         preferBrand: null,
         dressCode: null,
-        requirement: null,
+        requirement: null
       },
       imageFile: {},
-      previewImage: '',
-    }
+      previewImage: ''
+    };
   },
   methods: {
     ...mapActions({
       getOptions: 'codes/getOptions'
     }),
-    clickColor(data, event){
+    clickColor(data, event) {
       const eleParent = document.querySelector('.list-prefer-color');
-      const eleTarget = event.target.tagName === 'LI' ? event.target : event.target.closest('li');
+      const eleTarget =
+        event.target.tagName === 'LI'
+          ? event.target
+          : event.target.closest('li');
 
       _.forEach(eleParent.querySelectorAll('li'), value => {
         value.classList.remove('selected');
@@ -271,16 +273,16 @@ export default {
     renderPreviewImage(file) {
       const reader = new FileReader();
       const $this = this;
-      reader.onloadstart = (e) => {
+      reader.onloadstart = e => {
         this.$refs.imagePreview.style.display = 'block';
         this.$refs.imagePreview.querySelector('img').style.display = 'none';
         this.$refs.imagePreview.querySelector('svg').style.display = 'block';
       };
-      reader.onloadend = (e) => {
+      reader.onloadend = e => {
         this.$refs.imagePreview.querySelector('svg').style.display = 'none';
         this.$refs.imagePreview.querySelector('img').style.display = 'block';
       };
-      reader.onload = (e) => {
+      reader.onload = e => {
         $this.previewImage = e.target.result;
       };
       reader.readAsDataURL(file);
@@ -289,11 +291,12 @@ export default {
       const $this = this;
       const formData = new FormData();
       formData.append('userImages', $this.imageFile);
-      Members.postMemberImageStyle(formData, $this.memberStyle).then(function(res) {
-      });
+      Members.postMemberImageStyle(formData, $this.memberStyle).then(function(
+        res
+      ) {});
 
       this.$router.push({ path: '/closet/tomorrow' });
-    },
+    }
   },
   async created() {
     if (_.isEmpty(this.Options) || !_.isObject(this.Options)) {
@@ -302,209 +305,209 @@ export default {
   }
 };
 </script>
-<style scoped lang="scss" src="@/assets/css/join-style.scss"></style>
+<style scoped lang="scss" src="@/assets/css/join-style.scss">
+</style>
 <style scoped lang="scss">
-  @mixin txtListStyle {
-    @include fontSize(15px);
-    &.selected {
-      font-weight: 700;
-    }
+@mixin txtListStyle {
+  @include fontSize(15px);
+  &.selected {
+    font-weight: 700;
   }
-  .contents-header {
-    p {
-      color: #3d3d35;
-      margin-top: 5px;
-    }
+}
+.contents-header {
+  p {
+    color: #3d3d35;
+    margin-top: 5px;
   }
+}
 
-  .list-prefer-color {
-    margin-left: -9px;
-    margin-top: -10px;
-    margin-bottom: 9px;
-    font-size: 0;
-    text-align: center;
-    li {
-      @include txtListStyle;
-      user-select: none;
-      cursor: pointer;
-      display: inline-block;
-      width: calc((100% / 2) - 9px);
-      /*width: 163px;*/
-      height: 50px;
-      color: #bbb;
-      border: 1px solid #c4c4c4;
-      margin-left: 9px;
-      margin-top: 10px;
-      background-color: #fff;
-      &.selected {
-        color: #fff;
-        &.achromatic-color {
-          background-color: #bbb;
-        }
-        &.green-color {
-          background-color: #749c09;
-        }
-        &.beige-color {
-          background-color: #e3cea9;
-        }
-        &.purple-color {
-          background-color: #960af1;
-        }
-        &.red-color {
-          background-color: #dc3f39;
-        }
-        &.yellow-color {
-          background-color: #eacd1b;
-        }
-        &.blue-color {
-          background-color: #0e7fc9;
-        }
-        &.dont-care {
-          background-color: #333333;
-        }
+.list-prefer-color {
+  margin-left: -9px;
+  margin-top: -10px;
+  margin-bottom: 9px;
+  font-size: 0;
+  text-align: center;
+  li {
+    @include txtListStyle;
+    user-select: none;
+    cursor: pointer;
+    display: inline-block;
+    width: calc((100% / 2) - 9px);
+    /*width: 163px;*/
+    height: 50px;
+    color: #bbb;
+    border: 1px solid #c4c4c4;
+    margin-left: 9px;
+    margin-top: 10px;
+    background-color: #fff;
+    &.selected {
+      color: #fff;
+      &.achromatic-color {
+        background-color: #bbb;
+      }
+      &.green-color {
+        background-color: #749c09;
+      }
+      &.beige-color {
+        background-color: #e3cea9;
+      }
+      &.purple-color {
+        background-color: #960af1;
+      }
+      &.red-color {
+        background-color: #dc3f39;
+      }
+      &.yellow-color {
+        background-color: #eacd1b;
+      }
+      &.blue-color {
+        background-color: #0e7fc9;
+      }
+      &.dont-care {
+        background-color: #333333;
       }
     }
   }
-  .list-prefer-pattern {
-    @include clearfix;
-    padding-top: 11px;
-    border-top: 1px solid #e9e9e9;
-    font-size: 0;
-    text-align: center;
-    li {
-      @include txtListStyle;
-      user-select: none;
-      cursor: pointer;
-      width: calc((100% / 3) - 7px);
-      height: 50px;
-      border: 1px solid #c4c4c4;
-      background-size: contain;
-      display: inline-block;
-      margin-left: 7px;
-      color: #bbb;
-      &:first-child {
-        margin-left: 0;
-      }
-      &.selected {
-        color: #333;
-        border: 2px solid #333;
-      }
-      .txt-centering {
-        span {
-          background-color: #fff;
-          padding: 0 2px;
-        }
-      }
+}
+.list-prefer-pattern {
+  @include clearfix;
+  padding-top: 11px;
+  border-top: 1px solid #e9e9e9;
+  font-size: 0;
+  text-align: center;
+  li {
+    @include txtListStyle;
+    user-select: none;
+    cursor: pointer;
+    width: calc((100% / 3) - 7px);
+    height: 50px;
+    border: 1px solid #c4c4c4;
+    background-size: contain;
+    display: inline-block;
+    margin-left: 7px;
+    color: #bbb;
+    &:first-child {
+      margin-left: 0;
     }
-    .stripe {
-      background-image: url('~@/assets/img/signup/img_patten_1.png');
+    &.selected {
+      color: #333;
+      border: 2px solid #333;
     }
-    .check {
-      background-image: url('~@/assets/img/signup/img_patten_2.png');
-    }
-    .floral {
-      background-image: url('~@/assets/img/signup/img_patten_3.png');
-    }
-  }
-  .list-dresscode {
-    @include clearfix;
-    margin-left: -8px;
-    margin-top: -10px;
-    text-align: center;
-    font-size: 0;
-    li {
-      user-select: none;
-      display: inline-block;
-      /*width: 163px;*/
-      width: calc((100% / 2) - 8px);
-      /*height: 245px;*/
-      margin-left: 8px;
-      margin-top: 10px;
-      cursor: pointer;
-      /* 임시 */
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: 50%;
-      position: relative;
-      border: 1px solid #e9e9e9;
-      .text {
-        @include fontSize(15px);
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        display: inline-block;
-        width: 139px;
-        height: 25px;
+    .txt-centering {
+      span {
         background-color: #fff;
-        color: #bbb;
-        text-align: center;
-      }
-      img {
-        width: 100%;
-      }
-      &.selected {
-        outline: 2px solid #333;
-        outline-offset: -2px;
-        .text {
-          color: #fff;
-          font-weight: 700;
-          background-color: #333;
-        }
+        padding: 0 2px;
       }
     }
   }
-  .image-upload {
-    input[type="file"]{
-      opacity: 0;
-      position: absolute;
-      width: 0;
-      height: 0;
-      z-index: -1;
-      overflow: hidden;
-    }
+  .stripe {
+    background-image: url("~@/assets/img/signup/img_patten_1.png");
   }
-  .txt-image-upload {
-    @include fontSize(14px);
-    color: #797979;
-    margin-top: 11px;
+  .check {
+    background-image: url("~@/assets/img/signup/img_patten_2.png");
   }
-  .image-preview {
-    width: 100%;
-    background-color: #f9f9f9;
+  .floral {
+    background-image: url("~@/assets/img/signup/img_patten_3.png");
+  }
+}
+.list-dresscode {
+  @include clearfix;
+  margin-left: -8px;
+  margin-top: -10px;
+  text-align: center;
+  font-size: 0;
+  li {
+    user-select: none;
+    display: inline-block;
+    /*width: 163px;*/
+    width: calc((100% / 2) - 8px);
+    /*height: 245px;*/
+    margin-left: 8px;
+    margin-top: 10px;
+    cursor: pointer;
+    /* 임시 */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    position: relative;
     border: 1px solid #e9e9e9;
-    text-align: center;
-    padding: 30px;
-    margin: 17px auto 0;
+    .text {
+      @include fontSize(15px);
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      display: inline-block;
+      width: 139px;
+      height: 25px;
+      background-color: #fff;
+      color: #bbb;
+      text-align: center;
+    }
     img {
       width: 100%;
     }
-  }
-  .textarea-required {
-    textarea {
-      @include fontSize(15px);
-      color: $color-secondary;
-      width: 100%;
-      height: 100px;
-      border: 1px solid #c4c4c4;
-      resize: none;
-      padding: 3px 12px 5px;
+    &.selected {
+      outline: 2px solid #333;
+      outline-offset: -2px;
+      .text {
+        color: #fff;
+        font-weight: 700;
+        background-color: #333;
+      }
     }
   }
-  .txt-form-title {
-    margin-bottom: 14px;
+}
+.image-upload {
+  input[type="file"] {
+    opacity: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
+    z-index: -1;
+    overflow: hidden;
   }
+}
+.txt-image-upload {
+  @include fontSize(14px);
+  color: #797979;
+  margin-top: 11px;
+}
+.image-preview {
+  width: 100%;
+  background-color: #f9f9f9;
+  border: 1px solid #e9e9e9;
+  text-align: center;
+  padding: 30px;
+  margin: 17px auto 0;
+  img {
+    width: 100%;
+  }
+}
+.textarea-required {
+  textarea {
+    @include fontSize(15px);
+    color: $color-secondary;
+    width: 100%;
+    height: 100px;
+    border: 1px solid #c4c4c4;
+    resize: none;
+    padding: 3px 12px 5px;
+  }
+}
+.txt-form-title {
+  margin-bottom: 14px;
+}
 
-  .row {
-    margin-top: 35px;
-    &:nth-child(1) {
-      margin-top: 0;
-    }
+.row {
+  margin-top: 35px;
+  &:nth-child(1) {
+    margin-top: 0;
   }
-  @media (min-width: 768px) {
-    .contents-header {
-      margin-top: 10px;
-    }
+}
+@media (min-width: 768px) {
+  .contents-header {
+    margin-top: 10px;
   }
-
+}
 </style>

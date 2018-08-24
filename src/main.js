@@ -1,26 +1,25 @@
 // Basic
-import Vue from "vue";
-import App from "./App.vue";
-import router from "./router/";
-import store from "./store/";
-import "./registerServiceWorker";
+import Vue from 'vue';
+import App from './App.vue';
+import router from './router/';
+import store from './store/';
+import './registerServiceWorker';
 
 // Library
-import VueCommon from "@/library/VueCommon";
-import VueGlobalConst from "@/library/VueGlobalConst";
+import VueCommon from '@/library/VueCommon';
+import VueGlobalConst from '@/library/VueGlobalConst';
 
 // Add
 
 //VeeValidate : https://baianat.github.io/vee-validate/
-import VeeValidate, { Validator } from "vee-validate";
+import VeeValidate, { Validator } from 'vee-validate';
 import ko from 'vee-validate/dist/locale/ko';
 
-import VueMq from "vue-mq";
-import VueLocalStorage from "vue-localstorage";
-import VModal from "vue-js-modal";
-import Popover from 'vue-js-popover';
+import VueMq from 'vue-mq';
+import VueLocalStorage from 'vue-localstorage';
+import VModal from 'vue-js-modal';
 import Notifications from 'vue-notification';
-import VueLodash from "vue-lodash";
+import VueLodash from 'vue-lodash';
 import VueDaumPostcode from 'vue-daum-postcode';
 
 // Moment : https://momentjs.com/
@@ -47,7 +46,6 @@ Vue.use(VueMq, {
 });
 Vue.use(VueLocalStorage);
 Vue.use(VModal, { injectModalsContainer: true, dynamic: true });
-Vue.use(Popover);
 Vue.use(Notifications);
 Vue.use(VueLodash);
 Vue.use(VueDaumPostcode, {

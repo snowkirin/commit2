@@ -16,7 +16,7 @@ export default {
         return {
           ...err.response,
           message: err.message
-        }
+        };
       });
   },
   getRecommendCode(data) {
@@ -31,7 +31,7 @@ export default {
         return {
           ...err.response,
           message: err.message
-        }
-      })
-  },
+        };
+      });
+  }
 };

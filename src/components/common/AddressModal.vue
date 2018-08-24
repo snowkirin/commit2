@@ -15,17 +15,16 @@
 <script>
 export default {
   name: 'address-modal',
-  components: {
-  },
+  components: {},
   data() {
     return {
-      modal: null,
+      modal: null
     };
   },
   props: {
     dataId: {
-      type: String,
-    },
+      type: String
+    }
   },
   methods: {
     openModal() {
@@ -33,12 +32,11 @@ export default {
     },
     closeModal() {
       this.modal.style.display = 'none';
-    },
+    }
   },
   mounted() {
     this.modal = document.querySelector('div.address-frame');
-  },
-
+  }
 };
 </script>
 
@@ -73,7 +71,6 @@ export default {
   transform: translate(-50%, -50%) scale(1);
 }
 
-
 .custom-modal-title {
   width: 100%;
   padding: 20px;
@@ -92,7 +89,7 @@ export default {
 .custom-modal-btn {
   width: 48px;
   height: 48px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   position: absolute;
   opacity: 1;
   top: 6%;
@@ -108,8 +105,9 @@ div.btn-times {
   border-radius: 6px;
 }
 
-div.btn-times:before, div.btn-times:after {
-  content: '';
+div.btn-times:before,
+div.btn-times:after {
+  content: "";
   position: absolute;
   width: 30px;
   height: 2px;
@@ -150,7 +148,7 @@ div.btn-times:after {
 @media screen and (max-width: 486px) {
   .address-frame {
     top: 0;
-    background: rgba(0,0,0,.7);
+    background: rgba(0, 0, 0, 0.7);
   }
 
   .address-content {

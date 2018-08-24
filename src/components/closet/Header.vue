@@ -12,44 +12,41 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'closet-header',
   data() {
-    return {
-    };
+    return {};
   },
   computed: mapGetters({
-    Authentication: 'login/Authentication',
+    Authentication: 'login/Authentication'
   }),
-  methods: {
-  },
+  methods: {}
 };
 </script>
 
 <style scoped lang="scss">
+.closet-header {
+  padding: 23px 18px 14px;
+}
+.user-info {
+  @include fontSize(24px);
+}
+@media (min-width: 768px) {
   .closet-header {
-    padding: 23px 18px 14px;
+    width: 1200px;
+    margin: 0 auto;
+    padding: {
+      top: 9px;
+      right: 32px;
+      bottom: 20px;
+      left: 0px;
+    }
+    font-weight: 300;
   }
   .user-info {
-    @include fontSize(24px);
+    @include fontSize(28px);
   }
-  @media (min-width: 768px) {
-    .closet-header {
-      width: 1200px;
-      margin: 0 auto;
-      padding: {
-        top: 9px;
-        right: 32px;
-        bottom: 20px;
-        left: 0px;
-      }
-      font-weight: 300;
-    }
-    .user-info {
-      @include fontSize(28px);
-
-    }
+}
+@media (min-width: 1280px) {
+  .user-info {
+    @include fontSize(30px);
   }
-  @media (min-width: 1280px) {
-   .user-info {
-     @include fontSize(30px);
-   }
-  }
+}
 </style>

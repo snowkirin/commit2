@@ -28,74 +28,72 @@
 </template>
 
 <script>
-  export default {
-    name: "CommonModal",
-    props: {
-      modalType: {
-        type: String,
-      },
-      modalTitle: {
-        type: String,
-      },
-      modalContent: {
-        type: String,
-      },
-      modalContentType: {
-        type: String,
-      },
-      modalCustomCloseFunc: {
-      }
+export default {
+  name: "CommonModal",
+  props: {
+    modalType: {
+      type: String
     },
-    created() {
+    modalTitle: {
+      type: String
     },
-    mounted() {
-    }
-  }
+    modalContent: {
+      type: String
+    },
+    modalContentType: {
+      type: String
+    },
+    modalCustomCloseFunc: {}
+  },
+  created() {},
+  mounted() {}
+};
 </script>
 
 <style scoped lang="scss">
-  .modal-contents {
+.modal-contents {
+  padding: 16px 20px;
+  &.type1 {
+    padding: 30px 30px 20px;
+  }
+  &.type2 {
     padding: 16px 20px;
-    &.type1 {
-      padding: 30px 30px 20px;
+  }
+  .modal-content {
+    margin-top: 15px;
+  }
+  .modal-close {
+    position: absolute;
+    top: 18px;
+    right: 21px;
+    overflow: hidden;
+    .btn-close {
+      cursor: pointer;
     }
-    &.type2 {
-      padding: 16px 20px;
-    }
-    .modal-content {
-      margin-top: 15px;
-    }
-    .modal-close {
-      position: absolute;
-      top: 18px;
-      right: 21px;
-      overflow: hidden;
-      .btn-close {
-        cursor: pointer;
-      }
-      .icon-close {
+    .icon-close {
+      display: block;
+      width: 16px;
+      height: 16px;
+      position: relative;
+      &::before,
+      &::after {
+        content: "";
         display: block;
-        width: 16px;
-        height: 16px;
-        position: relative;
-        &::before, &::after {
-          content : '';
-          display: block;
-          width: 100%;
-          height: 1px;
-          background-color: #333;
-          position: absolute;
-          transform-origin: 50% 50%;
-          top: 50%;
-          left: 0;
-        }
-        &::before {
-          transform: rotate(45deg);
-        }
-        &::after {
-          transform: rotate(-45deg);
-        }
+        width: 100%;
+        height: 1px;
+        background-color: #333;
+        position: absolute;
+        transform-origin: 50% 50%;
+        top: 50%;
+        left: 0;
+      }
+      &::before {
+        transform: rotate(45deg);
+      }
+      &::after {
+        transform: rotate(-45deg);
       }
     }
   }
+}
 </style>

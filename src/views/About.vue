@@ -11,11 +11,11 @@
   </div>
 </template>
 <script>
-  export default {
-    methods: {
-      clickMe(event) {
-        console.log(event.target.closest('#one'));
-      }
+export default {
+  methods: {
+    clickMe(event) {
+      console.log(event.target.closest('#one'));
     }
   }
+};
 </script>

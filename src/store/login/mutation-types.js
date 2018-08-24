@@ -12,5 +12,5 @@ export default {
   LOGOUT,
   SET_CODE,
   FEEDBACK_DIRECT,
-  TOMORROW_DIRECT,
+  TOMORROW_DIRECT
 };

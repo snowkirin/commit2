@@ -8,7 +8,7 @@ export default {
     selectInquiries: null,
     inquiriesInfo: {},
     inquiriesList: [],
-    newInquiries: [],
+    newInquiries: []
   },
   mutations: {
     [types.SET_INQUIRIES_LIST](state, data) {
@@ -25,7 +25,7 @@ export default {
     },
     [types.SET_INQUIRIES_SUCCESS](state) {
       state.isInquiries = true;
-    },
+    }
   },
   actions,
   getters: {
@@ -33,6 +33,6 @@ export default {
     getInquiriesInfo: state => state.inquiriesInfo,
     getSelectInquiries: state => state.selectInquiries,
     getNewInquiries: state => state.newInquiries,
-    getIsInquiries: state => state.isInquiries,
-  },
+    getIsInquiries: state => state.isInquiries
+  }
 };

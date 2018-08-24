@@ -14,11 +14,11 @@ export default {
     [types.GET_RECOMMENDCODE](state, data) {
       console.log(data);
       state.RecommendCode = data;
-    },
+    }
   },
   actions,
   getters: {
     Membership: state => state.Membership,
-    RecommendCode: state => state.RecommendCode,
+    RecommendCode: state => state.RecommendCode
   }
 };

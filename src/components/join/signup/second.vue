@@ -280,7 +280,7 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import Simplert from 'vue2-simplert';
 import VueNumeric from 'vue-numeric';
 
@@ -302,18 +302,18 @@ export default {
         lobbyPassword: null,
         coupon: null,
         membershipId: 1,
-        recommendCode: null,
+        recommendCode: null
       },
       deliveryDay: {
         monthDay: '',
-        dayOfWeek: '',
+        dayOfWeek: ''
       },
       cardVerify: false,
       cardVerifyMsg: '',
       birthVerify: false,
       birthVerifyMsg: '',
       isConfirm: false,
-      isRecommendCode: false,
+      isRecommendCode: false
     };
   },
   computed: {
@@ -326,8 +326,10 @@ export default {
     msgDeliveryDay() {
       const date = _.split(this.deliveryDay.monthDay, '/');
       const week = _.trim(this.deliveryDay.dayOfWeek, '()');
-      return `${date[0]}월 ${date[1]}일 첫 배송 후 격주 ${week}요일에 배송됩니다.`;
-    },
+      return `${date[0]}월 ${
+        date[1]
+      }일 첫 배송 후 격주 ${week}요일에 배송됩니다.`;
+    }
   },
   methods: {
     ...mapActions({
@@ -343,14 +345,15 @@ export default {
       this.deliveryDay.dayOfWeek = param.day_of_week;
       this.$notify({
         group: "deliveryDate",
-        text: this.msgDeliveryDay,
+        text: this.msgDeliveryDay
       });
     },
     checkCardExpiry(evt) {
       const cardReg = /^(0?[1-9]|1[0-2]|12)(1[9]|[2-9][0-9]|99)$/;
       if (!cardReg.test(evt.target.value)) {
         this.cardVerify = true;
-        this.cardVerifyMsg = '카드유효기간을 MMYY(월년) 형태로 입력해주세요. (ex: 0323)';
+        this.cardVerifyMsg =
+          '카드유효기간을 MMYY(월년) 형태로 입력해주세요. (ex: 0323)';
       } else {
         const cardMonth = evt.target.value.substr(0, 2);
         const cardYear = evt.target.value.substr(2, 4);
@@ -359,39 +362,45 @@ export default {
         this.joinData.cardMonthExpiry = cardMonth;
         this.joinData.cardYearExpiry = _.padStart(cardYear, 4, '20');
       }
-      ;
     },
     checkBirthExpiry(evt) {
       const birthReg = /^([0-9][0-9]|99)(0?[1-9]|1[0-2]|12)(0?[1-9]|[12][0-9]|3[01])$/;
       if (!birthReg.test(evt.target.value)) {
         this.birthVerify = true;
-        this.birthVerifyMsg = '생년월일을 YYMMDD(년월일) 형태로 입력해주세요. (ex: 851211)';
+        this.birthVerifyMsg =
+          '생년월일을 YYMMDD(년월일) 형태로 입력해주세요. (ex: 851211)';
       } else this.birthVerify = false;
     },
     couponVerify() {
       const coupon = document.querySelector('input[name=coupon]');
-      return this.$common.InputDataValidation(coupon, '쿠폰을 입력해주세요.', true);
+      return this.$common.InputDataValidation(
+        coupon,
+        '쿠폰을 입력해주세요.',
+        true
+      );
     },
     async recommendVerify() {
       const $this = this;
 
-      if (this.joinData.recommendCode === '' || this.joinData.recommendCode === null) {
+      if (
+        this.joinData.recommendCode === '' ||
+        this.joinData.recommendCode === null
+      ) {
         alert('추천인을 입력해 주세요.');
       } else {
         const formData = {
           id: this.joinData.membershipId,
           code: this.joinData.recommendCode
-        }
-        await this.getRecommendCode(formData)
-          .then(res => {
-            console.log(res);
-            if (res.data.result) {
-              alert('정상등록 되었습니다.');
-              this.isRecommendCode = true;
-            } else {
-              alert('추천인을 정확하게 입력해 주세요.');
-            }
-          });
+        };
+        await this.getRecommendCode(formData).then(res => {
+          console.log(res);
+          if (res.data.result) {
+            alert('정상등록 되었습니다.');
+            this.isRecommendCode = true;
+          } else {
+            alert('추천인을 정확하게 입력해 주세요.');
+          }
+        });
       }
     },
     clearStorage() {
@@ -400,8 +409,9 @@ export default {
       this.$localStorage.remove('Size');
     },
     async finalSignup() {
-
-      const privateFlag = document.querySelector('input[name=private_flag]:checked');
+      const privateFlag = document.querySelector(
+        'input[name=private_flag]:checked'
+      );
       // 배송일 지정
       if (this.joinData.deliveryDate === '') {
         alert('배송일을 선택해주세요.');
@@ -424,9 +434,9 @@ export default {
             } else {
               alert('오류발생');
             }
-          })
+          });
         }
-      })
+      });
       // this.$validator.validateAll().then((result) => {
       //   console.log(result);
       //   if (result) {
@@ -459,7 +469,7 @@ export default {
           return { marginLeft: 'calc(80% - 1px)' };
         }
       }
-    },
+    }
   },
   async created() {
     const $this = this;

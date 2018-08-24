@@ -9,14 +9,14 @@
 </template>
 
 <script>
-import Benefit from "@/components/main/Benefit";
-import About from "@/components/main/About";
-import Process from "@/components/main/Process";
-import Faq from "@/components/main/Faq";
-import NewArrivals from "@/components/main/NewArrivals";
+import Benefit from '@/components/main/Benefit';
+import About from '@/components/main/About';
+import Process from '@/components/main/Process';
+import Faq from '@/components/main/Faq';
+import NewArrivals from '@/components/main/NewArrivals';
 
 export default {
-  name: "main-index",
+  name: 'main-index',
   components: {
     Benefit,
     About,
@@ -34,6 +34,5 @@ export default {
     width: 1200px;
     margin: 0 auto;
   }
-
 }
 </style>

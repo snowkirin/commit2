@@ -200,4 +200,4 @@ export default {
 </ol>
 </div>
 `
-}
+};

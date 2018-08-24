@@ -26,8 +26,7 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   name: "benefit",
   data() {
-    return {
-    };
+    return {};
   },
   computed: mapGetters({
     Authentication: "login/Authentication",

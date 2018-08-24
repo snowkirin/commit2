@@ -10,29 +10,28 @@ export default {
   name: 'respView',
   data() {
     return {
-      dataViewType: 'mCustomerService',
+      dataViewType: 'mCustomerService'
     };
   },
   props: {
     viewType: {
       type: String,
-      default: 'mCustomerService',
-    },
+      default: 'mCustomerService'
+    }
   },
   components: {
-    MCustomerService,
+    MCustomerService
   },
   methods: {
     ...mapActions({
-      setInquiriesList: 'mypage/inquiries/setInquiriesList',
-    }),
+      setInquiriesList: 'mypage/inquiries/setInquiriesList'
+    })
   },
   created() {
     this.dataViewType = this.viewType;
     this.setInquiriesList();
   },
-  destroyed() {
-  },
+  destroyed() {}
 };
 </script>
 

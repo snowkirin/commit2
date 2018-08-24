@@ -11,7 +11,7 @@ VueCommon.install = Vue => {
     ZulyImage(data) {
       let imageSize = '';
       if (!data) {
-        imageSize = 'medium/'
+        imageSize = 'medium/';
       } else {
         if (data < 600) {
           imageSize = 'small/';
@@ -24,7 +24,17 @@ VueCommon.install = Vue => {
       return process.env.VUE_APP_API_IMAGE_URL + imageSize;
     },
     deviceCheck() {
-      const mobileKeyWords = ['Android', 'iPhone', 'iPod', 'BlackBerry', 'Windows CE', 'SAMSUNG', 'LG', 'MOT', 'SonyEricsson'];
+      const mobileKeyWords = [
+        'Android',
+        'iPhone',
+        'iPod',
+        'BlackBerry',
+        'Windows CE',
+        'SAMSUNG',
+        'LG',
+        'MOT',
+        'SonyEricsson'
+      ];
       for (let i = 0; mobileKeyWords.length > i; i += 1) {
         if (navigator.userAgent.match(mobileKeyWords[i]) !== null) {
           return true;
@@ -61,8 +71,8 @@ VueCommon.install = Vue => {
       const phone = data.split('-').join('');
 
       return regPhone.test(phone);
-    },
-  }
+    }
+  };
 };
 
 export default VueCommon;

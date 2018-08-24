@@ -5,5 +5,5 @@ import Terms from './TermsOfService';
 export default {
   Personal,
   Marketing,
-  Terms,
-}
+  Terms
+};

@@ -7,8 +7,7 @@ export default {
     Sizes: {}, // Object
     FirstDeliveryDays: {}, //Object
     Options: {}, // Object
-    SubscriptionPrice: {}, // Object
-
+    SubscriptionPrice: {} // Object
   },
   mutations: {
     [types.GET_SIZES](state, data) {

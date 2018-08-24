@@ -273,7 +273,7 @@ export default {
         preferPattern: null,
         preferBrand: '',
         dressCode: null,
-        requirement: '',
+        requirement: ''
       },
       bodyTypeText: '',
       imageFile: {},
@@ -282,8 +282,8 @@ export default {
         imageName: '',
         imagePath: '',
         imageWidth: null,
-        imageHeight: null,
-      },
+        imageHeight: null
+      }
     };
   },
   computed: {
@@ -294,12 +294,12 @@ export default {
     }),
     changeImageFileName() {
       if (!_.isEmpty(this.imageFile.name)) {
-        return this.imageFile.name
+        return this.imageFile.name;
       } else {
         if (!_.isEmpty(this.getImageInfo.imageName)) {
-          return this.getImageInfo.imageName
+          return this.getImageInfo.imageName;
         } else {
-          return ''
+          return '';
         }
       }
     }
@@ -319,14 +319,17 @@ export default {
     // 추가 정보 입력
     clickPreferColor(data, event) {
       const eleParent = event.target.closest('.list-prefer-color');
-      const eleSelf = (event.target.tagName === 'LI') ? event.target : event.target.closest('li');
-      _.forEach(eleParent.querySelectorAll('li'), (value) => {
+      const eleSelf =
+        event.target.tagName === 'LI'
+          ? event.target
+          : event.target.closest('li');
+      _.forEach(eleParent.querySelectorAll('li'), value => {
         value.classList.remove('selected');
       });
       eleSelf.classList.add('selected');
       this.styleData.preferColor = data.code;
     },
-    setColorName(data){
+    setColorName(data) {
       let colorClassName = '';
       switch (data.name) {
         case '무채색':
@@ -360,12 +363,15 @@ export default {
     },
     clickPattern(data, event) {
       const eleParent = event.target.closest('.list-prefer-pattern');
-      const eleSelf = (event.target.tagName === 'LI') ? event.target : event.target.closest('li');
+      const eleSelf =
+        event.target.tagName === 'LI'
+          ? event.target
+          : event.target.closest('li');
       if (eleSelf.classList.contains('selected')) {
         eleSelf.classList.remove('selected');
         this.styleData.preferPattern = null;
       } else {
-        _.forEach(eleParent.querySelectorAll('li'), (value) => {
+        _.forEach(eleParent.querySelectorAll('li'), value => {
           const eleCurrent = value;
           eleCurrent.classList.remove('selected');
         });
@@ -375,7 +381,10 @@ export default {
     },
     clickDressCode(data, event) {
       const eleParent = event.target.closest('.list-dresscode');
-      const eleSelf = (event.target.tagName === 'LI') ? event.target : event.target.closest('li');
+      const eleSelf =
+        event.target.tagName === 'LI'
+          ? event.target
+          : event.target.closest('li');
       _.forEach(eleParent.querySelectorAll('li'), function(value) {
         const eleCurrent = value;
         eleCurrent.classList.remove('selected');
@@ -418,16 +427,16 @@ export default {
     renderPreviewImage(file) {
       const reader = new FileReader();
       const $this = this;
-      reader.onloadstart = (e) => {
+      reader.onloadstart = e => {
         this.$refs.imagePreview.style.display = 'block';
         this.$refs.imagePreview.querySelector('img').style.display = 'none';
         this.$refs.imagePreview.querySelector('svg').style.display = 'block';
-      }
-      reader.onloadend = (e) => {
+      };
+      reader.onloadend = e => {
         this.$refs.imagePreview.querySelector('svg').style.display = 'none';
         this.$refs.imagePreview.querySelector('img').style.display = 'block';
-      }
-      reader.onload = (e) => {
+      };
+      reader.onload = e => {
         $this.previewImage = e.target.result;
       };
       reader.readAsDataURL(file);
@@ -437,42 +446,40 @@ export default {
       const formData = new FormData();
       formData.append('userImages', $this.imageFile);
 
-      if (_.isEmpty(this.previewImage))  {
+      if (_.isEmpty(this.previewImage)) {
         Member.patchMeberStyle($this.styleData);
       } else {
         Member.patchMemberImageStyle(formData, $this.styleData);
       }
-    },
+    }
   },
   async created() {
-    await this.getMemberStyle()
-      .then(res => {
-        if (res.data.result) {
-          const memberStyle = this.MemberStyle;
-          this.styleData = {
-            tallSize: memberStyle.tall_size,
-            bustSize: memberStyle.bust_size,
-            blouseSize: memberStyle.blouse_size,
-            skirtSize: memberStyle.skirt_size,
-            pantsSize: memberStyle.pants_size,
-            bodyType: memberStyle.body_type,
-            preferColor: memberStyle.prefer_color,
-            preferPattern: memberStyle.prefer_pattern,
-            preferBrand: memberStyle.prefer_brand,
-            dressCode: memberStyle.dress_code,
-            requirement: memberStyle.etc
-          };
-          this.getImageInfo = {
-            imageName: memberStyle.image_name,
-            imagePath: memberStyle.image_path,
-            imageWidth: memberStyle.image_width,
-            imageHeight: memberStyle.image_height
-          }
-
-        } else {
-          alert('통신중 문제가 발생하였습니다. 잠시 후 다시 시도해 주세요.');
-        }
-      });
+    await this.getMemberStyle().then(res => {
+      if (res.data.result) {
+        const memberStyle = this.MemberStyle;
+        this.styleData = {
+          tallSize: memberStyle.tall_size,
+          bustSize: memberStyle.bust_size,
+          blouseSize: memberStyle.blouse_size,
+          skirtSize: memberStyle.skirt_size,
+          pantsSize: memberStyle.pants_size,
+          bodyType: memberStyle.body_type,
+          preferColor: memberStyle.prefer_color,
+          preferPattern: memberStyle.prefer_pattern,
+          preferBrand: memberStyle.prefer_brand,
+          dressCode: memberStyle.dress_code,
+          requirement: memberStyle.etc
+        };
+        this.getImageInfo = {
+          imageName: memberStyle.image_name,
+          imagePath: memberStyle.image_path,
+          imageWidth: memberStyle.image_width,
+          imageHeight: memberStyle.image_height
+        };
+      } else {
+        alert('통신중 문제가 발생하였습니다. 잠시 후 다시 시도해 주세요.');
+      }
+    });
     if (_.isEmpty(this.Sizes) || !_.isObject(this.Sizes)) {
       await this.getSizes();
     }
@@ -480,290 +487,296 @@ export default {
       await this.getOptions();
     }
     if (this.styleData.bodyType === 12701) {
-      this.bodyTypeText = '허리둘레와 엉덩이 둘레가 거의 같으며 골격이 잘 발달되지 않은 보이쉬한 일자형 체형입니다.';
+      this.bodyTypeText =
+        '허리둘레와 엉덩이 둘레가 거의 같으며 골격이 잘 발달되지 않은 보이쉬한 일자형 체형입니다.';
     } else if (this.styleData.bodyType === 12702) {
-      this.bodyTypeText = '전체적으로 어깨가 잘 발달되어 상체가 넓고 아래로 내려갈수록 점점 작아지는 체형입니다.';
+      this.bodyTypeText =
+        '전체적으로 어깨가 잘 발달되어 상체가 넓고 아래로 내려갈수록 점점 작아지는 체형입니다.';
     } else if (this.styleData.bodyType === 12703) {
-      this.bodyTypeText = '전반적으로 상체에 살이 많고 배가 조금 나온, 둥글둥글한 모습을 띠고 있는 체형입니다.';
+      this.bodyTypeText =
+        '전반적으로 상체에 살이 많고 배가 조금 나온, 둥글둥글한 모습을 띠고 있는 체형입니다.';
     } else if (this.styleData.bodyType === 12704) {
-      this.bodyTypeText = '어깨에 비해서 히프 사이즈가 크고 하체로 갈수록 점점 넓어지는 한국인에게 흔히 볼 수 있는 체형입니다.';
+      this.bodyTypeText =
+        '어깨에 비해서 히프 사이즈가 크고 하체로 갈수록 점점 넓어지는 한국인에게 흔히 볼 수 있는 체형입니다.';
     } else if (this.styleData.bodyType === 12705) {
-      this.bodyTypeText = '가슴둘레와 엉덩이 둘레는 거의 비슷한데, 허리는 가는 이상적인 체형입니다.'
+      this.bodyTypeText =
+        '가슴둘레와 엉덩이 둘레는 거의 비슷한데, 허리는 가는 이상적인 체형입니다.';
     }
   }
 };
 </script>
 
-<style scoped lang="scss" src="@/assets/css/closet-style.scss"></style>
+<style scoped lang="scss" src="@/assets/css/closet-style.scss">
+</style>
 <style scoped lang="scss">
-  @mixin txtListStyle {
-    @include fontSize(15px);
-    &.selected {
-      font-weight: 700;
-    }
+@mixin txtListStyle {
+  @include fontSize(15px);
+  &.selected {
+    font-weight: 700;
   }
-  .content {
-    padding-top: 20px;
-    padding-bottom: 30px;
+}
+.content {
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+.row {
+  margin-top: 30px;
+  &:nth-child(1) {
+    margin-top: 0;
   }
-  .row {
-    margin-top: 30px;
-    &:nth-child(1) {
-      margin-top: 0;
-    }
+}
+.content {
+  border-top: 1px solid $color-primary;
+  border-bottom: 1px solid #979797;
+}
+.body-type {
+  .txt-body-type {
+    @include fontSize(14px);
+    color: #797979;
+    text-align: center;
+    padding: 9px 27px 11.3px;
+    background-color: #e9e9e9;
+    margin-bottom: 10px;
   }
-  .content {
-    border-top: 1px solid $color-primary;
-    border-bottom: 1px solid #979797;
-  }
-  .body-type {
-    .txt-body-type {
-      @include fontSize(14px);
-      color: #797979;
-      text-align: center;
-      padding: 9px 27px 11.3px;
-      background-color: #e9e9e9;
-      margin-bottom: 10px;
-    }
-    .list-body-type {
-      list-style: none;
-      font-size: 0;
-      text-align: center;
-      margin-left: -8px;
-      margin-top: -10px;
-      li {
-        display: inline-block;
-        margin-left: 8px;
-        margin-top: 10px;
-        width: 106px;
-        height: 178px;
-        border: 1px solid #c4c4c4;
-        cursor: pointer;
-        img {
-          max-width: 100%;
-          max-height: 100%;
-          opacity: 0.3;
-        }
-        &.selected {
-          outline: 2px solid #333;
-          outline-offset: -2px;
-          opacity: 1;
-          img {
-            opacity: 1;
-          }
-        }
-      }
-    }
-  }
-  .list-prefer-color {
-    margin-left: -9px;
-    margin-top: -10px;
-    margin-bottom: 9px;
+  .list-body-type {
+    list-style: none;
     font-size: 0;
     text-align: center;
-    li {
-      @include txtListStyle;
-      user-select: none;
-      cursor: pointer;
-      display: inline-block;
-      width: calc((100% / 2) - 9px);
-      /*width: 163px;*/
-      height: 50px;
-      color: #bbb;
-      border: 1px solid #c4c4c4;
-      margin-left: 9px;
-      margin-top: 10px;
-      background-color: #fff;
-      &.selected {
-        color: #fff;
-        &.achromatic-color {
-          background-color: #bbb;
-        }
-        &.green-color {
-          background-color: #749c09;
-        }
-        &.beige-color {
-          background-color: #e3cea9;
-        }
-        &.purple-color {
-          background-color: #960af1;
-        }
-        &.red-color {
-          background-color: #dc3f39;
-        }
-        &.yellow-color {
-          background-color: #eacd1b;
-        }
-        &.blue-color {
-          background-color: #0e7fc9;
-        }
-        &.dont-care {
-          background-color: #333333;
-        }
-      }
-    }
-  }
-  .list-prefer-pattern {
-    @include clearfix;
-    padding-top: 11px;
-    border-top: 1px solid #e9e9e9;
-    font-size: 0;
-    text-align: center;
-    li {
-      @include txtListStyle;
-      user-select: none;
-      cursor: pointer;
-      width: calc((100% / 3) - 7px);
-      height: 50px;
-      border: 1px solid #c4c4c4;
-      background-size: contain;
-      display: inline-block;
-      margin-left: 7px;
-      color: #bbb;
-      &:first-child {
-        margin-left: 0;
-      }
-      &.selected {
-        color: #333;
-        border: 2px solid #333;
-      }
-      .txt-centering {
-        span {
-          background-color: #fff;
-          padding: 0 2px;
-        }
-      }
-    }
-    .stripe {
-      background-image: url('~@/assets/img/signup/img_patten_1.png');
-    }
-    .check {
-      background-image: url('~@/assets/img/signup/img_patten_2.png');
-    }
-    .floral {
-      background-image: url('~@/assets/img/signup/img_patten_3.png');
-    }
-  }
-  .list-dresscode {
-    @include clearfix;
     margin-left: -8px;
     margin-top: -10px;
-    text-align: center;
-    font-size: 0;
     li {
-      user-select: none;
       display: inline-block;
-      /*width: 163px;*/
-      width: calc((100% / 2) - 8px);
-      /*height: 245px;*/
       margin-left: 8px;
       margin-top: 10px;
+      width: 106px;
+      height: 178px;
+      border: 1px solid #c4c4c4;
       cursor: pointer;
-      /* 임시 */
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: 50%;
-      position: relative;
-      border: 1px solid #e9e9e9;
-      .text {
-        @include fontSize(15px);
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        display: inline-block;
-        width: 139px;
-        height: 25px;
-        background-color: #fff;
-        color: #bbb;
-        text-align: center;
-      }
       img {
-        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+        opacity: 0.3;
       }
       &.selected {
         outline: 2px solid #333;
         outline-offset: -2px;
-        .text {
-          color: #fff;
-          font-weight: 700;
-          background-color: #333;
+        opacity: 1;
+        img {
+          opacity: 1;
         }
       }
     }
   }
-  .image-upload {
-    input[type="file"]{
-      opacity: 0;
-      position: absolute;
-      width: 0;
-      height: 0;
-      z-index: -1;
-      overflow: hidden;
+}
+.list-prefer-color {
+  margin-left: -9px;
+  margin-top: -10px;
+  margin-bottom: 9px;
+  font-size: 0;
+  text-align: center;
+  li {
+    @include txtListStyle;
+    user-select: none;
+    cursor: pointer;
+    display: inline-block;
+    width: calc((100% / 2) - 9px);
+    /*width: 163px;*/
+    height: 50px;
+    color: #bbb;
+    border: 1px solid #c4c4c4;
+    margin-left: 9px;
+    margin-top: 10px;
+    background-color: #fff;
+    &.selected {
+      color: #fff;
+      &.achromatic-color {
+        background-color: #bbb;
+      }
+      &.green-color {
+        background-color: #749c09;
+      }
+      &.beige-color {
+        background-color: #e3cea9;
+      }
+      &.purple-color {
+        background-color: #960af1;
+      }
+      &.red-color {
+        background-color: #dc3f39;
+      }
+      &.yellow-color {
+        background-color: #eacd1b;
+      }
+      &.blue-color {
+        background-color: #0e7fc9;
+      }
+      &.dont-care {
+        background-color: #333333;
+      }
     }
   }
-  .txt-image-upload {
-    @include fontSize(14px);
-    color: #797979;
-    margin-top: 11px;
+}
+.list-prefer-pattern {
+  @include clearfix;
+  padding-top: 11px;
+  border-top: 1px solid #e9e9e9;
+  font-size: 0;
+  text-align: center;
+  li {
+    @include txtListStyle;
+    user-select: none;
+    cursor: pointer;
+    width: calc((100% / 3) - 7px);
+    height: 50px;
+    border: 1px solid #c4c4c4;
+    background-size: contain;
+    display: inline-block;
+    margin-left: 7px;
+    color: #bbb;
+    &:first-child {
+      margin-left: 0;
+    }
+    &.selected {
+      color: #333;
+      border: 2px solid #333;
+    }
+    .txt-centering {
+      span {
+        background-color: #fff;
+        padding: 0 2px;
+      }
+    }
   }
-  .image-preview {
-    width: 100%;
-    background-color: #f9f9f9;
+  .stripe {
+    background-image: url("~@/assets/img/signup/img_patten_1.png");
+  }
+  .check {
+    background-image: url("~@/assets/img/signup/img_patten_2.png");
+  }
+  .floral {
+    background-image: url("~@/assets/img/signup/img_patten_3.png");
+  }
+}
+.list-dresscode {
+  @include clearfix;
+  margin-left: -8px;
+  margin-top: -10px;
+  text-align: center;
+  font-size: 0;
+  li {
+    user-select: none;
+    display: inline-block;
+    /*width: 163px;*/
+    width: calc((100% / 2) - 8px);
+    /*height: 245px;*/
+    margin-left: 8px;
+    margin-top: 10px;
+    cursor: pointer;
+    /* 임시 */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    position: relative;
     border: 1px solid #e9e9e9;
-    text-align: center;
-    padding: 30px;
-    margin: 17px auto 0;
+    .text {
+      @include fontSize(15px);
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      display: inline-block;
+      width: 139px;
+      height: 25px;
+      background-color: #fff;
+      color: #bbb;
+      text-align: center;
+    }
     img {
       width: 100%;
     }
+    &.selected {
+      outline: 2px solid #333;
+      outline-offset: -2px;
+      .text {
+        color: #fff;
+        font-weight: 700;
+        background-color: #333;
+      }
+    }
   }
-  .textarea-required {
-    textarea {
+}
+.image-upload {
+  input[type="file"] {
+    opacity: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
+    z-index: -1;
+    overflow: hidden;
+  }
+}
+.txt-image-upload {
+  @include fontSize(14px);
+  color: #797979;
+  margin-top: 11px;
+}
+.image-preview {
+  width: 100%;
+  background-color: #f9f9f9;
+  border: 1px solid #e9e9e9;
+  text-align: center;
+  padding: 30px;
+  margin: 17px auto 0;
+  img {
+    width: 100%;
+  }
+}
+.textarea-required {
+  textarea {
+    @include fontSize(15px);
+    color: $color-secondary;
+    width: 100%;
+    height: 100px;
+    border: 1px solid #c4c4c4;
+    resize: none;
+    padding: 3px 12px 5px;
+  }
+}
+
+.btn-complete {
+  margin-top: 30px;
+  text-align: right;
+  .btn {
+    width: 287px;
+  }
+}
+
+@media (min-width: 768px) {
+  .content {
+    border-top-width: 2px;
+    border-bottom: 1px solid #e9e9e9;
+    background-color: #f7f7f7;
+  }
+  .content-inner {
+    padding-top: 25px;
+    padding-bottom: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  .column-right {
+    margin-left: 7%;
+  }
+  .body-type {
+    .txt-body-type {
       @include fontSize(15px);
-      color: $color-secondary;
-      width: 100%;
-      height: 100px;
-      border: 1px solid #c4c4c4;
-      resize: none;
-      padding: 3px 12px 5px;
+      padding: 12px 27px;
     }
-  }
-
-  .btn-complete {
-    margin-top: 30px;
-    text-align: right;
-    .btn {
-      width: 287px;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .content {
-      border-top-width: 2px;
-      border-bottom: 1px solid #e9e9e9;
-      background-color: #f7f7f7;
-    }
-    .content-inner {
-      padding-top: 25px;
-      padding-bottom: 30px;
-      padding-left: 30px;
-      padding-right: 30px;
-    }
-    .column-right {
-      margin-left: 7%;
-    }
-    .body-type {
-      .txt-body-type {
-        @include fontSize(15px);
-        padding: 12px 27px;
-      }
-      .list-body-type {
-        text-align: center;
-        li {
-          width: 90px;
-        }
+    .list-body-type {
+      text-align: center;
+      li {
+        width: 90px;
       }
     }
   }
+}
 </style>

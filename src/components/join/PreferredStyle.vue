@@ -57,15 +57,15 @@ const alertObject = {
   type: 'alert', // 타입
   customClass: 'popup-custom-class', // 커스텀 클래스 네임
   disableOverlayClick: false, // 오버레이 클릭시 닫기 방지
-  customCloseBtnText: '확인', // 닫기 버튼 텍스트
+  customCloseBtnText: '확인' // 닫기 버튼 텍스트
 };
 
 export default {
   name: "PreferredStyle",
   components: {
-    Simplert,
+    Simplert
   },
-  data: function () {
+  data: function() {
     return {
       startTime: 0,
       totalSelected: 0,
@@ -78,7 +78,7 @@ export default {
         selectSeq: '',
         selectDuration: 0
       }
-    }
+    };
   },
   computed: {
     ...mapGetters({
@@ -89,7 +89,7 @@ export default {
   methods: {
     ...mapActions({
       getMemberStyleType: 'member/getMemberStyleType',
-      setJoin: 'signup/setJoin',
+      setJoin: 'signup/setJoin'
     }),
     clickPreferredStyle(data, event) {
       const item = event.target.closest('.item');
@@ -100,7 +100,7 @@ export default {
             message: '최대 6개까지 선택 가능합니다.'
           });
           this.$refs.alert.openSimplert(alertObject);
-          return
+          return;
         }
         if (data.style_type === 'T') {
           // T 일 경우
@@ -138,14 +138,13 @@ export default {
       this.clickHistory.push(data.image_id);
     },
     clickComplete() {
-      this.preferredStyleData.selectDuration =  new Date() - this.startTime;
-      this.preferredStyleData.selectSeq =  _.toString(this.clickHistory);
+      this.preferredStyleData.selectDuration = new Date() - this.startTime;
+      this.preferredStyleData.selectSeq = _.toString(this.clickHistory);
       this.setJoin(this.preferredStyleData);
       this.$router.push({
         path: "signup"
       });
-    },
-
+    }
   },
   async created() {
     // 페이지 시작 시작
@@ -155,10 +154,11 @@ export default {
     }
 
     console.log(this.Join);
-  },
-}
+  }
+};
 </script>
-<style scoped lang="scss" src="@/assets/css/join-style.scss"></style>
+<style scoped lang="scss" src="@/assets/css/join-style.scss">
+</style>
 <style scoped lang="scss">
 .list-preferred-style {
   margin-left: -15px;
@@ -180,7 +180,7 @@ export default {
       outline: 2px solid $color-primary;
       outline-offset: -2px;
       &:after {
-        content: '';
+        content: "";
         display: block;
         position: absolute;
         width: calc(100% - 4px);

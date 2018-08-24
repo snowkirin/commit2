@@ -79,28 +79,28 @@ export default {
   props: {
     dataId: {
       type: String,
-      default: '',
-    },
+      default: ''
+    }
   },
   data() {
     return {
       currentTime: this.$moment().format('A hh:mm'),
       lastProc: true,
       lastAnswer: false,
-      nextInquiries: false,
+      nextInquiries: false
     };
   },
   computed: {
     ...mapGetters({
       inquiriesList: 'mypage/inquiries/getInquiriesList',
-      newInquiries: 'mypage/inquiries/getNewInquiries',
-    }),
+      newInquiries: 'mypage/inquiries/getNewInquiries'
+    })
   },
   methods: {
     ...mapActions({
       actSelectInquiries: 'mypage/inquiries/selectInquiries',
       actSetNewInquiries: 'mypage/inquiries/setNewInquiries',
-      setSaveInquiries: 'mypage/inquiries/setSaveInquiries',
+      setSaveInquiries: 'mypage/inquiries/setSaveInquiries'
     }),
     async selectLastAnswer(type) {
       if (type === 'continue') {
@@ -129,12 +129,19 @@ export default {
       if (this.nextInquiries) {
         this.lastProc = true;
         const message = document.querySelector('input[name=message]');
-        if (!this.$common.InputDataValidation(message, '문의내용을 입력해주세요.', true)) return;
+        if (
+          !this.$common.InputDataValidation(
+            message,
+            '문의내용을 입력해주세요.',
+            true
+          )
+        )
+          return;
 
         this.actSetNewInquiries({
           type: 'q',
           text: message.value,
-          regdate: this.$moment().format('A hh:mm'),
+          regdate: this.$moment().format('A hh:mm')
         });
 
         const prevDataLength = this.newInquiries.length;
@@ -160,11 +167,11 @@ export default {
     modalScrollEvt() {
       const modal = document.querySelector('.custom-modal-content');
       modal.scrollTo(0, modal.scrollHeight);
-    },
+    }
   },
   updated() {
     this.modalScrollEvt();
-  },
+  }
 };
 </script>
 
@@ -192,11 +199,10 @@ export default {
   width: 94.5%;
 }
 
-
 .balloon {
   display: inline-block;
   position: relative;
-  background: #FFFFFF;
+  background: #ffffff;
   width: auto;
   height: auto;
   padding: 0px;
@@ -205,7 +211,7 @@ export default {
   border-radius: 4px;
   margin-left: 7px;
   vertical-align: top;
-  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
   border-top-left-radius: 0;
 }
 
@@ -218,7 +224,7 @@ export default {
 }
 
 .balloon-bottom {
-  border-top-color: rgba(0,0,0,0.1);
+  border-top-color: rgba(0, 0, 0, 0.1);
   padding: 20px 20px;
   background-color: #f5f5f5;
   font-size: 16px;
@@ -228,17 +234,17 @@ export default {
 }
 
 .balloon:before {
-  content: '';
+  content: "";
   position: absolute;
   top: 2px;
   left: -8px;
   border: 8px solid transparent;
-  border-top-color: rgba(0,0,0,0.1);
+  border-top-color: rgba(0, 0, 0, 0.1);
   border-right-width: 0;
 }
 
 .balloon:after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0px;
   left: -8px;
@@ -259,22 +265,22 @@ export default {
   border-radius: 4px;
   margin-left: 7px;
   vertical-align: top;
-  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
   border-top-left-radius: 0;
 }
 
 .right-balloon:before {
-  content: '';
+  content: "";
   position: absolute;
   top: 2px;
   right: -6px;
   border: 8px solid transparent;
-  border-top-color: rgba(0,0,0,0.1);
+  border-top-color: rgba(0, 0, 0, 0.1);
   border-left-width: 0;
 }
 
 .right-balloon:after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0px;
   right: -6px;
@@ -329,7 +335,7 @@ export default {
 }
 
 .right-balloon > .balloon-text {
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .talk-content {

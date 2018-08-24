@@ -12,13 +12,12 @@
 <script>
 export default {
   name: 'finish',
-  components: {
-  },
-  methods: {
-  },
+  components: {},
+  methods: {},
   mounted() {
-    document.querySelector('.feedback-area').style.cssText = 'position: relative; top: 15%;';
-  },
+    document.querySelector('.feedback-area').style.cssText =
+      'position: relative; top: 15%;';
+  }
 };
 </script>
 

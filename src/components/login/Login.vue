@@ -102,7 +102,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import { Validator } from "vee-validate";
-import Simplert from 'vue2-simplert'
+import Simplert from 'vue2-simplert';
 
 const dict = {
   custom: {
@@ -116,7 +116,7 @@ const alertObject = {
   type: 'alert', // 타입
   customClass: 'popup-custom-class', // 커스텀 클래스 네임
   disableOverlayClick: false, // 오버레이 클릭시 닫기 방지
-  customCloseBtnText: '확인', // 닫기 버튼 텍스트
+  customCloseBtnText: '확인' // 닫기 버튼 텍스트
 };
 
 Validator.localize("ko", dict);
@@ -172,8 +172,8 @@ export default {
       const $this = this;
       _.assign(alertObject, {
         message: '잘못된 경로로 들어오셨습니다.',
-        onClose: function(){
-          this.$router.push({ path: '/'})
+        onClose: function() {
+          this.$router.push({ path: '/' });
         }
       });
       this.$refs.alert.openSimplert(alertObject);

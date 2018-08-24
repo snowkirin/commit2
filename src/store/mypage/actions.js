@@ -6,7 +6,7 @@ import types from './mutation-types';
 const changeEmail = async ({ commit }, data) => {
   try {
     const result = await Closet.setChangeEmail({
-      changeEmail: data,
+      changeEmail: data
     });
 
     if (result.data.duplicate) {
@@ -16,7 +16,8 @@ const changeEmail = async ({ commit }, data) => {
 
     if (result.data.result) {
       commit(types.MYPAGE_CHANGE_EMAIL, true);
-    } else alert('서비스에 문제가 발생하였습니다.\n새로고침 후 다시 시도해주세요');
+    } else
+      alert('서비스에 문제가 발생하였습니다.\n새로고침 후 다시 시도해주세요');
   } catch (e) {
     console.error(e.message);
   }
@@ -31,7 +32,7 @@ const changeFlag = async ({ commit }, type) => {
 const changePwd = async ({ commit }, data) => {
   try {
     const result = await Closet.setChangePwd({
-      ...data,
+      ...data
     });
 
     if (result.data.uncorrect) {
@@ -40,7 +41,8 @@ const changePwd = async ({ commit }, data) => {
     }
 
     if (result.data.result) commit(types.MYPAGE_CHANGE_PASSWORD, true);
-    else alert('서비스에 문제가 발생하였습니다.\n새로고침 후 다시 시도해주세요');
+    else
+      alert('서비스에 문제가 발생하였습니다.\n새로고침 후 다시 시도해주세요');
   } catch (e) {
     console.error(e.message);
   }
@@ -53,12 +55,13 @@ const changePayment = async ({ commit }, data) => {
       cardYearExpiry: data.cardYearExpiry,
       cardMonthExpiry: data.cardMonthExpiry,
       userBirth: data.userBirth,
-      cardPassword: data.cardPassword,
+      cardPassword: data.cardPassword
     });
 
     if (result.data.result) {
       commit(types.MYPAGE_CHANGE_PAYMENT, true);
-    } else alert('서비스에 문제가 발생하였습니다.\n새로고침 후 다시 시도해주세요');
+    } else
+      alert('서비스에 문제가 발생하였습니다.\n새로고침 후 다시 시도해주세요');
   } catch (e) {
     console.error(e.message);
   }
@@ -71,9 +74,10 @@ const setMypage = async ({ commit }) => {
     if (result.data.result) {
       commit(types.MYPAGE_LOAD, {
         type: 'mypage',
-        data: result.data.data,
+        data: result.data.data
       });
-    } else alert('서비스에 문제가 발생하였습니다.\n새로고침 후 다시 시도해주세요');
+    } else
+      alert('서비스에 문제가 발생하였습니다.\n새로고침 후 다시 시도해주세요');
   } catch (e) {
     console.error(e.message);
   }
@@ -86,9 +90,10 @@ const setMypageStyle = async ({ commit }) => {
     if (result.data.result) {
       commit(types.MYPAGE_LOAD, {
         type: 'mypageStyle',
-        data: result.data.data,
+        data: result.data.data
       });
-    } else alert('서비스에 문제가 발생하였습니다.\n새로고침 후 다시 시도해주세요');
+    } else
+      alert('서비스에 문제가 발생하였습니다.\n새로고침 후 다시 시도해주세요');
   } catch (e) {
     console.error(e.message);
   }
@@ -97,14 +102,14 @@ const setMypageStyle = async ({ commit }) => {
 const setMypageCache = async ({ commit }, data) => {
   commit(types.MYPAGE_LOAD, {
     type: 'mypageStyle',
-    data,
+    data
   });
 };
 
 const mypageSecurity = async ({ commit }, data) => {
   try {
     const result = await Auth.mypagePwdCheck({
-      ...data,
+      ...data
     });
     if (result.data.result) {
       commit(types.MYPAGE_SECURITY, result.data);
@@ -121,7 +126,7 @@ const phoneVerify = async ({ commit }, data) => {
     commit(types.PHONE_VERIFY_COUNT);
 
     const result = await Closet.authPhone({
-      ...data,
+      ...data
     });
 
     if (result.data.result) commit(types.PHONE_VERIFY, result.data);
@@ -134,7 +139,7 @@ const phoneCheckVerify = async ({ state, commit }, data) => {
   try {
     const result = await Closet.authPhoneCheck({
       authId: state.phoneAuthKey,
-      ...data,
+      ...data
     });
 
     if (result.data.result) commit(types.PHONE_VERIFY_CHECK);
@@ -146,7 +151,6 @@ const phoneCheckVerify = async ({ state, commit }, data) => {
 const securityDestroyed = ({ commit }) => {
   commit(types.MYPAGE_SECURITY_DESTROYED);
 };
-
 
 /*
 * Date: 2018-07-23
@@ -160,7 +164,6 @@ const setMemberStyle = async ({ commit }) => {
       return result;
     } else {
       alert('서비스에 문제가 발생하였습니다.\n새로고침 후 다시 시도해주세요');
-
     }
   } catch (e) {
     console.error(e.message);
@@ -179,5 +182,5 @@ export default {
   setMypageCache,
   phoneVerify,
   phoneCheckVerify,
-  setMemberStyle,
+  setMemberStyle
 };

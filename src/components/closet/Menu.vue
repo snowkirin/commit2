@@ -30,7 +30,7 @@
 </template>
 
 <script>
-  /*
+/*
   *  vue-awesome-swiper 클릭 이벤트 제대로 작동 안할시 참고 할것
   *  https://github.com/surmon-china/vue-awesome-swiper/issues/226
   * */
@@ -39,38 +39,37 @@ import 'swiper/dist/css/swiper.css';
 
 export default {
   name: 'closet-menu',
-  watch: {
-  },
+  watch: {},
   components: {
     swiper,
-    swiperSlide,
+    swiperSlide
   },
   data() {
     return {
       swiperOption: {
         slidesPerView: 'auto',
-        spaceBetween: 20,
+        spaceBetween: 20
       },
       routerJSON: [
         {
           text: '내일의옷장',
-          path: '/closet/tomorrow',
+          path: '/closet/tomorrow'
         },
         {
           text: '현재의옷장',
-          path: '/closet/current',
+          path: '/closet/current'
         },
         {
           text: '과거의옷장',
-          path: '/closet/past',
+          path: '/closet/past'
         },
         {
           text: '스타일정보',
-          path: '/closet/style',
+          path: '/closet/style'
         },
         {
           text: '나의정보관리',
-          path: '/closet/security',
+          path: '/closet/security'
         },
         // {
         //   text: '쿠폰',
@@ -78,74 +77,73 @@ export default {
         // },
         {
           text: '문의내역',
-          path: '/closet/cs',
+          path: '/closet/cs'
         },
         {
           text: '공지사항',
-          path: '/closet/notice',
-        },
-      ],
+          path: '/closet/notice'
+        }
+      ]
     };
   },
   methods: {
     clickMenu(idx) {
       this.$refs.mySwiper.swiper.slideTo(idx - 1, 400);
-    },
+    }
   },
-  mounted() {
-  },
+  mounted() {}
 };
 </script>
 
 <style scoped lang="scss">
-  .c-menu {
-    padding-left: 20px;
-    padding-right: 20px;
+.c-menu {
+  padding-left: 20px;
+  padding-right: 20px;
+  position: relative;
+  &::after {
+    content: "";
+    display: block;
+    border-bottom: 3px solid #dadada;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+  }
+  .closet-link {
+    font-size: 16px;
+    letter-spacing: -1.1px;
+    color: #797979;
+    display: block;
+    padding-top: 14px;
+    padding-bottom: 19px;
     position: relative;
-    &::after {
-      content: '';
-      display: block;
-      border-bottom: 3px solid #dadada;
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      left: 0;
-    }
-    .closet-link {
-      font-size: 16px;
-      letter-spacing: -1.1px;
-      color: #797979;
-      display: block;
-      padding-top: 14px;
-      padding-bottom: 19px;
-      position: relative;
-      text-decoration: none;
-      user-select: none;
-      cursor: pointer;
-      padding-left: 1px;
-      padding-right: 1px;
-      &.active {
-        color: #333;
-        font-weight: 700;
-        letter-spacing: -1px;
-        &::after {
-          content: '';
-          display: block;
-          position: absolute;
-          bottom: 0;
-          border-bottom: 3px solid #f16458;
-          width: 100%;
-        }
+    text-decoration: none;
+    user-select: none;
+    cursor: pointer;
+    padding-left: 1px;
+    padding-right: 1px;
+    &.active {
+      color: #333;
+      font-weight: 700;
+      letter-spacing: -1px;
+      &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        bottom: 0;
+        border-bottom: 3px solid #f16458;
+        width: 100%;
       }
     }
-    .swiper-container {
-      border-top: 1px solid #f3f3f3;
-    }
-    .swiper-slide {
-      width: auto;
-    }
   }
-  /*.closet-mobile-menu {
+  .swiper-container {
+    border-top: 1px solid #f3f3f3;
+  }
+  .swiper-slide {
+    width: auto;
+  }
+}
+/*.closet-mobile-menu {
     padding: 0 20px;
     -webkit-overflow-scrolling: touch;
     position: relative;
@@ -204,43 +202,43 @@ export default {
     }
   }*/
 
-  @media (min-width: 768px) {
-    .c-menu {
-      padding: 0;
-      margin: 0 auto;
-      width: 1200px;
-      &::after {
-        border-bottom: 1px solid #dadada;
-      }
-      .closet-link {
-        font-size: 18px;
+@media (min-width: 768px) {
+  .c-menu {
+    padding: 0;
+    margin: 0 auto;
+    width: 1200px;
+    &::after {
+      border-bottom: 1px solid #dadada;
+    }
+    .closet-link {
+      font-size: 18px;
+      letter-spacing: -1.2px;
+      padding-top: 20px;
+      padding-bottom: 19px;
+      padding-left: 1px;
+      padding-right: 1px;
+      display: inline-block;
+      margin-right: 27px;
+      &.active {
         letter-spacing: -1.2px;
-        padding-top: 20px;
-        padding-bottom: 19px;
-        padding-left: 1px;
-        padding-right: 1px;
-        display: inline-block;
-        margin-right: 27px;
-        &.active {
-          letter-spacing: -1.2px;
-          &::after {
-            content: '';
-            display: block;
-            position: absolute;
-            bottom: 0;
-            border-bottom: 4px solid #f16458;
-            width: 100%;
-          }
+        &::after {
+          content: "";
+          display: block;
+          position: absolute;
+          bottom: 0;
+          border-bottom: 4px solid #f16458;
+          width: 100%;
         }
       }
-      .menu-container {
-        border-top: 1px solid #f3f3f3;
-      }
-      .swiper-slide {
-        width: auto;
-      }
     }
-    /*.closet-mobile-menu {
+    .menu-container {
+      border-top: 1px solid #f3f3f3;
+    }
+    .swiper-slide {
+      width: auto;
+    }
+  }
+  /*.closet-mobile-menu {
       width: 1200px;
       margin: 0 auto;
       padding: 0;
@@ -257,5 +255,5 @@ export default {
         }
       }
     }*/
-  }
+}
 </style>

@@ -320,7 +320,7 @@ const alertObject = {
   type: 'alert', // 타입
   customClass: 'popup-custom-class', // 커스텀 클래스 네임
   disableOverlayClick: false, // 오버레이 클릭시 닫기 방지
-  customCloseBtnText: '확인', // 닫기 버튼 텍스트
+  customCloseBtnText: '확인' // 닫기 버튼 텍스트
 };
 export default {
   name: 'signUp-first',
@@ -334,8 +334,21 @@ export default {
       // DatePicker Config
       datepickerConfig: {
         lang: {
-          days: ['일','월','화','수','목','금','토'],
-          months: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+          days: ['일', '월', '화', '수', '목', '금', '토'],
+          months: [
+            '1월',
+            '2월',
+            '3월',
+            '4월',
+            '5월',
+            '6월',
+            '7월',
+            '8월',
+            '9월',
+            '10월',
+            '11월',
+            '12월'
+          ],
           placeholder: {
             date: '기념임을 입력하시면, 기념일날 할인 쿠폰 지급'
           }
@@ -359,7 +372,7 @@ export default {
         zipcode: '',
         addr: '',
         addrDetail: '',
-        marketingAgree: 'N',
+        marketingAgree: 'N'
       },
       selectedAgeRange: {
         number: '',
@@ -372,13 +385,13 @@ export default {
     ...mapGetters({
       isLogin: 'login/isLogin',
       PhoneVerify: 'signup/PhoneVerify'
-    }),
+    })
   },
   methods: {
     ...mapActions({
       setJoin: 'signup/setJoin',
       postPhone: 'signup/postPhone',
-      patchPhone: 'signup/patchPhone',
+      patchPhone: 'signup/patchPhone'
     }),
     openPostCode() {
       this.$modal.show('postCode');
@@ -405,31 +418,27 @@ export default {
           modalTitle: '개인 정보 관리 지침',
           modalContent: this.personalText,
           modalContentType: 'html'
-        }
+        };
       } else if (param === 'use') {
         modalConfig = {
           modalTitle: '서비스 약관',
           modalContent: this.termsText,
           modalContentType: 'html'
-        }
+        };
       } else if (param === 'marketing') {
         modalConfig = {
           modalTitle: '마케팅 정보 수신 동의',
           modalContent: this.marketingText,
           modalContentType: 'html'
-        }
+        };
       }
 
-      this.$modal.show(
-        CommonModal,
-        modalConfig,
-        {
-          scrollable: true,
-          height: 'auto',
-          width: '80%',
-          adaptive: true,
-        }
-      );
+      this.$modal.show(CommonModal, modalConfig, {
+        scrollable: true,
+        height: 'auto',
+        width: '80%',
+        adaptive: true
+      });
     },
     pwdCheck(isBoolean) {
       const pwd = document.querySelector('input[name=password]');
@@ -439,7 +448,8 @@ export default {
         if (!checkBoolean) checkBoolean = !checkBoolean;
         this.pwdMsg = '비밀번호를 입력해주세요.';
       } else {
-        this.pwdMsg = '비밀번호가 안전하지 않습니다. (최소 8자리 이상의 영문,숫자,특수문자 포함)';
+        this.pwdMsg =
+          '비밀번호가 안전하지 않습니다. (최소 8자리 이상의 영문,숫자,특수문자 포함)';
       }
 
       this.isPwd = !checkBoolean;
@@ -450,7 +460,7 @@ export default {
         phone = joinForm.phone,
         phoneAuthNumber = joinForm.phoneAuthNumber;
 
-      if( !this.joinData.email ) {
+      if (!this.joinData.email) {
         _.assign(alertObject, {
           message: '이메일을 먼저 입력해주세요.',
           onClose: function() {
@@ -461,7 +471,7 @@ export default {
         return;
       }
 
-      this.$validator.validate('phone', phone.value).then((result) => {
+      this.$validator.validate('phone', phone.value).then(result => {
         if (result) {
           const phoneData = {
             email: _.trim(this.joinData.email),
@@ -473,15 +483,16 @@ export default {
               this.startTimer();
               this.authErr = true;
               phoneAuthNumber.focus();
-            } if (res.data.phoneDuplicated) {
+            }
+            if (res.data.phoneDuplicated) {
               _.assign(alertObject, {
-                message: '이미 등록된 핸드폰 번호입니다. 다시 확인해 주세요.',
+                message: '이미 등록된 핸드폰 번호입니다. 다시 확인해 주세요.'
               });
               this.$refs.alert.openSimplert(alertObject);
             }
             if (res.data.emailDuplicated) {
               _.assign(alertObject, {
-                message: '이미 등록된 이메일 주소입니다. 다시 확인해 주세요.',
+                message: '이미 등록된 이메일 주소입니다. 다시 확인해 주세요.'
               });
               this.$refs.alert.openSimplert(alertObject);
             }
@@ -545,7 +556,8 @@ export default {
       return true;
     },
     startTimer() {
-      const timer = Date.parse(new Date(new Date().getTime() + (0.3 * 60 * 1000))) / 1000;
+      const timer =
+        Date.parse(new Date(new Date().getTime() + 0.3 * 60 * 1000)) / 1000;
       let minutes;
       let seconds;
 
@@ -558,8 +570,8 @@ export default {
         minutes = parseInt(printTimer / 60, 10);
         seconds = parseInt(printTimer % 60, 10);
 
-        minutes = (minutes < 10) ? `0${minutes}` : minutes;
-        seconds = (seconds < 10) ? `0${seconds}` : seconds;
+        minutes = minutes < 10 ? `0${minutes}` : minutes;
+        seconds = seconds < 10 ? `0${seconds}` : seconds;
 
         this.authErrMessage = `메시지를 확인하시고 인증번호를 입력해주세요.  ${minutes}:${seconds}`;
 
@@ -580,8 +592,10 @@ export default {
     clickAgeRange(type, event) {
       this.selectedAgeRange[type] = event.target.innerText;
       if (!event.target.classList.contains('selected')) {
-        _.forEach(event.target.closest('ul').querySelectorAll('li'), function(value){
-          value.classList.remove('selected')
+        _.forEach(event.target.closest('ul').querySelectorAll('li'), function(
+          value
+        ) {
+          value.classList.remove('selected');
         });
         event.target.classList.add('selected');
       }
@@ -598,7 +612,7 @@ export default {
       const $this = this;
       const joinForm = document.joinForm;
 
-      this.$validator.validateAll().then((result) => {
+      this.$validator.validateAll().then(result => {
         if (result) {
           const privateFlag = joinForm.private_flag.checked;
           const useFlag = joinForm.use_flag.checked;
@@ -633,7 +647,9 @@ export default {
           }
           if (this.PhoneVerify.isVerify) {
             if (this.joinData.ann !== null) {
-              this.joinData.ann = this.$moment(this.joinData.ann).format('MM.DD');
+              this.joinData.ann = this.$moment(this.joinData.ann).format(
+                'MM.DD'
+              );
             }
             // 연령대
             if (this.selectedAgeRange.number === '20대') {
@@ -671,11 +687,15 @@ export default {
           this.$refs.alert.openSimplert(alertObject);
           return;
         }
-        document.querySelectorAll('.text-field-error input')[0].setAttribute('tabindex', -1);
+        document
+          .querySelectorAll('.text-field-error input')[0]
+          .setAttribute('tabindex', -1);
         document.querySelectorAll('.text-field-error input')[0].focus();
-        document.querySelectorAll('.text-field-error input')[0].setAttribute('tabindex', null);
+        document
+          .querySelectorAll('.text-field-error input')[0]
+          .setAttribute('tabindex', null);
       });
-    },
+    }
   },
   created() {
     if (!_.isEmpty(this.Join)) {
@@ -685,16 +705,16 @@ export default {
         phone: this.Join.phone ? this.Join.phone : ' ',
         skirtSize: this.Join.skirtSize ? this.Join.skirtSize : null,
         pantsSize: this.Join.pantsSize ? this.Join.pantsSize : null,
-        bodyType: this.Join.bodyType ? this.Join.bodyType : null,
-      }
+        bodyType: this.Join.bodyType ? this.Join.bodyType : null
+      };
     }
   },
-  mounted() {
-  }
+  mounted() {}
 };
 </script>
 
-<style scoped lang="scss" src="@/assets/css/join-style.scss"></style>
+<style scoped lang="scss" src="@/assets/css/join-style.scss">
+</style>
 <style scoped lang="scss">
 .contents {
   .content {

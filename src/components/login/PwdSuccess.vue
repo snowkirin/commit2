@@ -31,16 +31,16 @@ export default {
       pwdRegex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/,
       pwdMsg: '비밀번호를 입력해주세요.',
       isPwd: false,
-      isPwdConfirm: false,
+      isPwdConfirm: false
     };
   },
   computed: mapGetters({
     phoneAuth: 'common/getPhoneAuth',
-    userId: 'common/getUserId',
+    userId: 'common/getUserId'
   }),
   methods: {
     ...mapActions({
-      vuexChangePassword: 'common/changePassword',
+      vuexChangePassword: 'common/changePassword'
     }),
     pwdCheck(isBoolean) {
       const pwd = document.querySelector('input[name=password]');
@@ -50,7 +50,8 @@ export default {
         if (!checkBoolean) checkBoolean = !checkBoolean;
         this.pwdMsg = '비밀번호를 입력해주세요.';
       } else {
-        this.pwdMsg = '비밀번호가 안전하지 않습니다. (최소 8자리 이상의 영문,숫자,특수문자 포함)';
+        this.pwdMsg =
+          '비밀번호가 안전하지 않습니다. (최소 8자리 이상의 영문,숫자,특수문자 포함)';
       }
 
       if (checkBoolean) this.isPwd = false;
@@ -61,10 +62,10 @@ export default {
       else this.isPwdConfirm = true;
     },
     changePassword() {
-      this.$validator.validateAll().then(async (result) => {
+      this.$validator.validateAll().then(async result => {
         if (result) {
           await this.vuexChangePassword({
-            password: document.querySelector('input[name=password]').value,
+            password: document.querySelector('input[name=password]').value
           });
 
           if (this.$store.getters['common/getPhonePwdComplete']) {
@@ -73,8 +74,8 @@ export default {
           }
         }
       });
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -6,7 +6,7 @@ const phoneVerify = async ({ commit }, data) => {
     commit(types.PHONE_VERIFY_COUNT);
 
     const result = await Auth.authFindId({
-      ...data,
+      ...data
     });
 
     await commit(types.PHONE_VERIFY, result.data);
@@ -19,7 +19,7 @@ const phoneCheckVerify = async ({ state, commit }, data) => {
   try {
     const result = await Auth.finalAuth({
       authId: state.phoneAuthKey,
-      ...data,
+      ...data
     });
 
     commit(types.PHONE_VERIFY_CHECK, result.data);
@@ -33,7 +33,7 @@ const phonePasswordVerify = async ({ commit }, data) => {
     commit(types.PHONE_VERIFY_COUNT_PWD);
 
     const result = await Auth.authFindPwd({
-      ...data,
+      ...data
     });
 
     await commit(types.PHONE_VERIFY_PWD, result.data);
@@ -46,7 +46,7 @@ const phonePasswordCheckVerify = async ({ state, commit }, data) => {
   try {
     const result = await Auth.finalAuth({
       authId: state.phonePwdAuthKey,
-      ...data,
+      ...data
     });
 
     commit(types.PHONE_VERIFY_CHECK_PWD, result.data);
@@ -59,7 +59,7 @@ const changePassword = async ({ commit, state }, data) => {
   try {
     const result = await Auth.findPwdComplete({
       authId: state.phonePwdAuthKey,
-      ...data,
+      ...data
     });
 
     if (result.data.result) commit(types.PHONE_VERIFY_PWD_COMPLETE);
@@ -74,5 +74,5 @@ export default {
   phonePasswordVerify,
   phoneCheckVerify,
   phonePasswordCheckVerify,
-  changePassword,
+  changePassword
 };

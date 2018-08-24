@@ -15,38 +15,38 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'event',
   computed: mapGetters({
-    Authentication: 'login/Authentication',
-  }),
+    Authentication: 'login/Authentication'
+  })
 };
 </script>
 
 <style scoped lang="scss">
-  .btn-free-month {
-    position: fixed;
-    display: inline-block;
-    background-color: #333;
-    color: #fff;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    font-size: 18px;
-    letter-spacing: -.9px;
-    padding: 20px;
-    cursor: pointer;
-    text-decoration: none;
-    &:hover {
-      background-color: #fb5143;
-    }
+.btn-free-month {
+  position: fixed;
+  display: inline-block;
+  background-color: #333;
+  color: #fff;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  font-size: 18px;
+  letter-spacing: -0.9px;
+  padding: 20px;
+  cursor: pointer;
+  text-decoration: none;
+  &:hover {
+    background-color: #fb5143;
   }
-  .icon-arrow {
-    width: 33px;
-    height: 22px;
-    display: inline-block;
-    text-indent: -9999em;
-    overflow: hidden;
-    background: url(/static/img/icons/zuly_icon.png) no-repeat -43px -8px;
-    background-size: 238px;
-    position: absolute;
-    right: 20px;
-  }
+}
+.icon-arrow {
+  width: 33px;
+  height: 22px;
+  display: inline-block;
+  text-indent: -9999em;
+  overflow: hidden;
+  background: url(/static/img/icons/zuly_icon.png) no-repeat -43px -8px;
+  background-size: 238px;
+  position: absolute;
+  right: 20px;
+}
 </style>

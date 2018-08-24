@@ -72,8 +72,8 @@ export default {
         return {
           ...err.response,
           message: err.message
-        }
-      })
+        };
+      });
   },
   postPassword(data) {
     return axios
@@ -88,7 +88,7 @@ export default {
         return {
           ...err.response,
           message: err.message
-        }
-      })
+        };
+      });
   }
 };

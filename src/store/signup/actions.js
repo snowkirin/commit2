@@ -3,7 +3,7 @@ import Management from "@/library/api/management";
 import types from "./mutation-types";
 
 export default {
-  setSizes({commit}, data) {
+  setSizes({ commit }, data) {
     commit(types.SET_SIZES, data);
   },
   // setJoinFirst({commit}, data) {
@@ -12,7 +12,7 @@ export default {
   // setJoinSecond({commit}, data) {
   //   commit(types.SET_JOIN_SECOND, data);
   // },
-  async setManagement({commit}, data) {
+  async setManagement({ commit }, data) {
     try {
       const result = await Management.getManagementCodes({
         code: data.code
@@ -29,12 +29,12 @@ export default {
       console.error(e.message);
     }
   },
-  setRequirement({commit}, data) {
+  setRequirement({ commit }, data) {
     const rtn = data === "요구사항을 적어주세요." ? "" : data;
     commit(types.SET_REQUIREMENT, rtn);
   },
-  postPhone({commit}, data) {
-    return  Auth.postPhone(data).then(res => {
+  postPhone({ commit }, data) {
+    return Auth.postPhone(data).then(res => {
       if (res.data.result || res.status === 200) {
         if (!res.data.phoneDulicated && !res.data.emailDuplicated) {
           commit(types.POST_PHONE, res.data);
@@ -48,46 +48,42 @@ export default {
         }
       }
       return res;
-    })
+    });
   },
-  patchPhone({commit}, data) {
+  patchPhone({ commit }, data) {
     return Auth.patchPhone(data).then(res => {
       if (res.data.result || res.status === 200) {
         if (res.data.result === 1) {
           commit(types.PATCH_PHONE);
         }
-      }
-      else {
+      } else {
         if (res.data.errorMessage) {
           const errorMessage = JSON.stringify(res.data.errorMessage.details);
           console.error(errorMessage);
-        }
-        else {
+        } else {
           console.error(res.message);
         }
       }
       return res;
-    })
+    });
   },
-  setJoin({commit, state}, data) {
+  setJoin({ commit, state }, data) {
     commit(types.SET_JOIN, data);
   },
-  postJoin({commit, state}) {
-    return Auth.postJoin(state.Join)
-      .then(res => {
-        if (res.data.result || res.status === 200) {
-          console.log(res);
-          commit(types.POST_JOIN);
+  postJoin({ commit, state }) {
+    return Auth.postJoin(state.Join).then(res => {
+      if (res.data.result || res.status === 200) {
+        console.log(res);
+        commit(types.POST_JOIN);
+      } else {
+        if (res.data.errorMessage) {
+          const errorMessage = JSON.stringify(res.data.errorMessage.details);
+          console.error(errorMessage);
         } else {
-          if (res.data.errorMessage) {
-            const errorMessage = JSON.stringify(res.data.errorMessage.details);
-            console.error(errorMessage);
-          } else {
-            console.error(res.message);
-          }
+          console.error(res.message);
         }
-        return res;
-      })
-
+      }
+      return res;
+    });
   }
-}
+};

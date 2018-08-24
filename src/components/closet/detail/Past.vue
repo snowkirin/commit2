@@ -86,27 +86,29 @@ export default {
     return {
       API_IMAGE_URL: process.env.API_IMAGE_URL,
       feedbackData: [],
-      dataId: null,
+      dataId: null
     };
   },
   components: {
     CustomModal,
-    FeedBack,
+    FeedBack
   },
   computed: {
     ...mapGetters({
       pastCloset: 'mypage/closet/getPastCloset',
-      pastNone: 'mypage/closet/getPastNone',
-    }),
+      pastNone: 'mypage/closet/getPastNone'
+    })
   },
   methods: {
     ...mapActions({
-      setPastCloset: 'mypage/closet/setPastCloset',
+      setPastCloset: 'mypage/closet/setPastCloset'
     }),
     clickShowFeedback(idx) {
-      const feedback = this.$refs['feedback'+idx][0];
+      const feedback = this.$refs['feedback' + idx][0];
       const review = feedback.$refs.review;
-      const elem = document.documentElement.scrollTop ? document.documentElement : document.body;
+      const elem = document.documentElement.scrollTop
+        ? document.documentElement
+        : document.body;
       if (review.style.display !== 'block') {
         review.style.display = 'block';
         elem.scrollTop = feedback.$el.offsetTop;
@@ -159,156 +161,158 @@ export default {
     },
     feedbackInfo(data) {
       const $this = this;
-      _.forEach(data, function (value) {
+      _.forEach(data, function(value) {
         const subscriptionId = value.id;
-        Closet.mypageFeedback(subscriptionId).then(function (res) {
-          $this.feedbackData = _.concat($this.feedbackData, res.data);
-        }).catch(function (err) {
-          console.log(err);
-        });
+        Closet.mypageFeedback(subscriptionId)
+          .then(function(res) {
+            $this.feedbackData = _.concat($this.feedbackData, res.data);
+          })
+          .catch(function(err) {
+            console.log(err);
+          });
       });
     }
   },
   async created() {
     await this.setPastCloset();
     await this.feedbackInfo(this.pastCloset);
-  },
+  }
 };
 </script>
-<style scoped lang="scss" src="@/assets/css/closet-style.scss"></style>
+<style scoped lang="scss" src="@/assets/css/closet-style.scss">
+</style>
 <style scoped lang="scss">
-  .past {
-    padding: 25px 20px 20px 20px;
+.past {
+  padding: 25px 20px 20px 20px;
+}
+.txt-main-title {
+  word-break: keep-all;
+}
+.line {
+  margin-top: 10px;
+}
+.list-closet {
+  .closet-item {
+    border-bottom: 1px solid #e9e9e9;
+    padding-top: 17px;
+    padding-bottom: 26px;
   }
-  .txt-main-title {
-    word-break: keep-all;
+  .order {
+    margin-bottom: 10px;
+    font-family: "Open Sans", "맑은 고딕", "Malgun Gothic", sans-serif;
+    .number,
+    .date {
+      line-height: 21px;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+    .number {
+      position: relative;
+      margin-right: 12px;
+      &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        border-right: 1px solid #979797;
+        height: 12px;
+        top: 6px;
+        right: -10px;
+      }
+    }
+  }
+  .list-product {
+    margin-bottom: 16px;
+    .image {
+      width: 48.5745%;
+      &:nth-child(1) {
+        float: left;
+      }
+      &:nth-child(2) {
+        float: right;
+      }
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  .style-tip {
+    margin-bottom: 19px;
+    .title,
+    .explain {
+      font-size: 15px;
+      letter-spacing: -0.9px;
+    }
+    .title {
+      line-height: 21px;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+    .explain {
+      line-height: 23px;
+      color: #797979;
+    }
+  }
+}
+.list-link {
+  a {
+    margin-right: 15px;
+  }
+}
+@media (min-width: 768px) {
+  .past {
+    width: 1200px;
+    margin: 0 auto;
+    padding: 32px 0 0 0;
   }
   .line {
-    margin-top: 10px;
+    margin-top: 26px;
+    margin-bottom: 5px;
+    border-width: 2px;
   }
   .list-closet {
     .closet-item {
-      border-bottom: 1px solid #e9e9e9;
-      padding-top: 17px;
-      padding-bottom: 26px;
+      padding-top: 21px;
+      padding-bottom: 30px;
     }
     .order {
-      margin-bottom: 10px;
-      font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
-      .number,
-      .date {
-        line-height: 21px;
-        font-size: 16px;
-        font-weight: 700;
-        letter-spacing: -1px;
-      }
-      .number {
-        position: relative;
-        margin-right: 12px;
-        &:after {
-          content: '';
-          display: block;
-          position: absolute;
-          border-right: 1px solid #979797;
-          height: 12px;
-          top: 6px;
-          right: -10px;
-        }
-      }
+      text-indent: 7px;
+      margin-bottom: 15px;
+    }
+    .product-desc {
+      display: flex;
     }
     .list-product {
-      margin-bottom: 16px;
+      margin-bottom: 0;
+      flex-grow: 0;
+      flex-shrink: 0;
+      flex-basis: 234px;
       .image {
-        width: 48.5745%;
+        width: 112px;
+        height: 132px;
         &:nth-child(1) {
-          float: left;
+          margin-right: 10px;
         }
         &:nth-child(2) {
-          float: right;
-        }
-        img {
-          width: 100%;
-          height: 100%;
+          float: left;
         }
       }
     }
     .style-tip {
-      margin-bottom: 19px;
-      .title,
-      .explain {
-        font-size: 15px;
-        letter-spacing: -0.9px;
-      }
+      margin-left: 28px;
+      margin-bottom: 0;
+      margin-right: 98px;
+      flex-grow: 0;
+      flex-shrink: 0;
+      flex-basis: 697px;
       .title {
-        line-height: 21px;
-        font-weight: 700;
-        margin-bottom: 7px;
-      }
-      .explain {
-        line-height: 23px;
-        color: #797979;
+        margin-bottom: 10px;
       }
     }
   }
-  .list-link {
-    a {
-      margin-right: 15px;
-    }
+  .purchase-info {
+    margin-top: 62px;
   }
-  @media (min-width: 768px) {
-    .past {
-      width: 1200px;
-      margin: 0 auto;
-      padding: 32px 0 0 0;
-    }
-    .line {
-      margin-top: 26px;
-      margin-bottom: 5px;
-      border-width: 2px;
-    }
-    .list-closet {
-      .closet-item {
-        padding-top: 21px;
-        padding-bottom: 30px;
-      }
-      .order {
-        text-indent: 7px;
-        margin-bottom: 15px;
-      }
-      .product-desc {
-        display: flex;
-      }
-      .list-product {
-        margin-bottom: 0;
-        flex-grow: 0;
-        flex-shrink: 0;
-        flex-basis: 234px;
-        .image {
-          width: 112px;
-          height: 132px;
-          &:nth-child(1) {
-            margin-right: 10px;
-          }
-          &:nth-child(2) {
-            float: left;
-          }
-        }
-      }
-      .style-tip {
-        margin-left: 28px;
-        margin-bottom: 0;
-        margin-right: 98px;
-        flex-grow: 0;
-        flex-shrink: 0;
-        flex-basis: 697px;
-        .title {
-          margin-bottom: 10px;
-        }
-
-      }
-      }
-      .purchase-info {
-        margin-top: 62px;
-      }
-    }
+}
 </style>

@@ -4,11 +4,10 @@ import actions from "./actions";
 export default {
   namespaced: true,
   state: {
-    Join: {
-    },
+    Join: {},
     PhoneVerify: {
       isVerify: false,
-      authId: null,
+      authId: null
     },
     isJoin: false
   },
@@ -31,7 +30,7 @@ export default {
     [types.PICK_REMOVE_MANAGEMENT](state, data) {
       state.selected[data.type].splice(data.id, 1);
     },
-    [types.POST_PHONE](state,data) {
+    [types.POST_PHONE](state, data) {
       state.PhoneVerify.authId = data.authId;
     },
     [types.PATCH_PHONE](state) {
@@ -41,12 +40,12 @@ export default {
       _.assign(state.Join, data);
     },
     [types.POST_JOIN](state) {
-      state.isJoin = true
+      state.isJoin = true;
     }
   },
   actions,
   getters: {
     Join: state => state.Join,
-    PhoneVerify: state => state.PhoneVerify,
+    PhoneVerify: state => state.PhoneVerify
   }
 };

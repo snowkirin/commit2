@@ -151,7 +151,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import { Validator } from 'vee-validate';
-import Simplert from 'vue2-simplert'
+import Simplert from 'vue2-simplert';
 
 const dict = {
   custom: {
@@ -170,7 +170,7 @@ Validator.localize('ko', dict);
 
 export default {
   name: 'size',
-  data: function () {
+  data: function() {
     return {
       bodyTypeText: '',
       joinData: {
@@ -211,7 +211,7 @@ export default {
         type: 'alert', // 타입
         customClass: 'popup-custom-class', // 커스텀 클래스 네임
         disableOverlayClick: false, // 오버레이 클릭시 닫기 방지
-        customCloseBtnText: '확인', // 닫기 버튼 텍스트
+        customCloseBtnText: '확인' // 닫기 버튼 텍스트
       };
 
       if (this.joinData.blouseSize === null) {
@@ -278,27 +278,33 @@ export default {
         blouseSize: this.Join.blouseSize ? this.Join.blouseSize : null,
         skirtSize: this.Join.skirtSize ? this.Join.skirtSize : null,
         pantsSize: this.Join.pantsSize ? this.Join.pantsSize : null,
-        bodyType: this.Join.bodyType ? this.Join.bodyType : null,
-      }
+        bodyType: this.Join.bodyType ? this.Join.bodyType : null
+      };
     }
   },
-  mounted: function () {
+  mounted: function() {
     if (this.joinData.bodyType === 12701) {
-      this.bodyTypeText = '허리둘레와 엉덩이 둘레가 거의 같으며 골격이 잘 발달되지 않은 보이쉬한 일자형 체형입니다.';
+      this.bodyTypeText =
+        '허리둘레와 엉덩이 둘레가 거의 같으며 골격이 잘 발달되지 않은 보이쉬한 일자형 체형입니다.';
     } else if (this.joinData.bodyType === 12702) {
-      this.bodyTypeText = '전체적으로 어깨가 잘 발달되어 상체가 넓고 아래로 내려갈수록 점점 작아지는 체형입니다.';
+      this.bodyTypeText =
+        '전체적으로 어깨가 잘 발달되어 상체가 넓고 아래로 내려갈수록 점점 작아지는 체형입니다.';
     } else if (this.joinData.bodyType === 12703) {
-      this.bodyTypeText = '전반적으로 상체에 살이 많고 배가 조금 나온, 둥글둥글한 모습을 띠고 있는 체형입니다.';
+      this.bodyTypeText =
+        '전반적으로 상체에 살이 많고 배가 조금 나온, 둥글둥글한 모습을 띠고 있는 체형입니다.';
     } else if (this.joinData.bodyType === 12704) {
-      this.bodyTypeText = '어깨에 비해서 히프 사이즈가 크고 하체로 갈수록 점점 넓어지는 한국인에게 흔히 볼 수 있는 체형입니다.';
+      this.bodyTypeText =
+        '어깨에 비해서 히프 사이즈가 크고 하체로 갈수록 점점 넓어지는 한국인에게 흔히 볼 수 있는 체형입니다.';
     } else if (this.joinData.bodyType === 12705) {
-      this.bodyTypeText = '가슴둘레와 엉덩이 둘레는 거의 비슷한데, 허리는 가는 이상적인 체형입니다.';
+      this.bodyTypeText =
+        '가슴둘레와 엉덩이 둘레는 거의 비슷한데, 허리는 가는 이상적인 체형입니다.';
     }
   }
 };
 </script>
 
-<style scoped lang="scss" src="@/assets/css/join-style.scss"></style>
+<style scoped lang="scss" src="@/assets/css/join-style.scss">
+</style>
 <style scoped lang="scss">
 .list-flex {
   background-color: #f5f5f5;

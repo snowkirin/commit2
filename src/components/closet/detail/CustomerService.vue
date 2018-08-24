@@ -208,22 +208,22 @@ export default {
   name: 'customerService',
   data() {
     return {
-      showId: null,
+      showId: null
     };
   },
   components: {
-    CustomModal,
+    CustomModal
   },
   computed: {
     ...mapGetters({
       inquiriesList: 'mypage/inquiries/getInquiriesList',
-      inquiriesInfo: 'mypage/inquiries/getInquiriesInfo',
-    }),
+      inquiriesInfo: 'mypage/inquiries/getInquiriesInfo'
+    })
   },
   methods: {
     ...mapActions({
       setInquiriesList: 'mypage/inquiries/setInquiriesList',
-      setInquiriesInfo: 'mypage/inquiries/setInquiriesInfo',
+      setInquiriesInfo: 'mypage/inquiries/setInquiriesInfo'
     }),
     viewInquiries(id) {
       this.showId = id;
@@ -231,153 +231,156 @@ export default {
     },
     viewModal() {
       this.$refs.view.openModal();
-    },
+    }
   },
   created() {
     this.setInquiriesList();
   },
   updated() {
-    const inquiriesHtml = document.querySelectorAll('.cs-left-data-title .subject');
-    for (let i = 0; i < inquiriesHtml.length; i += 1) this.$common.dotdotdot(inquiriesHtml[i], 18);
-  },
+    const inquiriesHtml = document.querySelectorAll(
+      '.cs-left-data-title .subject'
+    );
+    for (let i = 0; i < inquiriesHtml.length; i += 1)
+      this.$common.dotdotdot(inquiriesHtml[i], 18);
+  }
 };
 </script>
 
 <style scoped lang="scss">
-  .customer-service {
-    width: 94.793%;
-    margin: 0 auto;
-  }
-  .title {
-    font-size: 24px;
-    line-height: 34px;
-    letter-spacing: -1px;
-  }
+.customer-service {
+  width: 94.793%;
+  margin: 0 auto;
+}
+.title {
+  font-size: 24px;
+  line-height: 34px;
+  letter-spacing: -1px;
+}
 
-  .content {
+.content {
+  display: flex;
+  border: 2px solid #e9e9e9;
+  margin-top: 25px;
+  height: 473px;
+}
+.contact-detail {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 31.59340659340659%;
+
+  .top {
     display: flex;
-    border: 2px solid #e9e9e9;
-    margin-top: 25px;
-    height: 473px;
+    height: 80px;
+    justify-content: center;
+    flex-direction: column;
+    padding-left: 18px;
+    padding-right: 19px;
+    position: relative;
+    &:after {
+      content: "";
+      display: block;
+      border-bottom: 1px solid #e9e9e9;
+      position: absolute;
+      bottom: 0;
+      width: 82.8%;
+    }
+    .text {
+      font-size: 15px;
+      line-height: 21px;
+      letter-spacing: -0.9px;
+      font-weight: 700;
+      margin-right: 15px;
+    }
+    button {
+      width: 89px;
+    }
   }
-  .contact-detail {
-    flex-grow: 1;
-    flex-shrink: 1;
-    flex-basis: 31.59340659340659%;
-
-    .top {
-      display: flex;
-      height: 80px;
-      justify-content: center;
-      flex-direction: column;
-      padding-left: 18px;
-      padding-right: 19px;
+  .bot {
+    height: 389px;
+    overflow-y: auto;
+  }
+  &-list {
+    li {
+      padding: 17px 13px 20px 19px;
       position: relative;
       &:after {
-        content: '';
+        content: "";
         display: block;
         border-bottom: 1px solid #e9e9e9;
         position: absolute;
         bottom: 0;
         width: 82.8%;
       }
-      .text {
-        font-size: 15px;
-        line-height: 21px;
-        letter-spacing: -0.9px;
-        font-weight: 700;
-        margin-right: 15px;
-      }
-      button {
-        width: 89px;
+      &.selected {
+        background-color: #eff3fc;
       }
     }
-    .bot {
-      height: 389px;
-      overflow-y: auto;
-    }
-    &-list {
-      li {
-        padding: 17px 13px 20px 19px;
-        position: relative;
-        &:after {
-          content: '';
-          display: block;
-          border-bottom: 1px solid #e9e9e9;
-          position: absolute;
-          bottom: 0;
-          width: 82.8%;
-        }
-        &.selected {
-          background-color: #eff3fc;
-        }
-      }
-      .txt-title {
-        display: flex;
-        .title {
-          font-size: 15px;
-          line-height: 23px;
-          letter-spacing: -0.9px;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          width: 137px;
-        }
-        .date {
-          font-size: 15px;
-          line-height: 23px;
-          color: #797979;
-          font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
-        }
-      }
-      .txt-explain {
-        margin-top: 6px;
-        font-size: 14px;
-        line-height: 20px;
-        letter-spacing: -0.8px;
-        color: #797979;
-      }
-    }
-  }
-  .contact-chat {
-    flex-grow: 1;
-    flex-shrink: 1;
-    flex-basis: 68.40659340659341%;
-    background-color: #f4f4f4;
-    padding: 0 20px;
-    .top {
+    .txt-title {
       display: flex;
-      height: 80px;
-      justify-content: center;
-      flex-direction: column;
-      position: relative;
-      &:after {
-        content: '';
-        display: block;
-        border-bottom: 1px solid #e9e9e9;
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-      }
-      .text {
+      .title {
         font-size: 15px;
         line-height: 23px;
-        letter-spacing: -0.6px;
+        letter-spacing: -0.9px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 137px;
+      }
+      .date {
+        font-size: 15px;
+        line-height: 23px;
         color: #797979;
+        font-family: "Open Sans", "맑은 고딕", "Malgun Gothic", sans-serif;
       }
     }
-    .bot {
-      height: 389px;
-      overflow-y: auto;
+    .txt-explain {
+      margin-top: 6px;
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: -0.8px;
+      color: #797979;
     }
   }
+}
+.contact-chat {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 68.40659340659341%;
+  background-color: #f4f4f4;
+  padding: 0 20px;
+  .top {
+    display: flex;
+    height: 80px;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    &:after {
+      content: "";
+      display: block;
+      border-bottom: 1px solid #e9e9e9;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+    .text {
+      font-size: 15px;
+      line-height: 23px;
+      letter-spacing: -0.6px;
+      color: #797979;
+    }
+  }
+  .bot {
+    height: 389px;
+    overflow-y: auto;
+  }
+}
 
-  @media (min-width: 768px) {
-    .customer-service {
-      width: 1200px;
-      padding-top: 32px;
-    }
+@media (min-width: 768px) {
+  .customer-service {
+    width: 1200px;
+    padding-top: 32px;
   }
+}
 .greyLine {
   margin-top: 24px;
 }
@@ -464,13 +467,13 @@ export default {
 }
 
 .cs-right-area {
- background-color: #f5f5f5;
+  background-color: #f5f5f5;
 }
 
 .balloon {
   display: inline-block;
   position: relative;
-  background: #FFFFFF;
+  background: #ffffff;
   width: auto;
   height: auto;
   padding: 0px;
@@ -479,7 +482,7 @@ export default {
   border-radius: 4px;
   margin-left: 7px;
   vertical-align: top;
-  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
   border-top-left-radius: 0;
 }
 
@@ -492,7 +495,7 @@ export default {
 }
 
 .balloon-bottom {
-  border-top-color: rgba(0,0,0,0.1);
+  border-top-color: rgba(0, 0, 0, 0.1);
   padding: 20px 20px;
   background-color: #f5f5f5;
   font-size: 16px;
@@ -502,17 +505,17 @@ export default {
 }
 
 .balloon:before {
-  content: '';
+  content: "";
   position: absolute;
   top: 2px;
   left: -8px;
   border: 8px solid transparent;
-  border-top-color: rgba(0,0,0,0.1);
+  border-top-color: rgba(0, 0, 0, 0.1);
   border-right-width: 0;
 }
 
 .balloon:after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0px;
   left: -8px;
@@ -533,22 +536,22 @@ export default {
   border-radius: 4px;
   margin-left: 7px;
   vertical-align: top;
-  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
   border-top-left-radius: 0;
 }
 
 .right-balloon:before {
-  content: '';
+  content: "";
   position: absolute;
   top: 2px;
   right: -6px;
   border: 8px solid transparent;
-  border-top-color: rgba(0,0,0,0.1);
+  border-top-color: rgba(0, 0, 0, 0.1);
   border-left-width: 0;
 }
 
 .right-balloon:after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0px;
   right: -6px;
@@ -558,7 +561,6 @@ export default {
 }
 
 .thumbnail {
-
 }
 
 .admin-icon {
@@ -607,7 +609,7 @@ export default {
 }
 
 .right-balloon > .balloon-text {
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .talk-area {
@@ -622,7 +624,6 @@ export default {
   color: #797979;
   letter-spacing: -0.4px;
 }
-
 
 .balloon-square-area {
   display: inline-block;

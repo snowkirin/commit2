@@ -54,11 +54,9 @@ import Info from "@/info";
 
 export default {
   name: "zuly-footer",
-  components: {
-  },
+  components: {},
   watch: {
-    $route() {
-    }
+    $route() {}
   },
   data() {
     return {
@@ -74,8 +72,7 @@ export default {
       this.$refs[ref].closeModal();
     }
   },
-  mounted() {
-  }
+  mounted() {}
 };
 </script>
 
@@ -136,7 +133,6 @@ export default {
   .footer {
   }
   .footer-top {
-
   }
   .footer-layer1 {
     .txt-tel {
@@ -157,7 +153,6 @@ export default {
     @include fontSize(14px);
   }
   .footer-layer3 {
-
   }
   .footer-inner {
     width: 1200px;

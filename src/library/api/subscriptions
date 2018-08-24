@@ -118,8 +118,23 @@ export default {
         }
       })
   },
-  getProductDetail() {
-
+  /*
+  * data(params) = { id: 381 (Number) }
+  * */
+  getProductDetail(data) {
+    return axios
+      .get(`${API_URL}/subscriptions/products/detail/${data}`, {
+        withCredentials: true
+      })
+      .then(res => {
+        return res;
+      })
+      .catch(err => {
+        return {
+          ...err.response,
+          message: err.message
+        }
+      });
   },
   /*
   * data = { subscriptionId: 180810000002 (Number) }

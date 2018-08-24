@@ -25,33 +25,36 @@
 </template>
 
 <script>
-
 export default {
   name: 'slideArrow',
   props: {
     arrowSize: {
       type: String,
-      default: '150',
+      default: '150'
     },
     dotSize: {
       type: String,
-      default: '295',
+      default: '295'
     },
     skipSize: {
       type: String,
-      default: '283',
+      default: '283'
     },
     prevLocation: {
       type: String,
-      default: '',
-    },
+      default: ''
+    }
   },
   mounted() {
-    document.querySelector('.slideArrow-left').style.top = `${this.arrowSize}px`;
-    document.querySelector('.slideArrow-right').style.top = `${this.arrowSize}px`;
+    document.querySelector('.slideArrow-left').style.top = `${
+      this.arrowSize
+    }px`;
+    document.querySelector('.slideArrow-right').style.top = `${
+      this.arrowSize
+    }px`;
     document.querySelector('.slideDot').style.top = `${this.dotSize}px`;
     document.querySelector('.skip-area').style.top = `${this.skipSize}px`;
-  },
+  }
 };
 </script>
 
@@ -88,12 +91,13 @@ div.btn-times-left {
   border-radius: 6px;
 }
 
-div.btn-times-left:before, div.btn-times-left:after {
-  content: '';
+div.btn-times-left:before,
+div.btn-times-left:after {
+  content: "";
   position: absolute;
   width: 30px;
   height: 1px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-radius: 2px;
   top: 23px;
   box-shadow: 0 0 2px 0 #ccc;
@@ -121,12 +125,13 @@ div.btn-times-right {
   border-radius: 6px;
 }
 
-div.btn-times-right:before, div.btn-times-right:after {
-  content: '';
+div.btn-times-right:before,
+div.btn-times-right:after {
+  content: "";
   position: absolute;
   width: 30px;
   height: 1px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-radius: 2px;
   top: 23px;
   box-shadow: 0 0 2px 0 #ccc;
@@ -155,7 +160,8 @@ div.btn-times-right:after {
   text-align: center;
 }
 
-.left-navi, .right-navi {
+.left-navi,
+.right-navi {
   width: 50px;
 }
 

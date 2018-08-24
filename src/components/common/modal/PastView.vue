@@ -44,30 +44,30 @@ export default {
   name: 'pastView',
   data() {
     return {
-      API_IMAGE_URL: process.env.API_IMAGE_URL,
+      API_IMAGE_URL: process.env.API_IMAGE_URL
     };
   },
   props: {
     dataId: {
       type: String,
-      default: '',
-    },
+      default: ''
+    }
   },
   computed: {
     ...mapGetters({
-      pastDetail: 'mypage/closet/getPastDetail',
-    }),
+      pastDetail: 'mypage/closet/getPastDetail'
+    })
   },
   methods: {
     ...mapActions({
-      pastDetailView: 'mypage/closet/pastDetailView',
-    }),
+      pastDetailView: 'mypage/closet/pastDetailView'
+    })
   },
   watch: {
     dataId() {
       this.pastDetailView({ pastId: this.dataId });
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -130,8 +130,9 @@ export default {
 
 .thumnail-image {
   position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%,-50%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 81px;
   height: 102px;
   background-repeat: no-repeat;

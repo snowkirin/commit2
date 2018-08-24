@@ -24,13 +24,12 @@ export default {
         .catch(err => {
           console.log(err);
           if (this.$refs.formButton) {
-            this.$refs.formButton.disabled = false
+            this.$refs.formButton.disabled = false;
           }
-
         })
         .then(() => {
           if (this.$refs.formButton) {
-            this.$refs.formButton.disabled = false
+            this.$refs.formButton.disabled = false;
           }
         });
     }

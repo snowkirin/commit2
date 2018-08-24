@@ -5,12 +5,12 @@ const instance = axios.create();
 instance.interceptors.request.use(config => {
   NProgress.start();
   return config;
-})
+});
 
 // before a response is returned stop nprogress
 instance.interceptors.response.use(response => {
   NProgress.done();
   return response;
-})
+});
 
 export default instance;

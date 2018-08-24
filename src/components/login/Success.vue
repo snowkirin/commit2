@@ -25,7 +25,7 @@ export default {
   name: 'success',
   computed: mapGetters({
     phoneAuth: 'common/getPhoneAuth',
-    userId: 'common/getUserId',
+    userId: 'common/getUserId'
   }),
   created() {
     let rtn = false;
@@ -36,7 +36,7 @@ export default {
       alert('잘못된 접근입니다.');
       this.$router.push({ path: '/' });
     }
-  },
+  }
 };
 </script>
 

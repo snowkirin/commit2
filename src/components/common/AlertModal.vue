@@ -14,36 +14,35 @@
 <script>
 export default {
   name: 'alert-modal',
-  components: {
-  },
+  components: {},
   data() {
     return {
       content: '의견감사합니다.',
       type: 'alert',
       path: null,
-      modal: null,
+      modal: null
     };
   },
   props: {
     dataId: {
-      type: String,
+      type: String
     },
     title: {
       type: String,
-      default: '',
+      default: ''
     },
     width: {
       type: String,
-      default: '300',
+      default: '300'
     },
     height: {
       type: String,
-      default: '138',
+      default: '138'
     },
     isConfirm: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   methods: {
     openModal(msg, type, path) {
@@ -60,11 +59,11 @@ export default {
         }
       }
       this.modal.style.display = 'none';
-    },
+    }
   },
   mounted() {
     this.modal = document.querySelector('div.alert-frame');
-  },
+  }
 };
 </script>
 
@@ -118,7 +117,7 @@ export default {
 @media screen and (max-width: 486px) {
   .alert-frame {
     top: 0;
-    background: rgba(0,0,0,.7);
+    background: rgba(0, 0, 0, 0.7);
   }
 }
 </style>

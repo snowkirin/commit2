@@ -4,7 +4,7 @@ import actions from "./actions";
 export default {
   namespaced: true,
   state: {
-    PasswordAuth: false,
+    PasswordAuth: false
   },
   mutations: {
     [types.POST_PASSWORD](state) {
@@ -16,6 +16,6 @@ export default {
   },
   actions,
   getters: {
-    PasswordAuth: state => state.PasswordAuth,
+    PasswordAuth: state => state.PasswordAuth
   }
 };

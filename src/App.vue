@@ -7,7 +7,8 @@
 export default {
   name: "app",
   created() {
-    console.log(`%c
+    console.log(
+      `%c
 ███████╗██╗   ██╗██╗  ██╗   ██╗
 ╚══███╔╝██║   ██║██║  ╚██╗ ██╔╝
   ███╔╝ ██║   ██║██║   ╚████╔╝
@@ -22,4 +23,5 @@ Save Time, Save Money, Save The Space
   }
 };
 </script>
-<style lang="scss" src="./assets/css/common.scss"></style>
+<style lang="scss" src="./assets/css/common.scss">
+</style>

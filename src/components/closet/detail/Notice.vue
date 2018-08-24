@@ -91,153 +91,154 @@ export default {
   name: 'notice',
   computed: {
     ...mapGetters({
-      noticeList: 'mypage/notice/getNoticeList',
-    }),
+      noticeList: 'mypage/notice/getNoticeList'
+    })
   },
   methods: {
     ...mapActions({
-      setNoticeList: 'mypage/notice/setNoticeList',
+      setNoticeList: 'mypage/notice/setNoticeList'
     }),
     noticeView(id) {
       const noticeContent = document.querySelector(`[data-id="${id}"]`);
 
-      if (noticeContent.style.display === 'none' || noticeContent.style.display === '') noticeContent.style.display = 'table-row';
+      if (
+        noticeContent.style.display === 'none' ||
+        noticeContent.style.display === ''
+      )
+        noticeContent.style.display = 'table-row';
       else noticeContent.style.display = 'none';
     },
     contentReplace(text) {
       const result = this.$common.enterReplace(text.content);
       return result;
-    },
+    }
   },
   created() {
     this.setNoticeList();
-  },
+  }
 };
 </script>
 
 <style scoped lang="scss">
+.notice {
+  padding: {
+    top: 24px;
+    left: 18px;
+    right: 18px;
+    bottom: 20px;
+  }
+  .line {
+    margin-top: 16px;
+  }
+  .table-notice {
+    width: 100%;
+    table-layout: fixed;
+    border-bottom: 1px solid #333;
+    .txt-index,
+    .txt-date {
+      text-align: center;
+    }
+    .txt-index {
+      width: 29px;
+    }
+    .txt-title {
+      padding-left: 17px;
+    }
+    .txt-date {
+      width: 103px;
+    }
+    thead {
+      th {
+        font-size: 15px;
+        line-height: 21px;
+        letter-spacing: -0.9px;
+        height: 43px;
+      }
+    }
+    tbody {
+      .row {
+        td {
+          border-top: 1px solid #e9e9e9;
+        }
+      }
+      .row-info {
+        td {
+          height: 54px;
+          font-size: 15px;
+          line-height: 23px;
+          letter-spacing: -0.9px;
+        }
+        .txt-index {
+          text-align: center;
+        }
+        .txt-date {
+          font-family: "Open Sans", "맑은 고딕", "Malgun Gothic", sans-serif;
+          letter-spacing: 0;
+        }
+      }
+      // 클릭시 보여지는 컨텐츠
+      .row-content {
+        display: none;
+        td {
+          padding: 10px;
+          background-color: #f5f5f5;
+          font-size: 13px;
+          letter-spacing: -0.6px;
+          line-height: 19px;
+        }
+      }
+    }
+  }
+  .none {
+    margin-top: 30px;
+    font-size: 15px;
+    color: #797979;
+    letter-spacing: -0.9px;
+  }
+}
+
+@media (min-width: 768px) {
   .notice {
-    padding: {
-      top: 24px;
-      left: 18px;
-      right: 18px;
-      bottom: 20px;
-    }
-    .line {
-      margin-top: 16px;
-    }
+    padding-top: 32px;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    width: 1200px;
+    margin: 0 auto;
     .table-notice {
-      width: 100%;
-      table-layout: fixed;
-      border-bottom: 1px solid #333;
-      .txt-index,
-      .txt-date {
-        text-align: center;
-      }
-      .txt-index {
-        width: 29px;
-      }
-      .txt-title {
-        padding-left: 17px;
-      }
-      .txt-date {
-        width: 103px;
-      }
       thead {
         th {
+          height: 43px;
           font-size: 15px;
           line-height: 21px;
           letter-spacing: -0.9px;
-          height: 43px;
+          color: #333;
         }
-
       }
       tbody {
-        .row {
-          td {
-            border-top: 1px solid #e9e9e9;
-          }
+        .txt-index,
+        .txt-title,
+        .txt-date {
+          font-size: 16px;
+          letter-spacing: -1px;
         }
-        .row-info {
-          td {
-            height: 54px;
-            font-size: 15px;
-            line-height: 23px;
-            letter-spacing: -0.9px;
-          }
-          .txt-index {
-            text-align: center;
-          }
-          .txt-date {
-            font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
-            letter-spacing: 0;
-          }
-        }
-        // 클릭시 보여지는 컨텐츠
         .row-content {
-          display: none;
           td {
-            padding: 10px;
+            padding: 25px 30px;
             background-color: #f5f5f5;
-            font-size: 13px;
-            letter-spacing: -0.6px;
-            line-height: 19px;
+            font-size: 14px;
+            letter-spacing: -0.8px;
+            line-height: 21px;
           }
         }
       }
     }
     .none {
-      margin-top: 30px;
-      font-size: 15px;
-      color: #797979;
-      letter-spacing: -0.9px;
+      font-size: 16px;
     }
   }
-
-  @media (min-width: 768px) {
-    .notice {
-      padding-top: 32px;
-      padding-right: 0;
-      padding-bottom: 0;
-      padding-left: 0;
-      width: 1200px;
-      margin: 0 auto;
-      .table-notice {
-        thead {
-          th {
-            height: 43px;
-            font-size: 15px;
-            line-height: 21px;
-            letter-spacing: -0.9px;
-            color: #333;
-          }
-        }
-        tbody {
-          .txt-index,
-          .txt-title,
-          .txt-date {
-            font-size: 16px;
-            letter-spacing: -1px;
-          }
-          .row-content {
-            td {
-              padding: 25px 30px;
-              background-color: #f5f5f5;
-              font-size: 14px;
-              letter-spacing: -0.8px;
-              line-height: 21px;
-            }
-          }
-        }
-      }
-      .none {
-        font-size: 16px;
-      }
-    }
-    .line {
-      border-width: 2px;
-    }
-
-
+  .line {
+    border-width: 2px;
   }
+}
 </style>

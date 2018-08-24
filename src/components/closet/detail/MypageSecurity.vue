@@ -40,12 +40,12 @@ export default {
   data() {
     return {
       password: ''
-    }
+    };
   },
   computed: {
     ...mapGetters({
-      PasswordAuth: 'auth/PasswordAuth',
-    }),
+      PasswordAuth: 'auth/PasswordAuth'
+    })
   },
   methods: {
     ...mapActions({
@@ -62,12 +62,12 @@ export default {
       await this.postPassword(formData).then(res => {
         if (res.data.result) {
           if (this.PasswordAuth) {
-            this.$router.push({ path: '/closet/mypage'});
+            this.$router.push({ path: '/closet/mypage' });
           }
         } else if (!res.data.result) {
           alert('비밀번호를 정확히 입력해 주세요.');
         } else {
-          alert('통신오류. 잠시후 다시 시도해 주세요.')
+          alert('통신오류. 잠시후 다시 시도해 주세요.');
         }
       });
 
@@ -76,34 +76,35 @@ export default {
       // await this.mypageSecurity({ password: pwd.value });
       //
       // if (this.mypageAuth) this.$router.push({ path: '/closet/mypage' });
-    },
-  },
+    }
+  }
 };
 </script>
 
-<style scoped lang="scss" src="@/assets/css/closet-style.scss"></style>
+<style scoped lang="scss" src="@/assets/css/closet-style.scss">
+</style>
 <style scoped lang="scss">
-  .mypage-sercurity {
-    padding: 25px 20px 20px 20px;
-    .line {
-      margin: {
-        top: 10px;
-        bottom: 15px;
-      }
+.mypage-sercurity {
+  padding: 25px 20px 20px 20px;
+  .line {
+    margin: {
+      top: 10px;
+      bottom: 15px;
     }
   }
+}
 
-  @media (min-width: 768px) {
-    .mypage-sercurity {
-      padding: 32px 0 20px 0;
-      width: 1200px;
-      margin: 0 auto;
-      .line {
-        border-width: 2px;
-      }
-    }
-    .form-group {
-      width: 480px;
+@media (min-width: 768px) {
+  .mypage-sercurity {
+    padding: 32px 0 20px 0;
+    width: 1200px;
+    margin: 0 auto;
+    .line {
+      border-width: 2px;
     }
   }
+  .form-group {
+    width: 480px;
+  }
+}
 </style>

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import {mapGetters} from 'vuex';
+import { mapGetters } from 'vuex';
 export default {
   name: "join",
   computed: {
@@ -13,7 +13,7 @@ export default {
       isLogin: 'login/isLogin'
     })
   },
-  created(){
+  created() {
     // if (this.isLogin) {
     //   alert('잘못된 경로로 들어오셨습니다. 메인으로 이동합니다.');
     //   this.$router.push({

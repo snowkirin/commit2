@@ -21,67 +21,73 @@ export default {
     return axios
       .get(`${API_URL}/member/style`, {
         withCredentials: true
-      }).then(res => {
+      })
+      .then(res => {
         return res;
       })
       .catch(err => {
         return {
           ...err.response,
           message: err.message
-        }
+        };
       });
   },
   // 2018-08-21 수정 END
   patchMemberAddress(data) {
-    const result = axios.patch(`${API_URL}/member/address`, data, {withCredentials: true})
-      .then((res) => {
+    const result = axios
+      .patch(`${API_URL}/member/address`, data, { withCredentials: true })
+      .then(res => {
         return res;
       })
-      .catch((err) => {
+      .catch(err => {
         alert(err);
         return err;
       });
     return result;
   },
   patchMemberMemorialDay(data) {
-    const result = axios.patch(`${API_URL}/member/memorialDay`, data, {withCredentials: true})
-      .then((res) => {
+    const result = axios
+      .patch(`${API_URL}/member/memorialDay`, data, { withCredentials: true })
+      .then(res => {
         return res;
       })
-      .catch((err) => {
+      .catch(err => {
         alert(err);
         return err;
       });
     return result;
   },
   patchMemberLobbyPassword(data) {
-    const result = axios.patch(`${API_URL}/member/addrPassword `, data, {withCredentials: true})
-      .then((res) => {
+    const result = axios
+      .patch(`${API_URL}/member/addrPassword `, data, { withCredentials: true })
+      .then(res => {
         return res;
       })
-      .catch((err) => {
+      .catch(err => {
         alert(err);
         return err;
       });
     return result;
   },
   patchMemberPassword(data) {
-    const result = axios.patch(`${API_URL}/member/password`, data, {withCredentials: true})
-      .then((res) => {
+    const result = axios
+      .patch(`${API_URL}/member/password`, data, { withCredentials: true })
+      .then(res => {
         return res;
       })
-      .catch((err) => {
+      .catch(err => {
         alert(err);
         return err;
       });
     return result;
   },
   patchMemberPayment(data) {
-    const result = axios.patch(`${API_URL}/member/payment`, data, {withCredentials: true})
-      .then((res) => {
+    const result = axios
+      .patch(`${API_URL}/member/payment`, data, { withCredentials: true })
+      .then(res => {
         return res;
       })
-      .catch((err) => {
+      .catch(err => {
         alert(err);
         return err;
       });
@@ -92,9 +98,9 @@ export default {
     return axios
       .post(`${API_URL}/member/images`, data, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Content-Type': 'multipart/form-data'
         },
-        withCredentials: true,
+        withCredentials: true
       })
       .then(res => {
         return res;
@@ -109,7 +115,7 @@ export default {
   postMemberStyle(data) {
     return axios
       .post(`${API_URL}/member/style`, data, {
-        withCredentials: true,
+        withCredentials: true
       })
       .then(res => {
         return res;
@@ -118,7 +124,7 @@ export default {
         return {
           ...err.response,
           message: err.message
-        }
+        };
       });
   },
   postMemberImageStyle(imageData, styleData) {
@@ -131,7 +137,7 @@ export default {
         return {
           ...err.response,
           message: err.message
-        }
+        };
       });
   },
   patchMeberStyle(data) {
@@ -146,7 +152,7 @@ export default {
         return {
           ...err.response,
           message: err.message
-        }
+        };
       });
   },
   patchMemberImageStyle(imageData, styleData) {
@@ -159,10 +165,10 @@ export default {
         return {
           ...err.response,
           message: err.message
-        }
+        };
       });
   },
-  getMemberStyleType(){
+  getMemberStyleType() {
     return axios
       .get(`${API_URL}/member/styletype`)
       .then(res => {
@@ -172,10 +178,10 @@ export default {
         return {
           ...err.response,
           message: err.message
-        }
-      })
+        };
+      });
   }
-}
+};
 
 // function getMemberCount() {
 //   return axios

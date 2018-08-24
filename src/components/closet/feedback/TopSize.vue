@@ -19,7 +19,7 @@ import SlideArrow from '@/components/closet/feedback/SlideArrow';
 export default {
   name: 'topSize',
   components: {
-    SlideArrow,
+    SlideArrow
   },
   methods: {
     prevNavi() {
@@ -27,8 +27,8 @@ export default {
     },
     nextNavi() {
       this.$parent.viewFeed = 'Deco';
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -58,6 +58,6 @@ export default {
 
 .greyLine {
   opacity: 0.4;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
 }
 </style>
