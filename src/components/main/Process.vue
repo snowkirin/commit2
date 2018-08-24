@@ -7,7 +7,7 @@
       <div class="left">
         <div class="step1">
           <div class="image">
-            <img src="/static/img/icons/icon_main1.svg" alt="">
+            <img src="~@/assets/img/icons/icon_main1.svg" alt="">
           </div>
           <div class="detail">
             <p class="txt-step">STEP 01</p>
@@ -17,7 +17,7 @@
         </div>
         <div class="step2">
           <div class="image">
-            <img src="/static/img/icons/icon_main2.svg" alt="">
+            <img src="~@/assets/img/icons/icon_main2.svg" alt="">
           </div>
           <div class="detail">
             <p class="txt-step">STEP 02</p>
@@ -29,7 +29,7 @@
       <div class="right">
         <div class="step3">
           <div class="image">
-            <img src="/static/img/icons/icon_main3.svg" alt="">
+            <img src="~@/assets/img/icons/icon_main3.svg" alt="">
           </div>
           <div class="detail">
             <p class="txt-step">STEP 03</p>
@@ -39,7 +39,7 @@
         </div>
         <div class="step4">
           <div class="image">
-            <img src="/static/img/icons/icon_main4.svg" alt="">
+            <img src="~@/assets/img/icons/icon_main4.svg" alt="">
           </div>
           <div class="detail">
             <p class="txt-step">STEP 04</p>
@@ -54,271 +54,269 @@
 
 <script>
 export default {
-  name: 'process',
+  name: "process"
 };
 </script>
 
 <style scoped lang="scss">
+.container {
+  padding: 31px 20px 6px 20px;
+}
+.line {
+  width: 100%;
+  margin-top: 6px;
+  border-width: 2px;
+}
+.step1,
+.step2,
+.step3,
+.step4 {
+  display: flex;
+  .image,
+  .detail {
+    align-self: flex-start;
+  }
+  .image {
+    img {
+      width: 100%;
+      height: 100%;
+      opacity: 0.8;
+    }
+  }
+  .detail {
+    .txt-step {
+      font-size: 12px;
+      color: #b47a3d;
+      font-weight: 700;
+      font-family: "Open Sans", "맑은 고딕", "Malgun Gothic", sans-serif;
+    }
+    .txt-title {
+      font-size: 16px;
+      letter-spacing: -1px;
+      margin: 6px 0;
+    }
+    .txt-desc {
+      font-size: 15px;
+      line-height: 23px;
+      word-break: keep-all;
+      letter-spacing: -0.9px;
+    }
+  }
+}
+.step1 {
+  margin-top: 35px;
+  .image {
+    margin-left: -3px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 68px;
+  }
+  .detail {
+    padding-left: 18px;
+    .txt-step {
+      margin-top: 4px;
+    }
+    .txt-title {
+      font-size: 16px;
+      letter-spacing: -1px;
+      margin: 6px 0;
+    }
+    .txt-desc {
+      font-size: 15px;
+      line-height: 23px;
+      letter-spacing: -0.9px;
+      word-break: keep-all;
+    }
+  }
+}
+.step2 {
+  margin-top: 32px;
+  .image {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 70px;
+    margin-left: -4px;
+  }
+  .detail {
+    padding-left: 17px;
+    .txt-step {
+      margin-top: 4px;
+    }
+    .txt-title {
+      letter-spacing: -0.5px;
+      margin: {
+        top: 6px;
+        bottom: 8px;
+      }
+    }
+    .txt-desc {
+      letter-spacing: -0.4px;
+    }
+  }
+}
+.step3 {
+  margin-top: 31px;
+  .image {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 70px;
+    margin-left: -4px;
+  }
+  .detail {
+    padding-left: 17px;
+    .txt-step {
+      margin-top: 5px;
+    }
+    .txt-title {
+      margin: {
+        top: 6px;
+        bottom: 8px;
+      }
+      letter-spacing: -0.5px;
+    }
+    .txt-desc {
+      letter-spacing: -0.4px;
+    }
+  }
+}
+.step4 {
+  margin-top: 33px;
+  .image {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 66px;
+  }
+  .detail {
+    padding-left: 17px;
+    .txt-step {
+      margin-top: 2px;
+    }
+    .txt-title {
+      margin: {
+        top: 6px;
+        bottom: 6px;
+      }
+      letter-spacing: -0.5px;
+    }
+    .txt-desc {
+      letter-spacing: -0.4px;
+    }
+  }
+}
+@media (min-width: 768px) {
   .container {
-    padding: 31px 20px 6px 20px
+    width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    padding: 65px 0 57px;
+  }
+  .txt-main-point {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 202px;
   }
   .line {
-
-    /*width: calc(100% - 20px);*/
-    width: 100%;
-    margin-top: 6px;
-    border-width: 2px;
+    display: none;
   }
+  .step {
+    display: flex;
+    margin-top: 2px;
+    flex: 1;
+    .left {
+      flex-grow: 1;
+      flex-shrink: 0;
+      flex-basis: 50%;
+      border-right: 1px solid #dadada;
+      margin-top: 3px;
+    }
+    .right {
+      flex-grow: 1;
+      flex-shrink: 0;
+      flex-basis: 50%;
+      padding-left: 48px;
+    }
+  }
+
   .step1,
   .step2,
   .step3,
   .step4 {
-    display: flex;
-    .image,
-    .detail {
-      align-self: flex-start;
-    }
-    .image {
-      img {
-        width: 100%;
-        height: 100%;
-        opacity: 0.8;
-      }
-    }
     .detail {
       .txt-step {
-        font-size: 12px;
-        color: #b47a3d;
-        font-weight: 700;
-        font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
+        font-size: 14px;
+        letter-spacing: -0.8px;
       }
       .txt-title {
-        font-size: 16px;
-        letter-spacing: -1px;
-        margin: 6px 0;
+        font-size: 20px;
+        line-height: 38px;
+        letter-spacing: -1.1px;
       }
       .txt-desc {
-        font-size: 15px;
-        line-height: 23px;
+        font-size: 16px;
+        line-height: 24px;
         word-break: keep-all;
-        letter-spacing: -0.9px;
+        letter-spacing: -1px;
       }
     }
   }
   .step1 {
-    margin-top: 35px;
-    .image {
-      margin-left: -3px;
-      flex-grow: 0;
-      flex-shrink: 0;
-      flex-basis: 68px;
-    }
-    .detail {
-      padding-left: 18px;
-      .txt-step {
-        margin-top: 4px;
-      }
-      .txt-title {
-        font-size: 16px;
-        letter-spacing: -1px;
-        margin: 6px 0;
-      }
-      .txt-desc {
-        font-size: 15px;
-        line-height: 23px;
-        letter-spacing: -.9px;
-        word-break: keep-all;
-      }
-    }
-  }
-  .step2 {
-    margin-top: 32px;
+    margin-top: 0;
     .image {
       flex-grow: 0;
       flex-shrink: 0;
-      flex-basis: 70px;
-      margin-left: -4px;
+      flex-basis: 90px;
+      margin-left: -5px;
     }
     .detail {
-      padding-left: 17px;
-      .txt-step {
-        margin-top: 4px;
-      }
-      .txt-title {
-        letter-spacing: -.5px;
-        margin: {
-          top: 6px;
-          bottom: 8px;
-        }
-      }
-      .txt-desc {
-        letter-spacing: -0.4px;
-      }
-    }
-  }
-  .step3 {
-    margin-top: 31px;
-    .image {
-      flex-grow: 0;
-      flex-shrink: 0;
-      flex-basis: 70px;
-      margin-left: -4px;
-    }
-    .detail {
-      padding-left: 17px;
-      .txt-step {
-        margin-top: 5px;
-      }
-      .txt-title {
-        margin: {
-          top: 6px;
-          bottom: 8px;
-        }
-        letter-spacing: -0.5px;
-      }
-      .txt-desc {
-        letter-spacing: -0.4px;
-      }
-    }
-  }
-  .step4 {
-    margin-top: 33px;
-    .image {
-      flex-grow: 0;
-      flex-shrink: 0;
-      flex-basis: 66px;
-    }
-    .detail {
-      padding-left: 17px;
+      padding-left: 34px;
       .txt-step {
         margin-top: 2px;
       }
       .txt-title {
-        margin: {
-          top: 6px;
-          bottom: 6px;
-        }
-        letter-spacing: -0.5px;
-      }
-      .txt-desc {
-        letter-spacing: -0.4px;
+        margin: 2px 0 1px -2px;
       }
     }
   }
-  @media (min-width: 768px) {
-    .container {
-      width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      padding: 65px 0 57px;
+  .step2 {
+    margin-top: 57px;
+    .image {
+      flex-basis: 91px;
+      margin-left: -6px;
     }
-    .txt-main-point {
-      flex-grow: 0;
-      flex-shrink: 0;
-      flex-basis: 202px;
-    }
-    .line {
-      display: none;
-    }
-    .step {
-      display: flex;
-      margin-top: 2px;
-      flex: 1;
-      .left {
-        flex-grow: 1;
-        flex-shrink: 0;
-        flex-basis: 50%;
-        border-right: 1px solid #dadada;
-        margin-top: 3px;
-      }
-      .right {
-        flex-grow: 1;
-        flex-shrink: 0;
-        flex-basis: 50%;
-        padding-left: 48px;
-      }
-    }
-
-    .step1,
-    .step2,
-    .step3,
-    .step4 {
-      .detail {
-        .txt-step {
-          font-size: 14px;
-          letter-spacing: -0.8px;
-        }
-        .txt-title {
-          font-size: 20px;
-          line-height: 38px;
-          letter-spacing: -1.1px;
-        }
-        .txt-desc {
-          font-size: 16px;
-          line-height: 24px;
-          word-break: keep-all;
-          letter-spacing: -1px;
-        }
-      }
-    }
-    .step1 {
-      margin-top: 0;
-      .image {
-        flex-grow: 0;
-        flex-shrink: 0;
-        flex-basis: 90px;
-        margin-left: -5px;
-      }
-      .detail {
-        padding-left: 34px;
-        .txt-step {
-          margin-top: 2px;
-        }
-        .txt-title {
-          margin: 2px 0 1px -2px;
-        }
-      }
-    }
-    .step2 {
-      margin-top: 57px;
-      .image {
-        flex-basis: 91px;
-        margin-left: -6px
-      }
-      .detail {
-        padding-left: 34px;
-        .txt-title {
-          margin: 2px 0 -1px -1px;
-          letter-spacing: -0.6px;
-        }
-      }
-    }
-    .step3 {
-      margin-top: 0;
-      margin-left: 7px;
-      .image {
-        flex-basis: 89px;
-      }
-      .detail {
-        padding-left: 33px;
-        .txt-title {
-          margin: 2px 0 1px;
-          letter-spacing: -0.6px;
-        }
-      }
-    }
-    .step4 {
-      margin-top: 59px;
-      .image {
-        flex-basis: 88px;
-      }
-      .detail {
-        padding-left: 37px;
-        .txt-title {
-          margin: 2px 0 -1px;
-          letter-spacing: -0.6px;
-        }
+    .detail {
+      padding-left: 34px;
+      .txt-title {
+        margin: 2px 0 -1px -1px;
+        letter-spacing: -0.6px;
       }
     }
   }
+  .step3 {
+    margin-top: 0;
+    margin-left: 7px;
+    .image {
+      flex-basis: 89px;
+    }
+    .detail {
+      padding-left: 33px;
+      .txt-title {
+        margin: 2px 0 1px;
+        letter-spacing: -0.6px;
+      }
+    }
+  }
+  .step4 {
+    margin-top: 59px;
+    .image {
+      flex-basis: 88px;
+    }
+    .detail {
+      padding-left: 37px;
+      .txt-title {
+        margin: 2px 0 -1px;
+        letter-spacing: -0.6px;
+      }
+    }
+  }
+}
 </style>

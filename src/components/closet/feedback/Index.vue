@@ -8,7 +8,7 @@
             :class="{selected : rating === 'love'}"
             @click="clickRating(questionCommon[0], 0, 'love')">
             <div class="image">
-              <img :src="(rating === 'love') ? '/static/img/closet/ico_feedback1_active.svg': '/static/img/closet/ico_feedback1.svg'">
+              <img :src="(rating === 'love') ? require('@/assets/img/closet/ico_feedback1_active.svg'): require('@/assets/img/closet/ico_feedback1.svg')">
             </div>
             <p class="text">{{ questionCommon[0].answer_text[0] }}</p>
           </li>
@@ -16,7 +16,7 @@
             :class="{selected : rating === 'okay'}"
             @click="clickRating(questionCommon[0], 1, 'okay')">
             <div class="image">
-              <img :src="(rating === 'okay') ? '/static/img/closet/ico_feedback2_active.svg' : '/static/img/closet/ico_feedback2.svg'">
+              <img :src="(rating === 'okay') ? require('@/assets/img/closet/ico_feedback2_active.svg'): require('@/assets/img/closet/ico_feedback2.svg')">
             </div>
             <p class="text">{{ questionCommon[0].answer_text[1] }}</p>
           </li>
@@ -24,7 +24,7 @@
             :class="{selected : rating === 'bad'}"
             @click="clickRating(questionCommon[0], 2, 'bad')">
             <div class="image">
-              <img :src="(rating === 'bad') ? '/static/img/closet/ico_feedback3_active.svg' : '/static/img/closet/ico_feedback3.svg'">
+              <img :src="(rating === 'bad') ? require('@/assets/img/closet/ico_feedback3_active.svg'): require('@/assets/img/closet/ico_feedback3.svg')">
             </div>
             <p class="text">{{ questionCommon[0].answer_text[2] }}</p>
           </li>
@@ -289,6 +289,7 @@ export default {
               alert('별로인 이유를 적어주세요.');
               data.querySelector('input').focus();
               flag = true;
+              return;
             } else {
               const sendData = {
                 subscriptionId: _.parseInt($this.subId),
@@ -299,7 +300,9 @@ export default {
                 answerCode: _.parseInt(data.dataset.answercode),
               };
               Closet.mypageFeedbackAnswerReason(sendData).then(function(res) {
+                console.log(res);
               }).catch(function(err) {
+                console.log(err);
               });
             }
           }
@@ -366,18 +369,12 @@ export default {
 <style scoped lang="scss">
   .feedback {
     // 부모의 패딩값 만큼.
-    width: 100vw;
-    margin-left: -20px;
-    margin-bottom: 34px;
-    margin-top: 16px;
+    width: 100%;
   }
   .rating {
     text-align: center;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 14px;
     .inner {
-      background-image: url('/static/img/closet/img_feedback.png');
+      background-image: url('~@/assets/img/closet/img_feedback.png');
       height: 187px;
       background-position: 50% 50%;
       background-size: cover;
@@ -386,21 +383,17 @@ export default {
       margin-bottom: 15px;
     }
     .txt-rating {
-      font-size: 16px;
-      line-height: 24px;
-      letter-spacing: -1px;
+      @include fontSize(16px);
       color: #fff;
     }
     .list-rating {
       font-size: 0;
       margin-top: 21px;
       li {
+        @include fontSize(14px);
         display: inline-block;
         color: #fff;
-        font-size: 14px;
-        letter-spacing: -0.8px;
         opacity: 0.6;
-        cursor: pointer;
         &:nth-child(1) {
           margin-left: 0;
         }
@@ -433,17 +426,13 @@ export default {
     padding-left: 20px;
     padding-right: 20px;
     .txt-review {
+      @include fontSize(15px);
       background-color: #797979;
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
       color: #fff;
-      line-height: 40px;
-      font-size: 15px;
-      letter-spacing: -0.9px;
       text-align: center;
       height: 40px;
       position: relative;
-      margin-left: -20px;
-      width: calc(100% + 40px);
       &::before {
         content: '';
         display: block;
@@ -551,9 +540,6 @@ export default {
     .rating {
       width: 1200px;
       margin: 0 auto;
-      padding-left: 0;
-      padding-right: 0;
-      padding-top: 14px;
       .inner {
         height: 244px;
         padding-top: 52px;
@@ -598,8 +584,6 @@ export default {
       .txt-review {
         line-height: 48px;
         height: 48px;
-        width: 100%;
-        margin-left: 0;
       }
       .section-wrapper {
         border-bottom: 2px solid #333;

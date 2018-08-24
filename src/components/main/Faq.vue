@@ -1,9 +1,11 @@
 <!--TODO: 구조및 스타일 수정할것 2018-06-29 -->
 <template>
-  <div class="container">
-    <p class="txt-main-point">FAQ</p>
-    <div class="line line__default"></div>
-    <div class="row">
+  <div class="contents">
+    <div class="contents-header">
+      <p class="txt-main-point">FAQ</p>
+      <div class="line line__default"></div>
+    </div>
+    <div class="content">
       <ul class="faq-list">
         <li class="faq-item">
           <div class="question" @click="toggleFAQ($event)">
@@ -56,7 +58,7 @@
             <div class="txt-answer">
               <div class="explain">
                 <p>
-                  패션 전문 소싱 디렉터와 스타일리스트들이 고객의 취향과 스타일 관련 데이터를 수집하여 패션트렌드에 맞는 최상의 제품들을 소싱하고 있습니다. 검증된 해외브랜드 및 국내 신진 디자이너 브랜드를 중심으로 서비스하고 있으며, 지속적으로 새로운 제품들을 업데이트하여 다양한 스타일을 경험 하실 수 있도록 하고 있습니다.
+                  패션 전문 소싱 디렉터와 스타일리스트들이 고객의 취향과 스타일 관련 데이터를 수집하여 패션트렌드에 맞는 최상의 제품들을 소싱하고 있습니다. 검증된 해외브랜드 및 국내신진 디자이너 브랜드를 중심으로 서비스하고 있으며, 지속적으로 새로운 제품들을 업데이트하여 다양한 스타일을 경험 하실 수 있도록 하고 있습니다.
                 </p>
               </div>
             </div>
@@ -125,104 +127,177 @@
 
 <script>
 export default {
-  name: 'faq',
+  name: "faq",
   methods: {
     toggleFAQ(e, order) {
-      if (e.target.tagName === 'SPAN') {
+      if (e.target.tagName === "SPAN") {
         const item = e.target.parentNode.parentNode.parentNode;
-        const question = item.querySelector('.question');
-        const answer = item.querySelector('.answer');
-        const icon = question.querySelector('.fa');
-        if (answer.style.display === 'none' || !answer.style.display) {
-          if (order === 'last') {
-            question.style.borderBottomColor = '#dadada';
+        const question = item.querySelector(".question");
+        const answer = item.querySelector(".answer");
+        const icon = question.querySelector(".fa");
+        if (answer.style.display === "none" || !answer.style.display) {
+          if (order === "last") {
+            question.style.borderBottomColor = "#dadada";
           }
-          icon.classList.remove('fa-angle-down');
-          icon.classList.add('fa-angle-up');
-          answer.style.display = 'block';
+          icon.classList.remove("fa-angle-down");
+          icon.classList.add("fa-angle-up");
+          answer.style.display = "block";
         } else {
-          if (order === 'last') {
-            question.style.borderBottomColor = '#fff';
+          if (order === "last") {
+            question.style.borderBottomColor = "#fff";
           }
-          icon.classList.remove('fa-angle-up');
-          icon.classList.add('fa-angle-down');
-          answer.style.display = 'none';
+          icon.classList.remove("fa-angle-up");
+          icon.classList.add("fa-angle-down");
+          answer.style.display = "none";
         }
-      } else if (e.target.tagName === 'P') {
+      } else if (e.target.tagName === "P") {
         const item = e.target.parentNode.parentNode.parentNode;
-        const question = item.querySelector('.question');
-        const answer = item.querySelector('.answer');
-        const icon = question.querySelector('.fa');
-        if (answer.style.display === 'none' || !answer.style.display) {
-          if (order === 'last') {
-            question.style.borderBottomColor = '#dadada';
+        const question = item.querySelector(".question");
+        const answer = item.querySelector(".answer");
+        const icon = question.querySelector(".fa");
+        if (answer.style.display === "none" || !answer.style.display) {
+          if (order === "last") {
+            question.style.borderBottomColor = "#dadada";
           }
-          icon.classList.remove('fa-angle-down');
-          icon.classList.add('fa-angle-up');
-          answer.style.display = 'block';
+          icon.classList.remove("fa-angle-down");
+          icon.classList.add("fa-angle-up");
+          answer.style.display = "block";
         } else {
-          if (order === 'last') {
-            question.style.borderBottomColor = '#fff';
+          if (order === "last") {
+            question.style.borderBottomColor = "#fff";
           }
-          icon.classList.remove('fa-angle-up');
-          icon.classList.add('fa-angle-down');
-          answer.style.display = 'none';
+          icon.classList.remove("fa-angle-up");
+          icon.classList.add("fa-angle-down");
+          answer.style.display = "none";
         }
-      } else if (e.target.tagName === 'I') {
+      } else if (e.target.tagName === "I") {
         const item = e.target.parentNode.parentNode.parentNode.parentNode;
-        const question = item.querySelector('.question');
-        const answer = item.querySelector('.answer');
-        const icon = question.querySelector('.fa');
-        if (answer.style.display === 'none' || !answer.style.display) {
-          if (order === 'last') {
-            question.style.borderBottomColor = '#dadada';
+        const question = item.querySelector(".question");
+        const answer = item.querySelector(".answer");
+        const icon = question.querySelector(".fa");
+        if (answer.style.display === "none" || !answer.style.display) {
+          if (order === "last") {
+            question.style.borderBottomColor = "#dadada";
           }
-          icon.classList.remove('fa-angle-down');
-          icon.classList.add('fa-angle-up');
-          answer.style.display = 'block';
+          icon.classList.remove("fa-angle-down");
+          icon.classList.add("fa-angle-up");
+          answer.style.display = "block";
         } else {
-          if (order === 'last') {
-            question.style.borderBottomColor = '#fff';
+          if (order === "last") {
+            question.style.borderBottomColor = "#fff";
           }
-          icon.classList.remove('fa-angle-up');
-          icon.classList.add('fa-angle-down');
-          answer.style.display = 'none';
+          icon.classList.remove("fa-angle-up");
+          icon.classList.add("fa-angle-down");
+          answer.style.display = "none";
         }
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style scoped lang="scss">
-  .container {
-    padding: 20px 20px 10px 20px;
+.contents {
+  padding: 20px 20px 10px 20px;
+}
+.line {
+  width: 100%;
+  margin-top: 9px;
+  border-width: 2px;
+}
+.content {
+  margin-top: 21px;
+}
+.faq-list {
+}
+.icon {
+  font-size: 22px;
+  align-self: center;
+}
+.faq-item {
+  .question {
+    position: relative;
+    border-bottom: 1px solid #dadada;
+    padding: {
+      top: 29px;
+      bottom: 29px;
+    }
+    user-select: none;
+    &.two-line {
+      padding: {
+        top: 15px;
+        bottom: 15px;
+      }
+    }
+    .txt-question {
+      @include fontSize(16px);
+      display: flex;
+      justify-content: space-between;
+      word-break: keep-all;
+      cursor: pointer;
+      .q {
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: 20px;
+      }
+      .title {
+        flex-grow: 1;
+        flex-shrink: 1;
+        flex-basis: auto;
+      }
+    }
+  }
+  .answer {
+    display: none;
+    padding: 13px 16px 16px 20px;
+    background-color: #f5f5f5;
+    .txt-answer {
+      @include fontSize(15px);
+      word-break: keep-all;
+      .emphasis {
+        color: $color-mine;
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
+    }
+  }
+  &:last-child {
+    .question {
+      border-bottom-color: #fff;
+    }
+  }
+}
+@media (min-width: 768px) {
+  .contents {
+    display: flex;
+    padding: 0 0 35px;
+    position: relative;
   }
   .line {
-    /*position: absolute;*/
-    width: 100%;
-    /*width: calc(100% - 20px);*/
-    margin-top: 9px;
-    border-width: 2px;
-  }
-  .row {
-    margin-top: 21px;
-  }
-  .faq-list {
+    order: -1;
+    left: 203px;
+    width: 997px;
+    position: absolute;
   }
   .icon {
-    font-size: 22px;
-    align-self: center;
+    display: block;
+    font-size: 39px;
+  }
+  .txt-main-point {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 202px;
+  }
+  .content {
+    margin-top: 42px;
+    flex: 1;
   }
   .faq-item {
     .question {
-      position: relative;
-      border-bottom: 1px solid #dadada;
       padding: {
-        top: 29px;
+        top: 28px;
         bottom: 29px;
       }
-      user-select: none;
       &.two-line {
         padding: {
           top: 15px;
@@ -230,17 +305,11 @@ export default {
         }
       }
       .txt-question {
-        font-size: 16px;
-        display: flex;
-        letter-spacing: -1px;
-        line-height: 23px;
-        justify-content: space-between;
-        word-break: keep-all;
-        cursor: pointer;
+        @include fontSize(20px);
         .q {
           flex-grow: 0;
           flex-shrink: 0;
-          flex-basis: 20px;
+          flex-basis: 24px;
         }
         .title {
           flex-grow: 1;
@@ -250,113 +319,16 @@ export default {
       }
     }
     .answer {
-      display: none;
-      padding: 13px 16px 16px 20px;
-      background-color: #f5f5f5;
+      padding: 23px 30px 26px;
       .txt-answer {
-        word-break: keep-all;
-        letter-spacing: -1px;
+        @include fontSize(16px);
         .emphasis {
-          font-weight: 700;
-          line-height: 23px;
-          margin-bottom: 5px;
-          color: #212121;
-          font-size: 15px;
-          letter-spacing: -0.9px;
+          margin-bottom: 15px;
         }
         .explain {
-          line-height: 23px;
-          color: #333;
-          font-size: 15px;
-          letter-spacing: -0.9px;
-        }
-      }
-    }
-    &:last-child {
-      .question {
-        border-bottom-color: #fff;
-      }
-    }
-  }
-  @media (min-width: 768px) {
-    .container {
-      width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      padding: 0 0 35px;
-      position: relative;
-    }
-    .line {
-      order: -1;
-      left: 203px;
-      width: 997px;
-      position: absolute;
-    }
-    .icon {
-      display: block;
-      font-size: 39px;
-    }
-    .txt-main-point {
-      flex-grow: 0;
-      flex-shrink: 0;
-      flex-basis: 202px;
-    }
-    .row {
-      margin-top: 42px;
-      flex: 1;
-    }
-    .faq-item {
-      .question {
-        padding: {
-          top: 28px;
-          bottom: 29px;
-        }
-        &.two-line {
-          padding: {
-            top: 15px;
-            bottom: 15px;
-          }
-        }
-        .txt-question {
-          font-size: 20px;
-          letter-spacing: -1.2px;
-          line-height: 38px;
-          .q {
-            flex-grow: 0;
-            flex-shrink: 0;
-            flex-basis: 24px;
-          }
-          .title {
-            flex-grow: 1;
-            flex-shrink: 1;
-            flex-basis: auto;
-          }
-        }
-      }
-      .answer {
-        padding: 23px 30px 26px;
-        .txt-answer {
-          word-break: keep-all;
-          letter-spacing: -1px;
-          .emphasis {
-            font-size: 16px;
-            line-height: 28px;
-            margin-bottom: 15px;
-            letter-spacing: -1px;
-            color: #333;
-          }
-          .explain {
-            font-size: 16px;
-            line-height: 24px;
-          }
-        }
-      }
-      &:last-child {
-        .question {
-          border-bottom-color: #fff;
         }
       }
     }
   }
-
+}
 </style>

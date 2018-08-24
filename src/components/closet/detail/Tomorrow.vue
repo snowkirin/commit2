@@ -1,133 +1,169 @@
 <template>
-  <div class="tomorrow" :style="(!isShow)? 'padding-top:31px': 'padding-top: 32px'">
-    <div v-if="!isShow">
-      <div class="none">
-        <div class="inner txt-centering">
-          <p>
-            조금만 기다리세요<br/>
-            곧 옷장이 채워집니다.
-          </p>
-        </div>
-      </div>
+  <div class="contents">
+    <div class="contents-header">
+      <h3>데일리룩 후보 중 마음에 드는 의상을 선택해주세요.</h3>
+      <p>(기한 내 미선택 시, 회원님께 더 어울릴 스타일로 자동 지정 후 배송 됩니다.)</p>
     </div>
-    <div v-else>
-      <div>
-        <p class="txt-main-title">
-          데일리룩 후보 중 마음에 드는 의상을 선택해주세요.
-        </p>
-        <p class="txt-tomorrow-caution">
-          (기한 내 미선택 시, 회원님께 더 어울릴 스타일로 자동 지정 후 배송 됩니다.)
-        </p>
-      </div>
-      <div class="clearfix">
-        <div
-          ref="codiFirst"
-          class="codi-suggestion"
-          :class="{selected: this.codiSelected.first}">
+    <div class="content">
+
+      <div class="grid-flex">
+        <div class="column">
           <div>
-            <p class="txt-codi-title en-font">TYPE A</p>
-            <p class="txt-codi-desc">
-              {{printStyleFirst.stylingTitle}}
-            </p>
-          </div>
-          <div class="list-codi">
-            <div class="item" v-for="(data, idx) in printStyleFirst.image" v-if="data !== null" :key="idx">
-              <div class="image">
-                <img :src="$common.IMAGEURL() + data" alt="">
-              </div>
-              <div class="btn-detail">
-                <button
-                  type="button"
-                  :data-attribute="printStyleFirst.productId[idx]"
-                  @click="(idx === 0) ? openDetailModal(products[0]) : openDetailModal(products[1])">
-                  상품 상세보기
-                </button>
+            <div>
+              <!-- Text ZONE-->
+              <p class="txt-type">TYPE A</p>
+              <p class="txt-styling-title">{{ tomorrowData.productA.stylingTitle }}</p>
+            </div>
+            <div>
+              <div
+                v-for="(data, idx) in tomorrowData.productA.products"
+                :key="idx"
+              >
+                <div>
+                  <img :src="$common.ZulyImage()+data.image">
+                </div>
+                <button type="button">상품 상세보기</button>
               </div>
             </div>
-          </div>
-          <div class="style-explain">
-
-            <p class="txt-tip-title">ZULY Comment</p>
-            <!--TODO: 말줄임표 -->
-            <p class="txt-tip-desc" v-html="$common.htmlEnterLine(printStyleFirst.stylingTip)"></p>
-            <!--TODO: 추후에 사용될지 모르는 Hash . 확정될시 변경할 것-->
-            <!--<div class="line line__dashed"></div>
-            <p class="txt-hashtag" v-html="$common.htmlEnterLine(printStyleFirst.hashTag)"></p>-->
-          </div>
-          <div class="btn-select" v-if="$mq !== 'sm' && selectButtonShow">
-            <button
-              @click="selectStyle(printStyleFirst, 'first')"
-              class="btn btn-primary"
-              type="button">
-              선택하기
-            </button>
-          </div>
-
-          <div class="dim-selected" v-if="codiSelected.first">
-            <div class="heart">
-              <img src="/static/img/closet/ico_white.svg" alt="">
+            <div>
+              <p class="txt-styling-tip">{{ tomorrowData.productA.stylingTip }}</p>
             </div>
-            <p class="txt-selected">
-              좋아요.<br/>
-              선택할게요.
-            </p>
+            <div class="btn-selected">
+              <button
+                type="button"
+                class="btn btn-primary h-56"
+              >
+                선택하기
+              </button>
+            </div>
           </div>
         </div>
-        <div
-          ref="codiSecond"
-          class="codi-suggestion"
-          :class="{selected: this.codiSelected.second}">
-          <div>
-            <p class="txt-codi-title en-font">TYPE B</p>
-            <p class="txt-codi-desc">
-              {{printStyleSecond.stylingTitle}}
-            </p>
-          </div>
-          <div class="list-codi">
-            <div class="item" v-for="(data, idx) in printStyleSecond.image" v-if="data !== null" :key="idx">
-              <div class="image">
-                <img :src="$common.IMAGEURL() + data" alt="">
-              </div>
-              <div class="btn-detail">
-                <button
-                  type="button"
-                  :data-attribute="printStyleSecond.productId[idx]"
-                  @click="(idx === 0) ? openDetailModal(products[2]) : openDetailModal(products[3])">
-                  상품 상세보기
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="style-explain">
+        <div class="column">
+        </div>
+      </div>
 
-            <p class="txt-tip-title">ZULY Comment</p>
-            <!--TODO: 말줄임표 -->
-            <p class="txt-tip-desc" v-html="$common.htmlEnterLine(printStyleSecond.stylingTip)"></p>
-            <!--TODO: 추후에 사용될지 모르는 Hash . 확정될시 변경할 것-->
-            <!--<div class="line line__dashed"></div>
-            <p class="txt-hashtag" v-html="$common.htmlEnterLine(printStyleSecond.hashTag)"></p>-->
-          </div>
-          <div class="btn-select" v-if="$mq !== 'sm' && selectButtonShow">
-            <button
-              @click="selectStyle(printStyleSecond, 'second')"
-              class="btn btn-primary"
-              type="button">
-              선택하기
-            </button>
-          </div>
-          <div class="dim-selected" v-if="codiSelected.second">
-            <div class="heart">
-              <img src="/static/img/closet/ico_white.svg" alt="">
-            </div>
-            <p class="txt-selected">
-              좋아요.<br/>
-              선택할게요.
+      <!--<div v-if="!isShow">
+        <div class="none">
+          <div class="inner txt-centering">
+            <p>
+              조금만 기다리세요<br/>
+              곧 옷장이 채워집니다.
             </p>
           </div>
         </div>
       </div>
+      <div v-else>
+        <div class="clearfix">
+          <div
+            ref="codiFirst"
+            class="codi-suggestion"
+            :class="{selected: this.codiSelected.first}">
+            <div>
+              <p class="txt-codi-title en-font">TYPE A</p>
+              <p class="txt-codi-desc">
+                {{printStyleFirst.stylingTitle}}
+              </p>
+            </div>
+            <div class="list-codi">
+              <div class="item" v-for="(data, idx) in printStyleFirst.image" v-if="data !== null" :key="idx">
+                <div class="image">
+                  <img :src="$common.IMAGEURL() + data" alt="">
+                </div>
+                <div class="btn-detail">
+                  <button
+                    type="button"
+                    :data-attribute="printStyleFirst.productId[idx]"
+                    @click="(idx === 0) ? openDetailModal(products[0]) : openDetailModal(products[1])">
+                    상품 상세보기
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="style-explain">
+
+              <p class="txt-tip-title">ZULY Comment</p>
+              &lt;!&ndash;TODO: 말줄임표 &ndash;&gt;
+              <p class="txt-tip-desc" v-html="$common.htmlEnterLine(printStyleFirst.stylingTip)"></p>
+              &lt;!&ndash;TODO: 추후에 사용될지 모르는 Hash . 확정될시 변경할 것&ndash;&gt;
+              &lt;!&ndash;<div class="line line__dashed"></div>
+              <p class="txt-hashtag" v-html="$common.htmlEnterLine(printStyleFirst.hashTag)"></p>&ndash;&gt;
+            </div>
+            <div class="btn-select" v-if="$mq !== 'sm' && selectButtonShow">
+              <button
+                @click="selectStyle(printStyleFirst, 'first')"
+                class="btn btn-primary"
+                type="button">
+                선택하기
+              </button>
+            </div>
+
+            <div class="dim-selected" v-if="codiSelected.first">
+              <div class="heart">
+                <img src="/static/img/closet/ico_white.svg" alt="">
+              </div>
+              <p class="txt-selected">
+                좋아요.<br/>
+                선택할게요.
+              </p>
+            </div>
+          </div>
+          <div
+            ref="codiSecond"
+            class="codi-suggestion"
+            :class="{selected: this.codiSelected.second}">
+            <div>
+              <p class="txt-codi-title en-font">TYPE B</p>
+              <p class="txt-codi-desc">
+                {{printStyleSecond.stylingTitle}}
+              </p>
+            </div>
+            <div class="list-codi">
+              <div class="item" v-for="(data, idx) in printStyleSecond.image" v-if="data !== null" :key="idx">
+                <div class="image">
+                  <img :src="$common.IMAGEURL() + data" alt="">
+                </div>
+                <div class="btn-detail">
+                  <button
+                    type="button"
+                    :data-attribute="printStyleSecond.productId[idx]"
+                    @click="(idx === 0) ? openDetailModal(products[2]) : openDetailModal(products[3])">
+                    상품 상세보기
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="style-explain">
+
+              <p class="txt-tip-title">ZULY Comment</p>
+              &lt;!&ndash;TODO: 말줄임표 &ndash;&gt;
+              <p class="txt-tip-desc" v-html="$common.htmlEnterLine(printStyleSecond.stylingTip)"></p>
+              &lt;!&ndash;TODO: 추후에 사용될지 모르는 Hash . 확정될시 변경할 것&ndash;&gt;
+              &lt;!&ndash;<div class="line line__dashed"></div>
+              <p class="txt-hashtag" v-html="$common.htmlEnterLine(printStyleSecond.hashTag)"></p>&ndash;&gt;
+            </div>
+            <div class="btn-select" v-if="$mq !== 'sm' && selectButtonShow">
+              <button
+                @click="selectStyle(printStyleSecond, 'second')"
+                class="btn btn-primary"
+                type="button">
+                선택하기
+              </button>
+            </div>
+            <div class="dim-selected" v-if="codiSelected.second">
+              <div class="heart">
+                <img src="/static/img/closet/ico_white.svg" alt="">
+              </div>
+              <p class="txt-selected">
+                좋아요.<br/>
+                선택할게요.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>-->
     </div>
-    <div
+
+    <!--<div
       v-if="($mq === 'sm' && isShow && selectButtonShow)"
       class="btn-selected">
       <button
@@ -154,7 +190,7 @@
       ref="detailModal"
       v-if="detailModalShow"
       :detailData="detailModalData"
-      @closeDetailModal="closeDetailModal"></detail-modal>
+      @closeDetailModal="closeDetailModal"></detail-modal>-->
   </div>
 </template>
 
@@ -166,272 +202,126 @@ import DetailModal from '@/components/common/DetailPopup';
 export default {
   name: 'tomorrow',
   components: {
-    AlertModal,
-    DetailModal,
+    // AlertModal,
+    // DetailModal,
   },
   data() {
     return {
-      connectType: '',
+      // connectType: '',
       // 직접접속할때 필요함
-      memberId: 0,
-      tomorrowData: {},
-      isMobile: false,
-      isShow: false,
-      selected: {},
-      alertMsg: '',
-      codiSelected: {
-        first: false,
-        second: false,
+      // memberId: 0,
+      //
+      // isMobile: false,
+      // isShow: false,
+      // selected: {},
+      // alertMsg: '',
+      // codiSelected: {
+      //   first: false,
+      //   second: false,
+      // },
+      // detailModalShow: false,
+      // selectButtonShow: true,
+      // detailModalData: {},
+      // products: [],
+
+      isTomorrowData: false,
+      tomorrowData: {
+        subscriptionStatus: null,
+        subscriptionId: null,
+        subscriptionDate: '',
+        productA: {},
+        productB: {}
       },
-      detailModalShow: false,
-      selectButtonShow: true,
-      detailModalData: {},
-      products: [],
+
     };
   },
   computed: {
     ...mapGetters({
-      tomorrowCloset: 'mypage/closet/getTomorrowCloset',
-      tomorrowNone: 'mypage/closet/getTomorrowNone',
-      tomorrowSelect: 'mypage/closet/getTomorrowSelect',
-      tomorrowDirect: 'login/tomorrowDirect',
       isLogin: 'login/isLogin',
+      Tomorrow: 'subscriptions/Tomorrow',
+      // tomorrowCloset: 'mypage/closet/getTomorrowCloset',
+      // tomorrowNone: 'mypage/closet/getTomorrowNone',
+      // tomorrowSelect: 'mypage/closet/getTomorrowSelect',
+      // tomorrowDirect: 'login/tomorrowDirect',
     }),
-    printStyleFirst() {
-      let firstStyle = {
-        productId: [],
-        description: [],
-        image: [],
-        stylingTip: '',
-        hashTag: '',
-        stylingTitle: '',
-        selected: false,
-        productOptions: [],
-      };
-
-      if (Array.isArray(this.tomorrowData.products)) {
-        if (this.tomorrowData.products[0]) {
-          firstStyle = this.setArrayData(firstStyle, {
-            prdId: this.tomorrowData.products[0].id,
-            description: this.tomorrowData.products[0].description,
-            image: this.tomorrowData.products[0].image,
-            prdOption: this.tomorrowData.products[0].product_options,
-          });
-
-          firstStyle.stylingTip = this.tomorrowData.products[0].styling_tip;
-          firstStyle.stylingTitle = this.tomorrowData.products[0].styling_title;
-          firstStyle.hashTag = this.tomorrowData.products[0].hashtag;
-          firstStyle.selected = (this.tomorrowData.products[0].selected);
-
-        }
-
-        if (this.tomorrowData.products[1]) {
-          firstStyle = this.setArrayData(firstStyle, {
-            prdId: this.tomorrowData.products[1].id,
-            description: this.tomorrowData.products[1].description,
-            image: this.tomorrowData.products[1].image,
-            prdOption: this.tomorrowData.products[1].product_options,
-          });
-        }
-      }
-
-      return firstStyle;
-    },
-    printStyleSecond() {
-      let secondStyle = {
-        productId: [],
-        description: [],
-        image: [],
-        stylingTip: '',
-        hashTag: '',
-        stylingTitle: '',
-        selected: false,
-        productOptions: [],
-      };
-
-      if (Array.isArray(this.tomorrowData.products)) {
-        if (this.tomorrowData.products[2]) {
-          secondStyle = this.setArrayData(secondStyle, {
-            prdId: this.tomorrowData.products[2].id,
-            description: this.tomorrowData.products[2].description,
-            image: this.tomorrowData.products[2].image,
-            prdOption: this.tomorrowData.products[2].product_options,
-          });
-
-          secondStyle.stylingTip = this.tomorrowData.products[2].styling_tip;
-          secondStyle.stylingTitle = this.tomorrowData.products[2].styling_title;
-          secondStyle.hashTag = this.tomorrowData.products[2].hashtag;
-          secondStyle.selected = (this.tomorrowData.products[2].selected);
-        }
-
-        if (this.tomorrowData.products[3]) {
-          secondStyle = this.setArrayData(secondStyle, {
-            prdId: this.tomorrowData.products[3].id,
-            description: this.tomorrowData.products[3].description,
-            image: this.tomorrowData.products[3].image,
-            prdOption: this.tomorrowData.products[3].product_options,
-          });
-        }
-      }
-
-      return secondStyle;
-    },
   },
   methods: {
     ...mapActions({
-      setTomorrowCloset: 'mypage/closet/setTomorrowCloset',
-      setTomorrowSelect: 'mypage/closet/setTomorrowSelect',
-      setTomorrowSelectDirect: 'mypage/closet/setTomorrowSelectDirect',
+      getTomorrow: 'subscriptions/getTomorrow'
+      // setTomorrowCloset: 'mypage/closet/setTomorrowCloset',
+      // setTomorrowSelect: 'mypage/closet/setTomorrowSelect',
+      // setTomorrowSelectDirect: 'mypage/closet/setTomorrowSelectDirect',
     }),
-    openDetailModal(data) {
-      this.detailModalShow = true;
-      this.detailModalData = data;
-    },
-    closeDetailModal() {
-      this.detailModalShow = false;
-    },
-
-    btnSelect(data) {
-      if (data === 'first') {
-        this.codiSelected.first = true;
-        this.codiSelected.second = false;
-      } else {
-        this.codiSelected.first = false;
-        this.codiSelected.second = true;
-      }
-    },
-    centerImage(value) {
-      for (let i = 0; value.length > i; i += 1) {
-        if (value[i] === null) return true;
-      }
-      return false;
-    },
-    isShowFlag(tmr) {
-      if (tmr.products) {
-        this.isShow = true;
-      }
-
-      return true;
-    },
-    printDDay(date) {
-      let changeDay = '';
-      if (date === 0 || date < 0) {
-        changeDay = 'D day';
-      } else {
-        changeDay = `D-${date}일 후`;
-      }
-
-      return changeDay;
-    },
-    async selectStyle(style, type) {
-      if (this.tomorrowData) {
-        let checkSuccess = '';
-        if (this.connectType === 'direct') {
-          // 직접접속했을경우
-          await this.setTomorrowSelectDirect({
-            subscriptionId: this.tomorrowData.subscription_id,
-            products: [...this.parseIntProduct(...style.productId)],
-            memberId: this.memberId,
-          }).then((res) => {
-            checkSuccess = res.data.result;
-          });
-        } else {
-          // 아닐경우
-          await this.setTomorrowSelect({
-            subscriptionId: this.tomorrowData.subscription_id,
-            products: [...this.parseIntProduct(...style.productId)],
-          }).then((res) => {
-            checkSuccess = res.data.result;
-          });
-        }
-        if (checkSuccess) {
-          if (type === 'first') {
-            this.$common.viewAlertModal('<b class="en-font">TYPE A</b> 배송됩니다.', this.$refs, 'alert');
-            this.codiSelected.first = true;
-            this.codiSelected.second = false;
+    processingData() {
+      const data = this.Tomorrow.data;
+      const selectArray = ['styling_tip', 'styling_title','hashtag'];
+      // 데이터 가공
+      let productA = {
+        stylingTip: '',
+        stylingTitle: '',
+        hashtag: '',
+        products: [],
+      };
+      let productB = {
+        stylingTip: '',
+        stylingTitle: '',
+        hashtag: '',
+        products: [],
+      };
+      _.forEach(data.products, (value, idx) => {
+        if (idx === 0 || idx === 1) {
+          if (idx === 0) {
+            const pickData = _.pick(value, selectArray);
+            const omitData = _.omit(value, selectArray);
+            productA.stylingTip = pickData.styling_tip;
+            productA.stylingTitle = pickData.styling_title;
+            productA.hashtag = pickData.hashtag;
+            productA.products.push(omitData);
           } else {
-            this.$common.viewAlertModal('<b class="en-font">TYPE B</b> 배송됩니다.', this.$refs, 'alert');
-            this.codiSelected.first = false;
-            this.codiSelected.second = true;
+            productA.products.push(value);
+          }
+        } else {
+          if (idx === 2) {
+            const pickData = _.pick(value, selectArray);
+            const omitData = _.omit(value, selectArray);
+            productB.stylingTip = pickData.styling_tip;
+            productB.stylingTitle = pickData.styling_title;
+            productB.hashtag = pickData.hashtag;
+            productB.products.push(omitData);
+          }
+          else {
+            productB.products.push(value);
           }
         }
-      }
-    },
-    parseIntProduct(...data) {
-      const rtn = [];
-
-      for (let i = 0; i < data.length; i += 1) {
-        if (data[i] !== null) {
-          rtn.push(parseInt(data[i], 10));
-        }
-      }
-      return rtn;
-    },
-    printArrText(desc) {
-      let rtn = '';
-
-      for (let i = 0; i < desc.length; i += 1) {
-        rtn += this.$common.htmlEnterLine(desc[i]);
-      }
-
-      return rtn;
-    },
-    setArrayData(data, { prdId, description, image, prdOption }) {
-      return {
-        productId: [...data.productId, prdId],
-        description: [...data.description, description],
-        image: [...data.image, image],
-        productOptions: [...data.productOptions, prdOption],
-        stylingTip: data.stylingTip,
-        stylingTitle: data.stylingTitle,
-        hashTag: data.hashTag,
-        selected: data.selected,
-      };
-    },
+      });
+      this.tomorrowData.subscriptionStatus = data.subscription_status;
+      this.tomorrowData.subscriptionId = data.subscription_id;
+      this.tomorrowData.subscriptionDate = data.subscription_date;
+      this.tomorrowData.productA = productA;
+      this.tomorrowData.productB = productB;
+    }
   },
   async created() {
-    if (this.isLogin) {
-      this.connectType = 'login';
-      await this.setTomorrowCloset();
-      this.tomorrowData = this.tomorrowCloset;
-    } else {
-      this.connectType = 'direct';
-      this.tomorrowData = this.tomorrowDirect.data;
-      this.memberId = this.tomorrowDirect.info.member_id;
-      this.$store.state.login.Authentication.userName = this.tomorrowDirect.info.name;
-    }
-    if (this.tomorrowData.products) {
-      if (this.tomorrowData.products[0].selected) {
-        this.codiSelected.first = true;
-      } else if (this.tomorrowData.products[2].selected) {
-        this.codiSelected.second = true;
-      }
-    }
-    this.isShowFlag(this.tomorrowData);
-    this.products = this.tomorrowData.products;
-    if (this.tomorrowData.subscription_status === 14404 || this.tomorrowData.subscription_status === 14405) {
-      // 보이면 안된다.
-      this.selectButtonShow = false;
-    } else {
-      this.selectButtonShow = true;
-    }
-  },
-  mounted() {
-  },
-  updated() {
-  },
-  destroyed() {
+
+    await this.getTomorrow()
+      .then(res => {
+        if (res.data.result) {
+          // 데이터 존재한다면.
+          this.processingData();
+          this.isTomorrowData = true;
+        } else {
+          // 데이터가 존재하지 않는다면
+          this.isTomorrowData = false;
+        }
+      });
   },
 };
 </script>
-
+<style scoped lang="scss" src="@/assets/css/closet-style.scss"></style>
 <style scoped lang="scss">
-  .tomorrow {
-    padding: 31px 20px 20px 20px;
-  }
   .none {
     height: 500px;
-    background: url(/static/img/closet/img_none.png) no-repeat 50% 0;
+    background: url(~@/assets/img/closet/img_none.png) no-repeat 50% 0;
     position: relative;
     .inner {
       position: absolute;
@@ -450,19 +340,16 @@ export default {
     }
   }
 
-  .txt-tomorrow-title {
-    font-size: 16px;
-    line-height: 24px;
-    letter-spacing: -1px;
+  .txt-type {
+    @include fontSize(15px, en);
+    font-weight: 700;
   }
-  .txt-tomorrow-caution {
-    font-size: 14px;
-    letter-spacing: -0.8px;
-    line-height: 22px;
-    color: #797979;
+  .txt-styling-title {
+    @include fontSize(18px);
+    font-weight: 400;
   }
 
-  .codi-suggestion {
+  /*.codi-suggestion {
     background-color: #f9f9f9;
     border: 2px solid #e1e1e1;
     padding: 24px 20px 20px 20px;
@@ -475,7 +362,7 @@ export default {
     &.selected {
       outline: 3px solid #000;
       outline-offset: -3px;
-      /*border: 3px solid #000;*/
+      !*border: 3px solid #000;*!
       .dim-selected {
         color: #fff;
         display: flex;
@@ -568,7 +455,7 @@ export default {
       line-height: 21px;
       margin-bottom: 11px;
       position: relative;
-      /* TODO : Desktop To Mobile */
+      !* TODO : Desktop To Mobile *!
       &::before {
         content: '';
         border-bottom: 2px solid #333;
@@ -613,10 +500,10 @@ export default {
       position: absolute;
       transform: translateX(-50%);
     }
-  }
+  }*/
 
   @media (min-width: 768px) {
-    .tomorrow {
+    /*.tomorrow {
       padding: 30px 0 20px;
       width: 1200px;
       margin: 0 auto;
@@ -668,9 +555,10 @@ export default {
         }
         .image {
           width: 260px;
+          height: 308px;
         }
       }
-      /* TODO:  Desktop To Mobile */
+      !* TODO:  Desktop To Mobile *!
       .style-explain {
         padding-top: 45px;
         .line {
@@ -681,7 +569,7 @@ export default {
 
       .txt-tip-title {
         margin-bottom: 20px;
-        /* TODO : Desktop To Mobile */
+        !* TODO : Desktop To Mobile *!
         &::before {
           width: 35px;
         }
@@ -692,6 +580,6 @@ export default {
           height: 60px;
         }
       }
-    }
+    }*/
   }
 </style>

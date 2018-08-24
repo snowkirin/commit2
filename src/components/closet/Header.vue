@@ -28,28 +28,28 @@ export default {
     padding: 23px 18px 14px;
   }
   .user-info {
-    font-size: 26px;
-    letter-spacing: -1.8px;
-    line-height: 34px;
-    margin-left: -2px;
+    @include fontSize(24px);
   }
   @media (min-width: 768px) {
     .closet-header {
       width: 1200px;
       margin: 0 auto;
       padding: {
-        top: 11px;
+        top: 9px;
         right: 32px;
-        bottom: 11px;
+        bottom: 20px;
         left: 0px;
       }
       font-weight: 300;
     }
     .user-info {
-      font-size: 34px;
-      letter-spacing: -3px;
-      line-height: 50px;
-      font-weight: 300;
+      @include fontSize(28px);
+
     }
+  }
+  @media (min-width: 1280px) {
+   .user-info {
+     @include fontSize(30px);
+   }
   }
 </style>

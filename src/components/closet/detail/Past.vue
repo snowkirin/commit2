@@ -1,5 +1,13 @@
 <template>
-  <div class="past">
+  <div class="contents">
+    <div class="contents-header">
+      <h3>그 동안의 옷장을 확인하실 수 있습니다.</h3>
+    </div>
+    <div class="content">
+
+    </div>
+  </div>
+  <!--<div class="past">
     <div>
       <p class="txt-main-title">그 동안의 옷장을 확인하실 수 있습니다.</p>
     </div>
@@ -22,14 +30,14 @@
                 :key="idx2"
                 class="image"
               >
-                <img :src="(img !== null)? API_IMAGE_URL + img : 'http://via.placeholder.com/112x132?text=Image '" alt=""/>
+                <img :src="(img !== null)? API_IMAGE_URL + img : 'http://via.placeholder.com/60x70?text=Image '" alt=""/>
               </li>
             </ul>
             <div class="style-tip">
               <p class="title">ZULY Comment</p>
               <p class="explain">
-                <!--심플하지만 갖춰입은듯 스타일리쉬 한 룩!
-                - 허리에서 포켓까지 이어진 바이올렛톤의 새틴 배색이 포인트인 팬츠로, 이러한 디자인의 특징을 살려서 블라우스를 입을때 앞면을 살짝..-->
+                &lt;!&ndash;심플하지만 갖춰입은듯 스타일리쉬 한 룩!
+                - 허리에서 포켓까지 이어진 바이올렛톤의 새틴 배색이 포인트인 팬츠로, 이러한 디자인의 특징을 살려서 블라우스를 입을때 앞면을 살짝..&ndash;&gt;
                 {{ printStylingTip(data.styling_tip) }}
               </p>
             </div>
@@ -63,7 +71,7 @@
       </ul>
     </div>
     <custom-modal ref="view" :dataId="dataId" title="" width="500" height="530" modalType="pastView"></custom-modal>
-  </div>
+  </div>-->
 </template>
 
 <script>
@@ -167,7 +175,7 @@ export default {
   },
 };
 </script>
-
+<style scoped lang="scss" src="@/assets/css/closet-style.scss"></style>
 <style scoped lang="scss">
   .past {
     padding: 25px 20px 20px 20px;
@@ -254,7 +262,8 @@ export default {
       padding: 32px 0 0 0;
     }
     .line {
-      margin-bottom: 15px;
+      margin-top: 26px;
+      margin-bottom: 5px;
       border-width: 2px;
     }
     .list-closet {

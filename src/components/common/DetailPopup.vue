@@ -263,10 +263,10 @@ export default {
               margin-top: 0;
             }
             .txt-options {
-              font-size: 15px;
-              line-height: 23px;
+              font-size: 16px;
+              line-height: 24px;
               margin-top: 19px;
-              letter-spacing: -0.9px;
+              letter-spacing: -1px;
               &:first-child {
                 margin-top: 25px;
               }

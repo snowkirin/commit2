@@ -77,7 +77,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .custom-modal {
   z-index: 100;
   position: fixed;

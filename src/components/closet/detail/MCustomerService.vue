@@ -50,7 +50,6 @@
         <div class="req-btn-area">
           <button
             class="btn btn-primary"
-            type="button"
             @click="setInquiries">
             문의하기
           </button>
@@ -190,6 +189,7 @@ export default {
     },
   },
   created() {
+    this.setInquiriesList();
   },
   updated() {
     const inquiriesHtml = document.querySelectorAll('.cs-left-data-title .subject');

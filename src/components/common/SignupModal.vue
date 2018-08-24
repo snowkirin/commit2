@@ -65,7 +65,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .signup-frame {
   display: none;
   position: fixed;
@@ -187,6 +187,7 @@ div.btn-times:after {
   letter-spacing: -0.5px;
   color: #808080;
 }
+
 
 @media screen and (max-width: 486px) {
   .signup-frame {

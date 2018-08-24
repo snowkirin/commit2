@@ -1,28 +1,30 @@
 <template>
-  <div class="container">
-    <div class="container-header">
-      <p class="signup-title">정기구독/회원가입</p>
-      <div class="line line__default"></div>
+  <div class="contents">
+    <div class="contents-header">
+      <h3>회원 정보 및 약관 동의</h3>
     </div>
-    <div class="contents">
-      <form name="joinForm">
-        <div class="inner">
+    <form name="joinForm">
+      <div class="content">
+        <div class="grid-flex">
           <!--Left Side -->
-          <div class="content">
+          <div class="column column-left">
             <div class="user-account">
-              <p class="txt-point">사용자 계정</p>
+              <p class="txt-form-title">사용자 계정</p>
               <div>
                 <div class="form-row">
-                  <div :class="{error : errors.has('name')}">
+                  <div
+                    class="text-field"
+                    :class="{'text-field-error' : errors.has('name')}"
+                  >
                     <input
-                      autocomplete="name"
                       type="text"
-                      class="form-input"
                       name="name"
-                      v-validate="'required'"
+                      placeholder="이름"
+                      autocomplete="name"
                       maxlength="15"
-                      v-model="joinFirst.name"
-                      placeholder="이름">
+                      v-validate="'required'"
+                      v-model="joinData.name"
+                    />
                   </div>
                   <p
                     v-if="errors.has('name')"
@@ -31,16 +33,16 @@
                   </p>
                 </div>
                 <div class="form-row">
-                  <div :class="{error : errors.has('email')}">
+                  <div :class="{'text-field-error' : errors.has('email')}" class="text-field">
                     <input
-                      autocomplete="email"
                       type="email"
-                      class="form-input"
                       name="email"
-                      v-validate="'required|email'"
-                      v-model="joinFirst.email"
+                      placeholder="이메일"
+                      autocomplete="email"
                       maxlength="50"
-                      placeholder="이메일">
+                      v-validate="'required|email'"
+                      v-model="joinData.email"
+                    />
                   </div>
                   <p
                     class="txt-error"
@@ -49,17 +51,18 @@
                   </p>
                 </div>
                 <div class="form-row">
-                  <div :class="{error : errors.has('password')}">
+                  <div :class="{'text-field-error' : errors.has('password')}" class="text-field">
                     <input
-                      autocomplete="new-password"
                       type="password"
-                      class="form-input"
-                      placeholder="비밀번호 8자리 이상의 영문,숫자,특수문자 포함"
                       name="password"
-                      v-validate="{ required: true, regex: pwdRegex }"
+                      placeholder="비밀번호 8자리 이상의 영문,숫자,특수문자 포함"
+                      autocomplete="new-password"
+                      maxlength="256"
+                      ref="password"
+                      v-validate="{ required: true, regex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*?&^])[A-Za-z\d$@$!%*?&]{8,}/ }"
+                      v-model="joinData.password"
                       @keyup="pwdCheck(errors.has('password'))"
-                      v-model="joinFirst.password"
-                      maxlength="256">
+                    />
                   </div>
                   <p
                     class="txt-error"
@@ -68,20 +71,23 @@
                   </p>
                 </div>
                 <div class="form-row">
-                  <div :class="{error : errors.has('password_confirm')}">
+                  <div
+                    class="text-field"
+                    :class="{'text-field-error' : errors.has('passwordConfirm')}"
+                  >
                     <input
-                      autocomplete="new-password"
                       type="password"
-                      class="form-input"
-                      name="password_confirm"
+                      name="passwordConfirm"
                       placeholder="비밀번호 확인"
+                      autocomplete="new-password"
+                      maxlength="256"
                       v-validate="'required|confirmed:password'"
-                      @change="pwdConfirm(errors.has('passwordConfirmation'))"
-                      maxlength="256">
+                    />
                   </div>
                   <p
                     class="txt-error"
-                    v-if="errors.has('password_confirm')">
+                    v-if="errors.has('passwordConfirm')"
+                  >
                     비밀번호가 일치하지 않습니다.
                   </p>
                 </div>
@@ -89,30 +95,34 @@
             </div>
           </div>
           <!--Right Side-->
-          <div class="
-          content">
+          <div class="column column-right">
             <!-- 연락처 정보 -->
             <div class="contact-info">
-              <p class="txt-point">연락처 정보</p>
+              <p class="txt-form-title">연락처 정보</p>
               <div>
                 <div class="form-row">
-                  <div class="form-group" data-grid="7:3" :class="{error : errors.has('phone')}">
-                    <input
-                      autocomplete="tel-national"
-                      type="tel"
-                      class="form-input"
-                      name="phone"
-                      v-validate="'required'"
-                      maxlength="14"
-                      v-model="joinFirst.phone"
-                      placeholder="핸드폰번호">
-                    <button
-                      @click="phoneVerify"
-                      type="button"
-                      id="phoneVerify"
-                      class="btn btn-secondary">
-                      인증
-                    </button>
+                  <div class="grid-flex grid-fixed">
+                    <div class="text-field column" :class="{'text-field-error' : errors.has('phone')}">
+                      <input
+                        type="tel"
+                        name="phone"
+                        placeholder="핸드폰번호"
+                        autocomplete="tel-national"
+                        maxlength="14"
+                        v-validate="{ required: true, regex: /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})/ }"
+                        v-model="joinData.phone"
+                      />
+                    </div>
+                    <div class="column w-31 o-2">
+                      <button
+                        type="button"
+                        class="btn btn-secondary h-50"
+                        id="phoneVerify"
+                        @click="clickPhoneVerify"
+                      >
+                        인증
+                      </button>
+                    </div>
                   </div>
                   <p
                     class="txt-error"
@@ -121,21 +131,26 @@
                   </p>
                 </div>
                 <div class="form-row">
-                  <div class="form-group" data-grid="7:3" :class="{error : errors.has('phone_auth_number')}">
-                    <input
-                      autocomplete="tel-extension"
-                      name="phone_auth_number"
-                      type="number"
-                      class="form-input"
-                      v-validate="'required'"
-                      placeholder="인증번호">
-                    <button
-                      type="button"
-                      id="authKeyConfirm"
-                      @click="authKeyConfirm"
-                      class="btn btn-secondary">
-                      확인
-                    </button>
+                  <div class="grid-flex grid-fixed">
+                    <div class="column text-field" :class="{'text-field-error' : errors.has('phoneAuthNumber')}">
+                      <input
+                        type="text"
+                        name="phoneAuthNumber"
+                        placeholder="인증번호"
+                        autocomplete="tel-extension"
+                        v-validate="'required'"
+                      />
+                    </div>
+                    <div class="column w-31 o-2">
+                      <button
+                        type="button"
+                        class="btn btn-secondary h-50"
+                        id="authKeyConfirm"
+                        @click="authKeyConfirm"
+                      >
+                        확인
+                      </button>
+                    </div>
                   </div>
                   <p
                     class="txt-error"
@@ -144,39 +159,44 @@
                   </p>
                 </div>
                 <div class="form-row">
-                  <div class="form-group" data-grid="7:3" :class="{error : errors.has('zipcode')}">
-                    <input
-                      autocomplete="postal-code"
-                      type="text"
-                      class="form-input"
-                      placeholder="우편번호"
-                      v-validate="'required'"
-                      v-model="joinFirst.zipcode"
-                      @click="openDaumPopup"
-                      readonly
-                      name="zipcode">
-                    <button
-                      type="button"
-                      class="btn btn-secondary"
-                      @click="openDaumPopup">
-                      주소찾기
-                    </button>
+                  <div class="grid-flex grid-fixed">
+                    <div class="column text-field" :class="{'text-field-error' : errors.has('zipcode')}">
+                      <input
+                        type="text"
+                        name="zipcode"
+                        placeholder="우편번호"
+                        autocomplete="postal-code"
+                        readonly
+                        v-validate="'required'"
+                        v-model="joinData.zipcode"
+                        @click="openPostCode"
+                      />
+                    </div>
+                    <div class="column w-31 o-2">
+                      <button
+                        type="button"
+                        class="btn btn-secondary h-50"
+                        @click="openPostCode"
+                      >
+                        주소찾기
+                      </button>
+                    </div>
                   </div>
                   <p></p>
                 </div>
                 <div class="form-row">
-                  <div :class="{error : errors.has('address')}">
+                  <div class="text-field" :class="{'text-field-error' : errors.has('address')}">
                     <input
-                      autocomplete="address-line1"
                       type="text"
-                      class="form-input"
+                      name="address"
                       placeholder="주소"
-                      v-validate="'required'"
-                      readonly
+                      autocomplete="address-line1"
                       maxlength="30"
-                      v-model="joinFirst.addr"
-                      @click="openDaumPopup"
-                      name="address">
+                      readonly
+                      v-validate="'required'"
+                      v-model="joinData.addr"
+                      @click="openPostCode"
+                    />
                   </div>
                   <p
                     class="txt-error"
@@ -185,45 +205,50 @@
                   </p>
                 </div>
                 <div class="form-row">
-                  <div :class="{error : errors.has('detail_address')}">
+                  <div class="text-field" :class="{'text-field-error' : errors.has('detail_address')}">
                     <input
-                      autocomplete="address-line2"
                       type="text"
-                      class="form-input"
+                      name="detail_address"
                       placeholder="상세주소"
-                      v-validate="'required'"
+                      autocomplete="address-line2"
                       maxlength="30"
-                      v-model="joinFirst.addrDetail"
-                      name="detail_address">
+                      ref="detailAddress"
+                      v-validate="'required'"
+                      v-model="joinData.addrDetail"
+                    />
                   </div>
                   <p
                     class="txt-error"
                     v-if="errors.has('detail_address')">
                     상세주소가 입력되지 않았습니다.
                   </p>
-                  <p class="txt-delivery">※ 현재 서울, 경기도 분당, 하남 지역에 국한하여 서비스를 제공하고 있습니다.</p>
+                  <p class="txt-delivery">※ 현재 서울 전지역과 경기 일부 지역에 한하여 서비스를 제공하고 있습니다. <a href="//www.naver.com" target="_blank">(배송지역 보기)</a></p>
                 </div>
               </div>
             </div>
+            <div>
+              <p class="txt-form-title">연령대</p>
+              <ul class="list-flex">
+                <li class="item w-33 h-50" @click="clickAgeRange('number', $event)">20대</li>
+                <li class="item w-33 h-50" @click="clickAgeRange('number', $event)">30대</li>
+                <li class="item w-33 h-50" @click="clickAgeRange('number', $event)">40대</li>
+              </ul>
+              <ul class="list-flex" style="margin-top: -1px">
+                <li class="item w-33 h-50" @click="clickAgeRange('range', $event)">초반</li>
+                <li class="item w-33 h-50" @click="clickAgeRange('range', $event)">중반</li>
+                <li class="item w-33 h-50" @click="clickAgeRange('range', $event)">후반</li>
+              </ul>
+            </div>
             <!-- 추가 정보 -->
             <div class="more-info">
-              <p class="txt-point">[선택] 추가 정보</p>
+              <p class="txt-form-title">추가 정보</p>
               <div class="form-row">
-                <datepicker
-                  name="ann"
-                  input-class="form-input"
-                  placeholder="기념일을 입력하시면, 기념일날 할인 쿠폰 지급"
-                  language="ko"
-                  v-model="joinFirst.ann"
-                  format="MM.dd">
-                </datepicker>
-                <!--<input
-                  placeholder="기념임을 입력하시면, 기념일날 할인 쿠폰 지급"
-                  class="form-input"
-                  type="text"
-                  onfocus="(this.type='date')"
-                  onfocusout="(this.type='text')"
-                  id="date">-->
+                <date-picker
+                  :lang="datepickerConfig.lang"
+                  :format="'MM-DD'"
+                  v-model="joinData.ann"
+                >
+                </date-picker>
               </div>
             </div>
             <!-- 체크박스 -->
@@ -271,140 +296,61 @@
             </div>
           </div>
         </div>
-        <div class="btn-next">
-          <button class="btn btn-primary" type="button" @click="validateBeforeSubmit">다음</button>
-        </div>
-      </form>
-    </div>
-    <address-modal ref="address" dataId="address"></address-modal>
-    <signup-modal ref="private" dataId="private" title="개인 정보 관리 지침" :content="personalText"></signup-modal>
-    <signup-modal ref="use" dataId="use" title="서비스 약관" :content="termsText"></signup-modal>
-    <signup-modal ref="marketing" dataId="marketing" title="마케팅 정보 수신 동의" :content="marketingText"></signup-modal>
-    <alert-modal ref="view" width="320" height="190"></alert-modal>
+      </div>
+      <div class="btn-complete">
+        <button class="btn btn-primary h-56" type="button" @click="validateBeforeSubmit">다음</button>
+      </div>
+    </form>
+    <modal name="postCode" height="auto" width="90%" :scrollable="true" :adaptive="true">
+      <CommonModal modalTitle="주소찾기" :modalCustomCloseFunc="closePostCode">
+        <DaumPostCode @complete="completePostCode"></DaumPostCode>
+      </CommonModal>
+    </modal>
+    <simplert ref="alert" :useRadius="false" :useIcon="false" />
   </div>
-  <!--<div class="signup subContent mauto">
-    <div class="content-title mt70">정기구독/회원가입</div>
-    <div class="signupLine mt25"></div>
-
-    <div class="w100 mt30 mauto">
-      <div class="signup-area d-inlinetable" style="margin-right: 30px;">
-        <div class="signup-title-detail">사용자 계정</div>
-        <div class="field" :class="{ error: errors.has('name') }">
-          <input type="text" name="name" class="form-login-input mt20" placeholder="이름" v-validate="'required'" maxlength="15" />
-          <span class="error" v-show="errors.has('name')">이름을 입력해주세요.</span>
-        </div>
-        <div class="field" :class="{ error: errors.has('email') }">
-          <input type="text" name="email" class="form-login-input mt12" placeholder="이메일" v-validate="'required|email'" maxlength="50" />
-          <span class="error" v-show="errors.has('email')">이메일을 정확하게 입력해주세요.</span>
-        </div>
-        <div class="field" :class="{ error: errors.has('password') }">
-          <input type="password" name="password" class="form-login-input mt12" placeholder="비밀번호 8자리 이상의 영문,숫자,특수문자 포함" v-validate="{ required: true, regex: pwdRegex }" @keyup="pwdCheck(errors.has('password'))" maxlength="256" />
-          <span class="error" v-show="errors.has('password')">{{ pwdMsg }}</span>
-        </div>
-        <div class="field" :class="{ error: errors.has('password_confirm') }">
-          <input type="password" name="password_confirm" class="form-login-input mt12" placeholder="비밀번호 확인" v-validate="'required|confirmed:password'" @change="pwdConfirm(errors.has('passwordConfirmation'))" maxlength="256" />
-          <span class="error" v-show="errors.has('password_confirm')">비밀번호가 일치하지 않습니다.</span>
-        </div>
-      </div>
-      <div class="signup-area signup-area-last d-inlinetable">
-        <div class="signup-title-detail">연락처 정보</div>
-        <div class="field" :class="{ error: errors.has('phone') }">
-          <div class="inputGroup">
-            <input type="text" name="phone" class="form-login-group mt20" placeholder="휴대전화" style="width: 72%;" v-validate="'required'" maxlength="14" />
-            <div style="display: inline-table; width: 3%;"></div>
-            <button id="phoneVerify" class="button-grey" style="width: 25%;" @click="phoneVerify">인증</button>
-          </div>
-          <span class="error" v-show="errors.has('phone')">휴대전화를 입력해주세요.</span>
-        </div>
-        <div class="field" :class="{ error: errors.has('phone_auth_number') }">
-          <div class="inputGroup">
-            <input type="text" name="phone_auth_number" class="form-login-group mt12" placeholder="인증번호" style="width: 72%;" v-validate="'required'" />
-            <div style="display: inline-table; width: 3%;"></div>
-            <button id="authKeyConfirm" class="button-grey" style="width: 25%;" @click="authKeyConfirm">확인</button>
-          </div>
-          <span class="error" v-show="authErr">{{ authErrMessage }}</span>
-        </div>
-        <div class="field datepicker">
-          <datepicker name="ann" class="mt12" input-class="form-login-input" placeholder="기념일을 입력하시면, 기념일날 할인 쿠폰 지급" language="ko" format="MM.dd"></datepicker>
-        </div>
-        <div class="field" :class="{ error: errors.has('zipcode') }">
-          <div class="inputGroup">
-            <input type="text" name="zipcode" class="form-login-group mt12" placeholder="우편번호" style="width: 72%;" v-validate="'required'" />
-            <div style="display: inline-table; width: 3%;"></div>
-            <button class="button-grey" style="width: 25%;" @click="openDaumPopup">주소찾기</button>
-          </div>
-        </div>
-        <div class="field" :class="{ error: errors.has('address') }">
-          <input type="text" name="address" class="form-login-input mt12" placeholder="주소" v-validate="'required'" maxlength="30" />
-          <span class="error" v-show="errors.has('address')">주소가 입력되지 않았습니다.</span>
-        </div>
-        <div class="field" :class="{ error: errors.has('detail_address') }">
-          <input type="text" name="detail_address" class="form-login-input mt12" placeholder="상세주소" v-validate="'required'" maxlength="30" />
-          <span class="error" v-show="errors.has('detail_address')">상세주소가 입력되지 않았습니다.</span>
-        </div>
-        <div class="signup-chk-area mt15">
-          <label class="container">
-            <input type="checkbox" name="private_flag" value="Y" />
-            <span class="checkmark"></span>
-          </label>
-          <div class="checkboxText">
-            개인정보의 수집 및 이용에 대한 동의
-            <span style="margin-left: 5px;" @click="viewModal('private')">자세히 보기</span>
-          </div>
-        </div>
-        <div class="signup-chk-area mt12">
-          <label class="container">
-            <input type="checkbox" name="use_flag" value="Y" />
-            <span class="checkmark"></span>
-          </label>
-          <div class="checkboxText">
-            이용약관
-            <span style="margin-left: 5px;" @click="viewModal('use')">자세히 보기</span>
-          </div>
-        </div>
-      </div>
-      <div class="mt40">
-        <div id="next-btn" class="next-btn" style="width: 392px; float: right;">
-          <button class="button-login button-next" @click="validateBeforeSubmit">
-            다음 (12/13)
-          </button>
-        </div>
-      </div>
-    </div>
-    <address-modal ref="address" dataId="address"></address-modal>
-    <signup-modal ref="private" dataId="private" title="개인정보 관리 지침" :content="privateText"></signup-modal>
-    <signup-modal ref="use" dataId="use" title="이용약관"></signup-modal>
-  </div>-->
 </template>
-
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import Datepicker from 'vuejs-datepicker';
-import AddressModal from '@/components/common/AddressModal';
-import SignupModal from '@/components/common/SignupModal';
+import DatePicker from 'vue2-datepicker';
+import CommonModal from '@/components/common/modal/CommonModal';
+import Simplert from 'vue2-simplert';
 import Info from '@/info';
-import AlertModal from '@/components/common/AlertModal';
 
+const alertObject = {
+  type: 'alert', // 타입
+  customClass: 'popup-custom-class', // 커스텀 클래스 네임
+  disableOverlayClick: false, // 오버레이 클릭시 닫기 방지
+  customCloseBtnText: '확인', // 닫기 버튼 텍스트
+};
 export default {
   name: 'signUp-first',
   components: {
-    Datepicker,
-    AddressModal,
-    SignupModal,
-    AlertModal,
+    DatePicker,
+    CommonModal,
+    Simplert
   },
   data() {
     return {
-      pwdRegex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*?&^])[A-Za-z\d$@$!%*?&]{8,}/,
+      // DatePicker Config
+      datepickerConfig: {
+        lang: {
+          days: ['일','월','화','수','목','금','토'],
+          months: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+          placeholder: {
+            date: '기념임을 입력하시면, 기념일날 할인 쿠폰 지급'
+          }
+        }
+      },
       pwdMsg: '비밀번호를 입력해주세요.',
       isPwd: false,
-      isPwdConfirm: false,
       authErr: false,
       authErrMessage: '',
       personalText: Info.Personal.text, // 개인정보취급방침
       termsText: Info.Terms.text, // 서비스 약관
-      marketingText: Info.Marketing.text,
-      joinFirst: {
+      marketingText: Info.Marketing.text, // 마케팅 동의
+      // 회원가입 정보
+      joinData: {
+        age: 0,
         name: '',
         email: '',
         password: '',
@@ -415,34 +361,75 @@ export default {
         addrDetail: '',
         marketingAgree: 'N',
       },
+      selectedAgeRange: {
+        number: '',
+        range: ''
+      },
+      resultPostCode: {} // 주소 결과값
     };
   },
-  computed: mapGetters({
-    isLogin: 'login/isLogin',
-    phoneAuthKey: 'signup/getPhoneAuthKey',
-    phoneVerifyResult: 'signup/getPhoneVerify',
-    phoneAuth: 'signup/getPhoneAuth',
-  }),
-  watch: {
-    phoneVerifyResult(value) {
-      if (value) {
-        this.startTimer();
-        this.authErr = true;
-      }
-    },
+  computed: {
+    ...mapGetters({
+      isLogin: 'login/isLogin',
+      PhoneVerify: 'signup/PhoneVerify'
+    }),
   },
   methods: {
     ...mapActions({
-      setFirstData: 'signup/setFirstData',
-      setJoinFirst: 'signup/setJoinFirst',
-      actPhoneVerify: 'signup/phoneVerify',
-      actPhoneCheckVerify: 'signup/phoneCheckVerify',
+      setJoin: 'signup/setJoin',
+      postPhone: 'signup/postPhone',
+      patchPhone: 'signup/patchPhone',
     }),
-    viewModal(ref) {
-      this.$refs[ref].openModal();
+    openPostCode() {
+      this.$modal.show('postCode');
     },
-    closeModal(ref) {
-      this.$refs[ref].closeModal();
+    closePostCode() {
+      this.$modal.hide('postCode');
+    },
+    completePostCode(result) {
+      if (result.userSelectedType === 'R') {
+        //  도로명 주소
+        this.joinData.addr = result.roadAddress;
+      } else {
+        //  지번 주소
+        this.joinData.addr = result.jibunAddress;
+      }
+      this.joinData.zipcode = result.zonecode;
+      this.$refs.detailAddress.focus();
+      this.closePostCode();
+    },
+    viewModal(param) {
+      let modalConfig = {};
+      if (param === 'private') {
+        modalConfig = {
+          modalTitle: '개인 정보 관리 지침',
+          modalContent: this.personalText,
+          modalContentType: 'html'
+        }
+      } else if (param === 'use') {
+        modalConfig = {
+          modalTitle: '서비스 약관',
+          modalContent: this.termsText,
+          modalContentType: 'html'
+        }
+      } else if (param === 'marketing') {
+        modalConfig = {
+          modalTitle: '마케팅 정보 수신 동의',
+          modalContent: this.marketingText,
+          modalContentType: 'html'
+        }
+      }
+
+      this.$modal.show(
+        CommonModal,
+        modalConfig,
+        {
+          scrollable: true,
+          height: 'auto',
+          width: '80%',
+          adaptive: true,
+        }
+      );
     },
     pwdCheck(isBoolean) {
       const pwd = document.querySelector('input[name=password]');
@@ -455,136 +442,110 @@ export default {
         this.pwdMsg = '비밀번호가 안전하지 않습니다. (최소 8자리 이상의 영문,숫자,특수문자 포함)';
       }
 
-      if (checkBoolean) this.isPwd = false;
-      else this.isPwd = true;
+      this.isPwd = !checkBoolean;
     },
-    pwdConfirm(isBoolean) {
-      if (isBoolean) this.isPwdConfirm = false;
-      else this.isPwdConfirm = true;
-    },
-    async phoneVerify() {
-      const email = document.querySelector('input[name=email]');
-      const phone = document.querySelector('input[name=phone]');
+    async clickPhoneVerify(event) {
+      const joinForm = document.joinForm,
+        email = joinForm.email,
+        phone = joinForm.phone,
+        phoneAuthNumber = joinForm.phoneAuthNumber;
 
-      if (!this.$common.InputDataValidation(email, '이메일을 먼저 입력해주세요.', true)) return;
+      if( !this.joinData.email ) {
+        _.assign(alertObject, {
+          message: '이메일을 먼저 입력해주세요.',
+          onClose: function() {
+            email.focus();
+          }
+        });
+        this.$refs.alert.openSimplert(alertObject);
+        return;
+      }
 
       this.$validator.validate('phone', phone.value).then((result) => {
         if (result) {
-          if (this.$common.phoneValidation(phone.value)) {
-            this.actPhoneVerify({
-              email: email.value,
-              phone: phone.value.split('-').join(''),
-            });
-
-            return true;
-          }
-          this.$common.viewAlertModal('올바른 휴대폰번호를 입력해주세요.', this.$refs, 'alert');
-          // alert('올바른 휴대폰번호를 입력해주세요.');
+          const phoneData = {
+            email: _.trim(this.joinData.email),
+            phone: _.trim(this.joinData.phone)
+          };
+          this.postPhone(phoneData).then(res => {
+            if (res.data.result) {
+              event.target.disabled = true;
+              this.startTimer();
+              this.authErr = true;
+              phoneAuthNumber.focus();
+            } if (res.data.phoneDuplicated) {
+              _.assign(alertObject, {
+                message: '이미 등록된 핸드폰 번호입니다. 다시 확인해 주세요.',
+              });
+              this.$refs.alert.openSimplert(alertObject);
+            }
+            if (res.data.emailDuplicated) {
+              _.assign(alertObject, {
+                message: '이미 등록된 이메일 주소입니다. 다시 확인해 주세요.',
+              });
+              this.$refs.alert.openSimplert(alertObject);
+            }
+          });
+        } else {
+          _.assign(alertObject, {
+            message: '올바른 휴대폰번호를 입력해주세요.'
+          });
+          this.$refs.alert.openSimplert(alertObject);
         }
-
-        phone.focus();
-        return false;
       });
     },
     async authKeyConfirm() {
-      const phoneAuthNumber = document.querySelector('input[name=phone_auth_number]');
+      const joinForm = document.joinForm,
+        phoneAuthNumber = joinForm.phoneAuthNumber;
 
-      if (!this.phoneAuthKey) {
-        this.$common.viewAlertModal('먼저 휴대전화를 입력하고 인증버튼을 눌러주세요.', this.$refs, 'alert');
-        // alert('먼저 휴대전화를 입력하고 인증버튼을 눌러주세요.');
+      if (this.PhoneVerify.authId === null || this.PhoneVerify.authId === '') {
+        _.assign(alertObject, {
+          message: '먼저 휴대전화를 입력하고 인증버튼을 눌러주세요.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
         return false;
       }
 
-      if (!this.$common.InputDataValidation(phoneAuthNumber, '인증번호를 입력해주세요.', true)) return false;
+      if (phoneAuthNumber.value === '') {
+        _.assign(alertObject, {
+          message: '인증번호를 입력해주세요.',
+          onClose: function() {
+            phoneAuthNumber.focus();
+          }
+        });
+        this.$refs.alert.openSimplert(alertObject);
+        return;
+      }
 
-      await this.actPhoneCheckVerify({
-        authNumber: phoneAuthNumber.value,
-      });
+      let formData = {
+        authId: this.PhoneVerify.authId,
+        authNumber: phoneAuthNumber.value
+      };
+      await this.patchPhone(formData);
 
-      if (this.phoneAuth) {
+      if (this.PhoneVerify.isVerify) {
         const phone = document.querySelector('input[name=phone]');
-
-        alert('인증되었습니다.');
+        _.assign(alertObject, {
+          message: '인증되었습니다.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
         document.querySelector('#phoneVerify').disabled = true;
         document.querySelector('#authKeyConfirm').disabled = true;
         phone.disabled = true;
         phoneAuthNumber.disabled = true;
         this.authErr = false;
-      } else this.$common.viewAlertModal('인증번호를 다시 확인하시고 진행해주세요.', this.$refs, 'alert'); /*alert('인증번호를 다시 확인하시고 진행해주세요.');*/
+        clearInterval(window.interval);
+      } else {
+        _.assign(alertObject, {
+          message: '인증번호를 다시 확인하시고 진행해주세요.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
+      }
 
       return true;
     },
-    validateBeforeSubmit() {
-      const joinForm = document.joinForm;
-      const $this = this;
-
-      this.$validator.validateAll().then((result) => {
-        if (result) {
-          const privateFlag = joinForm.private_flag.checked;
-          const useFlag = joinForm.use_flag.checked;
-          if (!privateFlag) {
-            this.$common.viewAlertModal('개인정보의 수집 및 이용에 동의해주세요.', this.$refs, 'alert');
-            // alert('개인정보의 수집 및 이용에 동의해주세요.');
-            return;
-          }
-          if (!useFlag) {
-            this.$common.viewAlertModal('이용약관을 확인해주세요.', this.$refs, 'alert');
-            // alert('이용약관을 확인해주세요.');
-            return;
-          }
-          if (this.phoneAuth) {
-
-            if (this.joinFirst.ann !== null) {
-              this.joinFirst.ann = this.$moment(this.joinFirst.ann).format('MM.DD');
-            }
-
-            // LocalStorage에 보내기
-            this.$localStorage.set('JoinFirst', JSON.stringify(_.omit(this.joinFirst, ['password'])));
-            // Store에 보내기
-            this.setJoinFirst(this.joinFirst);
-            this.$router.push({ path: '/join/signup/2' });
-            return;
-          }
-          this.$common.viewAlertModal('휴대전화 인증을 진행해주세요.', this.$refs, 'alert');
-          // alert('휴대전화 인증을 진행해주세요.');
-          return;
-        }
-        document.querySelectorAll('div.error')[0].setAttribute('tabindex', -1);
-        document.querySelectorAll('div.error')[0].focus();
-        document.querySelectorAll('div.error')[0].setAttribute('tabindex', null);
-      });
-    },
-    openDaumPopup() {
-      this.viewModal('address');
-      const detailAddress = document.querySelector('input[name=detail_address]');
-      const daum = window.daum;
-      daum.postcode.load(() => {
-        new window.daum.Postcode({
-          width: '100%',
-          height: '433',
-          onclose: (state) => {
-            if (state === 'COMPLETE_CLOSE') {
-              this.closeModal('address');
-            }
-          },
-          oncomplete: (data) => {
-            this.joinFirst.zipcode = data.zonecode;
-            // zipcode.value = data.zonecode;
-
-            if (data.userSelectedType === 'R') {
-              this.joinFirst.addr = data.roadAddress;
-            } else {
-              this.joinFirst.addr = data.jibunAddress;
-            }
-            this.$validator.validate('zipcode');
-            this.$validator.validate('address');
-            detailAddress.focus();
-          },
-        }).embed(document.querySelector('div[name=addressArea]'), {});
-      });
-    },
     startTimer() {
-      const timer = Date.parse(new Date(new Date().getTime() + (3 * 60 * 1000))) / 1000;
+      const timer = Date.parse(new Date(new Date().getTime() + (0.3 * 60 * 1000))) / 1000;
       let minutes;
       let seconds;
 
@@ -604,164 +565,176 @@ export default {
 
         if (printTimer <= 0) {
           clearInterval(interval);
+          _.assign(alertObject, {
+            message: '시간이 초과되었습니다. 다시 인증해주십시오.'
+          });
+          this.$refs.alert.openSimplert(alertObject);
+          document.querySelector('#phoneVerify').disabled = false;
+          this.authErr = false;
         }
       }, 1000);
 
       window.interval = interval;
     },
-    // 마케팅 정보 수신 동의관련 스크립트.
+
+    clickAgeRange(type, event) {
+      this.selectedAgeRange[type] = event.target.innerText;
+      if (!event.target.classList.contains('selected')) {
+        _.forEach(event.target.closest('ul').querySelectorAll('li'), function(value){
+          value.classList.remove('selected')
+        });
+        event.target.classList.add('selected');
+      }
+    },
     toggleMarketing() {
       const isChecked = document.joinForm.marketingFlag.checked;
       if (isChecked) {
-        this.joinFirst.marketingAgree = 'N';
+        this.joinData.marketingAgree = 'N';
       } else {
-        this.joinFirst.marketingAgree = 'Y';
+        this.joinData.marketingAgree = 'Y';
       }
+    },
+    validateBeforeSubmit() {
+      const $this = this;
+      const joinForm = document.joinForm;
+
+      this.$validator.validateAll().then((result) => {
+        if (result) {
+          const privateFlag = joinForm.private_flag.checked;
+          const useFlag = joinForm.use_flag.checked;
+          if (!privateFlag) {
+            _.assign(alertObject, {
+              message: '개인정보의 수집 및 이용에 동의해주세요.'
+            });
+            this.$refs.alert.openSimplert(alertObject);
+            return;
+          }
+          if (!useFlag) {
+            _.assign(alertObject, {
+              message: '이용약관을 확인해주세요.'
+            });
+            this.$refs.alert.openSimplert(alertObject);
+            return;
+          }
+
+          if (_.isEmpty(this.selectedAgeRange.number)) {
+            _.assign(alertObject, {
+              message: '연령대(20대/30대/40대)를 선택해 주세요..'
+            });
+            this.$refs.alert.openSimplert(alertObject);
+            return;
+          }
+          if (_.isEmpty(this.selectedAgeRange.range)) {
+            _.assign(alertObject, {
+              message: '연령대(초반/중반/후반)을 선택해 주세요..'
+            });
+            this.$refs.alert.openSimplert(alertObject);
+            return;
+          }
+          if (this.PhoneVerify.isVerify) {
+            if (this.joinData.ann !== null) {
+              this.joinData.ann = this.$moment(this.joinData.ann).format('MM.DD');
+            }
+            // 연령대
+            if (this.selectedAgeRange.number === '20대') {
+              if (this.selectedAgeRange.range === '초반') {
+                this.joinData.age = 16001;
+              } else if (this.selectedAgeRange.range === '중반') {
+                this.joinData.age = 16002;
+              } else {
+                this.joinData.age = 16003;
+              }
+            } else if (this.selectedAgeRange.number === '30대') {
+              if (this.selectedAgeRange.range === '초반') {
+                this.joinData.age = 16004;
+              } else if (this.selectedAgeRange.range === '중반') {
+                this.joinData.age = 16005;
+              } else {
+                this.joinData.age = 16006;
+              }
+            } else {
+              if (this.selectedAgeRange.range === '초반') {
+                this.joinData.age = 16007;
+              } else if (this.selectedAgeRange.range === '중반') {
+                this.joinData.age = 16008;
+              } else {
+                this.joinData.age = 16009;
+              }
+            }
+            this.setJoin(this.joinData);
+            this.$router.push({ path: '/join/signup/2' });
+            return;
+          }
+          _.assign(alertObject, {
+            message: '휴대전화 인증을 진행해주세요.'
+          });
+          this.$refs.alert.openSimplert(alertObject);
+          return;
+        }
+        document.querySelectorAll('.text-field-error input')[0].setAttribute('tabindex', -1);
+        document.querySelectorAll('.text-field-error input')[0].focus();
+        document.querySelectorAll('.text-field-error input')[0].setAttribute('tabindex', null);
+      });
     },
   },
   created() {
-    const htmlScript = document.createElement('script');
-    htmlScript.setAttribute('src', 'https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js?autoload=false');
-    document.head.appendChild(htmlScript);
-  },
-  mounted() {
-    let localStorage = this.$localStorage.get('JoinFirst');
-    if (localStorage) {
-      localStorage = JSON.parse(localStorage);
-      _.assign(this.joinFirst, localStorage);
+    if (!_.isEmpty(this.Join)) {
+      this.joinData = {
+        name: this.Join.name ? this.Join.name : '',
+        email: this.Join.email ? this.Join.email : '',
+        phone: this.Join.phone ? this.Join.phone : ' ',
+        skirtSize: this.Join.skirtSize ? this.Join.skirtSize : null,
+        pantsSize: this.Join.pantsSize ? this.Join.pantsSize : null,
+        bodyType: this.Join.bodyType ? this.Join.bodyType : null,
+      }
     }
   },
-  beforeMount() {
-    window.addEventListener('scroll', this.btnFixedEvt);
-  },
-  destroyed() {
-    window.removeEventListener('scroll', this.btnFixedEvt);
-  },
+  mounted() {
+  }
 };
 </script>
 
+<style scoped lang="scss" src="@/assets/css/join-style.scss"></style>
 <style scoped lang="scss">
-  @mixin clearfix {
-    &:after {
-      content: '';
-      display: block;
-      clear: both;
-    }
-  }
-  .container {
-    padding: {
-      top: 24px;
-      left: 20px;
-      right: 20px;
-      bottom: 17px;
-    }
-    .container-header {
-      .signup-title {
-        font-size: 24px;
-        line-height: 32px;
-        letter-spacing: -1.4px;
-        text-align: center;
+.contents {
+  .content {
+    .column {
+      // Left
+      .user-account {
+      }
+      // Right
+      .contact-info {
+        padding-top: 26px;
+      }
+      .more-info {
+        padding-top: 26px;
+        .form-row {
+          margin-bottom: 19px;
+        }
+      }
+      .custom-checkbox {
+        margin-bottom: 8px;
       }
     }
-    .contents {
-      .content {
-        // Left
-        .user-account {
-        }
-        // Right
+  }
+}
+.txt-delivery {
+  @include fontSize(14px);
+  color: $color-secondary;
+  margin-top: 10px;
+}
+.form-row {
+  margin-bottom: 10px;
+}
+@media (min-width: 768px) {
+  .contents {
+    .content {
+      .column {
         .contact-info {
-          padding-top: 26px;
-        }
-        .more-info {
-          padding-top: 26px;
-          .form-row {
-            margin-bottom: 19px;
-          }
-        }
-        .custom-checkbox {
-          margin-bottom: 8px;
-        }
-      }
-      .btn-next {
-        width: 100%;
-        margin-top: 41px;
-        button {
-          width: 100%;
-          height: 50px;
+          padding-top: 0;
         }
       }
     }
   }
-  .txt-delivery {
-    font-size: 14px;
-    letter-spacing: -0.8px;
-    line-height: 20px;
-    margin-top: 10px;
-    color: #797979;
-  }
-  .txt-point {
-    margin-bottom: 13px;
-  }
-  .form-row {
-    margin-bottom: 10px;
-  }
-  .line {
-    margin: 16px 0;
-    border-width: 2px;
-  }
-  @media (min-width:768px) {
-    .container {
-      width: 795px;
-      margin-top: 0px;
-      margin-right: auto;
-      margin-bottom: 0px;
-      margin-left: auto;
-      padding: 74px 0 0 0;
-      .container-header {
-        .signup-title {
-          font-size: 32px;
-          line-height: 40px;
-          letter-spacing: -1.7px;
-        }
-        .line {
-          margin: 26px 0 24px 0;
-        }
-      }
-      .contents {
-        display: table;
-        margin: 0 auto;
-        .inner {
-          @include clearfix;
-        }
-        .content {
-          width: 382px;
-          &:nth-child(1) {
-            float: left;
-            margin-right: 30px;
-          }
-          &:nth-child(2) {
-            float: left;
-          }
-          .contact-info {
-            padding-top: 0;
-          }
-        }
-        .btn-next {
-          position: relative;
-          margin-top: 35px;
-          left: auto;
-          bottom: auto;
-          right: auto;
-          text-align: right;
-          button {
-            width: 382px;
-            font-size: 16px;
-            height: 60px;
-            letter-spacing: -1px;
-          }
-        }
-
-      }
-    }
-  }
+}
 </style>
