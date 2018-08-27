@@ -10,7 +10,6 @@
 				</div>
 				<a href="#" class="btn-close" @click="clickBannerHide">
 					<CloseIcon/>
-					<!--<img src="@/assets/img/main/btn_close.svg"/>-->
 				</a>
 			</div>
 			<div class="logo-wrap">
@@ -24,9 +23,9 @@
 			<div class="phrases-wrap">
 				<p>데일리룩 구독 서비스 줄라이</p>
 			</div>
-			<div class="button-wrap">
-				<button class="btn btn-main h-56">로그인</button>
-				<button class="btn btn-primary h-56">회원가입</button>
+			<div class="link-wrap">
+				<router-link to="/login" class="link link-login">로그인</router-link>
+				<router-link to="/join/size" class="link link-sign-up">회원가입</router-link>
 			</div>
 			<div class="arrow-wrap">
 				<ArrowIcon/>
@@ -108,11 +107,21 @@ export default {
 	margin-top: 20px;
 	margin-bottom: 70px;
 }
-	.button-wrap {
-		button {
-			&:nth-child(2) {
-				margin-top: 10px;
-			}
+	.link-wrap {
+		.link {
+			display: block;
+			height: 56px;
+			width: 100%;
+			text-align: center;
+			color: #fff;
+			line-height: 56px;
+		}
+		.link-login {
+			background-color: $color-pink-main;
+		}
+		.link-sign-up {
+			background-color: $color-primary;
+			margin-top: 10px;
 		}
 	}
 	.arrow-wrap {

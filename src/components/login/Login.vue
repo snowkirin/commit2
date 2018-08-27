@@ -100,8 +100,8 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-import { Validator } from "vee-validate";
+import { mapActions, mapGetters } from 'vuex';
+import { Validator } from 'vee-validate';
 import Simplert from 'vue2-simplert';
 
 const dict = {
@@ -167,9 +167,8 @@ export default {
       }
     }
   },
-  created: function() {
+  mounted() {
     if (this.isLogin) {
-      const $this = this;
       _.assign(alertObject, {
         message: '잘못된 경로로 들어오셨습니다.',
         onClose: function() {

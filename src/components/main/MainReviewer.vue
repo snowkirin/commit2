@@ -5,8 +5,8 @@
 			<p>그녀들의 일상 속 줄라이</p>
 		</div>
 		<div class="content">
-			<div class="flex">
-				<div class="row">
+			<div class="list-reviewer">
+				<div class="item item-first">
 					<div class="image-wrap">
 						<img src="https://loremflickr.com/200/315" alt="">
 					</div>
@@ -17,7 +17,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
+				<div class="item item-second">
 					<div class="image-wrap">
 						<img src="https://loremflickr.com/200/315" alt="">
 					</div>
@@ -28,7 +28,8 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
+				<br v-if="$mq === 'md'"/>
+				<div class="item item-third">
 					<div class="image-wrap">
 						<img src="https://loremflickr.com/200/315" alt="">
 					</div>
@@ -58,27 +59,20 @@
 	.content {
 		text-align: center;
 	}
-	.flex {
-		display: flex;
-		flex-wrap: wrap;
-		flex-flow: column;
-		align-items: center;
-	}
-	.row {
+	.item {
 		width: 270px;
+		margin: 20px auto 0;
 		padding-bottom: 20px;
-		margin-top: 20px;
-		&:nth-child(1) {
+		&.item-first {
 			background-color: #e6d3ca;
 			margin-top: 0;
 		}
-		&:nth-child(2) {
+		&.item-second {
 			background-color: #ccdcdf;
 		}
-		&:nth-child(3) {
+		&.item-third {
 			background-color: #eedecc;
 		}
-
 		.image-wrap {
 			width: 200px;
 			margin: 0 auto;
@@ -103,12 +97,21 @@
 		}
 	}
 	@media(min-width:768px) {
-		.flex {
-			flex-direction: row;
+		.item {
+			display: inline-block;
+			vertical-align: top;
+			&.item-second {
+				margin-top: 0;
+				margin-left: 30px;
+			}
 		}
-		.row {
-			margin-top: 0;
+	}
+	@media (min-width: 1280px) {
+		.item {
+			&.item-third {
+				margin-top: 0;
+				margin-left: 30px;
+			}
 		}
-
 	}
 </style>
