@@ -1,28 +1,24 @@
 <template>
   <div class="container">
-    <benefit></benefit>
-    <about></about>
-    <process></process>
-    <faq></faq>
-    <new-arrivals></new-arrivals>
+		<MainFirst/>
+		<MainHowToUse/>
+		<MainReviewer/>
+		<MainFaq/>
   </div>
 </template>
 
 <script>
-import Benefit from '@/components/main/Benefit';
-import About from '@/components/main/About';
-import Process from '@/components/main/Process';
-import Faq from '@/components/main/Faq';
-import NewArrivals from '@/components/main/NewArrivals';
-
+import MainFirst from './MainFirst';
+import MainHowToUse from './MainHowToUse';
+import MainReviewer from './MainReviewer';
+import MainFaq from './MainFaq';
 export default {
-  name: 'main-index',
+  name: 'MainIndex',
   components: {
-    Benefit,
-    About,
-    Process,
-    Faq,
-    NewArrivals
+		MainFirst,
+		MainHowToUse,
+		MainReviewer,
+		MainFaq
   }
 };
 </script>
@@ -31,8 +27,8 @@ export default {
 /* Main Common Style */
 @media (min-width: 768px) {
   .contents {
-    width: 1200px;
-    margin: 0 auto;
+    /*width: 1200px;*/
+    /*margin: 0 auto;*/
   }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <header class="header">
+  <header class="header" v-if="$route.path !== '/'">
     <router-link to="/" class="logo">
       <img src="@/assets/img/logo.png" alt="ZULY">
     </router-link>

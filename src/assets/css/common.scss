@@ -2,6 +2,8 @@
 
 // Font
 @import '~@fortawesome/fontawesome-free/css/all.min.css';
+@import url('https://fonts.googleapis.com/css?family=Cormorant');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:200');
 @import 'font.scss';
 
 *,
@@ -336,6 +338,10 @@ input:-webkit-autofill:focus {
 }
 .btn-secondary {
   background-color: $color-secondary;
+  color: $color-white;
+}
+.btn-main {
+  background-color: $color-pink-button;
   color: $color-white;
 }
 
