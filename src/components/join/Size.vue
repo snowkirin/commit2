@@ -116,17 +116,14 @@
                   {{ bodyTypeText }}
                 </p>
                 <ul class="list-body-type">
-                  <template>
                     <li
                       :class="{selected: joinData.bodyType === data.code}"
                       v-for="(data, idx) in Sizes.body_type"
                       :key="idx"
                       @click="setData('bodyType', data, $event)"
                     >
-                      <img :src="data.url"/>
-                      {{data }}
+                      <img :src="`${require('@/assets/img/signup/img_body'+(idx+1)+'.png')}`"/>
                     </li>
-                  </template>
                 </ul>
               </div>
             </div>
@@ -170,6 +167,7 @@ export default {
   name: 'size',
   data: function() {
     return {
+      baseUrl: process.env.BASE_URL,
       bodyTypeText: '',
       joinData: {
         tallSize: null,
