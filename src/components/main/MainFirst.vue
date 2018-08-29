@@ -87,9 +87,9 @@ export default {
 
 <style lang="scss" scoped>
 .content {
-	height: 100vh;
-	background: url('~@/assets/img/main/img_main_small.png') no-repeat 50% 50%;
-	background-size: cover;
+  height: 100vh;
+  background: url('~@/assets/img/main/img_main_small.png') no-repeat 50% 50%;
+  background-size: cover;
 }
 .banner-wrap {
   @include fontSize(12px);
@@ -101,7 +101,7 @@ export default {
   top: 0;
   .txt-free {
     color: $color-pink-main;
-		font-weight: 700;
+    font-weight: 700;
   }
   .btn-close {
     position: absolute;
@@ -110,13 +110,12 @@ export default {
   }
 }
 .content-inner {
-	max-width: 100%;
-	flex: 0 0 100%;
-	padding: 0 25px;
+  max-width: 100%;
+  flex: 0 0 100%;
+  padding: 0 25px;
 }
 .logo-wrap {
   text-align: center;
-  margin-top: 63px;
   margin-bottom: 50px;
   .logo-svg {
     /deep/ path {
@@ -140,10 +139,10 @@ export default {
   margin-bottom: 70px;
 }
 .link-wrap {
-	.grid-flex {
-		flex: 0 0 100%;
-		max-width: 100%;
-	}
+  .grid-flex {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
   .column {
     &:nth-child(2) {
       margin-top: 10px;
@@ -201,50 +200,47 @@ export default {
   }
 }
 
-	@media(min-width: 768px) {
-		.content {
-			background-image: url('~@/assets/img/main/img_main_large.png')
-		}
-		.banner-wrap {
-			@include fontSize(13px);
-		}
-		/* 768px 부터 Header */
-		.logo-wrap {
-			display: none;
-		}
-		.arrow-wrap {
-			display: none;
-		}
-		.text-wrap {
-			display: flex;
-			flex-direction: column;
-			flex-wrap: wrap;
-		}
-		.slogan-wrap {
-			font-size: 70px;
-			line-height: 64px;
-			margin-bottom: 60px;
-		}
-		.phrases-wrap {
-			@include fontSize(26px);
-			order: -1;
-			margin-top: 0;
-			margin-bottom: 16px;
-		}
-		.link-wrap {
-			.grid-flex {
-				flex: 0 0 530px;
-				max-width: 530px;
-			}
-			.column {
-				&:nth-child(2) {
-					margin-top: 0;
-					margin-left: 10px;
-				}
-			}
-		}
-	}
-	@media(min-width: 1280px) {
-
-	}
+@media (min-width: 768px) {
+  .content {
+    background-image: url('~@/assets/img/main/img_main_large.png');
+  }
+  .banner-wrap {
+    @include fontSize(13px);
+  }
+  /* 768px 부터 Header */
+  .logo-wrap {
+    display: none;
+  }
+  .arrow-wrap {
+    display: none;
+  }
+  .text-wrap {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+  .slogan-wrap {
+    font-size: 70px;
+    line-height: 64px;
+    margin-bottom: 60px;
+  }
+  .phrases-wrap {
+    @include fontSize(26px);
+    order: -1;
+    margin-top: 0;
+    margin-bottom: 16px;
+  }
+  .link-wrap {
+    .grid-flex {
+      flex: 0 0 530px;
+      max-width: 530px;
+    }
+    .column {
+      &:nth-child(2) {
+        margin-top: 0;
+        margin-left: 10px;
+      }
+    }
+  }
+}
 </style>

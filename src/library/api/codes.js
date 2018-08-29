@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 const API_URL = process.env.VUE_APP_API_URL;
 
 export default {
@@ -15,9 +15,13 @@ export default {
         };
       });
   },
-  getFirstDeliveryDays() {
+  getFirstDeliveryDays(data) {
     return axios
-      .get(`${API_URL}/calendar/firstdeliverydays`)
+      .get(`${API_URL}/calendar/firstdeliverydays`, {
+        params: {
+          schymd: data
+        }
+      })
       .then(res => {
         return res;
       })

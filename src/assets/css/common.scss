@@ -19,7 +19,6 @@ body {
   font-family: $font-primary;
   overflow-y: scroll;
   -webkit-font-smoothing: antialiased;
-  font-smoothing: antialiased;
   color: $color-primary;
 }
 
@@ -214,7 +213,6 @@ a:hover {
 input, textarea, select {
   -webkit-appearance: none !important;
   -moz-appearance: none !important;
-  appearance: none !important;
   border-radius: 0 !important;
   background-color: #fff;
   box-shadow: none !important;
@@ -299,7 +297,7 @@ input:-webkit-autofill:focus {
       content: '';
       position: absolute;
       left: 7px;
-      top: 0;
+      top: 2px;
       width: 8px;
       height: 13px;
       border: solid black;
@@ -492,4 +490,21 @@ input:-webkit-autofill:focus {
 // Swiper
 .swiper-pagination-bullet-active {
   background: $color-primary !important;
+}
+
+.zuly-notify {
+  .vue-notification {
+    background-color: #dc828e;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  .notification-content {
+    // Style for content
+    @include fontSize(14px);
+    line-height: 35px;
+    text-align: center;
+    color: #fff;
+    font-weight: 300;
+  }
 }

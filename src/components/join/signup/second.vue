@@ -12,31 +12,30 @@
             <p class="txt-form-title">배송일 지정</p>
             <div>
               <div>
-                <ul class="list-flex">
+                <ul class="list-flex list-delivery-days">
                   <li
                     v-for="(data, idx) in FirstDeliveryDays"
                     :key="idx"
-                    @click="selectDay(data)"
                     class="item w-20 h-50"
-                    :class="{'selected': joinData.deliveryDate === data.solar_date}"
+                    :class="[{'selected': joinData.deliveryDate === data.solar_date}, {'holy-day': data.is_holiday === 'Y'}]"
                     style="flex-direction: column;"
-                    :style="calcDate(data, idx)">
-                    <span class="lang-en">{{data.month_day}}</span>
+                    :style="calcDate(data, idx)"
+                    @click="selectDay(data)"
+                  >
+                    <span class="txt-date-number">{{data.month_day}}</span>
                     <span>{{ data.day_of_week }}</span>
                   </li>
                 </ul>
               </div>
               <p class="txt-delivery-date">신청 주에 수령을 원하시면 별도 연락 부탁드립니다.<br/>(02-6929-3823)</p>
             </div>
-            <notifications group="deliveryDate" width="100%" position="bottom left" :max="1"/>
-            <!--<p v-if="deliveryDay.monthDay || deliveryDay.dayOfWeek" style="color: #333;">※ {{ msgDeliveryDay }}</p>-->
-            <!--<p style="color: #333;">※ {{ msgDeliveryDay }}</p>-->
+            <notifications group="deliveryDate" width="100%" position="bottom left" :max="1" class="zuly-notify"/>
           </div>
           <div class="row">
             <p class="txt-form-title">카드 결제 정보</p>
             <div class="mb-10">
               <div class="grid-flex grid-fixed">
-                <div class="text-field column">
+                <div class="text-field column" :class="{'text-field-error': errors.has('cardNumber')}">
                   <input
                     autocomplete="cc-exp"
                     type="text"
@@ -47,7 +46,7 @@
                     v-model="joinData.cardNumber"
                   >
                 </div>
-                <div class="text-field column w-31 o-2">
+                <div class="text-field column w-31 o-2" :class="{'text-field-error': errors.has('cardExpiry')}">
                   <input
                     autocomplete="cc-exp"
                     type="text"
@@ -70,7 +69,7 @@
               </p>
             </div>
             <div class="mb-10">
-              <div class="text-field">
+              <div class="text-field" :class="{'text-field-error': errors.has('birthDay')}">
                 <input
                   type="text"
                   class="form-input"
@@ -85,7 +84,7 @@
             </div>
             <div>
               <div class="grid-flex grid-fixed">
-                <div class="column text-field">
+                <div class="column text-field" :class="{'text-field-error': errors.has('cardPwd')}">
                   <input
                     type="password"
                     placeholder="비밀번호"
@@ -129,11 +128,13 @@
             <p class="txt-form-title">공동 현관 비밀번호 <br/> <span class="txt-entrance">(문 앞까지 가기 전에 공동 현관이 있는 경우)</span>
             </p>
             <div>
-              <div class="text-field">
+              <div class="text-field" :class="{'text-field-error': errors.has('lobbyPassword')}">
                 <input
                   type="text"
                   v-model="joinData.lobbyPassword"
                   class="form-input"
+                  v-validate="'required'"
+                  name="lobbyPassword"
                   placeholder="현관 비밀번호">
               </div>
             </div>
@@ -182,7 +183,7 @@
             <!-- 주문합계 -->
           <div class="row">
             <div>
-              <table class="order-total-table">
+              <table class="table-order-total">
                 <colgroup>
                   <col width="*">
                   <col :width="($mq === 'sm') ? 100 : 120">
@@ -194,7 +195,7 @@
                 </thead>
                 <tfoot>
                 <tr>
-                  <td>총 결제금액</td>
+                  <td>월 결제금액</td>
                   <td>
                   <span class="txt-number">
                     <vue-numeric
@@ -212,6 +213,10 @@
                   </span>
                     <span class="txt-unit">원</span>
                   </td>
+                </tr>
+                <tr class="first-payment-wrap">
+                  <td>첫 결제 금액</td>
+                  <td>무료</td>
                 </tr>
                 </tfoot>
                 <tbody>
@@ -284,6 +289,13 @@ import { mapActions, mapGetters } from 'vuex';
 import Simplert from 'vue2-simplert';
 import VueNumeric from 'vue-numeric';
 
+const alertObject = {
+  type: 'alert', // 타입
+  customClass: 'popup-custom-class', // 커스텀 클래스 네임
+  disableOverlayClick: false, // 오버레이 클릭시 닫기 방지
+  customCloseBtnText: '확인' // 닫기 버튼 텍스트
+};
+
 export default {
   name: 'signUp-second',
   components: {
@@ -340,13 +352,17 @@ export default {
       postJoin: 'signup/postJoin'
     }),
     selectDay(param) {
-      this.joinData.deliveryDate = param.solar_date;
-      this.deliveryDay.monthDay = param.month_day;
-      this.deliveryDay.dayOfWeek = param.day_of_week;
-      this.$notify({
-        group: "deliveryDate",
-        text: this.msgDeliveryDay
-      });
+      if (param.is_holiday === 'Y') {
+        return;
+      } else {
+        this.joinData.deliveryDate = param.solar_date;
+        this.deliveryDay.monthDay = param.month_day;
+        this.deliveryDay.dayOfWeek = param.day_of_week;
+        this.$notify({
+          group: "deliveryDate",
+          text: `※ ${this.msgDeliveryDay}`
+        });
+      }
     },
     checkCardExpiry(evt) {
       const cardReg = /^(0?[1-9]|1[0-2]|12)(1[9]|[2-9][0-9]|99)$/;
@@ -386,19 +402,29 @@ export default {
         this.joinData.recommendCode === '' ||
         this.joinData.recommendCode === null
       ) {
-        alert('추천인을 입력해 주세요.');
+        _.assign(alertObject, {
+          message: '추천인을 입력해 주세요.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
+        this.isRecommendCode = false;
       } else {
         const formData = {
           id: this.joinData.membershipId,
           code: this.joinData.recommendCode
         };
         await this.getRecommendCode(formData).then(res => {
-          console.log(res);
           if (res.data.result) {
-            alert('정상등록 되었습니다.');
+            _.assign(alertObject, {
+              message: '정상 등록 되었습니다.'
+            });
+            this.$refs.alert.openSimplert(alertObject);
             this.isRecommendCode = true;
           } else {
-            alert('추천인을 정확하게 입력해 주세요.');
+            _.assign(alertObject, {
+              message: '추천인을 정확하게 입력해 주세요.'
+            });
+            this.$refs.alert.openSimplert(alertObject);
+            this.isRecommendCode = false;
           }
         });
       }
@@ -414,46 +440,53 @@ export default {
       );
       // 배송일 지정
       if (this.joinData.deliveryDate === '') {
-        alert('배송일을 선택해주세요.');
+        _.assign(alertObject, {
+          message: '배송일을 선택해주세요.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
         return;
       }
       // 구매 동의 체크박스
       if (!privateFlag) {
-        alert('구매진행에 동의해주세요.');
+        _.assign(alertObject, {
+          message: '구매진행에 동의해주세요.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
         return;
+      }
+      if (this.joinData.recommendCode !== null || this.joinData.recommendCode !== '') {
+        if (!this.isRecommendCode) {
+          _.assign(alertObject, {
+            message: '추천인 확인을 눌러주세요.'
+          });
+          this.$refs.alert.openSimplert(alertObject);
+          return;
+        }
       }
       await this.setJoin(this.joinData);
       this.$validator.validateAll().then(result => {
         if (result) {
           this.postJoin().then(res => {
             if (res.data.result) {
-              alert('성공!');
               this.$router.push({
                 path: '/join/addinfo'
               });
             } else {
-              alert('오류발생');
+              _.assign(alertObject, {
+                message: '오류가 발생 되었습니다. 잠시 후 다시 시도해 주세요.'
+              });
+              this.$refs.alert.openSimplert(alertObject);
             }
           });
         }
+        document
+          .querySelectorAll('.text-field-error input')[0]
+          .setAttribute('tabindex', -1);
+        document.querySelectorAll('.text-field-error input')[0].focus();
+        document
+          .querySelectorAll('.text-field-error input')[0]
+          .setAttribute('tabindex', null);
       });
-      // this.$validator.validateAll().then((result) => {
-      //   console.log(result);
-      //   if (result) {
-      //     this.postJoin().then(res => {
-      //       if (res.result) {
-      //         this.clearStorage();
-      //         alert('성공!');
-      //         this.$router.push({
-      //           path: '/join/addinfo'
-      //         });
-      //         // this.$common.viewAlertModal(signupRtn.msg, this.$refs, 'confirm', '/join/addinfo');
-      //       } else {
-      //         // this.$common.viewAlertModal(signupRtn.msg, this.$refs, 'alert');
-      //       }
-      //     });
-      //   }
-      // });
     },
     calcDate(data, idx) {
       if (idx === 0) {
@@ -513,6 +546,19 @@ export default {
     margin-right: 10px;
   }
 }
+.list-delivery-days {
+  .item {
+    &.holy-day {
+      color: #f45649;
+      border: 1px solid #dadada;
+      background-color: inherit;
+    }
+  }
+  .txt-date-number {
+    @include fontSize(15px, en);
+    line-height: 1;
+  }
+}
 .txt-delivery-date {
   @include fontSize(14px);
   color: $color-secondary;
@@ -541,7 +587,7 @@ export default {
   }
 }
 
-.order-total-table {
+.table-order-total {
   @include fontSize(15px);
   table-layout: fixed;
   width: 100%;
@@ -568,6 +614,11 @@ export default {
   tfoot {
     td {
       font-weight: 700;
+    }
+  }
+  .first-payment-wrap {
+    td {
+      color: #d16e7b;
     }
   }
 }

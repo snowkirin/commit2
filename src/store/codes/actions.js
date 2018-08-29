@@ -49,8 +49,8 @@ export default {
       return res;
     });
   },
-  getFirstDeliveryDays({ commit }) {
-    return Codes.getFirstDeliveryDays().then(res => {
+  getFirstDeliveryDays({ commit }, data) {
+    return Codes.getFirstDeliveryDays(data).then(res => {
       if (res.data.result || res.status === 200) {
         commit(types.GET_FIRST_DELIVERY_DAYS, res.data);
         return res;
