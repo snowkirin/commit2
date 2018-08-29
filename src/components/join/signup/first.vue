@@ -241,14 +241,27 @@
             </div>
             <!-- 추가 정보 -->
             <div class="more-info">
-              <p class="txt-form-title">추가 정보</p>
+              <p class="txt-form-title">[선택] 기념일</p>
               <div class="form-row">
-                <date-picker
+                <div class="text-field" :class="{'text-field-error' : errors.has('ann')}">
+                  <input
+                    type="text"
+                    name="ann"
+                    placeholder="예) 0803"
+                    v-validate="{regex: /(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])/}"
+                    v-model="joinData.ann"/>
+                </div>
+                <p
+                  class="txt-error"
+                  v-if="errors.has('ann')">
+                  기념일을 정확히 입력해 주세요.
+                </p>
+                <!--<date-picker
                   :lang="datepickerConfig.lang"
                   :format="'MM-DD'"
                   v-model="joinData.ann"
                 >
-                </date-picker>
+                </date-picker>-->
               </div>
             </div>
             <!-- 체크박스 -->
@@ -557,7 +570,7 @@ export default {
     },
     startTimer() {
       const timer =
-        Date.parse(new Date(new Date().getTime() + 0.3 * 60 * 1000)) / 1000;
+        Date.parse(new Date(new Date().getTime() + 3 * 60 * 1000)) / 1000;
       let minutes;
       let seconds;
 
@@ -609,7 +622,6 @@ export default {
       }
     },
     validateBeforeSubmit() {
-      const $this = this;
       const joinForm = document.joinForm;
 
       this.$validator.validateAll().then(result => {
@@ -630,26 +642,22 @@ export default {
             this.$refs.alert.openSimplert(alertObject);
             return;
           }
-
-          if (_.isEmpty(this.selectedAgeRange.number)) {
+          if (
+            _.isEmpty(this.selectedAgeRange.number) ||
+            _.isEmpty(this.selectedAgeRange.range)
+          ) {
             _.assign(alertObject, {
-              message: '연령대(20대/30대/40대)를 선택해 주세요..'
-            });
-            this.$refs.alert.openSimplert(alertObject);
-            return;
-          }
-          if (_.isEmpty(this.selectedAgeRange.range)) {
-            _.assign(alertObject, {
-              message: '연령대(초반/중반/후반)을 선택해 주세요..'
+              message: '연령대를 선택해 주세요.'
             });
             this.$refs.alert.openSimplert(alertObject);
             return;
           }
           if (this.PhoneVerify.isVerify) {
-            if (this.joinData.ann !== null) {
-              this.joinData.ann = this.$moment(this.joinData.ann).format(
-                'MM.DD'
-              );
+            if (this.joinData.ann !== null || this.joinData.ann !== '') {
+              const date = this.joinData.ann;
+              const month = date.substring(0, 2);
+              const day = date.substring(2);
+              this.joinData.ann = month + '.' + day;
             }
             // 연령대
             if (this.selectedAgeRange.number === '20대') {
@@ -708,8 +716,7 @@ export default {
         bodyType: this.Join.bodyType ? this.Join.bodyType : null
       };
     }
-  },
-  mounted() {}
+  }
 };
 </script>
 
