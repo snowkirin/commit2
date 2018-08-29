@@ -188,7 +188,7 @@ export default {
     ...mapGetters({
       Sizes: 'codes/Sizes',
       Join: 'signup/Join'
-    }),
+    })
   },
   methods: {
     ...mapActions({
@@ -200,7 +200,8 @@ export default {
       // type: 블라우즈/셔츠, 치마, 바지
       if (type === 'blouse' || type === 'skirt') {
         return {
-          disabled: data === '44' || data === '44반' || data === '66반' || data === '77'
+          disabled:
+            data === '44' || data === '44반' || data === '66반' || data === '77'
         };
       } else if (type === 'pants') {
         return {
