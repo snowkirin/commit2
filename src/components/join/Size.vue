@@ -13,15 +13,14 @@
               <div>
                 <ul class="list-flex">
                   <li
-                    v-for="(data, idx) in Sizes.blouse"
-                    v-if="!(data.name === '44'|| data.name === '77')"
-                    :key="idx"
-                    @click="setData('blouseSize', data, $event)"
                     class="item w-25 h-50 lang-en"
-                    :class="{
-                      selected: joinData.blouseSize  === data.code,
-                      disabled:data.name === '44반' || data.name === '55반'
-                    }">
+                    v-for="(data, idx) in Sizes.blouse"
+                    :key="idx"
+                    :class="[{
+                    selected: joinData.blouseSize  === data.code,
+                    }, setDisabledClass('blouse', data.name)]"
+                    @click="setData('blouseSize', data, $event)"
+                  >
                     {{ data.name }}
                   </li>
                 </ul>
@@ -33,10 +32,9 @@
                 <ul class="list-flex">
                   <li
                     class="item w-25 h-50 lang-en"
-                    :class="{selected: joinData.skirtSize === data.code}"
                     v-for="(data, idx) in Sizes.skirt"
-                    v-if="!(data.name === '44'|| data.name === '77')"
                     :key="idx"
+                    :class="[{selected: joinData.skirtSize === data.code}, setDisabledClass('skirt', data.name)]"
                     @click="setData('skirtSize', data, $event)">
                     {{ data.name }}
                   </li>
@@ -48,11 +46,11 @@
               <div>
                 <ul class="list-flex">
                   <li
-                    v-for="(data, idx) in Sizes.pants"
-                    v-if="!(data.name === '25'|| data.name === '31')"
-                    :key="idx"
                     class="item w-25 h-50 lang-en"
-                    :class="{selected: joinData.pantsSize === data.code}"
+                    v-for="(data, idx) in Sizes.pants"
+                    v-if="data.name !== '31'"
+                    :key="idx"
+                    :class="[{selected: joinData.pantsSize === data.code}, setDisabledClass('pants', data.name)]"
                     @click="setData('pantsSize', data, $event)">
                     {{ data.name }}
                   </li>
@@ -190,7 +188,7 @@ export default {
     ...mapGetters({
       Sizes: 'codes/Sizes',
       Join: 'signup/Join'
-    })
+    }),
   },
   methods: {
     ...mapActions({
@@ -198,6 +196,18 @@ export default {
       setSizes: 'signup/setSizes',
       setJoin: 'signup/setJoin'
     }),
+    setDisabledClass(type, data) {
+      // type: 블라우즈/셔츠, 치마, 바지
+      if (type === 'blouse' || type === 'skirt') {
+        return {
+          disabled: data === '44' || data === '44반' || data === '66반' || data === '77'
+        };
+      } else if (type === 'pants') {
+        return {
+          disabled: data === '25' || data === '30'
+        };
+      }
+    },
     setData(type, data, event) {
       if (!event.target.classList.contains('disabled')) {
         this.joinData[type] = data.code;

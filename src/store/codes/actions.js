@@ -11,7 +11,7 @@ export default {
         * 블라우스/셔츠, 치마에서 44, 44반 이런 부분을 이름(name)순으로 정렬
         * */
         let resultData = {};
-        _.forEach(res.data, function(value, key) {
+        _.forEach(res.data, (value, key) => {
           if (key === 'blouse' || key === 'skirt') {
             let orderData = _.orderBy(value, ['name'], ['asc']);
             if (key === 'blouse') {
