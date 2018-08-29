@@ -1,42 +1,66 @@
 <template>
   <div class="feedback">
-    <div class="rating" v-if="type === 'current' || type === 'direct'">
-      <div class="inner">
-        <p class="txt-rating">현재 대여 중인 <span class="txt-bold">의상 사이즈</span>가 어떠세요?</p>
-        <ul class="list-rating">
-          <li
-            :class="{selected : rating === 'love'}"
-            @click="clickRating(questionCommon[0], 0, 'love')">
-            <div class="image">
-              <img :src="(rating === 'love') ? require('@/assets/img/closet/ico_feedback1_active.svg'): require('@/assets/img/closet/ico_feedback1.svg')">
-            </div>
-            <p class="text">{{ questionCommon[0].answer_text[0] }}</p>
-          </li>
-          <li
-            :class="{selected : rating === 'okay'}"
-            @click="clickRating(questionCommon[0], 1, 'okay')">
-            <div class="image">
-              <img :src="(rating === 'okay') ? require('@/assets/img/closet/ico_feedback2_active.svg'): require('@/assets/img/closet/ico_feedback2.svg')">
-            </div>
-            <p class="text">{{ questionCommon[0].answer_text[1] }}</p>
-          </li>
-          <li
-            :class="{selected : rating === 'bad'}"
-            @click="clickRating(questionCommon[0], 2, 'bad')">
-            <div class="image">
-              <img :src="(rating === 'bad') ? require('@/assets/img/closet/ico_feedback3_active.svg'): require('@/assets/img/closet/ico_feedback3.svg')">
-            </div>
-            <p class="text">{{ questionCommon[0].answer_text[2] }}</p>
-          </li>
-        </ul>
+    <div
+      class="evaluate-wrap"
+      v-if="type === 'current' || type === 'direct'"
+    >
+      <div class="inner-wrap center-align">
+        <div>
+          <div>
+            <p class="txt-how">현재 대여 중인 <strong>의상 사이즈</strong>가 어떠세요?</p>
+            <p class="txt-helpful">※ 고객님의 의견은 맞춤형  큰 도움이 됩니다.</p>
+          </div>
+          <div>
+            <ul class="list-rating">
+              <li
+                :class="{selected : rating === 'love'}"
+                @click="clickRating(questionCommon[0], 0, 'love')">
+                <div class="image">
+                  <GreatIconNomralSVG viewBox="0 0 62 62" v-if="rating !== 'love'"/>
+                  <GreatIconActiveSVG viewBox="0 0 62 62" v-else/>
+                </div>
+                <p class="text">{{ questionCommon[0].answer_text[0] }}</p>
+              </li>
+              <li
+                :class="{selected : rating === 'okay'}"
+                @click="clickRating(questionCommon[0], 1, 'okay')">
+                <div class="image">
+                  <OkayIconNormalSVG viewBox="0 0 62 62" v-if="rating !== 'okay'"/>
+                  <OkayIconActiveSVG viewBox="0 0 62 62" v-else />
+                </div>
+                <p class="text">{{ questionCommon[0].answer_text[1] }}</p>
+              </li>
+              <li
+                :class="{selected : rating === 'bad'}"
+                @click="clickRating(questionCommon[0], 2, 'bad')">
+                <div class="image">
+                  <TooBadNormalSVG viewBox="0 0 62 62" v-if="rating !== 'bad'"/>
+                  <TooBadActiveSVG viewBox="0 0 62 62" v-else/>
+                </div>
+                <p class="text">{{ questionCommon[0].answer_text[2] }}</p>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-      <p class="txt-refer">※ 고객님의 의견은 맞춤형  큰 도움이 됩니다.</p>
+    </div>
+    <div
+      class="postscript-wrap"
+      ref="postscript"
+      v-if="type === 'current' || type === 'direct'"
+      style="display: none;"
+    >
+      <div class="center-align">
+        <p class="txt-postscript">소중한 이용 후기 부탁드립니다.</p>
+      </div>
     </div>
     <div
       class="review"
       ref="review"
-      :style="(type === 'direct') ? 'display:block;': 'display: none;'">
-      <p class="txt-review" v-if="type === 'current' || type === 'direct'">소중한 이용 후기 부탁드립니다.</p>
+      style="display: block"
+      >
+      <!--:style="(type === 'direct') ? 'display:block;': 'display: none;'"-->
+
       <div class="clearfix section-wrapper">
         <div class="section-left">
           <div class="section">
@@ -53,7 +77,7 @@
                     :key="idx2"
                     :class="{selected:  questionCommon[1].customer_answer === questionCommon[1].answer_code[idx2]}"
                     @click="clickEvt(questionCommon[1], idx2, $event)">
-                    <div class="txt-centering">{{ data2 }}</div>
+                    <div class="center-align">{{ data2 }}</div>
                   </li>
                 </ul>
               </div>
@@ -84,13 +108,13 @@
                     :key="idx2"
                     :class="[(data['answer_text'].length === 5 && idx2 === 3) ? 'line-break': '', {selected: data.customer_answer === data.answer_code[idx2]}]"
                     @click="clickEvt(data, idx2, $event)">
-                    <div class="txt-centering">{{ data2 }}</div>
+                    <div class="center-align">{{ data2 }}</div>
                   </li>
                 </ul>
                 <div
-                  class="form-row"
-                  :style="data.customer_answer === '13003' || data.customer_answer === '14003' ? 'display:block;' : 'display: none;'"
+                  class="text-field"
                   ref="reasons"
+                  :style="data.customer_answer === '13003' || data.customer_answer === '14003' ? 'display:block;' : 'display: none;'"
                   v-if="data.question_text === '색상 및 패턴'"
                   :data-questionCode="data.question_code"
                   :data-clothType="data.cloth_type">
@@ -98,7 +122,7 @@
                     type="text"
                     placeholder="색상, 패턴이 맘에 들지 않은 이유를 적어주세요."
                     :value="data.customer_answer_reason === 'null' ? '' : data.customer_answer_reason"
-                    class="form-input">
+                    >
                 </div>
               </div>
             </div>
@@ -133,12 +157,12 @@
                     :class="[(data['answer_text'].length === 5 && idx2 === 3) ? 'line-break': '', {selected: data.customer_answer === data.answer_code[idx2]}]"
                     :key="idx2"
                     @click="clickEvt(data, idx2, $event)">
-                    <div class="txt-centering">{{ data2 }}</div>
+                    <div class="center-align">{{ data2 }}</div>
                   </li>
                 </ul>
                 <div
                   :style="data.customer_answer && data.customer_answer.indexOf('003') !== -1 ? 'display:block;' : 'display: none;'"
-                  class="form-row"
+                  class="text-field"
                   v-if="data.question_text === '색상 및 패턴'"
                   ref="reasons"
                   :data-questionCode="data.question_code"
@@ -147,7 +171,7 @@
                     type="text"
                     placeholder="색상, 패턴이 맘에 들지 않은 이유를 적어주세요."
                     :value="data.customer_answer_reason === 'null' ? '' : data.customer_answer_reason"
-                    class="form-input">
+                  >
                 </div>
               </div>
             </div>
@@ -166,7 +190,7 @@
                     @click="clickNps(data, idx, $event)"
                     :class="{selected: scoreNPS === parseInt(data)}"
                     :key="idx">
-                    <div class="txt-centering">
+                    <div class="center-align">
                       {{ data }}
                     </div>
                   </li>
@@ -181,7 +205,7 @@
         <button
           type="button"
           @click="btnSubmit"
-          class="btn btn-primary">
+          class="btn btn-primary h-56">
           제출 하기
         </button>
       </div>
@@ -191,6 +215,14 @@
 </template>
 
 <script>
+
+import GreatIconNomralSVG  from '@/assets/img/closet/ico_feedback1_off.svg?inline';
+import GreatIconActiveSVG from '@/assets/img/closet/ico_feedback1_on.svg?inline';
+import OkayIconNormalSVG from '@/assets/img/closet/ico_feedback2_off.svg?inline';
+import OkayIconActiveSVG from '@/assets/img/closet/ico_feedback2_on.svg?inline';
+import TooBadNormalSVG from '@/assets/img/closet/ico_feedback3_off.svg?inline';
+import TooBadActiveSVG from '@/assets/img/closet/ico_feedback3_on.svg?inline';
+
 import AlertModal from '@/components/common/AlertModal';
 import Closet from '@/library/api/closet';
 
@@ -211,6 +243,12 @@ export default {
     }
   },
   components: {
+    GreatIconNomralSVG,
+    GreatIconActiveSVG,
+    OkayIconNormalSVG,
+    OkayIconActiveSVG,
+    TooBadNormalSVG,
+    TooBadActiveSVG,
     AlertModal,
     VueJsonPretty
   },
@@ -242,19 +280,19 @@ export default {
       if (data.question_text === '색상 및 패턴') {
         if (data.answer_text[index] === '별로') {
           event.target.parentElement.parentElement.parentElement.querySelector(
-            '.form-row'
+            '.text-field'
           ).style.display =
             'block';
           event.target.parentElement.parentElement.parentElement
-            .querySelector('.form-row')
+            .querySelector('.text-field')
             .setAttribute('data-answerCode', data.answer_code[index]);
         } else {
           event.target.parentElement.parentElement.parentElement.querySelector(
-            '.form-row'
+            '.text-field'
           ).style.display =
             'none';
           event.target.parentElement.parentElement.parentElement
-            .querySelector('.form-row')
+            .querySelector('.text-field')
             .querySelector('input').value =
             '';
         }
@@ -369,10 +407,12 @@ export default {
           return false;
         });
       this.rating = string;
+      this.$refs.postscript.style.display = 'block';
       this.$refs.review.style.display = 'block';
     }
   },
   created() {
+    console.log(this.data, 'THIS DATA');
     if (this.data.result) {
       this.subId = this.subscriptionId;
       this.feedbackId = this.data.feedback_id;
@@ -404,21 +444,32 @@ export default {
   // 부모의 패딩값 만큼.
   width: 100%;
 }
-.rating {
+
+/* 평가 부분*/
+.evaluate-wrap {
   text-align: center;
-  .inner {
-    background-image: url("~@/assets/img/closet/img_feedback.png");
+  margin-bottom: 20px;
+  .inner-wrap {
+    background: {
+      image: url('~@/assets/img/closet/img_feedback.png');
+      position: 50% 50%;
+      size: cover;
+    }
     height: 187px;
-    background-position: 50% 50%;
-    background-size: cover;
-    opacity: 0.9;
-    padding-top: 32px;
-    margin-bottom: 15px;
+    opacity: 0.8;
   }
-  .txt-rating {
+  .txt-how {
     @include fontSize(16px);
     color: #fff;
+    strong {
+      font-weight: 700;
+    }
   }
+  .txt-helpful {
+    @include fontSize(12px);
+    color: #b8b8b8;
+  }
+
   .list-rating {
     font-size: 0;
     margin-top: 21px;
@@ -441,7 +492,7 @@ export default {
       }
     }
     .image {
-      img {
+      svg {
         width: 50px;
         height: 50px;
       }
@@ -451,33 +502,33 @@ export default {
     }
   }
 }
+
+.postscript-wrap {
+  position: relative;
+  background-color: #bbb;
+  height: 40px;
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    border-bottom: 10px solid #bbb;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .txt-postscript {
+    @include fontSize(15px);
+    color: #fff;
+  }
+}
 .review {
-  margin-top: 26px;
   border-bottom: 1px solid #333;
   background-color: #f5f5f5;
   padding-bottom: 40px;
   padding-left: 20px;
   padding-right: 20px;
-  .txt-review {
-    @include fontSize(15px);
-    background-color: #797979;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-    color: #fff;
-    text-align: center;
-    height: 40px;
-    position: relative;
-    &::before {
-      content: "";
-      display: block;
-      position: absolute;
-      border-bottom: 8px solid #797979;
-      border-left: 8px solid transparent;
-      border-right: 8px solid transparent;
-      top: -8px;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-  }
   .section-wrapper {
     background-color: #f5f5f5;
   }
@@ -494,9 +545,6 @@ export default {
     margin-bottom: 12px;
     text-indent: -1px;
   }
-  .txt-refer {
-    margin-top: 4px;
-  }
   .row {
     padding-top: 36px;
     .image {
@@ -510,7 +558,7 @@ export default {
       }
     }
   }
-  .form-row {
+  .text-field {
     margin-top: 10px;
   }
   // 기본모양
@@ -521,7 +569,7 @@ export default {
     // clearfix
     &::after {
       display: block;
-      content: "";
+      content: '';
       clear: both;
     }
     li {
@@ -566,27 +614,23 @@ export default {
 }
 
 @media (min-width: 768px) {
-  .feedback {
-    margin-left: 0;
-    width: auto;
-  }
-  .rating {
-    width: 1200px;
-    margin: 0 auto;
-    .inner {
-      height: 244px;
-      padding-top: 52px;
-      margin-bottom: 20px;
+
+  .evaluate-wrap {
+    .inner-wrap {
+
     }
-    .txt-rating {
-      font-size: 20px;
-      line-height: 28px;
+    .txt-how {
+      @include fontSize(20px);
+      margin-bottom: 5px;
     }
+    .txt-helpful {
+      @include fontSize(14px);
+    }
+
     .list-rating {
       margin-top: 24px;
       li {
-        font-size: 15px;
-        letter-spacing: -0.9px;
+        @include fontSize(15px);
         opacity: 0.6;
         &:nth-child(2) {
           margin-left: 52px;
@@ -605,6 +649,24 @@ export default {
         margin-top: 12px;
       }
     }
+  }
+
+  .feedback {
+    margin-left: 0;
+    width: auto;
+  }
+  .rating {
+    width: 1200px;
+    margin: 0 auto;
+    .inner {
+      height: 244px;
+      padding-top: 52px;
+      margin-bottom: 20px;
+    }
+    .txt-rating {
+      @include fontSize(20px);
+    }
+
   }
   .review {
     margin-top: 28px;
@@ -649,7 +711,7 @@ export default {
       padding-right: 59px;
       &::before {
         position: absolute;
-        content: "";
+        content: '';
         display: block;
         top: 55px;
         left: 50%;

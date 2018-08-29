@@ -19,11 +19,10 @@ export default {
       return res;
     });
   },
-  putTomorrow({ commit }, data ) {
-    return Subscriptions.putTomorrow(data)
-      .then(res => {
-        return res;
-      })
+  putTomorrow({ commit }, data) {
+    return Subscriptions.putTomorrow(data).then(res => {
+      return res;
+    });
   },
   getProductDetail({ commit }, data) {
     return Subscriptions.getProductDetail(data).then(res => {
@@ -37,10 +36,22 @@ export default {
       return res;
     });
   },
+  /*
+  * data = { subscriptionId: id, type: 'current' or 'past' }
+  * */
   getFeedbacks({ commit }, data) {
-    return Subscriptions.getFeedbacks(data).then(res => {
+    const formData = {
+      subscriptionId: data.subscriptionId
+    }
+    return Subscriptions.getFeedbacks(formData).then(res => {
       if (res.data.result) {
-        commit(types.GET_CURRENT_FEEDBACKS, res.data);
+        if (data.type === 'current') {
+          // 과거의 옷장
+          commit(types.GET_CURRENT_FEEDBACKS, res.data);
+        } else if (data.type === 'past') {
+        // 현재의 옷장
+          commit(types.GET_PAST_FEEDBACKS, res.data);
+        }
       }
       return res;
     });
@@ -53,5 +64,20 @@ export default {
       }
       return res;
     });
+  },
+  getPast({ commit }) {
+    return Subscriptions.getPast().then(res => {
+      if (!_.isEmpty(res.data.result)) {
+        // 데이터가 있다면
+        commit(types.GET_PAST_SUCCESS, res.data.result);
+      } else {
+        commit(types.GET_PAST_FAILED);
+      }
+    });
+  },
+  getPastDetail({ commit }, data) {
+    return Subscriptions.getPastDetail(data).then(res => {
+      console.log(res);
+    })
   }
 };

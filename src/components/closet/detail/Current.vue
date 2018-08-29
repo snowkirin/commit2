@@ -4,7 +4,7 @@
     <div class="content">
       <div v-if="!isCurrentData">
         <div class="none">
-          <div class="inner txt-centering">
+          <div class="inner center-align">
             <p>
               조금만 기다리세요<br/>
               곧 옷장이 채워집니다.
@@ -21,6 +21,7 @@
           :type="isFeedbacksDirect ? 'direct' : 'current'">
           <!--:subscriptionId="feedbackDirect.subscription_id ? feedbackDirect.subscription_id : currentCloset.subscription_id"-->
         </feedBack>
+        {{feedbacksData}}
         <div class="current" v-show="!isFeedbacksDirect">
           <!-- Swiper ?-->
           <div class="product-image">
@@ -31,6 +32,7 @@
                     class="item"
                     v-for="(data, idx) in currentData.products"
                     :key="idx"
+                    v-if="data.id !== null"
                   >
                     <div class="img-box">
                       <img :src="$common.ZulyImage(data.image.width)+data.image.path" alt="">
@@ -48,6 +50,7 @@
                   class="item"
                   v-for="(data, idx) in currentData.products"
                   :key="idx"
+                  v-if="data.id !== null"
                 >
                   <div class="img-box">
                     <img :src="$common.ZulyImage(data.image.width)+data.image.path" alt="">
@@ -130,38 +133,34 @@ export default {
   computed: {
     ...mapGetters({
       isLogin: 'login/isLogin',
-      Current: 'subscriptions/Current'
-      // currentCloset: 'mypage/closet/getCurrentCloset',
-      // currentNone: 'mypage/closet/getCurrentNone',
-      // feedbackDirect: 'login/feedbackDirect',
+      CurrentResult: 'subscriptions/CurrentResult', // 현재의 옷장 데이터
+      CurrentImages: 'subscriptions/CurrentImages', // 현재의 옷장 이미지 데이터
+      CurrentFeedbacks: 'subscriptions/CurrentFeedbacks', // 현재의 옷장 피드백 데이터
+      CurrentFeedBacksDirect: 'subscriptions/CurrentFeedBacksDirect' // 현재의 옷장 피드백 직접접속 데이터
     })
   },
   methods: {
     ...mapActions({
       getCurrent: 'subscriptions/getCurrent',
       getFeedbacks: 'subscriptions/getFeedbacks'
-      // setCurrentCloset: 'mypage/closet/setCurrentCloset',
-      // buyUsedProduct: 'mypage/closet/buyUsedProduct',
-      // initPaymentCurrent: 'mypage/closet/initPaymentCurrent',
     }),
     setCurrentData() {
+      // CurrentResult를 관리하기 편하게 변환
       this.currentData = {
-        subscriptionId: this.Current.result[0].subscription_id,
-        stylist: this.Current.result[0].stylist,
-        stylingTitle: this.Current.result[0].styling_title,
-        stylingTip: this.Current.result[0].styling_tip,
-        hashTag: this.Current.result[0].hashtag,
-        products: this.Current.result[0].products
+        subscriptionId: this.CurrentResult[0].subscription_id,
+        stylist: this.CurrentResult[0].stylist,
+        stylingTitle: this.CurrentResult[0].styling_title,
+        stylingTip: this.CurrentResult[0].styling_tip,
+        hashTag: this.CurrentResult[0].hashtag,
+        products: this.CurrentResult[0].products
       };
-    },
-    callFeedbacks(formData) {}
+    }
   },
   async created() {
     // 피드백 직접접속을 위한 분기
     if (this.isLogin) {
       // 로그인 상태
-      console.log('로그인');
-      if (!_.isEmpty(this.Current)) {
+      if (this.CurrentResult.length === 0) {
         // 스토어에 현재의 옷장 데이터가 없다면 API 호출.
         await this.getCurrent().then(res => {
           if (_.isEmpty(res.data.result)) {
@@ -171,16 +170,17 @@ export default {
             // 현재의 옷장 데이터가 있다면
             this.setCurrentData();
             // 피드백 API 호출
-            const formData = {
-              subscriptionId: this.currentData.subscriptionId
+            const formFeedbackData = {
+              subscriptionId: this.currentData.subscriptionId,
+              type: 'current'
             };
-            this.getFeedbacks(formData).then(res => {
+            this.getFeedbacks(formFeedbackData).then(res => {
               if (res.data.result) {
                 // 피드백 데이터가 있다면
-                this.feedbacksData = this.Current.feedbacks;
-                console.log(this.feedbacksData);
+                this.feedbacksData = this.CurrentFeedbacks;
                 this.isFeedbacksData = true;
-              } else {
+              }
+              else {
                 // 피드백 데이터가 없다면
                 this.isFeedbacksData = false;
               }
@@ -188,21 +188,38 @@ export default {
             this.isCurrentData = true;
           }
         });
-      } else {
+      }
+      else {
         // 스토어에 현재의 옷장 데이터가 있다면  currentData에 필터해서 넣는다.
         this.setCurrentData();
+        const formFeedbackData = {
+          subscriptionId: this.currentData.subscriptionId,
+          type: 'current'
+        };
+        this.getFeedbacks(formFeedbackData).then(res => {
+          if (res.data.result) {
+            // 피드백 데이터가 있다면
+            this.feedbacksData = this.CurrentFeedbacks;
+            this.isFeedbacksData = true;
+          }
+          else {
+            // 피드백 데이터가 없다면
+            this.isFeedbacksData = false;
+          }
+        });
         this.isCurrentData = true;
       }
-    } else {
+    }
+    else {
       // 비로그인 상태
-      console.log('비로그인!');
       const formData = {
-        subscriptionId: this.Current.feedbacksDirect.subscription_id
+        subscriptionId: this.CurrentFeedBacksDirect.subscription_id,
+        type: 'current'
       };
       this.getFeedbacks(formData).then(res => {
         if (res.data.result) {
           // 피드백 데이터가 있다면
-          this.feedbacksData = this.Current.feedbacks;
+          this.feedbacksData = this.CurrentFeedbacks;
           this.isFeedbacksData = true;
           this.isFeedbacksDirect = true;
         } else {

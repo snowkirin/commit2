@@ -131,7 +131,7 @@
                   :key="idx"
                   @click="clickPreferColor(data, $event)"
                 >
-                  <div class="txt-centering" >
+                  <div class="center-align" >
                     <span>{{data.name}}</span>
                   </div>
                 </li>
@@ -142,7 +142,7 @@
                   :key="idx"
                   @click="clickPattern(data, $event)"
                   :class="[patternName(data.name), {selected: data.code === styleData.preferPattern}]">
-                  <div class="txt-centering">
+                  <div class="center-align">
                     <span>{{data.name}}</span>
                   </div>
                 </li>
@@ -640,7 +640,7 @@ export default {
       color: #333;
       border: 2px solid #333;
     }
-    .txt-centering {
+    .center-align {
       span {
         background-color: #fff;
         padding: 0 2px;

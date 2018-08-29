@@ -8,9 +8,9 @@
 			<div class="list-reviewer">
 				<div class="item item-first">
 					<div class="image-wrap">
-						<img src="https://loremflickr.com/200/315" alt="">
+						<img src="~@/assets/img/main/img_reviewer1.png" alt="">
 					</div>
-					<div class="text-wrap txt-centering">
+					<div class="text-wrap center-align">
 						<div>
 							<p class="txt-comment">지인 추천으로 베타 오픈때 이용해보았는데, 디자이너샵에서 갖고싶었던 옷을 추천해주셔서 기분이 너무 좋았어요~</p>
 							<p class="txt-user">20대 후반 직장인</p>
@@ -19,9 +19,9 @@
 				</div>
 				<div class="item item-second">
 					<div class="image-wrap">
-						<img src="https://loremflickr.com/200/315" alt="">
+						<img src="~@/assets/img/main/img_reviewer2.png" alt="">
 					</div>
-					<div class="text-wrap txt-centering">
+					<div class="text-wrap center-align">
 						<div>
 							<p class="txt-comment">가을이 짧아져서, 옷 사기 애매한데 렌탈해서 입으니 너무 좋네요~</p>
 							<p class="txt-user">30대 초반 직장인</p>
@@ -31,9 +31,9 @@
 				<br v-if="$mq === 'md'"/>
 				<div class="item item-third">
 					<div class="image-wrap">
-						<img src="https://loremflickr.com/200/315" alt="">
+						<img src="~@/assets/img/main/img_reviewer3.png" alt="">
 					</div>
-					<div class="text-wrap txt-centering">
+					<div class="text-wrap center-align">
 						<div>
 							<p class="txt-comment">평소와 다른 스타일 선택 해봤는데 좀 어색하긴 한데, 다들 잘 어울린다고 해서 기분이 좋은 하루가 되었어요^^</p>
 							<p class="txt-user">30대 후반 직장인</p>
@@ -48,7 +48,7 @@
 
 <script>
 	export default {
-		name: "MainReviewer"
+		name: 'MainReviewer'
 	}
 </script>
 <style scoped lang="scss" src="@/assets/css/main-style.scss"></style>

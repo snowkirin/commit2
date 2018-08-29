@@ -1,5 +1,5 @@
-import Codes from "@/library/api/codes";
-import types from "./mutation-types";
+import Codes from '@/library/api/codes';
+import types from './mutation-types';
 
 export default {
   getSizes({ commit }) {

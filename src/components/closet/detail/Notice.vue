@@ -96,25 +96,11 @@ export default {
   @include fontSize(15px);
 }
 .table {
+  @include fontSize(15px);
   width: 100%;
   table-layout: fixed;
   border-top: 2px solid #333;
   border-bottom: 1px solid #333;
-}
-colgroup {
-  .index {
-    width: 50px;
-  }
-  .date {
-    width: 95px;
-  }
-}
-.table-head {
-  font-weight: 700;
-}
-.table-head,
-.table-body {
-  @include fontSize(15px);
   th,
   td {
     height: 52px;
@@ -124,9 +110,23 @@ colgroup {
       height: auto;
     }
   }
+  th {
+    font-weight: 700;
+  }
   td {
     border-top: 1px solid #e9e9e9;
   }
+}
+colgroup {
+  .index {
+    width: 50px;
+  }
+  .date {
+    width: 95px;
+  }
+}
+.table-head,
+.table-body {
   .index {
     text-align: center;
   }

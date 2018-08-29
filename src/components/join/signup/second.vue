@@ -96,7 +96,7 @@
                     name="cardPwd">
                 </div>
                 <div class="column w-25">
-                  <div class="txt-centering">
+                  <div class="center-align">
                     <div>
                       <span class="icon-dot">&middot;</span>
                       <span class="icon-dot">&middot;</span>

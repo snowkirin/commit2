@@ -23,7 +23,7 @@ import Closet from '@/components/closet/Index.vue';
 import ClosetTomorrow from '@/components/closet/detail/Tomorrow.vue';
 import ClosetCurrent from '@/components/closet/detail/Current.vue';
 import ClosetPast from '@/components/closet/detail/Past.vue';
-import ClosetRespView from '@/components/closet/detail/RespView.vue';
+import ClosetCustomerService from '@/components/closet/detail/CustomerService.vue';
 import ClosetNotice from '@/components/closet/detail/Notice.vue';
 import ClosetMypageSecurity from '@/components/closet/detail/MypageSecurity.vue';
 import ClosetMypage from '@/components/closet/detail/Mypage.vue';
@@ -150,7 +150,7 @@ const router = new Router({
             },
             {
               path: "cs",
-              component: ClosetRespView,
+              component: ClosetCustomerService,
               meta: { requiresAuth: true }
             },
             {

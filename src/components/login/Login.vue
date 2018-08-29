@@ -128,8 +128,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      isLogin: "login/isLogin",
-      Authentication: "login/Authentication"
+      isLogin: 'login/isLogin',
+      Authentication: 'login/Authentication'
     })
   },
   data() {

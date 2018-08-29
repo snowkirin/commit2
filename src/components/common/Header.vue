@@ -1,7 +1,7 @@
 <template>
   <header class="header" v-if="$route.path !== '/'">
     <router-link to="/" class="logo">
-      <img src="@/assets/img/logo.png" alt="ZULY">
+      <!--<img src="@/assets/img/logo.png" alt="ZULY">-->
     </router-link>
     <nav class="global-navigation">
       <ul>
@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapMutations } from 'vuex';
 import Simplert from 'vue2-simplert';
 const alertObject = {
   type: 'alert', // 타입
@@ -42,7 +42,7 @@ const alertObject = {
 };
 
 export default {
-  name: "zuly-header",
+  name: 'zuly-header',
   data() {
     return {
       headerLine: false,
@@ -70,14 +70,18 @@ export default {
     Simplert
   },
   computed: mapGetters({
-    Authentication: "login/Authentication"
+    Authentication: 'login/Authentication'
   }),
   methods: {
     ...mapActions({
-      doLogout: "login/doLogout"
+      doLogout: 'login/doLogout'
     }),
+    ...mapMutations({
+      resetState: 'subscriptions/RESET_STATE'
+    }),
+    // ...mapMutations(['RESET_STATE']),
     headerMediaQueries() {
-      this.gnbToggle = this.$route.path.indexOf("join") !== -1;
+      this.gnbToggle = this.$route.path.indexOf('join') !== -1;
     },
     clickLogout() {
       this.doLogout().then(() => {
@@ -90,15 +94,17 @@ export default {
           message: '로그아웃 되었습니다.'
         });
         this.$refs.alert.openSimplert(alertObject);
-        this.$router.push({ path: "/login" });
+        // document.location.href = '/login';
+        this.resetState();
+        this.$router.push({ path: '/login' });
       });
     },
     checkMain() {
       if (
-        this.$route.name === "IndexMain" ||
-        this.$route.name === "Login" ||
-        this.$route.path.indexOf("/find") !== -1 ||
-        this.$route.path.indexOf("/join") !== -1
+        this.$route.name === 'IndexMain' ||
+        this.$route.name === 'Login' ||
+        this.$route.path.indexOf('/find') !== -1 ||
+        this.$route.path.indexOf('/join') !== -1
       ) {
         if (this.Authentication.isAuthenticated) {
           this.menu.login = false;
@@ -152,7 +158,7 @@ export default {
         right: -13px;
         top: 5px;
         display: inline-block;
-        content: "";
+        content: '';
         width: 3px;
         height: 3px;
         background-color: #797979;

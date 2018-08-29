@@ -59,12 +59,12 @@ export default {
   },
   methods: {
     clickQuestion(event) {
-      const item = event.target.closest('.item');
-      if (item.dataset.show === 'false') {
-        item.dataset.show = 'true';
+      const item = event.target.className === 'item' ? event.target : event.target.closest('.item')
+      if (item.getAttribute('data-show') === 'false') {
+        item.setAttribute('data-show', 'true');
       }
       else {
-        item.dataset.show = 'false';
+        item.setAttribute('data-show', 'false');
       }
     }
   }
@@ -78,12 +78,12 @@ export default {
   .item {
     border: 1px solid #d8d8d8;
     margin-top: 15px;
-    &[data-show='false'] {
+    &[data-show="false"] {
       .answer-wrap {
         display: none;
       }
     }
-    &[data-show='true'] {
+    &[data-show="true"] {
       .answer-wrap {
         display: block;
       }

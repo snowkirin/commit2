@@ -1,95 +1,113 @@
 <template>
   <div class="contents">
-    <div class="contents-header">
-      <h3>데일리룩 후보 중 마음에 드는 의상을 선택해주세요.</h3>
-      <p>(기한 내 미선택 시, 회원님께 더 어울릴 스타일로 자동 지정 후 배송 됩니다.)</p>
+    <!--데이터가 없다면-->
+    <div>
+      <div class="none">
+        <div class="inner center-align">
+          <p>
+            조금만 기다리세요<br/>
+            곧 옷장이 채워집니다.
+          </p>
+        </div>
+      </div>
     </div>
-    <div class="content">
-      <div class="grid-flex">
-        <div class="column">
-          <div
-            class="product"
-            :class="{selected: tomorrowData.selected === 'typeA'}"
-          >
-            <div class="product-top">
-              <!-- Text ZONE-->
-              <p class="txt-type">TYPE A</p>
-              <p class="txt-styling-title">{{ tomorrowData.productA.stylingTitle }}</p>
-            </div>
-            <div class="product-mid">
-              <div
-                class="product-image"
-                v-for="(data, idx) in tomorrowData.productA.products"
-                :key="idx"
-                v-if="data.id !== null"
-              >
-                <div class="image">
-                  <img :src="$common.ZulyImage()+data.image">
+
+    <!--데이터가 있다면 -->
+    <div>
+      <div class="contents-header">
+        <h3>데일리룩 후보 중 마음에 드는 의상을 선택해주세요.</h3>
+        <p>(기한 내 미선택 시, 회원님께 더 어울릴 스타일로 자동 지정 후 배송 됩니다.)</p>
+      </div>
+
+      <div class="content">
+        <div class="grid-flex">
+          <div class="column">
+            <div
+              class="product"
+              :class="{selected: tomorrowData.selected === 'typeA'}"
+            >
+              <div class="product-top">
+                <!-- Text ZONE-->
+                <p class="txt-type">TYPE A</p>
+                <p class="txt-styling-title">{{ tomorrowData.productA.stylingTitle }}</p>
+              </div>
+              <div class="product-mid">
+                <div
+                  class="product-image"
+                  v-for="(data, idx) in tomorrowData.productA.products"
+                  :key="idx"
+                  v-if="data.id !== null"
+                >
+                  <div class="image">
+                    <img :src="$common.ZulyImage()+data.image">
+                  </div>
+                  <button
+                    type="button"
+                    class="btn btn-product-detail h-40"
+                    @click="clickProductDetail(data)"
+                  >상품 상세보기</button>
                 </div>
+              </div>
+              <div class="product-bot">
+                <p class="txt-styling-tip">{{ tomorrowData.productA.stylingTip }}</p>
+              </div>
+              <div class="btn-selected">
                 <button
                   type="button"
-                  class="btn btn-product-detail h-40"
-                  @click="clickProductDetail(data)"
-                >상품 상세보기</button>
+                  class="btn btn-primary h-56"
+                  @click="clickSelected('typeA')"
+                >
+                  선택하기
+                </button>
               </div>
-            </div>
-            <div class="product-bot">
-              <p class="txt-styling-tip">{{ tomorrowData.productA.stylingTip }}</p>
-            </div>
-            <div class="btn-selected">
-              <button
-                type="button"
-                class="btn btn-primary h-56"
-                @click="clickSelected('typeA')"
-              >
-                선택하기
-              </button>
             </div>
           </div>
-        </div>
-        <div class="column">
-          <div
-            class="product"
-            :class="{selected: tomorrowData.selected === 'typeB'}"
-          >
-            <div class="product-top">
-              <!-- Text ZONE-->
-              <p class="txt-type">TYPE B</p>
-              <p class="txt-styling-title">{{ tomorrowData.productB.stylingTitle }}</p>
-            </div>
-            <div class="product-mid">
-              <div
-                class="product-image"
-                v-for="(data, idx) in tomorrowData.productB.products"
-                :key="idx"
-                v-if="data.id !== null"
-              >
-                <div class="image">
-                  <img :src="$common.ZulyImage()+data.image">
+          <div class="column">
+            <div
+              class="product"
+              :class="{selected: tomorrowData.selected === 'typeB'}"
+            >
+              <div class="product-top">
+                <!-- Text ZONE-->
+                <p class="txt-type">TYPE B</p>
+                <p class="txt-styling-title">{{ tomorrowData.productB.stylingTitle }}</p>
+              </div>
+              <div class="product-mid">
+                <div
+                  class="product-image"
+                  v-for="(data, idx) in tomorrowData.productB.products"
+                  :key="idx"
+                  v-if="data.id !== null"
+                >
+                  <div class="image">
+                    <img :src="$common.ZulyImage()+data.image">
+                  </div>
+                  <button
+                    type="button"
+                    class="btn btn-product-detail h-40"
+                    @click="clickProductDetail(data)"
+                  >상품 상세보기</button>
                 </div>
+              </div>
+              <div class="product-bot">
+                <p class="txt-styling-tip">{{ tomorrowData.productB.stylingTip }}</p>
+              </div>
+              <div class="btn-selected">
                 <button
                   type="button"
-                  class="btn btn-product-detail h-40"
-                  @click="clickProductDetail(data)"
-                >상품 상세보기</button>
+                  class="btn btn-primary h-56"
+                  @click="clickSelected('typeB')"
+                >
+                  선택하기
+                </button>
               </div>
-            </div>
-            <div class="product-bot">
-              <p class="txt-styling-tip">{{ tomorrowData.productB.stylingTip }}</p>
-            </div>
-            <div class="btn-selected">
-              <button
-                type="button"
-                class="btn btn-primary h-56"
-                @click="clickSelected('typeB')"
-              >
-                선택하기
-              </button>
             </div>
           </div>
         </div>
       </div>
+
     </div>
+
   </div>
 </template>
 
@@ -118,7 +136,8 @@ export default {
   computed: {
     ...mapGetters({
       isLogin: 'login/isLogin',
-      Tomorrow: 'subscriptions/Tomorrow'
+      TomorrowResult: 'subscriptions/TomorrowResult',
+      TomorrowProductDetail: 'subscriptions/TomorrowProductDetail'
     })
   },
   methods: {
@@ -128,7 +147,7 @@ export default {
       getProductDetail: 'subscriptions/getProductDetail'
     }),
     processingData() {
-      const data = this.Tomorrow.data;
+      const data = this.TomorrowResult;
       const selectArray = ['styling_tip', 'styling_title', 'hashtag'];
       // 데이터 가공
       let productA = {
@@ -190,19 +209,19 @@ export default {
       };
       const productCode = data.product_id;
       // 불필요한 API 호출을 방지하기 위해
-      if (!this.Tomorrow.productDetail[productCode]) {
+      if (!this.TomorrowProductDetail[productCode]) {
         // 해당 상품 정보가 스토어에 없으면
         await this.getProductDetail(productCode);
         this.$modal.show(
           ModalProductDetail,
-          {data: this.Tomorrow.productDetail[productCode]},
+          {data: this.TomorrowProductDetail[productCode]},
           modalConfig
         )
       } else {
         // 해당 상품 정보가 스토어에 있으면
         this.$modal.show(
           ModalProductDetail,
-          {data: this.Tomorrow.productDetail[productCode]},
+          {data: this.TomorrowProductDetail[productCode]},
           modalConfig
         );
       }
@@ -210,7 +229,6 @@ export default {
     clickSelected(type) {
       if (type === 'typeA') {
       //  typeA를 선택하였을 경우
-      //   const productId = _.map([this.tomorrowData.productA.products[0].product_id, this.tomorrowData.productA.products[1].product_id], _.parseInt);
         const productId = _.map([this.tomorrowData.productA.products[0].id, this.tomorrowData.productA.products[1].id], _.parseInt);
         const formData = {
           subscription_id: this.tomorrowData.subscriptionId,
@@ -256,7 +274,7 @@ export default {
 <style scoped lang="scss">
 .none {
   height: 500px;
-  background: url(~@/assets/img/closet/img_none.png) no-repeat 50% 0;
+  background: url('~@/assets/img/closet/img_none.png') no-repeat 50% 0;
   position: relative;
   .inner {
     position: absolute;
@@ -298,7 +316,7 @@ export default {
       white-space: pre;
       content: '좋아요.\A선택할께요.';
       background: {
-        image: url(~@/assets/img/closet/ico_white.svg);
+        image: url('~@/assets/img/closet/ico_white.svg');
         repeat: no-repeat;
         position-x: 50%;
         size: 43px 38px;

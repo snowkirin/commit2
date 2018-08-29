@@ -23,11 +23,7 @@ export default {
   getPastDetail(data) {
     return axios
       .get(
-        `${API_URL}/subscriptions/past`,
-        {
-          params: data
-        },
-        {
+        `${API_URL}/subscriptions/past/${data}`, {
           withCredentials: true
         }
       )
