@@ -375,10 +375,14 @@ input:-webkit-autofill:focus {
   height:100%;
 }
 
+// Form Title
+.form-title-wrap {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 .txt-form-title {
   @include fontSize(15px);
   font-weight: 700;
-  margin-bottom: 10px;
 }
 
 .information {
@@ -507,4 +511,8 @@ input:-webkit-autofill:focus {
     color: #fff;
     font-weight: 300;
   }
+}
+
+.v--modal {
+  transform: translate3d(0, 0, 0);
 }
