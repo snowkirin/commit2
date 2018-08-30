@@ -27,7 +27,7 @@
                   </li>
                 </ul>
               </div>
-              <p class="txt-delivery-date">신청 주에 수령을 원하시면 별도 연락 부탁드립니다.<br/>(02-6929-3823)</p>
+              <!--<p class="txt-delivery-date">신청 주에 수령을 원하시면 별도 연락 부탁드립니다.<br/>(02-6929-3823)</p>-->
             </div>
             <notifications group="deliveryDate" width="100%" position="bottom left" :max="1" class="zuly-notify"/>
           </div>
@@ -137,6 +137,12 @@
                   name="lobbyPassword"
                   placeholder="현관 비밀번호">
               </div>
+              <p
+                class="txt-error"
+                v-if="errors.has('lobbyPassword')"
+              >
+                공동 현관 비밀번호를 입력해 주세요.
+              </p>
             </div>
           </div>
           <div class="row">
@@ -452,7 +458,7 @@ export default {
         this.$refs.alert.openSimplert(alertObject);
         return;
       }
-      if (this.joinData.recommendCode !== null || this.joinData.recommendCode !== '') {
+      if (!_.isEmpty(this.joinData.recommendCode)) {
         if (!this.isRecommendCode) {
           _.assign(alertObject, {
             message: '추천인 확인을 눌러주세요.'
@@ -470,9 +476,17 @@ export default {
                 path: '/join/addinfo'
               });
             } else {
-              _.assign(alertObject, {
-                message: '오류가 발생 되었습니다. 잠시 후 다시 시도해 주세요.'
-              });
+              if(res.data.paymentRtn) {
+                // 카드정보는 정확히 입력하였으나 다른 이유로 오류가 난 경우
+                _.assign(alertObject, {
+                  message: '오류가 발생 되었습니다. 잠시 후 다시 시도해 주세요.'
+                });
+              } else {
+                // 카드정보가 정확히 입력되지 않은 경우
+                _.assign(alertObject, {
+                  message: '카드 정보를 확인해주세요.'
+                });
+              }
               this.$refs.alert.openSimplert(alertObject);
             }
           });

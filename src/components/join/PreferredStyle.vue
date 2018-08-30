@@ -61,7 +61,7 @@ const alertObject = {
 };
 
 export default {
-  name: "PreferredStyle",
+  name: 'PreferredStyle',
   components: {
     Simplert
   },
@@ -142,7 +142,7 @@ export default {
       this.preferredStyleData.selectSeq = _.toString(this.clickHistory);
       this.setJoin(this.preferredStyleData);
       this.$router.push({
-        path: "signup"
+        path: 'signup'
       });
     }
   },
@@ -176,18 +176,31 @@ export default {
       top: 10px;
       z-index: 10;
     }
+    &::before {
+      content: '';
+      display: block;
+      width: calc(100% - 4px);
+      height: calc(100% - 4px);
+      position: absolute;
+      left: 2px;
+      top: 2px;
+      background-color: rgba(0, 0, 0, 0.07);
+      z-index: 10;
+    }
     &.selected {
       outline: 2px solid $color-primary;
       outline-offset: -2px;
+
       &:after {
-        content: "";
+        content: '';
         display: block;
-        position: absolute;
         width: calc(100% - 4px);
         height: calc(100% - 4px);
+        position: absolute;
         left: 2px;
         top: 2px;
-        background-color: rgba(255, 255, 255, 0.35);
+        background-color: rgba(0, 0, 0, 0.14);
+        z-index: 20;
       }
       .icon-heart {
         .svg {
