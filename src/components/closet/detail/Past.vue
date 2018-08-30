@@ -96,7 +96,7 @@ export default {
   data() {
     return {
       isPastData: false,
-      feedbacksData: [],
+      feedbacksData: []
     };
   },
   components: {
@@ -149,7 +149,7 @@ export default {
       // })
     },
     setPastFeedbacks(data) {
-      _.forEach(data, (value) => {
+      _.forEach(data, value => {
         const formFeedBacks = {
           subscriptionId: value.id,
           type: 'past'
@@ -158,7 +158,7 @@ export default {
           this.feedbacksData = _.concat(this.feedbacksData, res.data);
         });
       });
-    },
+    }
   },
   async created() {
     await this.getPast().then(res => {
@@ -168,50 +168,71 @@ export default {
   }
 };
 </script>
-<style scoped lang="scss" src="@/assets/css/closet-style.scss"></style>
+<style scoped lang="scss" src="@/assets/css/closet-style.scss">
+</style>
 <style scoped lang="scss">
-  .list-past {
-    border-top: 1px solid #333;
-    border-bottom: 1px solid #333;
-    .item {
-      border-top: 1px solid #e9e9e9;
-      padding: 15px 0;
-      &:nth-child(1) {
-        border-top: 0 none;
-      }
-    }
+.none {
+  height: 500px;
+  background: url('~@/assets/img/closet/img_none.png') no-repeat 50% 0;
+  position: relative;
+  .inner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 160px;
+    background-color: #fafafa;
+    width: 90%;
   }
-  .date-wrap {
-    @include fontSize(16px, en);
-    font-weight: 700;
-    margin-bottom: 10px;
-  }
-  .image-wrap {
+  p {
     text-align: center;
-    .image {
-      display: inline-block;
-      vertical-align: top;
-      width: 163px;
-      & +.image {
-        margin-left: 9px;
-      }
-      img {
-        width: 100%;
-      }
-    }
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: -1.2px;
   }
-
-  .text-wrap {
-    @include fontSize(15px);
-    color: #797979;
+}
+.list-past {
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
+  .item {
+    border-top: 1px solid #e9e9e9;
     padding: 15px 0;
-  }
-  .txt-link {
-    @include fontSize(14px);
-    color: #566b9c;
-    text-decoration: underline;
-    & +.txt-link {
-      margin-left: 15px;
+    &:nth-child(1) {
+      border-top: 0 none;
     }
   }
+}
+.date-wrap {
+  @include fontSize(16px, en);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.image-wrap {
+  text-align: center;
+  .image {
+    display: inline-block;
+    vertical-align: top;
+    width: 163px;
+    & + .image {
+      margin-left: 9px;
+    }
+    img {
+      width: 100%;
+    }
+  }
+}
+
+.text-wrap {
+  @include fontSize(15px);
+  color: #797979;
+  padding: 15px 0;
+}
+.txt-link {
+  @include fontSize(14px);
+  color: #566b9c;
+  text-decoration: underline;
+  & + .txt-link {
+    margin-left: 15px;
+  }
+}
 </style>

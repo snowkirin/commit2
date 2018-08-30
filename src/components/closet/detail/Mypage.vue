@@ -6,10 +6,81 @@
     <div class="content">
       <div>
         <div>
-          <p class="txt-form-title"></p>
-          <div class="form-row">
-            <div class="text-field">
-              <input type="text">
+          <p class="txt-form-title">휴대폰 번호</p>
+          <div class="grid-flex grid-fixed">
+            <div class="column">
+              <div class="text-field">
+                <input type="text">
+              </div>
+            </div>
+            <div class="column">
+              <button type="button" class="btn btn-secondary h-50">변경</button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p class="txt-form-title">비밀번호 변경</p>
+          <div class="grid-flex grid-fixed">
+            <div class="column">
+
+            </div>
+            <div class="column">
+
+            </div>
+          </div>
+        </div>
+        <div>
+          <p class="txt-form-title">결제 카드</p>
+          <div class="grid-flex grid-fixed">
+            <div class="column">
+
+            </div>
+            <div class="column">
+
+            </div>
+          </div>
+        </div>
+        <div>
+          <p class="txt-form-title">주소</p>
+          <div class="grid-flex grid-fixed">
+            <div class="column">
+
+            </div>
+            <div class="column">
+
+            </div>
+          </div>
+        </div>
+        <div>
+          <p class="txt-form-title">공동 현관 번호</p>
+          <div class="grid-flex grid-fixed">
+            <div class="column">
+
+            </div>
+            <div class="column">
+
+            </div>
+          </div>
+        </div>
+        <div>
+          <p class="txt-form-title">기념일</p>
+          <div class="grid-flex grid-fixed">
+            <div class="column">
+
+            </div>
+            <div class="column">
+
+            </div>
+          </div>
+        </div>
+        <div>
+          <p class="txt-form-title">회원 가입일</p>
+          <div class="grid-flex grid-fixed">
+            <div class="column">
+
+            </div>
+            <div class="column">
+
             </div>
           </div>
         </div>

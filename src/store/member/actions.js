@@ -1,5 +1,5 @@
-import Member from "@/library/api/member";
-import types from "./mutation-types";
+import Member from '@/library/api/member';
+import types from './mutation-types';
 
 export default {
   setMemberCount({ commit }) {
@@ -52,13 +52,12 @@ export default {
       return res;
     });
   },
-  getMypage({commit}) {
-    return Member.getMypage()
-      .then(res => {
-        if (res.data.result) {
-          commit(types.GET_MYPAGE, res.data.data);
-        }
-        return res;
-      })
-  },
+  getMypage({ commit }) {
+    return Member.getMypage().then(res => {
+      if (res.data.result) {
+        commit(types.GET_MYPAGE, res.data.data);
+      }
+      return res;
+    });
+  }
 };

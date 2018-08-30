@@ -653,7 +653,7 @@ export default {
             return;
           }
           if (this.PhoneVerify.isVerify) {
-            if (_.isEmpty(this.joinData.ann)) {
+            if (!_.isEmpty(this.joinData.ann)) {
               const dateResult = this.joinData.ann;
               const monthResult = dateResult.substring(0, 2);
               const dayResult = dateResult.substring(2);

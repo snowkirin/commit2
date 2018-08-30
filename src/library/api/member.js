@@ -181,7 +181,9 @@ export default {
   },
   getMypage() {
     return axios
-      .get(`${API_URL}/member/mypage`)
+      .get(`${API_URL}/member/mypage`, {
+        withCredentials: true
+      })
       .then(res => {
         return res;
       })
