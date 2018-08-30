@@ -1,74 +1,86 @@
 <template>
   <div class="contents">
-    <div class="contents-header">
-      <h3>그 동안의 옷장을 확인하실 수 있습니다.</h3>
+    <div v-if="!isPastData">
+      <div class="none">
+        <div class="inner center-align">
+          <p>
+            조금만 기다리세요<br/>
+            곧 옷장이 채워집니다.
+          </p>
+        </div>
+      </div>
     </div>
-    <div class="content">
-      <div class="list-past">
-        <div
-          class="item"
-          v-for="(data, idx) in PastResult"
-          :key="idx"
-        >
-          <div>
-            <div class="date-wrap">
-              <p>
-                <span>{{PastResult.length - idx}}th</span> | <span>{{ data .subscription_date }}</span>
-              </p>
-            </div>
-            <div class="image-wrap">
-              <div>
-                <div
-                  class="image"
-                  v-for="(data2, idx2) in data.images"
-                  :key="idx2"
-                  v-if="data2 !== null"
-                >
-                  <img :src="$common.ZulyImage() + data2" alt="">
+    <div v-else>
+      <div class="contents-header">
+        <h3>그 동안의 옷장을 확인하실 수 있습니다.</h3>
+      </div>
+      <div class="content">
+        <div class="list-past">
+          <div
+            class="item"
+            v-for="(data, idx) in PastResult"
+            :key="idx"
+          >
+            <div>
+              <div class="date-wrap">
+                <p>
+                  <span>{{PastResult.length - idx}}th</span> | <span>{{ data .subscription_date }}</span>
+                </p>
+              </div>
+              <div class="image-wrap">
+                <div>
+                  <div
+                    class="image"
+                    v-for="(data2, idx2) in data.images"
+                    :key="idx2"
+                    v-if="data2 !== null"
+                  >
+                    <img :src="$common.ZulyImage() + data2" alt="">
+                  </div>
                 </div>
               </div>
+              <div class="text-wrap">
+                <p class="txt-styling-title">
+                  {{ data.styling_title }}
+                </p>
+                <p class="txt-styling-tip">
+                  {{ data.styling_tip }}
+                </p>
+              </div>
+              <div class="link-wrap">
+                <!--구매 정보 기획이 나오기 전까지 숨겨집니다. -->
+                <a
+                  class="txt-link"
+                  href="#"
+                  :data-id="data.id"
+                  v-if="false"
+                  @click="clickPastDetail"
+                >
+                  구매 정보 보기
+                </a>
+                <a
+                  class="txt-link"
+                  href="#"
+                  :data-id="data.id"
+                  v-if="(feedbacksData[idx] && feedbacksData[idx].result)"
+                  @click="clickShowFeedBack"
+                >
+                  옷장 후기 입력하기
+                </a>
+              </div>
             </div>
-            <div class="text-wrap">
-              <p class="txt-styling-title">
-                {{ data.styling_title }}
-              </p>
-              <p class="txt-styling-tip">
-                {{ data.styling_tip }}
-              </p>
-            </div>
-            <div class="link-wrap">
-              <!--구매 정보 기획이 나오기 전까지 숨겨집니다. -->
-              <a
-                class="txt-link"
-                href="#"
-                :data-id="data.id"
-                v-if="false"
-                @click="clickPastDetail"
-              >
-                구매 정보 보기
-              </a>
-              <a
-                class="txt-link"
-                href="#"
-                :data-id="data.id"
-                v-if="(feedbacksData[idx] && feedbacksData[idx].result)"
-                @click="clickShowFeedBack"
-              >
-                옷장 후기 입력하기
-              </a>
-            </div>
+            <feedBack
+              v-if="feedbackToggle(idx)"
+              :subscriptionId="data.id"
+              :data="feedbacksData[idx]"
+              :type="'past'">
+            </feedBack>
+            {{feedbacksData[idx]}}
           </div>
-          <feedBack
-            v-if="feedbackToggle(idx)"
-            :subscriptionId="data.id"
-            :data="feedbacksData[idx]"
-            :type="'past'">
-          </feedBack>
-          {{feedbacksData[idx]}}
+
         </div>
 
       </div>
-
     </div>
   </div>
 </template>
@@ -83,6 +95,7 @@ export default {
   name: 'past',
   data() {
     return {
+      isPastData: false,
       feedbacksData: [],
     };
   },
@@ -135,7 +148,7 @@ export default {
       //   console.log(res);
       // })
     },
-    settingFeedbacks(data) {
+    setPastFeedbacks(data) {
       _.forEach(data, (value) => {
         const formFeedBacks = {
           subscriptionId: value.id,
@@ -148,9 +161,11 @@ export default {
     },
   },
   async created() {
-    await this.getPast();
-    await this.settingFeedbacks(this.PastResult)
-  },
+    await this.getPast().then(res => {
+      this.isPastData = res.data.result.length !== 0;
+      this.setPastFeedbacks(this.PastResult);
+    });
+  }
 };
 </script>
 <style scoped lang="scss" src="@/assets/css/closet-style.scss"></style>

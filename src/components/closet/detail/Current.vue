@@ -1,18 +1,17 @@
 <template>
   <div class="contents">
-    <!--<vue-json-pretty :data="currentData.products"></vue-json-pretty>-->
-    <div class="content">
-      <div v-if="!isCurrentData">
-        <div class="none">
-          <div class="inner center-align">
-            <p>
-              조금만 기다리세요<br/>
-              곧 옷장이 채워집니다.
-            </p>
-          </div>
+    <div v-if="!isCurrentData">
+      <div class="none">
+        <div class="inner center-align">
+          <p>
+            조금만 기다리세요<br/>
+            곧 옷장이 채워집니다.
+          </p>
         </div>
       </div>
-      <div v-else>
+    </div>
+    <div v-else>
+      <div class="content">
         <feedBack
           ref="feedback"
           v-if="!_.isEmpty(feedbacksData)"
@@ -21,7 +20,6 @@
           :type="isFeedbacksDirect ? 'direct' : 'current'">
           <!--:subscriptionId="feedbackDirect.subscription_id ? feedbackDirect.subscription_id : currentCloset.subscription_id"-->
         </feedBack>
-        {{feedbacksData}}
         <div class="current" v-show="!isFeedbacksDirect">
           <!-- Swiper ?-->
           <div class="product-image">
@@ -108,7 +106,6 @@ export default {
         hashTag: null,
         products: []
       },
-
       // Swiper Options
       swiperOption: {
         slidesPerView: 'auto',

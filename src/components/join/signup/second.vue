@@ -396,8 +396,6 @@ export default {
       );
     },
     async recommendVerify() {
-      const $this = this;
-
       if (
         this.joinData.recommendCode === '' ||
         this.joinData.recommendCode === null
@@ -505,7 +503,6 @@ export default {
     }
   },
   async created() {
-    const $this = this;
     if (_.isEmpty(this.FirstDeliveryDays)) {
       await this.getFirstDeliveryDays();
     }

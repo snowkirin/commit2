@@ -73,6 +73,7 @@ export default {
       } else {
         commit(types.GET_PAST_FAILED);
       }
+      return res;
     });
   },
   getPastDetail({ commit }, data) {

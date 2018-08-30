@@ -653,11 +653,11 @@ export default {
             return;
           }
           if (this.PhoneVerify.isVerify) {
-            if (this.joinData.ann !== null || this.joinData.ann !== '') {
-              const date = this.joinData.ann;
-              const month = date.substring(0, 2);
-              const day = date.substring(2);
-              this.joinData.ann = month + '.' + day;
+            if (_.isEmpty(this.joinData.ann)) {
+              const dateResult = this.joinData.ann;
+              const monthResult = dateResult.substring(0, 2);
+              const dayResult = dateResult.substring(2);
+              this.joinData.ann = monthResult + '.' + dayResult;
             }
             // 연령대
             if (this.selectedAgeRange.number === '20대') {

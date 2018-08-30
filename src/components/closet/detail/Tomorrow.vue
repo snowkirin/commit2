@@ -1,7 +1,7 @@
 <template>
   <div class="contents">
     <!--데이터가 없다면-->
-    <div>
+    <div v-if="!isTomorrowData">
       <div class="none">
         <div class="inner center-align">
           <p>
@@ -11,14 +11,12 @@
         </div>
       </div>
     </div>
-
     <!--데이터가 있다면 -->
-    <div>
+    <div v-else>
       <div class="contents-header">
         <h3>데일리룩 후보 중 마음에 드는 의상을 선택해주세요.</h3>
         <p>(기한 내 미선택 시, 회원님께 더 어울릴 스타일로 자동 지정 후 배송 됩니다.)</p>
       </div>
-
       <div class="content">
         <div class="grid-flex">
           <div class="column">
