@@ -9,7 +9,9 @@
       <div class="grid-flex">
         <div class="column column-left">
           <div class="row">
-            <p class="txt-form-title">배송일 지정</p>
+            <div class="form-title-wrap">
+              <p class="txt-form-title">배송일 지정</p>
+            </div>
             <div>
               <div>
                 <ul class="list-flex list-delivery-days">
@@ -32,8 +34,10 @@
             <notifications group="deliveryDate" width="100%" position="bottom left" :max="1" class="zuly-notify"/>
           </div>
           <div class="row">
-            <p class="txt-form-title">카드 결제 정보</p>
-            <div class="mb-10">
+            <div class="form-title-wrap">
+              <p class="txt-form-title">카드 결제 정보</p>
+            </div>
+            <div>
               <div class="grid-flex grid-fixed">
                 <div class="text-field column" :class="{'text-field-error': errors.has('cardNumber')}">
                   <input
@@ -109,8 +113,8 @@
         </div>
         <div class="column column-right">
           <div class="row">
-            <div class="txt-form-title">
-              요금제
+            <div class="form-title-wrap">
+              <p class="txt-form-title">요금제</p>
             </div>
             <div>
               <div class="txt-payment">
@@ -125,8 +129,9 @@
             </div>
           </div>
           <div class="row">
-            <p class="txt-form-title">공동 현관 비밀번호 <br/> <span class="txt-entrance">(문 앞까지 가기 전에 공동 현관이 있는 경우)</span>
-            </p>
+            <div class="form-title-wrap">
+              <p class="txt-form-title">공동 현관 비밀번호 <br/> <span class="txt-entrance">(문 앞까지 가기 전에 공동 현관이 있는 경우)</span></p>
+            </div>
             <div>
               <div class="text-field" :class="{'text-field-error': errors.has('lobbyPassword')}">
                 <input
@@ -146,7 +151,9 @@
             </div>
           </div>
           <div class="row">
-            <p class="txt-form-title">추천인</p>
+            <div class="form-title-wrap">
+              <p class="txt-form-title">추천인</p>
+            </div>
             <div>
               <div class="grid-flex grid-fixed">
                 <div class="column text-field">

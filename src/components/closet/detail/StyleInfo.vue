@@ -5,240 +5,256 @@
     </div>
     <form>
       <div class="content">
-      <div class="content-inner">
-        <div class="grid-flex">
-        <div class="column column-left">
-          <!--블라우스/셔츠-->
-          <div class="row">
-            <p class="txt-form-title">블라우스/셔츠</p>
-            <div>
-              <ul class="list-flex">
-                <li
-                  class="item w-25 h-50 lang-en"
-                  :class="{selected: styleData.blouseSize  === data.code}"
-                  v-for="(data, idx) in Sizes.blouse"
-                  v-if="!(data.name === '44'|| data.name === '77')"
-                  :key="idx"
-                  @click="clickSetSize('blouseSize', data)">
-                  {{ data.name }}
-                </li>
-              </ul>
-            </div>
-          </div>
-          <!--치마-->
-          <div class="row">
-            <p class="txt-form-title">치마</p>
-            <div>
-              <ul class="list-flex">
-                <li
-                  class="item w-25 h-50 lang-en"
-                  :class="{selected: styleData.skirtSize  === data.code}"
-                  v-for="(data, idx) in Sizes.skirt"
-                  v-if="!(data.name === '44'|| data.name === '77')"
-                  :key="idx"
-                  @click="clickSetSize('skirtSize', data)">
-                  {{ data.name }}
-                </li>
-              </ul>
-            </div>
-          </div>
-          <!--바지-->
-          <div class="row">
-            <p class="txt-form-title">바지</p>
-            <div>
-              <ul class="list-flex">
-                <li
-                  class="item w-25 h-50 lang-en"
-                  :class="{selected: styleData.pantsSize  === data.code}"
-                  v-for="(data, idx) in Sizes.pants"
-                  v-if="!(data.name === '44'|| data.name === '77')"
-                  :key="idx"
-                  @click="clickSetSize('pantsSize', data)">
-                  {{ data.name }}
-                </li>
-              </ul>
-            </div>
-          </div>
-          <!--키-->
-          <div class="row">
-            <p class="txt-form-title">키 (cm)</p>
-            <div>
-              <div class="text-field" :class="{'text-field-error': errors.has('tallSize')}">
-                <input
-                  type="text"
-                  name="tallSize"
-                  minlength="3"
-                  maxlength="3"
-                  ref="tallSize"
-                  v-model.number="styleData.tallSize"
-                  v-validate="{ required: true, regex: /^\d+$/ }"
-                  placeholder="최근 측정한 키를 입력해주세요.">
+        <div class="content-inner">
+          <div class="grid-flex">
+            <div class="column column-left">
+              <!--블라우스/셔츠-->
+              <div class="row">
+                <div class="form-title-wrap">
+                  <p class="txt-form-title">블라우스/셔츠</p>
+                </div>
+                <div>
+                  <ul class="list-flex">
+                    <li
+                      class="item w-25 h-50 lang-en"
+                      :class="[{selected: styleData.blouseSize  === data.code}, setDisabledClass('blouse', data.name)]"
+                      v-for="(data, idx) in Sizes.blouse"
+                      :key="idx"
+                      @click="clickSetSize('blouseSize', data)">
+                      {{ data.name }}
+                    </li>
+                  </ul>
+                </div>
               </div>
-              <p
-                class="txt-error"
-                v-show="errors.has('tallSize')">
-                {{ errors.first('tallSize') }}
-              </p>
-            </div>
-          </div>
-          <!--가슴(브래지어)-->
-          <div class="row">
-            <p class="txt-form-title">가슴 (브래지어)</p>
-            <div class="text-field" :class="{'text-field-error': errors.has('bustSize')}">
-              <input
-                type="text"
-                name="bustSize"
-                ref="bustSize"
-                v-model="styleData.bustSize"
-                v-validate="{ required: true, regex: /([0-9]{2,3})([a-fA-F]{1})$/ }"
-                placeholder="예) 80A">
-            </div>
-          </div>
-          <!--체형-->
-          <div class="row">
-            <p class="txt-form-title">체형</p>
-            <div class="body-type">
-              <p
-                class="txt-body-type"
-                v-if="!_.isEmpty(bodyTypeText)"
-              >
-                {{bodyTypeText}}
-              </p>
-              <ul class="list-body-type">
-                <template>
-                  <li
-                    :class="{selected: styleData.bodyType === data.code}"
-                    v-for="(data, idx) in Sizes.body_type"
-                    :key="idx"
-                    @click="clickSetSize('bodyType', data)"
+              <!--치마-->
+              <div class="row">
+                <div class="form-title-wrap">
+                  <p class="txt-form-title">치마</p>
+                </div>
+                <div>
+                  <ul class="list-flex">
+                    <li
+                      class="item w-25 h-50 lang-en"
+                      :class="[{selected: styleData.skirtSize  === data.code}, setDisabledClass('skirt', data.name)]"
+                      v-for="(data, idx) in Sizes.skirt"
+                      :key="idx"
+                      @click="clickSetSize('skirtSize', data)">
+                      {{ data.name }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <!--바지-->
+              <div class="row">
+                <div class="form-title-wrap">
+                  <p class="txt-form-title">바지</p>
+                </div>
+                <div>
+                  <ul class="list-flex">
+                    <li
+                      class="item w-25 h-50 lang-en"
+                      :class="[{selected: styleData.pantsSize  === data.code}, setDisabledClass('pants', data.name)]"
+                      v-for="(data, idx) in Sizes.pants"
+                      v-if="data.name !== '31'"
+                      :key="idx"
+                      @click="clickSetSize('pantsSize', data)">
+                      {{ data.name }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <!--키-->
+              <div class="row">
+                <div class="form-title-wrap">
+                  <p class="txt-form-title">키 (cm)</p>
+                </div>
+                <div>
+                  <div class="text-field" :class="{'text-field-error': errors.has('tallSize')}">
+                    <input
+                      type="text"
+                      name="tallSize"
+                      minlength="3"
+                      maxlength="3"
+                      ref="tallSize"
+                      v-model.number="styleData.tallSize"
+                      v-validate="{ required: true, regex: /^\d+$/ }"
+                      placeholder="최근 측정한 키를 입력해주세요.">
+                  </div>
+                  <p
+                    class="txt-error"
+                    v-show="errors.has('tallSize')">
+                    {{ errors.first('tallSize') }}
+                  </p>
+                </div>
+              </div>
+              <!--가슴(브래지어)-->
+              <div class="row">
+                <p class="txt-form-title">가슴 (브래지어)</p>
+                <div class="text-field" :class="{'text-field-error': errors.has('bustSize')}">
+                  <input
+                    type="text"
+                    name="bustSize"
+                    ref="bustSize"
+                    v-model="styleData.bustSize"
+                    v-validate="{ required: true, regex: /([0-9]{2,3})([a-fA-F]{1})$/ }"
+                    placeholder="예) 80A">
+                </div>
+              </div>
+              <!--체형-->
+              <div class="row">
+                <p class="txt-form-title">체형</p>
+                <div class="body-type">
+                  <p
+                    class="txt-body-type"
+                    v-if="!_.isEmpty(bodyTypeText)"
                   >
-                    <img :src="data.url"/>
-                    {{data }}
-                  </li>
-                </template>
-              </ul>
+                    {{bodyTypeText}}
+                  </p>
+                  <ul class="list-body-type">
+                    <template>
+                      <li
+                        :class="{selected: styleData.bodyType === data.code}"
+                        v-for="(data, idx) in Sizes.body_type"
+                        :key="idx"
+                        @click="clickSetSize('bodyType', data)"
+                      >
+                        <img :src="`${require('@/assets/img/signup/img_body'+(idx+1)+'.png')}`"/>
+                        {{data }}
+                      </li>
+                    </template>
+                  </ul>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="column column-right">
-          <div class="row">
-            <p class=" txt-form-title">손이 가는 옷 색상이나 패턴</p>
-            <div>
-              <ul class="list-prefer-color">
-                <li
-                  :class="[{selected: data.code === styleData.preferColor}, setColorName(data)]"
-                  v-for="(data, idx) in Options.prefer_color"
-                  :key="idx"
-                  @click="clickPreferColor(data, $event)"
-                >
-                  <div class="center-align" >
-                    <span>{{data.name}}</span>
-                  </div>
-                </li>
-              </ul>
-              <ul class="list-prefer-pattern">
-                <li
-                  v-for="(data, idx) in Options.prefer_pattern"
-                  :key="idx"
-                  @click="clickPattern(data, $event)"
-                  :class="[patternName(data.name), {selected: data.code === styleData.preferPattern}]">
-                  <div class="center-align">
-                    <span>{{data.name}}</span>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <!-- Brand -->
-          <div class="row">
-            <p class=" txt-form-title">주로 구매하는 브랜드?</p>
-            <div class="text-field">
-              <input
-                type="text"
-                placeholder="한 개 이상인 경우 콤마(,)로 구분하여 입력해 주세요"
-                v-model="styleData.preferBrand">
-            </div>
-          </div>
-          <!--Dress Code-->
-          <div class="row">
-            <p class=" txt-form-title">내가 주로 활동 하는 곳의 드레스 코드는?</p>
-            <ul class="list-dresscode">
-              <li
-                v-for="(data, idx) in Options.dress_code"
-                @click="clickDressCode(data, $event)"
-                :class="{selected: data.code === styleData.dress_code}"
-                :key="idx">
-                <img :src="dressCodeImage(data.name)"/>
-                <span class="text">{{ data.name }}</span>
-              </li>
-            </ul>
-          </div>
-          <!-- 업로드 -->
-          <div class="row">
-            <p class=" txt-form-title">[선택] My Daily Look - 사진을 올려주세요.</p>
-            <div class="grid-flex image-upload">
-              <div class="column">
+            <div class="column column-right">
+              <div class="row">
+                <div class="form-title-wrap">
+                  <p class=" txt-form-title">손이 가는 옷 색상이나 패턴</p>
+                </div>
+                <div>
+                  <ul class="list-prefer-color">
+                    <li
+                      :class="[{selected: data.code === styleData.preferColor}, setColorName(data)]"
+                      v-for="(data, idx) in Options.prefer_color"
+                      :key="idx"
+                      @click="clickPreferColor(data, $event)"
+                    >
+                      <div class="center-align">
+                        <span>{{data.name}}</span>
+                      </div>
+                    </li>
+                  </ul>
+                  <ul class="list-prefer-pattern">
+                    <li
+                      v-for="(data, idx) in Options.prefer_pattern"
+                      :key="idx"
+                      @click="clickPattern(data, $event)"
+                      :class="[patternName(data.name), {selected: data.code === styleData.preferPattern}]">
+                      <div class="center-align">
+                        <span>{{data.name}}</span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <!-- Brand -->
+              <div class="row">
+                <div class="form-title-wrap">
+                  <p class=" txt-form-title">주로 구매하는 브랜드?</p>
+                </div>
                 <div class="text-field">
                   <input
                     type="text"
-                    readonly="true"
-                    placeholder="사진을 올려주세요."
-                    :value="changeImageFileName"
-                  />
-                  <!--:value="!_.isEmpty(imageFile) ? imageFile.name : !_.isEmpty(getImageInfo.imageName) ? getImageInfo.imageName : ''"-->
+                    placeholder="한 개 이상인 경우 콤마(,)로 구분하여 입력해 주세요"
+                    v-model="styleData.preferBrand">
                 </div>
               </div>
-              <div class="column w-31 o-2">
-                <button type="button" class="btn btn-secondary h-50" @click="clickImageUpload">업로드</button>
+              <!--Dress Code-->
+              <div class="row">
+                <div class="form-title-wrap">
+                  <p class=" txt-form-title">내가 주로 활동 하는 곳의 드레스 코드는?</p>
+                </div>
+                <ul class="list-dresscode">
+                  <li
+                    v-for="(data, idx) in Options.dress_code"
+                    @click="clickDressCode(data, $event)"
+                    :class="{selected: data.code === styleData.dress_code}"
+                    :key="idx">
+                    <img :src="dressCodeImage(data.name)"/>
+                    <span class="text">{{ data.name }}</span>
+                  </li>
+                </ul>
               </div>
-              <input
-                type="file"
-                ref="imageFileInput"
-                accept="image/*"
-                id="imageUpload"
-                @change="changeImage"
-              />
-            </div>
-            <p class="txt-image-upload">
-              ※ 고객님 일상에서 자연스러운 사진을 업로드 하시면<br/>
-              스타일링 추천에 많은 도움이 됩니다.<br/>
-              (상, 하의를 볼 수 있는 착장샷이 좋아요)
-            </p>
-            <div
+              <!-- 업로드 -->
+              <div class="row">
+                <div class="form-title-wrap">
+                  <p class=" txt-form-title">[선택] My Daily Look - 사진을 올려주세요.</p>
+                </div>
+                <div class="grid-flex grid-fixed image-upload">
+                  <div class="column">
+                    <div class="text-field">
+                      <input
+                        type="text"
+                        readonly="true"
+                        placeholder="사진을 올려주세요."
+                        :value="changeImageFileName"
+                      />
+                      <!--:value="!_.isEmpty(imageFile) ? imageFile.name : !_.isEmpty(getImageInfo.imageName) ? getImageInfo.imageName : ''"-->
+                    </div>
+                  </div>
+                  <div class="column w-31 o-2">
+                    <button type="button" class="btn btn-secondary h-50" @click="clickImageUpload">업로드</button>
+                  </div>
+                  <input
+                    type="file"
+                    ref="imageFileInput"
+                    accept="image/*"
+                    id="imageUpload"
+                    @change="changeImage"
+                  />
+                </div>
+                <p class="txt-image-upload">
+                  ※ 고객님 일상에서 자연스러운 사진을 업로드 하시면<br/>
+                  스타일링 추천에 많은 도움이 됩니다.<br/>
+                  (상, 하의를 볼 수 있는 착장샷이 좋아요)
+                </p>
+                <div
 
-              class="image-preview"
-              style="display: block;"
-              ref="imagePreview"
-              v-if="!_.isEmpty(previewImage) || !_.isEmpty(getImageInfo.imagePath)"
-            >
-              <div>
-                <svg version="1.1" id="L3" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve" width="50" style="margin: 0 auto; display: none;">
+                  class="image-preview"
+                  style="display: block;"
+                  ref="imagePreview"
+                  v-if="!_.isEmpty(previewImage) || !_.isEmpty(getImageInfo.imagePath)"
+                >
+                  <div>
+                    <svg version="1.1" id="L3" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve" width="50" style="margin: 0 auto; display: none;">
                   <circle fill="none" stroke="#333" stroke-width="4" cx="50" cy="50" r="44" style="opacity:0.5;"></circle>
                   <circle fill="none" stroke="#333" stroke-width="3" cx="8" cy="54" r="6" transform="rotate(323.517 50 51.5946)">
                     <animateTransform attributeName="transform" dur="2s" type="rotate" from="0 50 48" to="360 50 52" repeatCount="indefinite"></animateTransform>
                   </circle>
                 </svg>
-                <img
-                  :src="!_.isEmpty(previewImage) ? previewImage : _.isEmpty(getImageInfo.imagePath) ? null : $common.ZulyImage(getImageInfo.imageWidth) + getImageInfo.imagePath"
-                  width="163"
-                  alt=""/>
+                    <img
+                      :src="!_.isEmpty(previewImage) ? previewImage : _.isEmpty(getImageInfo.imagePath) ? null : $common.ZulyImage(getImageInfo.imageWidth) + getImageInfo.imagePath"
+                      width="163"
+                      alt=""/>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <!-- 추가 요청사항-->
-          <div class="row">
-            <p class=" txt-form-title">추가 요청사항</p>
-            <div class="textarea-required">
-              <textarea
-                placeholder="신체적인 특징이나 싫어하는 스타일, 장식등 별도 요청사항을 적어주세요."
-                v-model="styleData.requirement">
-              </textarea>
+              <!-- 추가 요청사항-->
+              <div class="row">
+                <div class="form-title-wrap">
+                  <p class=" txt-form-title">추가 요청사항</p>
+                </div>
+                <div class="textarea-required">
+                  <textarea
+                    placeholder="신체적인 특징이나 싫어하는 스타일, 장식등 별도 요청사항을 적어주세요."
+                    v-model="styleData.requirement">
+                  </textarea>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      </div>
-    </div>
       <div class="btn-complete">
         <button
           type="button"
@@ -310,6 +326,19 @@ export default {
       getSizes: 'codes/getSizes',
       getOptions: 'codes/getOptions'
     }),
+    setDisabledClass(type, data) {
+      // type: 블라우즈/셔츠, 치마, 바지
+      if (type === 'blouse' || type === 'skirt') {
+        return {
+          disabled:
+            data === '44' || data === '44반' || data === '66반' || data === '77'
+        };
+      } else if (type === 'pants') {
+        return {
+          disabled: data === '25' || data === '30'
+        };
+      }
+    },
     clickSetSize(type, data, event) {
       this.styleData[type] = data.code;
       if (type === 'bodyType') {
@@ -419,8 +448,6 @@ export default {
     changeImage(event) {
       if (event.target.files.length !== 0) {
         this.imageFile = event.target.files[0];
-        console.log(this.imageFile);
-        // this.styleData.image_name = this.imageFile.name;
         this.renderPreviewImage(this.imageFile);
       }
     },
@@ -515,20 +542,24 @@ export default {
     font-weight: 700;
   }
 }
+
 .content {
   padding-top: 20px;
   padding-bottom: 30px;
 }
+
 .row {
   margin-top: 30px;
   &:nth-child(1) {
     margin-top: 0;
   }
 }
+
 .content {
   border-top: 1px solid $color-primary;
   border-bottom: 1px solid #979797;
 }
+
 .body-type {
   .txt-body-type {
     @include fontSize(14px);
@@ -568,6 +599,7 @@ export default {
     }
   }
 }
+
 .list-prefer-color {
   margin-left: -9px;
   margin-top: -10px;
@@ -616,6 +648,7 @@ export default {
     }
   }
 }
+
 .list-prefer-pattern {
   @include clearfix;
   padding-top: 11px;
@@ -648,15 +681,16 @@ export default {
     }
   }
   .stripe {
-    background-image: url("~@/assets/img/signup/img_patten_1.png");
+    background-image: url('~@/assets/img/signup/img_patten_1.png');
   }
   .check {
-    background-image: url("~@/assets/img/signup/img_patten_2.png");
+    background-image: url('~@/assets/img/signup/img_patten_2.png');
   }
   .floral {
-    background-image: url("~@/assets/img/signup/img_patten_3.png");
+    background-image: url('~@/assets/img/signup/img_patten_3.png');
   }
 }
+
 .list-dresscode {
   @include clearfix;
   margin-left: -8px;
@@ -705,8 +739,9 @@ export default {
     }
   }
 }
+
 .image-upload {
-  input[type="file"] {
+  input[type='file'] {
     opacity: 0;
     position: absolute;
     width: 0;
@@ -715,11 +750,13 @@ export default {
     overflow: hidden;
   }
 }
+
 .txt-image-upload {
   @include fontSize(14px);
   color: #797979;
   margin-top: 11px;
 }
+
 .image-preview {
   width: 100%;
   background-color: #f9f9f9;
@@ -731,6 +768,7 @@ export default {
     width: 100%;
   }
 }
+
 .textarea-required {
   textarea {
     @include fontSize(15px);

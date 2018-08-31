@@ -377,12 +377,15 @@ input:-webkit-autofill:focus {
 
 // Form Title
 .form-title-wrap {
-  margin-top: 10px;
   margin-bottom: 10px;
 }
 .txt-form-title {
   @include fontSize(15px);
   font-weight: 700;
+}
+.txt-form-explain {
+  @include fontSize(15px);
+  color: #797979;
 }
 
 .information {

@@ -9,16 +9,16 @@
         <div class="grid-flex">
           <div class="column column-left">
             <div class="row">
-              <p class="txt-form-title">블라우스/셔츠</p>
+              <div class="form-title-wrap">
+                <p class="txt-form-title">블라우스/셔츠</p>
+              </div>
               <div>
                 <ul class="list-flex">
                   <li
                     class="item w-25 h-50 lang-en"
+                    :class="[{selected: joinData.blouseSize  === data.code}, setDisabledClass('blouse', data.name)]"
                     v-for="(data, idx) in Sizes.blouse"
                     :key="idx"
-                    :class="[{
-                    selected: joinData.blouseSize  === data.code,
-                    }, setDisabledClass('blouse', data.name)]"
                     @click="setData('blouseSize', data, $event)"
                   >
                     {{ data.name }}
@@ -27,14 +27,16 @@
               </div>
             </div>
             <div class="row">
-              <p class="txt-form-title">치마</p>
+              <div class="form-title-wrap">
+                <p class="txt-form-title">치마</p>
+              </div>
               <div>
                 <ul class="list-flex">
                   <li
                     class="item w-25 h-50 lang-en"
+                    :class="[{selected: joinData.skirtSize === data.code}, setDisabledClass('skirt', data.name)]"
                     v-for="(data, idx) in Sizes.skirt"
                     :key="idx"
-                    :class="[{selected: joinData.skirtSize === data.code}, setDisabledClass('skirt', data.name)]"
                     @click="setData('skirtSize', data, $event)">
                     {{ data.name }}
                   </li>
@@ -42,15 +44,17 @@
               </div>
             </div>
             <div class="row">
-              <p class="txt-form-title">바지 (inch)</p>
+              <div class="form-title-wrap">
+                <p class="txt-form-title">바지 (inch)</p>
+              </div>
               <div>
                 <ul class="list-flex">
                   <li
                     class="item w-25 h-50 lang-en"
+                    :class="[{selected: joinData.pantsSize === data.code}, setDisabledClass('pants', data.name)]"
                     v-for="(data, idx) in Sizes.pants"
                     v-if="data.name !== '31'"
                     :key="idx"
-                    :class="[{selected: joinData.pantsSize === data.code}, setDisabledClass('pants', data.name)]"
                     @click="setData('pantsSize', data, $event)">
                     {{ data.name }}
                   </li>
@@ -58,7 +62,9 @@
               </div>
             </div>
             <div class="row">
-              <p class="txt-form-title">키 (cm)</p>
+              <div class="form-title-wrap">
+                <p class="txt-form-title">키 (cm)</p>
+              </div>
               <div>
                 <div
                   class="text-field"
@@ -84,7 +90,9 @@
           </div>
           <div class="column column-right">
             <div class="row">
-              <p class="txt-form-title">가슴 (브래지어)</p>
+              <div class="form-title-wrap">
+                <p class="txt-form-title">가슴 (브래지어)</p>
+              </div>
               <div>
                 <div
                   class="text-field"
@@ -107,10 +115,12 @@
 
             </div>
             <div class="row">
-              <p class="txt-form-title">체형</p>
+              <div class="form-title-wrap">
+                <p class="txt-form-title">체형</p>
+              </div>
               <div class="body-type">
                 <p
-                  v-if="bodyTypeText"
+                  v-if="!_.isEmpty(bodyTypeText)"
                   class="txt-body-type"
                 >
                   {{ bodyTypeText }}

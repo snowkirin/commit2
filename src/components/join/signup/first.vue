@@ -9,7 +9,9 @@
           <!--Left Side -->
           <div class="column column-left">
             <div class="user-account">
-              <p class="txt-form-title">사용자 계정</p>
+              <div class="form-title-wrap">
+                <p class="txt-form-title">사용자 계정</p>
+              </div>
               <div>
                 <div class="form-row">
                   <div
@@ -98,7 +100,9 @@
           <div class="column column-right">
             <!-- 연락처 정보 -->
             <div class="contact-info">
-              <p class="txt-form-title">연락처 정보</p>
+              <div class="form-title-wrap">
+                <p class="txt-form-title">연락처 정보</p>
+              </div>
               <div>
                 <div class="form-row">
                   <div class="grid-flex grid-fixed">
@@ -227,7 +231,9 @@
               </div>
             </div>
             <div>
-              <p class="txt-form-title">연령대</p>
+              <div class="form-title-wrap">
+                <p class="txt-form-title">연령대</p>
+              </div>
               <ul class="list-flex">
                 <li class="item w-33 h-50" @click="clickAgeRange('number', $event)">20대</li>
                 <li class="item w-33 h-50" @click="clickAgeRange('number', $event)">30대</li>
@@ -241,7 +247,9 @@
             </div>
             <!-- 추가 정보 -->
             <div class="more-info">
-              <p class="txt-form-title">[선택] 기념일</p>
+              <div class="form-title-wrap">
+                <p class="txt-form-title">[선택] 기념일</p>
+              </div>
               <div class="form-row">
                 <div class="text-field" :class="{'text-field-error' : errors.has('ann')}">
                   <input
