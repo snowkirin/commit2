@@ -22,6 +22,9 @@ import Notifications from 'vue-notification';
 import VueLodash from 'vue-lodash';
 import VueDaumPostcode from 'vue-daum-postcode';
 
+import SweetModal from 'sweet-modal-vue/plugin.js';
+
+
 // Moment : https://momentjs.com/
 import moment from 'moment';
 import VueMomentJs from 'vue-momentjs';
@@ -51,6 +54,7 @@ Vue.use(VueLodash);
 Vue.use(VueDaumPostcode, {
   name: "DaumPostCode"
 });
+Vue.use(SweetModal);
 
 Vue.use(VueMomentJs, moment);
 // 임시 전역 컴포넌트
