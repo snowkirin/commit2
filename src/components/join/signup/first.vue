@@ -226,7 +226,7 @@
                     v-if="errors.has('detail_address')">
                     상세주소가 입력되지 않았습니다.
                   </p>
-                  <p class="txt-delivery">※ 현재 서울 전지역과 경기 일부 지역에 한하여 서비스를 제공하고 있습니다. <a href="//www.naver.com" target="_blank">(배송지역 보기)</a></p>
+                  <p class="txt-delivery">※ 현재 서울 전지역과 경기 일부 지역에 한하여 서비스를 제공하고 있습니다. <a href="/pdf/shipping_area.pdf" target="_blank" class="txt-link">(배송지역 보기)</a></p>
                 </div>
               </div>
             </div>
@@ -285,7 +285,7 @@
                   for="private_flag">
                   개인정보의 수집 및 이용에 대한 동의
                 </label>
-                <a href="#" class="custom-control-link" @click="viewModal('private')">자세히보기</a>
+                <a href="#" class="txt-link" @click="viewModal('private')">자세히보기</a>
               </div>
               <div class="custom-checkbox">
                 <input
@@ -298,7 +298,7 @@
                   for="use_flag">
                   이용약관
                 </label>
-                <a href="#" class="custom-control-link" @click="viewModal('use')">자세히보기</a>
+                <a href="#" class="txt-link" @click="viewModal('use')">자세히보기</a>
               </div>
               <div class="custom-checkbox">
                 <input
@@ -312,7 +312,7 @@
                   for="marketingFlag">
                   [선택] 마케팅 정보 수신 동의
                 </label>
-                <a href="#" class="custom-control-link" @click="viewModal('marketing')">자세히보기</a>
+                <a href="#" class="txt-link" @click="viewModal('marketing')">자세히보기</a>
               </div>
             </div>
           </div>

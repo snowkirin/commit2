@@ -308,7 +308,7 @@ input:-webkit-autofill:focus {
       transition-duration: 0.2s;
     }
   }
-  .custom-control-link {
+  .txt-link {
     font-size: 14px;
     line-height: 25px;
     letter-spacing: -0.4px;
@@ -366,6 +366,11 @@ input:-webkit-autofill:focus {
   color: $color-pomegranate;
   display: inline-block;
   margin-top: 10px; // 참고할것.
+}
+.txt-link {
+  color: #566b9c;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .center-align {
