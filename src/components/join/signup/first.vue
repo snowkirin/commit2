@@ -322,7 +322,7 @@
         <button class="btn btn-primary h-56" type="button" @click="validateBeforeSubmit">다음</button>
       </div>
     </form>
-    <modal name="postCode" :maxHeight="500" height="500px" width="90%">
+    <modal name="postCode" height="auto" width="90%" :scrollable="true">
       <CommonModal modalTitle="주소찾기" :modalCustomCloseFunc="closePostCode">
         <DaumPostCode @complete="completePostCode"></DaumPostCode>
       </CommonModal>
