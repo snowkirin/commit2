@@ -59,5 +59,25 @@ export default {
       }
       return res;
     });
+  },
+  postPhone({ commit }, data) {
+    return Member.postPhone(data).then(res => {
+      if (res.data.result) {
+        commit(types.POST_PHONE, res.data.authId);
+      } else {
+        console.log('Post Phone Error');
+      }
+      return res;
+    });
+  },
+  patchPhone({ commit }, data) {
+    return Member.patchPhone(data).then(res => {
+      if (res.data.result) {
+        commit(types.PATCH_PHONE);
+      } else {
+        console.log('Patch Phone Error');
+      }
+      return res;
+    })
   }
 };

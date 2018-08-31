@@ -193,5 +193,33 @@ export default {
           message: err.message
         }
       });
+  },
+  // 핸드폰 번호 변경시
+  postPhone(data) {
+    return axios
+      .post(`${API_URL}/member/phone`, data, {
+        withCredentials: true
+      }).then(res => {
+        return res;
+      })
+      .catch(err => {
+        return {
+          ...err.response,
+          message: err.message
+        }
+      })
+  },
+  patchPhone(data) {
+    return axios
+      .patch(`${API_URL}/member/phone`, data, {
+        withCredentials: true
+      }).then(res => {
+        return res;
+      }).catch(err => {
+        return {
+          ...err.response,
+          message: err.message
+        }
+      })
   }
 };

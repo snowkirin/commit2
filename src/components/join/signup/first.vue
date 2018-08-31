@@ -55,11 +55,11 @@
                     <input
                       type="password"
                       name="password"
-                      placeholder="비밀번호 8자리 이상의 영문,숫자,특수문자 포함"
+                      placeholder="비밀번호 8자리 이상의 영문,숫자,특수문자(!@#$%^&*) 포함"
                       autocomplete="new-password"
                       maxlength="256"
                       ref="password"
-                      v-validate="{ required: true, regex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*?&^])[A-Za-z\d$@$!%*?&]{8,}/ }"
+                      v-validate="{ required: true, regex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}/ }"
                       v-model="joinData.password"
                       @keyup="pwdCheck(errors.has('password'))"
                     />

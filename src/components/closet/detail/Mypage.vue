@@ -6,8 +6,7 @@
     <div class="content">
       <vue-json-pretty :data="Mypage"></vue-json-pretty>
       <div>
-
-        <form>
+        <form data-vv-scope="phone">
           <!-- 휴대폰-->
           <div>
             <div class="form-title-wrap">
@@ -21,7 +20,7 @@
                     <input
                       type="text"
                       readonly
-                      :value="initData.phone_no">
+                      :value="initPhoneNumber">
                   </div>
                 </div>
                 <div class="column w-26 o-3">
@@ -39,12 +38,14 @@
             <div v-if="isFlag.phoneNumber" class="form-row">
               <div class="grid-flex grid-fixed">
                 <div class="column">
-                  <div class="text-field">
+                  <div class="text-field" :class="{'text-field-error': errors.has('phone.latestPhoneNumber')}">
                     <input
                       type="text"
                       name="latestPhoneNumber"
                       ref="latestPhoneNumberInput"
-                      v-model.trim="latestData.phone_no"
+                      v-validate="{required: true, regex: /^\d{3}\d{3,4}\d{4}$/}"
+                      data-vv-as="휴대폰 번호"
+                      v-model.trim="phoneNumber"
                     >
                   </div>
                 </div>
@@ -59,6 +60,12 @@
                   </button>
                 </div>
               </div>
+              <p
+                class="txt-error"
+                v-if="errors.has('phone.latestPhoneNumber')"
+              >
+                {{errors.first('phone.latestPhoneNumber')}}
+              </p>
             </div>
 
             <div v-if="isFlag.phoneAuth" class="form-row">
@@ -91,7 +98,13 @@
               <div class="grid-flex grid-fixed">
                 <div class="column w-71">
                   <div class="text-field">
-                    <input type="text">
+                    <input
+                      type="password"
+                      placeholder="현재 비밀번호"
+                      name="currentPassword"
+                      v-model="currentPassword"
+                      v-validate="{required: true, regex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}/}"
+                    >
                   </div>
                 </div>
               </div>
@@ -100,22 +113,53 @@
               <div class="grid-flex grid-fixed">
                 <div class="column w-71">
                   <div class="text-field">
-                    <input type="text">
+                    <input
+                      type="password"
+                      placeholder="신규 비밀번호"
+                      name="newPassword"
+                      ref="newPassword"
+                      v-model="newPassword"
+                      data-vv-as="신규 비밀번호"
+                      v-validate="{
+                        required: true,
+                        regex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}/
+                      }"
+                    >
                   </div>
                 </div>
               </div>
+              <p class="txt-error" v-if="errors.has('password.newPassword')">
+                {{ errors.first('password.newPassword') }}
+              </p>
             </div>
             <div class="form-row">
               <div class="grid-flex grid-fixed">
                 <div class="column">
                   <div class="text-field">
-                    <input type="text">
+                    <input
+                      type="password"
+                      placeholder="신규 비밀번호 확인"
+                      name="newPasswordConfirm"
+                      v-validate="{required: true, confirmed: newPassword}"
+                    >
                   </div>
                 </div>
                 <div class="column w-26 o-3">
-                  <button type="button" class="btn btn-primary h-50">변경</button>
+                  <button
+                    type="button"
+                    class="btn btn-primary h-50"
+                    @click="clickChangePassword"
+                  >
+                    변경
+                  </button>
                 </div>
               </div>
+              <p
+                class="txt-error"
+                v-if="errors.has('password.newPasswordConfirm')"
+              >
+                비밀번호가 일치하지 않습니다.
+              </p>
             </div>
           </div>
         </form>
@@ -124,19 +168,29 @@
         <div>
           <div class="form-title-wrap">
             <p class="txt-form-title">결제 카드</p>
-            <p>카드 정보 : {{ !initData.card_name?null:initData.card_name.substring(0,2) }} (일시불) / 마지막 3자리: {{
-              !initData.card_number?null:initData.card_number.substring(initData.card_number.length -3) }}</p>
+            <p>카드 정보 : {{ !currentCardName?null:currentCardName.substring(0,2) }} (일시불) / 마지막 3자리: {{
+              !currentCardNumber?null:currentCardNumber.substring(currentCardNumber.length -3) }}</p>
           </div>
           <div class="form-row">
             <div class="grid-flex grid-fixed">
               <div class="column">
                 <div class="text-field">
-                  <input type="text">
+                  <input
+                    type="text"
+                    placeholder="카드 번호 (-없이 16자리 입력)"
+                    maxlength="16"
+                    v-model="newCardNumber"
+                  >
                 </div>
               </div>
               <div class="column w-23 o-3">
                 <div class="text-field">
-                  <input type="text">
+                  <input
+                    type="text"
+                    placeholder="MMYY"
+                    maxlength="4"
+                    v-model="newCardValidity"
+                  >
                 </div>
               </div>
             </div>
@@ -145,7 +199,12 @@
             <div class="grid-flex grid-fixed">
               <div class="column">
                 <div class="text-field">
-                  <input type="text">
+                  <input
+                    type="text"
+                    placeholder="생년월일(YYMMDD)"
+                    maxlength="6"
+                    v-model="newCardBitrh"
+                  >
                 </div>
               </div>
             </div>
@@ -154,14 +213,25 @@
             <div class="grid-flex grid-fixed">
               <div class="column">
                 <div class="text-field">
-                  <input type="text">
+                  <input
+                    type="text"
+                    placeholder="비밀번호"
+                    maxlength="2"
+                    v-model="newCardPassword"
+                  >
                 </div>
               </div>
               <div class="column">
                 **
               </div>
               <div class="column w-26 o-3">
-                <button type="button" class="btn btn-primary h-50">변경</button>
+                <button
+                  type="button"
+                  class="btn btn-primary h-50"
+                  @click="clickChangePayment"
+                >
+                  변경
+                </button>
               </div>
             </div>
           </div>
@@ -177,7 +247,7 @@
                 <div class="text-field">
                   <input
                     type="text"
-                    :value="_.isEmpty(latestData.zipcode) ? initData.zipcode : latestData.zipcode"
+                    v-model="zipcode"
                     readonly
                     @click="clickOpenPostCode"
                   >
@@ -195,10 +265,12 @@
             </div>
           </div>
           <div class="form-row" v-if="isFlag.postCode">
-            <div style="position: relative;max-height: 400px; overflow: auto;">
-              <div>우편번호 검색 <button type="button" @click="clickClosePostCode">X</button></div>
-              <DaumPostCode style="border: 1px solid #3d3d35;"></DaumPostCode>
-
+            <div>
+              <DaumPostCode
+                style="border: 1px solid #3d3d35; max-height: 400px; overflow: auto;"
+                @complete="completePostCode"
+              >
+              </DaumPostCode>
             </div>
 
           </div>
@@ -210,7 +282,7 @@
                   <input
                     type="text"
                     readonly
-                    :value="_.isEmpty(latestData.address) ? initData.address : latestData.address"
+                    v-model="address"
                     @click="clickOpenPostCode"
                   >
                 </div>
@@ -222,7 +294,11 @@
 
               <div class="column">
                 <div class="text-field">
-                  <input type="text" ref="">
+                  <input
+                    type="text"
+                    ref="addressDetail"
+                    v-model="addressDetail"
+                  >
                 </div>
               </div>
               <div class="column w-26 o-3">
@@ -240,7 +316,10 @@
             <div class="grid-flex grid-fixed">
               <div class="column">
                 <div class="text-field">
-                  <input type="text">
+                  <input
+                    type="text"
+                    v-model="lobbyPassword"
+                  >
                 </div>
               </div>
               <div class="column w-26 o-3">
@@ -258,7 +337,11 @@
             <div class="grid-flex grid-fixed">
               <div class="column">
                 <div class="text-field">
-                  <input type="text">
+                  <input
+                    type="text"
+                    v-model="anniversary"
+                    maxlength="4"
+                  >
                 </div>
               </div>
               <div class="column w-26 o-3">
@@ -308,7 +391,43 @@ export default {
   },
   data() {
     return {
-      initData: {}, // 기본값
+      initData: {}, // 기본값 삭제 예정
+
+      initPhoneNumber: '',
+
+      phoneNumber: '',
+      phoneAuthNumber: '',
+      authErrMessage: '',
+
+      currentPassword: '',
+      newPassword: '',
+
+      currentCardName: '',
+      currentCardNumber: '',
+
+      newCardNumber: '',
+      newCardValidity: '',
+      newCardBitrh: '',
+      newCardPassword: '',
+
+      zipcode: '',
+      address: '',
+      addressDetail: '',
+
+      lobbyPassword: '',
+
+      anniversary: '',
+
+      email: '',
+      name: '',
+      memorial_day: '',
+      delivery_day: null,
+      delivery_date: '',
+      address_password: '',
+      card_name: '',
+      card_number: '',
+      stylist: '',
+
       latestData: {
         email: '',
         name: '',
@@ -328,23 +447,39 @@ export default {
         // Show / Hide할 Flag들이 들어갈곳
         phoneNumber: false,
         phoneAuth: false,
-        postCode: false,
+        postCode: false
       },
-      authErrMessage: '',
-      phoneAuthNumber: '',
+
     };
   },
   computed: {
     ...mapGetters({
-      Mypage: 'member/Mypage'
+      Mypage: 'member/Mypage',
+      PhoneAuth: 'member/PhoneAuth'
     })
   },
   methods: {
     ...mapActions({
-      getMypage: 'member/getMypage'
+      getMypage: 'member/getMypage',
+      postPhone: 'member/postPhone',
+      patchPhone: 'member/patchPhone'
     }),
     setMypageData() {
-      this.initData = this.Mypage;
+      // 핸드폰 번호
+      this.initPhoneNumber = this.Mypage.phone_no;
+
+      this.currentCardName = this.Mypage.card_name;
+      this.currentCardNumber = this.Mypage.card_number;
+
+      this.zipcode = this.Mypage.zipcode;
+      this.address = this.Mypage.address;
+      this.addressDetail = this.Mypage.address_detail;
+
+      this.lobbyPassword = this.Mypage.address_password ? this.Mypage.address_password : null;
+
+      this.anniversary = this.Mypage.memorial_day ? this.Mypage.memorial_day.replace('.','') : null;
+
+      // this.initData = this.Mypage;
     },
     startTimer() {
       const timer =
@@ -386,59 +521,90 @@ export default {
         this.isFlag.phoneAuth = false;
       }
       this.isFlag.phoneNumber = !this.isFlag.phoneNumber;
-
+      this.latestData.phone_no = '';
     },
     clickSendPhoneAuth() {
-      const regexPhoneNumber = /^\d{3}\d{3,4}\d{4}$/;
-      if (this.latestData.phone_no === this.initData.phone_no) {
-        alert('같은 번호로는 변경이 불가능 합니다.');
-        return;
-      }
-      if (_.isEmpty(this.latestData.phone_no)) {
-        alert('핸드폰번호를 입력해 주세요.');
-        return;
-      } else {
-        if (_.isEmpty(this.latestData.phone_no.match(regexPhoneNumber))) {
-          alert('핸드폰번호를 정확히 입력해 주세요.');
+      this.$validator.validateAll('phone').then(result => {
+        if (this.phoneNumber === this.initPhoneNumber) {
+          alert('같은 번호로는 변경이 불가능 합니다.');
           return;
         }
-      }
-
-      this.$refs.latestPhoneNumberInput.disabled = true;
-      this.$refs.latestPhoneNumberButton.disabled = true;
-
-      this.isFlag.phoneAuth = true;
-      this.startTimer();
+        if (result) {
+          const formData = {
+            phone: this.phoneNumber
+          };
+          this.postPhone(formData).then(res => {
+            if (res.data.result) {
+              this.$refs.latestPhoneNumberInput.disabled = true;
+              this.$refs.latestPhoneNumberButton.disabled = true;
+              this.isFlag.phoneAuth = true;
+              this.startTimer();
+            } else {
+              alert('통신오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.');
+            }
+          });
+        }
+      });
     },
     clickChangePhone() {
       if (_.isEmpty(this.phoneAuthNumber)) {
         alert('인증번호를 입력해 주세요.');
         return;
+      } else {
+        const formData = {
+          authId: this.PhoneAuth,
+          authNumber: this.phoneAuthNumber
+        };
+
+        this.patchPhone(formData).then(res => {
+          if(res.data.result) {
+            this.$refs.latestPhoneNumberInput.disabled = false;
+            this.$refs.latestPhoneNumberButton.disabled = false;
+            clearInterval(window.interval);
+            this.initPhoneNumber = this.phoneNumber;
+            this.authErrMessage = '';
+            this.phoneNumber = '';
+            this.isFlag.phoneNumber = false;
+            this.isFlag.phoneAuth = false;
+          } else {
+            alert('인증번호를 정확히 입력해 주세요.');
+          }
+        });
       }
-
-      // 성공 했다면
-      this.$refs.latestPhoneNumberInput.disabled = false;
-      this.$refs.latestPhoneNumberButton.disabled = false;
-      clearInterval(window.interval);
-      this.authErrMessage = '';
-      this.isFlag.phoneNumber = false;
-      this.isFlag.phoneAuth = false;
-
-      // 성공 못했다면
-      alert('정확히 입력해 주세요.');
-
     },
     clickChangePassword() {
-      // 비밀번호 변경
+      console.log('비밀번호 변경 버튼 누름');
+      this.$validator.validateAll('password').then(result => {
+        if (result) {
+          console.log('비밀번호 변경 성공');
+          // 비밀번호 변경 API
+        } else {
+          console.log('비밀번호 변경 실패');
+        }
+      });
     },
     clickChangePayment() {
       // 결제 변경
+      console.log('결제 변경 버튼 클릭');
     },
     clickOpenPostCode() {
       this.isFlag.postCode = true;
     },
     clickClosePostCode() {
       this.isFlag.postCode = false;
+    },
+    completePostCode(result) {
+      if (result.userSelectedType === 'R') {
+        //  도로명 주소
+        this.address = result.roadAddress;
+      } else {
+        //  지번 주소
+        this.address = result.jibunAddress;
+      }
+      this.zipcode = result.zonecode;
+      this.clickClosePostCode();
+      this.addressDetail = '';
+      this.$refs.addressDetail.focus();
     },
     clickChangeAddr() {
       // 주소 변경
@@ -460,14 +626,14 @@ export default {
 <style scoped lang="scss" src="@/assets/css/closet-style.scss">
 </style>
 <style scoped lang="scss">
-  input[readonly] {
-    color: #bbb;
-  }
+input[readonly] {
+  color: #bbb;
+}
 
-  .form-row {
-    margin-bottom: 10px;
-    &:last-child {
-      margin-bottom: 0;
-    }
+.form-row {
+  margin-bottom: 10px;
+  &:last-child {
+    margin-bottom: 0;
   }
+}
 </style>

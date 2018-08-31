@@ -1,11 +1,13 @@
-import types from "./mutation-types";
-import actions from "./actions";
+import types from './mutation-types';
+import actions from './actions';
 
 const initialState = {
-  MemberCount: null, // type: Number
+  MemberCount: null, // Number
   MemberStyleType: {}, // Object
   MemberStyle: {}, // Object
-  Mypage: {} // Object
+  Mypage: {}, // Object
+  PhoneAuth: null, // Number : authId
+  isPhoneChange: false // Boolean
 };
 const state = Object.assign({}, initialState);
 const mutations = {
@@ -20,14 +22,20 @@ const mutations = {
   },
   [types.GET_MYPAGE](state, data) {
     state.Mypage = data;
+  },
+  [types.POST_PHONE](state, data) {
+    state.PhoneAuth = data;
+  },
+  [types.PATCH_PHONE](state) {
+    state.isPhoneChange = true;
   }
-
 };
 const getters = {
   MemberCount: state => state.MemberCount,
   MemberStyleType: state => state.MemberStyleType,
   MemberStyle: state => state.MemberStyle,
-  Mypage: state => state.Mypage
+  Mypage: state => state.Mypage,
+  PhoneAuth: state => state.PhoneAuth,
 };
 export default {
   namespaced: true,
@@ -35,4 +43,4 @@ export default {
   mutations,
   actions,
   getters
-}
+};
