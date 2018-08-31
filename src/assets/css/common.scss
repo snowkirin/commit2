@@ -521,6 +521,12 @@ input:-webkit-autofill:focus {
   }
 }
 
-.v--modal {
-  transform: translate3d(0, 0, 0);
+.v--modal-background-click {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.v--modal-box {
+  left: 0;
+  top: 0;
 }
