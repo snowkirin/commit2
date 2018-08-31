@@ -7,7 +7,11 @@ const initialState = {
   MemberStyle: {}, // Object
   Mypage: {}, // Object
   PhoneAuth: null, // Number : authId
-  isPhoneChange: false // Boolean
+  isPhoneChange: false, // Boolean
+  isPaymentChange: false, // Boolean
+  isAddressChange: false, // Boolean
+  isLobbyPasswordChange: false, // Boolean
+  isAnnChange: false, // Boolean
 };
 const state = Object.assign({}, initialState);
 const mutations = {
@@ -28,6 +32,18 @@ const mutations = {
   },
   [types.PATCH_PHONE](state) {
     state.isPhoneChange = true;
+  },
+  [types.PATCH_PAYMENT](state) {
+    state.isPaymentChange = true;
+  },
+  [types.PATCH_ADDRESS](state) {
+    state.isAddressChange = true;
+  },
+  [types.PATCH_LOBBY_PASSWORD](state) {
+    state.isLobbyPasswordChange = true;
+  },
+  [types.PATCH_ANN](state) {
+    state.isAnnChange = true;
   }
 };
 const getters = {

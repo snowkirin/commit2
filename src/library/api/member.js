@@ -32,57 +32,10 @@ export default {
       });
   },
   // 2018-08-21 수정 END
-  patchMemberAddress(data) {
-    const result = axios
-      .patch(`${API_URL}/member/address`, data, { withCredentials: true })
-      .then(res => {
-        return res;
-      })
-      .catch(err => {
-        alert(err);
-        return err;
-      });
-    return result;
-  },
-  patchMemberMemorialDay(data) {
-    const result = axios
-      .patch(`${API_URL}/member/memorialDay`, data, { withCredentials: true })
-      .then(res => {
-        return res;
-      })
-      .catch(err => {
-        alert(err);
-        return err;
-      });
-    return result;
-  },
-  patchMemberLobbyPassword(data) {
-    const result = axios
-      .patch(`${API_URL}/member/addrPassword `, data, { withCredentials: true })
-      .then(res => {
-        return res;
-      })
-      .catch(err => {
-        alert(err);
-        return err;
-      });
-    return result;
-  },
+
   patchMemberPassword(data) {
     const result = axios
       .patch(`${API_URL}/member/password`, data, { withCredentials: true })
-      .then(res => {
-        return res;
-      })
-      .catch(err => {
-        alert(err);
-        return err;
-      });
-    return result;
-  },
-  patchMemberPayment(data) {
-    const result = axios
-      .patch(`${API_URL}/member/payment`, data, { withCredentials: true })
       .then(res => {
         return res;
       })
@@ -179,6 +132,7 @@ export default {
         };
       });
   },
+
   getMypage() {
     return axios
       .get(`${API_URL}/member/mypage`, {
@@ -191,7 +145,7 @@ export default {
         return {
           ...err.response,
           message: err.message
-        }
+        };
       });
   },
   // 핸드폰 번호 변경시
@@ -199,27 +153,90 @@ export default {
     return axios
       .post(`${API_URL}/member/phone`, data, {
         withCredentials: true
-      }).then(res => {
+      })
+      .then(res => {
         return res;
       })
       .catch(err => {
         return {
           ...err.response,
           message: err.message
-        }
-      })
+        };
+      });
   },
   patchPhone(data) {
     return axios
       .patch(`${API_URL}/member/phone`, data, {
         withCredentials: true
-      }).then(res => {
+      })
+      .then(res => {
         return res;
-      }).catch(err => {
+      })
+      .catch(err => {
         return {
           ...err.response,
           message: err.message
-        }
+        };
+      });
+  },
+  patchPayment(data) {
+    return axios
+      .patch(`${API_URL}/member/payment`, data, {
+        withCredentials: true
       })
+      .then(res => {
+        return res;
+      })
+      .catch(err => {
+        return {
+          ...err.response,
+          message: err.message
+        };
+      });
+  },
+  patchAddress(data) {
+    return axios
+      .patch(`${API_URL}/member/address`, data, {
+        withCredentials: true
+      })
+      .then(res => {
+        return res;
+      })
+      .catch(err => {
+        return {
+          ...err.response,
+          message: err.message
+        };
+      });
+  },
+  patchLobbyPassword(data) {
+    return axios
+      .patch(`${API_URL}/member/addrPassword `, data, {
+        withCredentials: true
+      })
+      .then(res => {
+        return res;
+      })
+      .catch(err => {
+        return {
+          ...err.response,
+          message: err.message
+        };
+      });
+  },
+  patchAnn(data) {
+    return axios
+      .patch(`${API_URL}/member/memorialDay`, data, {
+        withCredentials: true
+      })
+      .then(res => {
+        return res;
+      })
+      .catch(err => {
+        return {
+          ...err.response,
+          message: err.message
+        };
+      });
   }
 };

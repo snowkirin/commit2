@@ -78,6 +78,46 @@ export default {
         console.log('Patch Phone Error');
       }
       return res;
+    });
+  },
+  patchPayment({ commit }, data) {
+    return Member.patchPayment(data).then(res => {
+      if (res.data.result) {
+        commit(types.PATCH_PAYMENT);
+        return res;
+      } else {
+        console.log('Patch Payment Error');
+      }
+    });
+  },
+  patchAddress({ commit }, data) {
+    return Member.patchAddress(data).then(res => {
+      if (res.data.result) {
+        commit(types.PATCH_ADDRESS);
+        return res;
+      } else {
+        console.log('Patch Address Error');
+      }
+    });
+  },
+  patchLobbyPassword({ commit}, data) {
+    return Member.patchLobbyPassword(data).then(res => {
+      if (res.data.result) {
+        commit(types.PATCH_LOBBY_PASSWORD);
+        return res;
+      } else {
+        console.log('Patch Lobby Password Error');
+      }
+    })
+  },
+  patchAnn({ commit }, data) {
+    return Member.patchAnn(data).then(res => {
+      if (res.data.result) {
+        commit(types.PATCH_ANN);
+        return res;
+      } else {
+        console.log('Patch Ann Error');
+      }
     })
   }
 };
