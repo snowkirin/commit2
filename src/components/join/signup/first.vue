@@ -423,7 +423,7 @@ export default {
     },
     closePostCode() {
       this.$refs.postCode.modal.close();
-      this.$modal.hide('postCode');
+      // this.$modal.hide('postCode');
     },
     completePostCode(result) {
       if (result.userSelectedType === 'R') {

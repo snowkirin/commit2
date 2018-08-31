@@ -22,7 +22,7 @@ import Notifications from 'vue-notification';
 import VueLodash from 'vue-lodash';
 import VueDaumPostcode from 'vue-daum-postcode';
 
-import SweetModal from 'sweet-modal-vue/plugin.js';
+import SweetModal from 'sweet-modal-vue/src/plugin.js';
 
 
 // Moment : https://momentjs.com/
