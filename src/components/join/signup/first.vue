@@ -324,7 +324,7 @@
     </form>
     <modal name="postCode" height="auto" width="90%" :scrollable="true">
       <CommonModal modalTitle="주소찾기" :modalCustomCloseFunc="closePostCode">
-        <DaumPostCode @complete="completePostCode"></DaumPostCode>
+        <DaumPostCode @complete="completePostCode" style="overflow-y: scroll"></DaumPostCode>
       </CommonModal>
     </modal>
     <simplert ref="alert" :useRadius="false" :useIcon="false" />
