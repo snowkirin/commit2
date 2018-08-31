@@ -322,11 +322,15 @@
         <button class="btn btn-primary h-56" type="button" @click="validateBeforeSubmit">다음</button>
       </div>
     </form>
-    <SweetModal ref="postCode">
+    <sweet-modal ref="postCode">
       <CommonModal modalTitle="주소찾기" :modalCustomCloseFunc="closePostCode">
-        <DaumPostCode @complete="completePostCode" style="overflow-y: scroll"></DaumPostCode>
+        <DaumPostCode @complete="completePostCode"></DaumPostCode>
       </CommonModal>
-    </SweetModal>
+    </sweet-modal>
+
+
+
+
     <!--<modal name="postCode" height="auto" width="90%" :scrollable="true">-->
       <!---->
     <!--</modal>-->
@@ -418,11 +422,11 @@ export default {
       patchPhone: 'signup/patchPhone'
     }),
     openPostCode() {
-      this.$refs.postCode.modal.open();
+      this.$refs.postCode.open();
       // this.$modal.show('postCode');
     },
     closePostCode() {
-      this.$refs.postCode.modal.close();
+      this.$refs.postCode.close();
       // this.$modal.hide('postCode');
     },
     completePostCode(result) {

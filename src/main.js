@@ -23,8 +23,6 @@ import VueLodash from 'vue-lodash';
 import VueDaumPostcode from 'vue-daum-postcode';
 
 import SweetModal from 'sweet-modal-vue/src/plugin.js';
-
-
 // Moment : https://momentjs.com/
 import moment from 'moment';
 import VueMomentJs from 'vue-momentjs';
