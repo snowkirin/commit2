@@ -45,6 +45,7 @@
                           type="text"
                           name="latestPhoneNumber"
                           ref="latestPhoneNumberInput"
+                          placeholder="변경할 휴대폰 번호"
                           v-validate="{required: true, regex: /^\d{3}\d{3,4}\d{4}$/}"
                           data-vv-as="휴대폰 번호"
                           v-model.trim="phoneNumber"
