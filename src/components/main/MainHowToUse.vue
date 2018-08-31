@@ -16,8 +16,6 @@
 							<p class="txt-desc">고객님의 취향을 알 수 있도록 아이템 이미지를 보고 받고 싶으신 스타일을 골라주세요.</p>
 						</div>
 					</div>
-
-
 				</div>
 				<div class="column">
 					<div class="item">
@@ -84,117 +82,114 @@
 </template>
 
 <script>
-
-	export default {
-		name: "MainHowToUse",
-		data() {
-			return {
-
-			}
-		}
-	}
+export default {
+  name: 'MainHowToUse',
+  data() {
+    return {};
+  }
+};
 </script>
-<style scoped lang="scss" src="@/assets/css/main-style.scss"></style>
+<style scoped lang="scss" src="@/assets/css/main-style.scss">
+</style>
 <style scoped lang="scss">
-	.content {
-		padding: 0 25px;
-	}
-	.list-how-to-use {
-		@include fontSize(15px);
-		.column {
-			margin-top: 40px;
-			&:nth-child(1) {
-				margin-top: 0;
-			}
-		}
-		.txt-number {
-			font-family: 'Montserrat', sans-serif;
-			font-size: 40px;
-			line-height: 40px;
-			color: #c4c4c4;
-		}
-		.txt-title {
-			font-weight: 700;
-			margin-bottom: 5px;
-		}
-		.item {
-			display: flex;
-			flex-wrap: wrap;
-			div {
-				flex: 0;
-				&:nth-child(1) {
-					flex-basis: 26px;
-					text-align: center;
-				}
-				&:nth-child(2) {
-					flex-grow: 1;
-					margin-left: 10px;
-				}
-			}
+.content {
+  padding: 0 25px;
+}
+.list-how-to-use {
+  @include fontSize(15px);
+  .column {
+    margin-top: 40px;
+    &:nth-child(1) {
+      margin-top: 0;
+    }
+  }
+  .txt-number {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 40px;
+    line-height: 40px;
+    color: #c4c4c4;
+  }
+  .txt-title {
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+  .item {
+    display: flex;
+    flex-wrap: wrap;
+    div {
+      flex: 0;
+      &:nth-child(1) {
+        flex-basis: 26px;
+        text-align: center;
+      }
+      &:nth-child(2) {
+        flex-grow: 1;
+        margin-left: 10px;
+      }
+    }
+  }
+}
+@media (min-width: 768px) {
+  .list-how-to-use {
+    .column {
+      flex-basis: calc(50% - (31px / 2));
+      margin-top: 60px;
+      &:nth-child(1) {
+        margin-left: 0;
+        order: 1;
+      }
+      &:nth-child(2) {
+        order: 1;
+        margin-top: 0;
+        margin-left: 31px;
+      }
+      &:nth-child(3) {
+        order: 2;
+        margin-left: 31px;
+      }
+      &:nth-child(4) {
+        order: 1;
+        margin-left: 0;
+      }
+      &:nth-child(5) {
+        order: 2;
+        margin-left: 0;
+      }
+      &:nth-child(6) {
+        order: 2;
+        margin-left: 31px;
+      }
+    }
+  }
+}
 
-		}
-	}
-	@media (min-width: 768px) {
-		.list-how-to-use {
-			.column {
-				flex-basis: 47.91%;
-				margin-left: 4.18%;
-				margin-top: 60px;
-				flex-grow: 0;
-				&:nth-child(1) {
-					margin-left: 0;
-					order: 1;
-				}
-				&:nth-child(2) {
-					order: 1;
-					margin-top: 0;
-				}
-				&:nth-child(3) {
-					order: 2;
-				}
-				&:nth-child(4) {
-					order: 1;
-					margin-left: 0;
-				}
-				&:nth-child(5) {
-					order: 2;
-					margin-left: 0;
-				}
-				&:nth-child(6) {
-					order: 2;
-				}
-			}
-		}
-	}
-
-	@media (min-width: 1280px) {
-		.list-how-to-use {
-			.column {
-				flex-basis: 31.963633%;
-				&:nth-child(1) {
-					margin-left: 0;
-				}
-				&:nth-child(2) {
-					margin-left: 2.009%;
-				}
-				&:nth-child(3) {
-					order: 1;
-					margin-top: 0;
-					margin-left: 2.009%;
-				}
-				&:nth-child(4) {
-					margin-left: 0;
-				}
-				&:nth-child(5) {
-					order: 1;
-					margin-left: 2.009%;
-				}
-				&:nth-child(6) {
-					order: 1;
-					margin-left: 2.009%;
-				}
-
-			}
-		}
-	}
+@media (min-width: 1280px) {
+  .list-how-to-use {
+    .column {
+      flex-basis: calc(33.333% - (84px / 3));
+      &:nth-child(1) {
+        margin-left: 0;
+      }
+      &:nth-child(2) {
+        margin-left: 28px;
+      }
+      &:nth-child(3) {
+        order: 1;
+        margin-top: 0;
+        margin-left: 28px;
+      }
+      &:nth-child(4) {
+        margin-left: 0;
+      }
+      &:nth-child(5) {
+        order: 1;
+        margin-left: 28px;
+      }
+      &:nth-child(6) {
+        order: 1;
+        margin-left: 28px;
+      }
+    }
+  }
+}
 </style>
