@@ -26,9 +26,9 @@ export default {
   },
   getProductDetail({ commit }, data) {
     return Subscriptions.getProductDetail(data).then(res => {
-      if (res.data.result) {
+      if (!_.isEmpty(res.data)) {
         let obj = {};
-        obj[data] = res.data.data;
+        obj[data] = res.data;
         commit(types.GET_PRODUCT_DETAIL, obj);
       } else {
         alert('상품 정보가 없습니다.');

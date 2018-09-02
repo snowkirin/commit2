@@ -55,7 +55,7 @@
                   class="btn btn-primary h-56"
                   @click="clickSelected('typeA')"
                 >
-                  선택하기
+                  A 선택하기
                 </button>
               </div>
             </div>
@@ -96,7 +96,7 @@
                   class="btn btn-primary h-56"
                   @click="clickSelected('typeB')"
                 >
-                  선택하기
+                  B 선택하기
                 </button>
               </div>
             </div>
@@ -199,6 +199,7 @@ export default {
       this.tomorrowData.productB = productB;
     },
     async clickProductDetail(data) {
+      console.log(data);
       const modalConfig = {
         scrollable: true,
         height: 'auto',

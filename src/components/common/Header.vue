@@ -1,7 +1,7 @@
 <template>
   <header class="header" v-if="$route.path !== '/'">
     <router-link to="/" class="logo">
-      <!--<img src="@/assets/img/logo.png" alt="ZULY">-->
+      <ZulyLogoSVG class="logo-svg"/>
     </router-link>
     <nav class="global-navigation">
       <ul>
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import ZulyLogoSVG from '@/assets/img/logo.svg?inline';
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 import Simplert from 'vue2-simplert';
 const alertObject = {
@@ -67,7 +68,8 @@ export default {
     }
   },
   components: {
-    Simplert
+    Simplert,
+    ZulyLogoSVG
   },
   computed: mapGetters({
     Authentication: 'login/Authentication'
@@ -127,6 +129,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.logo-svg {
+  /deep/ path {
+    fill: $color-primary;
+  }
+}
 .header {
   @include clearfix;
   padding: 17px 20px 20px 20px;

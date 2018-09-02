@@ -412,7 +412,6 @@ export default {
     }
   },
   created() {
-    console.log(this.data, 'THIS DATA');
     if (this.data.result) {
       this.subId = this.subscriptionId;
       this.feedbackId = this.data.feedback_id;
