@@ -188,6 +188,9 @@
                   </div>
                   <p></p>
                 </div>
+                <div class="form-row" v-show="isPostCode">
+                  <div class="postcode-wrap" id="postCode"></div>
+                </div>
                 <div class="form-row">
                   <div class="text-field" :class="{'text-field-error' : errors.has('address')}">
                     <input
@@ -322,19 +325,6 @@
         <button class="btn btn-primary h-56" type="button" @click="validateBeforeSubmit">다음</button>
       </div>
     </form>
-    <!--<DaumPostcode v-if="isPostCode"/>-->
-    <!--<DaumPostCode v-if="isPostCode" @complete="completePostCode" style="height: 400px; overflow: scroll;"></DaumPostCode>-->
-    <!--<sweet-modal ref="postCode">-->
-      <!--<CommonModal modalTitle="주소찾기" :modalCustomCloseFunc="closePostCode">-->
-        <!--<DaumPostCode @complete="completePostCode" style="height: 500px; overflow: scroll"></DaumPostCode>-->
-      <!--</CommonModal>-->
-    <!--</sweet-modal>-->
-
-    <modal name="postCode" height="auto" width="90%" :scrollable="true">
-      <CommonModal modalTitle="주소찾기" :modalCustomCloseFunc="closePostCode">
-        <DaumPostCode @complete="completePostCode" style="-webkit-overflow-scrolling: touch;"></DaumPostCode>
-      </CommonModal>
-    </modal>
     <simplert ref="alert" :useRadius="false" :useIcon="false" />
   </div>
 </template>
@@ -344,7 +334,6 @@ import DatePicker from 'vue2-datepicker';
 import CommonModal from '@/components/common/modal/CommonModal';
 import Simplert from 'vue2-simplert';
 import Info from '@/info';
-import DaumPostcode from 'vuejs-daum-postcode'
 const alertObject = {
   type: 'alert', // 타입
   customClass: 'popup-custom-class', // 커스텀 클래스 네임
@@ -356,8 +345,7 @@ export default {
   components: {
     DatePicker,
     CommonModal,
-    Simplert,
-    // DaumPostcode
+    Simplert
   },
   data() {
     return {
@@ -425,13 +413,29 @@ export default {
       patchPhone: 'signup/patchPhone'
     }),
     openPostCode() {
-      // this.isPostCode = true;
-      // this.$refs.postCode.open();
-      this.$modal.show('postCode');
+      if (!this.isPostCode) {
+        const daum = window.daum;
+        daum.postcode.load(() => {
+          new window.daum.Postcode({
+            width: '100%',
+            height: '498px',
+            onresize: size => {
+              console.log(size);
+            },
+            onclose: state => {
+              if (state === 'COMPLETE_CLOSE') {
+              }
+            },
+            oncomplete: data => {
+              this.completePostCode(data);
+            }
+          }).embed(document.getElementById('postCode'), {});
+        });
+        this.isPostCode = true;
+      }
     },
     closePostCode() {
-      // this.$refs.postCode.close();
-      this.$modal.hide('postCode');
+      this.isPostCode = false;
     },
     completePostCode(result) {
       if (result.userSelectedType === 'R') {
@@ -737,6 +741,14 @@ export default {
         bodyType: this.Join.bodyType ? this.Join.bodyType : null
       };
     }
+
+    // POSTCODE
+    const htmlScript = document.createElement('script');
+    htmlScript.setAttribute(
+      'src',
+      'https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js?autoload=false'
+    );
+    document.head.appendChild(htmlScript);
   }
 };
 </script>
@@ -774,6 +786,13 @@ export default {
 .form-row {
   margin-bottom: 10px;
 }
+
+.postcode-wrap {
+  border: 1px solid $color-primary;
+  max-height: 500px;
+  -webkit-overflow-scrolling: touch;
+}
+
 @media (min-width: 768px) {
   .contents {
     .content {

@@ -315,15 +315,8 @@
                     </div>
                   </div>
                 </div>
-                <div class="form-row" v-if="isFlag.postCode">
-                  <div>
-                    <DaumPostCode
-                      style="border: 1px solid #3d3d35; max-height: 400px; overflow: auto;"
-                      @complete="completePostCode"
-                    >
-                    </DaumPostCode>
-                  </div>
-
+                <div class="form-row" v-show="isFlag.postCode">
+                  <div id="postCode"></div>
                 </div>
                 <div class="form-row">
                   <div class="grid-flex grid-fixed">
@@ -706,6 +699,25 @@ export default {
       });
     },
     clickOpenPostCode() {
+      if (!this.isFlag.postCode) {
+        const daum = window.daum;
+        daum.postcode.load(() => {
+          new window.daum.Postcode({
+            width: '100%',
+            height: '498px',
+            onresize: size => {
+              console.log(size);
+            },
+            onclose: state => {
+              if (state === 'COMPLETE_CLOSE') {
+              }
+            },
+            oncomplete: data => {
+              this.completePostCode(data);
+            }
+          }).embed(document.getElementById('postCode'), {});
+        });
+      }
       this.isFlag.postCode = true;
     },
     clickClosePostCode() {
@@ -793,6 +805,14 @@ export default {
   async created() {
     await this.getMypage();
     this.setMypageData();
+
+    // POSTCODE
+    const htmlScript = document.createElement('script');
+    htmlScript.setAttribute(
+      'src',
+      'https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js?autoload=false'
+    );
+    document.head.appendChild(htmlScript);
   }
 };
 </script>
