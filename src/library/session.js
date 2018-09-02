@@ -25,9 +25,28 @@ export default {
                   res.data.info.user_name;
               });
           }
+          else {
+            alert('로그인 하셔야만 이용이 가능합니다.');
+            const query = to.fullPath.match(/^\/$/) ? {} : { redirect: to.fullPath };
+            next({
+              path: '/login',
+              query,
+            });
+          }
           next();
         }
         if (to.path === '/closet/tomorrow') {
+          if (!_.isEmpty(to.query.access_token)) {
+            console.log('Tomorrow');
+          }
+          else {
+            alert('로그인 하셔야만 이용이 가능합니다.');
+            const query = to.fullPath.match(/^\/$/) ? {} : { redirect: to.fullPath };
+            next({
+              path: '/login',
+              query,
+            });
+          }
           next();
         }
       }
