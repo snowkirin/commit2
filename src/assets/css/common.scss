@@ -529,4 +529,5 @@ input:-webkit-autofill:focus {
 .v--modal-box {
   left: 0 !important;
   top: 0 !important;
+  -webkit-overflow-scrolling: touch;
 }

@@ -322,18 +322,19 @@
         <button class="btn btn-primary h-56" type="button" @click="validateBeforeSubmit">다음</button>
       </div>
     </form>
-    <sweet-modal ref="postCode">
+    <!--<DaumPostcode v-if="isPostCode"/>-->
+    <!--<DaumPostCode v-if="isPostCode" @complete="completePostCode" style="height: 400px; overflow: scroll;"></DaumPostCode>-->
+    <!--<sweet-modal ref="postCode">-->
+      <!--<CommonModal modalTitle="주소찾기" :modalCustomCloseFunc="closePostCode">-->
+        <!--<DaumPostCode @complete="completePostCode" style="height: 500px; overflow: scroll"></DaumPostCode>-->
+      <!--</CommonModal>-->
+    <!--</sweet-modal>-->
+
+    <modal name="postCode" height="auto" width="90%" :scrollable="true">
       <CommonModal modalTitle="주소찾기" :modalCustomCloseFunc="closePostCode">
-        <DaumPostCode @complete="completePostCode"></DaumPostCode>
+        <DaumPostCode @complete="completePostCode" style="-webkit-overflow-scrolling: touch;"></DaumPostCode>
       </CommonModal>
-    </sweet-modal>
-
-
-
-
-    <!--<modal name="postCode" height="auto" width="90%" :scrollable="true">-->
-      <!---->
-    <!--</modal>-->
+    </modal>
     <simplert ref="alert" :useRadius="false" :useIcon="false" />
   </div>
 </template>
@@ -343,7 +344,7 @@ import DatePicker from 'vue2-datepicker';
 import CommonModal from '@/components/common/modal/CommonModal';
 import Simplert from 'vue2-simplert';
 import Info from '@/info';
-
+import DaumPostcode from 'vuejs-daum-postcode'
 const alertObject = {
   type: 'alert', // 타입
   customClass: 'popup-custom-class', // 커스텀 클래스 네임
@@ -355,7 +356,8 @@ export default {
   components: {
     DatePicker,
     CommonModal,
-    Simplert
+    Simplert,
+    // DaumPostcode
   },
   data() {
     return {
@@ -406,7 +408,8 @@ export default {
         number: '',
         range: ''
       },
-      resultPostCode: {} // 주소 결과값
+      resultPostCode: {}, // 주소 결과값,
+      isPostCode: false
     };
   },
   computed: {
@@ -422,12 +425,13 @@ export default {
       patchPhone: 'signup/patchPhone'
     }),
     openPostCode() {
-      this.$refs.postCode.open();
-      // this.$modal.show('postCode');
+      // this.isPostCode = true;
+      // this.$refs.postCode.open();
+      this.$modal.show('postCode');
     },
     closePostCode() {
-      this.$refs.postCode.close();
-      // this.$modal.hide('postCode');
+      // this.$refs.postCode.close();
+      this.$modal.hide('postCode');
     },
     completePostCode(result) {
       if (result.userSelectedType === 'R') {
