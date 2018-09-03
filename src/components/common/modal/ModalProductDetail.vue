@@ -16,6 +16,8 @@
             <swiper-slide v-for="(data, idx) in images" :key="idx">
               <img :src="$common.ZulyImage()+data.image_path" alt="">
             </swiper-slide>
+            <div class="swiper-button-prev" slot="button-prev"></div>
+            <div class="swiper-button-next" slot="button-next"></div>
           </swiper>
         </div>
       </div>

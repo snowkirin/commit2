@@ -534,3 +534,15 @@ input:-webkit-autofill:focus {
 .v--modal-overlay.scrollable {
   -webkit-overflow-scrolling: touch;
 }
+.swiper-button-next, .swiper-container-rtl .swiper-button-prev {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%3E%3Cpath%20d%3D%27M4%20.755l14.374%2011.245-14.374%2011.219.619.781%2015.381-12-15.391-12-.609.755z%27%20fill%3D%27%233d3d35%27%2F%3E%3C%2Fsvg%3E") !important;
+}
+
+.swiper-button-prev,
+.swiper-container-rtl .swiper-button-next {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%3E%3Cpath%20d%3D%27M20%20.755l-14.374%2011.245%2014.374%2011.219-.619.781-15.381-12%2015.391-12%20.609.755z%27%20fill%3D%27%233d3d35%27%2F%3E%3C%2Fsvg%3E") !important;
+}
+
+.swiper-button-prev, .swiper-button-next {
+  background-size: cover !important;
+}
