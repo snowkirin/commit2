@@ -1,5 +1,9 @@
 <template>
-  <header class="header" v-if="$route.path !== '/'">
+  <header
+    class="header"
+    :class="{'header-main': isMain}"
+    :style="[calcBanner]"
+  >
     <router-link to="/" class="logo">
       <ZulyLogoSVG class="logo-svg"/>
     </router-link>
@@ -46,10 +50,12 @@ export default {
   name: 'zuly-header',
   data() {
     return {
+      isMain: false,
       headerLine: false,
       gnbToggle: false,
       isClose: false,
       result: null,
+
       menu: {
         closet: false,
         login: false
@@ -71,9 +77,19 @@ export default {
     Simplert,
     ZulyLogoSVG
   },
-  computed: mapGetters({
-    Authentication: 'login/Authentication'
-  }),
+  computed: {
+    ...mapGetters({
+      Authentication: 'login/Authentication',
+      isMainBanner: 'common/isMainBanner'
+    }),
+    calcBanner() {
+      if (this.isMain && this.isMainBanner) {
+        return {
+          top: '40px'
+        }
+      }
+    }
+  },
   methods: {
     ...mapActions({
       doLogout: 'login/doLogout'
@@ -84,6 +100,7 @@ export default {
     // ...mapMutations(['RESET_STATE']),
     headerMediaQueries() {
       this.gnbToggle = this.$route.path.indexOf('join') !== -1;
+      this.isMain = this.$route.name === 'IndexMain';
     },
     clickLogout() {
       this.doLogout().then(() => {
@@ -96,7 +113,6 @@ export default {
           message: '로그아웃 되었습니다.'
         });
         this.$refs.alert.openSimplert(alertObject);
-        // document.location.href = '/login';
         this.resetState();
         this.$router.push({ path: '/login' });
       });
@@ -129,31 +145,30 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
+/* 메인을 제외한 화면 */
 .logo-svg {
+  width: 66px;
+  height: 20px;
   /deep/ path {
     fill: $color-primary;
   }
 }
 .header {
   @include clearfix;
-  padding: 17px 20px 20px 20px;
+  padding: 21px 18px;
   .logo {
     float: left;
     width: 66px;
     height: 20px;
-    img {
-      width: 100%;
-      height: 100%;
-    }
   }
   .global-navigation {
     float: right;
     margin-top: 5px;
     font-size: 0;
     li {
+      @include fontSize(15px);
       display: inline-block;
-      font-size: 16px;
-      letter-spacing: -1px;
       margin-right: 20px;
       position: relative;
       cursor: pointer;
@@ -174,20 +189,29 @@ export default {
     }
   }
 }
+
+/* 현재 화면이 메인일때 */
+.header-main {
+  position: absolute;
+  display: none;
+  .logo-svg {
+    /deep/ path {
+      fill: #fff;
+    }
+  }
+  .global-navigation {
+    color: #fff;
+  }
+}
+
 @media (min-width: 768px) {
   .header {
-    width: 1200px;
+    width: 768px;
     margin: 0 auto;
-    padding: 30px 0 31px;
-    .logo {
-      width: 90px;
-      height: 27px;
-    }
+    padding: 25px 34px;
     .global-navigation {
       margin-top: 0;
       li {
-        font-size: 20px;
-        letter-spacing: -1.3px;
         margin-right: 26px;
         &:not(:last-child):after {
           right: -13px;
@@ -201,9 +225,37 @@ export default {
       height: 1px;
       position: absolute;
       left: 0;
-      top: 87px;
+      top: 73px;
       background-color: #e9e9e9;
     }
+  }
+  .header-main {
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+    .header-line {
+      display: none;
+    }
+  }
+}
+
+@media (min-width: 1280px) {
+
+  .logo-svg {
+    width: 85px;
+    height: 25px;
+  }
+  .header {
+    width: 1200px;
+    padding: 35px 0;
+    .global-navigation {
+      li {
+        @include fontSize(18px);
+      }
+    }
+  }
+  .header-main {
+
   }
 }
 </style>

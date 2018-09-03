@@ -11,7 +11,8 @@ export default {
     phonePwdAuth: false,
     phonePwdAuthKey: 0,
     phonePwdAuthCnt: 0,
-    phonePwdComplete: false
+    phonePwdComplete: false,
+    isMainBanner: true,
   },
   mutations: {
     [types.PHONE_VERIFY](state, data) {
@@ -39,6 +40,9 @@ export default {
     },
     [types.PHONE_VERIFY_PWD_COMPLETE](state) {
       state.phonePwdComplete = true;
+    },
+    [types.TOGGLE_MAIN_BANNER](state, data) {
+      state.isMainBanner = data;
     }
   },
   actions,
@@ -48,6 +52,7 @@ export default {
     getUserId: state => state.userId,
     getPhoneAuthPwd: state => state.phonePwdAuth,
     getPhoneAuthKeyPwd: state => state.phonePwdAuthKey,
-    getPhonePwdComplete: state => state.phonePwdComplete
+    getPhonePwdComplete: state => state.phonePwdComplete,
+    isMainBanner: state => state.isMainBanner
   }
 };

@@ -3,7 +3,7 @@
 		<div class="content">
 			<div
 				class="banner-wrap"
-				v-if="isBannerShow"
+				v-if="isMainBanner"
 			>
 				<div class="center-align">
 					<p>지금 가입하시면 <span class="txt-free">첫달 무료 ♥</span></p>
@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import CloseIconSVG from '@/assets/img/main/btn_close.svg?inline';
 import ZulyLogoSVG from '@/assets/img/logo.svg?inline';
 import ArrowIconSVG from '@/assets/img/main/btn_arrow.svg?inline';
@@ -63,23 +63,26 @@ export default {
   },
   data() {
     return {
-      isBannerShow: true
     };
   },
   computed: {
     ...mapGetters({
-      isLogin: 'login/isLogin'
+      isLogin: 'login/isLogin',
+			isMainBanner: 'common/isMainBanner'
     })
   },
   methods: {
+		...mapActions({
+			toggleMainBanner: 'common/toggleMainBanner'
+		}),
     clickBannerHide(event) {
       event.preventDefault();
-      this.isBannerShow = false;
+      this.toggleMainBanner(false);
     }
   },
   created() {
     if (this.isLogin) {
-      this.isBannerShow = false;
+			this.toggleMainBanner(false);
     }
   }
 };
