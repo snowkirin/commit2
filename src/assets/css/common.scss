@@ -329,6 +329,23 @@ input:-webkit-autofill:focus {
     background-color: #bbb;
     cursor: wait; // 바뀔수 있음
   }
+  &:read-only {
+
+  }
+  @for $i from 1 through 100 {
+    $percent: percentage($i/100);
+    &.w-#{$i} {
+      @if ($i == 33) {
+        width: 33.3333%;
+      }
+      @else if( $i == 66) {
+        width: 66.6667%;
+      }
+      @else {
+        width: #{$percent};
+      }
+    }
+  }
 }
 .btn-primary {
   background-color: $color-primary;

@@ -102,6 +102,25 @@
             </div>
           </div>
         </div>
+
+        <div class="type-select-wrap">
+          <button
+            type="button"
+            class="btn h-50 w-50"
+            :class="tomorrowData.selected === 'typeA'? 'btn-primary' : 'btn-secondary'"
+            @click="clickSelected('typeA')"
+          >
+            A 선택하기
+          </button>
+          <button
+            type="button"
+            class="btn h-50 w-50"
+            :class="tomorrowData.selected === 'typeB'? 'btn-primary' : 'btn-secondary'"
+            @click="clickSelected('typeB')"
+          >
+            B 선택하기
+          </button>
+        </div>
       </div>
 
     </div>
@@ -136,7 +155,7 @@ export default {
       isLogin: 'login/isLogin',
       TomorrowResult: 'subscriptions/TomorrowResult',
       TomorrowProductDetail: 'subscriptions/TomorrowProductDetail'
-    })
+    }),
   },
   methods: {
     ...mapActions({
@@ -383,6 +402,13 @@ export default {
   margin-top: 40px;
 }
 
+.type-select-wrap {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
 @media (min-width: 768px) {
   .column {
     &:nth-child(2) {
@@ -393,6 +419,9 @@ export default {
 
   .btn-selected {
     display: block;
+  }
+  .type-select-wrap {
+    display: none;
   }
 }
 
