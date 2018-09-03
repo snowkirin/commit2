@@ -4,7 +4,7 @@
       <div class="column column-side">
         <div class="list-thumb" id="listThumb">
           <template v-for="(data, idx) in images" >
-            <div :key="idx" @click="clickSwiperMove(idx, $event)" class="item" :class="{selected: idx === 0}">
+            <div :key="idx" @click="clickSwiperMove(idx)" class="item" :class="{selected: idx === 0}">
               <img :src="$common.ZulyImage()+data.image_path" alt="">
             </div>
           </template>
@@ -63,6 +63,11 @@
         </div>
       </div>
     </div>
+    <div class="modal-close">
+      <a class="btn-close" @click="$emit('close')">
+        <span class="icon-close"></span>
+      </a>
+    </div>
   </div>
 </template>
 <script>
@@ -88,30 +93,28 @@ export default {
         on: {
           slideChange: function() {
             const thumbList = document.getElementById('listThumb');
-            const thumbItem =thumbList.querySelectorAll('.item');
-            _.forEach(thumbItem, (value) => {
+            const thumbItem = thumbList.querySelectorAll('.item');
+            _.forEach(thumbItem, value => {
               value.classList.remove('selected');
-            })
-            thumbList.querySelectorAll('.item')[this.activeIndex].classList.add('selected');
+            });
+            thumbList
+              .querySelectorAll('.item')
+              [this.activeIndex].classList.add('selected');
           }
         }
       },
       basics: {},
       details: {},
-      images: [],
+      images: []
     };
   },
   methods: {
-    clickSwiperMove(idx, event) {
+    clickSwiperMove(idx) {
       this.$refs.mySwiper.swiper.slideTo(idx);
       console.log(currentIndex);
     },
     activeSelected(idx) {
-      if (idx === currentIndex) {
-        return true;
-      } else {
-        return false;
-      }
+      return idx === currentIndex;
     }
   },
   created() {
@@ -124,6 +127,7 @@ export default {
 <style scoped lang="scss">
 .modal-product-detail {
   padding: 20px;
+  position: relative;
 }
 img {
   width: 100%;
@@ -143,6 +147,40 @@ img {
 .item {
   &.selected {
     outline: 1px solid $color-primary;
+  }
+}
+.modal-close {
+  position: absolute;
+  top: 18px;
+  right: 21px;
+  overflow: hidden;
+  z-index: 10;
+  .btn-close {
+    cursor: pointer;
+  }
+  .icon-close {
+    display: block;
+    width: 16px;
+    height: 16px;
+    position: relative;
+    &::before,
+    &::after {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 1px;
+      background-color: #333;
+      position: absolute;
+      transform-origin: 50% 50%;
+      top: 50%;
+      left: 0;
+    }
+    &::before {
+      transform: rotate(45deg);
+    }
+    &::after {
+      transform: rotate(-45deg);
+    }
   }
 }
 

@@ -101,7 +101,7 @@ export default {
   padding-right: 20px;
   position: relative;
   &::after {
-    content: "";
+    content: '';
     display: block;
     border-bottom: 3px solid #dadada;
     position: absolute;
@@ -127,7 +127,7 @@ export default {
       font-weight: 700;
       letter-spacing: -1px;
       &::after {
-        content: "";
+        content: '';
         display: block;
         position: absolute;
         bottom: 0;
@@ -204,15 +204,14 @@ export default {
 
 @media (min-width: 768px) {
   .c-menu {
-    padding: 0;
+    padding: 0 30px;
     margin: 0 auto;
-    width: 1200px;
+    width: 768px;
     &::after {
       border-bottom: 1px solid #dadada;
     }
     .closet-link {
-      font-size: 18px;
-      letter-spacing: -1.2px;
+      @include fontSize(16px);
       padding-top: 20px;
       padding-bottom: 19px;
       padding-left: 1px;
@@ -220,9 +219,8 @@ export default {
       display: inline-block;
       margin-right: 27px;
       &.active {
-        letter-spacing: -1.2px;
         &::after {
-          content: "";
+          content: '';
           display: block;
           position: absolute;
           bottom: 0;
@@ -256,4 +254,11 @@ export default {
       }
     }*/
 }
+
+  @media (min-width: 1280px) {
+    .c-menu {
+      width: 1280px;
+      padding: 0 40px;
+    }
+  }
 </style>

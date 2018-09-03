@@ -90,7 +90,7 @@
 
               </div>
             </form>
-            <form data-vv-scope="password">
+            <form data-vv-scope="password" name="password">
               <!--비밀번호 -->
               <div>
                 <div class="form-title-wrap">
@@ -107,7 +107,7 @@
                           name="currentPassword"
                           v-model="currentPassword"
                           data-vv-as="현재 비밀번호"
-                          v-validate="{required: true, regex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}/}"
+                          v-validate="'max:16'"
                         >
                       </div>
                     </div>
@@ -119,7 +119,7 @@
                 <div class="form-row">
                   <div class="grid-flex grid-fixed">
                     <div class="column w-71">
-                      <div class="text-field">
+                      <div class="text-field" :class="{'text-field-error': errors.has('password.newPassword')}">
                         <input
                           type="password"
                           placeholder="신규 비밀번호"
@@ -128,7 +128,6 @@
                           v-model="newPassword"
                           data-vv-as="신규 비밀번호"
                           v-validate="{
-                        required: true,
                         regex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}/
                       }"
                         >
@@ -142,12 +141,12 @@
                 <div class="form-row">
                   <div class="grid-flex grid-fixed">
                     <div class="column">
-                      <div class="text-field">
+                      <div class="text-field" :class="{'text-field-error': errors.has('password.newPasswordConfirm')}">
                         <input
                           type="password"
                           placeholder="신규 비밀번호 확인"
                           name="newPasswordConfirm"
-                          v-validate="{required: true, confirmed: newPassword}"
+                          v-validate="{confirmed: newPassword}"
                         >
                       </div>
                     </div>
@@ -263,7 +262,12 @@
                       </div>
                     </div>
                     <div class="column">
-                      **
+                      <div class="left-align ml-10">
+                        <div>
+                          <span class="icon-dot">*</span>
+                          <span class="icon-dot">*</span>
+                        </div>
+                      </div>
                     </div>
                     <div class="column w-26 o-3">
                       <button
@@ -515,6 +519,7 @@ export default {
       getMypage: 'member/getMypage',
       postPhone: 'member/postPhone',
       patchPhone: 'member/patchPhone',
+      patchPassword: 'member/patchPassword',
       patchPayment: 'member/patchPayment',
       patchAddress: 'member/patchAddress',
       patchLobbyPassword: 'member/patchLobbyPassword',
@@ -632,13 +637,41 @@ export default {
       }
     },
     clickChangePassword() {
-      console.log('비밀번호 변경 버튼 누름');
+      const formData = {
+        cur_password: this.currentPassword,
+        new_password: this.newPassword
+      };
+
+      if (_.isEmpty(formData.cur_password)) {
+        alert('현재 비밀번호를 입력해 주세요');
+        return;
+      }
+      if (_.isEmpty(formData.new_password)) {
+        alert('새로운 비밀번호를 입력해 주세요');
+        return;
+      }
+
       this.$validator.validateAll('password').then(result => {
+        console.log(result);
         if (result) {
-          console.log('비밀번호 변경 성공');
+          this.patchPassword(formData).then(res => {
+            if (res.data.result) {
+              const formTarget = document.password;
+              alert('비밀번호가 변경되었습니다.');
+              // 초기화
+              formTarget.currentPassword.value = '';
+              formTarget.newPassword.value = '';
+              formTarget.newPasswordConfirm.value = '';
+
+            } else {
+              if (res.data.uncorrent) {
+                alert('현재 비밀번호가 정확하지 않습니다.');
+              }
+            }
+          });
           // 비밀번호 변경 API
         } else {
-          console.log('비밀번호 변경 실패');
+          alert('새로운 비밀번호를 정확히 입력해 주세요.');
         }
       });
     },
@@ -823,12 +856,19 @@ export default {
 input[readonly] {
   color: #bbb;
 }
+form {
+  margin-top: 30px;
+  &:first-child {
+    margin-top: 0;
+  }
+}
 .form-row {
   margin-bottom: 10px;
   &:last-child {
     margin-bottom: 0;
   }
 }
+
 @media (min-width: 768px) {
   .content-inner {
     background-color: #f7f7f7;

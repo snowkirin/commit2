@@ -119,5 +119,21 @@ export default {
         console.log('Patch Ann Error');
       }
     })
+  },
+  patchPassword({ commit }, data) {
+    return Member.patchPassword(data).then(res => {
+      if (res.data.result) {
+        commit(types.PATCH_PASSWORD);
+        return res;
+      } else {
+        if (res.data.uncorrect) {
+          console.log('비밀번호가 맞지 않습니다.');
+          return res;
+        }
+        else {
+          alert('통신 오류입니다. 잠시 후 다시 시도해 주세요');
+        }
+      }
+    })
   }
 };

@@ -155,8 +155,15 @@ export default {
   .footer-layer3 {
   }
   .footer-inner {
-    width: 1200px;
+    width: 768px;
     margin: 0 auto;
   }
 }
+
+  @media (min-width: 1280px) {
+    .footer-inner {
+      width: 1200px;
+      margin: 0 auto;
+    }
+  }
 </style>

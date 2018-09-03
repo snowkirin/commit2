@@ -238,5 +238,20 @@ export default {
           message: err.message
         };
       });
+  },
+  patchPassword(data) {
+    return axios
+      .patch(`${API_URL}/member/password`, data, {
+        withCredentials: true
+      })
+      .then(res => {
+        return res;
+      })
+      .catch(err => {
+        return {
+          ...err.response,
+          message: err.message
+        }
+      })
   }
 };

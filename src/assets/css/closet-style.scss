@@ -25,9 +25,9 @@
 
 @media (min-width: 768px) {
   .contents {
-    width: 1200px;
+    width: 768px;
     margin: 0 auto;
-    padding: 40px 0 130px 0;
+    padding: 40px 30px 130px;
   }
   .contents-header {
     h3 {
@@ -48,5 +48,12 @@
   .content {
     padding: 0;
 
+  }
+}
+
+@media (min-width: 1280px) {
+  .contents {
+    width: 1280px;
+    padding: 40px 40px 130px;
   }
 }

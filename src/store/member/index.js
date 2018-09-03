@@ -12,6 +12,7 @@ const initialState = {
   isAddressChange: false, // Boolean
   isLobbyPasswordChange: false, // Boolean
   isAnnChange: false, // Boolean
+  isPasswordChange: true, // Boolean
 };
 const state = Object.assign({}, initialState);
 const mutations = {
@@ -44,6 +45,9 @@ const mutations = {
   },
   [types.PATCH_ANN](state) {
     state.isAnnChange = true;
+  },
+  [types.PATCH_PASSWORD](state) {
+    state.isPasswordChange = true
   }
 };
 const getters = {

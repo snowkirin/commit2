@@ -1,5 +1,5 @@
 <template>
-	<div class="contents">
+	<div class="contents" id="mainFirst">
 		<div class="content">
 			<div
 				class="banner-wrap"
@@ -39,10 +39,10 @@
 							</div>
 						</div>
 					</div>
-					<div class="arrow-wrap">
-						<ArrowIconSVG/>
-					</div>
 				</div>
+			</div>
+			<div class="arrow-wrap">
+				<ArrowIconSVG/>
 			</div>
 		</div>
 	</div>
@@ -50,6 +50,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import vhCheck from 'vh-check';
 import CloseIconSVG from '@/assets/img/main/btn_close.svg?inline';
 import ZulyLogoSVG from '@/assets/img/logo.svg?inline';
 import ArrowIconSVG from '@/assets/img/main/btn_arrow.svg?inline';
@@ -62,19 +63,18 @@ export default {
     ArrowIconSVG
   },
   data() {
-    return {
-    };
+    return {};
   },
   computed: {
     ...mapGetters({
       isLogin: 'login/isLogin',
-			isMainBanner: 'common/isMainBanner'
+      isMainBanner: 'common/isMainBanner'
     })
   },
   methods: {
-		...mapActions({
-			toggleMainBanner: 'common/toggleMainBanner'
-		}),
+    ...mapActions({
+      toggleMainBanner: 'common/toggleMainBanner'
+    }),
     clickBannerHide(event) {
       event.preventDefault();
       this.toggleMainBanner(false);
@@ -82,26 +82,31 @@ export default {
   },
   created() {
     if (this.isLogin) {
-			this.toggleMainBanner(false);
+      this.toggleMainBanner(false);
     }
+  },
+  mounted() {
+    vhCheck();
   }
 };
 </script>
 
 <style lang="scss" scoped>
+:root {
+  --vh-offset: 0px;
+}
 .content {
   height: 100vh;
+  height: calc(100vh - var(--vh-offset));
   background: url('~@/assets/img/main/img_main_small.png') no-repeat 50% 50%;
   background-size: cover;
+  position: relative;
 }
 .banner-wrap {
   @include fontSize(12px);
   height: 40px;
   background-image: linear-gradient(97deg, #f5e3c7, #d0ebcb);
-  position: absolute;
   width: 100%;
-  left: 0;
-  top: 0;
   .txt-free {
     color: $color-pink-main;
     font-weight: 700;
@@ -119,7 +124,7 @@ export default {
 }
 .logo-wrap {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 9%;
   .logo-svg {
     /deep/ path {
       fill: #fff;
@@ -138,8 +143,8 @@ export default {
   @include fontSize(18px);
   color: #fff;
   text-align: center;
-  margin-top: 20px;
-  margin-bottom: 70px;
+  margin-top: 5.541%;
+  margin-bottom: 15%;
 }
 .link-wrap {
   .grid-flex {
@@ -168,7 +173,7 @@ export default {
 }
 .arrow-wrap {
   position: absolute;
-  bottom: 38px;
+  bottom: 0;
   left: 50%;
   transform: translateX(-50%);
   animation-name: arrow;
@@ -182,24 +187,24 @@ export default {
 
 @keyframes arrow {
   0% {
-    bottom: 38px;
+    bottom: 2%;
   }
   75% {
-    bottom: 48px;
+    bottom: 3%;
   }
   100% {
-    bottom: 38px;
+    bottom: 2%;
   }
 }
 @-webkit-keyframes arrow {
   0% {
-    bottom: 38px;
+    bottom: 2%;
   }
   75% {
-    bottom: 48px;
+    bottom: 3%;
   }
   100% {
-    bottom: 38px;
+    bottom: 2%;
   }
 }
 

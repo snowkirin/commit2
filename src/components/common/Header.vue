@@ -194,6 +194,7 @@ export default {
 .header-main {
   position: absolute;
   display: none;
+  z-index: 10;
   .logo-svg {
     /deep/ path {
       fill: #fff;
@@ -245,8 +246,8 @@ export default {
     height: 25px;
   }
   .header {
-    width: 1200px;
-    padding: 35px 0;
+    width: 1280px;
+    padding: 35px 40px;
     .global-navigation {
       li {
         @include fontSize(18px);

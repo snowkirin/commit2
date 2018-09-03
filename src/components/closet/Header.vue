@@ -30,13 +30,13 @@ export default {
 }
 @media (min-width: 768px) {
   .closet-header {
-    width: 1200px;
+    width: 768px;
     margin: 0 auto;
     padding: {
       top: 9px;
-      right: 32px;
+      right: 30px;
       bottom: 20px;
-      left: 0px;
+      left: 30px;
     }
     font-weight: 300;
   }
@@ -45,6 +45,11 @@ export default {
   }
 }
 @media (min-width: 1280px) {
+  .closet-header {
+    width: 1280px;
+    padding-left: 40px;
+    padding-right: 40px;
+  }
   .user-info {
     @include fontSize(30px);
   }
