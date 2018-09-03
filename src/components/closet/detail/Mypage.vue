@@ -107,7 +107,7 @@
                           name="currentPassword"
                           v-model="currentPassword"
                           data-vv-as="현재 비밀번호"
-                          v-validate="'max:16'"
+                          v-validate=""
                         >
                       </div>
                     </div>
@@ -187,7 +187,7 @@
                           placeholder="카드 번호 (-없이 16자리 입력)"
                           name="newCardNumber"
                           maxlength="16"
-                          v-validate="{credit_card: true}"
+                          v-validate="'max:16'"
                           data-vv-as="카드 번호"
                           v-model.trim="newCardNumber"
                         >

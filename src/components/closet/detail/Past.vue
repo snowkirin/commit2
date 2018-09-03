@@ -63,19 +63,20 @@
                   href="#"
                   :data-id="data.id"
                   v-if="(feedbacksData[idx] && feedbacksData[idx].result)"
-                  @click="clickShowFeedBack"
+                  @click="clickShowFeedBack(idx, $event)"
                 >
                   옷장 후기 입력하기
                 </a>
               </div>
             </div>
             <feedBack
-              v-if="feedbackToggle(idx)"
+              :ref="`pastFeedback-${idx}`"
+              style="display: none;"
               :subscriptionId="data.id"
               :data="feedbacksData[idx]"
               :type="'past'">
             </feedBack>
-            {{feedbacksData[idx]}}
+            <!--{{feedbacksData[idx]}}-->
           </div>
 
         </div>
@@ -134,9 +135,14 @@ export default {
         console.log(res);
       });
     },
-    clickShowFeedBack(event) {
+    clickShowFeedBack(idx, event) {
       // 단순하게 Show Hide기능만 넣어야겠다.
       event.preventDefault();
+
+      console.log(this.$refs[`pastFeedback-${idx}`][0].$el);
+      this.$refs[`pastFeedback-${idx}`][0].$el.style.display = 'block';
+      console.log(this.$refs);
+
       // const target = event.target;
       // const subscriptionId = target.getAttribute('data-id');
       // console.log(subscriptionId);

@@ -8,7 +8,7 @@
         <div>
           <div>
             <p class="txt-how">현재 대여 중인 <strong>의상 사이즈</strong>가 어떠세요?</p>
-            <p class="txt-helpful">※ 고객님의 의견은 맞춤형  큰 도움이 됩니다.</p>
+            <p class="txt-helpful">※ 고객님의 의견은 맞춤형 큰 도움이 됩니다.</p>
           </div>
           <div>
             <ul class="list-rating">
@@ -26,7 +26,7 @@
                 @click="clickRating(questionCommon[0], 1, 'okay')">
                 <div class="image">
                   <OkayIconNormalSVG viewBox="0 0 62 62" v-if="rating !== 'okay'"/>
-                  <OkayIconActiveSVG viewBox="0 0 62 62" v-else />
+                  <OkayIconActiveSVG viewBox="0 0 62 62" v-else/>
                 </div>
                 <p class="text">{{ questionCommon[0].answer_text[1] }}</p>
               </li>
@@ -47,8 +47,8 @@
     <div
       class="postscript-wrap"
       ref="postscript"
-      v-if="type === 'current' || type === 'direct'"
       style="display: none;"
+      v-if="type === 'current' || type === 'direct'"
     >
       <div class="center-align">
         <p class="txt-postscript">소중한 이용 후기 부탁드립니다.</p>
@@ -57,12 +57,11 @@
     <div
       class="review"
       ref="review"
-      style="display: block"
-      >
-      <!--:style="(type === 'direct') ? 'display:block;': 'display: none;'"-->
-
-      <div class="clearfix section-wrapper">
-        <div class="section-left">
+      :style="(type === 'direct') ? 'display:block;': (type === 'past') ? 'display:block' : 'display: none;'"
+    >
+      <!---->
+      <div class="grid-flex">
+        <div class="column" v-if="_.isPlainObject(questionA.info)">
           <div class="section">
             <div class="row">
               <div class="text">
@@ -71,20 +70,21 @@
                 </p>
               </div>
               <div>
-                <ul class="square-list">
+                <ul class="list-flex">
                   <li
+                    class="item w-25 h-50"
+                    :class="{selected:  questionCommon[1].customer_answer === questionCommon[1].answer_code[idx2]}"
                     v-for="(data2, idx2) in questionCommon[1].answer_text"
                     :key="idx2"
-                    :class="{selected:  questionCommon[1].customer_answer === questionCommon[1].answer_code[idx2]}"
-                    @click="clickEvt(questionCommon[1], idx2, $event)">
-                    <div class="center-align">{{ data2 }}</div>
+                    @click="clickEvt(questionCommon[1], idx2, $event)"
+                  >
+                    {{ data2 }}
                   </li>
                 </ul>
               </div>
             </div>
           </div>
-          <div class="section" v-if="_.isPlainObject(questionA.info)">
-
+          <div class="section">
             <div class="row">
               <div class="text">
                 <p class="txt-point">
@@ -102,13 +102,14 @@
                 </p>
               </div>
               <div>
-                <ul class="square-list">
+                <ul class="list-flex">
                   <li
+                    class="item w-25 h-50"
                     v-for="(data2, idx2) in data.answer_text"
                     :key="idx2"
-                    :class="[(data['answer_text'].length === 5 && idx2 === 3) ? 'line-break': '', {selected: data.customer_answer === data.answer_code[idx2]}]"
+                    :class="[{selected: data.customer_answer === data.answer_code[idx2]}]"
                     @click="clickEvt(data, idx2, $event)">
-                    <div class="center-align">{{ data2 }}</div>
+                    {{ data2 }}
                   </li>
                 </ul>
                 <div
@@ -122,14 +123,14 @@
                     type="text"
                     placeholder="색상, 패턴이 맘에 들지 않은 이유를 적어주세요."
                     :value="data.customer_answer_reason === 'null' ? '' : data.customer_answer_reason"
-                    >
+                  >
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="section-right">
-          <div class="section" v-if="_.isPlainObject(questionB.info)">
+        <div class="column" v-if="_.isPlainObject(questionB.info)">
+          <div class="section">
             <div
               class="row">
               <div class="text">
@@ -151,13 +152,14 @@
                 </p>
               </div>
               <div>
-                <ul class="square-list">
+                <ul class="list-flex">
                   <li
+                    class="item w-25 h-50"
                     v-for="(data2, idx2) in data.answer_text"
                     :class="[(data['answer_text'].length === 5 && idx2 === 3) ? 'line-break': '', {selected: data.customer_answer === data.answer_code[idx2]}]"
                     :key="idx2"
                     @click="clickEvt(data, idx2, $event)">
-                    <div class="center-align">{{ data2 }}</div>
+                    {{ data2 }}
                   </li>
                 </ul>
                 <div
@@ -184,15 +186,14 @@
                 <p class="txt-refer">(적극 추천하는 것을 10점 만점으로 생각하고 점수를 매겨주세요.)</p>
               </div>
               <div>
-                <ul class="square-list">
+                <ul class="list-flex">
                   <li
+                    class="item w-20 h-50"
                     v-for="(data, idx) in ['10', '9', '8', '7', '6', '5' , '4', '3', '2', '1']"
                     @click="clickNps(data, idx, $event)"
                     :class="{selected: scoreNPS === parseInt(data)}"
                     :key="idx">
-                    <div class="center-align">
-                      {{ data }}
-                    </div>
+                    {{ data }}
                   </li>
                 </ul>
               </div>
@@ -209,14 +210,14 @@
           제출 하기
         </button>
       </div>
+
     </div>
     <alert-modal ref="view" width="300" height="153"></alert-modal>
   </div>
 </template>
 
 <script>
-
-import GreatIconNomralSVG  from '@/assets/img/closet/ico_feedback1_off.svg?inline';
+import GreatIconNomralSVG from '@/assets/img/closet/ico_feedback1_off.svg?inline';
 import GreatIconActiveSVG from '@/assets/img/closet/ico_feedback1_on.svg?inline';
 import OkayIconNormalSVG from '@/assets/img/closet/ico_feedback2_off.svg?inline';
 import OkayIconActiveSVG from '@/assets/img/closet/ico_feedback2_on.svg?inline';
@@ -268,7 +269,6 @@ export default {
   computed: {},
   methods: {
     clickEvt(data, index, event) {
-      const $this = this;
       const sendData = {
         subscriptionId: this.subId,
         feedbackId: _.parseInt(this.feedbackId),
@@ -277,72 +277,63 @@ export default {
         questionCode: _.parseInt(data.question_code),
         answerCode: _.parseInt(data.answer_code[index])
       };
+      const textField = event.target.closest('.row').querySelector('.text-field');
+      const targetList = event.target.closest('.list-flex');
       if (data.question_text === '색상 및 패턴') {
         if (data.answer_text[index] === '별로') {
-          event.target.parentElement.parentElement.parentElement.querySelector(
-            '.text-field'
-          ).style.display =
-            'block';
-          event.target.parentElement.parentElement.parentElement
-            .querySelector('.text-field')
-            .setAttribute('data-answerCode', data.answer_code[index]);
+          textField.style.display = 'block';
+          textField.setAttribute('data-answerCode', data.answer_code[index]);
         } else {
-          event.target.parentElement.parentElement.parentElement.querySelector(
-            '.text-field'
-          ).style.display =
-            'none';
-          event.target.parentElement.parentElement.parentElement
-            .querySelector('.text-field')
-            .querySelector('input').value =
-            '';
+          textField.style.display = 'none';
+          textField.querySelector('input').value = '';
         }
       }
       Closet.mypageFeedbackAnswer(sendData)
-        .then(function(res) {
-          _.forEach(
-            event.target.parentElement.parentElement.querySelectorAll('li'),
-            function(value) {
-              value.classList.remove('selected');
-            }
-          );
-          event.target.parentNode.classList.add('selected');
+        .then(() => {
+          _.forEach(targetList.querySelectorAll('li'), value => {
+            value.classList.remove('selected');
+          });
+          event.target.classList.add('selected');
         })
-        .catch(function(err) {
-          $this.$common.viewAlertModal(
-            '서버와의 통신이 불안정합니다.',
-            $this.$refs,
-            'alert'
-          );
-          console.error(err);
-          return false;
+        .catch(() => {
+          alert('서버와의 통신이 불안정합니다.');
         });
     },
     clickNps(data, index, event) {
-      const $this = this;
       const sendData = {
         subscriptionId: _.parseInt(this.subId),
         feedbackId: _.parseInt(this.feedbackId),
         npsScore: _.parseInt(data)
       };
+      const targetList = event.target.closest('.list-flex');
       Closet.mypageFeedbackNps(sendData)
-        .then(function(res) {
-          _.forEach(
-            event.target.parentElement.parentElement.querySelectorAll('li'),
-            function(value) {
-              value.classList.remove('selected');
-            }
-          );
-          event.target.parentNode.classList.add('selected');
+        .then(() => {
+          _.forEach(targetList.querySelectorAll('li'), (value) => {
+            value.classList.remove('selected');
+          });
+          event.target.classList.add('selected');
         })
-        .catch(function(err) {
-          $this.$common.viewAlertModal(
-            '서버와의 통신이 불안정합니다.',
-            $this.$refs,
-            'alert'
-          );
-          console.error(err);
-          return false;
+        .catch(() => {
+          alert('서버와의 통신이 불안정합니다.');
         });
+    },
+    clickRating(data, index, string) {
+      const sendData = {
+        subscriptionId: this.subId,
+        feedbackId: _.parseInt(this.feedbackId),
+        barcode: data.barcode ? _.parseInt(data.barcode) : null,
+        clothType: _.parseInt(data.cloth_type),
+        questionCode: _.parseInt(data.question_code),
+        answerCode: _.parseInt(data.answer_code[index])
+      };
+      Closet.mypageFeedbackAnswer(sendData)
+        .then(() => {})
+        .catch(() => {
+          alert('서버와의 통신이 불안정합니다.');
+        });
+      this.rating = string;
+      this.$refs.postscript.style.display = 'block';
+      this.$refs.review.style.display = 'block';
     },
     btnSubmit() {
       const $this = this;
@@ -379,36 +370,9 @@ export default {
         this.$router.push({ path: '/login' });
       }
       if (!flag) {
-        this.$common.viewAlertModal('의견 감사합니다.', this.$refs, 'alert');
+        alert('의견 감사합니다');
         this.$refs.review.style.display = 'none';
       }
-    },
-
-    clickRating(data, index, string) {
-      const $this = this;
-
-      const sendData = {
-        subscriptionId: this.subId,
-        feedbackId: _.parseInt(this.feedbackId),
-        barcode: data.barcode ? _.parseInt(data.barcode) : null,
-        clothType: _.parseInt(data.cloth_type),
-        questionCode: _.parseInt(data.question_code),
-        answerCode: _.parseInt(data.answer_code[index])
-      };
-      Closet.mypageFeedbackAnswer(sendData)
-        .then(function(res) {})
-        .catch(function(err) {
-          $this.$common.viewAlertModal(
-            '서버와의 통신이 불안정합니다.',
-            $this.$refs,
-            'alert'
-          );
-          console.error(err);
-          return false;
-        });
-      this.rating = string;
-      this.$refs.postscript.style.display = 'block';
-      this.$refs.review.style.display = 'block';
     }
   },
   created() {
@@ -522,30 +486,18 @@ export default {
     color: #fff;
   }
 }
+
 .review {
   border-bottom: 1px solid #333;
   background-color: #f5f5f5;
   padding-bottom: 40px;
   padding-left: 20px;
   padding-right: 20px;
-  .section-wrapper {
-    background-color: #f5f5f5;
-  }
-  .section {
-  }
-  .section-a {
-    padding-bottom: 30px;
-  }
-  .section-b {
-    border-top: 1px dashed #a7a7a7;
-    padding-top: 27px;
-  }
   .text {
     margin-bottom: 12px;
     text-indent: -1px;
   }
   .row {
-    padding-top: 36px;
     .image {
       background-color: #e9e9e9;
       padding-top: 32px;
@@ -561,49 +513,6 @@ export default {
     margin-top: 10px;
   }
   // 기본모양
-  .square-list {
-    font-size: 0;
-    margin-left: 1px;
-    margin-top: 1px;
-    // clearfix
-    &::after {
-      display: block;
-      content: '';
-      clear: both;
-    }
-    li {
-      // 선택되지 않았을 경우 + 기본값
-      background-color: #fff;
-      font-size: 15px;
-      color: #bbb;
-      letter-spacing: -0.9px;
-      text-align: center;
-      word-break: keep-all;
-      float: left;
-      border: 1px solid #c4c4c4;
-      margin-left: -1px;
-      margin-top: -1px;
-      position: relative;
-      cursor: pointer;
-      // 가변 스타일
-      width: calc(25% - 1px);
-      //width: 123px;
-      height: 50px;
-      user-select: none;
-      &.line-break {
-        clear: both;
-      }
-      // 선택되었을 경우
-      &.selected {
-        color: #333;
-        font-weight: 700;
-        letter-spacing: -0.6px;
-        outline: 2px solid #333;
-        outline-offset: -2px;
-        z-index: 10;
-      }
-    }
-  }
   .btn-submit {
     margin-top: 40px;
     button {
@@ -613,10 +522,8 @@ export default {
 }
 
 @media (min-width: 768px) {
-
   .evaluate-wrap {
     .inner-wrap {
-
     }
     .txt-how {
       @include fontSize(20px);
@@ -665,60 +572,21 @@ export default {
     .txt-rating {
       @include fontSize(20px);
     }
-
   }
   .review {
     margin-top: 28px;
-    width: 1200px;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 25px;
     border-bottom: 0 none;
-    background-color: transparent;
+    background-color: #f5f5f5;
     padding: 0;
     .txt-review {
       line-height: 48px;
       height: 48px;
     }
-    .section-wrapper {
-      border-bottom: 2px solid #333;
-      font-size: 0;
-      padding-bottom: 40px;
-      position: relative;
-    }
     .section {
-      padding-left: 0px;
-      padding-right: 0px;
-      padding-bottom: 0px;
-      font-size: 0;
-      position: relative;
-    }
-    .section-left {
-      padding-bottom: 0;
-      border-bottom: 0 none;
-      display: inline-block;
-      vertical-align: top;
-      width: 50%;
-      padding-left: 40px;
-      padding-right: 70px;
-    }
-    .section-right {
-      padding-top: 0;
-      display: inline-block;
-      vertical-align: top;
-      width: 50%;
-      padding-left: 50px;
-      padding-right: 59px;
-      &::before {
-        position: absolute;
-        content: '';
-        display: block;
-        top: 55px;
-        left: 50%;
-        transform: translateX(-50%);
-        height: calc(100% - 42px - 55px);
-        width: 1px;
-        background-color: #e9e9e9;
-      }
     }
     .text {
       margin-bottom: 12px;
@@ -735,6 +603,9 @@ export default {
         letter-spacing: -0.6px;
       }
     }
+  }
+  .column {
+    padding: 20px;
   }
 }
 </style>
