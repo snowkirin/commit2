@@ -107,8 +107,8 @@ import Simplert from 'vue2-simplert';
 const dict = {
   custom: {
     email: {
-      required: "필수값입니다.",
-      email: "이메일 형식이 아닙니다."
+      required: '필수값입니다.',
+      email: '이메일 형식이 아닙니다.'
     }
   }
 };
@@ -119,10 +119,10 @@ const alertObject = {
   customCloseBtnText: '확인' // 닫기 버튼 텍스트
 };
 
-Validator.localize("ko", dict);
+Validator.localize('ko', dict);
 
 export default {
-  name: "login",
+  name: 'login',
   components: {
     Simplert
   },
@@ -134,13 +134,13 @@ export default {
   },
   data() {
     return {
-      email: "",
-      password: ""
+      email: '',
+      password: ''
     };
   },
   methods: {
     ...mapActions({
-      doLogin: "login/doLogin"
+      doLogin: 'login/doLogin'
     }),
     submitLogin() {
       const formData = {
@@ -163,7 +163,7 @@ export default {
     },
     successLogin() {
       if (this.isLogin && this.Authentication.isAuthenticated) {
-        this.$router.push({ path: "/closet/tomorrow" });
+        this.$router.push({ path: '/closet/tomorrow' });
       }
     }
   },
@@ -231,7 +231,7 @@ export default {
           padding-right: 16px;
         }
         &::after {
-          content: "";
+          content: '';
           display: block;
           position: absolute;
           right: 0;

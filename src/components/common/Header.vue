@@ -240,7 +240,6 @@ export default {
 }
 
 @media (min-width: 1280px) {
-
   .logo-svg {
     width: 85px;
     height: 25px;

@@ -285,12 +285,15 @@
         </div>
       </div>
       <div class="btn-complete">
-        <button
+        <FormButton ref="btnComplete" :api-data="progressJoin" @success="successJoin">
+          <span>완료</span>
+        </FormButton>
+        <!--<button
           type="button"
           @click="finalSignup"
           class="btn btn-primary h-56">
           완료
-        </button>
+        </button>-->
       </div>
     </form>
     <simplert ref="alert" :useRadius="false" :useIcon="false" />
@@ -445,7 +448,7 @@ export default {
       this.$localStorage.remove('Mood');
       this.$localStorage.remove('Size');
     },
-    async finalSignup() {
+    async progressJoin() {
       const privateFlag = document.querySelector(
         'input[name=private_flag]:checked'
       );
@@ -475,14 +478,10 @@ export default {
         }
       }
       await this.setJoin(this.joinData);
-      this.$validator.validateAll().then(result => {
+      return this.$validator.validateAll().then(result => {
         if (result) {
-          this.postJoin().then(res => {
-            if (res.data.result) {
-              this.$router.push({
-                path: '/join/addinfo'
-              });
-            } else {
+          return this.postJoin().then(res => {
+            if (!res.data.result) {
               if(res.data.paymentRtn) {
                 // 카드정보는 정확히 입력하였으나 다른 이유로 오류가 난 경우
                 _.assign(alertObject, {
@@ -496,6 +495,7 @@ export default {
               }
               this.$refs.alert.openSimplert(alertObject);
             }
+            return res;
           });
         }
         document
@@ -506,6 +506,13 @@ export default {
           .querySelectorAll('.text-field-error input')[0]
           .setAttribute('tabindex', null);
       });
+    },
+    successJoin() {
+      this.$router.push({
+        path: '/join/addinfo'
+      });
+    },
+    async finalSignup() {
     },
     calcDate(data, idx) {
       if (idx === 0) {
