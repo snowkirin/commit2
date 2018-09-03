@@ -10,7 +10,7 @@
           </template>
         </div>
       </div>
-      <div class="column column-main w-55">
+      <div class="column column-main">
         <div>
           <swiper :options="swiperOption" ref="mySwiper">
             <swiper-slide v-for="(data, idx) in images" :key="idx">
@@ -150,6 +150,10 @@ img {
     flex-basis: 60px;
     max-width: 60px;
     margin-right: 15px;
+  }
+  .column-main {
+    flex-basis: 55%;
+    max-width: 55%;
   }
   .column-text {
     margin-left: 15px;

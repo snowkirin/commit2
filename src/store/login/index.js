@@ -19,11 +19,8 @@ const state = Object.assign({}, initialState);
 const mutations = {
   [types.RESET_STATE](state) {
     for (let prop in state) {
-      console.log(prop);
-      console.log(state);
       state[prop] = initialState[prop];
     }
-    console.log(state,'최종 state');
   },
   [types.LOGIN_SUCCESS](state, data) {
     state.isLogin = true;

@@ -68,7 +68,7 @@
             </label>
           </div>
         </div>
-        <FormButton ref="btnLogin" v-show="true" :api-data="submitLogin" @success="successLogin" button-type="">
+        <FormButton ref="btnLogin" v-show="true" :api-data="submitLogin" @success="successLogin">
           <span>로그인</span>
         </FormButton>
       </form>
