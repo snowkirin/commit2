@@ -19,6 +19,9 @@ export default {
         .then(res => {
           if (res.data.result) {
             this.$emit("success");
+          } else if (!res.data.result) {
+          } else {
+            alert('통신 오류가 발생하였습니다.');
           }
         })
         .catch(err => {

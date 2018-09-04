@@ -481,6 +481,7 @@ export default {
       return this.$validator.validateAll().then(result => {
         if (result) {
           return this.postJoin().then(res => {
+
             if (!res.data.result) {
               if(res.data.paymentRtn) {
                 // 카드정보는 정확히 입력하였으나 다른 이유로 오류가 난 경우
