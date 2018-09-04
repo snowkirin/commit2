@@ -150,7 +150,6 @@ export default {
         return;
       }
       return this.$validator.validateAll().then(result => {
-        console.log(result);
         if (result) {
           return this.doLogin(formData).then(res => {
             if (!res.data.result) {
