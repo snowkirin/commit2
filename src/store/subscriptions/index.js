@@ -26,6 +26,23 @@ const mutations = {
     state.CurrentResult = data.result;
     state.CurrentImages = data.images;
   },
+  [types.GET_CURRENT_FEEDBACKS](state, data) {
+    state.CurrentFeedbacks = data;
+  },
+  [types.GET_CURRENT_FEEDBACKS_DIRECT](state, data) {
+    state.CurrentFeedbacksDirect = data;
+    state.isCurrentFeedbacksDirect = true;
+  },
+  [types.GET_PRODUCT_DETAIL](state, data) {
+    _.assign(state.TomorrowProductDetail, data);
+  },
+  [types.DESTROY_CURRENT_FEEDBACKS_DIRECT](state) {
+    state.CurrentResult = [];
+    state.CurrentImages = {};
+    state.CurrentFeedbacks = {};
+    state.CurrentFeedbacksDirect = {};
+    state.isCurrentFeedbacksDirect = false;
+  },
   [types.GET_TOMORROW](state, data) {
     state.TomorrowResult = data;
   },
@@ -39,15 +56,6 @@ const mutations = {
     state.TomorrowResult = {};
     state.TomorrowProductDetail = {};
     state.TomorrowDirectMemberId = '';
-  },
-  [types.GET_PRODUCT_DETAIL](state, data) {
-    _.assign(state.TomorrowProductDetail, data);
-  },
-  [types.GET_CURRENT_FEEDBACKS](state, data) {
-    state.CurrentFeedbacks = data;
-  },
-  [types.GET_CURRENT_FEEDBACKS_DIRECT](state, data) {
-    state.CurrentFeedbacksDirect = data;
   },
   [types.GET_PAST_SUCCESS](state, data) {
     state.PastResult = data;

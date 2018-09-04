@@ -142,12 +142,8 @@ export default {
   getFeedbacks(data) {
     return axios
       .get(
-        `${API_URL}/subscriptions/feedbacks`,
-        {
+        `${API_URL}/subscriptions/feedbacks`, {
           params: data
-        },
-        {
-          withCredentials: true
         }
       )
       .then(res => {

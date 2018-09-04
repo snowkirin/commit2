@@ -38,8 +38,20 @@ export default {
                 .dispatch('subscriptions/getFeedbacksDirect', token)
                 .then(res => {
                   // 유저이름 넣기
-                  $store.state.login.Authentication.userName =
-                    res.data.info.user_name;
+                  if (res.data.result) {
+                    $store.state.login.Authentication.userName =
+                      res.data.info.user_name;
+                  } else {
+                    alert('올바른 경로로 접속하지 않으셨습니다.');
+                    const query = to.fullPath.match(/^\/$/)
+                      ? {}
+                      : { redirect: to.fullPath };
+                    next({
+                      path: '/login',
+                      query
+                    });
+                    return;
+                  }
                 });
               next();
               return;

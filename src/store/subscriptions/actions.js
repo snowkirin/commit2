@@ -41,7 +41,7 @@ export default {
   putTomorrowDirect({ commit }, data) {
     return Subscriptions.putTomorrowDirect(data).then(res => {
       return res;
-    })
+    });
   },
   getProductDetail({ commit }, data) {
     return Subscriptions.getProductDetail(data).then(res => {
@@ -58,32 +58,36 @@ export default {
   /*
   * data = { subscriptionId: id, type: 'current' or 'past' }
   * */
-  getFeedbacks({ commit }, data) {
-    const formData = {
-      subscriptionId: data.subscriptionId
-    };
-    return Subscriptions.getFeedbacks(formData).then(res => {
+  getCurrentFeedbacks({ commit }, data) {
+    return Subscriptions.getFeedbacks(data).then(res => {
       if (res.data.result) {
-        if (data.type === 'current') {
-          // 과거의 옷장
-          commit(types.GET_CURRENT_FEEDBACKS, res.data);
-        } else if (data.type === 'past') {
-          // 현재의 옷장
-          commit(types.GET_PAST_FEEDBACKS, res.data);
-        }
+        commit(types.GET_CURRENT_FEEDBACKS, res.data);
+        return res;
       }
-      return res;
     });
   },
+  getPastFeedbacks({ commit}, data) {
+    return Subscriptions.getFeedbacks(formData).then(res => {
+      if (res.data.result) {
+        commit(types.GET_PAST_FEEDBACKS, res.data);
+        return res;
+      }
+    })
+  },
+
   getFeedbacksDirect({ commit }, data) {
     return Subscriptions.getFeedbacksDirect(data).then(res => {
-      console.log(res);
       if (res.data.result) {
         commit(types.GET_CURRENT_FEEDBACKS_DIRECT, res.data.info);
       }
       return res;
     });
   },
+
+  destroyCurrentFeedbackDirect({ commit }) {
+    commit(types.DESTROY_CURRENT_FEEDBACKS_DIRECT);
+  },
+
   getPast({ commit }) {
     return Subscriptions.getPast().then(res => {
       if (!_.isEmpty(res.data.result)) {
