@@ -1,649 +1,320 @@
 <template>
-  <div class="customer-service">
+  <div class="contents">
+    <div class="contents-header">
+      <h3>소중한 의견으로 더 자라는 줄라이가 되겠습니다.</h3>
+    </div>
     <div>
-      <!--TITLE -->
-      <p class="txt-main-title">고객님의 소중한 의견으로<br/>한 뼘 더 자라는 줄라이가 되겠습니다.</p>
-      <div class="content">
-        <!-- Left -->
-        <div class="contact-detail">
-          <!-- TOP -->
-          <div class="top">
-            <p>
-              <span class="text">나의 문의 내역</span>
-              <button class="btn btn-primary" @click="viewModal">문의하기</button>
-            </p>
-          </div>
-          <!-- BOT-->
-          <div class="bot">
-            <ul class="contact-detail-list">
-              <li
-                v-for="(inquiries, k) in inquiriesList"
-                @click="viewInquiries(inquiries.id)"
-                :key="k"
-                :class="{ 'selected': (showId === inquiries.id) }">
-                <div class="inner">
-                  <div class="txt-title">
-                    <span class="title">{{ inquiries.subject }}</span>
-                    <span class="date">{{ inquiries.inserted.substring(2, 10) }}</span>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <!-- Right-->
-        <div class="contact-chat">
-          <!-- TOP -->
-          <div class="top">
-            <p class="text">이전 문의내역을 선택하시거나 새로운 1:1 채팅문의를 시작해 주세요.</p>
-          </div>
-          <!-- BOT-->
-          <div class="bot">
-            <template v-if="inquiriesInfo.first">
-              <div class="txt-current-date">
-                {{ $moment(inquiriesInfo.first.inserted).format('MM.DD ddd') }}
-              </div>
-              <div class="talk-content">
-                <div class="talk-area">
-                  <div class="talk-area-left">
-                    <div class="admin-icon">
-                      <div class="admin-icon-logo"></div>
-                    </div>
-                    <div class="balloon">
-                      <div class="balloon-text">
-                        <p>어떤 부분이 궁금하신가요?</p>
-                        <ul>
-                          <li class="balloon-square-area" v-bind:class="{ 'balloon-square-active': (inquiriesInfo.first.inquiry_type.toString() === $const.INQUIRIES_SUBSCRIBE) }">구독문의</li>
-                          <li class="balloon-square-area" v-bind:class="{ 'balloon-square-active': (inquiriesInfo.first.inquiry_type.toString() === $const.INQUIRIES_ORDER) }">주문문의</li>
-                          <li class="balloon-square-area" v-bind:class="{ 'balloon-square-active': (inquiriesInfo.first.inquiry_type.toString() === $const.INQUIRIES_DELIVERY) }">배송문의</li>
-                          <li class="balloon-square-area" v-bind:class="{ 'balloon-square-active': (inquiriesInfo.first.inquiry_type.toString() === $const.INQUIRIES_NORMAL) }">일반(기타)문의</li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="talk-date">{{ $moment(inquiriesInfo.first.inserted).format("A hh:mm") }}</div>
-                  </div>
-                </div>
-                <div class="talk-area">
-                  <div class="talk-area-right">
-                    <div class="right-balloon">
-                      <div class="balloon-text">
-                        {{ inquiriesInfo.first.subject }}
-                      </div>
-                    </div>
-                    <div class="talk-date">{{ $moment(inquiriesInfo.first.inserted).format("A hh:mm") }}</div>
-                  </div>
-                </div>
-                <template v-for="(info, k) in inquiriesInfo.list">
-                  <template v-if="k === 0 && inquiriesInfo.first.subject === info.content">
-                  </template>
-                  <template v-else>
-                    <div v-bind:key="k" class="talk-area">
-                      <div v-bind:class="{ 'talk-area-right': (info.content_type_name === '문의'), 'talk-area-left': (info.content_type_name === '답변') }">
-                        <div v-show="(info.content_type_name === '답변')" class="admin-icon">
-                          <div class="admin-icon-logo"></div>
-                        </div>
-                        <div v-bind:class="{ 'right-balloon': (info.content_type_name === '문의'), 'balloon': (info.content_type_name === '답변') }">
-                          <div class="balloon-text">
-                            {{ info.content }}
-                          </div>
-                        </div>
-                        <div class="talk-date">{{ $moment(info.inserted).format("A hh:mm") }}</div>
-                      </div>
-                    </div>
-                  </template>
-                </template>
-              </div>
-            </template>
-          </div>
-        </div>
-      </div>
+      <ul class="list-flex tap-wrap">
+        <li
+          class="item h-50"
+          :class="{ 'selected': isSelected === 'write' }"
+          @click="clickShowContent('write')"
+        >
+          1:1 문의
+        </li>
+        <li
+          class="item h-50"
+          :class="{ 'selected': isSelected === 'list' }"
+          @click="clickShowContent('list')"
+        >
+          문의내역
+        </li>
+      </ul>
     </div>
-    <custom-modal ref="view" dataId="view" title="문의하기" width="796" height="530" modalType="csView"></custom-modal>
-  </div>
-  <!--<div class="customer-service mt40">
-    <div class="main-point-text closet-title">문의 신청 / 내역</div>
-    <div class="closet-title-text mt15">
-      고객님의 소중한 의견으로<br/>
-      한 뼘 더 자라는 줄라이가 되겠습니다.
-    </div>
-    <div class="customer-service-content mt30">
-      <div class="cs-left-area">
-        <div class="cs-left-top">
-          <div class="cs-left-title">나의 문의내역</div>
-          <div class="cs-left-btn">
-            <button class="button-login" @click="viewModal">문의하기</button>
-          </div>
-        </div>
-        <div class="greyLine"></div>
-        <div class="cs-left-content scroll">
-          <template v-for="(inquiries, k) in inquiriesList">
-            <div
-              v-bind:key="k"
-              class="cs-left-data"
-              @click="viewInquiries(inquiries.id)"
-              v-bind:class="{ 'active-question': (showId === inquiries.id) }"
-            >
-              <div class="cs-left-data-title">
-                <div class="subject">{{ inquiries.subject }}</div>
-                <div class="date">
-                  {{ inquiries.inserted.substring(2, 10) }}
-                </div>
-              </div>
-              <div class="cs-left-data-text">
+    <div
+      class="content"
+      v-show="isSelected === 'write'"
+    >
+      <div class="content-inner">
+        <!-- 1:1 문의 내역 Wrapper -->
+        <div class="pt-20 pb-20">
+          <div class="grid-flex grid-fixed inquiries-top">
+            <div class="column w-27">
+              <div class="select-inquires-type">
+                <select v-model="inquiresType">
+                  <option value="">문의 종류를 선택해주세요</option>
+                  <option value="11092">구독문의</option>
+                  <option value="11903">주문문의</option>
+                  <option value="11904">배송문의</option>
+                  <option value="11901">일반(기타)문의</option>
+                </select>
               </div>
             </div>
-          </template>
-        </div>
-      </div>
-      <div class="cs-right-area">
-        <div class="cs-left-title" style="color: #797979; font-weight: 400;">이전 문의내역을 선택하시거나 새로운 1:1 채팅문의를 시작해 주세요.</div>
-        <div class="greyLine"></div>
-        <template v-if="inquiriesInfo.first">
-          <div class="current-date-area mt30">{{ $moment(inquiriesInfo.first.inserted).format('MM.DD ddd') }}</div>
-          <div class="talk-content scroll">
-            <div class="talk-area">
-              <div class="talk-area-left">
-                <div class="admin-icon">
-                  <div class="admin-icon-logo"></div>
-                </div>
-                <div class="balloon">
-                  <div class="balloon-text">
-                    어떤 부분이 궁금하신가요?<br/>
-                    <div class="mt10">
-                      <div class="balloon-square-area" v-bind:class="{ 'balloon-square-active': (inquiriesInfo.first.inquiry_type.toString() === $const.INQUIRIES_SUBSCRIBE) }">구독문의</div>
-                      <div class="balloon-square-area" v-bind:class="{ 'balloon-square-active': (inquiriesInfo.first.inquiry_type.toString() === $const.INQUIRIES_ORDER) }">주문문의</div>
-                      <div class="balloon-square-area" v-bind:class="{ 'balloon-square-active': (inquiriesInfo.first.inquiry_type.toString() === $const.INQUIRIES_DELIVERY) }">배송문의</div>
-                    </div>
-                    <div style="margin-top: 5px;">
-                      <div class="balloon-square-area" v-bind:class="{ 'balloon-square-active': (inquiriesInfo.first.inquiry_type.toString() === $const.INQUIRIES_NORMAL) }">일반(기타)문의</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="talk-date">{{ $moment(inquiriesInfo.first.inserted).format("A hh:mm") }}</div>
+            <div class="column o-2">
+              <div class="text-field">
+                <input
+                  type="text"
+                  placeholder="제목을 입력해주세요."
+                  v-model="inquiresSubject"
+                >
               </div>
-            </div>
-            <div class="talk-area">
-              <div class="talk-area-right">
-                <div class="right-balloon">
-                  <div class="balloon-text">
-                    {{ inquiriesInfo.first.subject }}
-                  </div>
-                </div>
-                <div class="talk-date">{{ $moment(inquiriesInfo.first.inserted).format("A hh:mm") }}</div>
-              </div>
-            </div>
-            <template v-for="(info, k) in inquiriesInfo.list">
-              <template v-if="k === 0 && inquiriesInfo.first.subject === info.content">
-              </template>
-              <template v-else>
-                <div v-bind:key="k" class="talk-area">
-                  <div v-bind:class="{ 'talk-area-right': (info.content_type_name === '문의'), 'talk-area-left': (info.content_type_name === '답변') }">
-                    <div v-show="(info.content_type_name === '답변')" class="admin-icon">
-                      <div class="admin-icon-logo"></div>
-                    </div>
-                    <div v-bind:class="{ 'right-balloon': (info.content_type_name === '문의'), 'balloon': (info.content_type_name === '답변') }">
-                      <div class="balloon-text">
-                        {{ info.content }}
-                      </div>
-                    </div>
-                    <div class="talk-date">{{ $moment(info.inserted).format("A hh:mm") }}</div>
-                  </div>
-                </div>
-              </template>
-            </template>
-          </div>
-        </template>
-      </div>
-    </div>
 
-    <custom-modal ref="view" dataId="view" title="문의하기" width="796" height="530" modalType="csView"></custom-modal>
-  </div>-->
+            </div>
+          </div>
+          <div class="inquiries-mid">
+          <textarea
+            class="textarea-inquiries-content"
+            name=""
+            id=""
+            cols="30"
+            rows="10"
+            placeholder="문의 내용을 입력해주세요."
+            v-model="inquiresContent"
+          >
+          </textarea>
+          </div>
+        </div>
+
+      </div>
+      <div class="button-wrap">
+        <button
+          type="button"
+          class="btn btn-primary h-56"
+          @click="clickContact"
+        >
+          문의하기
+        </button>
+      </div>
+    </div>
+    <div
+      class="content"
+      v-show="isSelected === 'list'"
+    >
+      <div class="content-inner">
+        <table
+          class="table-zuly"
+          ref="table"
+        >
+          <colgroup>
+            <col width="50">
+            <col width="*">
+            <col width="95">
+          </colgroup>
+          <thead>
+          <tr>
+            <th class="index">번호</th>
+            <th class="title">제목</th>
+            <th class="date">등록일</th>
+          </tr>
+          </thead>
+          <tbody>
+          <template v-for="(data, idx) in InquiresList">
+            <tr
+              class="inquiry-tr"
+              data-show="false"
+              :key="idx"
+              @click="helloWorld(data.id, $event)"
+            >
+              <td class="index">{{InquiresList.length - idx }}</td>
+              <td class="title">{{ data.subject }}</td>
+              <td class="date">{{ data.inserted }}</td>
+            </tr>
+            <tr
+              class="answer-tr"
+              :key="idx+'answer'"
+              :ref="'data-'+data.id"
+            >
+              <td colspan="3" v-if="!_.isEmpty(detailData)">
+                <div class="answer-wrap">
+                  <div class="request-wrap">
+                    <p class="txt-type-name">문의 유형: {{ detailData.data[0].type_name }}</p>
+                    <p class="txt-subject">{{ detailData.data[0].subject }}</p>
+                  </div>
+                  <div class="response-wrap">
+                    <p class="txt-answer">답변</p>
+                    <p class="txt-content">{{ detailData.list[0].content}}</p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </template>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import CustomModal from '@/components/common/CustomModal';
 
 export default {
-  name: 'customerService',
+  name: 'CustomerService',
+  components: {
+  },
   data() {
     return {
-      showId: null,
+      isSelected: 'write',
+      inquiresType: '',
+      inquiresSubject: '',
+      inquiresContent: '',
+      detailData: {}
     };
-  },
-  components: {
-    CustomModal,
   },
   computed: {
     ...mapGetters({
-      inquiriesList: 'mypage/inquiries/getInquiriesList',
-      inquiriesInfo: 'mypage/inquiries/getInquiriesInfo',
-    }),
+      InquiresList: 'inquiries/InquiresList'
+    })
   },
   methods: {
     ...mapActions({
-      setInquiriesList: 'mypage/inquiries/setInquiriesList',
-      setInquiriesInfo: 'mypage/inquiries/setInquiriesInfo',
+      getInquiries: 'inquiries/getInquiries',
+      getInquiriesDetail: 'inquiries/getInquiriesDetail',
+      postInquiries: 'inquiries/postInquiries'
     }),
-    viewInquiries(id) {
-      this.showId = id;
-      this.setInquiriesInfo(id);
+    clickShowContent(data) {
+      this.isSelected = data;
     },
-    viewModal() {
-      this.$refs.view.openModal();
+    clickContact() {
+      const formData = {
+        subject: this.inquiresSubject,
+        email: 'a',
+        email_noti: 'Y',
+        cell_phone: '0',
+        cell_phone_noti: 'Y',
+        inquiry_type: this.inquiresType,
+        content: this.inquiresContent
+      };
+
+      if (_.isEmpty(formData.subject)) {
+        alert('제목을 입력해 주세요.');
+        return;
+      }
+      if (_.isEmpty(formData.inquiry_type)) {
+        alert('문의 종류를 선택해 주세요.');
+        return;
+      }
+      if (_.isEmpty(formData.content)) {
+        alert('문의 내용을 입력해주세요.');
+        return;
+      }
+      this.postInquiries(formData).then(res => {
+        if (res.data.result) {
+          alert('등록되었습니다.');
+          this.getInquiries();
+        }
+      });
     },
+    helloWorld(id, event) {
+      const target =
+        event.target.tagName === 'TR'
+          ? event.target
+          : event.target.closest('tr');
+      const questionTR = this.$refs.table.querySelectorAll('.inquiry-tr');
+      this.getInquiriesDetail(id)
+        .then(res => {
+          this.detailData = res.data.result;
+        })
+        .then(() => {
+          if (target.dataset.show === 'true') {
+            target.dataset.show = 'false';
+          } else {
+            _.forEach(questionTR, value => {
+              value.dataset.show = 'false';
+            });
+            target.dataset.show = 'true';
+          }
+        });
+    }
   },
-  created() {
-    this.setInquiriesList();
-  },
-  updated() {
-    const inquiriesHtml = document.querySelectorAll('.cs-left-data-title .subject');
-    for (let i = 0; i < inquiriesHtml.length; i += 1) this.$common.dotdotdot(inquiriesHtml[i], 18);
-  },
+  async created() {
+    await this.getInquiries();
+  }
 };
 </script>
-
+<style scoped lang="scss" src="@/assets/css/closet-style.scss">
+</style>
 <style scoped lang="scss">
-  .customer-service {
-    width: 94.793%;
-    margin: 0 auto;
-  }
-  .title {
-    font-size: 24px;
-    line-height: 34px;
-    letter-spacing: -1px;
-  }
-
-  .content {
-    display: flex;
-    border: 2px solid #e9e9e9;
-    margin-top: 25px;
-    height: 473px;
-  }
-  .contact-detail {
-    flex-grow: 1;
-    flex-shrink: 1;
-    flex-basis: 31.59340659340659%;
-
-    .top {
-      display: flex;
-      height: 80px;
-      justify-content: center;
-      flex-direction: column;
-      padding-left: 18px;
-      padding-right: 19px;
-      position: relative;
-      &:after {
-        content: '';
-        display: block;
-        border-bottom: 1px solid #e9e9e9;
-        position: absolute;
-        bottom: 0;
-        width: 82.8%;
-      }
-      .text {
-        font-size: 15px;
-        line-height: 21px;
-        letter-spacing: -0.9px;
-        font-weight: 700;
-        margin-right: 15px;
-      }
-      button {
-        width: 89px;
-      }
-    }
-    .bot {
-      height: 389px;
-      overflow-y: auto;
-    }
-    &-list {
-      li {
-        padding: 17px 13px 20px 19px;
-        position: relative;
-        &:after {
-          content: '';
-          display: block;
-          border-bottom: 1px solid #e9e9e9;
-          position: absolute;
-          bottom: 0;
-          width: 82.8%;
-        }
-        &.selected {
-          background-color: #eff3fc;
-        }
-      }
-      .txt-title {
-        display: flex;
-        .title {
-          font-size: 15px;
-          line-height: 23px;
-          letter-spacing: -0.9px;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          width: 137px;
-        }
-        .date {
-          font-size: 15px;
-          line-height: 23px;
-          color: #797979;
-          font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
-        }
-      }
-      .txt-explain {
-        margin-top: 6px;
-        font-size: 14px;
-        line-height: 20px;
-        letter-spacing: -0.8px;
-        color: #797979;
-      }
+.inquiries-top {
+  .column {
+    &:nth-child(1) {
     }
   }
-  .contact-chat {
-    flex-grow: 1;
-    flex-shrink: 1;
-    flex-basis: 68.40659340659341%;
-    background-color: #f4f4f4;
-    padding: 0 20px;
-    .top {
-      display: flex;
-      height: 80px;
-      justify-content: center;
-      flex-direction: column;
-      position: relative;
-      &:after {
-        content: '';
-        display: block;
-        border-bottom: 1px solid #e9e9e9;
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-      }
-      .text {
-        font-size: 15px;
-        line-height: 23px;
-        letter-spacing: -0.6px;
-        color: #797979;
-      }
-    }
-    .bot {
-      height: 389px;
-      overflow-y: auto;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .customer-service {
-      width: 1200px;
-      padding-top: 32px;
-    }
-  }
-.greyLine {
-  margin-top: 24px;
 }
 
-.customer-service {
-  /*padding-bottom: 410px;*/
+.content-inner {
 }
-
-.customer-service-content {
-  display: flex;
-  height: 700px;
-  border: solid 2px #e9e9e9;
-}
-
-.cs-left-area {
-  width: 32.6%;
-  padding: 0 30px;
-}
-
-.cs-right-area {
-  width: 67.4%;
-  padding-left: 20px;
-  padding-right: 33px;
-}
-
-.cs-left-block {
-  width: 22.7%;
-}
-
-.cs-left-top > div {
-  display: inline-block;
-}
-
-.cs-left-btn {
-  float: right;
-  padding-top: 17px;
-  width: 45.9%;
-  height: 50px;
-}
-
-.cs-left-title {
-  padding-top: 30px;
-  font-size: 17px;
-  font-weight: 600;
-  line-height: 2;
-  letter-spacing: -0.5px;
-  color: #333333;
-}
-
-.cs-left-content {
-  height: 84.5%;
-  overflow-y: scroll;
-}
-
-.cs-left-data {
-  width: 100%;
-  padding-top: 30px;
-  display: inline-block;
-  border-bottom: 1px solid #d3d3d3;
-  cursor: pointer;
-}
-
-.cs-left-data-title > .subject {
-  width: 80%;
-  display: inline-block;
-  font-size: 16px;
-  line-height: 1;
-  letter-spacing: -0.5px;
-  color: #333333;
-}
-
-.cs-left-data-title > .date {
-  display: inline-block;
-  float: right;
-  font-size: 16px;
-  line-height: 1;
-  letter-spacing: -0.4px;
-  color: #797979;
-}
-
-.cs-left-data-text {
-  width: 80%;
-  margin: 20px 0 40px 0;
-}
-
-.cs-right-area {
- background-color: #f5f5f5;
-}
-
-.balloon {
-  display: inline-block;
-  position: relative;
-  background: #FFFFFF;
-  width: auto;
-  height: auto;
-  padding: 0px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 4px;
-  margin-left: 7px;
-  vertical-align: top;
-  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.2);
-  border-top-left-radius: 0;
-}
-
-.balloon-text {
-  padding: 10px 15px;
-  font-size: 14px;
-  line-height: 1.56;
-  letter-spacing: -0.5px;
-  color: #333333;
-}
-
-.balloon-bottom {
-  border-top-color: rgba(0,0,0,0.1);
-  padding: 20px 20px;
-  background-color: #f5f5f5;
-  font-size: 16px;
-  line-height: 1.63;
-  letter-spacing: -0.4px;
-  color: #797979;
-}
-
-.balloon:before {
-  content: '';
-  position: absolute;
-  top: 2px;
-  left: -8px;
-  border: 8px solid transparent;
-  border-top-color: rgba(0,0,0,0.1);
-  border-right-width: 0;
-}
-
-.balloon:after {
-  content: '';
-  position: absolute;
-  top: 0px;
-  left: -8px;
-  border: 8px solid transparent;
-  border-top-color: #ffffff;
-  border-right-width: 0;
-}
-
-.right-balloon {
-  background: #566b9c;
-  display: inline-block;
-  position: relative;
-  width: auto;
-  height: auto;
-  padding: 0px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 4px;
-  margin-left: 7px;
-  vertical-align: top;
-  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.2);
-  border-top-left-radius: 0;
-}
-
-.right-balloon:before {
-  content: '';
-  position: absolute;
-  top: 2px;
-  right: -6px;
-  border: 8px solid transparent;
-  border-top-color: rgba(0,0,0,0.1);
-  border-left-width: 0;
-}
-
-.right-balloon:after {
-  content: '';
-  position: absolute;
-  top: 0px;
-  right: -6px;
-  border: 8px solid transparent;
-  border-top-color: #566b9c;
-  border-left-width: 0;
-}
-
-.thumbnail {
-
-}
-
-.admin-icon {
-  display: inline-block;
-  border-radius: 50%;
-  border: 2px solid;
-  height: 43px;
-  width: 43px;
-}
-
-.admin-icon-logo {
-  width: 30px;
-  height: 10px;
-  background-image: url(/static/img/logo/ZULY-BI.png);
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  position: relative;
-  top: 40%;
-  left: 15%;
-}
-
-.current-date-area {
-  text-align: center;
-  color: #333333;
-  font-size: 16px;
-  line-height: 1;
-  letter-spacing: -0.5px;
-  color: #333333;
-}
-
-.talk-area-right {
-  width: 98%;
-  display: flex;
-  -webkit-flex-direction: row-reverse;
-  -ms-flex-direction: row-reverse;
-  flex-direction: row-reverse;
-  -webkit-align-items: flex-start;
-  -webkit-box-align: flex-start;
-  -ms-flex-align: flex-start;
-  align-items: flex-start;
-}
-
-.talk-area-right > .talk-date {
-  display: flex;
-  align-self: flex-end;
-}
-
-.right-balloon > .balloon-text {
-  color: #FFFFFF;
-}
-
-.talk-area {
+.button-wrap {
   margin-top: 20px;
 }
 
-.talk-date {
-  display: inline-block;
-  vertical-align: bottom;
-  font-size: 12px;
-  line-height: 1;
-  color: #797979;
-  letter-spacing: -0.4px;
+.select-inquires-type {
+  select {
+    @include fontSize(15px);
+    width: 100%;
+    height: 50px;
+    padding: 0 10px;
+  }
+}
+.textarea-inquiries-content {
+  @include fontSize(15px);
+  width: 100%;
+  resize: none;
+  padding: 27px 44px;
+}
+.inquiries-mid {
+  margin-top: 10px;
 }
 
+// 테이블 공통 스타일
+.tap-wrap {
+  .item {
+    flex-basis: 50%;
+    max-width: 50%;
+  }
+}
 
-.balloon-square-area {
-  display: inline-block;
-  text-align: center;
-  width: 160px;
-  height: 50px;
-  background-color: #ffffff;
-  border: solid 1px #e9e9e9;
-  font-size: 14px;
-  line-height: 50px;
-  letter-spacing: -0.8px;
-  color: #797979;
+.inquiry-tr {
   cursor: pointer;
+  &[data-show='false'] {
+    + .answer-tr {
+      display: none;
+    }
+  }
+  &[data-show='true'] {
+    + .answer-tr {
+      display: table-row;
+    }
+  }
 }
 
-.balloon-square-active {
-  background-color: #566b9c;
-  color: #ffffff;
+.index,
+.date {
+  text-align: center;
 }
 
-.active-question {
-  background-color: #f0f3fc;
+.answer-wrap {
+  @include fontSize(14px);
+  background-color: #f5f5f5;
+  padding: 16px 12px;
+}
+
+.txt-subject,
+.txt-content {
+  margin-top: 5px;
+  color: #797979;
+}
+
+.response-wrap {
+  border-top: 1px dashed #a7a7a7;
+  padding: 20px 0;
+  margin-top: 18px;
+}
+
+.txt-answer {
+  font-weight: 700;
+}
+
+.txt-content {
+  white-space: pre;
+}
+
+@media (min-width: 768px) {
+  .tap-wrap {
+    .item {
+      flex-basis: 195px;
+      max-width: 195px;
+    }
+  }
 }
 </style>

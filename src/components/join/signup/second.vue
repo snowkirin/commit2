@@ -1,266 +1,326 @@
+<!--suppress ALL -->
 <template>
-  <div class="container">
-    <div class="contents clearfix">
-      <div class="signup-text content">
-        <div class="signup-title">
-          <p class="text">
-            줄라이는 <span>78,000</span>원<br/>
-            요금제 단일 상품 입니다.
-          </p>
-        </div>
-        <div class="explain">
-          <p>월 2회 스타일링 된 의류 세트(2벌) 정기 배송</p>
-          <p>
-            <span>(1회 배송 의류 리테일가 30만원 기준 x 2 = 60만원)</span>
-          </p>
-          <p>무료 세탁</p>
-          <p>
-            무료 수거/배송 서비스
-          </p>
-          <p>
-            무료 전문 스타일링 및 스타일링 Tip 제공
-          </p>
-        </div>
-      </div>
+  <div class="contents">
+    <div class="contents-header">
+      <h3>배송 및 결제 정보</h3>
+    </div>
+    <form name="joinForm">
       <div class="content">
-        <form name="joinForm">
-          <!--요금제-->
-          <div class="payment-system">
-            <p class="txt-point">요금제</p>
-            <div class="form-row">
-              <input
-                type="text"
-                class="form-input"
-                value="월2회 단일 78,000원 요금제"
-                readonly>
+        <div class="grid-flex">
+          <div class="column column-left">
+            <div class="row">
+              <div class="form-title-wrap">
+                <p class="txt-form-ti tle">배송일 지정</p>
+              </div>
+              <div>
+                <div>
+                  <ul class="list-flex list-delivery-days">
+                    <li
+                      v-for="(data, idx) in FirstDeliveryDays"
+                      :key="idx"
+                      class="item w-20 h-50"
+                      :class="[{'selected': joinData.deliveryDate === data.solar_date}, {'holy-day': data.is_holiday === 'Y'}]"
+                      style="flex-direction: column;"
+                      :style="calcDate(data, idx)"
+                      @click="selectDay(data)"
+                    >
+                      <span class="txt-date-number">{{data.month_day}}</span>
+                      <span>{{ data.day_of_week }}</span>
+                    </li>
+                  </ul>
+                </div>
+                <!--<p class="txt-delivery-date">신청 주에 수령을 원하시면 별도 연락 부탁드립니다.<br/>(02-6929-3823)</p>-->
+              </div>
+              <notifications group="deliveryDate" width="100%" position="bottom left" :max="1" class="zuly-notify"/>
+            </div>
+            <div class="row">
+              <div class="form-title-wrap">
+                <p class="txt-form-title">카드 결제 정보</p>
+              </div>
+              <div>
+                <div class="grid-flex grid-fixed">
+                  <div class="text-field column" :class="{'text-field-error': errors.has('cardNumber')}">
+                    <input
+                      autocomplete="cc-exp"
+                      type="text"
+                      placeholder="카드 번호 (-없이 16자리 입력)"
+                      maxlength="16"
+                      v-validate="'required'"
+                      name="cardNumber"
+                      v-model="joinData.cardNumber"
+                    >
+                  </div>
+                  <div class="text-field column w-31 o-2" :class="{'text-field-error': errors.has('cardExpiry')}">
+                    <input
+                      autocomplete="cc-exp"
+                      type="text"
+                      placeholder="MMYY"
+                      v-validate="'required'"
+                      @keyup="checkCardExpiry"
+                      name="cardExpiry"
+                    >
+                  </div>
+                </div>
+                <p
+                  class="txt-error"
+                  v-show="(errors.has('cardNumber') || errors.has('cardExpiry'))">
+                  카드번호 & 유효기간을 입력해주세요.
+                </p>
+                <p
+                  class="txt-error"
+                  v-show="cardVerify">
+                  {{ cardVerifyMsg }}
+                </p>
+              </div>
+              <div class="mb-10">
+                <div class="text-field" :class="{'text-field-error': errors.has('birthDay')}">
+                  <input
+                    type="text"
+                    class="form-input"
+                    name="birthDay"
+                    v-model="joinData.userBirth"
+                    placeholder="생년월일(YYMMDD)"
+                    v-validate="'required'"
+                    @keyup="checkBirthExpiry">
+                </div>
+                <p class="txt-error" v-show="errors.has('birthDay')">생년월일을 입력해주세요.</p>
+                <p class="txt-error" v-show="birthVerify">{{ birthVerifyMsg }}</p>
+              </div>
+              <div>
+                <div class="grid-flex grid-fixed">
+                  <div class="column text-field" :class="{'text-field-error': errors.has('cardPwd')}">
+                    <input
+                      type="password"
+                      placeholder="비밀번호"
+                      v-model="joinData.cardPassword"
+                      maxlength="2"
+                      v-validate="'required'"
+                      style="text-align: right;"
+                      name="cardPwd">
+                  </div>
+                  <div class="column w-25">
+                    <div class="center-align">
+                      <div>
+                        <span class="icon-dot">&middot;</span>
+                        <span class="icon-dot">&middot;</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p class="txt-error" v-show="errors.has('cardPwd')">카드비밀번호 앞 2자리를 입력해주세요.</p>
+              </div>
             </div>
           </div>
-          <!--배송일 지정-->
-          <div class="delivery-date">
-            <p class="txt-point">배송일 지정</p>
-            <div>
+          <div class="column column-right">
+            <div class="row">
+              <div class="form-title-wrap">
+                <p class="txt-form-title">요금제</p>
+              </div>
               <div>
-                <ul>
-                  <li
-                    v-for="(data, idx) in setDeliveryDay"
-                    :key="idx"
-                    @click="selectDay(data)"
-                    :class="{'selected': joinSecond.deliveryDate === data.solar_date}"
-                    :style="calcDate(data, idx)">
-                    <span class="en-font">{{data.month_day}}</span>
-                      <br/>
-                    <span>{{ data.day_of_week }}</span>
-                  </li>
-                </ul>
-              </div>
-              <div class="text">
-                <p v-if="deliveryDay.monthDay || deliveryDay.dayOfWeek" style="color: #333;">※ {{ msgDeliveryDay }}</p>
-                <p>신청 주에 수령을 원하시면 별도 연락 부탁드립니다.<br/>
-                (02-6929-3823)</p>
-              </div>
-            </div>
-          </div>
-          <!-- 카드 결제 정보-->
-          <div class="payment-info">
-            <p class="txt-point">카드 결제 정보</p>
-            <div class="form-row">
-              <div class="form-card">
-                <input
-                  autocomplete="cc-exp"
-                  type="number"
-                  class="form-input"
-                  placeholder="카드 번호 (-없이 16자리 입력)"
-                  maxlength="16"
-                  @keydown="$common.NumberValidateEvt"
-                  v-validate="'required'"
-                  name="cardNumber"
-                  v-model="joinSecond.cardNumber"
-                >
-                <input
-                  autocomplete="cc-exp"
-                  type="text"
-                  class="form-input"
-                  placeholder="MMYY"
-                  v-validate="'required'"
-                  @keyup="checkCardExpiry"
-                  name="cardExpiry"
-                >
-              </div>
-              <p
-                class="txt-error"
-                v-show="(errors.has('cardNumber') || errors.has('cardExpiry'))">
-                카드번호 & 유효기간을 입력해주세요.
-              </p>
-              <p
-                class="txt-error"
-                v-show="cardVerify">
-                {{ cardVerifyMsg }}
-              </p>
-            </div>
-            <div class="form-row">
-              <div>
-                <input
-                  type="text"
-                  class="form-input"
-                  name="birthDay"
-                  v-model="joinSecond.userBirth"
-                  placeholder="생년월일(YYMMDD)"
-                  v-validate="'required'"
-                  @keyup="checkBirthExpiry">
-              </div>
-              <p class="txt-error" v-show="errors.has('birthDay')">생년월일을 입력해주세요.</p>
-              <p class="txt-error" v-show="birthVerify">{{ birthVerifyMsg }}</p>
-            </div>
-            <div class="form-row">
-              <div>
-                <input
-                  type="password"
-                  class="form-input"
-                  placeholder="비밀번호"
-                  v-model="joinSecond.cardPassword"
-                  maxlength="2"
-                  v-validate="'required'"
-                  style="width: 106px;"
-                  name="cardPwd">
-                <div class="last-two-digits">
-                  <span>닷</span>
-                  <span>닷</span>
+                <div class="txt-payment">
+                  <p>월 2회 단일 78,000원 요금제</p>
+                </div>
+                <div class="list-payment">
+                  <ul>
+                    <li>- 월 2회 의류 세트 정기 배송/수거 및 세탁</li>
+                    <li>- 배송 전 상품 제안 및 스타일링 Tip 제공</li>
+                  </ul>
                 </div>
               </div>
-              <p class="txt-error" v-show="errors.has('cardPwd')">카드비밀번호 앞 2자리를 입력해주세요.</p>
             </div>
-          </div>
-          <!-- 개인정보 -->
-          <div class="personal-info">
-            <p class="txt-point">공동 현관 비밀번호 <br/> <span class="txt-entrance">(문 앞까지 가기 전에 공동 현관이 있는 경우)</span></p>
-            <div class="form-row">
-              <input
-                type="text"
-                v-model="joinSecond.lobbyPassword"
-                class="form-input"
-                placeholder="현관 비밀번호">
+            <div class="row">
+              <div class="form-title-wrap">
+                <p class="txt-form-title">공동 현관 비밀번호 <br/> <span class="txt-entrance">(문 앞까지 가기 전에 공동 현관이 있는 경우)</span></p>
+              </div>
+              <div>
+                <div class="text-field" :class="{'text-field-error': errors.has('lobbyPassword')}">
+                  <input
+                    type="text"
+                    v-model="joinData.lobbyPassword"
+                    class="form-input"
+                    v-validate="'required'"
+                    name="lobbyPassword"
+                    placeholder="현관 비밀번호">
+                </div>
+                <p
+                  class="txt-error"
+                  v-if="errors.has('lobbyPassword')"
+                >
+                  공동 현관 비밀번호를 입력해 주세요.
+                </p>
+              </div>
             </div>
-          </div>
-          <div class="recommendation">
-            <p class="txt-point">추천인</p>
-            <div class="form-row form-group" data-grid="7:3">
-              <input
-                type="text"
-                class="form-input"
-                placeholder="이메일 또는 코드"
-                v-model="joinSecond.recommendCode">
-              <button
-                type="button"
-                @click="recommendVerify"
-                class="btn btn-secondary">
-                확인
-              </button>
-            </div>
-          </div>
-          <!-- 쿠폰 -->
-          <!--<div class="coupon">
-            <p class="txt-point">쿠폰</p>
-            <div class="form-row form-group" data-grid="7:3">
-              <input
-                type="text"
-                class="form-input"
-                v-model="joinSecond.coupon"
-                placeholder="쿠폰">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                @click="couponVerify">
-                확인
-              </button>
-            </div>
-          </div>-->
-          <!-- 주문합계 -->
-          <div class="order-total">
-            <div>
-              <table class="order-total-table">
-                <colgroup>
-                  <col width="*">
-                  <col :width="($mq === 'sm') ? 100 : 120">
-                </colgroup>
-                <thead>
-                <tr>
-                  <th colspan="2">주문 합계</th>
-                </tr>
-                </thead>
-                <tfoot>
-                <tr>
-                  <td>총 결제금액</td>
-                  <td>
-                    <span class="txt-number">
-                      <vue-numeric separator="," v-model="price.totalPrice" read-only></vue-numeric>
-                    </span>
-                    <span class="txt-unit">원</span>
-                  </td>
-                </tr>
-                </tfoot>
-                <tbody>
-                <tr>
-                  <td>월 2회 단일 요금제</td>
-                  <td>
-                    <span class="txt-number"><vue-numeric separator="," v-model="price.basicPrice" read-only></vue-numeric></span>
-                    <span class="txt-unit">원</span>
-                  </td>
-                </tr>
-                <tr v-if="price.promotionPrice !== price.basicPrice">
-                  <td>프로모션 기간 금액</td>
-                  <td>
-                    <span class="txt-number"><vue-numeric separator="," v-model="price.promotionPrice" read-only></vue-numeric></span>
-                    <span class="txt-unit">원</span>
-                  </td>
-                </tr>
-                <tr v-if="price.salePrice !== 0">
-                  <td>추천인 할인</td>
-                  <td>
-                    <span class="txt-number">(-) <vue-numeric separator="," v-model="price.salePrice" read-only></vue-numeric></span>
-                    <span class="txt-unit">원</span>
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+            <div class="row">
+              <div class="form-title-wrap">
+                <p class="txt-form-title">추천인</p>
+              </div>
+              <div>
+                <div class="grid-flex grid-fixed">
+                  <div class="column text-field">
+                    <input
+                      type="text"
+                      class="form-input"
+                      placeholder="이메일 또는 코드"
+                      v-model="joinData.recommendCode">
+                  </div>
+                  <div class="column w-31 o-2">
+                    <button
+                      type="button"
+                      @click="recommendVerify"
+                      class="btn btn-secondary h-50">
+                      확인
+                    </button>
+                  </div>
+                </div>
 
-          <div class="custom-checkbox">
-            <input class="custom-control-input" type="checkbox" name="private_flag" id="private_flag">
-            <label class="custom-control-label" for="private_flag">
-              상기 결제정보를 확인하였으며, 구매진행에 동의합니다. 첫번째 결제는 구독 상품 배송이 시작될때 이루어집니다.
-            </label>
+
+              </div>
+            </div>
+              <!-- 쿠폰 -->
+              <!--<div class="coupon">
+                <p class="txt-form-title">쿠폰</p>
+                <div class="form-row form-group" data-grid="7:3">
+                  <input
+                    type="text"
+                    class="form-input"
+                    v-model="joinData.coupon"
+                    placeholder="쿠폰">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    @click="couponVerify">
+                    확인
+                  </button>
+                </div>
+              </div>-->
+              <!-- 주문합계 -->
+            <div class="row">
+              <div>
+                <table class="table-order-total">
+                  <colgroup>
+                    <col width="*">
+                    <col :width="($mq === 'sm') ? 100 : 120">
+                  </colgroup>
+                  <thead>
+                  <tr>
+                    <th colspan="2">주문 합계</th>
+                  </tr>
+                  </thead>
+                  <tfoot>
+                  <tr>
+                    <td>월 결제금액</td>
+                    <td>
+                    <span class="txt-number">
+                      <vue-numeric
+                        v-if="isRecommendCode"
+                        separator=","
+                        :value="RecommendCode.total_price"
+                        read-only>
+                      </vue-numeric>
+                      <vue-numeric
+                        v-else
+                        separator=","
+                        :value="Membership.promotion_price"
+                        read-only>
+                      </vue-numeric>
+                    </span>
+                      <span class="txt-unit">원</span>
+                    </td>
+                  </tr>
+                  <tr class="first-payment-wrap">
+                    <td>첫 결제 금액</td>
+                    <td>무료</td>
+                  </tr>
+                  </tfoot>
+                  <tbody>
+                  <tr>
+                    <td>월 2회 단일 요금제</td>
+                    <td>
+                    <span class="txt-number">
+                      <vue-numeric
+                        separator=","
+                        v-model="Membership.price"
+                        read-only/>
+                    </span>
+                      <span class="txt-unit">원</span>
+                    </td>
+                  </tr>
+                  <tr v-if="Membership.promotion_price !== Membership.price">
+                    <td>프로모션 기간 금액</td>
+                    <td>
+                    <span class="txt-number">
+                      <vue-numeric
+                        separator=","
+                        v-model="Membership.promotion_price"
+                        read-only/>
+                    </span>
+                      <span class="txt-unit">원</span>
+                    </td>
+                  </tr>
+                  <tr v-if="RecommendCode.sale_price">
+                    <td>추천인 할인</td>
+                    <td>
+                    <span class="txt-number">(-)
+                      <vue-numeric
+                        separator=","
+                        :value="RecommendCode.sale_price"
+                        read-only/>
+                    </span>
+                      <span class="txt-unit">원</span>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="row">
+              <div class="custom-checkbox">
+                <input class="custom-control-input" type="checkbox" name="private_flag" id="private_flag">
+                <label class="custom-control-label" for="private_flag">
+                  상기 결제정보를 확인하였으며, 구매진행에 동의합니다. 첫번째 결제는 구독 상품 배송이 시작될때 이루어집니다.
+                </label>
+              </div>
+            </div>
           </div>
-          <div class="btn-complete">
-            <button
-              type="button"
-              @click="finalSignup"
-              class="btn btn-primary">
-              완료
-            </button>
-          </div>
-        </form>
+        </div>
       </div>
-    </div>
-    <alert-modal ref="view" width="320" height="190" :isConfirm.sync="isConfirm"></alert-modal>
+      <div class="btn-complete">
+        <FormButton ref="btnComplete" :api-data="progressJoin" @success="successJoin">
+          <span>완료</span>
+        </FormButton>
+        <!--<button
+          type="button"
+          @click="finalSignup"
+          class="btn btn-primary h-56">
+          완료
+        </button>-->
+      </div>
+    </form>
+    <simplert ref="alert" :useRadius="false" :useIcon="false" />
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import AlertModal from '@/components/common/AlertModal';
+import Simplert from 'vue2-simplert';
 import VueNumeric from 'vue-numeric';
-import Codes from '@/library/api/codes';
+
+const alertObject = {
+  type: 'alert', // 타입
+  customClass: 'popup-custom-class', // 커스텀 클래스 네임
+  disableOverlayClick: false, // 오버레이 클릭시 닫기 방지
+  customCloseBtnText: '확인' // 닫기 버튼 텍스트
+};
 
 export default {
   name: 'signUp-second',
   components: {
-    AlertModal,
     VueNumeric,
+    Simplert
   },
   data() {
     return {
-      joinSecond: {
+      joinData: {
         deliveryDate: '',
         cardNumber: '',
         cardYearExpiry: '',
@@ -270,89 +330,116 @@ export default {
         lobbyPassword: null,
         coupon: null,
         membershipId: 1,
-        recommendCode: null,
+        recommendCode: null
       },
-      price: {
-        basicPrice: 0,
-        promotionPrice: 0,
-        salePrice: 0,
-        totalPrice: 0,
-      },
-      setDeliveryDay: {},
       deliveryDay: {
         monthDay: '',
-        dayOfWeek: '',
+        dayOfWeek: ''
       },
       cardVerify: false,
       cardVerifyMsg: '',
       birthVerify: false,
       birthVerifyMsg: '',
       isConfirm: false,
+      isRecommendCode: false
     };
   },
   computed: {
     ...mapGetters({
-      Join: 'signup/getJoin',
+      FirstDeliveryDays: 'codes/FirstDeliveryDays', // 첫구독시 배송일 데이터
+      Membership: 'payment/Membership', // 멤버십 가격
+      RecommendCode: 'payment/RecommendCode',
+      Join: 'signup/Join'
     }),
     msgDeliveryDay() {
       const date = _.split(this.deliveryDay.monthDay, '/');
       const week = _.trim(this.deliveryDay.dayOfWeek, '()');
-      return `${date[0]}월 ${date[1]}일 첫 배송 후 격주 ${week}요일에 배송됩니다.`;
-    },
+      return `${date[0]}월 ${
+        date[1]
+      }일 첫 배송 후 격주 ${week}요일에 배송됩니다.`;
+    }
   },
   methods: {
     ...mapActions({
-      setJoinSecond: 'signup/setJoinSecond',
-      signup: 'signup/signup',
+      getFirstDeliveryDays: 'codes/getFirstDeliveryDays', // 첫 구독시 배송일 데이터 호출
+      getMembership: 'payment/getMembership',
+      getRecommendCode: 'payment/getRecommendCode',
+      setJoin: 'signup/setJoin',
+      postJoin: 'signup/postJoin'
     }),
     selectDay(param) {
-      this.joinSecond.deliveryDate = param.solar_date;
-      this.deliveryDay.monthDay = param.month_day;
-      this.deliveryDay.dayOfWeek = param.day_of_week;
+      if (param.is_holiday === 'Y') {
+        return;
+      } else {
+        this.joinData.deliveryDate = param.solar_date;
+        this.deliveryDay.monthDay = param.month_day;
+        this.deliveryDay.dayOfWeek = param.day_of_week;
+        this.$notify({
+          group: "deliveryDate",
+          text: `※ ${this.msgDeliveryDay}`
+        });
+      }
     },
     checkCardExpiry(evt) {
       const cardReg = /^(0?[1-9]|1[0-2]|12)(1[9]|[2-9][0-9]|99)$/;
       if (!cardReg.test(evt.target.value)) {
         this.cardVerify = true;
-        this.cardVerifyMsg = '카드유효기간을 MMYY(월년) 형태로 입력해주세요. (ex: 0323)';
+        this.cardVerifyMsg =
+          '카드유효기간을 MMYY(월년) 형태로 입력해주세요. (ex: 0323)';
       } else {
         const cardMonth = evt.target.value.substr(0, 2);
         const cardYear = evt.target.value.substr(2, 4);
 
         this.cardVerify = false;
-        this.joinSecond.cardMonthExpiry = cardMonth;
-        this.joinSecond.cardYearExpiry = _.padStart(cardYear, 4, '20');
+        this.joinData.cardMonthExpiry = cardMonth;
+        this.joinData.cardYearExpiry = _.padStart(cardYear, 4, '20');
       }
     },
     checkBirthExpiry(evt) {
       const birthReg = /^([0-9][0-9]|99)(0?[1-9]|1[0-2]|12)(0?[1-9]|[12][0-9]|3[01])$/;
       if (!birthReg.test(evt.target.value)) {
         this.birthVerify = true;
-        this.birthVerifyMsg = '생년월일을 YYMMDD(년월일) 형태로 입력해주세요. (ex: 851211)';
+        this.birthVerifyMsg =
+          '생년월일을 YYMMDD(년월일) 형태로 입력해주세요. (ex: 851211)';
       } else this.birthVerify = false;
     },
     couponVerify() {
       const coupon = document.querySelector('input[name=coupon]');
-
-      if (!this.$common.InputDataValidation(coupon, '쿠폰을 입력해주세요.', true)) return false;
-
-      return true;
+      return this.$common.InputDataValidation(
+        coupon,
+        '쿠폰을 입력해주세요.',
+        true
+      );
     },
-    recommendVerify() {
-      const $this = this;
-      if (this.joinSecond.recommendCode === '' || this.joinSecond.recommendCode === null) {
-        this.$common.viewAlertModal('추천인을 입력해 주세요.', this.$refs, 'alert');
+    async recommendVerify() {
+      if (
+        this.joinData.recommendCode === '' ||
+        this.joinData.recommendCode === null
+      ) {
+        _.assign(alertObject, {
+          message: '추천인을 입력해 주세요.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
+        this.isRecommendCode = false;
       } else {
-        Codes.getRecommendCode(this.joinSecond.membershipId, this.joinSecond.recommendCode).then((res) => {
+        const formData = {
+          id: this.joinData.membershipId,
+          code: this.joinData.recommendCode
+        };
+        await this.getRecommendCode(formData).then(res => {
           if (res.data.result) {
-            $this.price.totalPrice = res.data.total_price;
-            $this.price.salePrice = res.data.sale_price;
-            $this.$common.viewAlertModal('정상등록 되었습니다.', $this.$refs, 'alert');
+            _.assign(alertObject, {
+              message: '정상 등록 되었습니다.'
+            });
+            this.$refs.alert.openSimplert(alertObject);
+            this.isRecommendCode = true;
           } else {
-            $this.$common.viewAlertModal('추천인을 정확하게 입력해 주세요.', $this.$refs, 'alert');
+            _.assign(alertObject, {
+              message: '추천인을 정확하게 입력해 주세요.'
+            });
+            this.$refs.alert.openSimplert(alertObject);
+            this.isRecommendCode = false;
           }
-        }).catch((err) => {
-          console.error(err);
         });
       }
     },
@@ -361,311 +448,217 @@ export default {
       this.$localStorage.remove('Mood');
       this.$localStorage.remove('Size');
     },
-    finalSignup() {
-      const privateFlag = document.querySelector('input[name=private_flag]:checked');
+    async progressJoin() {
+      const privateFlag = document.querySelector(
+        'input[name=private_flag]:checked'
+      );
       // 배송일 지정
-      if (this.joinSecond.deliveryDate === '') {
-        this.$common.viewAlertModal('배송일을 선택해주세요.', this.$refs, 'alert');
+      if (this.joinData.deliveryDate === '') {
+        _.assign(alertObject, {
+          message: '배송일을 선택해주세요.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
         return;
       }
       // 구매 동의 체크박스
       if (!privateFlag) {
-        this.$common.viewAlertModal('구매진행에 동의해주세요.', this.$refs, 'alert');
+        _.assign(alertObject, {
+          message: '구매진행에 동의해주세요.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
         return;
       }
-      this.setJoinSecond(this.joinSecond);
-
-      this.$validator.validateAll().then(async (result) => {
-        if (result) {
-          const signupRtn = await this.signup();
-          if (signupRtn.result) {
-            this.clearStorage();
-            this.$common.viewAlertModal(signupRtn.msg, this.$refs, 'confirm', '/join/addinfo');
-          } else {
-            if (signupRtn.msg) {
-              this.$common.viewAlertModal(signupRtn.msg, this.$refs, 'alert');
-            } else {
-              this.$common.viewAlertModal('시스템 오류입니다. 관리자에게 문의하세요.', this.$refs, 'alert');
-            }
-          }
+      if (!_.isEmpty(this.joinData.recommendCode)) {
+        if (!this.isRecommendCode) {
+          _.assign(alertObject, {
+            message: '추천인 확인을 눌러주세요.'
+          });
+          this.$refs.alert.openSimplert(alertObject);
           return;
         }
-        this.$common.viewAlertModal('에러메시지를 확인하시고<br/>입력후 버튼을 눌러주세요.', this.$refs, 'alert');
+      }
+      await this.setJoin(this.joinData);
+      return this.$validator.validateAll().then(result => {
+        if (result) {
+          return this.postJoin().then(res => {
+            if (!res.data.result) {
+              if(res.data.paymentRtn) {
+                // 카드정보는 정확히 입력하였으나 다른 이유로 오류가 난 경우
+                _.assign(alertObject, {
+                  message: '오류가 발생 되었습니다. 잠시 후 다시 시도해 주세요.'
+                });
+              } else {
+                // 카드정보가 정확히 입력되지 않은 경우
+                _.assign(alertObject, {
+                  message: '카드 정보를 확인해주세요.'
+                });
+              }
+              this.$refs.alert.openSimplert(alertObject);
+            }
+            return res;
+          });
+        }
+        document
+          .querySelectorAll('.text-field-error input')[0]
+          .setAttribute('tabindex', -1);
+        document.querySelectorAll('.text-field-error input')[0].focus();
+        document
+          .querySelectorAll('.text-field-error input')[0]
+          .setAttribute('tabindex', null);
       });
+    },
+    successJoin() {
+      this.$router.push({
+        path: '/join/addinfo'
+      });
+    },
+    async finalSignup() {
     },
     calcDate(data, idx) {
       if (idx === 0) {
         if (data.day_of_week === '(월)') {
-          return { marginLeft: '0%' };
+          return { marginLeft: 'calc(0% - 1px)' };
         } else if (data.day_of_week === '(화)') {
-          return { marginLeft: '20%' };
+          return { marginLeft: 'calc(20% - 1px)' };
         } else if (data.day_of_week === '(수)') {
-          return { marginLeft: '40%' };
+          return { marginLeft: 'calc(40% - 1px)' };
         } else if (data.day_of_week === '(목)') {
-          return { marginLeft: '60%' };
-        }
-        return { marginLeft: '80%' };
-      }
-    },
-  },
-  mounted() {
-  },
-  created() {
-    const $this = this;
-    Codes.getFirstDeliveryDays().then((res) => {
-      $this.setDeliveryDay = res.data.result;
-    }).catch((err) => {
-      console.error(err);
-    });
-    Codes.getMembership().then((res) => {
-      if (res.data.result) {
-        $this.price.basicPrice = res.data.data.price;
-        $this.price.promotionPrice = res.data.data.promotion_price;
-        if (!res.data.data.promotion_price) {
-          $this.price.totalPrice = res.data.data.price;
+          return { marginLeft: 'calc(60% - 1px)' };
         } else {
-          $this.price.totalPrice = res.data.data.promotion_price;
+          return { marginLeft: 'calc(80% - 1px)' };
         }
-      } else {
-        return false;
       }
-    }).catch((err) => {
-      console.error(err);
-    });
+    }
   },
-  beforeMount() {
-  },
-  destroyed() {
-  },
+  async created() {
+    if (_.isEmpty(this.FirstDeliveryDays)) {
+      await this.getFirstDeliveryDays();
+    }
+    this.getMembership();
+  }
 };
 </script>
-
+<style scoped lang="scss" src="@/assets/css/join-style.scss"/>
 <style scoped lang="scss">
-  .container {
-    padding: 24px 20px 41px;
+.list-flex {
+  background-color: #f5f5f5;
+  .item {
+    @include fontSize(15px);
+    line-height: 1;
   }
-  .contents {
-  }
-  .content {
-  }
-  .signup-text {
-    margin-bottom: 32px;
-    .signup-title {
-      margin-bottom: 12px;
-      .text {
-        font-size: 24px;
-        line-height: 32px;
-        letter-spacing: -1.4px;
-        span {
-          font-size: 24px;
-          line-height: 32px;
-          letter-spacing: 0;
-          font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
-        }
-      }
-    }
-    .explain {
-      font-size: 15px;
-      line-height: 23px;
-      letter-spacing: -0.9px;
-      span {
-        color: #797979;
-      }
-    }
-  }
-  .txt-point {
-    margin-bottom: 12px;
-  }
-  .delivery-date {
-    ul {
-      font-size: 0;
-      background-color: #f5f5f5;
-      outline: 1px solid #f5f5f5;
-    }
-    li {
-      user-select: none;
-      cursor: pointer;
-      display: inline-block;
-      height: 50px;
-      background-color: #fff;
-      width: 20%;
-      outline: 1px solid #cacaca;
-      position: relative;
-      color: #bbb;
-      font-size: 15px;
-      letter-spacing: -0.9px;
-      text-align: center;
-      line-height: 18px;
-      padding-top: 6px;
-      &.selected {
-        outline: 2px solid #333;
-        outline-offset: -2px;
-        z-index: 10;
-        color: #333;
-        font-weight: 700;
-      }
-    }
-  }
-  .delivery-date,
-  .payment-info,
-  .personal-info,
-  .coupon,
-  .order-total,
-  .recommendation {
-    margin-top: 36px;
-  }
-  .form-row {
-    margin-bottom: 10px;
-  }
-  .payment-system {
-    .form-input {
-      &[readonly]{
-        border: 2px solid #333;
-        font-weight: 700;
-      }
-    }
-  }
-  .last-two-digits {
-    display: inline-block;
-    font-size: 0;
-    margin-left: 4px;
-    span {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      background-color: #333;
-      border-radius: 50%;
-      overflow: hidden;
-      &:first-child {
-        margin-right: 10px;
-      }
-    }
-  }
-  .delivery-date {
-    margin-top: 36px;
-    .text {
-      font-size: 14px;
-      line-height: 20px;
-      letter-spacing: -0.8px;
-      color: #797979;
-      margin-top: 9px;
-    }
-  }
-  .payment-info {
-    .form-card {
-      display: flex;
-      input {
-        &:nth-child(1){
-          margin-right: 8px;
-        }
-        &:nth-child(2){
-          flex-grow: 0;
-          flex-shrink: 0;
-          flex-basis: 106px;
-        }
-      }
-    }
-  }
-  .txt-entrance {
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: -0.8px;
-    color: #797979;
-    font-weight: 400;
-  }
-  .order-total {
-    margin-bottom: 15px;
-    &-table {
-      table-layout: fixed;
-      width: 100%;
-      font-size: 15px;
-      line-height: 23px;
-      letter-spacing: -0.9px;
-      .txt-number {
-        font-size: 18px;
-        font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
-        line-height: 25px;
-        letter-spacing: -1.2px;
-      }
-      th, td {
-        border-bottom: 1px solid #e9e9e9;
-        height: 60px;
-      }
-      td {
-        &:nth-child(2){
-          text-align: right;
-        }
-      }
-      thead {
-        th {
-          font-weight: 400;
-        }
-      }
-      tfoot {
-        td {
-          font-weight: 700;
-        }
-      }
-    }
-  }
-  .btn-complete {
-    margin-top: 40px;
-    width: 100%;
-    button {
-      width: 100%;
-      height: 60px;
-    }
-  }
-  @media (min-width: 768px) {
-    .container {
-      margin: 0 auto;
-      width: 1200px;
-      padding: 0;
-    }
-    .contents {
-      margin: 74px auto 0;
-      width: 795px;
-    }
-    .signup-text {
-      margin-bottom: 0;
-    }
-    .content {
-      &:nth-child(1) {
-        float: left;
-        width: 302px;
-      }
-      &:nth-child(2) {
-        float: right;
-        width: 382px;
-      }
-    }
-    .signup-text {
-      .signup-title {
-        .text {
-          font-size: 30px;
-          line-height: 38px;
-          letter-spacing: -2.2px;
-          font-weight: 500;
-          span {
-            font-size: 32px;
-            line-height: 36px;
-            letter-spacing: 0;
-          }
-        }
-      }
-      .explain {
-        font-size: 16px;
-        line-height: 24px;
-        letter-spacing: -1px;
-      }
-    }
+}
 
-    .order-total-table {
-      font-size: 16px;
-      letter-spacing: -1px;
-      .txt-number {
-        font-size: 22px;
-      }
+.column-left {
+  .row {
+    &:nth-child(1) {
+      margin-top: 0;
     }
   }
+}
+.row {
+  margin-top: 36px;
+}
+.icon-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: $color-primary;
+  border-radius: 50%;
+  overflow: hidden;
+  font-size: 0;
+  text-indent: -9999em;
+  &:nth-child(1) {
+    margin-right: 10px;
+  }
+}
+.list-delivery-days {
+  .item {
+    &.holy-day {
+      color: #f45649;
+      border: 1px solid #dadada;
+      background-color: inherit;
+    }
+  }
+  .txt-date-number {
+    @include fontSize(15px, en);
+    line-height: 1;
+  }
+}
+.txt-delivery-date {
+  @include fontSize(14px);
+  color: $color-secondary;
+  margin-top: 10px;
+}
+
+.txt-entrance {
+  @include fontSize(14px);
+  color: $color-secondary;
+  font-weight: 400;
+}
+
+.txt-payment {
+  border: 2px solid #333;
+  padding-left: 16px;
+  p {
+    @include fontSize(15px);
+    font-weight: 700;
+    line-height: 46px;
+  }
+}
+.list-payment {
+  margin-top: 10px;
+  li {
+    @include fontSize(14px);
+  }
+}
+
+.table-order-total {
+  @include fontSize(15px);
+  table-layout: fixed;
+  width: 100%;
+  .txt-number {
+    @include fontSize(18px, en);
+  }
+  th,
+  td {
+    border-bottom: 1px solid #e9e9e9;
+    height: 60px;
+    vertical-align: middle;
+  }
+  td {
+    &:nth-child(2) {
+      text-align: right;
+    }
+  }
+  thead {
+    th {
+      font-weight: 400;
+      text-align: left;
+    }
+  }
+  tfoot {
+    td {
+      font-weight: 700;
+    }
+  }
+  .first-payment-wrap {
+    td {
+      color: #d16e7b;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .row {
+    &:nth-child(1) {
+      margin-top: 0;
+    }
+  }
+  .order-total-table {
+    @include fontSize(16px);
+    .txt-number {
+      @include fontSize(22px);
+    }
+  }
+}
 </style>

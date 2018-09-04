@@ -117,114 +117,118 @@ export default {
   name: 'coupon',
   computed: {
     ...mapGetters({
-      noticeList: 'mypage/notice/getNoticeList',
-    }),
+      noticeList: 'mypage/notice/getNoticeList'
+    })
   },
   methods: {
     ...mapActions({
-      setNoticeList: 'mypage/notice/setNoticeList',
+      setNoticeList: 'mypage/notice/setNoticeList'
     }),
     noticeView(id) {
       const noticeContent = document.querySelector(`[data-id="${id}"]`);
 
-      if (noticeContent.style.display === 'none' || noticeContent.style.display === '') noticeContent.style.display = 'block';
+      if (
+        noticeContent.style.display === 'none' ||
+        noticeContent.style.display === ''
+      )
+        noticeContent.style.display = 'block';
       else noticeContent.style.display = 'none';
-    },
+    }
   },
   created() {
     this.setNoticeList();
-  },
+  }
 };
 </script>
 
 <style scoped lang="scss">
-  .coupon {
-    padding: 25px 20px 20px 20px;
+.coupon {
+  padding: 25px 20px 20px 20px;
+}
+.coupon-list {
+  table {
+    width: 100%;
+    table-layout: fixed;
+    border-bottom: 1px solid #333;
   }
-  .coupon-list {
-    table {
-      width: 100%;
-      table-layout: fixed;
-      border-bottom: 1px solid #333;
-    }
-    th, td {
-      font-size: 15px;
-      letter-spacing: -0.9px;
-    }
-    thead {
-      th {
-        height: 43px;
-        &:first-child {
-          text-align: left;
-        }
-        &:last-child {
-          text-align: right;
-        }
+  th,
+  td {
+    font-size: 15px;
+    letter-spacing: -0.9px;
+  }
+  thead {
+    th {
+      height: 43px;
+      &:first-child {
+        text-align: left;
+      }
+      &:last-child {
+        text-align: right;
       }
     }
-    tbody {
-      tr {
-        td {
-          border-top: 1px solid #e9e9e9;
-        }
-      }
+  }
+  tbody {
+    tr {
       td {
-        line-height: 23px;
-        height: 78px;
-        &:last-child {
-          text-align: left;
-          letter-spacing: 0;
-        }
+        border-top: 1px solid #e9e9e9;
       }
     }
+    td {
+      line-height: 23px;
+      height: 78px;
+      &:last-child {
+        text-align: left;
+        letter-spacing: 0;
+      }
+    }
+  }
+}
+.coupon-ticket {
+  position: relative;
+  overflow: hidden;
+  width: 70px;
+  height: 38px;
+  border: 1px solid #333;
+  border-radius: 3px;
+  line-height: 36px;
+  text-align: center;
+  padding-right: 16px;
+  .percent {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.9px;
+  }
+  .text {
+    transform-origin: 0 0;
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 300;
+    background-color: #333;
+    position: absolute;
+    width: 36px;
+    top: 0;
+    letter-spacing: 0;
+    left: 100%;
+    height: 16px;
+    line-height: 16px;
+  }
+}
+.txt-main-title {
+  margin-bottom: 15px;
+}
+.line {
+  margin-top: 20px;
+}
 
+@media (min-width: 768px) {
+  .coupon {
+    padding: 32px 0 20px 0;
+    width: 1200px;
+    margin: 0 auto;
   }
-  .coupon-ticket {
-    position: relative;
-    overflow: hidden;
-    width: 70px;
-    height: 38px;
-    border: 1px solid #333;
-    border-radius: 3px;
-    line-height: 36px;
-    text-align: center;
-    padding-right:16px;
-    .percent {
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: -0.9px;
-    }
-    .text {
-      transform-origin: 0 0;
-      -webkit-transform: rotate(90deg);
-      transform: rotate(90deg);
-      color: #fff;
-      font-size: 11px;
-      font-weight: 300;
-      background-color: #333;
-      position: absolute;
-      width: 36px;
-      top: 0;
-      letter-spacing: 0;
-      left: 100%;
-      height: 16px;
-      line-height: 16px;
-    }
-  }
-  .txt-main-title {
-    margin-bottom: 15px;
-  }
-  .line {
-    margin-top: 20px;
-  }
-
-  @media (min-width: 768px) {
-    .coupon {
-      padding: 32px 0 20px 0;
-      width: 1200px;
-      margin: 0 auto;
-    }
-  }
+}
 
 /*.notice-rows {
   min-height: 50px;

@@ -1,8 +1,9 @@
 <template>
-  <div class="tomorrow" :style="(!isShow)? 'padding-top:31px': 'padding-top: 32px'">
-    <div v-if="!isShow">
+  <div class="contents">
+    <!--데이터가 없다면-->
+    <div v-if="!isTomorrowData">
       <div class="none">
-        <div class="inner txt-centering">
+        <div class="inner center-align">
           <p>
             조금만 기다리세요<br/>
             곧 옷장이 채워집니다.
@@ -10,688 +11,500 @@
         </div>
       </div>
     </div>
+    <!--데이터가 있다면 -->
     <div v-else>
-      <div>
-        <p class="txt-main-title">
-          데일리룩 후보 중 마음에 드는 의상을 선택해주세요.
-        </p>
-        <p class="txt-tomorrow-caution">
-          (기한 내 미선택 시, 회원님께 더 어울릴 스타일로 자동 지정 후 배송 됩니다.)
-        </p>
+      <div class="contents-header">
+        <h3>데일리룩 후보 중 마음에 드는 의상을 선택해주세요.</h3>
+        <p>(기한 내 미선택 시, 회원님께 더 어울릴 스타일로 자동 지정 후 배송 됩니다.)</p>
       </div>
-      <div class="clearfix">
-        <div
-          ref="codiFirst"
-          class="codi-suggestion"
-          :class="{selected: this.codiSelected.first}">
-          <div>
-            <p class="txt-codi-title en-font">TYPE A</p>
-            <p class="txt-codi-desc">
-              {{printStyleFirst.stylingTitle}}
-            </p>
-          </div>
-          <div class="list-codi">
-            <div class="item" v-for="(data, idx) in printStyleFirst.image" v-if="data !== null" :key="idx">
-              <div class="image">
-                <img :src="$common.IMAGEURL() + data" alt="">
+      <div class="content">
+        <div class="grid-flex">
+          <div class="column">
+            <div
+              class="product"
+              :class="{selected: tomorrowData.selected === 'typeA'}"
+            >
+              <div class="product-top">
+                <!-- Text ZONE-->
+                <p class="txt-type">TYPE A</p>
+                <p class="txt-styling-title">{{ tomorrowData.productA.stylingTitle }}</p>
               </div>
-              <div class="btn-detail">
+              <div class="product-mid">
+                <div
+                  class="product-image"
+                  v-for="(data, idx) in tomorrowData.productA.products"
+                  :key="idx"
+                  v-if="data.id !== null"
+                >
+                  <div class="image">
+                    <img :src="$common.ZulyImage()+data.image">
+                  </div>
+                  <button
+                    type="button"
+                    class="btn btn-product-detail h-40"
+                    @click="clickProductDetail(data)"
+                  >상품 상세보기</button>
+                </div>
+              </div>
+              <div class="product-bot">
+                <p class="txt-styling-tip">{{ tomorrowData.productA.stylingTip }}</p>
+              </div>
+              <div
+                class="btn-selected"
+                v-if="isShowButton"
+              >
                 <button
                   type="button"
-                  :data-attribute="printStyleFirst.productId[idx]"
-                  @click="(idx === 0) ? openDetailModal(products[0]) : openDetailModal(products[1])">
-                  상품 상세보기
+                  class="btn btn-primary h-56"
+                  @click="clickSelected('typeA')"
+                >
+                  A 선택하기
                 </button>
               </div>
             </div>
           </div>
-          <div class="style-explain">
-
-            <p class="txt-tip-title">ZULY Comment</p>
-            <!--TODO: 말줄임표 -->
-            <p class="txt-tip-desc" v-html="$common.htmlEnterLine(printStyleFirst.stylingTip)"></p>
-            <!--TODO: 추후에 사용될지 모르는 Hash . 확정될시 변경할 것-->
-            <!--<div class="line line__dashed"></div>
-            <p class="txt-hashtag" v-html="$common.htmlEnterLine(printStyleFirst.hashTag)"></p>-->
-          </div>
-          <div class="btn-select" v-if="$mq !== 'sm' && selectButtonShow">
-            <button
-              @click="selectStyle(printStyleFirst, 'first')"
-              class="btn btn-primary"
-              type="button">
-              선택하기
-            </button>
-          </div>
-
-          <div class="dim-selected" v-if="codiSelected.first">
-            <div class="heart">
-              <img src="/static/img/closet/ico_white.svg" alt="">
-            </div>
-            <p class="txt-selected">
-              좋아요.<br/>
-              선택할게요.
-            </p>
-          </div>
-        </div>
-        <div
-          ref="codiSecond"
-          class="codi-suggestion"
-          :class="{selected: this.codiSelected.second}">
-          <div>
-            <p class="txt-codi-title en-font">TYPE B</p>
-            <p class="txt-codi-desc">
-              {{printStyleSecond.stylingTitle}}
-            </p>
-          </div>
-          <div class="list-codi">
-            <div class="item" v-for="(data, idx) in printStyleSecond.image" v-if="data !== null" :key="idx">
-              <div class="image">
-                <img :src="$common.IMAGEURL() + data" alt="">
+          <div class="column">
+            <div
+              class="product"
+              :class="{selected: tomorrowData.selected === 'typeB'}"
+            >
+              <div class="product-top">
+                <!-- Text ZONE-->
+                <p class="txt-type">TYPE B</p>
+                <p class="txt-styling-title">{{ tomorrowData.productB.stylingTitle }}</p>
               </div>
-              <div class="btn-detail">
+              <div class="product-mid">
+                <div
+                  class="product-image"
+                  v-for="(data, idx) in tomorrowData.productB.products"
+                  :key="idx"
+                  v-if="data.id !== null"
+                >
+                  <div class="image">
+                    <img :src="$common.ZulyImage()+data.image">
+                  </div>
+                  <button
+                    type="button"
+                    class="btn btn-product-detail h-40"
+                    @click="clickProductDetail(data)"
+                  >상품 상세보기</button>
+                </div>
+              </div>
+              <div class="product-bot">
+                <p class="txt-styling-tip">{{ tomorrowData.productB.stylingTip }}</p>
+              </div>
+              <div
+                class="btn-selected"
+                v-if="isShowButton"
+              >
                 <button
                   type="button"
-                  :data-attribute="printStyleSecond.productId[idx]"
-                  @click="(idx === 0) ? openDetailModal(products[2]) : openDetailModal(products[3])">
-                  상품 상세보기
+                  class="btn btn-primary h-56"
+                  @click="clickSelected('typeB')"
+                >
+                  B 선택하기
                 </button>
               </div>
             </div>
           </div>
-          <div class="style-explain">
+        </div>
 
-            <p class="txt-tip-title">ZULY Comment</p>
-            <!--TODO: 말줄임표 -->
-            <p class="txt-tip-desc" v-html="$common.htmlEnterLine(printStyleSecond.stylingTip)"></p>
-            <!--TODO: 추후에 사용될지 모르는 Hash . 확정될시 변경할 것-->
-            <!--<div class="line line__dashed"></div>
-            <p class="txt-hashtag" v-html="$common.htmlEnterLine(printStyleSecond.hashTag)"></p>-->
-          </div>
-          <div class="btn-select" v-if="$mq !== 'sm' && selectButtonShow">
-            <button
-              @click="selectStyle(printStyleSecond, 'second')"
-              class="btn btn-primary"
-              type="button">
-              선택하기
-            </button>
-          </div>
-          <div class="dim-selected" v-if="codiSelected.second">
-            <div class="heart">
-              <img src="/static/img/closet/ico_white.svg" alt="">
-            </div>
-            <p class="txt-selected">
-              좋아요.<br/>
-              선택할게요.
-            </p>
-          </div>
+        <div class="type-select-wrap" v-if="isShowButton">
+          <button
+            type="button"
+            class="btn h-50 w-50"
+            :class="tomorrowData.selected === 'typeA'? 'btn-primary' : 'btn-secondary'"
+            @click="clickSelected('typeA')"
+          >
+            A 선택하기
+          </button>
+          <button
+            type="button"
+            class="btn h-50 w-50"
+            :class="tomorrowData.selected === 'typeB'? 'btn-primary' : 'btn-secondary'"
+            @click="clickSelected('typeB')"
+          >
+            B 선택하기
+          </button>
         </div>
       </div>
+
     </div>
-    <div
-      v-if="($mq === 'sm' && isShow && selectButtonShow)"
-      class="btn-selected">
-      <button
-        type="button"
-        class="btn"
-        @click="selectStyle(printStyleFirst, 'first')"
-        style="width: 50%; float: left;"
-        :class="(codiSelected.first) ? 'btn-primary' : 'btn-secondary'">
-        <span v-if="codiSelected.first">A 선택됨</span>
-        <span v-else>A 선택하기</span>
-      </button>
-      <button
-        type="button"
-        class="btn"
-        style="width: 50%; float: right;"
-        @click="selectStyle(printStyleSecond, 'second')"
-        :class="(codiSelected.second) ? 'btn-primary' : 'btn-secondary'">
-        <span v-if="codiSelected.second">B 선택됨</span>
-        <span v-else>B 선택하기</span>
-      </button>
-    </div>
-    <alert-modal ref="view" width="300" height="153"></alert-modal>
-    <detail-modal
-      ref="detailModal"
-      v-if="detailModalShow"
-      :detailData="detailModalData"
-      @closeDetailModal="closeDetailModal"></detail-modal>
+
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import AlertModal from '@/components/common/AlertModal';
-import DetailModal from '@/components/common/DetailPopup';
-
+// 상품상세보기 팝업
+import ModalProductDetail from '@/components/common/modal/ModalProductDetail.vue';
 export default {
   name: 'tomorrow',
   components: {
-    AlertModal,
-    DetailModal,
+    ModalProductDetail
   },
   data() {
     return {
-      connectType: '',
-      // 직접접속할때 필요함
-      memberId: 0,
-      tomorrowData: {},
-      isMobile: false,
-      isShow: false,
-      selected: {},
-      alertMsg: '',
-      codiSelected: {
-        first: false,
-        second: false,
-      },
-      detailModalShow: false,
-      selectButtonShow: true,
-      detailModalData: {},
-      products: [],
+      isTomorrowData: false,
+      tomorrowData: {
+        subscriptionStatus: null,
+        subscriptionId: null,
+        subscriptionDate: '',
+        selected: '',
+        productA: {},
+        productB: {}
+      }
     };
   },
   computed: {
     ...mapGetters({
-      tomorrowCloset: 'mypage/closet/getTomorrowCloset',
-      tomorrowNone: 'mypage/closet/getTomorrowNone',
-      tomorrowSelect: 'mypage/closet/getTomorrowSelect',
-      tomorrowDirect: 'login/tomorrowDirect',
       isLogin: 'login/isLogin',
+      TomorrowResult: 'subscriptions/TomorrowResult',
+      TomorrowProductDetail: 'subscriptions/TomorrowProductDetail',
+      isTomorrowDirect: 'subscriptions/isTomorrowDirect',
+      TomorrowDirectMemberId: 'subscriptions/TomorrowDirectMemberId'
     }),
-    printStyleFirst() {
-      let firstStyle = {
-        productId: [],
-        description: [],
-        image: [],
-        stylingTip: '',
-        hashTag: '',
-        stylingTitle: '',
-        selected: false,
-        productOptions: [],
-      };
-
-      if (Array.isArray(this.tomorrowData.products)) {
-        if (this.tomorrowData.products[0]) {
-          firstStyle = this.setArrayData(firstStyle, {
-            prdId: this.tomorrowData.products[0].id,
-            description: this.tomorrowData.products[0].description,
-            image: this.tomorrowData.products[0].image,
-            prdOption: this.tomorrowData.products[0].product_options,
-          });
-
-          firstStyle.stylingTip = this.tomorrowData.products[0].styling_tip;
-          firstStyle.stylingTitle = this.tomorrowData.products[0].styling_title;
-          firstStyle.hashTag = this.tomorrowData.products[0].hashtag;
-          firstStyle.selected = (this.tomorrowData.products[0].selected);
-
-        }
-
-        if (this.tomorrowData.products[1]) {
-          firstStyle = this.setArrayData(firstStyle, {
-            prdId: this.tomorrowData.products[1].id,
-            description: this.tomorrowData.products[1].description,
-            image: this.tomorrowData.products[1].image,
-            prdOption: this.tomorrowData.products[1].product_options,
-          });
-        }
-      }
-
-      return firstStyle;
-    },
-    printStyleSecond() {
-      let secondStyle = {
-        productId: [],
-        description: [],
-        image: [],
-        stylingTip: '',
-        hashTag: '',
-        stylingTitle: '',
-        selected: false,
-        productOptions: [],
-      };
-
-      if (Array.isArray(this.tomorrowData.products)) {
-        if (this.tomorrowData.products[2]) {
-          secondStyle = this.setArrayData(secondStyle, {
-            prdId: this.tomorrowData.products[2].id,
-            description: this.tomorrowData.products[2].description,
-            image: this.tomorrowData.products[2].image,
-            prdOption: this.tomorrowData.products[2].product_options,
-          });
-
-          secondStyle.stylingTip = this.tomorrowData.products[2].styling_tip;
-          secondStyle.stylingTitle = this.tomorrowData.products[2].styling_title;
-          secondStyle.hashTag = this.tomorrowData.products[2].hashtag;
-          secondStyle.selected = (this.tomorrowData.products[2].selected);
-        }
-
-        if (this.tomorrowData.products[3]) {
-          secondStyle = this.setArrayData(secondStyle, {
-            prdId: this.tomorrowData.products[3].id,
-            description: this.tomorrowData.products[3].description,
-            image: this.tomorrowData.products[3].image,
-            prdOption: this.tomorrowData.products[3].product_options,
-          });
-        }
-      }
-
-      return secondStyle;
-    },
+    isShowButton() {
+      return this.TomorrowResult.subscription_status === 14403;
+    }
   },
   methods: {
     ...mapActions({
-      setTomorrowCloset: 'mypage/closet/setTomorrowCloset',
-      setTomorrowSelect: 'mypage/closet/setTomorrowSelect',
-      setTomorrowSelectDirect: 'mypage/closet/setTomorrowSelectDirect',
+      getTomorrow: 'subscriptions/getTomorrow',
+      putTomorrow: 'subscriptions/putTomorrow',
+      getProductDetail: 'subscriptions/getProductDetail',
+      destroyTomorrowDirect: 'subscriptions/destroyTomorrowDirect',
+      putTomorrowDirect: 'subscriptions/putTomorrowDirect'
     }),
-    openDetailModal(data) {
-      this.detailModalShow = true;
-      this.detailModalData = data;
-    },
-    closeDetailModal() {
-      this.detailModalShow = false;
-    },
-
-    btnSelect(data) {
-      if (data === 'first') {
-        this.codiSelected.first = true;
-        this.codiSelected.second = false;
-      } else {
-        this.codiSelected.first = false;
-        this.codiSelected.second = true;
-      }
-    },
-    centerImage(value) {
-      for (let i = 0; value.length > i; i += 1) {
-        if (value[i] === null) return true;
-      }
-      return false;
-    },
-    isShowFlag(tmr) {
-      if (tmr.products) {
-        this.isShow = true;
-      }
-
-      return true;
-    },
-    printDDay(date) {
-      let changeDay = '';
-      if (date === 0 || date < 0) {
-        changeDay = 'D day';
-      } else {
-        changeDay = `D-${date}일 후`;
-      }
-
-      return changeDay;
-    },
-    async selectStyle(style, type) {
-      if (this.tomorrowData) {
-        let checkSuccess = '';
-        if (this.connectType === 'direct') {
-          // 직접접속했을경우
-          await this.setTomorrowSelectDirect({
-            subscriptionId: this.tomorrowData.subscription_id,
-            products: [...this.parseIntProduct(...style.productId)],
-            memberId: this.memberId,
-          }).then((res) => {
-            checkSuccess = res.data.result;
-          });
-        } else {
-          // 아닐경우
-          await this.setTomorrowSelect({
-            subscriptionId: this.tomorrowData.subscription_id,
-            products: [...this.parseIntProduct(...style.productId)],
-          }).then((res) => {
-            checkSuccess = res.data.result;
-          });
-        }
-        if (checkSuccess) {
-          if (type === 'first') {
-            this.$common.viewAlertModal('<b class="en-font">TYPE A</b> 배송됩니다.', this.$refs, 'alert');
-            this.codiSelected.first = true;
-            this.codiSelected.second = false;
+    processingData() {
+      const data = this.TomorrowResult;
+      const selectArray = ['styling_tip', 'styling_title', 'hashtag'];
+      // 데이터 가공
+      let productA = {
+        stylingTip: '',
+        stylingTitle: '',
+        hashtag: '',
+        products: []
+      };
+      let productB = {
+        stylingTip: '',
+        stylingTitle: '',
+        hashtag: '',
+        products: []
+      };
+      _.forEach(data.products, (value, idx) => {
+        if (idx === 0 || idx === 1) {
+          if (idx === 0) {
+            const pickData = _.pick(value, selectArray);
+            const omitData = _.omit(value, selectArray);
+            if (value.selected !== null) {
+              this.tomorrowData.selected = 'typeA';
+            }
+            productA.stylingTip = pickData.styling_tip;
+            productA.stylingTitle = pickData.styling_title;
+            productA.hashtag = pickData.hashtag;
+            productA.products.push(omitData);
           } else {
-            this.$common.viewAlertModal('<b class="en-font">TYPE B</b> 배송됩니다.', this.$refs, 'alert');
-            this.codiSelected.first = false;
-            this.codiSelected.second = true;
+            productA.products.push(value);
+          }
+        } else {
+          if (idx === 2) {
+            const pickData = _.pick(value, selectArray);
+            const omitData = _.omit(value, selectArray);
+            if (value.selected !== null) {
+              this.tomorrowData.selected = 'typeB';
+            }
+            productB.stylingTip = pickData.styling_tip;
+            productB.stylingTitle = pickData.styling_title;
+            productB.hashtag = pickData.hashtag;
+            productB.products.push(omitData);
+
+          } else {
+            productB.products.push(value);
           }
         }
+      });
+      this.tomorrowData.subscriptionStatus = data.subscription_status;
+      this.tomorrowData.subscriptionId = data.subscription_id;
+      this.tomorrowData.subscriptionDate = data.subscription_date;
+      this.tomorrowData.productA = productA;
+      this.tomorrowData.productB = productB;
+    },
+    async clickProductDetail(data) {
+      console.log(data);
+      const modalConfig = {
+        scrollable: true,
+        height: 'auto',
+        width: '80%',
+        adaptive: true
+      };
+      const productCode = data.product_id;
+      // 불필요한 API 호출을 방지하기 위해
+      if (!this.TomorrowProductDetail[productCode]) {
+        // 해당 상품 정보가 스토어에 없으면
+        await this.getProductDetail(productCode);
+        this.$modal.show(
+          ModalProductDetail,
+          {data: this.TomorrowProductDetail[productCode]},
+          modalConfig
+        )
+      } else {
+        // 해당 상품 정보가 스토어에 있으면
+        this.$modal.show(
+          ModalProductDetail,
+          {data: this.TomorrowProductDetail[productCode]},
+          modalConfig
+        );
       }
     },
-    parseIntProduct(...data) {
-      const rtn = [];
-
-      for (let i = 0; i < data.length; i += 1) {
-        if (data[i] !== null) {
-          rtn.push(parseInt(data[i], 10));
+    clickSelected(type) {
+      if (type === 'typeA') {
+      //  typeA를 선택하였을 경우
+        const productId = _.map([this.tomorrowData.productA.products[0].id, this.tomorrowData.productA.products[1].id], _.parseInt);
+        const formData = {
+          subscription_id: this.tomorrowData.subscriptionId,
+          products: productId
+        };
+        if (!this.isTomorrowDirect) {
+          // 직접접속이 아닐경우
+          this.putTomorrow(formData).then(res => {
+            if (res.data.result) {
+              this.tomorrowData.selected = type;
+            }
+          });
+        } else {
+          // 직접접속일 경우
+          _.assign(formData, {member_id: this.TomorrowDirectMemberId});
+          this.putTomorrowDirect(formData).then(res => {
+            if (res.data.result) {
+              this.tomorrowData.selected = type;
+            }
+          });
         }
       }
-      return rtn;
-    },
-    printArrText(desc) {
-      let rtn = '';
+      else {
+        // typeB를 선택하였을 경우
+        const productId = _.map([this.tomorrowData.productB.products[0].id, this.tomorrowData.productB.products[1].id], _.parseInt);
+        const formData = {
+          subscription_id: this.tomorrowData.subscriptionId,
+          products: productId
+        };
 
-      for (let i = 0; i < desc.length; i += 1) {
-        rtn += this.$common.htmlEnterLine(desc[i]);
+        if (!this.isTomorrowDirect) {
+          // 직접접속이 아닐경우
+          this.putTomorrow(formData).then(res => {
+            if (res.data.result) {
+              this.tomorrowData.selected = type;
+            }
+          });
+        } else {
+          // 직접접속일 경우
+          _.assign(formData, {member_id: this.TomorrowDirectMemberId});
+          this.putTomorrowDirect(formData).then(res => {
+            if (res.data.result) {
+              this.tomorrowData.selected = type;
+            }
+          });
+        }
       }
-
-      return rtn;
-    },
-    setArrayData(data, { prdId, description, image, prdOption }) {
-      return {
-        productId: [...data.productId, prdId],
-        description: [...data.description, description],
-        image: [...data.image, image],
-        productOptions: [...data.productOptions, prdOption],
-        stylingTip: data.stylingTip,
-        stylingTitle: data.stylingTitle,
-        hashTag: data.hashTag,
-        selected: data.selected,
-      };
-    },
+    }
   },
   async created() {
-    if (this.isLogin) {
-      this.connectType = 'login';
-      await this.setTomorrowCloset();
-      this.tomorrowData = this.tomorrowCloset;
+    if (!this.isTomorrowDirect) {
+      await this.getTomorrow().then(res => {
+        if (res.data.result) {
+          // 데이터 존재한다면.
+          this.processingData();
+          this.isTomorrowData = true;
+        } else {
+          // 데이터가 존재하지 않는다면
+          this.isTomorrowData = false;
+        }
+      });
     } else {
-      this.connectType = 'direct';
-      this.tomorrowData = this.tomorrowDirect.data;
-      this.memberId = this.tomorrowDirect.info.member_id;
-      this.$store.state.login.Authentication.userName = this.tomorrowDirect.info.name;
+      this.processingData();
+      this.isTomorrowData = true;
     }
-    if (this.tomorrowData.products) {
-      if (this.tomorrowData.products[0].selected) {
-        this.codiSelected.first = true;
-      } else if (this.tomorrowData.products[2].selected) {
-        this.codiSelected.second = true;
-      }
-    }
-    this.isShowFlag(this.tomorrowData);
-    this.products = this.tomorrowData.products;
-    if (this.tomorrowData.subscription_status === 14404 || this.tomorrowData.subscription_status === 14405) {
-      // 보이면 안된다.
-      this.selectButtonShow = false;
-    } else {
-      this.selectButtonShow = true;
-    }
-  },
-  mounted() {
-  },
-  updated() {
   },
   destroyed() {
-  },
+    if (this.isTomorrowDirect) {
+      // 직접접속일때만 작동
+      this.destroyTomorrowDirect(); // Tomorrow와 관련된 모든값 초기화
+    }
+  }
 };
 </script>
-
+<style scoped lang="scss" src="@/assets/css/closet-style.scss"></style>
 <style scoped lang="scss">
-  .tomorrow {
-    padding: 31px 20px 20px 20px;
+.none {
+  height: 500px;
+  background: url('~@/assets/img/closet/img_none.png') no-repeat 50% 0;
+  position: relative;
+  .inner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 160px;
+    background-color: #fafafa;
+    width: 90%;
   }
-  .none {
-    height: 500px;
-    background: url(/static/img/closet/img_none.png) no-repeat 50% 0;
-    position: relative;
-    .inner {
+  p {
+    text-align: center;
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: -1.2px;
+  }
+}
+
+.content {
+  padding-bottom: 135px;
+}
+.column {
+  &:nth-child(2) {
+    margin-top: 25px;
+  }
+}
+/* 상품 정보 */
+.product {
+  background-color: #f9f9f9;
+  border: 2px solid #e1e1e1;
+  padding: 25px 20px 35px;
+  text-align: center;
+  position: relative;
+  &.selected {
+    &::before {
+      @include fontSize(20px);
+      font-weight: 100;
+      color: #fff;
+      white-space: pre;
+      content: '좋아요.\A선택할께요.';
+      background: {
+        image: url('~@/assets/img/closet/ico_white.svg');
+        repeat: no-repeat;
+        position-x: 50%;
+        size: 43px 38px;
+      }
+      padding-top: 60px;
+      display: block;
       position: absolute;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
-      height: 160px;
-      background-color: #fafafa;
-      width: 90%;
-    }
-    p {
-      text-align: center;
-      font-size: 18px;
-      line-height: 28px;
-      letter-spacing: -1.2px;
-    }
-  }
-
-  .txt-tomorrow-title {
-    font-size: 16px;
-    line-height: 24px;
-    letter-spacing: -1px;
-  }
-  .txt-tomorrow-caution {
-    font-size: 14px;
-    letter-spacing: -0.8px;
-    line-height: 22px;
-    color: #797979;
-  }
-
-  .codi-suggestion {
-    background-color: #f9f9f9;
-    border: 2px solid #e1e1e1;
-    padding: 24px 20px 20px 20px;
-    text-align: center;
-    margin-top: 16px;
-    position: relative;
-    .dim-selected {
-      display: none;
-    }
-    &.selected {
-      outline: 3px solid #000;
-      outline-offset: -3px;
-      /*border: 3px solid #000;*/
-      .dim-selected {
-        color: #fff;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        background-color: rgba(51, 51, 51, 0.4);
-        z-index: 100;
-        .heart {
-          margin-bottom: 18px;
-          img {
-            width: 42.8px;
-            height: 37.3px;
-          }
-        }
-        .txt-selected {
-          line-height: 34px;
-          font-size: 24px;
-          letter-spacing: -1.2px;
-          font-weight: 300;
-        }
-      }
-    }
-    .list-codi {
-      width: 236px;
-      margin: 0 auto;
-      .item {
-        background-color: #fff;
-        margin-top: 10px;
-        &:first-child {
-          margin-top: 16px;
-        }
-      }
-      .image {
-        border: 1px solid #e8e8e8;
-        img {
-          border: 5px solid #fff;
-          width: 100%;
-        }
-      }
-      .btn-detail {
-        margin-top: -1px;
-        button {
-          width: 100%;
-          color: #797979;
-          background-color: #fff;
-          border: 1px solid #e8e8e8;
-          font-size: 14px;
-          line-height: 23px;
-          height: 40px;
-          letter-spacing: -0.8px;
-          cursor: pointer;
-        }
-      }
-    }
-
-    .txt-codi-title {
-      font-size: 15px;
-      font-weight: 700;
-      line-height: 21px;
-      margin-bottom: 6px;
-      letter-spacing: -0.9px !important;
-    }
-    .txt-codi-desc {
-      font-size: 17px;
-      font-weight: 300;
-      letter-spacing: -0.7px;
-      line-height: 24px;
-      width: 180px;
-      text-align: center;
-      margin: 0 auto;
-    }
-    .style-explain {
-      padding-top: 37px;
-      .line {
-        margin-top: 16px;
-        margin-bottom: 16px;
-        border-bottom-color: #a7a7a7;
-      }
-    }
-    .txt-tip-title {
-      font-size: 15px;
-      letter-spacing: -0.9px;
-      color: #333;
-      font-weight: 700;
-      line-height: 21px;
-      margin-bottom: 11px;
-      position: relative;
-      /* TODO : Desktop To Mobile */
-      &::before {
-        content: '';
-        border-bottom: 2px solid #333;
-        width: 29px;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        top: -12px
-      }
-    }
-    .txt-tip-desc {
-      line-height: 23px;
-      letter-spacing: -0.9px;
-      font-size: 15px;
-    }
-    .btn-select {
-      margin-top: 27px;
-      button {
-        width: 100%;
-      }
-    }
-  }
-
-  .btn-selected {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    z-index: 200;
-    button {
-      height: 60px;
-      font-size: 18px;
-      line-height: 18px;
-      letter-spacing: -1.2px;
+      z-index: 10;
     }
     &::after {
       content: '';
       display: block;
-      border-right: 1px solid #fff;
-      left: 50%;
-      height: 100%;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      background-color: rgba(51, 51, 51, 0.4);
       position: absolute;
-      transform: translateX(-50%);
+    }
+  }
+  .product-top {
+    margin-bottom: 21px;
+    .txt-type {
+      @include fontSize(15px, en);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .txt-styling-title {
+      @include fontSize(18px);
+    }
+  }
+  .product-mid {
+    margin-bottom: 30px;
+    .product-image {
+      margin-top: 13px;
+      border: 1px solid #e8e8e8;
+      &:nth-child(1) {
+        margin-top: 0;
+      }
+      .image {
+        border: 5px solid #fff;
+      }
+      img {
+        width: 100%;
+      }
+    }
+    .btn-product-detail {
+      border-top: 1px solid #e8e8e8;
+      background-color: #fff;
+    }
+  }
+  .product-bot {
+    text-align: left;
+    .txt-styling-tip {
+      @include fontSize(15px);
+    }
+  }
+}
+
+.btn-selected {
+  display: none;
+  margin-top: 40px;
+}
+
+.type-select-wrap {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+}
+
+@media (min-width: 768px) {
+  .column {
+    &:nth-child(2) {
+      margin-top: 0;
+      margin-left: 15px;
     }
   }
 
-  @media (min-width: 768px) {
-    .tomorrow {
-      padding: 30px 0 20px;
-      width: 1200px;
-      margin: 0 auto;
+  .btn-selected {
+    display: block;
+  }
+  .type-select-wrap {
+    display: none;
+  }
+}
+
+@media (min-width: 1280px) {
+  .product {
+    .product-top {
+      .txt-type {
+        @include fontSize(18px);
+        margin-bottom: 12px;
+      }
+      .txt-styling-title {
+        @include fontSize(20px);
+      }
     }
-    .txt-tomorrow-caution {
-      font-size: 14px;
-      line-height: 18px;
-      margin-top: 5px;
-      margin-bottom: 28px;
-      letter-spacing: -0.8px;
-    }
-    .codi-suggestion {
-      width: 591px;
-      margin-top: 0;
-      padding: 33px 26px 31px 30px;
-      display: inline-block;
-      vertical-align: top;
-      &:nth-child(2){
-        margin-left: 10px;
-      }
-      .txt-codi-title {
-        font-size: 18px;
-        line-height: 25px;
-        margin-bottom: 9px;
-        letter-spacing: -1.2px;
-      }
-      .txt-codi-desc {
-        font-size: 22px;
-        line-height: 32px;
-        letter-spacing: -1px;
-        width: 230px;
-        text-align: center;
-        margin: 0 auto;
-      }
-      .list-codi {
-        width: auto;
-        margin-top: 26px;
-        overflow: hidden;
-        margin-left: auto;
-        margin-right: auto;
-        display: inline-block;
-        .item {
-          float: left;
-          margin-top: 0;
-          &:first-child {
-            margin-top: 0;
-            margin-right: 7px;
-          }
+    .product-mid {
+      display: flex;
+      justify-content: center;
+      .product-image {
+        margin-top: 0;
+        width: 50%;
+        &:nth-child(2) {
+          margin-left: 7px;
         }
         .image {
-          width: 260px;
+        }
+        img {
         }
       }
-      /* TODO:  Desktop To Mobile */
-      .style-explain {
-        padding-top: 45px;
-        .line {
-          margin-top: 16px;
-          margin-bottom: 16px;
-        }
+      .btn-product-detail {
       }
-
-      .txt-tip-title {
-        margin-bottom: 20px;
-        /* TODO : Desktop To Mobile */
-        &::before {
-          width: 35px;
-        }
-      }
-      .btn-select {
-        margin-top: 27px;
-        button {
-          height: 60px;
-        }
+    }
+    .product-bot {
+      .txt-styling-tip {
+        @include fontSize(15px);
       }
     }
   }
+}
 </style>

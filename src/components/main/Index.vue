@@ -1,34 +1,34 @@
 <template>
-  <div class="main">
-    <benefit></benefit>
-    <about></about>
-    <process></process>
-    <faq></faq>
-    <new-arrivals></new-arrivals>
-    <main-video></main-video>
+  <div class="container">
+		<MainFirst/>
+		<MainHowToUse/>
+		<MainReviewer/>
+		<MainFaq/>
   </div>
 </template>
 
 <script>
-import Benefit from '@/components/main/Benefit';
-import About from '@/components/main/About';
-import Process from '@/components/main/Process';
-import Faq from '@/components/main/Faq';
-import MainVideo from '@/components/main/MainVideo';
-import NewArrivals from '@/components/main/NewArrivals';
-
+import MainFirst from './MainFirst';
+import MainHowToUse from './MainHowToUse';
+import MainReviewer from './MainReviewer';
+import MainFaq from './MainFaq';
 export default {
-  name: 'maix-index',
+  name: 'MainIndex',
   components: {
-    Benefit,
-    About,
-    Process,
-    Faq,
-    MainVideo,
-    NewArrivals,
-  },
+		MainFirst,
+		MainHowToUse,
+		MainReviewer,
+		MainFaq
+  }
 };
 </script>
 
 <style scoped lang="scss">
+/* Main Common Style */
+@media (min-width: 768px) {
+  .contents {
+    /*width: 1200px;*/
+    /*margin: 0 auto;*/
+  }
+}
 </style>

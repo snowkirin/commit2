@@ -1,56 +1,81 @@
 <template>
-  <div class="container">
-    <div class="container-header">
-      <div>
-        <p class="title">비밀번호 찾기</p>
-        <p class="explain">가입 당시 입력한 아이디, 휴대전화 번호를 통해 <br>비밀번호를 찾을 수 있습니다.</p>
-      </div>
-      <div class="line line__default"></div>
+  <div class="contents">
+    <div class="contents-header">
+      <h3>비밀번호 찾기</h3>
+      <p>가입 당시 입력한 이메일, 휴대전화 번호를 통해 <br/>비밀번호를 찾을 수 있습니다.</p>
     </div>
-    <div class="contents">
+    <div class="content">
       <form>
         <div class="row">
-          <input
-            class="form-input"
-            type="email"
-            name="email"
-            placeholder="아이디"
-            v-validate="'required'" />
+          <div class="text-field">
+            <input
+              class="form-input"
+              type="email"
+              name="email"
+              placeholder="이메일"
+              v-model="userEmail"
+            />
+          </div>
         </div>
-        <div class="row form-group" data-grid="7:3">
-          <input
-            class="form-input"
-            type="tel"
-            name="phone"
-            placeholder="휴대전화"
-            v-validate="'required'" />
+        <div class="row">
+          <div class="grid-flex grid-fixed">
+            <div class="column">
+              <div class="text-field">
+                <input
+                  class="form-input"
+                  type="tel"
+                  name="phone"
+                  placeholder="휴대전화"
+                  v-model="phoneNumber"
+                />
+              </div>
+            </div>
+            <div class="column w-27">
+              <button
+                type="button"
+                class="btn btn-secondary h-50"
+                @click="clickPhoneVerify"
+              >
+                인증
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="row ">
+          <div class="grid-flex grid-fixed">
+            <div class="column">
+              <div class="text-field">
+                <input
+                  class="form-input"
+                  type="text"
+                  placeholder="인증번호"
+                  v-model="authNumber"
+                />
+              </div>
+            </div>
+            <div class="column w-27">
+              <button
+                type="button"
+                class="btn btn-secondary h-50"
+                @click="clickAuthConfirm">
+                확인
+              </button>
+            </div>
+          </div>
+          <p
+            class="txt-error"
+            v-if="authErr"
+          >
+            {{ authErrMessage }}
+          </p>
+        </div>
+        <div class="button-wrap">
           <button
             type="button"
-            class="btn btn-secondary"
-            @click="phoneVerify">
-            인증
+            class="btn btn-primary h-56"
+            @click="clickComplete">
+            다음
           </button>
-        </div>
-        <div class="row form-group" data-grid="7:3">
-          <input
-            class="form-input"
-            type="number"
-            name="phone_auth_number"
-            placeholder="인증번호" />
-          <button
-            type="button"
-            class="btn btn-secondary"
-            @click="authKeyConfirm">
-            확인
-          </button>
-        </div>
-        <p class="txt-count" v-show="authErr" v-html="authErrMessage"></p>
-        <div class="button">
-          <!-- TODO: Submit?? -->
-          <button
-            type="button"
-            class="btn btn-primary"
-            @click="clickNext">다음</button>
         </div>
       </form>
     </div>
@@ -66,44 +91,115 @@ export default {
     return {
       authErr: false,
       authErrMessage: '',
+      userEmail: '',
+      phoneNumber: '',
+      authNumber: '',
     };
   },
-  computed: mapGetters({
-    phoneAuth: 'common/getPhoneAuthPwd',
-    phoneAuthkey: 'common/getPhoneAuthKeyPwd',
-  }),
+  computed: {
+    ...mapGetters({
+      FindPwdAuth: 'auth/FindPwdAuth',
+      isFindPwdAuth: 'auth/isFindPwdAuth'
+    })
+  },
   methods: {
     ...mapActions({
-      actPhoneVerify: 'common/phonePasswordVerify',
-      actPhoneCheckVerify: 'common/phonePasswordCheckVerify',
+      postFindPwd: 'auth/postFindPwd',
+      postFindPwdAuth: 'auth/postFindPwdAuth'
     }),
+
+    clickPhoneVerify() {
+      const formData = {
+        email: this.userEmail,
+        phone: this.phoneNumber
+      };
+
+      if (_.isEmpty(formData.email)) {
+        alert('이메일을 입력해 주세요.');
+        return;
+      }
+      if (_.isEmpty(formData.phone)) {
+        alert('휴대전화를 입력해 주세요.');
+        return;
+      }
+      this.postFindPwd(formData).then(res => {
+        console.log(res);
+        if (res.data.result) {
+          alert('인증번호를 입력해 주세요.');
+          this.startTimer();
+          this.authErr = true;
+        } else {
+          alert('이메일 또는 휴대펀 번호를 정확히 입력해 주세요.');
+        }
+      });
+
+    },
+    clickAuthConfirm(){
+      const formData = {
+        authId: this.FindPwdAuth,
+        authNumber: this.authNumber
+      };
+
+      if (_.isEmpty(formData.authNumber)){
+        alert('인증번호를 입력해 주세요');
+        return;
+      }
+      this.postFindPwdAuth(formData).then(res => {
+        console.log(res);
+        if (res.data.result) {
+          alert('인증되었습니다.');
+          this.stopTimer();
+        } else if (!res.data.result) {
+          alert('인증번호를 정확히 입력해 주세요.');
+        } else {
+          alert('통신오류가 발생하였습니다.');
+        }
+      })
+    },
+    clickComplete() {
+      if (this.isFindPwdAuth) {
+        this.$router.push({ path: '/find/password/complete' });
+      } else {
+        alert('인증 후 진행해 주세요.');
+      }
+    },
     async phoneVerify() {
       const email = document.querySelector('input[name=email]');
       const phone = document.querySelector('input[name=phone]');
 
-      if (!this.$common.InputDataValidation(email, '이메일을 입력해주세요.', true, true)) return;
+      if (
+        !this.$common.InputDataValidation(
+          email,
+          '이메일을 입력해주세요.',
+          true,
+          true
+        )
+      )
+        return;
 
-      await this.$validator.validate('phone', phone.value).then(async (result) => {
-        let resultMsg = true;
+      await this.$validator
+        .validate('phone', phone.value)
+        .then(async result => {
+          let resultMsg = true;
 
-        if (result) {
-          if (this.$common.phoneValidation(phone.value)) {
-            await this.actPhoneVerify({
-              email: email.value,
-              phone: phone.value.split('-').join(''),
-            });
+          if (result) {
+            if (this.$common.phoneValidation(phone.value)) {
+              await this.actPhoneVerify({
+                email: email.value,
+                phone: phone.value.split('-').join('')
+              });
 
-            return true;
+              return true;
+            }
+
+            alert('올바른 휴대폰번호를 입력해주세요.');
+            resultMsg = false;
           }
 
-          alert('올바른 휴대폰번호를 입력해주세요.');
-          resultMsg = false;
-        }
-
-        if (resultMsg) alert('휴대폰 번호를 입력해주세요.');
-        phone.focus();
-        return false;
-      });
+          if (resultMsg) alert('휴대폰 번호를 입력해주세요.');
+          phone.focus();
+          return false;
+        });
 
       if (this.$store.getters['common/getPhoneAuthKeyPwd'] > 0) {
         this.startTimer();
@@ -111,29 +207,38 @@ export default {
       }
     },
     async authKeyConfirm() {
-      const phoneAuthNumber = document.querySelector('input[name=phone_auth_number]');
+      const phoneAuthNumber = document.querySelector(
+        'input[name=phone_auth_number]'
+      );
 
       if (!this.$store.getters['common/getPhoneAuthKeyPwd']) {
         alert('먼저 휴대전화를 입력하고 인증버튼을 눌러주세요.');
         return false;
       }
 
-      if (!this.$common.InputDataValidation(phoneAuthNumber, '인증번호를 입력해주세요.', true)) return false;
+      if (
+        !this.$common.InputDataValidation(
+          phoneAuthNumber,
+          '인증번호를 입력해주세요.',
+          true
+        )
+      )
+        return false;
 
       await this.actPhoneCheckVerify({
-        authNumber: phoneAuthNumber.value,
+        authNumber: phoneAuthNumber.value
       });
 
       if (this.phoneAuth) {
         alert('인증되었습니다.');
-        clearInterval(window.interval);
-        this.authErrMessage = '';
+        this.$router.push({ path: '/find/password/complete' });
       } else alert('인증번호를 다시 확인하시고 진행해주세요.');
 
       return true;
     },
     startTimer() {
-      const timer = Date.parse(new Date(new Date().getTime() + (3 * 60 * 1000))) / 1000;
+      const timer =
+        Date.parse(new Date(new Date().getTime() + 3 * 60 * 1000)) / 1000;
       let minutes;
       let seconds;
 
@@ -146,10 +251,10 @@ export default {
         minutes = parseInt(printTimer / 60, 10);
         seconds = parseInt(printTimer % 60, 10);
 
-        minutes = (minutes < 10) ? `0${minutes}` : minutes;
-        seconds = (seconds < 10) ? `0${seconds}` : seconds;
+        minutes = minutes < 10 ? `0${minutes}` : minutes;
+        seconds = seconds < 10 ? `0${seconds}` : seconds;
 
-        this.authErrMessage = `메시지를 확인하시고 인증번호를 입력해주세요.  <span style="color: #ec4b1a;">${minutes}:${seconds}</span>`;
+        this.authErrMessage = `메시지를 확인하시고 인증번호를 입력해주세요.  ${minutes}:${seconds}`;
 
         if (printTimer <= 0) {
           clearInterval(interval);
@@ -158,79 +263,12 @@ export default {
 
       window.interval = interval;
     },
-    clickNext() {
-      this.$router.push({ path: '/find/password/complete' });
+    stopTimer() {
+      this.authErr = false;
+      clearInterval(window.interval);
     }
-  },
+  }
 };
 </script>
-
-<style scoped lang="scss">
-  .container {
-    padding: 24px 20px 121px;
-    text-align: center;
-    .title {
-      font-size: 24px;
-      line-height: 32px;
-      letter-spacing: -1.4px;
-    }
-    .explain {
-      font-size: 14px;
-      line-height: 20px;
-      letter-spacing: -0.8px;
-      color: #797979;
-      margin-top: 3px;
-    }
-    .line {
-      margin-top: 14px;
-      margin-bottom: 19px;
-      border-width: 2px;
-    }
-    .row {
-      margin-bottom: 10px;
-    }
-    .form-group {
-    }
-    .button {
-      button {
-        width: 100%;
-      }
-    }
-    .txt-count {
-      text-align: left;
-      margin-bottom: 10px;
-      font-size: 15px;
-      letter-spacing: -0.9px;
-      line-height: 23px;
-      color: #797979;
-      text-indent: 13px;
-    }
-  }
-  @media (min-width: 768px) {
-    .container {
-      width: 390px;
-      margin: 0 auto;
-      padding: 72px 0 119px 0;
-      .title {
-        font-size: 32px;
-        line-height: 40px;
-        letter-spacing: -1.7px;
-      }
-      .explain {
-        font-size: 16px;
-        line-height: 23px;
-        letter-spacing: -1px;
-        margin-top: 5px;
-      }
-      .line {
-        margin-top: 25px;
-        margin-bottom: 30px;
-      }
-      .button {
-        button {
-          height: 60px;
-        }
-      }
-    }
-  }
-</style>
+<style scoped lang="scss" src="@/assets/css/login-style.scss"></style>
+<style scoped lang="scss"></style>

@@ -21,33 +21,33 @@ export default {
   name: 'custom-modal',
   components: {
     PastView,
-    CsView,
+    CsView
   },
   data() {
     return {
-      modal: null,
+      modal: null
     };
   },
   props: {
     modalType: {
       type: String,
-      default: '',
+      default: ''
     },
     dataId: {
-      type: String,
+      type: String
     },
     title: {
       type: String,
-      default: '',
+      default: ''
     },
     width: {
       type: String,
-      default: '705',
+      default: '705'
     },
     height: {
       type: String,
-      default: '635',
-    },
+      default: '635'
+    }
   },
   methods: {
     openModal() {
@@ -59,25 +59,27 @@ export default {
     parentRefCall() {
       this.closeModal();
       this.$parent.setInquiriesList();
-    },
+    }
   },
   mounted() {
-    this.modal = document.querySelector(`div.custom-modal[data-id="${this.modalType}"]`);
+    this.modal = document.querySelector(
+      `div.custom-modal[data-id="${this.modalType}"]`
+    );
     this.modal.style.width = `${this.width}px`;
     this.modal.style.height = `${this.height}px`;
 
     if (this.modalType === 'csView') {
       this.modal.style.border = 'solid 1px #333333';
       this.modal.style.backgroundColor = '#f5f5f5';
-      this.modal.querySelector('.custom-modal-title').style.cssText = 'border-bottom: 1px solid #333333; background-color: #FFFFFF;';
+      this.modal.querySelector('.custom-modal-title').style.cssText =
+        'border-bottom: 1px solid #333333; background-color: #FFFFFF;';
       this.modal.querySelector('.custom-modal-content').style.height = '66.5%';
     }
-  },
-
+  }
 };
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .custom-modal {
   z-index: 100;
   position: fixed;
@@ -92,7 +94,7 @@ export default {
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.17);
   border: solid 1px #333333;
   border: solid 1px var(--black-two);
-  display:none;
+  display: none;
 }
 
 .custom-modal-title {
@@ -125,7 +127,7 @@ export default {
 .custom-modal-btn {
   width: 48px;
   height: 48px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   position: absolute;
   opacity: 1;
   top: 7.4%;
@@ -141,8 +143,9 @@ div.btn-times {
   border-radius: 6px;
 }
 
-div.btn-times:before, div.btn-times:after {
-  content: '';
+div.btn-times:before,
+div.btn-times:after {
+  content: "";
   position: absolute;
   width: 30px;
   height: 2px;

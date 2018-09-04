@@ -14,8 +14,8 @@ export default {
   name: 'index',
   components: {
     ClosetHeader,
-    ClosetMenu,
-  },
+    ClosetMenu
+  }
 };
 </script>
 

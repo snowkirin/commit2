@@ -15,33 +15,32 @@
 <script>
 export default {
   name: 'signup-modal',
-  components: {
-  },
+  components: {},
   data() {
     return {
-      modal: null,
+      modal: null
     };
   },
   props: {
     dataId: {
-      type: String,
+      type: String
     },
     title: {
       type: String,
-      default: '',
+      default: ''
     },
     content: {
       type: String,
-      default: '',
+      default: ''
     },
     width: {
       type: String,
-      default: '705',
+      default: '705'
     },
     height: {
       type: String,
-      default: '635',
-    },
+      default: '635'
+    }
   },
   methods: {
     openModal() {
@@ -49,23 +48,25 @@ export default {
     },
     closeModal() {
       this.modal.style.display = 'none';
-    },
+    }
   },
   mounted() {
-    this.modal = document.querySelector(`div.signup-frame[data-id="${this.dataId}"]`);
+    this.modal = document.querySelector(
+      `div.signup-frame[data-id="${this.dataId}"]`
+    );
 
     if (this.modalType === 'csView') {
       this.modal.style.border = 'solid 1px #333333';
       this.modal.style.backgroundColor = '#f5f5f5';
-      this.modal.querySelector('.custom-modal-title').style.cssText = 'border-bottom: 1px solid #333333; background-color: #FFFFFF;';
+      this.modal.querySelector('.custom-modal-title').style.cssText =
+        'border-bottom: 1px solid #333333; background-color: #FFFFFF;';
       this.modal.querySelector('.custom-modal-content').style.height = '68.5%';
     }
-  },
-
+  }
 };
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .signup-frame {
   display: none;
   position: fixed;
@@ -125,7 +126,7 @@ export default {
 .custom-modal-btn {
   width: 48px;
   height: 48px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   position: absolute;
   opacity: 1;
   top: 5%;
@@ -141,8 +142,9 @@ div.btn-times {
   border-radius: 6px;
 }
 
-div.btn-times:before, div.btn-times:after {
-  content: '';
+div.btn-times:before,
+div.btn-times:after {
+  content: "";
   position: absolute;
   width: 30px;
   height: 2px;
@@ -191,7 +193,7 @@ div.btn-times:after {
 @media screen and (max-width: 486px) {
   .signup-frame {
     top: 0;
-    background: rgba(0,0,0,.7);
+    background: rgba(0, 0, 0, 0.7);
   }
 
   .signup-content {

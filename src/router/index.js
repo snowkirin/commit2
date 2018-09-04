@@ -1,47 +1,36 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-const Index = () => import('@/components/Index');
-const Main = () => import('@/components/main/Index');
-const Login = () => import('@/components/login/Index');
-const FindId = () => import('@/components/login/FindId');
-const FindPwd = () => import('@/components/login/FindPwd');
-const Success = () => import('@/components/login/Success');
-const PwdSuccess = () => import('@/components/login/PwdSuccess');
-const Join = () => import('@/components/join/Index');
-const JoinSize = () => import('@/components/join/Size');
+import Index from '../views/Home.vue';
+import Main from '@/components/main/Index.vue';
 
-const JoinBlouse = () => import('@/components/join/clothes/Blouse');
-const JoinTshirt = () => import('@/components/join/clothes/Tshirt');
-const JoinSkirt = () => import('@/components/join/clothes/Skirt');
-const JoinKintVest = () => import('@/components/join/clothes/KnitVest');
-const JoinShirt = () => import('@/components/join/clothes/Shirt');
-const JoinPants = () => import('@/components/join/clothes/Pants');
-const JoinOnePiece = () => import('@/components/join/clothes/OnePiece');
+import LoginIndex from '@/components/login/Index.vue';
+import Login from '@/components/login/Login.vue';
+import FindId from '@/components/login/FindId.vue';
+import FindPwd from '@/components/login/FindPwd.vue';
+import Success from '@/components/login/Success.vue';
+import PwdSuccess from '@/components/login/PwdSuccess.vue';
 
-const JoinPatterns = () => import('@/components/join/Patterns');
-const JoinMaterial = () => import('@/components/join/Material');
-const JoinStyling = () => import('@/components/join/Styling');
-const JoinRequirement = () => import('@/components/join/Requirement');
-const JoinColors = () => import('@/components/join/Colors');
-const JoinSignUp = () => import('@/components/join/SignUp');
-const JoinSignUpFirst = () => import('@/components/join/signup/first');
-const JoinSignUpSecond = () => import('@/components/join/signup/second');
+import Join from '@/components/join/Index.vue';
+import JoinSize from '@/components/join/Size.vue';
+import JoinPreferredStyle from '@/components/join/PreferredStyle.vue';
+import JoinSignUp from '@/components/join/SignUp.vue';
+import JoinSignUpFirst from '@/components/join/signup/first.vue';
+import JoinSignUpSecond from '@/components/join/signup/second.vue';
+import JoinAddInfo from '@/components/join/AddInfo.vue';
 
-const JoinAddInfo = () => import('@/components/join/AddInfo');
+import Closet from '@/components/closet/Index.vue';
+import ClosetTomorrow from '@/components/closet/detail/Tomorrow.vue';
+import ClosetCurrent from '@/components/closet/detail/Current.vue';
+import ClosetPast from '@/components/closet/detail/Past.vue';
+import ClosetCustomerService from '@/components/closet/detail/CustomerService.vue';
+import ClosetNotice from '@/components/closet/detail/Notice.vue';
+import ClosetMypageSecurity from '@/components/closet/detail/MypageSecurity.vue';
+import ClosetMypage from '@/components/closet/detail/Mypage.vue';
+import ClosetStyleInfo from '@/components/closet/detail/StyleInfo.vue';
+import ClosetCoupon from '@/components/closet/detail/Coupon.vue';
 
-const Closet = () => import('@/components/closet/Index');
-const ClosetTomorrow = () => import('@/components/closet/detail/Tomorrow');
-const ClosetCurrent = () => import('@/components/closet/detail/Current');
-const ClosetPast = () => import('@/components/closet/detail/Past');
-const ClosetRespView = () => import('@/components/closet/detail/RespView');
-const ClosetNotice = () => import('@/components/closet/detail/Notice');
-const ClosetMypageSecurity = () => import('@/components/closet/detail/MypageSecurity');
-const ClosetMypage = () => import('@/components/closet/detail/Mypage');
-const ClosetStyleInfo = () => import('@/components/closet/detail/StyleInfo');
-const ClosetCoupon = () => import('@/components/closet/detail/Coupon');
-
-const PageNotFound = () => import('@/components/common/PageNotFound');
+import PageNotFound from '@/components/common/PageNotFound.vue';
 
 Vue.use(Router);
 
@@ -58,161 +47,157 @@ const router = new Router({
       path: '/',
       component: Index,
       meta: {
-        title: 'ZULY',
+        title: 'ZULY'
       },
       children: [
-        { path: '/', name: 'IndexMain', component: Main, meta: { title: 'ZULY' } },
-        { path: '/login', name: 'Login', component: Login },
-        { path: '/find/id', name: 'FindId', component: FindId },
-        { path: '/find/id/complete', name: 'FindIdSuccess', component: Success },
-        { path: '/find/password', name: 'FindPwd', component: FindPwd },
-        { path: '/find/password/complete', name: 'FindPwdSuccess', component: PwdSuccess },
         {
-          path: '/join',
-          name: 'Join',
-          component: Join,
-          children: [
-            { path: 'size', component: JoinSize, meta: { mobile: true } },
-            { path: 'blouse', component: JoinBlouse, meta: { mobile: true } },
-            { path: 'tshirt', component: JoinTshirt, meta: { mobile: true } },
-            { path: 'skirt', component: JoinSkirt, meta: { mobile: true } },
-            { path: 'knitvest', component: JoinKintVest, meta: { mobile: true } },
-            { path: 'shirt', component: JoinShirt, meta: { mobile: true } },
-            { path: 'pants', component: JoinPants, meta: { mobile: true } },
-            { path: 'onepiece', component: JoinOnePiece, meta: { mobile: true } },
-            { path: 'patterns', component: JoinPatterns, meta: { mobile: true } },
-            { path: 'material', component: JoinMaterial, meta: { mobile: true } },
-            { path: 'styling', component: JoinStyling, meta: { mobile: true } },
-            { path: 'requirement', component: JoinRequirement, meta: { mobile: true } },
-            {
-              path: 'signup',
-              component: JoinSignUp,
-              children: [
-                { path: '1', component: JoinSignUpFirst, alias: '' },
-                { path: '2', component: JoinSignUpSecond },
-              ],
-            },
-            { path: 'colors', component: JoinColors, meta: { mobile: true } },
-            { path: 'addinfo', component: JoinAddInfo, meta: { mobile: true } },
-          ],
-        },
-        {
-          path: '/closet',
-          component: Closet,
-          children: [
-            { path: '', name: 'ClosetTomorrow', component: ClosetTomorrow, meta: { requiresAuth: true }},
-            { path: 'tomorrow', component: ClosetTomorrow, meta: { requiresAuth: true }},
-            { path: 'current', component: ClosetCurrent, meta: { requiresAuth: true }},
-            { path: 'past', component: ClosetPast, meta: { requiresAuth: true }},
-            { path: 'cs', component: ClosetRespView, meta: { requiresAuth: true }},
-            { path: 'notice', component: ClosetNotice, meta: { requiresAuth: true }},
-            { path: 'security', component: ClosetMypageSecurity, meta: { requiresAuth: true }},
-            { path: 'mypage', component: ClosetMypage, meta: { requiresAuth: true }},
-            { path: 'style', component: ClosetStyleInfo, meta: { requiresAuth: true }},
-            { path: 'coupon', component: ClosetCoupon, meta: { requiresAuth: true }},
-          ],
-          // meta: {requiresAuth: true},
-        },
-        {
-          path: '*',
-          component: PageNotFound,
-        },
-      ],
-    },
-  ],
-});
-
-
-router.beforeResolve((to, from, next) => {
-  if (to.name) {
-   NProgress.start();
-  }
-  next();
-});
-
-router.afterEach((to, from) => {
-  NProgress.done();
-});
-
-/*
-export default new Router({
-  mode: 'history',
-  scrollBehavior(to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition;
-    }
-    return { x: 0, y: 0 };
-  },
-  routes: [
-    {
-      path: '/',
-      component: Index,
-      meta: {
-        title: 'ZULY',
-      },
-      children: [
-        { path: '/', name: 'IndexMain', component: Main, meta: { title: 'ZULY' } },
-        { path: '/login', component: Login },
-        { path: '/find/id', component: FindId },
-        { path: '/find/id/complete', component: Success },
-        { path: '/find/password', component: FindPwd },
-        { path: '/find/password/complete', component: PwdSuccess },
-        {
-          path: '/join',
-          name: 'Join',
-          component: Join,
-          children: [
-            { path: 'size', component: JoinSize, meta: { mobile: true } },
-            { path: 'blouse', component: JoinBlouse, meta: { mobile: true } },
-            { path: 'tshirt', component: JoinTshirt, meta: { mobile: true } },
-            { path: 'skirt', component: JoinSkirt, meta: { mobile: true } },
-            { path: 'knitvest', component: JoinKintVest, meta: { mobile: true } },
-            { path: 'shirt', component: JoinShirt, meta: { mobile: true } },
-            { path: 'pants', component: JoinPants, meta: { mobile: true } },
-            { path: 'onepiece', component: JoinOnePiece, meta: { mobile: true } },
-            { path: 'patterns', component: JoinPatterns, meta: { mobile: true } },
-            { path: 'material', component: JoinMaterial, meta: { mobile: true } },
-            { path: 'styling', component: JoinStyling, meta: { mobile: true } },
-            { path: 'requirement', component: JoinRequirement, meta: { mobile: true } },
-            {
-              path: 'signup',
-              component: JoinSignUp,
-              children: [
-                { path: '1', component: JoinSignUpFirst, alias: '' },
-                { path: '2', component: JoinSignUpSecond },
-              ],
-            },
-            { path: 'colors', component: JoinColors, meta: { mobile: true } },
-            { path: 'addinfo', component: JoinAddInfo, meta: { mobile: true } },
-          ],
-        },
-        {
-          path: '/closet',
-          component: Closet,
-          children: [
-            { path: '', name: 'ClosetTomorrow', component: ClosetTomorrow },
-            { path: 'tomorrow', component: ClosetTomorrow },
-            { path: 'current', component: ClosetCurrent },
-            { path: 'past', component: ClosetPast },
-            { path: 'cs', component: ClosetRespView },
-            { path: 'notice', component: ClosetNotice },
-            { path: 'security', component: ClosetMypageSecurity },
-            { path: 'mypage', component: ClosetMypage },
-            { path: 'style', component: ClosetStyleInfo },
-            { path: 'coupon', component: ClosetCoupon },
-          ],
+          path: '/',
+          name: 'IndexMain',
+          component: Main,
           meta: {
-            // requiresAuth: true,
-          },
+            title: 'ZULY'
+          }
+        },
+        {
+          path: '/login',
+          component: LoginIndex,
+          children: [
+            {
+              path: '',
+              name: 'Login',
+              component: Login
+            },
+            {
+              path: '/find/id',
+              name: 'FindId',
+              component: FindId
+            },
+            {
+              path: '/find/id/complete',
+              name: 'FindIdSuccess',
+              component: Success
+            },
+            {
+              path: '/find/password',
+              name: 'FindPwd',
+              component: FindPwd
+            },
+            {
+              path: '/find/password/complete',
+              name: 'FindPwdSuccess',
+              component: PwdSuccess
+            }
+          ]
+        },
+        {
+          path: '/join',
+          name: 'Join',
+          component: Join,
+          children: [
+            {
+              path: 'size',
+              component: JoinSize
+            },
+            {
+              path: 'preferred-style',
+              component: JoinPreferredStyle
+            },
+            {
+              path: 'signup',
+              component: JoinSignUp,
+              children: [
+                {
+                  path: '1',
+                  component: JoinSignUpFirst,
+                  alias: ''
+                },
+                {
+                  path: '2',
+                  component: JoinSignUpSecond
+                }
+              ]
+            },
+            {
+              path: 'addinfo',
+              component: JoinAddInfo
+            }
+          ]
+        },
+        {
+          path: '/closet',
+          component: Closet,
+          children: [
+            {
+              path: '',
+              name: 'ClosetTomorrow',
+              component: ClosetTomorrow,
+              meta: { requiresAuth: false }
+            },
+            {
+              path: 'tomorrow',
+              component: ClosetTomorrow,
+              meta: { requiresAuth: false }
+            },
+            {
+              path: 'current',
+              component: ClosetCurrent,
+              meta: { requiresAuth: false }
+            },
+            {
+              path: 'past',
+              component: ClosetPast,
+              meta: { requiresAuth: true }
+            },
+            {
+              path: 'cs',
+              component: ClosetCustomerService,
+              meta: { requiresAuth: true }
+            },
+            {
+              path: 'notice',
+              component: ClosetNotice,
+              meta: { requiresAuth: true }
+            },
+            {
+              path: 'security',
+              component: ClosetMypageSecurity,
+              meta: { requiresAuth: true }
+            },
+            {
+              path: 'mypage',
+              component: ClosetMypage,
+              meta: { requiresAuth: true }
+            },
+            {
+              path: 'style',
+              component: ClosetStyleInfo,
+              meta: { requiresAuth: true }
+            },
+            {
+              path: 'coupon',
+              component: ClosetCoupon,
+              meta: { requiresAuth: true }
+            }
+          ]
         },
         {
           path: '*',
-          component: PageNotFound,
-        },
-      ],
-    },
-  ],
+          component: PageNotFound
+        }
+      ]
+    }
+  ]
 });
-*/
+
+// router.beforeResolve((to, from, next) => {
+//   if (to.name) {
+//     NProgress.start();
+//   }
+//   next();
+// });
+//
+// router.afterEach((to, from) => {
+//   NProgress.done();
+// });
 
 export default router;

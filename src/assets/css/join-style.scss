@@ -1,0 +1,50 @@
+.contents {
+  padding: 45px 20px 30px;
+}
+.contents-header {
+  text-align: center;
+  h3 {
+    @include fontSize(24px);
+  }
+  p {
+    @include fontSize(14px);
+    color: $color-secondary;
+    margin-top: 3px;
+  }
+}
+.content {
+  padding-top: 30px;
+  padding-bottom: 40px;
+  border-top: 2px solid #333;
+  margin-top: 15px;
+}
+@media (min-width:768px) {
+  .contents {
+    width: 765px;
+    margin: 0 auto;
+  }
+  .contents-header {
+    h3 {
+      @include fontSize(30px);
+    }
+    p {
+      @include fontSize(15px);
+      margin-top: 2px;
+    }
+  }
+  .content {
+    padding-bottom: 30px;
+    border-bottom: 1px solid #3d3d35;
+    margin-top: 30px;
+  }
+  .btn-complete {
+    margin-top: 30px;
+    text-align: right;
+    button {
+      width: 277px;
+    }
+  }
+  .column-right {
+    margin-left: 7%;
+  }
+}
