@@ -444,6 +444,7 @@ export default {
   position: fixed;
   bottom: 0;
   left: 0;
+  z-index: 100;
 }
 
 @media (min-width: 768px) {
@@ -459,7 +460,6 @@ export default {
   }
   .type-select-wrap {
     display: none;
-    z-index: 10;
   }
 }
 
