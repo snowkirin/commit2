@@ -20,7 +20,6 @@ import VueLocalStorage from 'vue-localstorage';
 import VModal from 'vue-js-modal';
 import Notifications from 'vue-notification';
 import VueLodash from 'vue-lodash';
-import VueDaumPostcode from 'vue-daum-postcode';
 
 // Moment : https://momentjs.com/
 import moment from 'moment';
@@ -48,9 +47,6 @@ Vue.use(VueLocalStorage);
 Vue.use(VModal, { injectModalsContainer: true, dynamic: true });
 Vue.use(Notifications);
 Vue.use(VueLodash);
-Vue.use(VueDaumPostcode, {
-  name: "DaumPostCode"
-});
 
 Vue.use(VueMomentJs, moment);
 // 임시 전역 컴포넌트

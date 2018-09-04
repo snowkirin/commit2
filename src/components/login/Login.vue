@@ -1,10 +1,7 @@
 <template>
   <div class="contents">
     <div class="contents-header">
-      <h2 class="txt-title">로그인</h2>
-      <div class="login-error" style="display: none;">
-        입력된 아이디는 가입되지 않은 계정입니다.
-      </div>
+      <h3 class="txt-title">로그인</h3>
     </div>
     <div class="content">
       <form class="form">
@@ -20,7 +17,8 @@
               autocomplete="username"
               placeholder="아이디"
               v-model="email"
-              v-validate="'required|email'"
+              data-vv-as="이메일"
+              v-validate="'email'"
             />
           </div>
           <p
@@ -101,25 +99,14 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import { Validator } from 'vee-validate';
 import Simplert from 'vue2-simplert';
 
-const dict = {
-  custom: {
-    email: {
-      required: '필수값입니다.',
-      email: '이메일 형식이 아닙니다.'
-    }
-  }
-};
 const alertObject = {
   type: 'alert', // 타입
   customClass: 'popup-custom-class', // 커스텀 클래스 네임
   disableOverlayClick: false, // 오버레이 클릭시 닫기 방지
   customCloseBtnText: '확인' // 닫기 버튼 텍스트
 };
-
-Validator.localize('ko', dict);
 
 export default {
   name: 'login',
@@ -147,12 +134,28 @@ export default {
         email: this.email,
         password: this.password
       };
+
+      if (_.isEmpty(formData.email)) {
+        _.assign(alertObject, {
+          message: '이메일을 입력해주세요.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
+        return;
+      }
+      if (_.isEmpty(formData.password)) {
+        _.assign(alertObject, {
+          message: '비밀번호를 다시 확인해주세요.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
+        return;
+      }
+
       return this.$validator.validateAll().then(result => {
         if (result) {
           return this.doLogin(formData).then(res => {
             if (!res.data.result) {
               _.assign(alertObject, {
-                message: '아이디 혹은 비밀번호를 다시 확인해주세요.'
+                message: '이메일 혹은 비밀번호를 다시 확인해주세요.'
               });
               this.$refs.alert.openSimplert(alertObject);
             }
@@ -181,112 +184,52 @@ export default {
 };
 </script>
 
+<style scoped lang="scss" src="@/assets/css/login-style.scss"></style>
 <style scoped lang="scss">
-.contents {
+
+.menu-login {
   text-align: center;
-  margin: 0 auto;
-  padding: 24px 20px 121px;
-  .txt-title {
-    @include fontSize(24px);
+  margin-top: 16px;
+  ul {
+    font-size: 0;
   }
-  .content {
-    border-top: 2px solid #333;
-    padding-top: 19px;
-    margin-top: 15px;
-    text-align: left;
-    .form {
-      padding-bottom: 16px;
-      .form-row {
-        &:nth-child(1) {
-          margin-bottom: 10px;
-        }
-        &:nth-child(2) {
-          margin-bottom: 15px;
-        }
-        &:nth-child(3) {
-          margin-bottom: 19px;
-        }
-      }
-      .btn-login {
-        button {
-          width: 100%;
-        }
-      }
+  li {
+    @include fontSize(14px);
+    color: $color-secondary;
+    display: inline-block;
+    position: relative;
+    a {
+      padding: 0 16px;
     }
-    .row {
-      margin-bottom: 10px;
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      right: 0;
+      height: 14px;
+      top: 5px;
+      border-right: 1px solid #dadada;
     }
-    .menu-login {
-      text-align: center;
-      ul {
-        font-size: 0;
-      }
-      li {
-        @include fontSize(14px);
-        color: $color-secondary;
-        display: inline-block;
-        position: relative;
-        a {
-          padding-left: 16px;
-          padding-right: 16px;
-        }
-        &::after {
-          content: '';
-          display: block;
-          position: absolute;
-          right: 0;
-          height: 14px;
-          top: 5px;
-          border-right: 1px solid #dadada;
-        }
-        &:last-child {
-          &::after {
-            display: none;
-          }
-        }
-        &:nth-child(1) {
-        }
-        &:nth-child(2) {
-        }
-        &:nth-child(3) {
-        }
+    &:last-child {
+      &::after {
+        display: none;
       }
     }
   }
 }
-
 @media (min-width: 768px) {
-  .contents {
-    width: 390px;
-    margin: 0 auto;
-    padding: 72px 0 119px 0;
-    .txt-title {
-      @include fontSize(32px);
-    }
-    .content {
-      padding-top: 30px;
-      margin-top: 25px;
-      .menu-login {
-        li {
-          @include fontSize(15px);
-          a {
-            padding-left: 26px;
-            padding-right: 26px;
-          }
-          &:nth-child(1) {
-          }
-          &:nth-child(2) {
-          }
-          &:nth-child(3) {
-          }
-        }
+  .menu-login {
+    li {
+      @include fontSize(15px);
+      a {
+        padding: 0 26px;
       }
-    }
-  }
-
-  .btn-login {
-    .btn {
-      height: 60px;
+      &:nth-child(1) {
+      }
+      &:nth-child(2) {
+      }
+      &:nth-child(3) {
+      }
     }
   }
 }

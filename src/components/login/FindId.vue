@@ -1,8 +1,8 @@
 <template>
   <div class="contents">
     <div class="contents-header">
-        <h3>아이디 찾기</h3>
-        <p>가입 당시 입력한 휴대전화 번호를 통해 아이디를 찾을 수 있습니다.</p>
+      <h3>아이디 찾기</h3>
+      <p>가입 당시 입력한 휴대전화 번호를 통해 아이디를 찾을 수 있습니다.</p>
     </div>
     <div class="content">
       <form>
@@ -264,7 +264,6 @@ export default {
   }
 };
 </script>
-<style scoped lang="scss" src="@/assets/css/join-style.scss"></style>
+<style scoped lang="scss" src="@/assets/css/login-style.scss"></style>
 <style scoped lang="scss">
-  .row { margin-bottom: 10px;}
 </style>

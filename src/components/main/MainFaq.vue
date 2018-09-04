@@ -5,29 +5,32 @@
       <p>줄라이 서비스에 대해서</p>
     </div>
     <div class="content">
-      <div class="grid-flex list-faq">
-        <div
-          class="column"
-          v-for="(data, idx) in FaqMainListResult"
-          :key="idx"
-        >
+      <div class="center-align">
+        <div class="grid-flex list-faq">
           <div
-            class="item"
-            data-show="false"
+            class="column"
+            v-for="(data, idx) in FaqMainListResult"
+            :key="idx"
           >
             <div
-              class="question-wrap"
-              @click="clickQuestion"
+              class="item"
+              data-show="false"
             >
-              <p class="txt-question">Q. {{ data.title }}</p>
-              <i class="icon-plus">+</i>
-            </div>
-            <div class="answer-wrap">
-              <p class="txt-answer">{{ data.content }}</p>
+              <div
+                class="question-wrap"
+                @click="clickQuestion"
+              >
+                <p class="txt-question">Q. {{ data.title }}</p>
+                <i class="icon-plus">+</i>
+              </div>
+              <div class="answer-wrap">
+                <p class="txt-answer">{{ data.content }}</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </template>
@@ -135,7 +138,7 @@ export default {
   }
   .answer-wrap {
     display: none;
-    padding: 10px 42px 10px 17px;
+    padding: 10px 15px;
     background-color: #f7f7f7;
   }
   .txt-question {
@@ -164,6 +167,7 @@ export default {
 }
 @media (min-width: 1280px) {
   .list-faq {
+    width: 1030px;
     .column {
       flex-basis: calc(33.333% - (55px / 3));
       &:nth-child(1) {

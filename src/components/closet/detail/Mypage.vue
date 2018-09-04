@@ -454,7 +454,6 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import VueJsonPretty from 'vue-json-pretty';
 
 const alertObject = {
   type: 'alert', // 타입
@@ -466,7 +465,6 @@ const alertObject = {
 export default {
   name: 'mypage',
   components: {
-    VueJsonPretty
   },
   data() {
     return {
@@ -652,7 +650,6 @@ export default {
       }
 
       this.$validator.validateAll('password').then(result => {
-        console.log(result);
         if (result) {
           this.patchPassword(formData).then(res => {
             if (res.data.result) {
@@ -707,9 +704,7 @@ export default {
         if (result) {
           formData.cardYearExpiry = `20${formData.cardYearExpiry.substring(2)}`;
           formData.cardMonthExpiry = formData.cardMonthExpiry.substring(0, 2);
-          console.log(formData);
           this.patchPayment(formData).then(res => {
-            console.log(res);
             if (res.data.result) {
               alert('성공!');
               this.currentCardNumber = this.newCardNumber;
@@ -739,7 +734,6 @@ export default {
             width: '100%',
             height: '498px',
             onresize: size => {
-              console.log(size);
             },
             onclose: state => {
               if (state === 'COMPLETE_CLOSE') {

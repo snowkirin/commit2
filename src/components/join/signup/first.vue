@@ -267,12 +267,6 @@
                   v-if="errors.has('ann')">
                   기념일을 정확히 입력해 주세요.
                 </p>
-                <!--<date-picker
-                  :lang="datepickerConfig.lang"
-                  :format="'MM-DD'"
-                  v-model="joinData.ann"
-                >
-                </date-picker>-->
               </div>
             </div>
             <!-- 체크박스 -->
@@ -330,7 +324,6 @@
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import DatePicker from 'vue2-datepicker';
 import CommonModal from '@/components/common/modal/CommonModal';
 import Simplert from 'vue2-simplert';
 import Info from '@/info';
@@ -343,35 +336,11 @@ const alertObject = {
 export default {
   name: 'signUp-first',
   components: {
-    DatePicker,
     CommonModal,
     Simplert
   },
   data() {
     return {
-      // DatePicker Config
-      datepickerConfig: {
-        lang: {
-          days: ['일', '월', '화', '수', '목', '금', '토'],
-          months: [
-            '1월',
-            '2월',
-            '3월',
-            '4월',
-            '5월',
-            '6월',
-            '7월',
-            '8월',
-            '9월',
-            '10월',
-            '11월',
-            '12월'
-          ],
-          placeholder: {
-            date: '기념임을 입력하시면, 기념일날 할인 쿠폰 지급'
-          }
-        }
-      },
       pwdMsg: '비밀번호를 입력해주세요.',
       isPwd: false,
       authErr: false,

@@ -5,11 +5,16 @@
       <p>가입 당시 입력한 휴대전화 번호를 통해 아이디를 찾을 수 있습니다.</p>
     </div>
     <div class="content">
-      <p>입력하신 정보와 일치하는 아이디는 아래와 같습니다.</p>
-      <p>{{ UserEmail }}</p>
+      <div>
+        <div class="text-wrap">
+          <p>입력하신 정보와 일치하는 아이디는 아래와 같습니다.</p>
+          <p class="txt-email">{{ UserEmail }}</p>
+        </div>
+      </div>
+
       <div class="button-wrap">
         <router-link to="/login" class="menu-title">
-          <button class="button-login" type="button">로그인</button>
+          <button class="btn btn-primary h-56" type="button">로그인</button>
         </router-link>
       </div>
     </div>
@@ -44,6 +49,19 @@ export default {
 };
 </script>
 
-<style scoped lang="scss" src="@/assets/css/join-style.scss"></style>
+<style scoped lang="scss" src="@/assets/css/login-style.scss">
+</style>
 <style scoped lang="scss">
+.text-wrap {
+  @include fontSize(15px);
+  text-align: center;
+  .txt-email {
+    @include fontSize(15px, en);
+    margin-top: 10px;
+    font-weight: 700;
+  }
+}
+.button-wrap {
+  margin-top: 30px;
+}
 </style>

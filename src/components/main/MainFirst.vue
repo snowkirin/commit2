@@ -26,7 +26,7 @@
 						<div class="phrases-wrap">
 							<p>데일리룩 구독 서비스 줄라이</p>
 						</div>
-						<div class="link-wrap">
+						<div class="link-wrap" v-if="!isLogin">
 							<div class="center-align">
 								<div class="grid-flex">
 									<div class="column">
@@ -157,12 +157,13 @@ export default {
     }
   }
   .link {
+		@include fontSize(15px);
+		line-height: 56px;
     display: block;
     height: 56px;
     width: 100%;
     text-align: center;
     color: #fff;
-    line-height: 56px;
   }
   .link-login {
     background-color: $color-pink-main;

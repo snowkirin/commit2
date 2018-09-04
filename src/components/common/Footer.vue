@@ -13,7 +13,7 @@
             <p>
               평일 오전 10 시 ~ 오후 5시 <br v-show="$mq === 'sm'"/>
               점심 시간 오후 12시30분 ~ 오후 1시 30분 <br v-show="$mq === 'sm'"/>
-              고객 센터가 종료된 오후 5시 이후와 일요일,공휴일에는 <router-link class="txt-link" to="/closet/cs">나의 옷장 문의 게시판</router-link>을 이용해 주세요.
+              고객 센터가 종료된 오후 5시 이후와 토요일,일요일,공휴일에는 <router-link class="txt-link" to="/closet/cs">나의 옷장 문의 게시판</router-link>을 이용해 주세요.
             </p>
           </div>
         </div>

@@ -144,9 +144,17 @@ img {
   margin-top: 10px;
 }
 
-.item {
-  &.selected {
-    outline: 1px solid $color-primary;
+.list-thumb {
+  .item {
+    margin-top: 5px;
+    cursor: pointer;
+    &.selected {
+      outline: 2px solid $color-primary;
+      outline-offset: -2px;
+    }
+    &:first-child {
+      margin-top: 0;
+    }
   }
 }
 .modal-close {
