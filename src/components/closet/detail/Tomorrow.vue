@@ -154,14 +154,18 @@ export default {
     ...mapGetters({
       isLogin: 'login/isLogin',
       TomorrowResult: 'subscriptions/TomorrowResult',
-      TomorrowProductDetail: 'subscriptions/TomorrowProductDetail'
+      TomorrowProductDetail: 'subscriptions/TomorrowProductDetail',
+      isTomorrowDirect: 'subscriptions/isTomorrowDirect',
+      TomorrowDirectMemberId: 'subscriptions/TomorrowDirectMemberId'
     }),
   },
   methods: {
     ...mapActions({
       getTomorrow: 'subscriptions/getTomorrow',
       putTomorrow: 'subscriptions/putTomorrow',
-      getProductDetail: 'subscriptions/getProductDetail'
+      getProductDetail: 'subscriptions/getProductDetail',
+      destroyTomorrowDirect: 'subscriptions/destroyTomorrowDirect',
+      putTomorrowDirect: 'subscriptions/putTomorrowDirect'
     }),
     processingData() {
       const data = this.TomorrowResult;
@@ -252,11 +256,22 @@ export default {
           subscription_id: this.tomorrowData.subscriptionId,
           products: productId
         };
-        this.putTomorrow(formData).then(res => {
-          if (res.data.result) {
-            this.tomorrowData.selected = type;
-          }
-        });
+        if (!this.isTomorrowDirect) {
+          // 직접접속이 아닐경우
+          this.putTomorrow(formData).then(res => {
+            if (res.data.result) {
+              this.tomorrowData.selected = type;
+            }
+          });
+        } else {
+          // 직접접속일 경우
+          _.assign(formData, {member_id: this.TomorrowDirectMemberId});
+          this.putTomorrowDirect(formData).then(res => {
+            if (res.data.result) {
+              this.tomorrowData.selected = type;
+            }
+          });
+        }
       }
       else {
         // typeB를 선택하였을 경우
@@ -265,26 +280,48 @@ export default {
           subscription_id: this.tomorrowData.subscriptionId,
           products: productId
         };
-        this.putTomorrow(formData).then(res => {
-          if (res.data.result) {
-            this.tomorrowData.selected = type;
-          }
-        });
 
+        if (!this.isTomorrowDirect) {
+          // 직접접속이 아닐경우
+          this.putTomorrow(formData).then(res => {
+            if (res.data.result) {
+              this.tomorrowData.selected = type;
+            }
+          });
+        } else {
+          // 직접접속일 경우
+          _.assign(formData, {member_id: this.TomorrowDirectMemberId});
+          this.putTomorrowDirect(formData).then(res => {
+            if (res.data.result) {
+              this.tomorrowData.selected = type;
+            }
+          });
+        }
       }
     }
   },
   async created() {
-    await this.getTomorrow().then(res => {
-      if (res.data.result) {
-        // 데이터 존재한다면.
-        this.processingData();
-        this.isTomorrowData = true;
-      } else {
-        // 데이터가 존재하지 않는다면
-        this.isTomorrowData = false;
-      }
-    });
+    if (!this.isTomorrowDirect) {
+      await this.getTomorrow().then(res => {
+        if (res.data.result) {
+          // 데이터 존재한다면.
+          this.processingData();
+          this.isTomorrowData = true;
+        } else {
+          // 데이터가 존재하지 않는다면
+          this.isTomorrowData = false;
+        }
+      });
+    } else {
+      this.processingData();
+      this.isTomorrowData = true;
+    }
+  },
+  destroyed() {
+    if (this.isTomorrowDirect) {
+      // 직접접속일때만 작동
+      this.destroyTomorrowDirect(); // Tomorrow와 관련된 모든값 초기화
+    }
   }
 };
 </script>

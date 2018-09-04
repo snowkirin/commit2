@@ -7,6 +7,8 @@ const initialState = {
   CurrentFeedbacks: {},
   CurrentFeedBacksDirect: {},
   TomorrowResult: {},
+  isTomorrowDirect: false,
+  TomorrowDirectMemberId: '',
   TomorrowProductDetail: {},
   PastResult: [],
   PastIsShow: false,
@@ -26,6 +28,17 @@ const mutations = {
   [types.GET_TOMORROW](state, data) {
     state.TomorrowResult = data;
   },
+  [types.GET_TOMORROW_DIRECT](state, data) {
+    state.isTomorrowDirect = true;
+    state.TomorrowResult = data.data;
+    state.TomorrowDirectMemberId = data.info.member_id;
+  },
+  [types.DESTROY_TOMORROW_DIRECT](state) {
+    state.isTomorrowDirect = false;
+    state.TomorrowResult = {};
+    state.TomorrowProductDetail = {};
+    state.TomorrowDirectMemberId = '';
+  },
   [types.GET_PRODUCT_DETAIL](state, data) {
     _.assign(state.TomorrowProductDetail, data);
   },
@@ -44,7 +57,8 @@ const mutations = {
   },
   [types.GET_PAST_FEEDBACKS](state, data) {
     state.PastFeedbacks = _.concat(state.PastFeedbacks, data);
-  }
+  },
+
 };
 const getters = {
   CurrentResult: state => state.CurrentResult,
@@ -52,6 +66,8 @@ const getters = {
   CurrentFeedbacks: state => state.CurrentFeedbacks,
   CurrentFeedBacksDirect: state => state.CurrentFeedBacksDirect,
   TomorrowResult: state => state.TomorrowResult,
+  isTomorrowDirect: state => state.isTomorrowDirect,
+  TomorrowDirectMemberId: state => state.TomorrowDirectMemberId,
   TomorrowProductDetail: state => state.TomorrowProductDetail,
   PastResult: state => state.PastResult,
   PastIsShow: state => state.PastIsShow,

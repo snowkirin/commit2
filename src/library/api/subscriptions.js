@@ -83,17 +83,15 @@ export default {
         };
       });
   },
+
+  /*
+  * 내일의 옷장 직접 접속
+  * data = D2D42E57A6DC11E88ED9028465BB46CC (access_token)
+  * */
   getTomorrowDirect(data) {
+    console.log(data);
     return axios
-      .get(
-        `${API_URL}/subscriptions/tomorrow`,
-        {
-          parms: data
-        },
-        {
-          withCredentials: true
-        }
-      )
+      .get(`${API_URL}/subscriptions/tomorrow/${data}`)
       .then(res => {
         return res;
       })

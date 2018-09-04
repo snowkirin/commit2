@@ -19,10 +19,29 @@ export default {
       return res;
     });
   },
+  getTomorrowDirect({ commit }, data) {
+    return Subscriptions.getTomorrowDirect(data).then(res => {
+      if (res.data.result) {
+        commit(types.GET_TOMORROW_DIRECT, res.data);
+        return res;
+      }
+      else {
+        console.log('내일의 옷장 직접접속 오류');
+      }
+    });
+  },
+  destroyTomorrowDirect({ commit }) {
+    commit(types.DESTROY_TOMORROW_DIRECT);
+  },
   putTomorrow({ commit }, data) {
     return Subscriptions.putTomorrow(data).then(res => {
       return res;
     });
+  },
+  putTomorrowDirect({ commit }, data) {
+    return Subscriptions.putTomorrowDirect(data).then(res => {
+      return res;
+    })
   },
   getProductDetail({ commit }, data) {
     return Subscriptions.getProductDetail(data).then(res => {
@@ -42,14 +61,14 @@ export default {
   getFeedbacks({ commit }, data) {
     const formData = {
       subscriptionId: data.subscriptionId
-    }
+    };
     return Subscriptions.getFeedbacks(formData).then(res => {
       if (res.data.result) {
         if (data.type === 'current') {
           // 과거의 옷장
           commit(types.GET_CURRENT_FEEDBACKS, res.data);
         } else if (data.type === 'past') {
-        // 현재의 옷장
+          // 현재의 옷장
           commit(types.GET_PAST_FEEDBACKS, res.data);
         }
       }
@@ -79,6 +98,6 @@ export default {
   getPastDetail({ commit }, data) {
     return Subscriptions.getPastDetail(data).then(res => {
       console.log(res);
-    })
+    });
   }
 };
