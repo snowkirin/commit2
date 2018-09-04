@@ -49,11 +49,13 @@
               <div class="product-bot">
                 <p class="txt-styling-tip">{{ tomorrowData.productA.stylingTip }}</p>
               </div>
-              <div class="btn-selected">
+              <div
+                class="btn-selected"
+                v-if="isShowButton"
+              >
                 <button
                   type="button"
                   class="btn btn-primary h-56"
-                  v-if="isShowButton"
                   @click="clickSelected('typeA')"
                 >
                   A 선택하기
@@ -91,11 +93,13 @@
               <div class="product-bot">
                 <p class="txt-styling-tip">{{ tomorrowData.productB.stylingTip }}</p>
               </div>
-              <div class="btn-selected">
+              <div
+                class="btn-selected"
+                v-if="isShowButton"
+              >
                 <button
                   type="button"
                   class="btn btn-primary h-56"
-                  v-if="isShowButton"
                   @click="clickSelected('typeB')"
                 >
                   B 선택하기
