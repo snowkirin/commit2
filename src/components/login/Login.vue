@@ -41,6 +41,7 @@
               autocomplete="current-password"
               v-model="password"
               v-validate="'required'"
+              data-vv-as="패스워드"
               @keyup.enter="$refs.btnLogin.$el.click()"
             />
           </div>
@@ -134,7 +135,6 @@ export default {
         email: this.email,
         password: this.password
       };
-
       if (_.isEmpty(formData.email)) {
         _.assign(alertObject, {
           message: '이메일을 입력해주세요.'
@@ -149,8 +149,8 @@ export default {
         this.$refs.alert.openSimplert(alertObject);
         return;
       }
-
       return this.$validator.validateAll().then(result => {
+        console.log(result);
         if (result) {
           return this.doLogin(formData).then(res => {
             if (!res.data.result) {

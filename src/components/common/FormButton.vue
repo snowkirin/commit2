@@ -14,9 +14,9 @@ export default {
   },
   methods: {
     async clickInteraction() {
-      this.$refs.formButton.disabled = true;
       this.apiData()
         .then(res => {
+          this.$refs.formButton.disabled = true;
           if (res.data.result) {
             this.$emit("success");
           } else if (!res.data.result) {
@@ -25,7 +25,6 @@ export default {
           }
         })
         .catch(err => {
-          console.log(err);
           if (this.$refs.formButton) {
             this.$refs.formButton.disabled = false;
           }
