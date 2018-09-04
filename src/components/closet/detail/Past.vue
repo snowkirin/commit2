@@ -15,6 +15,9 @@
         <h3>그 동안의 옷장을 확인하실 수 있습니다.</h3>
       </div>
       <div class="content">
+        <div class="">
+
+        </div>
         <div class="list-past">
           <div
             class="item"
@@ -84,7 +87,6 @@
           </div>
 
         </div>
-
       </div>
     </div>
   </div>

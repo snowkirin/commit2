@@ -212,6 +212,7 @@ export default {
 @media (min-width: 768px) {
   .content {
     background-image: url('~@/assets/img/main/img_main_large.png');
+		height: 630px;
   }
   .banner-wrap {
     @include fontSize(13px);
@@ -252,4 +253,5 @@ export default {
     }
   }
 }
+
 </style>
