@@ -449,6 +449,21 @@ input:-webkit-autofill:focus {
       padding-left: 10px;
     }
   }
+  .table {
+    width: 100%;
+    table-layout: fixed;
+    th, td {
+      border: 1px solid #ddd;
+      height: 30px;
+      vertical-align: middle;
+      padding-left: 10px;
+    }
+    thead {
+      th {
+        background-color: #f0f0f0;
+      }
+    }
+  }
 }
 
 // Main Page

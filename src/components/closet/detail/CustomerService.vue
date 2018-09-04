@@ -28,19 +28,19 @@
       <div class="content-inner">
         <!-- 1:1 문의 내역 Wrapper -->
         <div class="pt-20 pb-20">
-          <div class="grid-flex grid-fixed inquiries-top">
-            <div class="column w-27">
+          <div class="grid-flex inquiries-top">
+            <div class="column">
               <div class="select-inquires-type">
                 <select v-model="inquiresType">
                   <option value="">문의 종류를 선택해주세요</option>
-                  <option value="11092">구독문의</option>
+                  <option value="11902">구독문의</option>
                   <option value="11903">주문문의</option>
                   <option value="11904">배송문의</option>
                   <option value="11901">일반(기타)문의</option>
                 </select>
               </div>
             </div>
-            <div class="column o-2">
+            <div class="column">
               <div class="text-field">
                 <input
                   type="text"
@@ -191,6 +191,9 @@ export default {
       this.postInquiries(formData).then(res => {
         if (res.data.result) {
           alert('등록되었습니다.');
+          this.inquiresSubject = '';
+          this.inquiresType = '';
+          this.inquiresContent = '';
           this.getInquiries();
         }
       });
@@ -228,6 +231,7 @@ export default {
 .inquiries-top {
   .column {
     &:nth-child(1) {
+      margin-bottom: 10px;
     }
   }
 }
@@ -250,7 +254,7 @@ export default {
   @include fontSize(15px);
   width: 100%;
   resize: none;
-  padding: 27px 44px;
+  padding: 20px;
 }
 .inquiries-mid {
   margin-top: 10px;
@@ -314,6 +318,19 @@ export default {
     .item {
       flex-basis: 195px;
       max-width: 195px;
+    }
+  }
+
+  .inquiries-top {
+    .column {
+      &:nth-child(1) {
+        margin-bottom: 0;
+        max-width: 27%;
+        flex-basis: 27%;
+      }
+      &:nth-child(2) {
+        margin-left: 10px;
+      }
     }
   }
 }
