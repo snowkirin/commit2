@@ -5,7 +5,7 @@
 			<p>줄라이 이용 설명서</p>
 		</div>
 		<div class="content">
-			<div class="center-align">
+			<div>
 				<div class="grid-flex list-how-to-use">
 					<div class="column">
 						<div class="item">
@@ -163,6 +163,7 @@ export default {
 @media (min-width: 1280px) {
   .list-how-to-use {
     width: 1030px;
+		margin: 0 auto;
     .column {
       flex-basis: calc(33.333% - (84px / 3));
       &:nth-child(1) {

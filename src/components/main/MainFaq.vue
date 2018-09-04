@@ -5,7 +5,7 @@
       <p>줄라이 서비스에 대해서</p>
     </div>
     <div class="content">
-      <div class="center-align">
+      <div>
         <div class="grid-flex list-faq">
           <div
             class="column"
@@ -168,6 +168,7 @@ export default {
 @media (min-width: 1280px) {
   .list-faq {
     width: 1030px;
+    margin: 0 auto;
     .column {
       flex-basis: calc(33.333% - (55px / 3));
       &:nth-child(1) {
