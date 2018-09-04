@@ -50,7 +50,7 @@
 								<span class="txt-number">4</span>
 							</div>
 							<div>
-								<p class="txt-title">줄라이 구독하기</p>
+								<p class="txt-title">줄라이 받아보기</p>
 								<p class="txt-desc">지정한 날짜에 맞춰 문 앞까지 배송된 옷들을 2주간 마음껏 입으세요. 세탁은 2주 후 줄라이가 하겠습니다.</p>
 							</div>
 						</div>
@@ -60,7 +60,7 @@
 							<div>
 								<span class="txt-number">5</span>
 							</div>
-							<div><p class="txt-title">돌려보내기</p>
+							<div><p class="txt-title">맞교환하기</p>
 								<p class="txt-desc">이용하신 옷은 새로운 옷이 배송되는 날 회수합니다. 배송 전 날 문 앞에 걸어만 주세요.</p></div>
 						</div>
 
@@ -71,8 +71,8 @@
 								<span class="txt-number">6</span>
 							</div>
 							<div>
-								<p class="txt-title">피드백 주기</p>
-								<p class="txt-desc">입으시면서 불편했던 점, 맘에 들었던 점을 알려주세요. 여러분의 목소리에 귀 기울이겠습니다.</p>
+								<p class="txt-title">계속 이용하기</p>
+								<p class="txt-desc">새로운 옷을 경험하는 즐거움을 꾸준히 누리세요. 구독을 해지하시 전까지 요금은 월 단위로 자동 결제됩니다</p>
 							</div>
 						</div>
 
