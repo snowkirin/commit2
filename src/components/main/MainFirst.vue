@@ -118,6 +118,7 @@ export default {
     position: absolute;
     right: 13px;
     top: 13px;
+		line-height: 1;
   }
 }
 .content-inner {

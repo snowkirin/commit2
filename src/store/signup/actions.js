@@ -6,12 +6,6 @@ export default {
   setSizes({ commit }, data) {
     commit(types.SET_SIZES, data);
   },
-  // setJoinFirst({commit}, data) {
-  //   commit(types.SET_JOIN_FIRST, data);
-  // },
-  // setJoinSecond({commit}, data) {
-  //   commit(types.SET_JOIN_SECOND, data);
-  // },
   async setManagement({ commit }, data) {
     try {
       const result = await Management.getManagementCodes({
