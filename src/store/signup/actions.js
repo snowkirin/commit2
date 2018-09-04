@@ -6,12 +6,6 @@ export default {
   setSizes({ commit }, data) {
     commit(types.SET_SIZES, data);
   },
-  // setJoinFirst({commit}, data) {
-  //   commit(types.SET_JOIN_FIRST, data);
-  // },
-  // setJoinSecond({commit}, data) {
-  //   commit(types.SET_JOIN_SECOND, data);
-  // },
   async setManagement({ commit }, data) {
     try {
       const result = await Management.getManagementCodes({
@@ -76,6 +70,9 @@ export default {
         console.log(res);
         commit(types.POST_JOIN);
       } else {
+        if (res.status === 500) {
+          alert('통신 오류입니다.');
+        }
         if (res.data.errorMessage) {
           const errorMessage = JSON.stringify(res.data.errorMessage.details);
           console.error(errorMessage);

@@ -6,7 +6,6 @@
   </div>
 </template>
 <script>
-console.log(process.env);
 import ZulyHeader from '@/components/common/Header.vue';
 import ZulyFooter from '@/components/common/Footer.vue';
 
