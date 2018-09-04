@@ -37,7 +37,7 @@
               <div class="form-title-wrap">
                 <p class="txt-form-title">카드 결제 정보</p>
               </div>
-              <div>
+              <div class="mb-10">
                 <div class="grid-flex grid-fixed">
                   <div class="text-field column" :class="{'text-field-error': errors.has('cardNumber')}">
                     <input
