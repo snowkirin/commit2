@@ -340,9 +340,11 @@ export default {
       }
     },
     clickSetSize(type, data, event) {
-      this.styleData[type] = data.code;
-      if (type === 'bodyType') {
-        this.bodyTypeText = data.description;
+      if (!event.target.classList.contains('disabled')) {
+        this.styleData[type] = data.code;
+        if (type === 'bodyType') {
+          this.bodyTypeText = data.description;
+        }
       }
     },
     // 추가 정보 입력
