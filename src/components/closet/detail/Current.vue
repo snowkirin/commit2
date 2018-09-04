@@ -210,7 +210,7 @@ export default {
     else {
       // 비로그인 상태
       const formData = {
-        subscriptionId: this.CurrentFeedBacksDirect.subscription_id,
+        subscriptionId: this.CurrentFeedbacksDirect.subscription_id,
         type: 'current'
       };
       this.getFeedbacks(formData).then(res => {

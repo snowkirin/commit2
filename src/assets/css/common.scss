@@ -379,7 +379,7 @@ input:-webkit-autofill:focus {
 
 // ETC
 .txt-error {
-  @include fontSize(15px);
+  @include fontSize(14px);
   color: $color-pomegranate;
   display: inline-block;
   margin-top: 10px; // 참고할것.

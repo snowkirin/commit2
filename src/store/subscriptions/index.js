@@ -5,7 +5,8 @@ const initialState = {
   CurrentResult: [],
   CurrentImages: {},
   CurrentFeedbacks: {},
-  CurrentFeedBacksDirect: {},
+  CurrentFeedbacksDirect: {},
+  isCurrentFeedbacksDirect: false,
   TomorrowResult: {},
   isTomorrowDirect: false,
   TomorrowDirectMemberId: '',
@@ -46,7 +47,7 @@ const mutations = {
     state.CurrentFeedbacks = data;
   },
   [types.GET_CURRENT_FEEDBACKS_DIRECT](state, data) {
-    state.CurrentFeedBacksDirect = data;
+    state.CurrentFeedbacksDirect = data;
   },
   [types.GET_PAST_SUCCESS](state, data) {
     state.PastResult = data;
@@ -64,7 +65,8 @@ const getters = {
   CurrentResult: state => state.CurrentResult,
   CurrentImages: state => state.CurrentImages,
   CurrentFeedbacks: state => state.CurrentFeedbacks,
-  CurrentFeedBacksDirect: state => state.CurrentFeedBacksDirect,
+  CurrentFeedbacksDirect: state => state.CurrentFeedbacksDirect,
+  isCurrentFeedbacksDirect: state => state.isCurrentFeedbacksDirect,
   TomorrowResult: state => state.TomorrowResult,
   isTomorrowDirect: state => state.isTomorrowDirect,
   TomorrowDirectMemberId: state => state.TomorrowDirectMemberId,

@@ -27,6 +27,7 @@ export default {
 }
 .user-info {
   @include fontSize(24px);
+  font-weight: 100;
 }
 @media (min-width: 768px) {
   .closet-header {

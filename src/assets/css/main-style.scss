@@ -12,10 +12,12 @@
 		color: $color-pink-main;
 		line-height: 18px;
 		text-transform: uppercase;
+		font-weight: 700;
 	}
 	p {
 		@include fontSize(22px);
 		margin-top: 6px;
+		font-weight: 100;
 	}
 }
 
@@ -26,5 +28,5 @@
 
 
 .content {
-
+	padding: 0 25px 0 30px;
 }
