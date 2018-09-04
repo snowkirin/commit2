@@ -66,8 +66,8 @@ export default {
       }
     });
   },
-  getPastFeedbacks({ commit}, data) {
-    return Subscriptions.getFeedbacks(formData).then(res => {
+  getPastFeedbacks({ commit }, data) {
+    return Subscriptions.getFeedbacks(data).then(res => {
       if (res.data.result) {
         commit(types.GET_PAST_FEEDBACKS, res.data);
         return res;

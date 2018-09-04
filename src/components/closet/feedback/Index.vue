@@ -493,11 +493,13 @@ export default {
   padding-bottom: 40px;
   padding-left: 20px;
   padding-right: 20px;
+  margin-bottom: 20px;
   .text {
     margin-bottom: 12px;
     text-indent: -1px;
   }
   .row {
+    margin-bottom: 10px;
     .image {
       background-color: #e9e9e9;
       padding-top: 32px;
