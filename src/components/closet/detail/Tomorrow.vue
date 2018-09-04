@@ -422,6 +422,7 @@ export default {
   }
   .type-select-wrap {
     display: none;
+    z-index: 10;
   }
 }
 

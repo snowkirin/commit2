@@ -12,11 +12,25 @@ export default {
           JSON.parse(Base64.decode(actToken[1].split('.')[1])).user
         );
       else $store.commit('login/LOGOUT');
-      // if route requires auth and user isn't authenticated
       if (to.matched.some(record => record.meta.requiresAuth)) {
-        // Router에 requiresAuth가 있다면
+        // 인증이 필요한 페이지에 들어갔을 경우
         if (!$store.state.login.isLogin) {
           // Login 상태가 아니라면
+          alert('로그인 하셔야만 이용이 가능합니다.');
+          const query = to.fullPath.match(/^\/$/)
+            ? {}
+            : { redirect: to.fullPath };
+          next({
+            path: '/login',
+            query
+          });
+        } else {
+          // Login 상태라면
+          next();
+        }
+      } else {
+        // 인증이 없어도 되는 페이지가 들어갔는데
+        if (!$store.state.login.isLogin) {
           if (to.path === '/closet/current') {
             if (!_.isEmpty(to.query.access_token)) {
               const token = to.query.access_token;
@@ -43,6 +57,7 @@ export default {
           }
           if (to.path === '/closet/tomorrow') {
             if (!_.isEmpty(to.query.access_token)) {
+              $store.state.login.Authentication.userName = '유저이름!';
               next();
             } else {
               alert('로그인 하셔야만 이용이 가능합니다.');
@@ -55,20 +70,9 @@ export default {
               });
             }
           }
-
-          alert('로그인 하셔야만 이용이 가능합니다.');
-          const query = to.fullPath.match(/^\/$/)
-            ? {}
-            : { redirect: to.fullPath };
-          next({
-            path: '/login',
-            query
-          });
         } else {
           next();
         }
-      } else {
-        // Login 상태라면
         next();
       }
     });

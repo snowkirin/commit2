@@ -35,7 +35,7 @@ import PageNotFound from '@/components/common/PageNotFound.vue';
 Vue.use(Router);
 
 const router = new Router({
-  mode: "history",
+  mode: 'history',
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition;
@@ -44,144 +44,144 @@ const router = new Router({
   },
   routes: [
     {
-      path: "/",
+      path: '/',
       component: Index,
       meta: {
-        title: "ZULY"
+        title: 'ZULY'
       },
       children: [
         {
-          path: "/",
-          name: "IndexMain",
+          path: '/',
+          name: 'IndexMain',
           component: Main,
           meta: {
-            title: "ZULY"
+            title: 'ZULY'
           }
         },
         {
-          path: "/login",
+          path: '/login',
           component: LoginIndex,
           children: [
             {
-              path: "",
-              name: "Login",
+              path: '',
+              name: 'Login',
               component: Login
             },
             {
-              path: "/find/id",
-              name: "FindId",
+              path: '/find/id',
+              name: 'FindId',
               component: FindId
             },
             {
-              path: "/find/id/complete",
-              name: "FindIdSuccess",
+              path: '/find/id/complete',
+              name: 'FindIdSuccess',
               component: Success
             },
             {
-              path: "/find/password",
-              name: "FindPwd",
+              path: '/find/password',
+              name: 'FindPwd',
               component: FindPwd
             },
             {
-              path: "/find/password/complete",
-              name: "FindPwdSuccess",
+              path: '/find/password/complete',
+              name: 'FindPwdSuccess',
               component: PwdSuccess
             }
           ]
         },
         {
-          path: "/join",
-          name: "Join",
+          path: '/join',
+          name: 'Join',
           component: Join,
           children: [
             {
-              path: "size",
+              path: 'size',
               component: JoinSize
             },
             {
-              path: "preferred-style",
+              path: 'preferred-style',
               component: JoinPreferredStyle
             },
             {
-              path: "signup",
+              path: 'signup',
               component: JoinSignUp,
               children: [
                 {
-                  path: "1",
+                  path: '1',
                   component: JoinSignUpFirst,
                   alias: ''
                 },
                 {
-                  path: "2",
+                  path: '2',
                   component: JoinSignUpSecond
                 }
               ]
             },
             {
-              path: "addinfo",
+              path: 'addinfo',
               component: JoinAddInfo
             }
           ]
         },
         {
-          path: "/closet",
+          path: '/closet',
           component: Closet,
           children: [
             {
-              path: "",
-              name: "ClosetTomorrow",
+              path: '',
+              name: 'ClosetTomorrow',
               component: ClosetTomorrow,
-              meta: { requiresAuth: true }
+              meta: { requiresAuth: false }
             },
             {
-              path: "tomorrow",
+              path: 'tomorrow',
               component: ClosetTomorrow,
-              meta: { requiresAuth: true }
+              meta: { requiresAuth: false }
             },
             {
-              path: "current",
+              path: 'current',
               component: ClosetCurrent,
               meta: { requiresAuth: false }
             },
             {
-              path: "past",
+              path: 'past',
               component: ClosetPast,
               meta: { requiresAuth: true }
             },
             {
-              path: "cs",
+              path: 'cs',
               component: ClosetCustomerService,
               meta: { requiresAuth: true }
             },
             {
-              path: "notice",
+              path: 'notice',
               component: ClosetNotice,
               meta: { requiresAuth: true }
             },
             {
-              path: "security",
+              path: 'security',
               component: ClosetMypageSecurity,
               meta: { requiresAuth: true }
             },
             {
-              path: "mypage",
+              path: 'mypage',
               component: ClosetMypage,
               meta: { requiresAuth: true }
             },
             {
-              path: "style",
+              path: 'style',
               component: ClosetStyleInfo,
               meta: { requiresAuth: true }
             },
             {
-              path: "coupon",
+              path: 'coupon',
               component: ClosetCoupon,
               meta: { requiresAuth: true }
             }
           ]
         },
         {
-          path: "*",
+          path: '*',
           component: PageNotFound
         }
       ]
