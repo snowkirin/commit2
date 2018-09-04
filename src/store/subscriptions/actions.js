@@ -72,7 +72,7 @@ export default {
         commit(types.GET_PAST_FEEDBACKS, res.data);
         return res;
       }
-    })
+    });
   },
 
   getFeedbacksDirect({ commit }, data) {

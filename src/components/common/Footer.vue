@@ -50,11 +50,14 @@
 </template>
 
 <script>
-import Info from "@/info";
+import Info from '@/info';
+import CommonModal from '@/components/common/modal/CommonModal';
 
 export default {
-  name: "zuly-footer",
-  components: {},
+  name: 'zuly-footer',
+  components: {
+    CommonModal
+  },
   watch: {
     $route() {}
   },
@@ -65,12 +68,35 @@ export default {
     };
   },
   methods: {
-    viewModal(ref) {
-      this.$refs[ref].openModal();
+    viewModal(param) {
+      let modalConfig = {};
+      if (param === 'private') {
+        modalConfig = {
+          modalTitle: '개인 정보 관리 지침',
+          modalContent: this.personalText,
+          modalContentType: 'html'
+        };
+      } else if (param === 'use') {
+        modalConfig = {
+          modalTitle: '서비스 약관',
+          modalContent: this.termsText,
+          modalContentType: 'html'
+        };
+      } else if (param === 'marketing') {
+        modalConfig = {
+          modalTitle: '마케팅 정보 수신 동의',
+          modalContent: this.marketingText,
+          modalContentType: 'html'
+        };
+      }
+
+      this.$modal.show(CommonModal, modalConfig, {
+        scrollable: true,
+        height: 'auto',
+        width: '80%',
+        adaptive: true
+      });
     },
-    closeModal(ref) {
-      this.$refs[ref].closeModal();
-    }
   },
   mounted() {}
 };
@@ -108,7 +134,7 @@ export default {
       padding-right: 10px;
       position: relative;
       &::after {
-        content: "";
+        content: '';
         position: absolute;
         display: block;
         height: 12px;
@@ -160,10 +186,10 @@ export default {
   }
 }
 
-  @media (min-width: 1280px) {
-    .footer-inner {
-      width: 1200px;
-      margin: 0 auto;
-    }
+@media (min-width: 1280px) {
+  .footer-inner {
+    width: 1200px;
+    margin: 0 auto;
   }
+}
 </style>

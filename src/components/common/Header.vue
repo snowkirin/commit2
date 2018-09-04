@@ -1,8 +1,8 @@
 <template>
   <header
     class="header"
-    :class="{'header-main': isMain}"
-    :style="[calcBanner]"
+    :class="{'header-main': isMain }"
+    :style="[calcBanner, calcMain]"
   >
     <router-link to="/" class="logo">
       <ZulyLogoSVG class="logo-svg"/>
@@ -55,7 +55,6 @@ export default {
       gnbToggle: false,
       isClose: false,
       result: null,
-
       menu: {
         closet: false,
         login: false
@@ -79,6 +78,7 @@ export default {
   },
   computed: {
     ...mapGetters({
+      isLogin: 'login/isLogin',
       Authentication: 'login/Authentication',
       isMainBanner: 'common/isMainBanner'
     }),
@@ -86,6 +86,21 @@ export default {
       if (this.isMain && this.isMainBanner) {
         return {
           top: '40px'
+        };
+      }
+    },
+    calcMain() {
+      if (this.isMain && this.isLogin && this.$mq === 'sm') {
+        return {
+          display: 'block'
+        }
+      } else if (this.isMain && this.isLogin) {
+        return {
+          display: 'block'
+        }
+      } else if (this.isMain && !this.isLogin && this.$mq !== 'sm') {
+        return {
+          display: 'none'
         }
       }
     }
@@ -145,7 +160,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
 /* 메인을 제외한 화면 */
 .logo-svg {
   width: 66px;
@@ -195,6 +209,7 @@ export default {
   position: absolute;
   display: none;
   z-index: 10;
+  width: 100%;
   .logo-svg {
     /deep/ path {
       fill: #fff;

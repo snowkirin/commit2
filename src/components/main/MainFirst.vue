@@ -14,7 +14,10 @@
 			</div>
 			<div class="center-align">
 				<div class="content-inner">
-					<div class="logo-wrap">
+					<div
+						class="logo-wrap"
+						v-if="!isLogin && this.$mq === 'sm'"
+					>
 						<ZulyLogoSVG class="logo-svg"/>
 					</div>
 					<div class="text-wrap">
