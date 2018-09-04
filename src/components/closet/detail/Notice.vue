@@ -7,26 +7,29 @@
     </div>
     <div class="content">
       <div
-        class="none"
         v-if="_.isEmpty(Notices)"
-        >
+        class="none"
+      >
         공지사항 없어요.
       </div>
-      <div v-else>
-        <table class="table table-notice">
+      <div
+        v-else
+        class="content-inner"
+      >
+        <table class="table table-zuly">
           <colgroup>
-            <col class="index">
-            <col class="title">
-            <col class="date">
+            <col width="50">
+            <col width="*">
+            <col width="95">
           </colgroup>
-          <thead class="table-head">
+          <thead>
           <tr>
             <th class="index">번호</th>
             <th class="title">제목</th>
             <th class="date">등록일</th>
           </tr>
           </thead>
-          <tbody class="table-body">
+          <tbody>
           <template v-for="(data, idx) in Notices.data">
             <tr
               class="table-row"
@@ -95,62 +98,6 @@ export default {
 .none {
   @include fontSize(15px);
 }
-.table {
-  @include fontSize(15px);
-  width: 100%;
-  table-layout: fixed;
-  border-top: 2px solid #333;
-  border-bottom: 1px solid #333;
-  th,
-  td {
-    height: 52px;
-    vertical-align: middle;
-    &.align-top {
-      vertical-align: top;
-      height: auto;
-    }
-  }
-  th {
-    font-weight: 700;
-  }
-  td {
-    border-top: 1px solid #e9e9e9;
-  }
-}
-colgroup {
-  .index {
-    width: 50px;
-  }
-  .date {
-    width: 95px;
-  }
-}
-.table-head,
-.table-body {
-  .index {
-    text-align: center;
-  }
-  .title {
-    text-align: left;
-    padding-left: 10px;
-  }
-  .date {
-    text-align: right;
-    padding-right: 10px;
-  }
-}
-.table-body {
-  .title {
-    cursor: pointer;
-  }
-  .txt-inner {
-    @include fontSize(14px);
-    padding: 10px 12px;
-    background-color: #f5f5f5;
-    white-space: pre-wrap;
-  }
-};
-
 
 @media (min-width: 768px) {
   .none {

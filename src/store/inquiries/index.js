@@ -14,6 +14,9 @@ export default {
     },
     [types.GET_INQUIRIES_FAILED](state) {
       state.isList = false;
+    },
+    [types.GET_INQUIRIES_DETAIL](state) {
+
     }
   },
   actions,

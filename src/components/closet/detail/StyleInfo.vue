@@ -543,21 +543,11 @@ export default {
   }
 }
 
-.content {
-  padding-top: 20px;
-  padding-bottom: 30px;
-}
-
 .row {
   margin-top: 30px;
   &:nth-child(1) {
     margin-top: 0;
   }
-}
-
-.content {
-  border-top: 1px solid $color-primary;
-  border-bottom: 1px solid #979797;
 }
 
 .body-type {
@@ -790,12 +780,8 @@ export default {
 }
 
 @media (min-width: 768px) {
-  .content {
-    border-top-width: 2px;
-    border-bottom: 1px solid #e9e9e9;
-    background-color: #f7f7f7;
-  }
   .content-inner {
+    background-color: #f7f7f7;
     padding-top: 25px;
     padding-bottom: 30px;
     padding-left: 30px;

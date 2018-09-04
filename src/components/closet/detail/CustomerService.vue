@@ -80,19 +80,19 @@
     >
       <div>
         <table
-          class="table table-Inquires"
+          class="table-zuly"
           ref="table"
         >
           <colgroup>
-            <col width="82">
+            <col width="50">
             <col width="*">
-            <col width="92">
+            <col width="95">
           </colgroup>
           <thead>
           <tr>
-            <th>번호</th>
-            <th>제목</th>
-            <th>등록일</th>
+            <th class="index">번호</th>
+            <th class="title">제목</th>
+            <th class="date">등록일</th>
           </tr>
           </thead>
           <tbody>

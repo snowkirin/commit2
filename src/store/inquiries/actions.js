@@ -2,7 +2,7 @@ import Inquiries from '@/library/api/inquiries';
 import types from './mutation-types';
 
 export default {
-  getInquiries({commit}) {
+  getInquiries({ commit }) {
     return Inquiries.getInquiries().then(res => {
       if (!_.isEmpty(res.data.result.data)) {
         // 데이터가 있다면
@@ -13,21 +13,20 @@ export default {
       }
     });
   },
-  getInquiriesDetail({commit}, data) {
+  getInquiriesDetail({ commit }, data) {
     return Inquiries.getInquiriesDetail(data).then(res => {
       commit(types.GET_INQUIRIES_DETAIL);
       return res;
     });
   },
-  postInquiries({commit}, data) {
+  postInquiries({ commit }, data) {
     return Inquiries.postInquiries(data).then(res => {
-      console.log(res);
       return res;
     });
   },
-  putInquiriesDetail({commit}, data) {
+  putInquiriesDetail({ commit }, data) {
     return Inquiries.putInquiriesDetail(data).then(res => {
       console.log(res, commit);
     });
-  },
+  }
 };
