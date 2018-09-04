@@ -20,13 +20,9 @@
 		font-weight: 100;
 	}
 }
-
-@media (min-width:768px) {
-	margin-bottom: 40px;
-}
-
-
-
 .content {
 	padding: 0 25px 0 30px;
+}
+@media (min-width:768px) {
+	margin-bottom: 40px;
 }

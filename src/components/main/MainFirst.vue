@@ -157,8 +157,8 @@ export default {
     }
   }
   .link {
-		@include fontSize(15px);
-		line-height: 56px;
+    @include fontSize(15px);
+    line-height: 56px;
     display: block;
     height: 56px;
     width: 100%;
@@ -212,7 +212,7 @@ export default {
 @media (min-width: 768px) {
   .content {
     background-image: url('~@/assets/img/main/img_main_large.png');
-		height: 630px;
+    height: 630px;
   }
   .banner-wrap {
     @include fontSize(13px);
@@ -239,6 +239,7 @@ export default {
     order: -1;
     margin-top: 0;
     margin-bottom: 16px;
+    font-weight: 100;
   }
   .link-wrap {
     .grid-flex {
@@ -253,5 +254,4 @@ export default {
     }
   }
 }
-
 </style>

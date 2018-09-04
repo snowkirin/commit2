@@ -53,6 +53,7 @@
                 <button
                   type="button"
                   class="btn btn-primary h-56"
+                  v-if="isShowButton"
                   @click="clickSelected('typeA')"
                 >
                   A 선택하기
@@ -94,6 +95,7 @@
                 <button
                   type="button"
                   class="btn btn-primary h-56"
+                  v-if="isShowButton"
                   @click="clickSelected('typeB')"
                 >
                   B 선택하기
@@ -103,7 +105,7 @@
           </div>
         </div>
 
-        <div class="type-select-wrap">
+        <div class="type-select-wrap" v-if="isShowButton">
           <button
             type="button"
             class="btn h-50 w-50"
@@ -158,6 +160,9 @@ export default {
       isTomorrowDirect: 'subscriptions/isTomorrowDirect',
       TomorrowDirectMemberId: 'subscriptions/TomorrowDirectMemberId'
     }),
+    isShowButton() {
+      return this.TomorrowResult.subscription_status === 14403;
+    }
   },
   methods: {
     ...mapActions({
