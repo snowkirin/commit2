@@ -36,7 +36,7 @@ const mutations = {
   [types.POST_FIND_PWD_AUTH](state, data) {
     state.isFindPwdAuth = data.result;
   },
-  [types.DESTROY_PASSWORD_AUTH](state) {
+  [types.DESTROY_FIND_PWD_AUTH](state) {
     state.FindPwdAuth = '';
     state.isFindPwdAuth = false;
   }

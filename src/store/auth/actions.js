@@ -71,7 +71,7 @@ export default {
   postPasswordComplete({ commit } , data) {
     return Auth.postPasswordComplete(data).then(res => {
       if (res.data.result) {
-        commit(types.DESTROY_PASSWORD_AUTH);
+        commit(types.DESTROY_FIND_PWD_AUTH);
         return res;
       }
     });
