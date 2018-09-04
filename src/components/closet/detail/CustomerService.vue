@@ -27,31 +27,31 @@
     >
       <div class="content-inner">
         <!-- 1:1 문의 내역 Wrapper -->
+        <div class="pt-20 pb-20">
+          <div class="grid-flex grid-fixed inquiries-top">
+            <div class="column w-27">
+              <div class="select-inquires-type">
+                <select v-model="inquiresType">
+                  <option value="">문의 종류를 선택해주세요</option>
+                  <option value="11092">구독문의</option>
+                  <option value="11903">주문문의</option>
+                  <option value="11904">배송문의</option>
+                  <option value="11901">일반(기타)문의</option>
+                </select>
+              </div>
+            </div>
+            <div class="column o-2">
+              <div class="text-field">
+                <input
+                  type="text"
+                  placeholder="제목을 입력해주세요."
+                  v-model="inquiresSubject"
+                >
+              </div>
 
-        <div class="grid-flex grid-fixed inquiries-top">
-          <div class="column w-27">
-            <div class="select-inquires-type">
-              <select v-model="inquiresType">
-                <option value="">문의 종류를 선택해주세요</option>
-                <option value="11092">구독문의</option>
-                <option value="11903">주문문의</option>
-                <option value="11904">배송문의</option>
-                <option value="11901">일반(기타)문의</option>
-              </select>
             </div>
           </div>
-          <div class="column o-2">
-            <div class="text-field">
-              <input
-                type="text"
-                placeholder="제목을 입력해주세요."
-                v-model="inquiresSubject"
-              >
-            </div>
-
-          </div>
-        </div>
-        <div class="inquiries-mid">
+          <div class="inquiries-mid">
           <textarea
             class="textarea-inquiries-content"
             name=""
@@ -60,9 +60,11 @@
             rows="10"
             placeholder="문의 내용을 입력해주세요."
             v-model="inquiresContent"
-            >
+          >
           </textarea>
+          </div>
         </div>
+
       </div>
       <div class="button-wrap">
         <button
@@ -78,7 +80,7 @@
       class="content"
       v-show="isSelected === 'list'"
     >
-      <div>
+      <div class="content-inner">
         <table
           class="table-zuly"
           ref="table"
@@ -231,8 +233,6 @@ export default {
 }
 
 .content-inner {
-  padding-top: 20px;
-  padding-bottom: 20px;
 }
 .button-wrap {
   margin-top: 20px;
@@ -261,29 +261,6 @@ export default {
   .item {
     flex-basis: 50%;
     max-width: 50%;
-  }
-}
-
-table {
-  @include fontSize(15px);
-  width: 100%;
-  table-layout: fixed;
-  border-top: 2px solid #333;
-  border-bottom: 1px solid #333;
-  th,
-  td {
-    height: 52px;
-    vertical-align: middle;
-    &.align-top {
-      vertical-align: top;
-      height: auto;
-    }
-  }
-  th {
-    font-weight: 700;
-  }
-  td {
-    border-top: 1px solid #e9e9e9;
   }
 }
 
