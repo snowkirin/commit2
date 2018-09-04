@@ -1,11 +1,8 @@
 <template>
   <div class="contents">
     <div class="contents-header">
-      <div>
-        <p class="title">아이디 찾기</p>
-        <p class="explain">가입 당시 입력한 휴대전화 번호를 통해 아이디를 찾을 수 있습니다.</p>
-      </div>
-      <div class="line line__default"></div>
+        <h3>아이디 찾기</h3>
+        <p>가입 당시 입력한 휴대전화 번호를 통해 아이디를 찾을 수 있습니다.</p>
     </div>
     <div class="content">
       <form>
@@ -15,52 +12,68 @@
               class="form-input"
               type="text"
               name=""
-              placeholder="이름">
+              placeholder="이름"
+              v-model="userName"
+            >
           </div>
         </div>
-        <div class="row grid-flex grid-fixed">
-          <div class="column">
-            <div class="text-field">
-              <input
-                class="form-input"
-                type="tel"
-                name=""
-                placeholder="휴대전화">
+        <div class="row">
+          <div class="grid-flex grid-fixed">
+            <div class="column">
+              <div class="text-field">
+                <input
+                  class="form-input"
+                  type="tel"
+                  name=""
+                  placeholder="휴대전화"
+                  v-model="phoneNumber"
+                >
+              </div>
+            </div>
+            <div class="column w-27">
+              <button
+                class="btn btn-secondary h-50"
+                type="button"
+                @click="clickPhoneVerify"
+              >
+                인증
+              </button>
             </div>
           </div>
-          <div class="column w-27">
-            <button
-              class="btn btn-secondary h-50"
-              type="button"
-            >
-              인증
-            </button>
-          </div>
+
         </div>
-        <div class="row grid-flex grid-fixed">
-          <div class="column">
-            <div class="text-field">
-              <input
-                class="form-input"
-                type="text"
-                name=""
-                placeholder="인증번호">
+        <div class="row">
+          <div class="grid-flex grid-fixed">
+            <div class="column">
+              <div class="text-field">
+                <input
+                  class="form-input"
+                  type="text"
+                  name=""
+                  v-model="authNumber"
+                  placeholder="인증번호">
+              </div>
+            </div>
+            <div class="column w-27">
+              <button
+                class="btn btn-secondary h-50"
+                type="button"
+                @click="clickAuthConfirm"
+              >
+                확인
+              </button>
             </div>
           </div>
-          <div class="column w-27">
-            <button
-              class="btn btn-secondary h-50"
-              type="button"
-            >
-              확인
-            </button>
-          </div>
+          <p v-if="authErr" class="txt-error">
+            {{ authErrMessage }}
+          </p>
         </div>
-        <div class="button">
+        <div class="button-wrap">
           <!--TODO: submit?-->
           <button
             type="button"
             class="btn btn-primary h-56"
+            @click="clickComplete"
           >
             다음
           </button>
@@ -68,79 +81,98 @@
       </form>
     </div>
   </div>
-  <!--<div class="find-id">
-    <p>Title</p>
-    <div class="findId-form mt40">
-      <input type="text" name="name" class="form-login-input mt10" placeholder="이름" v-validate="'required'" />
-      <input type="text" name="phone" class="form-login-input mt10" placeholder="휴대전화" v-validate="'required'" />
-      <div class="inputGroup">
-        <input type="text" name="phone_auth_number" class="form-login-group mt10" placeholder="인증번호" style="width: 72%;"/>
-        <div style="display: inline-table; width: 3%;"></div>
-        <button  class="button-grey" style="width: 25%;" @click="phoneVerify">인증</button>
-      </div>
-      <div class="findId-wait mt10" v-show="authErr" v-html="authErrMessage">
-      </div>
-      <div class="mt10">
-        <button class="button-login" @click="authKeyConfirm">
-          다음
-        </button>
-      </div>
-    </div>
-  </div>-->
-  <!--<div class="findId subContent side-margin-50">
-    <div class="findId-title mt70">아이디찾기</div>
-    <div class="explain mt10">
-      가입 당시 입력한 휴대전화 번호를 통해 아이디를 찾을 수 있습니다.
-    </div>
-    <div class="findIdLine mt25"></div>
-    <div class="findId-form mt40" style="width: 392px; margin: auto;">
-      <input type="text" name="name" class="form-login-input mt10" placeholder="이름" v-validate="'required'" />
-      <input type="text" name="phone" class="form-login-input mt10" placeholder="휴대전화" v-validate="'required'" />
-      <div class="inputGroup">
-        <input type="text" name="phone_auth_number" class="form-login-group mt10" placeholder="인증번호" style="width: 72%;"/>
-        <div style="display: inline-table; width: 3%;"></div>
-        <button  class="button-grey" style="width: 25%;" @click="phoneVerify">인증</button>
-      </div>
-      <div class="findId-wait mt10" v-show="authErr" v-html="authErrMessage">
-      </div>
-      <div class="mt10">
-        <button class="button-login" @click="authKeyConfirm">
-          다음
-        </button>
-      </div>
-    </div>
-  </div>-->
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
-  name: "findId",
+  name: 'findId',
   data() {
     return {
       authErr: false,
-      authErrMessage: ""
+      authErrMessage: '',
+      userName: '',
+      phoneNumber: '',
+      authNumber: ''
     };
   },
   computed: mapGetters({
-    phoneAuth: "common/getPhoneAuth",
-    phoneAuthkey: "common/getPhoneAuthKey"
+    FindIdAuth: 'auth/FindIdAuth',
+    isFindIdAuth: 'auth/isFindIdAuth'
   }),
   methods: {
     ...mapActions({
-      actPhoneVerify: "common/phoneVerify",
-      actPhoneCheckVerify: "common/phoneCheckVerify"
+      postFindId: 'auth/postFindId',
+      postFindIdAuth: 'auth/postFindIdAuth'
     }),
-    async phoneVerify() {
-      const name = document.querySelector("input[name=name]");
-      const phone = document.querySelector("input[name=phone]");
 
-      if (!this.$common.InputDataValidation(name, "이름을 입력해주세요.", true))
+    clickPhoneVerify() {
+      const formData = {
+        name: this.userName,
+        phone: this.phoneNumber
+      };
+
+      if (_.isEmpty(formData.name)) {
+        alert('이름을 입력해 주세요.');
+        return;
+      }
+      if (_.isEmpty(formData.phone)) {
+        alert('휴대전화를 입력해 주세요.');
+        return;
+      }
+
+      this.postFindId(formData).then(res => {
+        if (res.data.result) {
+          alert('인증번호를 입력해 주세요.');
+          this.startTimer();
+          this.authErr = true;
+        } else if (!res.data.result) {
+          alert('이름을 정확히 입력해 주세요.');
+        } else {
+          alert('통신 오류');
+        }
+      });
+    },
+    clickAuthConfirm() {
+      const formData = {
+        authId: this.FindIdAuth,
+        authNumber: this.authNumber
+      };
+
+      if (_.isEmpty(formData.authNumber)) {
+        alert('인증번호를 입력해주세요.');
+        return;
+      }
+
+      this.postFindIdAuth(formData, 'id').then(res => {
+        if (res.data.result) {
+          alert('인증되었습니다.');
+          this.stopTimer();
+        } else if (!res.data.result) {
+          alert('인증번호를 정확히 입력해 주세요.');
+        } else {
+          alert('통신 오류가 발생하였습니다.');
+        }
+      });
+    },
+    clickComplete() {
+      if (this.isFindIdAuth) {
+        this.$router.push({ path: '/find/id/complete' });
+      } else {
+        alert('인증 후 진행해 주세요');
+      }
+    },
+
+    async phoneVerify() {
+      const name = document.querySelector('input[name=name]');
+      const phone = document.querySelector('input[name=phone]');
+
+      if (!this.$common.InputDataValidation(name, '이름을 입력해주세요.', true))
         return;
 
       await this.$validator
-        .validate("phone", phone.value)
+        .validate('phone', phone.value)
         .then(async result => {
           let resultMsg = true;
 
@@ -148,40 +180,40 @@ export default {
             if (this.$common.phoneValidation(phone.value)) {
               await this.actPhoneVerify({
                 name: name.value,
-                phone: phone.value.split("-").join("")
+                phone: phone.value.split('-').join('')
               });
 
               return true;
             }
 
-            alert("올바른 휴대폰번호를 입력해주세요.");
+            alert('올바른 휴대폰번호를 입력해주세요.');
             resultMsg = false;
           }
 
-          if (resultMsg) alert("휴대폰 번호를 입력해주세요.");
+          if (resultMsg) alert('휴대폰 번호를 입력해주세요.');
           phone.focus();
           return false;
         });
 
-      if (this.$store.getters["common/getPhoneAuthKey"] > 0) {
+      if (this.$store.getters['common/getPhoneAuthKey'] > 0) {
         this.startTimer();
         this.authErr = true;
       }
     },
     async authKeyConfirm() {
       const phoneAuthNumber = document.querySelector(
-        "input[name=phone_auth_number]"
+        'input[name=phone_auth_number]'
       );
 
-      if (!this.$store.getters["common/getPhoneAuthKey"]) {
-        alert("먼저 휴대전화를 입력하고 인증버튼을 눌러주세요.");
+      if (!this.$store.getters['common/getPhoneAuthKey']) {
+        alert('먼저 휴대전화를 입력하고 인증버튼을 눌러주세요.');
         return false;
       }
 
       if (
         !this.$common.InputDataValidation(
           phoneAuthNumber,
-          "인증번호를 입력해주세요.",
+          '인증번호를 입력해주세요.',
           true
         )
       )
@@ -192,9 +224,9 @@ export default {
       });
 
       if (this.phoneAuth) {
-        alert("인증되었습니다.");
-        this.$router.push({ path: "/find/id/complete" });
-      } else alert("인증번호를 다시 확인하시고 진행해주세요.");
+        alert('인증되었습니다.');
+        this.$router.push({ path: '/find/id/complete' });
+      } else alert('인증번호를 다시 확인하시고 진행해주세요.');
 
       return true;
     },
@@ -216,7 +248,7 @@ export default {
         minutes = minutes < 10 ? `0${minutes}` : minutes;
         seconds = seconds < 10 ? `0${seconds}` : seconds;
 
-        this.authErrMessage = `메시지를 확인하시고 인증번호를 입력해주세요.  <span style="color: #ec4b1a;">${minutes}:${seconds}</span>`;
+        this.authErrMessage = `메시지를 확인하시고 인증번호를 입력해주세요. ${minutes}:${seconds}`;
 
         if (printTimer <= 0) {
           clearInterval(interval);
@@ -224,39 +256,15 @@ export default {
       }, 1000);
 
       window.interval = interval;
+    },
+    stopTimer() {
+      this.authErr = false;
+      clearInterval(window.interval);
     }
   }
 };
 </script>
-
+<style scoped lang="scss" src="@/assets/css/join-style.scss"></style>
 <style scoped lang="scss">
-.contents {
-  padding: 24px 20px 121px;
-  text-align: center;
-  .title {
-    font-size: 24px;
-    line-height: 32px;
-    letter-spacing: -1.4px;
-  }
-  .explain {
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: -0.8px;
-    color: #797979;
-    margin-top: 3px;
-  }
-  .line {
-    margin-top: 14px;
-    margin-bottom: 19px;
-    border-width: 2px;
-  }
-  .row {
-    margin-bottom: 10px;
-  }
-  .button {
-    button {
-      width: 100%;
-    }
-  }
-}
+  .row { margin-bottom: 10px;}
 </style>

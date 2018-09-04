@@ -322,7 +322,7 @@
         </div>
       </div>
       <div class="btn-complete">
-        <button class="btn btn-primary h-56" type="button" @click="validateBeforeSubmit">다음</button>
+        <button class="btn btn-primary h-56" type="button" @click="validateBeforeSubmit">다음(3/4)</button>
       </div>
     </form>
     <simplert ref="alert" :useRadius="false" :useIcon="false" />

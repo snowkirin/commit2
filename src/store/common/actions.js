@@ -2,6 +2,7 @@ import Auth from '@/library/api/auth';
 import types from './mutation-types';
 
 export default {
+  // 삭제 예정
   phoneVerify({commit}, data) {
     try {
       commit(types.PHONE_VERIFY_COUNT);
@@ -65,7 +66,12 @@ export default {
       console.error(e.message);
     }
   },
-  // data = boolean (true, false)
+  // 삭제예정
+
+
+  /*
+  * data = boolean (true, false)
+  * */
   toggleMainBanner({ commit }, data) {
     commit(types.TOGGLE_MAIN_BANNER, data);
   }

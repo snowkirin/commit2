@@ -24,7 +24,11 @@
             <div>
               <div class="date-wrap">
                 <p>
-                  <span>{{PastResult.length - idx}}th</span> | <span>{{ data .subscription_date }}</span>
+                  <span>
+                    {{PastResult.length - idx}}{{suffixNumber(PastResult.length - idx)}}
+                  </span>
+                  |
+                  <span>{{ data .subscription_date }}</span>
                 </p>
               </div>
               <div class="image-wrap">
@@ -118,6 +122,18 @@ export default {
       getPastDetail: 'subscriptions/getPastDetail',
       getFeedbacks: 'subscriptions/getFeedbacks'
     }),
+
+    suffixNumber(data) {
+      if (data === 1) {
+        return 'st';
+      } else if (data === 2) {
+        return 'nd';
+      } else if (data === 3) {
+        return 'rd';
+      } else {
+        return 'th';
+      }
+    },
     feedbackToggle(idx) {
       if (this.feedbacksData[idx]) {
         if (this.feedbacksData[idx].result) {

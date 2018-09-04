@@ -1,164 +1,102 @@
 <template>
-  <div class="findId subContent side-margin-50">
-    <div class="findId-title">비밀번호 찾기</div>
-    <div class="explain mt10">
-      새로운 비밀번호를 입력하시고 변경버튼을 눌러주세요.
+  <div class="contents">
+    <div class="contents-header">
+      <h3>비밀번호 찾기</h3>
+      <p>새로운 비밀번호를 입력하시고 변경버튼을 눌러주세요.</p>
     </div>
-    <div class="findIdLine mt25"></div>
-    <div class="findId-form mt40" style="width: 392px; margin: auto;">
-      <div class="field" :class="{ error: errors.has('password') }">
-        <input type="password" name="password" class="form-login-input mt12" placeholder="비밀번호 8자리 이상의 영문,숫자,특수문자 포함" v-validate="{ required: true, regex: pwdRegex }" @keyup="pwdCheck(errors.has('password'))" />
-        <span class="error" v-show="errors.has('password')">{{ pwdMsg }}</span>
-      </div>
-      <div class="field" :class="{ error: errors.has('password_confirm') }">
-        <input type="password" name="password_confirm" class="form-login-input mt12" placeholder="비밀번호 확인" v-validate="'required|confirmed:password'" @change="pwdConfirm(errors.has('passwordConfirmation'))" />
-        <span class="error" v-show="errors.has('password_confirm')">비밀번호가 일치하지 않습니다.</span>
-      </div>
-      <div class="mt30">
-        <button class="button-login" @click="changePassword">비밀번호 변경</button>
-      </div>
+    <div class="content">
+      <form>
+        <div class="row">
+          <div
+            class="text-field"
+            :class="{'text-field-error': errors.has('password')}"
+          >
+            <input
+              type="password"
+              name="password"
+              v-model="password"
+              ref="password"
+              placeholder="비밀번호 8자리 이상의 영문,숫자,특수문자 포함"
+              v-validate="{ required: true, regex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/ }"
+              data-vv-as="비밀번호"
+            />
+          </div>
+          <p class="txt-error" v-if="errors.has('password')">{{errors.first('password')}}</p>
+        </div>
+        <div class="row">
+          <div
+            class="text-field"
+            :class="{'text-field-error': errors.has('password_confirm')}"
+          >
+            <input
+              type="password"
+              name="password_confirm"
+              placeholder="비밀번호 확인"
+              v-validate="'required|confirmed:password'"
+              data-vv-as="비밀번호 확인"
+            />
+          </div>
+          <p class="txt-error" v-if="errors.has('password_confirm')">{{errors.first('password_confirm')}}</p>
+        </div>
+        <div class="button-wrap">
+          <button
+            type="button"
+            class="btn btn-primary h-56"
+            @click="clickChangePassword"
+          >
+            비밀번호 변경
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+  import {mapGetters, mapActions} from 'vuex';
 
-export default {
-  name: 'pwd-success',
-  data() {
-    return {
-      pwdRegex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/,
-      pwdMsg: '비밀번호를 입력해주세요.',
-      isPwd: false,
-      isPwdConfirm: false
-    };
-  },
-  computed: mapGetters({
-    phoneAuth: 'common/getPhoneAuth',
-    userId: 'common/getUserId'
-  }),
-  methods: {
-    ...mapActions({
-      vuexChangePassword: 'common/changePassword'
-    }),
-    pwdCheck(isBoolean) {
-      const pwd = document.querySelector('input[name=password]');
-
-      let checkBoolean = isBoolean;
-      if (pwd.value === '') {
-        if (!checkBoolean) checkBoolean = !checkBoolean;
-        this.pwdMsg = '비밀번호를 입력해주세요.';
-      } else {
-        this.pwdMsg =
-          '비밀번호가 안전하지 않습니다. (최소 8자리 이상의 영문,숫자,특수문자 포함)';
-      }
-
-      if (checkBoolean) this.isPwd = false;
-      else this.isPwd = true;
+  export default {
+    name: 'pwd-success',
+    data() {
+      return {
+        password: ''
+      };
     },
-    pwdConfirm(isBoolean) {
-      if (isBoolean) this.isPwdConfirm = false;
-      else this.isPwdConfirm = true;
+    computed: {
+      ...mapGetters({
+        FindPwdAuth: 'auth/FindPwdAuth'
+      })
     },
-    changePassword() {
-      this.$validator.validateAll().then(async result => {
-        if (result) {
-          await this.vuexChangePassword({
-            password: document.querySelector('input[name=password]').value
-          });
+    methods: {
+      ...mapActions({
+        postPasswordComplete: 'auth/postPasswordComplete'
+      }),
+      clickChangePassword() {
+        const formData = {
+          authId: this.FindPwdAuth,
+          password: this.password
+        };
 
-          if (this.$store.getters['common/getPhonePwdComplete']) {
-            alert('비밀번호 변경이 완료되었습니다.');
-            this.$router.push({ path: '/login' });
-          }
+        if (_.isEmpty(formData.password)) {
+          alert('비밀번호를 입력해 주세요');
         }
-      });
+        this.$validator.validateAll().then(result => {
+          if (result) {
+            this.postPasswordComplete(formData).then(res => {
+              console.log(res);
+              alert('비밀번호 변경이 완료되었습니다.');
+              this.$router.push({path: '/login'});
+            })
+          }
+        })
+      },
     }
-  }
-};
+  };
 </script>
 
-<style scoped>
-.findId {
-  width: 820px;
-  text-align: center;
-  margin: auto;
-}
-
-.findId-title {
-  font-size: 32px;
-  font-weight: 400;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.26;
-  letter-spacing: -0.4px;
-  text-align: center;
-  color: #333333;
-}
-
-.findIdLine {
-  height: 1px;
-  opacity: 0.2;
-  background-color: #333333;
-}
-
-.findId-chk-area {
-  height: 24px;
-  display: table;
-}
-
-.checkboxText {
-  text-align: left;
-  display: table-cell;
-  vertical-align: bottom;
-}
-
-.findIdMenu {
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 2;
-  letter-spacing: -1px;
-  color: #333333;
-}
-
-.findIdMenuSide {
-  width: 33%;
-  display: table-cell;
-}
-
-.findIdMenuCenter {
-  width: 34%;
-  border-left: 1px solid #999999;
-  border-right: 1px solid #999999;
-  display: table-cell;
-}
-
-.findId-wait {
-  text-align: left;
-  font-size: 14px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  letter-spacing: -0.8px;
-  text-align: left;
-  color: #333333;
-}
-
-.findId-wait span {
-  color: #ec4b1a;
-}
-
-.inputGroup input {
-  vertical-align: bottom;
-}
-
-.findId-form span {
-  font-size: 16px;
-  letter-spacing: -1px;
-  text-align: center;
-  color: #ec4b1a;
-}
+<style scoped lang="scss" src="@/assets/css/join-style.scss"></style>
+<style scoped lang="scss">
+  .row {
+    margin-bottom: 10px;
+  }
 </style>

@@ -81,7 +81,64 @@ export default {
         withCredentials: true
       })
       .then(res => {
-        console.log(res);
+        return res;
+      })
+      .catch(err => {
+        return {
+          ...err.response,
+          message: err.message
+        };
+      });
+  },
+
+  // 아이디 찾기
+  postFindId(data) {
+    return axios
+      .post(`${API_URL}/auth/findId`, data)
+      .then(res => {
+        return res;
+      })
+      .catch(err => {
+        return {
+          ...err.response,
+          message: err.message
+        };
+      });
+  },
+  // 아이디, 비밀번호  폰인증
+  postFindAuth(data) {
+    return axios
+      .post(`${API_URL}/auth/find/auth`, data)
+      .then(res => {
+        return res;
+      })
+      .catch(err => {
+        return {
+          ...err.response,
+          message: err.message
+        };
+      });
+  },
+
+  // 비밀번호 찾기
+  postFindPwd(data) {
+    return axios
+      .post(`${API_URL}/auth/findPwd`, data)
+      .then(res => {
+        return res;
+      })
+      .catch(err => {
+        return {
+          ...err.response,
+          message: err.message
+        };
+      });
+  },
+  // 비밀번호 찾기 변경
+  postPasswordComplete(data) {
+    return axios
+      .post(`${API_URL}/auth/password/complete`, data)
+      .then(res => {
         return res;
       })
       .catch(err => {
