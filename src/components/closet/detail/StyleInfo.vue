@@ -3,8 +3,8 @@
     <div class="contents-header">
       <h3>줄라이는 베이직 스타일을 기본으로 합니다.</h3>
     </div>
-    <form>
-      <div class="content">
+    <div class="content-form content-border">
+      <form>
         <div class="content-inner">
           <div class="grid-flex">
             <div class="column column-left">
@@ -20,7 +20,7 @@
                       :class="[{selected: styleData.blouseSize  === data.code}, setDisabledClass('blouse', data.name)]"
                       v-for="(data, idx) in Sizes.blouse"
                       :key="idx"
-                      @click="clickSetSize('blouseSize', data)">
+                      @click="clickSetSize('blouseSize', data, $event)">
                       {{ data.name }}
                     </li>
                   </ul>
@@ -38,7 +38,7 @@
                       :class="[{selected: styleData.skirtSize  === data.code}, setDisabledClass('skirt', data.name)]"
                       v-for="(data, idx) in Sizes.skirt"
                       :key="idx"
-                      @click="clickSetSize('skirtSize', data)">
+                      @click="clickSetSize('skirtSize', data, $event)">
                       {{ data.name }}
                     </li>
                   </ul>
@@ -57,7 +57,7 @@
                       v-for="(data, idx) in Sizes.pants"
                       v-if="data.name !== '31'"
                       :key="idx"
-                      @click="clickSetSize('pantsSize', data)">
+                      @click="clickSetSize('pantsSize', data, $event)">
                       {{ data.name }}
                     </li>
                   </ul>
@@ -89,7 +89,10 @@
               </div>
               <!--가슴(브래지어)-->
               <div class="row">
-                <p class="txt-form-title">가슴 (브래지어)</p>
+                <div class="form-title-wrap">
+                  <p class="txt-form-title">가슴 (브래지어)</p>
+                </div>
+
                 <div class="text-field" :class="{'text-field-error': errors.has('bustSize')}">
                   <input
                     type="text"
@@ -102,7 +105,9 @@
               </div>
               <!--체형-->
               <div class="row">
-                <p class="txt-form-title">체형</p>
+                <div class="form-title-wrap">
+                  <p class="txt-form-title">체형</p>
+                </div>
                 <div class="body-type">
                   <p
                     class="txt-body-type"
@@ -116,10 +121,9 @@
                         :class="{selected: styleData.bodyType === data.code}"
                         v-for="(data, idx) in Sizes.body_type"
                         :key="idx"
-                        @click="clickSetSize('bodyType', data)"
+                        @click="clickSetSize('bodyType', data, $event)"
                       >
                         <img :src="`${require('@/assets/img/signup/img_body'+(idx+1)+'.png')}`"/>
-                        {{data }}
                       </li>
                     </template>
                   </ul>
@@ -178,7 +182,7 @@
                   <li
                     v-for="(data, idx) in Options.dress_code"
                     @click="clickDressCode(data, $event)"
-                    :class="{selected: data.code === styleData.dress_code}"
+                    :class="{selected: data.code === styleData.dressCode}"
                     :key="idx">
                     <img :src="dressCodeImage(data.name)"/>
                     <span class="text">{{ data.name }}</span>
@@ -187,10 +191,11 @@
               </div>
               <!-- 업로드 -->
               <div class="row">
-                <div class="form-title-wrap">
-                  <p class=" txt-form-title">[선택] My Daily Look - 사진을 올려주세요.</p>
+                <div class="form-title-wrap" style="position: relative;">
+                  <p class=" txt-form-title" style="line-height:56px;">My Daily Look</p>
+                  <button type="button" class="btn btn-secondary h-50" style="position: absolute; right: 0; top: 0; width: 170px;" @click="clickImageUpload">업로드</button>
                 </div>
-                <div class="grid-flex grid-fixed image-upload">
+                <div class="grid-flex grid-fixed image-upload" v-show="false">
                   <div class="column">
                     <div class="text-field">
                       <input
@@ -223,7 +228,7 @@
                   class="image-preview"
                   style="display: block;"
                   ref="imagePreview"
-                  v-if="!_.isEmpty(previewImage) || !_.isEmpty(getImageInfo.imagePath)"
+                  v-show="!_.isEmpty(previewImage) || !_.isEmpty(getImageInfo.imagePath)"
                 >
                   <div>
                     <svg version="1.1" id="L3" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve" width="50" style="margin: 0 auto; display: none;">
@@ -254,17 +259,18 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="btn-complete">
-        <button
-          type="button"
-          class="btn btn-primary h-56"
-          @click="clickComplete"
-        >
-          수정하기
-        </button>
-      </div>
-    </form>
+      </form>
+    </div>
+    <div class="button-wrap">
+      <button
+        type="button"
+        class="btn btn-primary h-56"
+        @click="clickComplete"
+      >
+        수정하기
+      </button>
+    </div>
+    <simplert ref="alert" :useRadius="false" :useIcon="false" />
   </div>
 
 </template>
@@ -272,10 +278,20 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import Member from '@/library/api/member';
+import Simplert from 'vue2-simplert';
+
+const alertObject = {
+  type: 'alert', // 타입
+  customClass: 'popup-custom-class', // 커스텀 클래스 네임
+  disableOverlayClick: false, // 오버레이 클릭시 닫기 방지
+  customCloseBtnText: '확인' // 닫기 버튼 텍스트
+};
 
 export default {
   name: 'styleInfo',
-  components: {},
+  components: {
+    Simplert
+  },
   data() {
     return {
       styleData: {
@@ -476,9 +492,34 @@ export default {
       formData.append('userImages', $this.imageFile);
 
       if (_.isEmpty(this.previewImage)) {
-        Member.patchMeberStyle($this.styleData);
+        Member.patchMeberStyle($this.styleData).then(res => {
+          if (res.status === 200) {
+            _.assign(alertObject, {
+              message: '변경되었습니다.'
+            });
+            this.$refs.alert.openSimplert(alertObject);
+          } else {
+            _.assign(alertObject, {
+              message: '통신 중 오류가 발생하였습니다.'
+            });
+            this.$refs.alert.openSimplert(alertObject);
+          }
+        });
       } else {
-        Member.patchMemberImageStyle(formData, $this.styleData);
+        Member.patchMemberImageStyle(formData, $this.styleData).then(res => {
+          if (res[0].status === 200) {
+            _.assign(alertObject, {
+              message: '변경되었습니다.'
+            });
+            this.$refs.alert.openSimplert(alertObject);
+          } else {
+            _.assign(alertObject, {
+              message: '통신 중 오류가 발생하였습니다.'
+            });
+            this.$refs.alert.openSimplert(alertObject);
+          }
+
+        });
       }
     }
   },
@@ -542,13 +583,6 @@ export default {
   @include fontSize(15px);
   &.selected {
     font-weight: 700;
-  }
-}
-
-.row {
-  margin-top: 30px;
-  &:nth-child(1) {
-    margin-top: 0;
   }
 }
 
@@ -769,25 +803,23 @@ export default {
     height: 100px;
     border: 1px solid #c4c4c4;
     resize: none;
-    padding: 3px 12px 5px;
+    padding: 11px;
   }
 }
 
-.btn-complete {
+.button-wrap {
   margin-top: 30px;
-  text-align: right;
-  .btn {
-    width: 287px;
-  }
+}
+
+.content-form {
+  padding-top: 20px;
+  padding-bottom: 30px;
 }
 
 @media (min-width: 768px) {
-  .content-inner {
+  .content-form {
     background-color: #f7f7f7;
-    padding-top: 25px;
-    padding-bottom: 30px;
-    padding-left: 30px;
-    padding-right: 30px;
+    padding: 30px;
   }
   .column-right {
     margin-left: 7%;
@@ -802,6 +834,12 @@ export default {
       li {
         width: 90px;
       }
+    }
+  }
+  .button-wrap {
+    text-align: right;
+    .btn {
+      width: 287px;
     }
   }
 }

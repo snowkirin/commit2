@@ -51,7 +51,7 @@
             <div class="row">
               <p class="txt-form-title">[선택] My Daily Look - 사진을 올려주세요.</p>
               <div>
-                <div class="grid-flex image-upload">
+                <div class="grid-flex grid-fixed image-upload">
                   <div class="column">
                     <div class="text-field">
                       <input readonly type="text" placeholder="사진을 올려주세요." v-model="imageFile.name">

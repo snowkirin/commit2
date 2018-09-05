@@ -328,8 +328,15 @@ export default {
 .list-flex {
   background-color: #f5f5f5;
 }
+.column-left {
+  .row {
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+}
 .row {
-  margin-top: 35px;
+  margin-top: 30px;
 }
 .txt-body-type {
   @include fontSize(14px);
@@ -379,7 +386,6 @@ export default {
       text-align: center;
     }
   }
-
   .column > .row {
     &:nth-child(1) {
       margin-top: 0;

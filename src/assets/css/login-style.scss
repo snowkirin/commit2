@@ -1,5 +1,5 @@
 .contents {
-  padding: 24px 20px 112px;
+  padding: 24px 20px 0px;
   .contents-header {
     text-align: center;
     h3 {
@@ -19,6 +19,12 @@
 }
 .row {
   margin-bottom: 10px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+.button-wrap {
+  margin-top: 20px;
 }
 @media (min-width: 768px) {
   .contents {

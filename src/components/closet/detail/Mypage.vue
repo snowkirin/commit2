@@ -3,444 +3,460 @@
     <div class="contents-header">
       <h3>나의 정보를 변경 하실 수 있습니다.</h3>
     </div>
-    <div class="content">
-      <!--<vue-json-pretty :data="Mypage"></vue-json-pretty>-->
-      <div class="content-inner">
+    <div class="content-form content-border">
+      <div>
         <div class="grid-flex">
           <div class="column column-left">
-            <form data-vv-scope="phone">
-              <!-- 휴대폰-->
-              <div>
-                <div class="form-title-wrap">
-                  <p class="txt-form-title">휴대폰 번호</p>
-                </div>
+            <div class="row">
+              <form data-vv-scope="phone">
+                <!-- 휴대폰-->
+                <div>
+                  <div class="form-title-wrap">
+                    <p class="txt-form-title">휴대폰 번호</p>
+                  </div>
 
-                <div class="form-row">
-                  <div class="grid-flex grid-fixed">
-                    <div class="column">
-                      <div class="text-field">
-                        <input
-                          type="text"
-                          readonly
-                          :value="initPhoneNumber">
+                  <div class="form-row">
+                    <div class="grid-flex grid-fixed">
+                      <div class="column">
+                        <div class="text-field">
+                          <input
+                            type="text"
+                            readonly
+                            :value="initPhoneNumber">
+                        </div>
+                      </div>
+                      <div class="column w-26 o-3">
+                        <button
+                          type="button"
+                          class="btn btn-secondary h-50"
+                          @click="clickTogglePhone"
+                        >
+                          {{ isFlag.phoneNumber ? '변경 취소' : '변경'}}
+                        </button>
                       </div>
                     </div>
-                    <div class="column w-26 o-3">
-                      <button
-                        type="button"
-                        class="btn btn-secondary h-50"
-                        @click="clickTogglePhone"
-                      >
-                        {{ isFlag.phoneNumber ? '변경 취소' : '변경'}}
-                      </button>
-                    </div>
                   </div>
-                </div>
 
-                <div v-if="isFlag.phoneNumber" class="form-row">
-                  <div class="grid-flex grid-fixed">
-                    <div class="column">
-                      <div class="text-field" :class="{'text-field-error': errors.has('phone.latestPhoneNumber')}">
-                        <input
-                          type="text"
-                          name="latestPhoneNumber"
-                          ref="latestPhoneNumberInput"
-                          placeholder="변경할 휴대폰 번호"
-                          v-validate="{required: true, regex: /^\d{3}\d{3,4}\d{4}$/}"
-                          data-vv-as="휴대폰 번호"
-                          v-model.trim="phoneNumber"
+                  <div v-if="isFlag.phoneNumber" class="form-row">
+                    <div class="grid-flex grid-fixed">
+                      <div class="column">
+                        <div class="text-field" :class="{'text-field-error': errors.has('phone.latestPhoneNumber')}">
+                          <input
+                            type="text"
+                            name="latestPhoneNumber"
+                            ref="latestPhoneNumberInput"
+                            placeholder="변경할 휴대폰 번호"
+                            v-validate="{required: true, regex: /^\d{3}\d{3,4}\d{4}$/}"
+                            data-vv-as="휴대폰 번호"
+                            v-model.trim="phoneNumber"
+                          >
+                        </div>
+                      </div>
+                      <div class="column w-26 o-3">
+                        <button
+                          type="button"
+                          class="btn btn-secondary h-50"
+                          ref="latestPhoneNumberButton"
+                          @click="clickSendPhoneAuth"
                         >
+                          인증 전송
+                        </button>
                       </div>
                     </div>
-                    <div class="column w-26 o-3">
-                      <button
-                        type="button"
-                        class="btn btn-secondary h-50"
-                        ref="latestPhoneNumberButton"
-                        @click="clickSendPhoneAuth"
-                      >
-                        인증 전송
-                      </button>
-                    </div>
+                    <p
+                      class="txt-error"
+                      v-if="errors.has('phone.latestPhoneNumber')"
+                    >
+                      {{errors.first('phone.latestPhoneNumber')}}
+                    </p>
                   </div>
-                  <p
-                    class="txt-error"
-                    v-if="errors.has('phone.latestPhoneNumber')"
-                  >
-                    {{errors.first('phone.latestPhoneNumber')}}
-                  </p>
-                </div>
 
-                <div v-if="isFlag.phoneAuth" class="form-row">
-                  <div class="grid-flex grid-fixed">
-                    <div class="column">
-                      <div class="text-field">
-                        <input type="text" v-model="phoneAuthNumber">
+                  <div v-if="isFlag.phoneAuth" class="form-row">
+                    <div class="grid-flex grid-fixed">
+                      <div class="column">
+                        <div class="text-field">
+                          <input type="text" v-model="phoneAuthNumber">
+                        </div>
+                      </div>
+                      <div class="column w-26 o-3">
+                        <button type="button" class="btn btn-secondary h-50" @click="clickChangePhone">변경</button>
                       </div>
                     </div>
-                    <div class="column w-26 o-3">
-                      <button type="button" class="btn btn-secondary h-50" @click="clickChangePhone">변경</button>
-                    </div>
+                    <p
+                      class="txt-error">
+                      {{ authErrMessage }}
+                    </p>
                   </div>
-                  <p
-                    class="txt-error">
-                    {{ authErrMessage }}
-                  </p>
-                </div>
 
-              </div>
-            </form>
-            <form data-vv-scope="password" name="password">
-              <!--비밀번호 -->
-              <div>
-                <div class="form-title-wrap">
-                  <p class="txt-form-title">비밀번호 변경</p>
                 </div>
+              </form>
+            </div>
+            <div class="row">
+              <form data-vv-scope="password" name="password">
+                <!--비밀번호 -->
+                <div>
+                  <div class="form-title-wrap">
+                    <p class="txt-form-title">비밀번호 변경</p>
+                  </div>
 
-                <div class="form-row">
-                  <div class="grid-flex grid-fixed">
-                    <div class="column w-71">
-                      <div class="text-field">
-                        <input
-                          type="password"
-                          placeholder="현재 비밀번호"
-                          name="currentPassword"
-                          v-model="currentPassword"
-                          data-vv-as="현재 비밀번호"
-                          v-validate=""
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <p class="txt-error" v-if="errors.has('password.currentPassword')">
-                    {{ errors.first('password.currentPassword') }}
-                  </p>
-                </div>
-                <div class="form-row">
-                  <div class="grid-flex grid-fixed">
-                    <div class="column w-71">
-                      <div class="text-field" :class="{'text-field-error': errors.has('password.newPassword')}">
-                        <input
-                          type="password"
-                          placeholder="신규 비밀번호"
-                          name="newPassword"
-                          ref="newPassword"
-                          v-model="newPassword"
-                          data-vv-as="신규 비밀번호"
-                          v-validate="{
-                        regex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}/
-                      }"
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <p class="txt-error" v-if="errors.has('password.newPassword')">
-                    {{ errors.first('password.newPassword') }}
-                  </p>
-                </div>
-                <div class="form-row">
-                  <div class="grid-flex grid-fixed">
-                    <div class="column">
-                      <div class="text-field" :class="{'text-field-error': errors.has('password.newPasswordConfirm')}">
-                        <input
-                          type="password"
-                          placeholder="신규 비밀번호 확인"
-                          name="newPasswordConfirm"
-                          v-validate="{confirmed: newPassword}"
-                        >
-                      </div>
-                    </div>
-                    <div class="column w-26 o-3">
-                      <button
-                        type="button"
-                        class="btn btn-primary h-50"
-                        @click="clickChangePassword"
-                      >
-                        변경
-                      </button>
-                    </div>
-                  </div>
-                  <p
-                    class="txt-error"
-                    v-if="errors.has('password.newPasswordConfirm')"
-                  >
-                    비밀번호가 일치하지 않습니다.
-                  </p>
-                </div>
-              </div>
-            </form>
-            <!--결재 카드-->
-            <form data-vv-scope="payment" name="payment">
-              <div>
-                <div class="form-title-wrap">
-                  <p class="txt-form-title">결제 카드</p>
-                  <p class="txt-form-explain">마지막 3자리: {{ calcCardNumber }}</p>
-                </div>
-                <div class="form-row">
-                  <div class="grid-flex grid-fixed">
-                    <div class="column">
-                      <div
-                        class="text-field"
-                        :class="{'text-field-error': errors.has('payment.newCardNumber')}">
-                        <input
-                          type="text"
-                          placeholder="카드 번호 (-없이 16자리 입력)"
-                          name="newCardNumber"
-                          maxlength="16"
-                          v-validate="'max:16'"
-                          data-vv-as="카드 번호"
-                          v-model.trim="newCardNumber"
-                        >
-                      </div>
-                    </div>
-                    <div class="column w-23 o-3">
-                      <div
-                        class="text-field"
-                        :class="{'text-field-error': errors.has('payment.newCardValidity')}"
-                      >
-                        <input
-                          type="text"
-                          placeholder="MMYY"
-                          maxlength="4"
-                          name="newCardValidity"
-                          v-validate="{date_format: 'MMYY'}"
-                          data-vv-as="카드 유효 기간"
-                          v-model.trim="newCardValidity"
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <p
-                    class="txt-error"
-                    v-if="errors.has('payment.newCardNumber') || errors.has('payment.newCardValidity')"
-                  >
-                    {{errors.first('payment.newCardNumber')}}
-                    <br v-if="errors.has('payment.newCardNumber')"/>
-                    {{errors.first('payment.newCardValidity')}}
-                  </p>
-                </div>
-                <div class="form-row">
-                  <div class="grid-flex grid-fixed">
-                    <div class="column">
-                      <div
-                        class="text-field"
-                        :class="{'text-field-error': errors.has('payment.newCardBirth')}"
-                      >
-                        <input
-                          type="text"
-                          placeholder="생년월일(YYMMDD)"
-                          maxlength="6"
-                          name="newCardBirth"
-                          v-validate="{date_format: 'YYMMDD'}"
-                          data-vv-as="생년월일"
-                          v-model.trim="newCardBitrh"
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <p
-                    class="txt-error"
-                    v-if="errors.has('payment.newCardBirth')">
-                    {{ errors.first('payment.newCardBirth') }}
-                  </p>
-                </div>
-                <div class="form-row">
-                  <div class="grid-flex grid-fixed">
-                    <div class="column">
-                      <div
-                        class="text-field"
-                        :class="{'text-field-error': errors.has('payment.newCardPassword')}">
-                        <input
-                          type="text"
-                          placeholder="비밀번호"
-                          maxlength="2"
-                          name="newCardPassword"
-                          v-validate="{digits: 2}"
-                          data-vv-as="비밀번호"
-                          v-model.trim="newCardPassword"
-                        >
-                      </div>
-                    </div>
-                    <div class="column">
-                      <div class="left-align ml-10">
-                        <div>
-                          <span class="icon-dot">*</span>
-                          <span class="icon-dot">*</span>
+                  <div class="form-row">
+                    <div class="grid-flex grid-fixed">
+                      <div class="column w-71">
+                        <div class="text-field">
+                          <input
+                            type="password"
+                            placeholder="현재 비밀번호"
+                            name="currentPassword"
+                            v-model="currentPassword"
+                            data-vv-as="현재 비밀번호"
+                            v-validate=""
+                          >
                         </div>
                       </div>
                     </div>
-                    <div class="column w-26 o-3">
-                      <button
-                        type="button"
-                        class="btn btn-primary h-50"
-                        @click="clickChangePayment"
-                      >
-                        변경
-                      </button>
-                    </div>
+                    <p class="txt-error" v-if="errors.has('password.currentPassword')">
+                      {{ errors.first('password.currentPassword') }}
+                    </p>
                   </div>
-                  <p
-                    class="txt-error"
-                    v-if="errors.has('payment.newCardPassword')"
-                  >
-                    {{ errors.first('payment.newCardPassword') }}
-                  </p>
+                  <div class="form-row">
+                    <div class="grid-flex grid-fixed">
+                      <div class="column w-71">
+                        <div class="text-field" :class="{'text-field-error': errors.has('password.newPassword')}">
+                          <input
+                            type="password"
+                            placeholder="신규 비밀번호"
+                            name="newPassword"
+                            ref="newPassword"
+                            v-model="newPassword"
+                            data-vv-as="신규 비밀번호"
+                            v-validate="{
+                        regex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}/
+                      }"
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <p class="txt-error" v-if="errors.has('password.newPassword')">
+                      {{ errors.first('password.newPassword') }}
+                    </p>
+                  </div>
+                  <div class="form-row">
+                    <div class="grid-flex grid-fixed">
+                      <div class="column">
+                        <div class="text-field" :class="{'text-field-error': errors.has('password.newPasswordConfirm')}">
+                          <input
+                            type="password"
+                            placeholder="신규 비밀번호 확인"
+                            name="newPasswordConfirm"
+                            v-validate="{confirmed: newPassword}"
+                          >
+                        </div>
+                      </div>
+                      <div class="column w-26 o-3">
+                        <button
+                          type="button"
+                          class="btn btn-primary h-50"
+                          @click="clickChangePassword"
+                        >
+                          변경
+                        </button>
+                      </div>
+                    </div>
+                    <p
+                      class="txt-error"
+                      v-if="errors.has('password.newPasswordConfirm')"
+                    >
+                      비밀번호가 일치하지 않습니다.
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </form>
+              </form>
+            </div>
+            <div class="row">
+              <!--결재 카드-->
+              <form data-vv-scope="payment" name="payment">
+                <div>
+                  <div class="form-title-wrap">
+                    <p class="txt-form-title">결제 카드</p>
+                    <p class="txt-form-explain">마지막 3자리: {{ calcCardNumber }}</p>
+                  </div>
+                  <div class="form-row">
+                    <div class="grid-flex grid-fixed">
+                      <div class="column">
+                        <div
+                          class="text-field"
+                          :class="{'text-field-error': errors.has('payment.newCardNumber')}">
+                          <input
+                            type="text"
+                            placeholder="카드 번호 (-없이 16자리 입력)"
+                            name="newCardNumber"
+                            maxlength="16"
+                            v-validate="'max:16'"
+                            data-vv-as="카드 번호"
+                            v-model.trim="newCardNumber"
+                          >
+                        </div>
+                      </div>
+                      <div class="column w-23 o-3">
+                        <div
+                          class="text-field"
+                          :class="{'text-field-error': errors.has('payment.newCardValidity')}"
+                        >
+                          <input
+                            type="text"
+                            placeholder="MMYY"
+                            maxlength="4"
+                            name="newCardValidity"
+                            v-validate="{date_format: 'MMYY'}"
+                            data-vv-as="카드 유효 기간"
+                            v-model.trim="newCardValidity"
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <p
+                      class="txt-error"
+                      v-if="errors.has('payment.newCardNumber') || errors.has('payment.newCardValidity')"
+                    >
+                      {{errors.first('payment.newCardNumber')}}
+                      <br v-if="errors.has('payment.newCardNumber')"/>
+                      {{errors.first('payment.newCardValidity')}}
+                    </p>
+                  </div>
+                  <div class="form-row">
+                    <div class="grid-flex grid-fixed">
+                      <div class="column">
+                        <div
+                          class="text-field"
+                          :class="{'text-field-error': errors.has('payment.newCardBirth')}"
+                        >
+                          <input
+                            type="text"
+                            placeholder="생년월일(YYMMDD)"
+                            maxlength="6"
+                            name="newCardBirth"
+                            v-validate="{date_format: 'YYMMDD'}"
+                            data-vv-as="생년월일"
+                            v-model.trim="newCardBitrh"
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <p
+                      class="txt-error"
+                      v-if="errors.has('payment.newCardBirth')">
+                      {{ errors.first('payment.newCardBirth') }}
+                    </p>
+                  </div>
+                  <div class="form-row">
+                    <div class="grid-flex grid-fixed">
+                      <div class="column">
+                        <div
+                          class="text-field"
+                          :class="{'text-field-error': errors.has('payment.newCardPassword')}">
+                          <input
+                            type="text"
+                            placeholder="비밀번호"
+                            maxlength="2"
+                            name="newCardPassword"
+                            v-validate="{digits: 2}"
+                            data-vv-as="비밀번호"
+                            v-model.trim="newCardPassword"
+                          >
+                        </div>
+                      </div>
+                      <div class="column">
+                        <div class="left-align ml-10">
+                          <div>
+                            <span class="icon-dot">*</span>
+                            <span class="icon-dot">*</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="column w-26 o-3">
+                        <button
+                          type="button"
+                          class="btn btn-primary h-50"
+                          @click="clickChangePayment"
+                        >
+                          변경
+                        </button>
+                      </div>
+                    </div>
+                    <p
+                      class="txt-error"
+                      v-if="errors.has('payment.newCardPassword')"
+                    >
+                      {{ errors.first('payment.newCardPassword') }}
+                    </p>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+
           </div>
           <div class="column column-right">
-            <!--주소-->
-            <form>
-              <div>
-                <div class="form-title-wrap">
-                  <p class="txt-form-title">주소</p>
-                </div>
-                <div class="form-row">
-                  <div class="grid-flex grid-fixed">
-                    <div class="column">
-                      <div class="text-field">
-                        <input
-                          type="text"
-                          v-model="zipcode"
-                          readonly
+            <div class="row">
+              <!--주소-->
+              <form>
+                <div>
+                  <div class="form-title-wrap">
+                    <p class="txt-form-title">주소</p>
+                  </div>
+                  <div class="form-row">
+                    <div class="grid-flex grid-fixed">
+                      <div class="column">
+                        <div class="text-field">
+                          <input
+                            type="text"
+                            v-model="zipcode"
+                            readonly
+                            @click="clickOpenPostCode"
+                          >
+                        </div>
+                      </div>
+                      <div class="column w-26 o-3">
+                        <button
+                          type="button"
+                          class="btn btn-secondary h-50"
                           @click="clickOpenPostCode"
                         >
+                          주소 찾기
+                        </button>
                       </div>
                     </div>
-                    <div class="column w-26 o-3">
-                      <button
-                        type="button"
-                        class="btn btn-secondary h-50"
-                        @click="clickOpenPostCode"
-                      >
-                        주소 찾기
-                      </button>
-                    </div>
                   </div>
-                </div>
-                <div class="form-row" v-show="isFlag.postCode">
-                  <div id="postCode"></div>
-                </div>
-                <div class="form-row">
-                  <div class="grid-flex grid-fixed">
+                  <div class="form-row" v-show="isFlag.postCode">
+                    <div id="postCode"></div>
+                  </div>
+                  <div class="form-row">
+                    <div class="grid-flex grid-fixed">
 
-                    <div class="column">
-                      <div class="text-field">
-                        <input
-                          type="text"
-                          readonly
-                          v-model="address"
-                          @click="clickOpenPostCode"
-                        >
+                      <div class="column">
+                        <div class="text-field">
+                          <input
+                            type="text"
+                            readonly
+                            v-model="address"
+                            @click="clickOpenPostCode"
+                          >
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="form-row">
-                  <div class="grid-flex grid-fixed">
+                  <div class="form-row">
+                    <div class="grid-flex grid-fixed">
 
-                    <div class="column">
-                      <div class="text-field">
-                        <input
-                          type="text"
-                          ref="addressDetail"
-                          v-model="addressDetail"
-                        >
+                      <div class="column">
+                        <div class="text-field">
+                          <input
+                            type="text"
+                            ref="addressDetail"
+                            v-model="addressDetail"
+                          >
+                        </div>
                       </div>
-                    </div>
-                    <div class="column w-26 o-3">
-                      <button
-                        type="button"
-                        class="btn btn-primary h-50"
-                        @click="clickChangeAddr"
-                      >
-                        변경
-                      </button>
+                      <div class="column w-26 o-3">
+                        <button
+                          type="button"
+                          class="btn btn-primary h-50"
+                          @click="clickChangeAddr"
+                        >
+                          변경
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </form>
-            <!--공동 현관-->
-            <form>
+              </form>
+            </div>
+            <div class="row">
+              <!--공동 현관-->
+              <form>
+                <div>
+                  <div class="form-title-wrap">
+                    <p class="txt-form-title">공동 현관 번호</p>
+                  </div>
+                  <div class="form-row">
+                    <div class="grid-flex grid-fixed">
+                      <div class="column">
+                        <div class="text-field">
+                          <input
+                            type="text"
+                            v-model="lobbyPassword"
+                          >
+                        </div>
+                      </div>
+                      <div class="column w-26 o-3">
+                        <button
+                          type="button"
+                          class="btn btn-primary h-50"
+                          @click="clickChangeLobbyPassword"
+                        >
+                          변경
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="row">
+              <!--기념-->
+              <form data-vv-scope="ann" name="ann">
+                <div>
+                  <div class="form-title-wrap">
+                    <p class="txt-form-title">기념일</p>
+                  </div>
+                  <div class="form-row">
+                    <div class="grid-flex grid-fixed">
+                      <div class="column">
+                        <div class="text-field" :class="{'text-field-error': errors.has('ann.aniversary')}">
+                          <input
+                            type="text"
+                            maxlength="4"
+                            name="anniversary"
+                            v-validate="{date_format: 'MMDD'}"
+                            data-vv-as="기념일"
+                            v-model="anniversary"
+                          >
+                        </div>
+                      </div>
+                      <div class="column w-26 o-3">
+                        <button
+                          type="button"
+                          class="btn btn-primary h-50"
+                          @click="clickChangeAnn"
+                        >
+                          변경
+                        </button>
+                      </div>
+                    </div>
+                    <p class="txt-error" v-if="errors.has('ann.anniversary')">
+                      {{ errors.first('ann.anniversary') }}
+                    </p>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <!-- 현재 사용되지 않음-->
+            <div class="row" v-if="false">
+              <!--회원 가입일-->
               <div>
                 <div class="form-title-wrap">
-                  <p class="txt-form-title">공동 현관 번호</p>
+                  <p class="txt-form-title">회원 가입일</p>
                 </div>
                 <div class="form-row">
                   <div class="grid-flex grid-fixed">
                     <div class="column">
                       <div class="text-field">
-                        <input
-                          type="text"
-                          v-model="lobbyPassword"
-                        >
+                        <input type="text">
                       </div>
                     </div>
-                    <div class="column w-26 o-3">
-                      <button
-                        type="button"
-                        class="btn btn-primary h-50"
-                        @click="clickChangeLobbyPassword"
-                      >
-                        변경
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </form>
-            <!--기념-->
-            <form data-vv-scope="ann" name="ann">
-              <div>
-                <div class="form-title-wrap">
-                  <p class="txt-form-title">기념일</p>
-                </div>
-                <div class="form-row">
-                  <div class="grid-flex grid-fixed">
                     <div class="column">
-                      <div class="text-field" :class="{'text-field-error': errors.has('ann.aniversary')}">
-                        <input
-                          type="text"
-                          maxlength="4"
-                          name="anniversary"
-                          v-validate="{date_format: 'MMDD'}"
-                          data-vv-as="기념일"
-                          v-model="anniversary"
-                        >
-                      </div>
+                      <button type="button" class="btn btn-primary h-50">회원탈퇴</button>
                     </div>
-                    <div class="column w-26 o-3">
-                      <button
-                        type="button"
-                        class="btn btn-primary h-50"
-                        @click="clickChangeAnn"
-                      >
-                        변경
-                      </button>
-                    </div>
-                  </div>
-                  <p class="txt-error" v-if="errors.has('ann.anniversary')">
-                    {{ errors.first('ann.anniversary') }}
-                  </p>
-                </div>
-              </div>
-            </form>
-            <!--회원 가입일-->
-            <div v-if="false">
-              <div class="form-title-wrap">
-                <p class="txt-form-title">회원 가입일</p>
-              </div>
-              <div class="form-row">
-                <div class="grid-flex grid-fixed">
-                  <div class="column">
-                    <div class="text-field">
-                      <input type="text">
-                    </div>
-                  </div>
-                  <div class="column">
-                    <button type="button" class="btn btn-primary h-50">회원탈퇴</button>
                   </div>
                 </div>
               </div>
@@ -844,18 +860,9 @@ export default {
 };
 </script>
 
-<style scoped lang="scss" src="@/assets/css/closet-style.scss">
-</style>
+<style scoped lang="scss" src="@/assets/css/closet-style.scss"></style>
 <style scoped lang="scss">
-input[readonly] {
-  color: #bbb;
-}
-form {
-  margin-top: 30px;
-  &:first-child {
-    margin-top: 0;
-  }
-}
+
 .form-row {
   margin-bottom: 10px;
   &:last-child {
@@ -863,10 +870,15 @@ form {
   }
 }
 
+.content-form {
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+
 @media (min-width: 768px) {
-  .content-inner {
+  .content-form {
     background-color: #f7f7f7;
-    padding: 25px 35px;
+    padding: 30px;
   }
   .column-right {
     margin-left: 5%;

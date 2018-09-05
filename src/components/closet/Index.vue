@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <closet-header></closet-header>
     <closet-menu></closet-menu>
     <router-view></router-view>
@@ -19,5 +19,14 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  .container {
+    padding-bottom: 70px;
+    @media(min-width: 768px) {
+      padding-bottom: 100px;
+    }
+    @media (min-width: 1280px) {
+      padding-bottom: 120px;
+    }
+  }
 </style>

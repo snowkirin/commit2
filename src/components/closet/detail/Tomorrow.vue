@@ -358,7 +358,6 @@ export default {
 }
 
 .content {
-  padding-bottom: 135px;
 }
 .column {
   &:nth-child(2) {
@@ -413,6 +412,7 @@ export default {
     }
     .txt-styling-title {
       @include fontSize(18px);
+      font-weight: 100;
     }
   }
   .product-mid {
@@ -431,8 +431,11 @@ export default {
       }
     }
     .btn-product-detail {
+      @include fontSize(14px);
       border-top: 1px solid #e8e8e8;
       background-color: #fff;
+      color: $color-secondary;
+
     }
   }
   .product-bot {
@@ -476,7 +479,7 @@ export default {
   .product {
     .product-top {
       .txt-type {
-        @include fontSize(18px);
+        @include fontSize(18px, en);
         margin-bottom: 12px;
       }
       .txt-styling-title {

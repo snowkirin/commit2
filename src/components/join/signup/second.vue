@@ -10,7 +10,7 @@
           <div class="column column-left">
             <div class="row">
               <div class="form-title-wrap">
-                <p class="txt-form-ti tle">배송일 지정</p>
+                <p class="txt-form-title">배송일 지정</p>
               </div>
               <div>
                 <div>
@@ -435,7 +435,7 @@ export default {
             this.isRecommendCode = true;
           } else {
             _.assign(alertObject, {
-              message: '추천인을 정확하게 입력해 주세요.'
+              message: '등록 가능한 추천인이 아닙니다.'
             });
             this.$refs.alert.openSimplert(alertObject);
             this.isRecommendCode = false;
@@ -556,7 +556,7 @@ export default {
   }
 }
 .row {
-  margin-top: 36px;
+  margin-top: 30px;
 }
 .icon-dot {
   display: inline-block;
