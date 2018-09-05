@@ -1,16 +1,6 @@
 import Subscriptions from '@/library/api/subscriptions';
 import types from './mutation-types';
 export default {
-  getCurrent({ commit }) {
-    return Subscriptions.getCurrent().then(res => {
-      // 여기엔 result 값으로 판단 할 수가 없다.
-      if (!_.isEmpty(res.data.result)) {
-        // 제대로 result 값이 있다면
-        commit(types.GET_CURRENT, res.data);
-      }
-      return res;
-    });
-  },
   getTomorrow({ commit }) {
     return Subscriptions.getTomorrow().then(res => {
       if (res.data.result) {
@@ -19,23 +9,19 @@ export default {
       return res;
     });
   },
+  putTomorrow({ commit }, data) {
+    return Subscriptions.putTomorrow(data).then(res => {
+      return res;
+    });
+  },
   getTomorrowDirect({ commit }, data) {
     return Subscriptions.getTomorrowDirect(data).then(res => {
       if (res.data.result) {
         commit(types.GET_TOMORROW_DIRECT, res.data);
         return res;
-      }
-      else {
+      } else {
         console.log('내일의 옷장 직접접속 오류');
       }
-    });
-  },
-  destroyTomorrowDirect({ commit }) {
-    commit(types.DESTROY_TOMORROW_DIRECT);
-  },
-  putTomorrow({ commit }, data) {
-    return Subscriptions.putTomorrow(data).then(res => {
-      return res;
     });
   },
   putTomorrowDirect({ commit }, data) {
@@ -43,6 +29,10 @@ export default {
       return res;
     });
   },
+  destroyTomorrowDirect({ commit }) {
+    commit(types.DESTROY_TOMORROW_DIRECT);
+  },
+
   getProductDetail({ commit }, data) {
     return Subscriptions.getProductDetail(data).then(res => {
       if (!_.isEmpty(res.data)) {
@@ -55,9 +45,17 @@ export default {
       return res;
     });
   },
-  /*
-  * data = { subscriptionId: id, type: 'current' or 'past' }
-  * */
+
+  getCurrent({ commit }) {
+    return Subscriptions.getCurrent().then(res => {
+      // 여기엔 result 값으로 판단 할 수가 없다.
+      if (!_.isEmpty(res.data.result)) {
+        // 제대로 result 값이 있다면
+        commit(types.GET_CURRENT, res.data);
+      }
+      return res;
+    });
+  },
   getCurrentFeedbacks({ commit }, data) {
     return Subscriptions.getFeedbacks(data).then(res => {
       if (res.data.result) {
@@ -66,24 +64,14 @@ export default {
       }
     });
   },
-  getPastFeedbacks({ commit }, data) {
-    return Subscriptions.getFeedbacks(data).then(res => {
-      if (res.data.result) {
-        commit(types.GET_PAST_FEEDBACKS, res.data);
-        return res;
-      }
-    });
-  },
 
-  getFeedbacksDirect({ commit }, data) {
+  /* 현재의 옷장 피드백 다이렉트 */
+  getCurrentFeedbacksDirect({ commit }, data) {
     return Subscriptions.getFeedbacksDirect(data).then(res => {
-      if (res.data.result) {
-        commit(types.GET_CURRENT_FEEDBACKS_DIRECT, res.data.info);
-      }
+      commit(types.GET_CURRENT_FEEDBACKS_DIRECT, res.data.info);
       return res;
     });
   },
-
   destroyCurrentFeedbackDirect({ commit }) {
     commit(types.DESTROY_CURRENT_FEEDBACKS_DIRECT);
   },
@@ -99,9 +87,18 @@ export default {
       return res;
     });
   },
+  /* 과거의 옷장 상품 상세보기, 2018-09-05: 사용 안하는중*/
   getPastDetail({ commit }, data) {
     return Subscriptions.getPastDetail(data).then(res => {
       console.log(res);
+    });
+  },
+  getPastFeedbacks({ commit }, data) {
+    return Subscriptions.getFeedbacks(data).then(res => {
+      if (res.data.result) {
+        commit(types.GET_PAST_FEEDBACKS, res.data);
+        return res;
+      }
     });
   }
 };

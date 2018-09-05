@@ -158,13 +158,13 @@ export default {
   },
   computed: {
     ...mapGetters({
-      isLogin: 'login/isLogin',
       TomorrowResult: 'subscriptions/TomorrowResult',
       TomorrowProductDetail: 'subscriptions/TomorrowProductDetail',
       isTomorrowDirect: 'subscriptions/isTomorrowDirect',
       TomorrowDirectMemberId: 'subscriptions/TomorrowDirectMemberId'
     }),
     isShowButton() {
+      // 선택 버튼은 스타일 지정 상태일때만 보여야 한다.
       return this.TomorrowResult.subscription_status === 14403;
     }
   },
@@ -176,6 +176,7 @@ export default {
       destroyTomorrowDirect: 'subscriptions/destroyTomorrowDirect',
       putTomorrowDirect: 'subscriptions/putTomorrowDirect'
     }),
+
     processingData() {
       const data = this.TomorrowResult;
       const selectArray = ['styling_tip', 'styling_title', 'hashtag'];
@@ -231,7 +232,6 @@ export default {
       this.tomorrowData.productB = productB;
     },
     async clickProductDetail(data) {
-      console.log(data);
       const modalConfig = {
         scrollable: true,
         height: 'auto',
@@ -311,17 +311,17 @@ export default {
   },
   async created() {
     if (!this.isTomorrowDirect) {
-      await this.getTomorrow().then(res => {
+      // 직접 접속이 아닐때. 이 부분은 세션전처리.
+      await this.getTomorrow()
+        .then(res => {
         if (res.data.result) {
           // 데이터 존재한다면.
           this.processingData();
           this.isTomorrowData = true;
-        } else {
-          // 데이터가 존재하지 않는다면
-          this.isTomorrowData = false;
         }
       });
     } else {
+      // 직접 접속 일경우.  이미 데이터가 존재하므로 프로세싱.
       this.processingData();
       this.isTomorrowData = true;
     }
@@ -401,6 +401,7 @@ export default {
       right: 0;
       background-color: rgba(51, 51, 51, 0.4);
       position: absolute;
+      outline: 3px solid $color-primary;
     }
   }
   .product-top {

@@ -117,16 +117,23 @@
                 :ref="'data-'+data.id"
               >
                 <td colspan="3" v-if="!_.isEmpty(detailData)">
-                  <div class="answer-wrap">
-                    <div class="request-wrap">
-                      <p class="txt-type-name">문의 유형: {{ detailData.data[0].type_name }}</p>
-                      <p class="txt-subject">{{ detailData.data[0].subject }}</p>
+                    <div class="answer-wrap">
+                      <div class="request-wrap">
+                        <p class="txt-type-name">문의 유형: {{detailData.contactType}}</p>
+                        <p class="txt-subject">{{ detailData.contactList[0].content }}</p>
+                      </div>
+                      <div
+                        class="response-wrap"
+                        v-if="!_.isEmpty(detailData.answerList)"
+                      >
+                        <p class="txt-answer">답변</p>
+                        <div class="txt-content">
+                          <p
+                            v-for="(data2, idx2) in detailData.answerList"
+                            :key="idx2">{{ data2.content }}</p>
+                        </div>
+                      </div>
                     </div>
-                    <div class="response-wrap">
-                      <p class="txt-answer">답변</p>
-                      <p class="txt-content">{{ detailData.list[0].content}}</p>
-                    </div>
-                  </div>
                 </td>
               </tr>
             </template>
@@ -209,7 +216,19 @@ export default {
       const questionTR = this.$refs.table.querySelectorAll('.inquiry-tr');
       this.getInquiriesDetail(id)
         .then(res => {
-          this.detailData = res.data.result;
+          const responseItem = res.data.result;
+          const contact = _.filter(responseItem.list, (value) => {
+            return value.content_type_name === '문의';
+          });
+          const answer = _.filter(responseItem.list, (value) => {
+            return value.content_type_name === '답변';
+          });
+          const formData = {
+            contactType: res.data.result.data[0].type_name,
+            contactList: contact,
+            answerList: answer
+          };
+          this.detailData = formData;
         })
         .then(() => {
           if (target.dataset.show === 'true') {

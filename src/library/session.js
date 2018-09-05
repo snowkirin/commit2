@@ -35,7 +35,7 @@ export default {
             if (!_.isEmpty(to.query.access_token)) {
               const token = to.query.access_token;
               await $store
-                .dispatch('subscriptions/getFeedbacksDirect', token)
+                .dispatch('subscriptions/getCurrentFeedbacksDirect', token)
                 .then(res => {
                   // 유저이름 넣기
                   if (res.data.result) {

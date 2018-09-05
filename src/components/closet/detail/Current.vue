@@ -11,7 +11,7 @@
       </div>
     </div>
     <div v-else>
-      <div class="content">
+      <div class="content ">
         <feedBack
           ref="feedback"
           v-if="!_.isEmpty(feedbacksData)"
@@ -94,7 +94,6 @@ export default {
 
       isCurrentData: false,
       isFeedbacksData: false,
-      isFeedbacksDirect: false,
 
       // 2018-08-21 API 결과값 가공
       currentData: {
@@ -128,7 +127,6 @@ export default {
   },
   computed: {
     ...mapGetters({
-      isLogin: 'login/isLogin',
       CurrentResult: 'subscriptions/CurrentResult', // 현재의 옷장 데이터
       CurrentImages: 'subscriptions/CurrentImages', // 현재의 옷장 이미지 데이터
       CurrentFeedbacks: 'subscriptions/CurrentFeedbacks', // 현재의 옷장 피드백 데이터
@@ -140,6 +138,7 @@ export default {
     ...mapActions({
       getCurrent: 'subscriptions/getCurrent',
       getCurrentFeedbacks: 'subscriptions/getCurrentFeedbacks',
+      // getCurrentFeedbacksDirect: 'subscriptions/getCurrentFeedbacksDirect',
       destroyCurrentFeedbackDirect: 'subscriptions/destroyCurrentFeedbackDirect'
     }),
     setCurrentData() {
@@ -164,43 +163,34 @@ export default {
           // 피드백 데이터가 있다면
           this.feedbacksData = this.CurrentFeedbacks;
           this.isFeedbacksData = true;
-          this.isFeedbacksDirect = true;
           this.isCurrentData = true;
         } else {
           // 피드백 데이터가 없다면
           this.isFeedbacksData = false;
-          this.isFeedbacksDirect = false;
           this.isCurrentData = false;
         }
       });
     } else {
       await this.getCurrent().then(res => {
-        if (_.isEmpty(res.data.result)) {
-          // 현재의 옷장 데이터가 없다면. (준비되지 않았다면)
-          this.isCurrentData = false;
-        } else {
+        if (!_.isEmpty(res.data.result)) {
           // 현재의 옷장 데이터가 있다면
           this.setCurrentData();
+          this.isCurrentData = true;
           // 피드백 API 호출
-          const formFeedbackData = {
+          const formData = {
             subscriptionId: this.currentData.subscriptionId
           };
-          this.getCurrentFeedbacks(formFeedbackData).then(res => {
+          this.getCurrentFeedbacks(formData).then(res => {
             if (res.data.result) {
-              // 피드백 데이터가 있다면
               this.feedbacksData = this.CurrentFeedbacks;
               this.isFeedbacksData = true;
-            }
-            else {
-              // 피드백 데이터가 없다면
+            } else {
               this.isFeedbacksData = false;
             }
           });
-          this.isCurrentData = true;
         }
       });
     }
-    // 피드백 직접접속을 위한 분기
   },
   destroyed() {
     if (this.isCurrentFeedbacksDirect) {
@@ -244,7 +234,7 @@ export default {
     @include fontSize(14px, en);
     font-weight: 700;
     color: #fff;
-    content: "ZULY STYLE";
+    content: 'ZULY STYLE';
     display: block;
     position: absolute;
     bottom: 70px;
@@ -299,7 +289,7 @@ export default {
   line-height: 32px; // 간격을 위해 다시 설정
   padding-left: 20px;
   &::before {
-    content: "#";
+    content: '#';
     display: inline-block;
     position: absolute;
     left: 0;
