@@ -24,7 +24,12 @@
           <th class="date">등록일</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody v-if="_.isEmpty(Notices.data)">
+        <tr>
+          <td colspan="3" class="txt-none">작성된 내역이 없습니다.</td>
+        </tr>
+        </tbody>
+        <tbody v-else>
         <template v-for="(data, idx) in Notices.data">
           <tr
             class="table-row"

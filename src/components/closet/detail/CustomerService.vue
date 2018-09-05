@@ -94,7 +94,12 @@
               <th class="date">등록일</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody v-if="_.isEmpty(InquiresList)">
+            <tr>
+              <td colspan="3" class="txt-none">작성된 내역이 없습니다.</td>
+            </tr>
+            </tbody>
+            <tbody v-else>
             <template v-for="(data, idx) in InquiresList">
               <tr
                 class="inquiry-tr"
@@ -267,7 +272,7 @@ export default {
   @include fontSize(15px);
   width: 100%;
   resize: none;
-  padding: 10px;
+  padding: 11px;
 }
 .inquiries-mid {
   margin-top: 10px;
@@ -343,6 +348,7 @@ export default {
 @media (min-width: 768px) {
   .tap-wrap {
     .item {
+      @include fontSize(15px);
       flex-basis: 195px;
       max-width: 195px;
     }

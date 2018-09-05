@@ -10,7 +10,7 @@
           <div class="column column-left">
             <div class="row">
               <div class="form-title-wrap">
-                <p class="txt-form-ti tle">배송일 지정</p>
+                <p class="txt-form-title">배송일 지정</p>
               </div>
               <div>
                 <div>
@@ -556,7 +556,7 @@ export default {
   }
 }
 .row {
-  margin-top: 36px;
+  margin-top: 30px;
 }
 .icon-dot {
   display: inline-block;

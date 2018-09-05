@@ -7,7 +7,7 @@
 <script>
 import { mapGetters } from 'vuex';
 export default {
-  name: "join",
+  name: 'join',
   computed: {
     ...mapGetters({
       isLogin: 'login/isLogin'
@@ -24,5 +24,19 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.container {
+  padding-bottom: 70px;
+  @media (min-width: 768px) {
+    padding-bottom: 100px;
+  }
+  @media (min-width: 1280px) {
+    padding-bottom: 120px;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    border-top: 1px solid #dadada;
+  }
+}
 </style>

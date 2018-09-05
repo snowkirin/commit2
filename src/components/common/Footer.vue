@@ -181,7 +181,7 @@ export default {
   .footer-layer3 {
   }
   .footer-inner {
-    width: 768px;
+    width: 708px;
     margin: 0 auto;
   }
 }
@@ -189,7 +189,6 @@ export default {
 @media (min-width: 1280px) {
   .footer-inner {
     width: 1200px;
-    margin: 0 auto;
   }
 }
 </style>

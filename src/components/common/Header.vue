@@ -30,7 +30,6 @@
         </li>
       </ul>
     </nav>
-    <div class="header-line" v-if="!closetCheck"></div>
     <simplert ref="alert" :useRadius="false" :useIcon="false" />
   </header>
 </template>
@@ -178,7 +177,6 @@ export default {
   }
   .global-navigation {
     float: right;
-    margin-top: 5px;
     font-size: 0;
     li {
       @include fontSize(15px);
@@ -186,19 +184,22 @@ export default {
       margin-right: 20px;
       position: relative;
       cursor: pointer;
+      vertical-align: top;
       &:last-child {
         margin-right: 0;
       }
       &:not(:last-child):after {
-        position: absolute;
-        right: -13px;
-        top: 5px;
-        display: inline-block;
+        display: block;
         content: '';
         width: 3px;
         height: 3px;
+        position: absolute;
+        top: 50%;
+        right: -13px;
+        transform: translateY(-50%);
         background-color: #797979;
         overflow: hidden;
+        border-radius: 2px;
       }
     }
   }
@@ -222,17 +223,15 @@ export default {
 
 @media (min-width: 768px) {
   .header {
-    width: 768px;
+    width: 708px;
     margin: 0 auto;
-    padding: 25px 34px;
+    padding-left: 0;
+    padding-right: 0;
     .global-navigation {
       margin-top: 0;
       li {
         margin-right: 26px;
         &:not(:last-child):after {
-          right: -13px;
-          top: 9px;
-          border-radius: 2px;
         }
       }
     }
@@ -268,9 +267,6 @@ export default {
         @include fontSize(18px);
       }
     }
-  }
-  .header-main {
-
   }
 }
 </style>
