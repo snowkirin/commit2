@@ -67,9 +67,11 @@
             </label>
           </div>
         </div>
-        <FormButton ref="btnLogin" v-show="true" :api-data="submitLogin" @success="successLogin">
-          <span>로그인</span>
-        </FormButton>
+        <div class="button-wrap">
+          <FormButton ref="btnLogin" v-show="true" :api-data="submitLogin" @success="successLogin">
+            <span>로그인</span>
+          </FormButton>
+        </div>
       </form>
       <div class="menu-login">
         <ul>
@@ -188,7 +190,7 @@ export default {
 
 .menu-login {
   text-align: center;
-  margin-top: 16px;
+  margin-top: 30px;
   ul {
     font-size: 0;
   }

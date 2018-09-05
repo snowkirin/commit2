@@ -11,7 +11,6 @@
           <p class="txt-email">{{ UserEmail }}</p>
         </div>
       </div>
-
       <div class="button-wrap">
         <router-link to="/login" class="menu-title">
           <button class="btn btn-primary h-56" type="button">로그인</button>
