@@ -1,5 +1,5 @@
 .contents {
-  padding: 24px 20px 0px;
+  padding: 24px 20px 0;
   .contents-header {
     text-align: center;
     h3 {
@@ -33,7 +33,8 @@
     padding: 72px 0 119px;
     .contents-header {
       h3 {
-        @include fontSize(32px);
+        @include fontSize(28px);
+        font-weight: 100;
       }
       p {
         @include fontSize(15px);
