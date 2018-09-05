@@ -40,6 +40,7 @@
   p {
     @include fontSize(14px);
     color: $color-secondary;
+    margin-top: 6px;
   }
 }
 

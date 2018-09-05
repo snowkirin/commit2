@@ -344,7 +344,7 @@ export default {
 }
 
 .txt-content {
-  white-space: pre;
+  white-space: pre-wrap;
 }
 
 @media (min-width: 768px) {

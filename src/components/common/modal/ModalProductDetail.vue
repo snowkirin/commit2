@@ -73,15 +73,13 @@
 <script>
 import { swiper, swiperSlide } from 'vue-awesome-swiper';
 import 'swiper/dist/css/swiper.css';
-import VueJsonPretty from 'vue-json-pretty';
 let currentIndex = 0;
 export default {
   name: 'ModalProductDetail',
   props: ['data'],
   components: {
     swiper,
-    swiperSlide,
-    VueJsonPretty
+    swiperSlide
   },
   data() {
     return {
