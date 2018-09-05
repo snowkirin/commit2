@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <closet-header></closet-header>
     <closet-menu></closet-menu>
     <router-view></router-view>
@@ -20,4 +20,7 @@ export default {
 </script>
 
 <style scoped>
+  .container {
+    padding-bottom: 135px;
+  }
 </style>

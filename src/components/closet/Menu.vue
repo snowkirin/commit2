@@ -131,7 +131,7 @@ export default {
         display: block;
         position: absolute;
         bottom: 0;
-        border-bottom: 3px solid #f16458;
+        border-bottom: 3px solid #dc828e;
         width: 100%;
       }
     }
@@ -143,70 +143,13 @@ export default {
     width: auto;
   }
 }
-/*.closet-mobile-menu {
-    padding: 0 20px;
-    -webkit-overflow-scrolling: touch;
-    position: relative;
-    &::after {
-      position: absolute;
-      content: '';
-      width: calc(100%);
-      border-bottom: 3px solid #dadada;
-      bottom: 0;
-      left: 0;
-      display: block;
-    }
-    .closet-menu {
-      white-space: nowrap;
-      font-size: 0  ;
-      transition: -ms-transform 0.5s,-webkit-transform 0.5s,transform 0.5s;
-      overflow: {
-        x: auto;
-        y: hidden;
-      }
-      &::-webkit-scrollbar {
-        -webkit-appearance: none;
-        display: none;
-      }
-      .close-mobile-slide {
-
-        border-top: 1px solid #f3f3f3;
-        .menu {
-          padding-top: 11px;
-          padding-bottom: 15px;
-          text-decoration: none;
-          display: inline-block;
-          font-size: 16px;
-          letter-spacing: -1px;
-          color: #797979;
-          margin-left: 20px;
-          position: relative;
-          &.closet_active {
-            font-weight: 700;
-            color: #333;
-            &::after {
-              position: absolute;
-              content: '';
-              display: block;
-              border-bottom: 3px solid #f45649;
-              bottom: 0;
-              width: 100%;
-              z-index: 10;
-            }
-          }
-          &:first-child {
-            margin-left: 0;
-          }
-        }
-      }
-    }
-  }*/
-
 @media (min-width: 768px) {
   .c-menu {
-    padding: 0 30px;
     margin: 0 auto;
-    width: 768px;
+    width: 708px;
+    border-top: 1px solid #f3f3f3;
+    padding-left: 0;
+    padding-right: 0;
     &::after {
       border-bottom: 1px solid #dadada;
     }
@@ -230,35 +173,20 @@ export default {
       }
     }
     .menu-container {
-      border-top: 1px solid #f3f3f3;
+
     }
     .swiper-slide {
       width: auto;
     }
   }
-  /*.closet-mobile-menu {
-      width: 1200px;
-      margin: 0 auto;
-      padding: 0;
-      .close-mobile-slide {
-        .menu {
-          font-size: 18px;
-          letter-spacing: -1.2px;
-          padding-top: 25px;
-          padding-bottom: 16px;
-          margin-left: 27px;
-          &.closet_active {
-            border-bottom: 3px solid #333;
-          }
-        }
-      }
-    }*/
 }
 
   @media (min-width: 1280px) {
     .c-menu {
-      width: 1280px;
-      padding: 0 40px;
+      width: 1200px;
+      .closet-link {
+        @include fontSize(18px);
+      }
     }
   }
 </style>

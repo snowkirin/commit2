@@ -3,8 +3,8 @@
     <div class="contents-header">
       <h3>줄라이는 베이직 스타일을 기본으로 합니다.</h3>
     </div>
-    <form>
-      <div class="content">
+    <div class="content-form content-border">
+      <form>
         <div class="content-inner">
           <div class="grid-flex">
             <div class="column column-left">
@@ -89,7 +89,10 @@
               </div>
               <!--가슴(브래지어)-->
               <div class="row">
-                <p class="txt-form-title">가슴 (브래지어)</p>
+                <div class="form-title-wrap">
+                  <p class="txt-form-title">가슴 (브래지어)</p>
+                </div>
+
                 <div class="text-field" :class="{'text-field-error': errors.has('bustSize')}">
                   <input
                     type="text"
@@ -102,7 +105,9 @@
               </div>
               <!--체형-->
               <div class="row">
-                <p class="txt-form-title">체형</p>
+                <div class="form-title-wrap">
+                  <p class="txt-form-title">체형</p>
+                </div>
                 <div class="body-type">
                   <p
                     class="txt-body-type"
@@ -254,17 +259,18 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="btn-complete">
-        <button
-          type="button"
-          class="btn btn-primary h-56"
-          @click="clickComplete"
-        >
-          수정하기
-        </button>
-      </div>
-    </form>
+      </form>
+    </div>
+    <div class="button-wrap">
+      <button
+        type="button"
+        class="btn btn-primary h-56"
+        @click="clickComplete"
+      >
+        수정하기
+      </button>
+    </div>
+
   </div>
 
 </template>
@@ -545,13 +551,6 @@ export default {
   }
 }
 
-.row {
-  margin-top: 30px;
-  &:nth-child(1) {
-    margin-top: 0;
-  }
-}
-
 .body-type {
   .txt-body-type {
     @include fontSize(14px);
@@ -773,21 +772,19 @@ export default {
   }
 }
 
-.btn-complete {
+.button-wrap {
   margin-top: 30px;
-  text-align: right;
-  .btn {
-    width: 287px;
-  }
+}
+
+.content-form {
+  padding-top: 20px;
+  padding-bottom: 30px;
 }
 
 @media (min-width: 768px) {
-  .content-inner {
+  .content-form {
     background-color: #f7f7f7;
-    padding-top: 25px;
-    padding-bottom: 30px;
-    padding-left: 30px;
-    padding-right: 30px;
+    padding: 30px;
   }
   .column-right {
     margin-left: 7%;
@@ -802,6 +799,12 @@ export default {
       li {
         width: 90px;
       }
+    }
+  }
+  .button-wrap {
+    text-align: right;
+    .btn {
+      width: 287px;
     }
   }
 }

@@ -435,7 +435,7 @@ export default {
             this.isRecommendCode = true;
           } else {
             _.assign(alertObject, {
-              message: '추천인을 정확하게 입력해 주세요.'
+              message: '등록 가능한 추천인이 아닙니다.'
             });
             this.$refs.alert.openSimplert(alertObject);
             this.isRecommendCode = false;

@@ -358,7 +358,6 @@ export default {
 }
 
 .content {
-  padding-bottom: 135px;
 }
 .column {
   &:nth-child(2) {
