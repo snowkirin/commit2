@@ -180,6 +180,7 @@ export default {
     font-size: 0;
     li {
       @include fontSize(15px);
+      line-height: 1;
       display: inline-block;
       margin-right: 20px;
       position: relative;

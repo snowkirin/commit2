@@ -168,8 +168,8 @@ img {
   }
   .icon-close {
     display: block;
-    width: 16px;
-    height: 16px;
+    width: 30px;
+    height: 30px;
     position: relative;
     &::before,
     &::after {

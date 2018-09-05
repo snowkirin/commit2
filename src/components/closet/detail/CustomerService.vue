@@ -246,7 +246,7 @@ export default {
   @media (min-width: 768px) {
     text-align: right;
     button {
-      width: 287px
+      width: 287px;
     }
   }
 }
@@ -273,6 +273,7 @@ export default {
   width: 100%;
   resize: none;
   padding: 11px;
+  border: 1px solid #c4c4c4;
 }
 .inquiries-mid {
   margin-top: 10px;
@@ -295,6 +296,7 @@ export default {
     margin-bottom: 25px;
   }
   .item {
+    @include fontSize(15px);
     flex-basis: 50%;
     max-width: 50%;
   }
@@ -348,7 +350,6 @@ export default {
 @media (min-width: 768px) {
   .tap-wrap {
     .item {
-      @include fontSize(15px);
       flex-basis: 195px;
       max-width: 195px;
     }
