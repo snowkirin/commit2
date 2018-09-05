@@ -110,8 +110,7 @@ export default {
     left: 0;
   }
   .closet-link {
-    font-size: 16px;
-    letter-spacing: -1.1px;
+    @include fontSize(16px);
     color: #797979;
     display: block;
     padding-top: 14px;
@@ -123,9 +122,8 @@ export default {
     padding-left: 1px;
     padding-right: 1px;
     &.active {
-      color: #333;
+      color: $color-primary;
       font-weight: 700;
-      letter-spacing: -1px;
       &::after {
         content: '';
         display: block;
