@@ -13,7 +13,9 @@ VueCommon.install = Vue => {
       if (!data) {
         imageSize = 'medium/';
       } else {
-        if (data < 600) {
+        if (data < 200) {
+          imageSize = '';
+        } else if (data < 600) {
           imageSize = 'small/';
         } else if (data < 1000) {
           imageSize = 'medium/';

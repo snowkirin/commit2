@@ -182,7 +182,7 @@
                   <li
                     v-for="(data, idx) in Options.dress_code"
                     @click="clickDressCode(data, $event)"
-                    :class="{selected: data.code === styleData.dress_code}"
+                    :class="{selected: data.code === styleData.dressCode}"
                     :key="idx">
                     <img :src="dressCodeImage(data.name)"/>
                     <span class="text">{{ data.name }}</span>
@@ -191,10 +191,11 @@
               </div>
               <!-- 업로드 -->
               <div class="row">
-                <div class="form-title-wrap">
-                  <p class=" txt-form-title">[선택] My Daily Look - 사진을 올려주세요.</p>
+                <div class="form-title-wrap" style="position: relative;">
+                  <p class=" txt-form-title" style="line-height:56px;">My Daily Look</p>
+                  <button type="button" class="btn btn-secondary h-50" style="position: absolute; right: 0; top: 0; width: 170px;" @click="clickImageUpload">업로드</button>
                 </div>
-                <div class="grid-flex grid-fixed image-upload">
+                <div class="grid-flex grid-fixed image-upload" v-show="false">
                   <div class="column">
                     <div class="text-field">
                       <input
@@ -288,7 +289,9 @@ const alertObject = {
 
 export default {
   name: 'styleInfo',
-  components: {Simplert},
+  components: {
+    Simplert
+  },
   data() {
     return {
       styleData: {
