@@ -803,7 +803,7 @@ export default {
     height: 100px;
     border: 1px solid #c4c4c4;
     resize: none;
-    padding: 3px 12px 5px;
+    padding: 11px;
   }
 }
 
