@@ -5,7 +5,7 @@
     :style="[calcBanner, calcMain]"
   >
     <router-link to="/" class="logo">
-      <ZulyLogoSVG class="logo-svg"/>
+      <ZulyLogoSVG class="logo-svg" viewBox="0 0 66 20"/>
     </router-link>
     <nav class="global-navigation">
       <ul>
