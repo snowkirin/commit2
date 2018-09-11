@@ -1,91 +1,48 @@
 <template>
   <div class="contents">
-    <div v-if="!isPastData">
-      <div class="none">
-        <div class="inner center-align">
-          <p>
-            조금만 기다리세요<br/>
-            곧 옷장이 채워집니다.
-          </p>
-        </div>
-      </div>
-    </div>
-    <div v-else>
+    <div>
       <div class="contents-header">
         <h3>그 동안의 옷장을 확인하실 수 있습니다.</h3>
       </div>
       <div class="content">
-        <div class="">
-
-        </div>
-        <div class="list-past">
-          <div
-            class="item"
-            v-for="(data, idx) in PastResult"
-            :key="idx"
-          >
-            <div>
-              <div class="date-wrap">
-                <p>
-                  <span>
-                    {{PastResult.length - idx}}{{suffixNumber(PastResult.length - idx)}}
-                  </span>
-                  |
-                  <span>{{ data .subscription_date }}</span>
-                </p>
+        <div class="past">
+          <div class="past-header">
+            <div class="cell">
+              회차
+            </div>
+            <div class="cell">
+              옷장 내역
+            </div>
+          </div>
+          <div class="past-body-wrap">
+            <div v-if="!isPastData">
+              <div class="none">
+                <p>과거의 옷장 내역이 없습니다.</p>
               </div>
-              <div class="image-wrap">
-                <div>
-                  <div
-                    class="image"
-                    v-for="(data2, idx2) in data.images"
-                    :key="idx2"
-                    v-if="data2 !== null"
-                  >
-                    <img :src="$common.ZulyImage() + data2" alt="">
+            </div>
+            <div v-else class="past-body" v-for="(data, idx) in PastResult" :key="idx">
+              <div class="cell index-wrap">
+                <span class="txt-index">{{PastResult.length - idx}}{{suffixNumber(PastResult.length - idx)}}</span><span class="txt-date">{{ data.subscription_date }}</span>
+              </div>
+              <div class="cell image-wrap">
+                <div class="list-image">
+                  <div v-for="(dataImg, idxImg) in data.images" :key="idxImg" v-if="dataImg !== null">
+                    <img
+                      :src="$common.ZulyImage() + dataImg"
+                      alt="">
                   </div>
                 </div>
               </div>
-              <div class="text-wrap">
-                <p class="txt-styling-title">
-                  {{ data.styling_title }}
-                </p>
-                <p class="txt-styling-tip">
-                  {{ data.styling_tip }}
-                </p>
+              <div class="cell text-wrap">
+                <p class="txt-styling-title">{{ data.styling_title }}</p>
+                <p class="txt-styling-tip">{{ data.styling_tip }}</p>
               </div>
-              <div class="link-wrap">
-                <!--구매 정보 기획이 나오기 전까지 숨겨집니다. -->
-                <a
-                  class="txt-link"
-                  href="#"
-                  :data-id="data.id"
-                  v-if="false"
-                  @click="clickPastDetail"
-                >
-                  구매 정보 보기
-                </a>
-                <a
-                  class="txt-link"
-                  href="#"
-                  :data-id="data.id"
-                  v-if="(feedbacksData[idx] && feedbacksData[idx].result)"
-                  @click="clickShowFeedBack(idx, $event)"
-                >
-                  옷장 후기 입력하기
-                </a>
+              <div class="cell link-wrap">
+                <a href="#" class="txt-link">구매 정보 보기</a>
+                <a href="#" class="txt-link" @click="clickShowFeedBack(idx, $event)">옷장 후기 입력하기</a>
               </div>
             </div>
-            <feedBack
-              :ref="`pastFeedback-${idx}`"
-              style="display: none;"
-              :subscriptionId="data.id"
-              :data="feedbacksData[idx]"
-              :type="'past'">
-            </feedBack>
-            <!--{{feedbacksData[idx]}}-->
           </div>
-
         </div>
       </div>
     </div>
@@ -122,7 +79,7 @@ export default {
     ...mapActions({
       getPast: 'subscriptions/getPast',
       getPastDetail: 'subscriptions/getPastDetail',
-      getFeedbacks: 'subscriptions/getFeedbacks'
+      getPastFeedbacks: 'subscriptions/getPastFeedbacks'
     }),
 
     suffixNumber(data) {
@@ -136,15 +93,6 @@ export default {
         return 'th';
       }
     },
-    feedbackToggle(idx) {
-      if (this.feedbacksData[idx]) {
-        if (this.feedbacksData[idx].result) {
-          return true;
-        }
-      } else {
-        return false;
-      }
-    },
     clickPastDetail(event) {
       event.preventDefault();
       const target = event.target;
@@ -156,29 +104,18 @@ export default {
     clickShowFeedBack(idx, event) {
       // 단순하게 Show Hide기능만 넣어야겠다.
       event.preventDefault();
-
-      console.log(this.$refs[`pastFeedback-${idx}`][0].$el);
-      this.$refs[`pastFeedback-${idx}`][0].$el.style.display = 'block';
-      console.log(this.$refs);
-
-      // const target = event.target;
-      // const subscriptionId = target.getAttribute('data-id');
-      // console.log(subscriptionId);
-      // const formFeedBacks = {
-      //   subscriptionId: subscriptionId,
-      //   type: 'past'
-      // };
-      // this.getFeedbacks(formFeedBacks).then(res => {
-      //   console.log(res);
-      // })
+      console.log(this.$refs.feedback);
+      this.$refs.feedback[idx].$el.style.display = 'block';
     },
+    clickHideFeedBack(){},
     setPastFeedbacks(data) {
       _.forEach(data, value => {
-        const formFeedBacks = {
-          subscriptionId: value.id,
-          type: 'past'
-        };
-        this.getFeedbacks(formFeedBacks).then(res => {
+        console.log(value.id);
+        const formData = {
+          subscriptionId: value.id
+        }
+        this.getPastFeedbacks(formData).then(res => {
+          console.log(res);
           this.feedbacksData = _.concat(this.feedbacksData, res.data);
         });
       });
@@ -187,8 +124,8 @@ export default {
   async created() {
     await this.getPast().then(res => {
       this.isPastData = res.data.result.length !== 0;
-      this.setPastFeedbacks(this.PastResult);
     });
+    await this.setPastFeedbacks(this.PastResult);
   }
 };
 </script>
@@ -196,67 +133,158 @@ export default {
 </style>
 <style scoped lang="scss">
 .none {
-  height: 500px;
-  background: url('~@/assets/img/closet/img_none.png') no-repeat 50% 0;
-  position: relative;
-  .inner {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    height: 160px;
-    background-color: #fafafa;
-    width: 90%;
-  }
+  padding-top: 14px;
+  padding-bottom: 16px;
   p {
+    @include fontSize(15px);
     text-align: center;
-    font-size: 18px;
-    line-height: 28px;
-    letter-spacing: -1.2px;
-  }
-}
-.list-past {
-  border-top: 1px solid #333;
-  border-bottom: 1px solid #333;
-  .item {
-    border-top: 1px solid #e9e9e9;
-    padding: 15px 0;
-    &:nth-child(1) {
-      border-top: 0 none;
-    }
-  }
-}
-.date-wrap {
-  @include fontSize(16px, en);
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-.image-wrap {
-  text-align: center;
-  .image {
-    display: inline-block;
-    vertical-align: top;
-    width: 163px;
-    & + .image {
-      margin-left: 9px;
-    }
-    img {
-      width: 100%;
-    }
   }
 }
 
-.text-wrap {
-  @include fontSize(15px);
-  color: #797979;
-  padding: 15px 0;
+
+.past {
+  border-top: 1px solid $color-primary;
+  border-bottom: 1px solid $color-primary;
+  .past-header {
+    display: none;
+  }
+  .past-body-wrap {
+  }
+  .past-body {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-top: 1px solid #e9e9e9;
+    &:first-child {
+      border-top: 0 none;
+    }
+  }
+
+  .index-wrap {
+    span {
+      @include fontSize(16px, en);
+      font-weight: 700;
+    }
+    .txt-index {
+      position: relative;
+      margin-right: 15px;
+      &::after {
+        position: absolute;
+        content: '';
+        display: block;
+        right: -8px;
+        border-right: 1px solid #979797;
+        height: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+  }
+  .image-wrap {
+    margin-top: 11px;
+    .list-image {
+      font-size: 0;
+      div {
+        display: inline-block;
+        width: calc(50% - 5px);
+        vertical-align: top;
+        img {
+          width: 100%;
+        }
+        &:nth-child(2) {
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+  .text-wrap {
+    margin-top: 15px;
+    p {
+      @include fontSize(15px);
+      color: $color-secondary;
+      white-space: pre-wrap;
+    }
+  }
+  .link-wrap {
+    @include fontSize(14px);
+    margin-top: 15px;
+    .txt-link {
+      &:not(:first-child) {
+        margin-left: 15px;
+      }
+    }
+  }
+
 }
-.txt-link {
-  @include fontSize(14px);
-  color: #566b9c;
-  text-decoration: underline;
-  & + .txt-link {
-    margin-left: 15px;
+
+.past-table-header {
+  display: none;
+}
+
+@media (min-width: 1280px) {
+  .none {
+    border-top: 1px solid #e9e9e9;
+    position: relative;
+    &::after {
+      content: '';
+      display: block;
+      width: 100%;
+      position: absolute;
+      left: 0;
+      bottom: -1px;
+      border-bottom: 1px solid #e9e9e9;
+
+    }
+  }
+  .past {
+    border-top: 2px solid $color-primary;
+    border-bottom: 1px solid $color-primary;
+    .past-header,
+    .past-body {
+      width: 100%;
+      display: table;
+    }
+    .past-header {
+      .cell {
+        @include fontSize(15px);
+        height: 43px;
+        text-align: center;
+        font-weight: 700;
+      }
+    }
+    .past-body {
+      padding-top: 20px;
+      padding-bottom: 20px;
+      &:first-child {
+        border-top: 1px solid #e9e9e9;
+      }
+      .index-wrap {
+        padding-left: 19px;
+      }
+      .image-wrap {
+        width: 13.916666666666666%;
+        padding-right: 22px;
+      }
+      .text-wrap {
+        width: 57.99999999999999%;
+        padding-right: 22px;
+      }
+      .link-wrap {
+        .txt-link {
+          display: block;
+          &:not(:first-child) {
+            margin-left: 0;
+          }
+        }
+      }
+    }
+    .cell {
+      display: table-cell;
+      vertical-align: middle;
+      &:nth-child(1) {
+        // 공통 영역
+        width: 15.166666666666668%;
+      }
+    }
   }
 }
 </style>

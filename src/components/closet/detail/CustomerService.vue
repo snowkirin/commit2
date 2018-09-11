@@ -3,8 +3,6 @@
     <div class="contents-header">
       <h3>소중한 의견으로 더 자라는 줄라이가 되겠습니다.</h3>
     </div>
-
-
     <div class="content-form">
       <div class="tap-wrap">
         <ul class="list-flex">
@@ -256,9 +254,6 @@ export default {
       margin-bottom: 10px;
     }
   }
-}
-
-.content-inner {
 }
 .button-wrap {
   margin-top: 20px;
