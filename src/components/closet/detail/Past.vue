@@ -98,19 +98,16 @@ export default {
       const target = event.target;
       const subscriptionId = target.getAttribute('data-id');
       this.getPastDetail(subscriptionId).then(res => {
-        console.log(res);
       });
     },
     clickShowFeedBack(idx, event) {
       // 단순하게 Show Hide기능만 넣어야겠다.
       event.preventDefault();
-      console.log(this.$refs.feedback);
       this.$refs.feedback[idx].$el.style.display = 'block';
     },
     clickHideFeedBack() {},
     setPastFeedbacks(data) {
       _.forEach(data, value => {
-        console.log(value.id);
         const formData = {
           subscriptionId: value.id
         };

@@ -304,8 +304,6 @@ export default {
       const list = target.closest('ul');
       const item = list.querySelectorAll('li');
 
-      console.log(data);
-
       // Selected 효과 및 값 전송
       if (!target.classList.contains('selected')) {
         _.forEach(item, value => {
@@ -323,9 +321,7 @@ export default {
           answerCode: _.parseInt(data.answer_code[idx])
         };
         // 이값을 보내자.
-        this.postFeedbacksAnswers(formData).then(res => {
-          console.log(res);
-        });
+        this.postFeedbacksAnswers(formData);
       }
 
       if (data.question_text === '색상 및 패턴') {
