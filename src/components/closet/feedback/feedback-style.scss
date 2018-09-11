@@ -151,11 +151,18 @@
   margin-top: 35px;
 }
 
-.txt-nps {
-  @include fontSize(14px);
-  margin-top: 5px;
-  color: #797979;
+.text-nps-wrap {
+  .txt-feedback-title {
+    margin-bottom: 0;
+  }
+  .txt-nps {
+    @include fontSize(14px);
+    margin-top: 5px;
+    color: #797979;
+  }
+  margin-bottom: 10px;
 }
+
 
 .column-left {
   padding-bottom: 30px;

@@ -38,7 +38,6 @@ export default {
                 .dispatch('subscriptions/getCurrentFeedbacksDirect', token)
                 .then(res => {
                   // 유저이름 넣기
-                  console.log(res);
                   if (res.data.result) {
                     $store.state.login.Authentication.userName =
                       res.data.info.user_name;

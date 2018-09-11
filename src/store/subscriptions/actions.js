@@ -90,7 +90,6 @@ export default {
   /* 과거의 옷장 상품 상세보기, 2018-09-05: 사용 안하는중*/
   getPastDetail({ commit }, data) {
     return Subscriptions.getPastDetail(data).then(res => {
-      console.log(res);
     });
   },
   getPastFeedbacks({ commit }, data) {
@@ -105,7 +104,6 @@ export default {
   // 현재의 옷장
   getCurrentFeedbacksAnswers(data) {
     return Subscriptions.getFeedbacksAnswers(data).then(res => {
-      console.log(res);
       return res;
     });
   },
@@ -118,7 +116,6 @@ export default {
   // 과거의 옷장
   getPastFeedbacksAnswers(data) {
     return Subscriptions.getFeedbacksAnswers(data).then(res => {
-      console.log(res);
       return res;
     });
   },
