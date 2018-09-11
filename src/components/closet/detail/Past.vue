@@ -107,13 +107,13 @@ export default {
       console.log(this.$refs.feedback);
       this.$refs.feedback[idx].$el.style.display = 'block';
     },
-    clickHideFeedBack(){},
+    clickHideFeedBack() {},
     setPastFeedbacks(data) {
       _.forEach(data, value => {
         console.log(value.id);
         const formData = {
           subscriptionId: value.id
-        }
+        };
         this.getPastFeedbacks(formData).then(res => {
           console.log(res);
           this.feedbacksData = _.concat(this.feedbacksData, res.data);
@@ -140,7 +140,6 @@ export default {
     text-align: center;
   }
 }
-
 
 .past {
   border-top: 1px solid $color-primary;
@@ -213,7 +212,6 @@ export default {
       }
     }
   }
-
 }
 
 .past-table-header {
@@ -232,7 +230,6 @@ export default {
       left: 0;
       bottom: -1px;
       border-bottom: 1px solid #e9e9e9;
-
     }
   }
   .past {
