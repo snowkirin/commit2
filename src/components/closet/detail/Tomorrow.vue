@@ -236,6 +236,7 @@ export default {
         scrollable: true,
         height: 'auto',
         width: '80%',
+        maxWidth: 600,
         adaptive: true
       };
       const productCode = data.product_id;

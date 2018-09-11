@@ -267,30 +267,6 @@ export default {
   }
 }
 .swiper-container {
-  .swiper-pagination {
-    bottom: 20px;
-  }
-  .swiper-button-prev,
-  .swiper-button-next {
-    height: 32px;
-    width: 32px;
-    border: 1px solid #b9b9b9;
-    border-width: 1px 1px 0 0;
-    background-image: none;
-  }
-  .swiper-button-prev {
-    -webkit-transform: rotate(-135deg);
-    transform: rotate(-135deg);
-    left: 26px;
-  }
-  .swiper-button-next {
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-    right: 26px;
-  }
-  .swiper-button-disabled {
-    display: none;
-  }
 }
 
 .product-explain {
