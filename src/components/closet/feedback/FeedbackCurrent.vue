@@ -130,19 +130,19 @@
                 </template>
               </div>
               <div class="nps-wrap" v-if="data.setNPS && data.isEmptyB">
-                <div>
+                <div class="text-nps-wrap">
                   <p class="txt-feedback-title">ZULY 서비스를 지인이나 친구에게 추천하실 의향이 있으신가요?</p>
                   <p class="txt-nps">(적극 추천하는 것을 10점 만점으로 생각하고 점수를 매겨주세요.)</p>
                 </div>
                 <ul class="list-flex">
                   <li
                     class="item w-20 h-50"
-                    v-for="(data, idx) in ['10', '9', '8', '7', '6', '5' , '4', '3', '2', '1']"
-                    :class="{selected: data.npsScore === _.parseInt(data)}"
+                    v-for="(item, idx) in ['10', '9', '8', '7', '6', '5' , '4', '3', '2', '1']"
+                    :class="{'selected': data.npsScore === _.parseInt(item)}"
                     :key="idx"
-                    @click="clickNPS(data, $event)"
+                    @click="clickNPS(item, $event)"
                   >
-                    {{data}}
+                    {{item}}
                   </li>
                 </ul>
               </div>
@@ -209,7 +209,7 @@
                 </template>
               </div>
               <div class="nps-wrap" v-if="data.setNPS && !data.isEmptyB">
-                <div>
+                <div class="text-nps-wrap">
                   <p class="txt-feedback-title">ZULY 서비스를 지인이나 친구에게 추천하실 의향이 있으신가요?</p>
                   <p class="txt-nps">(적극 추천하는 것을 10점 만점으로 생각하고 점수를 매겨주세요.)</p>
                 </div>
