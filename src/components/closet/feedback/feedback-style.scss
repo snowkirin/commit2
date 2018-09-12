@@ -14,6 +14,7 @@
     background-position: 50% 50%;
     background-size: cover;
     padding-top: 22px;
+    opacity: 0.8;
   }
   .text-wrap {
     text-align: center;
@@ -221,6 +222,12 @@
     padding-left: 40px;
     .info-wrap {
       margin-top: 0;
+    }
+  }
+  .button-wrap {
+    text-align: right;
+    button {
+      width: 287px;
     }
   }
 }
