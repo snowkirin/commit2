@@ -237,6 +237,10 @@ export default {
       &:not(:first-child) {
         margin-left: 15px;
       }
+      &:hover {
+        color: #566b9c;
+        text-decoration: underline;
+      }
     }
   }
 }

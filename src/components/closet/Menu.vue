@@ -165,13 +165,12 @@ export default {
           display: block;
           position: absolute;
           bottom: 0;
-          border-bottom: 4px solid #f16458;
+          border-bottom: 4px solid #dc828e;
           width: 100%;
         }
       }
     }
     .menu-container {
-
     }
     .swiper-slide {
       width: auto;
@@ -179,12 +178,12 @@ export default {
   }
 }
 
-  @media (min-width: 1280px) {
-    .c-menu {
-      width: 1200px;
-      .closet-link {
-        @include fontSize(18px);
-      }
+@media (min-width: 1280px) {
+  .c-menu {
+    width: 1200px;
+    .closet-link {
+      @include fontSize(18px);
     }
   }
+}
 </style>

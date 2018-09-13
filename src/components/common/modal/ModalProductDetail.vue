@@ -12,18 +12,14 @@
           <swiper-slide v-for="(data, idx) in images" :key="idx" class="swiper-item">
             <img :src="$common.ZulyImage()+data.image_path" alt="">
           </swiper-slide>
-          <swiper-slide class="swiper-item">
-              <div class="swiper-explain">
-                <div class="center-align">
-                  <div>
-                    <p>핏감: {{details.fit}}</p>
-                    <p>두께: {{details.thickness}}</p>
-                    <p>신축성: {{details.flexibility}}</p>
-                    <p>겉감: {{materialType('겉감')}}</p>
-                    <p>안감: {{materialType('안감')}}</p>
-                  </div>
-                </div>
-              </div>
+          <swiper-slide class="swiper-item" :style="{ height: containerHeight+'px'}">
+            <div class="swiper-explain">
+              <p>핏감: {{details.fit}}</p>
+              <p>두께: {{details.thickness}}</p>
+              <p>신축성: {{details.flexibility}}</p>
+              <p v-if="materialType('겉감')">겉감: {{materialType('겉감')}}</p>
+              <p v-if="materialType('안감')">안감: {{materialType('안감')}}</p>
+            </div>
           </swiper-slide>
           <div class="swiper-pagination" slot="pagination"></div>
           <div class="swiper-button-prev" slot="button-prev"></div>
@@ -61,31 +57,41 @@ export default {
         navigation: {
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev'
-        },
+        }
       },
       basics: {},
       details: {},
-      images: []
+      images: [],
+      containerHeight: 0
     };
   },
-  computed: {
-  },
+  computed: {},
   methods: {
     materialType(type) {
       const materialData = this.details.material;
       let materialResult = '';
       _.forEach(materialData, value => {
         if (value.type === type) {
-          materialResult = `${value.composition[0].material} ${value.composition[0].ratio}%`;
+          _.forEach(value.composition, (value2, idx2) => {
+            materialResult += `${idx2 > 0 ? ', ' : ''}${value2.material} ${
+              value2.ratio
+            }%`;
+          });
         }
       });
       return materialResult;
+    },
+    resize() {
+      this.containerHeight = this.$refs.mySwiper.$el.offsetHeight;
     }
   },
   created() {
     this.basics = this.data.basics;
     this.details = this.data.details;
     this.images = this.data.images;
+  },
+  mounted() {
+    this.resize();
   }
 };
 </script>
@@ -101,23 +107,27 @@ export default {
   @include fontSize(15px);
   font-weight: 700;
 }
-
 .swiper {
   .swiper-container {
     background-color: #f5f5f5;
   }
   .swiper-item {
-    position: static;
+    text-align: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
     img {
       width: 100%;
     }
   }
   .swiper-explain {
     @include fontSize(14px);
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    text-align: center;
   }
 }
 .modal-close {
