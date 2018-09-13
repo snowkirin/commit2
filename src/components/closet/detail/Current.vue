@@ -1,24 +1,19 @@
 <template>
   <div class="contents">
-    <div v-if="!isCurrentData">
-      <div class="none">
-        <div class="inner center-align">
-          <p>
-            조금만 기다리세요<br/>
-            곧 옷장이 채워집니다.
-          </p>
+    <div class="content">
+      <!-- 데이터가 존재하지 않는다면 -->
+      <div v-if="!isCurrentData">
+        <div class="none">
+          <div class="inner center-align">
+            <p>
+              조금만 기다리세요<br/>
+              곧 옷장이 채워집니다.
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-    <div v-else>
-      <div class="content ">
-        <feedBack
-          ref="feedback"
-          v-if="!_.isEmpty(feedbacksData)"
-          :data="feedbacksData"
-          :subscriptionId="isCurrentFeedbacksDirect ? CurrentFeedbacksDirect.subscription_id: currentData.subscriptionId"
-          :type="isCurrentFeedbacksDirect ? 'direct' : 'current'">
-        </feedBack>
+      <div v-else>
+        <component :is="feedbacksType" :feedbackData="CurrentFeedbacks" v-if="feedbacksType"></component>
         <div class="current" v-show="!isCurrentFeedbacksDirect">
           <!-- Swiper ?-->
           <div class="product-image">
@@ -90,10 +85,9 @@ export default {
   data() {
     return {
       feedbacksData: {},
-      directFeedbackCheck: false,
-
       isCurrentData: false,
-      isFeedbacksData: false,
+      isFeedback: false,
+      feedbacksType: null,
 
       // 2018-08-21 API 결과값 가공
       currentData: {
@@ -125,22 +119,36 @@ export default {
     swiperSlide,
     VueJsonPretty
   },
+  watch: {
+    isCurrentFeedbacks(data) {
+      this.currentFeedbackType();
+    },
+    isCurrentFeedbacksDirect(data) {
+      this.currentFeedbackType();
+    }
+  },
   computed: {
     ...mapGetters({
       CurrentResult: 'subscriptions/CurrentResult', // 현재의 옷장 데이터
       CurrentImages: 'subscriptions/CurrentImages', // 현재의 옷장 이미지 데이터
       CurrentFeedbacks: 'subscriptions/CurrentFeedbacks', // 현재의 옷장 피드백 데이터
+      isCurrentFeedbacks: 'subscriptions/isCurrentFeedbacks',
       CurrentFeedbacksDirect: 'subscriptions/CurrentFeedbacksDirect', // 현재의 옷장 피드백 직접접속 데이터
       isCurrentFeedbacksDirect: 'subscriptions/isCurrentFeedbacksDirect'
-    })
+    }),
   },
   methods: {
     ...mapActions({
       getCurrent: 'subscriptions/getCurrent',
       getCurrentFeedbacks: 'subscriptions/getCurrentFeedbacks',
-      // getCurrentFeedbacksDirect: 'subscriptions/getCurrentFeedbacksDirect',
       destroyCurrentFeedbackDirect: 'subscriptions/destroyCurrentFeedbackDirect'
     }),
+    clickShow(){
+      this.isFeedback = true;
+    },
+    clickHide() {
+      this.isFeedback = false;
+    },
     setCurrentData() {
       // CurrentResult를 관리하기 편하게 변환
       this.currentData = {
@@ -151,27 +159,34 @@ export default {
         hashTag: this.CurrentResult[0].hashtag,
         products: this.CurrentResult[0].products
       };
+    },
+    currentFeedbackType() {
+      if (this.isCurrentFeedbacks && !this.isCurrentFeedbacksDirect) {
+        // CurrentFeedback은 true, isCurrentFeedbacksDirect는 false일 경우
+        this.feedbacksType = () => import('@/components/closet/feedback/FeedbackCurrent.vue');
+      }
+      if (this.isCurrentFeedbacks && this.isCurrentFeedbacksDirect) {
+        // isCurrentFeedbacks 와 isCurrentFeedbacksDirect 둘다 true일때만
+        this.feedbacksType = () => import('@/components/closet/feedback/FeedbackDirect.vue');
+      }
     }
   },
   async created() {
+    // 직접접속 이라면
     if (this.isCurrentFeedbacksDirect) {
+
       const formData = {
         subscriptionId: this.CurrentFeedbacksDirect.subscription_id
       };
+
       this.getCurrentFeedbacks(formData).then(res => {
         if (res.data.result) {
           // 피드백 데이터가 있다면
-          this.feedbacksData = this.CurrentFeedbacks;
-          this.isFeedbacksData = true;
           this.isCurrentData = true;
-        } else {
-          // 피드백 데이터가 없다면
-          this.isFeedbacksData = false;
-          this.isCurrentData = false;
         }
       });
     } else {
-      await this.getCurrent().then(res => {
+      await this.getCurrent().then((res) => {
         if (!_.isEmpty(res.data.result)) {
           // 현재의 옷장 데이터가 있다면
           this.setCurrentData();
@@ -183,14 +198,14 @@ export default {
           this.getCurrentFeedbacks(formData).then(res => {
             if (res.data.result) {
               this.feedbacksData = this.CurrentFeedbacks;
-              this.isFeedbacksData = true;
-            } else {
-              this.isFeedbacksData = false;
             }
           });
         }
       });
     }
+  },
+  mounted() {
+    this.currentFeedbackType();
   },
   destroyed() {
     if (this.isCurrentFeedbacksDirect) {
@@ -252,30 +267,6 @@ export default {
   }
 }
 .swiper-container {
-  .swiper-pagination {
-    bottom: 20px;
-  }
-  .swiper-button-prev,
-  .swiper-button-next {
-    height: 32px;
-    width: 32px;
-    border: 1px solid #b9b9b9;
-    border-width: 1px 1px 0 0;
-    background-image: none;
-  }
-  .swiper-button-prev {
-    -webkit-transform: rotate(-135deg);
-    transform: rotate(-135deg);
-    left: 26px;
-  }
-  .swiper-button-next {
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-    right: 26px;
-  }
-  .swiper-button-disabled {
-    display: none;
-  }
 }
 
 .product-explain {

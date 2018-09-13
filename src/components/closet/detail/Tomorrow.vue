@@ -235,7 +235,8 @@ export default {
       const modalConfig = {
         scrollable: true,
         height: 'auto',
-        width: '80%',
+        width: '98%',
+        maxWidth: 600,
         adaptive: true
       };
       const productCode = data.product_id;

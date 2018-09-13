@@ -42,7 +42,7 @@ export default {
                     $store.state.login.Authentication.userName =
                       res.data.info.user_name;
                   } else {
-                    alert('올바른 경로로 접속하지 않으셨습니다.');
+                    alert('직접 접근 코드를 다시 입력해주세요.');
                     const query = to.fullPath.match(/^\/$/)
                       ? {}
                       : { redirect: to.fullPath };

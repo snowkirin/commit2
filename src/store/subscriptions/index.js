@@ -11,11 +11,14 @@ const initialState = {
   // 내일의 옷장 직접 접속 체크
   isTomorrowDirect: false,
 
-  CurrentResult: [],
-  CurrentImages: {},
-  CurrentFeedbacks: {},
-  CurrentFeedbacksDirect: {},
-  isCurrentFeedbacksDirect: false,
+  CurrentResult: [], // 현재의 옷장 데이터
+  CurrentImages: {}, // 현재의 옷장 이미지
+  CurrentFeedbacks: {}, // 현재의 옷장 피드백 데이터
+  isCurrentFeedbacks: false, // 현재의 옷장 피드백 체크
+  CurrentFeedbacksAnswers: {},
+  CurrentFeedbacksDirect: {}, // 현재의 옷장 직접접속 피드백 데이터, 이 데이터는 유저의 기본정보 (피드백아이디, 구독아이디, 유저이름등의 정보를 가지고 있다.)
+  isCurrentFeedbacksDirect: false, // 현재의 옷장 직접접속 피드백 체크
+  CurrentFeedbacksDirectAnswers: {},
 
   PastResult: [],
   PastIsShow: false,
@@ -35,8 +38,8 @@ const mutations = {
 
   },
   [types.GET_TOMORROW_DIRECT](state, data) {
-    state.isTomorrowDirect = true;
     state.TomorrowResult = data.data;
+    state.isTomorrowDirect = true;
     state.TomorrowDirectMemberId = data.info.member_id;
   },
   [types.DESTROY_TOMORROW_DIRECT](state) {
@@ -55,7 +58,9 @@ const mutations = {
     _.assign(state.TomorrowProductDetail, data);
   },
   [types.GET_CURRENT_FEEDBACKS](state, data) {
+    // 현재의 옷장 피드백
     state.CurrentFeedbacks = data;
+    state.isCurrentFeedbacks = true;
   },
   [types.GET_CURRENT_FEEDBACKS_DIRECT](state, data) {
     state.CurrentFeedbacksDirect = data;
@@ -90,6 +95,7 @@ const getters = {
   CurrentResult: state => state.CurrentResult,
   CurrentImages: state => state.CurrentImages,
   CurrentFeedbacks: state => state.CurrentFeedbacks,
+  isCurrentFeedbacks: state => state.isCurrentFeedbacks,
   CurrentFeedbacksDirect: state => state.CurrentFeedbacksDirect,
   isCurrentFeedbacksDirect: state => state.isCurrentFeedbacksDirect,
 

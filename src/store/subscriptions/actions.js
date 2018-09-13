@@ -57,7 +57,7 @@ export default {
     });
   },
   getCurrentFeedbacks({ commit }, data) {
-    return Subscriptions.getFeedbacks(data).then(res => {
+    return Subscriptions.getFeedbacks(data).then((res) => {
       if (res.data.result) {
         commit(types.GET_CURRENT_FEEDBACKS, res.data);
         return res;
@@ -90,15 +90,57 @@ export default {
   /* 과거의 옷장 상품 상세보기, 2018-09-05: 사용 안하는중*/
   getPastDetail({ commit }, data) {
     return Subscriptions.getPastDetail(data).then(res => {
-      console.log(res);
     });
   },
   getPastFeedbacks({ commit }, data) {
     return Subscriptions.getFeedbacks(data).then(res => {
-      if (res.data.result) {
-        commit(types.GET_PAST_FEEDBACKS, res.data);
-        return res;
-      }
+      commit(types.GET_PAST_FEEDBACKS, res.data);
+      return res;
+    });
+  },
+
+  /* 피드백 답변 가져오기 */
+
+  // 현재의 옷장
+  getCurrentFeedbacksAnswers(data) {
+    return Subscriptions.getFeedbacksAnswers(data).then(res => {
+      return res;
+    });
+  },
+  // 현재의 옷장 직접접속
+  getCurrentFeedbacksDirectAnswers({ commit }, data) {
+    return Subscriptions.getFeedbacksAnswers(data).then(res => {
+      return res;
+    });
+  },
+  // 과거의 옷장
+  getPastFeedbacksAnswers(data) {
+    return Subscriptions.getFeedbacksAnswers(data).then(res => {
+      return res;
+    });
+  },
+
+  /* 피드백 답변하기 */
+
+  // 일반적인 피드백 답변
+
+  postFeedbacksAnswers({ commit }, data) {
+    return Subscriptions.postFeedbacksAnswers(data).then(res => {
+      return res;
+    });
+  },
+
+  //  피드백 답변 보내기 (색상 및 패턴)
+  postFeedbacksAnswersReasons({ commit }, data) {
+    return Subscriptions.postFeedbacksAnswersReasons(data).then(res => {
+      return res;
+    });
+  },
+
+  // NPS 답변
+  postFeedbacksNps({ commit }, data) {
+    return Subscriptions.postFeedbacksNps(data).then(res => {
+      return res;
     });
   }
 };

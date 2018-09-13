@@ -2,7 +2,6 @@ import axios from 'axios';
 const API_URL = process.env.VUE_APP_API_URL;
 
 export default {
-
   /*
   * 내일의 옷장 데이터
   * */
@@ -112,7 +111,6 @@ export default {
       });
   },
 
-
   /*
   * 과거의 옷장 데이터
   * */
@@ -154,14 +152,6 @@ export default {
   * 현재의 옷장 데이터
   * */
 
-
-
-
-
-
-
-
-
   /*
   * 피드백 가져오기 (과거의 옷장, 현재의 옷장)
   * data = { subscriptionId: 180810000002 (Number) }
@@ -187,9 +177,7 @@ export default {
   * */
   getFeedbacksAnswers(data) {
     return axios
-      .get(`${API_URL}/subscriptions/feedbacks/answers`, {
-        params: data
-      })
+      .get(`${API_URL}/subscriptions/feedbacks/answers`, { params: data })
       .then(res => {
         return res;
       })
@@ -214,7 +202,7 @@ export default {
   * */
   postFeedbacksAnswers(data) {
     return axios
-      .post(`${API_URL}subscriptions/feedbacks/answers}`, data)
+      .post(`${API_URL}/subscriptions/feedbacks/answers`, data)
       .then(res => {
         return res;
       })
