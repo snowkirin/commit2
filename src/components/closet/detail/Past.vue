@@ -63,7 +63,6 @@
                     :subscriptionId="data.id"
                     @hide="clickFeedbackHide(idx)"
                   >
-                    <!--@hide="$refs.feedback.style.display = 'none'"-->
                   </feedback-past>
                 </div>
               </div>
@@ -95,8 +94,7 @@ export default {
     VueJsonPretty
   },
   watch: {
-    feedbackData() {
-    }
+    feedbackData() {}
   },
   computed: {
     ...mapGetters({
@@ -140,7 +138,7 @@ export default {
       event.preventDefault();
       const target = event.target;
       const subscriptionId = target.getAttribute('data-id');
-      this.getPastDetail(subscriptionId).then(res => {});
+      this.getPastDetail(subscriptionId);
     }
   },
   async created() {
@@ -156,7 +154,6 @@ export default {
         this.feedbackData.push(res.data);
       });
     });
-    this.feedbackData = _.reverse(this.feedbackData);
   }
 };
 </script>
