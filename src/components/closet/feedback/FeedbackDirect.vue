@@ -8,7 +8,7 @@
         </div>
         <div class="evaluate-wrap">
           <template
-            v-for="(data, idx) in data.questionCommon"
+            v-for="(data, idx) in feedbackDataResult.questionCommon"
             v-if="idx === 0"
           >
             <ul
@@ -45,7 +45,7 @@
           <div class="column column-left">
             <div class="common-wrap">
               <template
-                v-for="(data, idx) in data.questionCommon"
+                v-for="(data, idx) in feedbackDataResult.questionCommon"
                 v-if="idx === 1">
                 <div :key="idx">
                   <p class="txt-feedback-title">
@@ -71,16 +71,16 @@
             </div>
             <div class="info-wrap">
               <div>
-                <p class="txt-feedback-title">A. {{data.infoA.name}}는 어떠셨나요?</p>
+                <p class="txt-feedback-title">A. {{feedbackDataResult.infoA.name}}는 어떠셨나요?</p>
                 <div class="product-wrap">
                   <div class="image">
-                    <img :src="$common.ZulyImage(data.infoA.image_width)+data.infoA.image_path" alt="">
+                    <img :src="$common.ZulyImage(feedbackDataResult.infoA.image_width)+feedbackDataResult.infoA.image_path" alt="">
                   </div>
                 </div>
               </div>
             </div>
             <div class="question-wrap">
-              <template v-for="(data, idx) in data.questionA">
+              <template v-for="(data, idx) in feedbackDataResult.questionA">
                 <div class="row" :key="idx">
                   <p class="txt-feedback-title">A-{{idx+1}}.{{data.question_text}}</p>
                   <div>
@@ -128,7 +128,7 @@
                 </div>
               </template>
             </div>
-            <div class="nps-wrap" v-if="data.setNPS && data.isEmptyB">
+            <div class="nps-wrap" v-if="feedbackDataResult.setNPS && feedbackDataResult.isEmptyB">
               <div class="text-nps-wrap">
                 <p class="txt-feedback-title">ZULY 서비스를 지인이나 친구에게 추천하실 의향이 있으신가요?</p>
                 <p class="txt-nps">(적극 추천하는 것을 10점 만점으로 생각하고 점수를 매겨주세요.)</p>
@@ -136,30 +136,30 @@
               <ul class="list-flex">
                 <li
                   class="item w-20 h-50"
-                  v-for="(item, idx) in ['10', '9', '8', '7', '6', '5' , '4', '3', '2', '1']"
-                  :class="{'selected': data.npsScore === _.parseInt(item)}"
+                  v-for="(data, idx) in ['10', '9', '8', '7', '6', '5' , '4', '3', '2', '1']"
+                  :class="{'selected': feedbackDataResult.npsScore === _.parseInt(data)}"
                   :key="idx"
-                  @click="clickNPS(item, $event)"
+                  @click="clickNPS(data, $event)"
                 >
-                  {{item}}
+                  {{data}}
                 </li>
               </ul>
             </div>
           </div>
-          <div class="column column-right" v-if="!data.isEmptyB">
+          <div class="column column-right" v-if="!feedbackDataResult.isEmptyB">
               <!-- 질문 B Info-->
             <div class="info-wrap">
               <div>
-                <p class="txt-feedback-title">B. {{data.infoB.name}}는 어떠셨나요?</p>
+                <p class="txt-feedback-title">B. {{feedbackDataResult.infoB.name}}는 어떠셨나요?</p>
                 <div class="product-wrap">
                   <div class="image">
-                    <img :src="$common.ZulyImage(data.infoB.image_width)+data.infoB.image_path" alt="">
+                    <img :src="$common.ZulyImage(feedbackDataResult.infoB.image_width)+feedbackDataResult.infoB.image_path" alt="">
                   </div>
                 </div>
               </div>
             </div>
             <div class="question-wrap">
-              <template v-for="(data, idx) in data.questionB">
+              <template v-for="(data, idx) in feedbackDataResult.questionB">
                 <div class="row" :key="idx">
                   <p class="txt-feedback-title">B-{{idx+1}}.{{data.question_text}}</p>
                   <div>
@@ -207,7 +207,7 @@
                 </div>
               </template>
             </div>
-            <div class="nps-wrap" v-if="data.setNPS && !data.isEmptyB">
+            <div class="nps-wrap" v-if="feedbackDataResult.setNPS && !feedbackDataResult.isEmptyB">
               <div class="text-nps-wrap">
                 <p class="txt-feedback-title">ZULY 서비스를 지인이나 친구에게 추천하실 의향이 있으신가요?</p>
                 <p class="txt-nps">(적극 추천하는 것을 10점 만점으로 생각하고 점수를 매겨주세요.)</p>
@@ -215,10 +215,10 @@
               <ul class="list-flex">
                 <li
                   class="item w-20 h-50"
-                  v-for="(item, idx) in ['10', '9', '8', '7', '6', '5' , '4', '3', '2', '1']"
-                  :class="{'selected': data.npsScore === _.parseInt(item)}"
+                  v-for="(data, idx) in ['10', '9', '8', '7', '6', '5' , '4', '3', '2', '1']"
+                  :class="{'selected': feedbackDataResult.npsScore === _.parseInt(data)}"
                   :key="idx"
-                  @click="clickNPS(item, $event)"
+                  @click="clickNPS(data, $event)"
                 >
                   {{item}}
                 </li>
@@ -231,11 +231,20 @@
         <button type="button" class="btn btn-primary h-56" @click="clickComplete">제출하기</button>
       </div>
     </div>
+    <simplert ref="alert" :useRadius="false" :useIcon="false" />
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import Simplert from 'vue2-simplert';
+
+const alertObject = {
+  type: 'alert', // 타입
+  customClass: 'popup-custom-class', // 커스텀 클래스 네임
+  disableOverlayClick: false, // 오버레이 클릭시 닫기 방지
+  customCloseBtnText: '확인' // 닫기 버튼 텍스트
+};
 
 export default {
   name: 'FeedbackDirect',
@@ -244,12 +253,12 @@ export default {
   },
   data() {
     return {
-      data: {},
+      feedbackDataResult: {},
       reasonA: '',
       reasonB: ''
     };
   },
-  components: {},
+  components: { Simplert },
   computed: {
     ...mapGetters({
       CurrentFeedbacksDirect: 'subscriptions/CurrentFeedbacksDirect'
@@ -279,22 +288,28 @@ export default {
           : event.target.closest('li');
       const list = event.target.closest('ul');
       const item = list.querySelectorAll('li');
-      if (!target.classList.contains('selected')) {
-        const formData = {
-          // 모든값은 숫자 타입
-          subscriptionId: this.CurrentFeedbacksDirect.subscription_id, // N
-          feedbackId: this.CurrentFeedbacksDirect.feedback_id, // N
-          barcode: null,
-          clothType: data.cloth_type,
-          questionCode: data.question_code,
-          answerCode: _.parseInt(data.answer_code[idx])
-        };
-        _.forEach(item, value => {
-          value.classList.remove('selected');
-        });
-        target.classList.add('selected');
-        this.postFeedbacksAnswers(formData);
-      }
+      const formData = {
+        subscriptionId: this.CurrentFeedbacksDirect.subscription_id, // N
+        feedbackId: this.CurrentFeedbacksDirect.feedback_id, // N
+        barcode: null,
+        clothType: data.cloth_type,
+        questionCode: data.question_code,
+        answerCode: _.parseInt(data.answer_code[idx])
+      };
+      this.postFeedbacksAnswers(formData).then(res => {
+        if (res.data.result) {
+          _.forEach(item, value => {
+            value.classList.remove('selected');
+          });
+          target.classList.add('selected');
+        } else {
+          _.assign(alertObject, {
+            message:
+              '통신중에 오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.'
+          });
+          this.$refs.alert.openSimplert(alertObject);
+        }
+      });
     },
     clickItem(data, idx, event) {
       const target =
@@ -306,11 +321,6 @@ export default {
 
       // Selected 효과 및 값 전송
       if (!target.classList.contains('selected')) {
-        _.forEach(item, value => {
-          value.classList.remove('selected');
-        });
-        target.classList.add('selected');
-
         const formData = {
           // 모든값은 숫자 타입
           subscriptionId: this.CurrentFeedbacksDirect.subscription_id, // N
@@ -320,25 +330,38 @@ export default {
           questionCode: data.question_code,
           answerCode: _.parseInt(data.answer_code[idx])
         };
-        // 이값을 보내자.
-        this.postFeedbacksAnswers(formData);
-      }
 
-      if (data.question_text === '색상 및 패턴') {
-        const textField = event.target
-          .closest('.row')
-          .querySelector('.text-field');
-        const _input = textField.querySelector('input');
-        if (data.answer_code[idx].indexOf('003') !== -1) {
-          textField.style.display = 'block';
-          _input.setAttribute('data-answerCode', data.answer_code[idx]);
-          _input.setAttribute('data-active', 'true');
-          _input.focus();
-        } else {
-          // False 이면 나중에 제출하기 할때 아무런 반응이 없음
-          _input.setAttribute('data-active', 'false');
-          textField.style.display = 'none';
-        }
+        // 이값을 보내자.
+        this.postFeedbacksAnswers(formData).then(res => {
+          if (res.data.result) {
+            _.forEach(item, value => {
+              value.classList.remove('selected');
+            });
+            target.classList.add('selected');
+            if (data.question_text === '색상 및 패턴') {
+              const textField = event.target
+                .closest('.row')
+                .querySelector('.text-field');
+              const _input = textField.querySelector('input');
+              if (data.answer_code[idx].indexOf('003') !== -1) {
+                textField.style.display = 'block';
+                _input.setAttribute('data-answerCode', data.answer_code[idx]);
+                _input.setAttribute('data-active', 'true');
+                _input.focus();
+              } else {
+                // False 이면 나중에 제출하기 할때 아무런 반응이 없음
+                _input.setAttribute('data-active', 'false');
+                textField.style.display = 'none';
+              }
+            }
+          } else {
+            _.assign(alertObject, {
+              message:
+                '통신중에 오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.'
+            });
+            this.$refs.alert.openSimplert(alertObject);
+          }
+        });
       }
     },
     clickNPS(data, event) {
@@ -354,7 +377,6 @@ export default {
         feedbackId: this.CurrentFeedbacksDirect.feedback_id, // N
         npsScore: data
       };
-
       // 선택한걸 클릭하지 않았을 경우만 작동한다.
       if (!target.classList.contains('selected')) {
         this.postFeedbacksNps(formData).then(res => {
@@ -364,7 +386,11 @@ export default {
             });
             target.classList.add('selected');
           } else {
-            alert('통신오류!');
+            _.assign(alertObject, {
+              message:
+                '통신중에 오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.'
+            });
+            this.$refs.alert.openSimplert(alertObject);
           }
         });
       }
@@ -372,12 +398,18 @@ export default {
     clickComplete() {
       const fbContent = this.$refs.feedbackContent;
       const inputs = fbContent.querySelectorAll('input[type="text"');
+      let reasonFlag = true;
       _.forEach(inputs, data => {
         if (data.getAttribute('data-active') === 'true') {
           if (data.value === '') {
-            alert('값을 입력해 주세요.');
+            reasonFlag = false;
+            _.assign(alertObject, {
+              message: '별로인 이유를 적어주세요.'
+            });
+            this.$refs.alert.openSimplert(alertObject);
             return false;
           } else {
+            reasonFlag = true;
             const formData = {
               subscriptionId: this.CurrentFeedbacksDirect.subscription_id, // N
               feedbackId: this.CurrentFeedbacksDirect.feedback_id, // N
@@ -392,33 +424,39 @@ export default {
           }
         }
       });
-      alert('소중한 의견 감사드립니다.');
+      if (reasonFlag) {
+        _.assign(alertObject, {
+          message: '소중한 의견 감사드립니다.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
+        this.isAnswer = false;
+      }
     },
-    processingData() {
-      const feedbackData = this.feedbackData;
+    processingData(params) {
       let formData = {
-        result: feedbackData.result,
-        feedbackId: feedbackData.feedback_id,
-        setNPS: feedbackData.setNPS,
-        npsScore: feedbackData.nps_score,
-        questionCommon: feedbackData.question.common,
-        questionA: feedbackData.question.A.question,
-        infoA: feedbackData.question.A.info,
-        questionB: feedbackData.question.B.question,
-        infoB: feedbackData.question.B.info
+        result: params.result,
+        feedbackId: params.feedback_id,
+        setNPS: params.setNPS,
+        npsScore: params.nps_score,
+        questionCommon: params.question.common,
+        questionA: params.question.A.question,
+        infoA: params.question.A.info,
+        questionB: params.question.B.question,
+        infoB: params.question.B.info
       };
       const checkEmpty = {
         isEmptyA: _.isEmpty(formData.infoA) && _.isEmpty(formData.questionA),
         isEmptyB: _.isEmpty(formData.infoB) && _.isEmpty(formData.questionB)
       };
       _.assign(formData, checkEmpty);
-      this.data = formData;
+      this.feedbackDataResult = formData;
     }
   },
   async created() {
-    await this.processingData();
+    await this.processingData(this.feedbackData);
   }
 };
 </script>
 
-<style scoped lang="scss" src="./feedback-style.scss"></style>
+<style scoped lang="scss" src="./feedback-style.scss">
+</style>

@@ -7,41 +7,67 @@
       <div class="content">
         <div class="past">
           <div class="past-header">
-            <div class="cell">
-              회차
-            </div>
-            <div class="cell">
-              옷장 내역
-            </div>
+            <div class="index-wrap content-item">회차</div>
+            <div class="history-wrap content-item">옷장 내역</div>
           </div>
-          <div class="past-body-wrap">
-            <div v-if="!isPastData">
+
+          <div class="past-body">
+            <div
+              v-if="!isPastData"
+            >
               <div class="none">
                 <p>과거의 옷장 내역이 없습니다.</p>
               </div>
             </div>
-            <div v-else class="past-body" v-for="(data, idx) in PastResult" :key="idx">
-              <div class="cell index-wrap">
-                <span class="txt-index">{{PastResult.length - idx}}{{suffixNumber(PastResult.length - idx)}}</span><span class="txt-date">{{ data.subscription_date }}</span>
-              </div>
-              <div class="cell image-wrap">
-                <div class="list-image">
-                  <div v-for="(dataImg, idxImg) in data.images" :key="idxImg" v-if="dataImg !== null">
-                    <img
-                      :src="$common.ZulyImage() + dataImg"
-                      alt="">
+            <template
+              v-else
+              v-for="(data, idx) in PastResult"
+            >
+              <div :key="idx" class="body-row">
+                <div class="past-content">
+                  <div class="index-wrap content-item">
+                    <span class="txt-index">{{PastResult.length - idx}}{{suffixNumber(PastResult.length - idx)}}</span><span class="txt-date">{{ data.subscription_date }}</span>
+                  </div>
+                  <div class="image-wrap content-item">
+                    <div class="list-image">
+                      <div v-for="(imgData, imgIdx) in data.images" :key="imgIdx" v-if="imgData !== null">
+                        <img
+                          :src="$common.ZulyImage() + imgData"
+                          alt="">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-wrap content-item">
+                    <p class="txt-styling-title">{{ data.styling_title }}</p>
+                    <p class="txt-styling-tip">{{ data.styling_tip }}</p>
+                  </div>
+                  <div
+                    v-if="_.has(feedbackData[(PastResult.length -1) - idx], 'result') && feedbackData[(PastResult.length -1) - idx].result"
+                    class="link-wrap content-item"
+                  >
+                    <a
+                      href="#"
+                      class="txt-link"
+                      @click="clickFeedbackShow(idx)"
+                    >
+                      옷장 후기 입력하기
+                    </a>
                   </div>
                 </div>
+                <div>
+                  <feedback-past
+                    style="display: none"
+                    :ref="'feedback'+idx"
+                    v-if="_.has(feedbackData[(PastResult.length -1) - idx], 'result') && feedbackData[(PastResult.length -1) - idx].result"
+                    :feedbackData="feedbackData[(PastResult.length -1) - idx]"
+                    :subscriptionId="data.id"
+                    @hide="clickFeedbackHide(idx)"
+                  >
+                    <!--@hide="$refs.feedback.style.display = 'none'"-->
+                  </feedback-past>
+                </div>
               </div>
-              <div class="cell text-wrap">
-                <p class="txt-styling-title">{{ data.styling_title }}</p>
-                <p class="txt-styling-tip">{{ data.styling_tip }}</p>
-              </div>
-              <div class="cell link-wrap">
-                <a href="#" class="txt-link">구매 정보 보기</a>
-                <a href="#" class="txt-link" @click="clickShowFeedBack(idx, $event)">옷장 후기 입력하기</a>
-              </div>
-            </div>
+            </template>
           </div>
         </div>
       </div>
@@ -53,20 +79,24 @@
 import { mapActions, mapGetters } from 'vuex';
 import VueJsonPretty from 'vue-json-pretty';
 import CustomModal from '@/components/common/CustomModal';
-import FeedBack from '@/components/closet/feedback/Index';
+import FeedbackPast from '@/components/closet/feedback/FeedbackPast';
 
 export default {
   name: 'past',
   data() {
     return {
       isPastData: false,
-      feedbacksData: []
+      feedbackData: []
     };
   },
   components: {
     CustomModal,
-    FeedBack,
+    FeedbackPast,
     VueJsonPretty
+  },
+  watch: {
+    feedbackData() {
+    }
   },
   computed: {
     ...mapGetters({
@@ -81,7 +111,20 @@ export default {
       getPastDetail: 'subscriptions/getPastDetail',
       getPastFeedbacks: 'subscriptions/getPastFeedbacks'
     }),
-
+    clickFeedbackShow(idx) {
+      this.$refs['feedback' + idx][0].$el.style.display = 'block';
+    },
+    clickFeedbackHide(idx) {
+      this.$refs['feedback' + idx][0].$el.style.display = 'none';
+    },
+    checkFeedback(data) {
+      const formData = {
+        subscriptionId: data.id
+      };
+      this.getPastFeedbacks(formData).then(res => {
+        this.feedbacksData.push(res.data);
+      });
+    },
     suffixNumber(data) {
       if (data === 1) {
         return 'st';
@@ -97,32 +140,23 @@ export default {
       event.preventDefault();
       const target = event.target;
       const subscriptionId = target.getAttribute('data-id');
-      this.getPastDetail(subscriptionId).then(res => {
-      });
-    },
-    clickShowFeedBack(idx, event) {
-      // 단순하게 Show Hide기능만 넣어야겠다.
-      event.preventDefault();
-      this.$refs.feedback[idx].$el.style.display = 'block';
-    },
-    clickHideFeedBack() {},
-    setPastFeedbacks(data) {
-      _.forEach(data, value => {
-        const formData = {
-          subscriptionId: value.id
-        };
-        this.getPastFeedbacks(formData).then(res => {
-          console.log(res);
-          this.feedbacksData = _.concat(this.feedbacksData, res.data);
-        });
-      });
+      this.getPastDetail(subscriptionId).then(res => {});
     }
   },
   async created() {
     await this.getPast().then(res => {
       this.isPastData = res.data.result.length !== 0;
     });
-    await this.setPastFeedbacks(this.PastResult);
+
+    this.PastResult.forEach(value => {
+      const formData = {
+        subscriptionId: value.id
+      };
+      this.getPastFeedbacks(formData).then(res => {
+        this.feedbackData.push(res.data);
+      });
+    });
+    this.feedbackData = _.reverse(this.feedbackData);
   }
 };
 </script>
@@ -144,17 +178,16 @@ export default {
   .past-header {
     display: none;
   }
-  .past-body-wrap {
-  }
-  .past-body {
+  .past-content {
     padding-top: 15px;
     padding-bottom: 15px;
+  }
+  .body-row {
     border-top: 1px solid #e9e9e9;
     &:first-child {
       border-top: 0 none;
     }
   }
-
   .index-wrap {
     span {
       @include fontSize(16px, en);
@@ -229,38 +262,54 @@ export default {
       border-bottom: 1px solid #e9e9e9;
     }
   }
+
   .past {
-    border-top: 2px solid $color-primary;
-    border-bottom: 1px solid $color-primary;
-    .past-header,
-    .past-body {
-      width: 100%;
-      display: table;
-    }
-    .past-header {
-      .cell {
-        @include fontSize(15px);
-        height: 43px;
-        text-align: center;
-        font-weight: 700;
-      }
-    }
-    .past-body {
-      padding-top: 20px;
-      padding-bottom: 20px;
+    .body-row {
       &:first-child {
         border-top: 1px solid #e9e9e9;
       }
+    }
+    .past-header,
+    .past-content {
+      display: flex;
+      align-items: center;
+      .content-item {
+        flex-grow: 1;
+        flex-shrink: 0;
+      }
       .index-wrap {
+        flex-basis: 15.166666666666668%;
+        max-width: 15.166666666666668%;
         padding-left: 19px;
       }
+      .image-wrap,
+      .text-wrap,
+      .link-wrap {
+        margin-top: 0;
+      }
+    }
+    .past-header {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      .content-item {
+        @include fontSize(15px);
+        font-weight: 700;
+        text-align: center;
+      }
+    }
+    .past-content {
+      padding-top: 20px;
+      padding-bottom: 20px;
+      .index-wrap {
+      }
       .image-wrap {
-        width: 13.916666666666666%;
+        flex-basis: 13.916666666666666%;
+        max-width: 13.916666666666666%;
         padding-right: 22px;
       }
       .text-wrap {
-        width: 57.99999999999999%;
-        padding-right: 22px;
+        flex-basis: 57.99999999999999%;
+        max-width: 57.99999999999999%;
       }
       .link-wrap {
         .txt-link {
@@ -269,14 +318,6 @@ export default {
             margin-left: 0;
           }
         }
-      }
-    }
-    .cell {
-      display: table-cell;
-      vertical-align: middle;
-      &:nth-child(1) {
-        // 공통 영역
-        width: 15.166666666666668%;
       }
     }
   }
