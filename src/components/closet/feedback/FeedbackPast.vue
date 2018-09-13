@@ -194,11 +194,20 @@
     <div class="button-wrap">
       <button type="button" class="btn btn-primary h-56" @click="clickComplete">제출하기</button>
     </div>
+    <simplert ref="alert" :useRadius="false" :useIcon="false" />
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
+import Simplert from 'vue2-simplert';
+
+const alertObject = {
+  type: 'alert', // 타입
+  customClass: 'popup-custom-class', // 커스텀 클래스 네임
+  disableOverlayClick: false, // 오버레이 클릭시 닫기 방지
+  customCloseBtnText: '확인' // 닫기 버튼 텍스트
+};
 
 export default {
   name: 'FeedbackPast',
@@ -212,6 +221,9 @@ export default {
       reasonA: '',
       reasonB: ''
     };
+  },
+  components: {
+    Simplert
   },
   methods: {
     ...mapActions({
@@ -235,11 +247,20 @@ export default {
         questionCode: data.question_code,
         answerCode: _.parseInt(data.answer_code[idx])
       };
-      _.forEach(item, value => {
-        value.classList.remove('selected');
+      this.postFeedbacksAnswers(formData).then(res => {
+        if (res.data.result) {
+          _.forEach(item, value => {
+            value.classList.remove('selected');
+          });
+          target.classList.add('selected');
+        } else {
+          _.assign(alertObject, {
+            message:
+              '통신중에 오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.'
+          });
+          this.$refs.alert.openSimplert(alertObject);
+        }
       });
-      target.classList.add('selected');
-      this.postFeedbacksAnswers(formData);
     },
     clickItem(data, idx, event) {
       const target =
@@ -251,38 +272,45 @@ export default {
 
       // Selected 효과 및 값 전송
       if (!target.classList.contains('selected')) {
-        _.forEach(item, value => {
-          value.classList.remove('selected');
-        });
-        target.classList.add('selected');
-
         const formData = {
           answerCode: _.parseInt(data.answer_code[idx]),
           barcode: data.barcode,
           clothType: data.cloth_type,
           feedbackId: this.feedbackDataResult.feedbackId, // N
           questionCode: data.question_code,
-          subscriptionId: this.subscriptionId, // N
+          subscriptionId: this.subscriptionId // N
         };
         // 이값을 보내자.
-        this.postFeedbacksAnswers(formData);
-      }
-
-      if (data.question_text === '색상 및 패턴') {
-        const textField = event.target
-          .closest('.row')
-          .querySelector('.text-field');
-        const _input = textField.querySelector('input');
-        if (data.answer_code[idx].indexOf('003') !== -1) {
-          textField.style.display = 'block';
-          _input.setAttribute('data-answerCode', data.answer_code[idx]);
-          _input.setAttribute('data-active', 'true');
-          _input.focus();
-        } else {
-          // False 이면 나중에 제출하기 할때 아무런 반응이 없음
-          _input.setAttribute('data-active', 'false');
-          textField.style.display = 'none';
-        }
+        this.postFeedbacksAnswers(formData).then(res => {
+          if (res.data.result) {
+            _.forEach(item, value => {
+              value.classList.remove('selected');
+            });
+            target.classList.add('selected');
+            if (data.question_text === '색상 및 패턴') {
+              const textField = event.target
+                .closest('.row')
+                .querySelector('.text-field');
+              const _input = textField.querySelector('input');
+              if (data.answer_code[idx].indexOf('003') !== -1) {
+                textField.style.display = 'block';
+                _input.setAttribute('data-answerCode', data.answer_code[idx]);
+                _input.setAttribute('data-active', 'true');
+                _input.focus();
+              } else {
+                // False 이면 나중에 제출하기 할때 아무런 반응이 없음
+                _input.setAttribute('data-active', 'false');
+                textField.style.display = 'none';
+              }
+            }
+          } else {
+            _.assign(alertObject, {
+              message:
+                '통신중에 오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.'
+            });
+            this.$refs.alert.openSimplert(alertObject);
+          }
+        })
       }
     },
     clickNPS(data, event) {
@@ -298,7 +326,6 @@ export default {
         feedbackId: this.feedbackDataResult.feedbackId, // N
         npsScore: data
       };
-
       // 선택한걸 클릭하지 않았을 경우만 작동한다.
       if (!target.classList.contains('selected')) {
         this.postFeedbacksNps(formData).then(res => {
@@ -308,7 +335,11 @@ export default {
             });
             target.classList.add('selected');
           } else {
-            alert('통신오류!');
+            _.assign(alertObject, {
+              message:
+                '통신중에 오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.'
+            });
+            this.$refs.alert.openSimplert(alertObject);
           }
         });
       }
@@ -316,12 +347,18 @@ export default {
     clickComplete() {
       const fbContent = this.$refs.feedbackContent;
       const inputs = fbContent.querySelectorAll('input[type="text"');
+      let reasonFlag = true;
       _.forEach(inputs, data => {
         if (data.getAttribute('data-active') === 'true') {
           if (data.value === '') {
-            alert('값을 입력해 주세요.');
+            reasonFlag = false;
+            _.assign(alertObject, {
+              message: '별로인 이유를 적어주세요.'
+            });
+            this.$refs.alert.openSimplert(alertObject);
             return false;
           } else {
+            reasonFlag = true;
             const formData = {
               subscriptionId: this.subscriptionId, // N
               feedbackId: this.feedbackDataResult.feedbackId, // N
@@ -336,8 +373,13 @@ export default {
           }
         }
       });
-      alert('소중한 의견 감사드립니다.');
-      this.$emit('hide');
+      if (reasonFlag) {
+        _.assign(alertObject, {
+          message: '소중한 의견 감사드립니다.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
+        this.$emit('hide');
+      }
     },
     processingData(params) {
       let formData = {
