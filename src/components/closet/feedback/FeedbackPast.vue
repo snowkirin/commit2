@@ -282,7 +282,6 @@ export default {
         };
         // 이값을 보내자.
         this.postFeedbacksAnswers(formData).then(res => {
-          console.log(res);
           if (res.data.result) {
             _.forEach(item, value => {
               value.classList.remove('selected');
