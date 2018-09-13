@@ -374,11 +374,14 @@ export default {
         }
       });
       if (reasonFlag) {
+        const _this = this;
         _.assign(alertObject, {
-          message: '소중한 의견 감사드립니다.'
+          message: '소중한 의견 감사드립니다.',
+          onClose: function() {
+            _this.$emit('hide');
+          }
         });
         this.$refs.alert.openSimplert(alertObject);
-        this.$emit('hide');
       }
     },
     processingData(params) {

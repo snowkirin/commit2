@@ -48,7 +48,7 @@
                     <a
                       href="#"
                       class="txt-link"
-                      @click="clickFeedbackShow(idx)"
+                      @click="clickFeedbackShow(idx, $event)"
                     >
                       옷장 후기 입력하기
                     </a>
@@ -109,7 +109,8 @@ export default {
       getPastDetail: 'subscriptions/getPastDetail',
       getPastFeedbacks: 'subscriptions/getPastFeedbacks'
     }),
-    clickFeedbackShow(idx) {
+    clickFeedbackShow(idx, event) {
+      event.preventDefault();
       this.$refs['feedback' + idx][0].$el.style.display = 'block';
     },
     clickFeedbackHide(idx) {
