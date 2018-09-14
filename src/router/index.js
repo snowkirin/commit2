@@ -136,7 +136,7 @@ const router = new Router({
           children: [
             {
               path: '',
-              name: 'Closet_Tomorrow',
+              name: 'Closet_Tomorrow_Default',
               component: ClosetTomorrow,
               meta: { requiresAuth: false }
             },
