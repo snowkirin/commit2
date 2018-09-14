@@ -1,35 +1,36 @@
 <template>
   <header
     class="header"
-    :class="{'header-main': isMain }"
-    :style="[calcBanner, calcMain]"
+    :class="calcClassName"
   >
-    <router-link to="/" class="logo">
-      <ZulyLogoSVG class="logo-svg" viewBox="0 0 66 20"/>
-    </router-link>
-    <nav class="global-navigation">
-      <ul>
-        <li v-if="menu.closet">
-          <router-link
-            to="/closet/tomorrow"
-            class="menu-title">
-            나만의 옷장
-          </router-link>
-        </li>
-        <li v-if="menu.login">
-          <router-link
-            v-if="!Authentication.isAuthenticated"
-            to="/login">
-            로그인
-          </router-link>
-          <span
-            v-else
-            @click="clickLogout">
+    <div class="header-wrap">
+      <router-link to="/" class="logo">
+        <ZulyLogoSVG class="logo-svg" viewBox="0 0 66 20"/>
+      </router-link>
+      <nav class="global-navigation">
+        <ul>
+          <li v-if="isLogin">
+            <router-link
+              to="/closet/tomorrow"
+              class="menu-title">
+              나만의 옷장
+            </router-link>
+          </li>
+          <li>
+            <router-link
+              v-if="!isLogin"
+              to="/login">
+              로그인
+            </router-link>
+            <span
+              v-else
+              @click="clickLogout">
               로그아웃
             </span>
-        </li>
-      </ul>
-    </nav>
+          </li>
+        </ul>
+      </nav>
+    </div>
     <simplert ref="alert" :useRadius="false" :useIcon="false" />
   </header>
 </template>
@@ -38,6 +39,7 @@
 import ZulyLogoSVG from '@/assets/img/logo.svg?inline';
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 import Simplert from 'vue2-simplert';
+
 const alertObject = {
   type: 'alert', // 타입
   customClass: 'popup-custom-class', // 커스텀 클래스 네임
@@ -60,47 +62,48 @@ export default {
       }
     };
   },
-  props: {
-    closetCheck: {
-      type: Boolean
-    }
-  },
-  watch: {
-    $route() {
-      this.headerMediaQueries();
-      this.checkMain();
-    }
-  },
+  props: {},
+  watch: {},
   components: {
     Simplert,
     ZulyLogoSVG
   },
   computed: {
     ...mapGetters({
-      isLogin: 'login/isLogin',
       Authentication: 'login/Authentication',
+      isLogin: 'login/isLogin',
+      CurrentRoute: 'common/CurrentRoute',
       isMainBanner: 'common/isMainBanner'
     }),
-    calcBanner() {
-      if (this.isMain && this.isMainBanner) {
-        return {
-          top: '40px'
-        };
+    calcClassName() {
+      if (this.CurrentRoute === 'main') {
+        if (this.isLogin) {
+          return 'header-main is-login';
+        } else {
+          return 'header-main';
+        }
+      } else {
+        return this.CurrentRoute;
       }
     },
+
     calcMain() {
-      if (this.isMain && this.isLogin && this.$mq === 'sm') {
+      if (this.CurrentRoute === 'main' && this.isLogin && this.$mq === 'sm') {
         return {
           display: 'block'
-        }
-      } else if (this.isMain && this.isLogin) {
+        };
+      } else if (this.CurrentRoute === 'main' && this.isLogin) {
         return {
           display: 'block'
-        }
-      } else if (this.isMain && !this.isLogin && this.$mq !== 'sm') {
+        };
+      } else if (
+        this.CurrentRoute === 'main' &&
+        !this.isLogin &&
+        this.$mq !== 'sm'
+      ) {
         return {
           display: 'none'
-        }
+        };
       }
     }
   },
@@ -111,11 +114,6 @@ export default {
     ...mapMutations({
       resetState: 'subscriptions/RESET_STATE'
     }),
-    // ...mapMutations(['RESET_STATE']),
-    headerMediaQueries() {
-      this.gnbToggle = this.$route.path.indexOf('join') !== -1;
-      this.isMain = this.$route.name === 'IndexMain';
-    },
     clickLogout() {
       this.doLogout().then(() => {
         document.cookie = `${
@@ -130,53 +128,37 @@ export default {
         this.resetState();
         this.$router.push({ path: '/login' });
       });
-    },
-    checkMain() {
-      if (
-        this.$route.name === 'IndexMain' ||
-        this.$route.name === 'Login' ||
-        this.$route.path.indexOf('/find') !== -1 ||
-        this.$route.path.indexOf('/join') !== -1
-      ) {
-        if (this.Authentication.isAuthenticated) {
-          this.menu.login = false;
-          this.menu.closet = true;
-        } else {
-          this.menu.login = true;
-          this.menu.closet = false;
-        }
-      } else {
-        this.menu.closet = true;
-        this.menu.login = true;
-      }
     }
-  },
-  created() {
-    this.headerMediaQueries();
-    this.checkMain();
   }
 };
 </script>
 
 <style scoped lang="scss">
-/* 메인을 제외한 화면 */
-.logo-svg {
-  width: 66px;
-  height: 20px;
-  /deep/ path {
-    fill: $color-primary;
-  }
-}
+  // Mobile
 .header {
-  @include clearfix;
-  padding: 21px 18px;
+  // 안에 있는 컨텐츠의 가운데 정렬
+  display: flex;
+  justify-content: center;
+  .header-wrap {
+    width: 100%;
+    display: flex;
+    // 가운데 정렬
+    justify-content: space-between;
+    align-items: center;
+    padding: 21px 18px;
+  }
   .logo {
-    float: left;
-    width: 66px;
-    height: 20px;
+    .logo-svg {
+      width: 66px;
+      height: 20px;
+      /deep/ path {
+        fill: $color-primary;
+      }
+    }
   }
   .global-navigation {
-    float: right;
+    // 네비게이션 왼쪽 정렬
+    margin-left: auto;
     font-size: 0;
     li {
       @include fontSize(15px);
@@ -204,30 +186,59 @@ export default {
       }
     }
   }
-}
 
-/* 현재 화면이 메인일때 */
-.header-main {
-  position: absolute;
-  display: none;
-  z-index: 10;
-  width: 100%;
-  .logo-svg {
-    /deep/ path {
-      fill: #fff;
+  &.header-main {
+    // main 기본값 + 비 로그인 상태일때
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+    .header-wrap {
+
+      display: none;
+    }
+    .logo {
+      .logo-svg {
+        /deep/ path {
+          fill: #fff;
+        }
+      }
+    }
+    .global-navigation {
+      display: none;
+      color: #fff;
+      li {
+        &:not(:last-child):after {
+          background-color: #fff;
+        }
+      }
+    }
+    // 로그인 상태 일때
+    &.is-login {
+      .header-wrap {
+        display: flex;
+      }
+      .global-navigation {
+        display: block;
+      }
     }
   }
-  .global-navigation {
-    color: #fff;
+  &.join {
+    .global-navigation {
+      display: none;
+    }
   }
 }
 
 @media (min-width: 768px) {
   .header {
-    width: 708px;
-    margin: 0 auto;
-    padding-left: 0;
-    padding-right: 0;
+    border-bottom: 1px solid #dadada;
+    .header-wrap {
+      width: 708px;
+      padding-left: 0;
+      padding-right: 0;
+      padding-top: 18px;
+      padding-bottom: 15px;
+    }
     .global-navigation {
       margin-top: 0;
       li {
@@ -236,36 +247,48 @@ export default {
         }
       }
     }
-    .header-line {
-      width: 100%;
-      height: 1px;
-      position: absolute;
-      left: 0;
-      top: 73px;
-      background-color: #e9e9e9;
+    &.header-main {
+      border: 0;
+      .header-wrap {
+        width: 100%;
+        padding-left: 45px;
+        padding-right: 45px;
+      }
+      &.is-login {
+        .header-wrap {
+          display: flex;
+        }
+      }
     }
-  }
-  .header-main {
-    left: 50%;
-    transform: translateX(-50%);
-    display: block;
-    .header-line {
-      display: none;
+    &.closet {
+      border-bottom: 0;
     }
   }
 }
-
 @media (min-width: 1280px) {
-  .logo-svg {
-    width: 85px;
-    height: 25px;
-  }
   .header {
-    width: 1280px;
-    padding: 35px 40px;
+    .header-wrap {
+      width: 1200px;
+      padding-top: 25px;
+      padding-bottom: 20px;
+    }
+    .logo {
+      .logo-svg {
+        width: 85px;
+        height: 25px;
+      }
+    }
     .global-navigation {
       li {
         @include fontSize(18px);
+        line-height: 25px;
+      }
+    }
+    &.header-main {
+      .header-wrap {
+        width: 1030px;
+        padding-left: 0;
+        padding-right: 0;
       }
     }
   }

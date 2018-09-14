@@ -152,8 +152,6 @@ export default {
     if (_.isEmpty(this.MemberStyleType)) {
       await this.getMemberStyleType();
     }
-
-    console.log(this.Join);
   }
 };
 </script>

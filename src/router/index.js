@@ -25,6 +25,7 @@ import ClosetCurrent from '@/components/closet/detail/Current.vue';
 import ClosetPast from '@/components/closet/detail/Past.vue';
 import ClosetCustomerService from '@/components/closet/detail/CustomerService.vue';
 import ClosetNotice from '@/components/closet/detail/Notice.vue';
+import ClosetMypageIndex from '@/components/closet/detail/MypageIndex.vue'
 import ClosetMypageSecurity from '@/components/closet/detail/MypageSecurity.vue';
 import ClosetMypage from '@/components/closet/detail/Mypage.vue';
 import ClosetStyleInfo from '@/components/closet/detail/StyleInfo.vue';
@@ -52,7 +53,7 @@ const router = new Router({
       children: [
         {
           path: '/',
-          name: 'IndexMain',
+          name: 'Zuly_Main',
           component: Main,
           meta: {
             title: 'ZULY'
@@ -69,22 +70,22 @@ const router = new Router({
             },
             {
               path: '/find/id',
-              name: 'FindId',
+              name: 'Login_FindId',
               component: FindId
             },
             {
               path: '/find/id/complete',
-              name: 'FindIdSuccess',
+              name: 'Login_FindIdSuccess',
               component: Success
             },
             {
               path: '/find/password',
-              name: 'FindPwd',
+              name: 'Login_FindPwd',
               component: FindPwd
             },
             {
               path: '/find/password/complete',
-              name: 'FindPwdSuccess',
+              name: 'Login_FindPwdSuccess',
               component: PwdSuccess
             }
           ]
@@ -96,29 +97,35 @@ const router = new Router({
           children: [
             {
               path: 'size',
+              name: 'Join_Size',
               component: JoinSize
             },
             {
               path: 'preferred-style',
+              name: 'Join_PreferredStyle',
               component: JoinPreferredStyle
             },
             {
               path: 'signup',
+              name: 'Join_Signup',
               component: JoinSignUp,
               children: [
                 {
                   path: '1',
+                  name: 'Join_SignupFirst',
                   component: JoinSignUpFirst,
                   alias: ''
                 },
                 {
                   path: '2',
+                  name: 'Join_SignupSecond',
                   component: JoinSignUpSecond
                 }
               ]
             },
             {
               path: 'addinfo',
+              name: 'Join_AddInfo',
               component: JoinAddInfo
             }
           ]
@@ -129,52 +136,84 @@ const router = new Router({
           children: [
             {
               path: '',
-              name: 'ClosetTomorrow',
+              name: 'Closet_Tomorrow',
               component: ClosetTomorrow,
               meta: { requiresAuth: false }
             },
             {
               path: 'tomorrow',
+              name: 'Closet_Tomorrow',
               component: ClosetTomorrow,
               meta: { requiresAuth: false }
             },
             {
               path: 'current',
+              name: 'Closet_Current',
               component: ClosetCurrent,
               meta: { requiresAuth: false }
             },
             {
               path: 'past',
+              name: 'Closet_Past',
               component: ClosetPast,
               meta: { requiresAuth: true }
             },
             {
               path: 'cs',
+              name: 'Closet_CustomerService',
               component: ClosetCustomerService,
               meta: { requiresAuth: true }
             },
             {
               path: 'notice',
+              name: 'Closet_Notice',
               component: ClosetNotice,
               meta: { requiresAuth: true }
             },
             {
               path: 'security',
+              name: 'Closet_MypageIndex',
+              component: ClosetMypageIndex,
+              meta: { requiresAuth: true },
+              children: [
+                {
+                  path: '',
+                  name: 'Closet_Security',
+                  component: ClosetMypageSecurity,
+                  meta: { requiresAuth: true },
+                },
+
+                {
+                  path: 'mypage',
+                  name: 'Closet_Mypage',
+                  component: ClosetMypage,
+                  meta: { requiresAuth: true }
+                }
+              ]
+            },
+            /*{
+              path: 'security',
+              name: 'Closet_Security',
               component: ClosetMypageSecurity,
-              meta: { requiresAuth: true }
-            },
-            {
-              path: 'mypage',
-              component: ClosetMypage,
-              meta: { requiresAuth: true }
-            },
+              meta: { requiresAuth: true },
+              children: [
+                {
+                  path: 'mypage',
+                  name: 'Closet_Mypage',
+                  component: ClosetMypage,
+                  meta: { requiresAuth: true }
+                }
+              ]
+            },*/
             {
               path: 'style',
+              name: 'Closet_StyleInfo',
               component: ClosetStyleInfo,
               meta: { requiresAuth: true }
             },
             {
               path: 'coupon',
+              name: 'Closet_Coupon',
               component: ClosetCoupon,
               meta: { requiresAuth: true }
             }

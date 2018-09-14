@@ -131,6 +131,7 @@ export default {
         bottom: 0;
         border-bottom: 3px solid #dc828e;
         width: 100%;
+        z-index: 10;
       }
     }
   }
@@ -164,7 +165,7 @@ export default {
           content: '';
           display: block;
           position: absolute;
-          bottom: 0;
+          bottom: 1px;
           border-bottom: 4px solid #dc828e;
           width: 100%;
         }

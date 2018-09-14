@@ -62,7 +62,7 @@ export default {
       await this.postPassword(formData).then(res => {
         if (res.data.result) {
           if (this.PasswordAuth) {
-            this.$router.push({ path: '/closet/mypage' });
+            this.$router.push({ path: '/closet/security/mypage' });
           }
         } else if (!res.data.result) {
           alert('비밀번호를 정확히 입력해 주세요.');
@@ -84,27 +84,10 @@ export default {
 <style scoped lang="scss" src="@/assets/css/closet-style.scss">
 </style>
 <style scoped lang="scss">
-.mypage-sercurity {
-  padding: 25px 20px 20px 20px;
-  .line {
-    margin: {
-      top: 10px;
-      bottom: 15px;
+  @media (min-width: 768px) {
+    .content {
+      width: 600px;
     }
   }
-}
 
-@media (min-width: 768px) {
-  .mypage-sercurity {
-    padding: 32px 0 20px 0;
-    width: 1200px;
-    margin: 0 auto;
-    .line {
-      border-width: 2px;
-    }
-  }
-  .form-group {
-    width: 480px;
-  }
-}
 </style>

@@ -47,71 +47,87 @@
 </template>
 
 <script>
-	export default {
-		name: 'MainReviewer'
-	}
+export default {
+  name: 'MainReviewer'
+};
 </script>
-<style scoped lang="scss" src="@/assets/css/main-style.scss"></style>
+<style scoped lang="scss" src="@/assets/css/main-style.scss">
+</style>
 <style scoped lang="scss">
-	.contents {
-		background-color: #f7f7f7;
-	}
-	.content {
-		text-align: center;
-	}
-	.item {
-		width: 270px;
-		margin: 20px auto 0;
-		padding-bottom: 20px;
-		&.item-first {
-			background-color: #e6d3ca;
-			margin-top: 0;
+.contents {
+  background-color: #f7f7f7;
+}
+.content {
+  text-align: center;
+}
+.item {
+  width: 270px;
+  margin: 20px auto 0;
+  padding-bottom: 20px;
+  &.item-first {
+    background-color: #e6d3ca;
+    margin-top: 0;
+  }
+  &.item-second {
+    background-color: #ccdcdf;
+  }
+  &.item-third {
+    background-color: #eedecc;
+  }
+  .image-wrap {
+    width: 200px;
+    margin: 0 auto;
+    img {
+      width: 100%;
+    }
+  }
+
+  .text-wrap {
+    height: 114px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #fff;
+		position: relative;
+		z-index: 10;
+		margin-top: -50px;
+    .txt-comment {
+      @include fontSize(15px);
+    }
+    .txt-user {
+      margin-top: 5px;
+      @include fontSize(14px);
+      color: #797979;
+    }
+  }
+}
+@media (min-width: 768px) {
+  .item {
+    display: inline-block;
+    vertical-align: top;
+    &.item-second {
+      margin-top: 0;
+      margin-left: 30px;
+    }
+  }
+}
+@media (min-width: 1280px) {
+  .item {
+		height: 400px;
+		.image-wrap {
+			position: relative;
+			top: -9px;
+			left: 9px;
+		}
+		.text-wrap {
+			left: -38px;
 		}
 		&.item-second {
-			background-color: #ccdcdf;
+			margin-left: 88px;
 		}
-		&.item-third {
-			background-color: #eedecc;
-		}
-		.image-wrap {
-			width: 200px;
-			margin: 0 auto;
-			img {
-				width: 100%;
-			}
-		}
-
-		.text-wrap {
-			height: 114px;
-			padding-left: 20px;
-			padding-right: 20px;
-			background-color: #fff;
-			.txt-comment {
-				@include fontSize(15px);
-			}
-			.txt-user {
-				margin-top: 5px;
-				@include fontSize(14px);
-				color: #797979;
-			}
-		}
-	}
-	@media(min-width:768px) {
-		.item {
-			display: inline-block;
-			vertical-align: top;
-			&.item-second {
-				margin-top: 0;
-				margin-left: 30px;
-			}
-		}
-	}
-	@media (min-width: 1280px) {
-		.item {
-			&.item-third {
-				margin-top: 0;
-				margin-left: 30px;
-			}
-		}
-	}
+    &.item-third {
+      margin-top: 0;
+      margin-left: 88px;
+    }
+  }
+}
 </style>

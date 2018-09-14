@@ -3,7 +3,7 @@
 		<div class="content">
 			<div
 				class="banner-wrap"
-				v-if="isMainBanner"
+				v-if="false"
 			>
 				<div class="center-align">
 					<p>지금 가입하시면 <span class="txt-free">첫달 무료 ♥</span></p>
