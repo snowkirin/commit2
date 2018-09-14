@@ -31,12 +31,7 @@ export default {
     padding-bottom: 100px;
   }
   @media (min-width: 1280px) {
-    padding-bottom: 120px;
-  }
-}
-@media (min-width: 768px) {
-  .container {
-    border-top: 1px solid #dadada;
+    padding-bottom: 130px;
   }
 }
 </style>

@@ -30,7 +30,7 @@
   .contents {
     width: 390px;
     margin: 0 auto;
-    padding: 72px 0 119px;
+    padding-top: 72px;
     .contents-header {
       h3 {
         @include fontSize(28px);

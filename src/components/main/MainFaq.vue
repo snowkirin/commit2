@@ -78,7 +78,6 @@ export default {
 </style>
 <style scoped lang="scss">
 .content {
-  padding: 0 25px;
 }
 .list-faq {
   .column {
