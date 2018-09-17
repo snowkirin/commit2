@@ -35,7 +35,10 @@
 									<div class="column">
 										<router-link to="/login" class="link link-login">로그인</router-link>
 									</div>
-									<div class="column">
+									<div class="column only-mobile" v-stick-in-parent="stikyKit">
+										<router-link to="/join/size" class="link link-sign-up">회원가입</router-link>
+									</div>
+									<div class="column not-mobile">
 										<router-link to="/join/size" class="link link-sign-up">회원가입</router-link>
 									</div>
 								</div>
@@ -66,7 +69,22 @@ export default {
     ArrowIconSVG
   },
   data() {
-    return {};
+    return {
+      stikyKit: {
+        options: {
+          parent: '.container',
+          offset_top: 0
+        },
+        on: {
+          'sticky_kit:stick': function(e) {
+            e.target.classList.add('btn-sticky');
+          },
+          'sticky_kit:unstick': function(e) {
+            e.target.classList.remove('btn-sticky');
+          }
+        }
+      }
+    };
   },
   computed: {
     ...mapGetters({
@@ -98,6 +116,15 @@ export default {
 :root {
   --vh-offset: 0px;
 }
+.not-mobile {
+  display: none;
+}
+.btn-sticky {
+  width: 100% !important;
+  left: 0;
+  z-index: 100;
+}
+
 .content {
   height: 100vh;
   height: calc(100vh - var(--vh-offset));
@@ -118,7 +145,7 @@ export default {
     position: absolute;
     right: 13px;
     top: 13px;
-		line-height: 1;
+    line-height: 1;
   }
 }
 .content-inner {
@@ -156,8 +183,8 @@ export default {
     max-width: 100%;
   }
   .column {
-    &:nth-child(2) {
-      margin-top: 10px;
+    &:nth-child(1) {
+      margin-bottom: 10px;
     }
   }
   .link {
@@ -214,6 +241,13 @@ export default {
 }
 
 @media (min-width: 768px) {
+  .only-mobile {
+    display: none;
+  }
+  .not-mobile {
+    display: block;
+  }
+
   .content {
     background-image: url('~@/assets/img/main/img_main_large.png');
     height: 630px;
@@ -251,9 +285,9 @@ export default {
       max-width: 530px;
     }
     .column {
-      &:nth-child(2) {
-        margin-top: 0;
-        margin-left: 10px;
+      &:nth-child(1) {
+        margin-right: 10px;
+        margin-bottom: 0;
       }
     }
   }
