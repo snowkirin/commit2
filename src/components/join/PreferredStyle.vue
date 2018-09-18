@@ -83,7 +83,8 @@ export default {
   computed: {
     ...mapGetters({
       MemberStyleType: 'member/MemberStyleType',
-      Join: 'signup/Join'
+      Join: 'signup/Join',
+      EnterJoin: 'signup/EnterJoin'
     })
   },
   methods: {
@@ -152,6 +153,13 @@ export default {
     if (_.isEmpty(this.MemberStyleType)) {
       await this.getMemberStyleType();
     }
+  },
+  mounted() {
+    // if (!this.EnterJoin) {
+    //   alert('리로드');
+    // } else {
+    //   alert('정상적');
+    // }
   }
 };
 </script>

@@ -1,5 +1,5 @@
-import types from "./mutation-types";
-import actions from "./actions";
+import types from './mutation-types';
+import actions from './actions';
 
 export default {
   namespaced: true,
@@ -9,7 +9,8 @@ export default {
       isVerify: false,
       authId: null
     },
-    isJoin: false
+    isJoin: false,
+    EnterJoin: false,
   },
   mutations: {
     [types.SET_SIZES](state, payload) {
@@ -41,11 +42,15 @@ export default {
     },
     [types.POST_JOIN](state) {
       state.isJoin = true;
+    },
+    [types.ENTER_JOIN](state) {
+      state.EnterJoin = true;
     }
   },
   actions,
   getters: {
     Join: state => state.Join,
-    PhoneVerify: state => state.PhoneVerify
+    PhoneVerify: state => state.PhoneVerify,
+    EnterJoin: state => state.EnterJoin
   }
 };

@@ -36,7 +36,7 @@
 										<router-link to="/login" class="link link-login">로그인</router-link>
 									</div>
 									<div class="column only-mobile" v-stick-in-parent="stikyKit">
-										<router-link to="/join/size" class="link link-sign-up">회원가입</router-link>
+										<router-link to="/join/size" class="link link-sign-up">{{textJoin}}</router-link>
 									</div>
 									<div class="column not-mobile">
 										<router-link to="/join/size" class="link link-sign-up">회원가입</router-link>
@@ -70,17 +70,20 @@ export default {
   },
   data() {
     return {
+      textJoin: '회원가입',
       stikyKit: {
         options: {
           parent: '.container',
           offset_top: 0
         },
         on: {
-          'sticky_kit:stick': function(e) {
+          'sticky_kit:stick': e => {
             e.target.classList.add('btn-sticky');
+            this.textJoin = '회원가입 (첫 달 무료)';
           },
-          'sticky_kit:unstick': function(e) {
+          'sticky_kit:unstick': e => {
             e.target.classList.remove('btn-sticky');
+            this.textJoin = '회원가입';
           }
         }
       }

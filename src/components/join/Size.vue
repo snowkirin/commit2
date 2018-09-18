@@ -236,7 +236,8 @@ export default {
     ...mapActions({
       getSizes: 'codes/getSizes',
       setSizes: 'signup/setSizes',
-      setJoin: 'signup/setJoin'
+      setJoin: 'signup/setJoin',
+      enterJoin: 'signup/enterJoin'
     }),
     setDisabledClass(type, data) {
       // type: 블라우즈/셔츠, 치마, 바지
@@ -332,10 +333,6 @@ export default {
             this.$refs.tallSize.focus();
             return false;
           }
-          if (this.errors.has('bustSize')) {
-            this.$refs.bustSize.focus();
-            return false;
-          }
         }
       });
     }
@@ -345,6 +342,14 @@ export default {
       await this.getSizes();
     }
     if (!_.isEmpty(this.Join)) {
+      const circumSize = this.Join.bustSize
+        ? _.parseInt(this.Join.bustSize)
+        : null; // 숫자만 가져오기
+      const cupSize = this.Join.bustSize
+        ? _.trim(this.Join.bustSize, circumSize)
+        : null; //
+      this.chestCircumResult = circumSize;
+      this.chestCupResult = cupSize;
       this.joinData = {
         tallSize: this.Join.tallSize ? this.Join.tallSize : null,
         bustSize: this.Join.bustSize ? this.Join.bustSize : null,
@@ -354,6 +359,8 @@ export default {
         bodyType: this.Join.bodyType ? this.Join.bodyType : null
       };
     }
+
+    this.enterJoin();
   },
   mounted: function() {
     if (this.joinData.bodyType === 12701) {
