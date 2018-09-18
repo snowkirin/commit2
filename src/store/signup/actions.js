@@ -1,6 +1,6 @@
-import Auth from "@/library/api/auth";
-import Management from "@/library/api/management";
-import types from "./mutation-types";
+import Auth from '@/library/api/auth';
+import Management from '@/library/api/management';
+import types from './mutation-types';
 
 export default {
   setSizes({ commit }, data) {
@@ -18,13 +18,13 @@ export default {
           data: result.data.data
         });
       } else
-        alert("서비스에 문제가 발생하였습니다.\n새로고침 후 다시 시도해주세요");
+        alert('서비스에 문제가 발생하였습니다.\n새로고침 후 다시 시도해주세요');
     } catch (e) {
       console.error(e.message);
     }
   },
   setRequirement({ commit }, data) {
-    const rtn = data === "요구사항을 적어주세요." ? "" : data;
+    const rtn = data === '요구사항을 적어주세요.' ? '' : data;
     commit(types.SET_REQUIREMENT, rtn);
   },
   postPhone({ commit }, data) {
@@ -61,7 +61,7 @@ export default {
       return res;
     });
   },
-  setJoin({ commit, state }, data) {
+  setJoin({ commit }, data) {
     commit(types.SET_JOIN, data);
   },
   postJoin({ commit, state }) {
@@ -82,5 +82,12 @@ export default {
       }
       return res;
     });
+  },
+  /*
+  * 회원가입 페이지에 진입했을때. 실행됨. 만약 중간에 Refresh등을 하였을때
+  * 사이즈 화면으로 이동하게 하기 위함.
+  * */
+  enterJoin({ commit }) {
+    commit(types.ENTER_JOIN);
   }
 };

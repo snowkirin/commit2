@@ -176,19 +176,20 @@
               <!--결재 카드-->
               <form data-vv-scope="payment" name="payment">
                 <div>
-                  <div class="form-title-wrap">
-                    <p class="txt-form-title">결제 카드</p>
-                    <p class="txt-form-explain">마지막 3자리: {{ calcCardNumber }}</p>
+                  <div class="form-title-wrap mb-5">
+                    <p class="txt-form-title">결제 카드 변경 (등록 카드 마지막 3자리: {{ calcCardNumber }})</p>
                   </div>
                   <div class="form-row">
                     <div class="grid-flex grid-fixed">
                       <div class="column">
+                        <label class="label-card" for="newCardNumber">카드번호</label>
                         <div
                           class="text-field"
                           :class="{'text-field-error': errors.has('payment.newCardNumber')}">
                           <input
+                            id="newCardNumber"
                             type="text"
-                            placeholder="카드 번호 (-없이 16자리 입력)"
+                            placeholder="( - 없이, 15~16자리)"
                             name="newCardNumber"
                             maxlength="16"
                             v-validate="'max:16'"
@@ -198,11 +199,13 @@
                         </div>
                       </div>
                       <div class="column w-23 o-3">
+                        <label class="label-card" for="newCardValidity">유효기간</label>
                         <div
                           class="text-field"
                           :class="{'text-field-error': errors.has('payment.newCardValidity')}"
                         >
                           <input
+                            id="newCardValidity"
                             type="text"
                             placeholder="MMYY"
                             maxlength="4"
@@ -226,20 +229,7 @@
                   <div class="form-row">
                     <div class="grid-flex grid-fixed">
                       <div class="column">
-                        <div
-                          class="text-field"
-                          :class="{'text-field-error': errors.has('payment.newCardBirth')}"
-                        >
-                          <input
-                            type="text"
-                            placeholder="생년월일(YYMMDD)"
-                            maxlength="6"
-                            name="newCardBirth"
-                            v-validate="{date_format: 'YYMMDD'}"
-                            data-vv-as="생년월일"
-                            v-model.trim="newCardBitrh"
-                          >
-                        </div>
+
                       </div>
                     </div>
                     <p
@@ -251,12 +241,33 @@
                   <div class="form-row">
                     <div class="grid-flex grid-fixed">
                       <div class="column">
+                        <label class="label-card" for="newCardBirth">생년월일</label>
+                        <div
+                          class="text-field"
+                          :class="{'text-field-error': errors.has('payment.newCardBirth')}"
+                        >
+                          <input
+                            id="newCardBirth"
+                            type="text"
+                            placeholder="YYMMDD"
+                            maxlength="6"
+                            name="newCardBirth"
+                            v-validate="{date_format: 'YYMMDD'}"
+                            data-vv-as="생년월일"
+                            v-model.trim="newCardBitrh"
+                          >
+                        </div>
+                      </div>
+
+                      <div class="column o-3">
+                        <label class="label-card" for="newCardPassword">카드 비밀번호</label>
                         <div
                           class="text-field"
                           :class="{'text-field-error': errors.has('payment.newCardPassword')}">
                           <input
+                            id="newCardPassword"
                             type="text"
-                            placeholder="비밀번호"
+                            placeholder="앞 두자리"
                             maxlength="2"
                             name="newCardPassword"
                             v-validate="{digits: 2}"
@@ -265,15 +276,9 @@
                           >
                         </div>
                       </div>
-                      <div class="column">
-                        <div class="left-align ml-10">
-                          <div>
-                            <span class="icon-dot">*</span>
-                            <span class="icon-dot">*</span>
-                          </div>
-                        </div>
-                      </div>
+
                       <div class="column w-26 o-3">
+                        <label class="label-card">&nbsp;</label>
                         <button
                           type="button"
                           class="btn btn-primary h-50"
@@ -377,6 +382,7 @@
                 <div>
                   <div class="form-title-wrap">
                     <p class="txt-form-title">공동 현관 번호</p>
+                    <p class="txt-form-explain">(배송을 위해 공동현관 비밀번호 알려주세요)</p>
                   </div>
                   <div class="form-row">
                     <div class="grid-flex grid-fixed">
@@ -480,8 +486,7 @@ const alertObject = {
 
 export default {
   name: 'mypage',
-  components: {
-  },
+  components: {},
   data() {
     return {
       initPhoneNumber: '',
@@ -675,7 +680,6 @@ export default {
               formTarget.currentPassword.value = '';
               formTarget.newPassword.value = '';
               formTarget.newPasswordConfirm.value = '';
-
             } else {
               if (res.data.uncorrent) {
                 alert('현재 비밀번호가 정확하지 않습니다.');
@@ -749,8 +753,7 @@ export default {
           new window.daum.Postcode({
             width: '100%',
             height: '498px',
-            onresize: size => {
-            },
+            onresize: size => {},
             onclose: state => {
               if (state === 'COMPLETE_CLOSE') {
               }
@@ -860,8 +863,14 @@ export default {
 };
 </script>
 
-<style scoped lang="scss" src="@/assets/css/closet-style.scss"></style>
+<style scoped lang="scss" src="@/assets/css/closet-style.scss">
+</style>
 <style scoped lang="scss">
+.label-card {
+  @include fontSize(15px);
+  display: block;
+  margin-bottom: 5px;
+}
 
 .form-row {
   margin-bottom: 10px;
@@ -878,10 +887,30 @@ export default {
 @media (min-width: 768px) {
   .content-form {
     background-color: #f7f7f7;
-    padding: 30px;
+    padding: 25px 30px 30px;
   }
   .column-right {
     margin-left: 5%;
+  }
+}
+
+@media (min-width: 1280px) {
+  .column-left {
+    padding-right: 90px;
+    position: relative;
+    &::after {
+      content: '';
+      display: block;
+      height: 100%;
+      position: absolute;
+      right: 0;
+      border-right: 1px solid #e9e9e9;
+      top: 0;
+    }
+  }
+  .column-right {
+    padding-left: 30px;
+    padding-right: 60px;
   }
 }
 </style>

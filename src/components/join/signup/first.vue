@@ -8,7 +8,8 @@
         <div class="grid-flex">
           <!--Left Side -->
           <div class="column column-left">
-            <div class="user-account">
+            <!-- 사용자 계정 -->
+            <div class="row user-account">
               <div class="form-title-wrap">
                 <p class="txt-form-title">사용자 계정</p>
               </div>
@@ -95,149 +96,182 @@
                 </div>
               </div>
             </div>
-          </div>
-          <!--Right Side-->
-          <div class="column column-right">
-            <!-- 연락처 정보 -->
-            <div class="contact-info">
+            <!-- 휴대폰 번호 -->
+            <div class="row">
               <div class="form-title-wrap">
-                <p class="txt-form-title">연락처 정보</p>
+                <p class="txt-form-title">
+                  휴대폰 번호
+                </p>
               </div>
-              <div>
-                <div class="form-row">
-                  <div class="grid-flex grid-fixed">
-                    <div class="text-field column" :class="{'text-field-error' : errors.has('phone')}">
-                      <input
-                        type="tel"
-                        name="phone"
-                        placeholder="핸드폰번호"
-                        autocomplete="tel-national"
-                        maxlength="14"
-                        v-validate="{ required: true, regex: /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})/ }"
-                        v-model="joinData.phone"
-                      />
-                    </div>
-                    <div class="column w-31 o-2">
-                      <button
-                        type="button"
-                        class="btn btn-secondary h-50"
-                        id="phoneVerify"
-                        @click="clickPhoneVerify"
-                      >
-                        인증
-                      </button>
-                    </div>
+              <div class="form-row">
+                <div class="grid-flex grid-fixed">
+                  <div class="text-field column" :class="{'text-field-error' : errors.has('phone')}">
+                    <input
+                      type="tel"
+                      name="phone"
+                      placeholder="( - 없이 입력)"
+                      autocomplete="tel-national"
+                      maxlength="14"
+                      v-validate="{ required: true, regex: /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})/ }"
+                      v-model="joinData.phone"
+                    />
                   </div>
-                  <p
-                    class="txt-error"
-                    v-if="errors.has('phone')">
-                    휴대전화를 입력해주세요.
-                  </p>
-                </div>
-                <div class="form-row">
-                  <div class="grid-flex grid-fixed">
-                    <div class="column text-field" :class="{'text-field-error' : errors.has('phoneAuthNumber')}">
-                      <input
-                        type="text"
-                        name="phoneAuthNumber"
-                        placeholder="인증번호"
-                        autocomplete="tel-extension"
-                        v-validate="'required'"
-                      />
-                    </div>
-                    <div class="column w-31 o-2">
-                      <button
-                        type="button"
-                        class="btn btn-secondary h-50"
-                        id="authKeyConfirm"
-                        @click="authKeyConfirm"
-                      >
-                        확인
-                      </button>
-                    </div>
+                  <div class="column w-31 o-2">
+                    <button
+                      type="button"
+                      class="btn btn-secondary h-50"
+                      id="phoneVerify"
+                      @click="clickPhoneVerify"
+                    >
+                      인증
+                    </button>
                   </div>
-                  <p
-                    class="txt-error"
-                    v-if="authErr">
-                    {{ authErrMessage }}
-                  </p>
                 </div>
-                <div class="form-row">
-                  <div class="grid-flex grid-fixed">
-                    <div class="column text-field" :class="{'text-field-error' : errors.has('zipcode')}">
-                      <input
-                        type="text"
-                        name="zipcode"
-                        placeholder="우편번호"
-                        autocomplete="postal-code"
-                        readonly
-                        v-validate="'required'"
-                        v-model="joinData.zipcode"
-                        @click="openPostCode"
-                      />
-                    </div>
-                    <div class="column w-31 o-2">
-                      <button
-                        type="button"
-                        class="btn btn-secondary h-50"
-                        @click="openPostCode"
-                      >
-                        주소찾기
-                      </button>
-                    </div>
-                  </div>
-                  <p></p>
-                </div>
-                <div class="form-row" v-show="isPostCode">
-                  <div class="postcode-wrap" id="postCode"></div>
-                </div>
-                <div class="form-row">
-                  <div class="text-field" :class="{'text-field-error' : errors.has('address')}">
+                <p
+                  class="txt-error"
+                  v-if="errors.has('phone')">
+                  휴대전화를 입력해주세요.
+                </p>
+              </div>
+              <div v-show="isPhoneAuth" class="form-row">
+                <div class="grid-flex grid-fixed">
+                  <div class="column text-field" :class="{'text-field-error' : errors.has('phoneAuthNumber')}">
                     <input
                       type="text"
-                      name="address"
-                      placeholder="주소"
-                      autocomplete="address-line1"
-                      maxlength="30"
+                      name="phoneAuthNumber"
+                      placeholder="인증번호"
+                      autocomplete="tel-extension"
+                      v-validate="'required'"
+                    />
+                  </div>
+                  <div class="column w-31 o-2">
+                    <button
+                      type="button"
+                      class="btn btn-secondary h-50"
+                      id="authKeyConfirm"
+                      @click="authKeyConfirm"
+                    >
+                      확인
+                    </button>
+                  </div>
+                </div>
+                <p
+                  class="txt-error"
+                  v-if="authErr">
+                  {{ authErrMessage }}
+                </p>
+              </div>
+            </div>
+            <!-- 주소 -->
+            <div class="row">
+              <div class="form-title-wrap">
+                <p class="txt-form-title">주소</p>
+              </div>
+              <div class="form-row">
+                <div class="grid-flex grid-fixed">
+                  <div class="column text-field" :class="{'text-field-error' : errors.has('zipcode')}">
+                    <input
+                      type="text"
+                      name="zipcode"
+                      placeholder="우편번호"
+                      autocomplete="postal-code"
                       readonly
                       v-validate="'required'"
-                      v-model="joinData.addr"
+                      v-model="joinData.zipcode"
                       @click="openPostCode"
                     />
                   </div>
-                  <p
-                    class="txt-error"
-                    v-if="errors.has('address')">
-                    주소가 입력되지 않았습니다.
-                  </p>
-                </div>
-                <div class="form-row">
-                  <div class="text-field" :class="{'text-field-error' : errors.has('detail_address')}">
-                    <input
-                      type="text"
-                      name="detail_address"
-                      placeholder="상세주소"
-                      autocomplete="address-line2"
-                      maxlength="30"
-                      ref="detailAddress"
-                      v-validate="'required'"
-                      v-model="joinData.addrDetail"
-                    />
+                  <div class="column w-31 o-2">
+                    <button
+                      type="button"
+                      class="btn btn-secondary h-50"
+                      @click="openPostCode"
+                    >
+                      주소찾기
+                    </button>
                   </div>
-                  <p
-                    class="txt-error"
-                    v-if="errors.has('detail_address')">
-                    상세주소가 입력되지 않았습니다.
-                  </p>
-                  <p class="txt-delivery">※ 현재 서울 전지역과 경기 일부 지역에 한하여 서비스를 제공하고 있습니다. <a href="/pdf/shipping_area.pdf" target="_blank" class="txt-link">(배송지역 보기)</a></p>
                 </div>
+                <p></p>
+              </div>
+              <div class="form-row" v-show="isPostCode">
+                <div class="postcode-wrap" id="postCode"></div>
+              </div>
+              <div class="form-row">
+                <div class="text-field" :class="{'text-field-error' : errors.has('address')}">
+                  <input
+                    type="text"
+                    name="address"
+                    placeholder="주소"
+                    autocomplete="address-line1"
+                    maxlength="30"
+                    readonly
+                    v-validate="'required'"
+                    v-model="joinData.addr"
+                    @click="openPostCode"
+                  />
+                </div>
+                <p
+                  class="txt-error"
+                  v-if="errors.has('address')">
+                  주소가 입력되지 않았습니다.
+                </p>
+              </div>
+              <div class="form-row">
+                <div class="text-field" :class="{'text-field-error' : errors.has('detail_address')}">
+                  <input
+                    type="text"
+                    name="detail_address"
+                    placeholder="상세주소"
+                    autocomplete="address-line2"
+                    maxlength="30"
+                    ref="detailAddress"
+                    v-validate="'required'"
+                    v-model="joinData.addrDetail"
+                  />
+                </div>
+                <p
+                  class="txt-error"
+                  v-if="errors.has('detail_address')">
+                  상세주소가 입력되지 않았습니다.
+                </p>
+                <p class="txt-delivery">※ 현재 서울 전지역과 경기 일부 지역에 한하여 서비스를 제공하고 있습니다. <a href="/pdf/shipping_area.pdf" target="_blank" class="txt-link">(배송지역 보기)</a></p>
+              </div>
+
+
+
+            </div>
+          </div>
+          <!--Right Side-->
+          <div class="column column-right">
+            <!-- 공동 현관 비밀번호 -->
+            <div class="row">
+              <div class="form-title-wrap">
+                <p class="txt-form-title">공동 현관 비밀번호</p>
+                <p class="txt-form-explain">(문 앞까지 가기 전에 공동 현관이 있는 경우)</p>
+              </div>
+              <div>
+                <div class="text-field" :class="{'text-field-error': errors.has('lobbyPassword')}">
+                  <input
+                    type="text"
+                    v-model="joinData.lobbyPassword"
+                    class="form-input"
+                    v-validate="'required'"
+                    name="lobbyPassword"
+                    placeholder="1층 공용 현관 비밀번호">
+                </div>
+                <p
+                  class="txt-error"
+                  v-if="errors.has('lobbyPassword')"
+                >
+                  공동 현관 비밀번호를 입력해 주세요.
+                </p>
               </div>
             </div>
-            <div>
+            <!-- 연령대-->
+            <div class="row">
               <div class="form-title-wrap">
                 <p class="txt-form-title">연령대</p>
               </div>
-
               <div>
                 <ul class="list-flex">
                   <li
@@ -252,8 +286,8 @@
                 </ul>
               </div>
             </div>
-            <!-- 추가 정보 -->
-            <div class="more-info">
+            <!-- 기념일 -->
+            <div class="row more-info">
               <div class="form-title-wrap">
                 <p class="txt-form-title">[선택] 기념일</p>
               </div>
@@ -274,7 +308,7 @@
               </div>
             </div>
             <!-- 체크박스 -->
-            <div>
+            <div class="checkbox-wrap">
               <div class="custom-checkbox">
                 <input
                   class="custom-control-input"
@@ -347,6 +381,7 @@ export default {
     return {
       pwdMsg: '비밀번호를 입력해주세요.',
       isPwd: false,
+      isPhoneAuth: false,
       authErr: false,
       authErrMessage: '',
       personalText: Info.Personal.text, // 개인정보취급방침
@@ -401,7 +436,8 @@ export default {
         zipcode: '',
         addr: '',
         addrDetail: '',
-        marketingAgree: 'N'
+        marketingAgree: 'N',
+        lobbyPassword: null,
       },
       resultPostCode: {}, // 주소 결과값,
       isPostCode: false
@@ -524,6 +560,7 @@ export default {
           };
           this.postPhone(phoneData).then(res => {
             if (res.data.result) {
+              this.isPhoneAuth = true;
               event.target.disabled = true;
               this.startTimer();
               this.authErr = true;
@@ -591,6 +628,7 @@ export default {
         phoneAuthNumber.disabled = true;
         this.authErr = false;
         clearInterval(window.interval);
+        this.isPhoneAuth = false;
       } else {
         _.assign(alertObject, {
           message: '인증번호를 다시 확인하시고 진행해주세요.'
@@ -711,7 +749,9 @@ export default {
         phone: this.Join.phone ? this.Join.phone : ' ',
         skirtSize: this.Join.skirtSize ? this.Join.skirtSize : null,
         pantsSize: this.Join.pantsSize ? this.Join.pantsSize : null,
-        bodyType: this.Join.bodyType ? this.Join.bodyType : null
+        bodyType: this.Join.bodyType ? this.Join.bodyType : null,
+        age: this.Join.age ? this.Join.age : null,
+        lobbyPassword: this.Join.lobbyPassword ? this.Join.lobbyPassword : null
       };
     }
 
@@ -733,18 +773,17 @@ export default {
   .content {
     .column {
       // Left
-      .user-account {
+      .row {
+        margin-top: 30px;
       }
-      // Right
-      .contact-info {
-        padding-top: 26px;
-      }
-      .more-info {
-        padding-top: 26px;
-        .form-row {
-          margin-bottom: 19px;
+      &.column-left {
+        .row {
+          &:first-child {
+            margin-top: 0;
+          }
         }
       }
+
       .custom-checkbox {
         margin-bottom: 8px;
       }
@@ -758,6 +797,13 @@ export default {
 }
 .form-row {
   margin-bottom: 10px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.checkbox-wrap {
+  margin-top: 10px;
 }
 
 .postcode-wrap {
@@ -768,10 +814,16 @@ export default {
 
 @media (min-width: 768px) {
   .contents {
+    padding-left: 0;
+    padding-right: 0;
     .content {
       .column {
-        .contact-info {
-          padding-top: 0;
+        &.column-right {
+          .row {
+            &:first-child {
+              margin-top: 0;
+            }
+          }
         }
       }
     }

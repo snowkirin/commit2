@@ -34,31 +34,39 @@
               <notifications group="deliveryDate" width="100%" position="bottom left" :max="1" class="zuly-notify"/>
             </div>
             <div class="row">
-              <div class="form-title-wrap">
+              <div class="form-title-wrap mb-5">
                 <p class="txt-form-title">카드 결제 정보</p>
               </div>
               <div class="mb-10">
                 <div class="grid-flex grid-fixed">
-                  <div class="text-field column" :class="{'text-field-error': errors.has('cardNumber')}">
-                    <input
-                      autocomplete="cc-exp"
-                      type="text"
-                      placeholder="카드 번호 (-없이 16자리 입력)"
-                      maxlength="16"
-                      v-validate="'required'"
-                      name="cardNumber"
-                      v-model="joinData.cardNumber"
-                    >
+                  <div class="column">
+                    <label class="label-card" for="cardNumber">카드 번호 </label>
+                    <div class="text-field" :class="{'text-field-error': errors.has('cardNumber')}">
+                      <input
+                        id="cardNumber"
+                        autocomplete="cc-exp"
+                        type="text"
+                        placeholder="( - 없이, 15~16자리)"
+                        maxlength="16"
+                        v-validate="'required'"
+                        name="cardNumber"
+                        v-model="joinData.cardNumber"
+                      >
+                    </div>
                   </div>
-                  <div class="text-field column w-31 o-2" :class="{'text-field-error': errors.has('cardExpiry')}">
-                    <input
-                      autocomplete="cc-exp"
-                      type="text"
-                      placeholder="MMYY"
-                      v-validate="'required'"
-                      @keyup="checkCardExpiry"
-                      name="cardExpiry"
-                    >
+                  <div class="column w-31 o-2">
+                    <label class="label-card" for="cardExpiry">생년월일</label>
+                    <div class="text-field" :class="{'text-field-error': errors.has('cardExpiry')}">
+                      <input
+                        id="cardExpiry"
+                        autocomplete="cc-exp"
+                        type="text"
+                        placeholder="MMYY"
+                        v-validate="'required'"
+                        @keyup="checkCardExpiry"
+                        name="cardExpiry"
+                      >
+                    </div>
                   </div>
                 </div>
                 <p
@@ -73,40 +81,38 @@
                 </p>
               </div>
               <div class="mb-10">
-                <div class="text-field" :class="{'text-field-error': errors.has('birthDay')}">
-                  <input
-                    type="text"
-                    class="form-input"
-                    name="birthDay"
-                    v-model="joinData.userBirth"
-                    placeholder="생년월일(YYMMDD)"
-                    v-validate="'required'"
-                    @keyup="checkBirthExpiry">
-                </div>
-                <p class="txt-error" v-show="errors.has('birthDay')">생년월일을 입력해주세요.</p>
-                <p class="txt-error" v-show="birthVerify">{{ birthVerifyMsg }}</p>
-              </div>
-              <div>
                 <div class="grid-flex grid-fixed">
-                  <div class="column text-field" :class="{'text-field-error': errors.has('cardPwd')}">
-                    <input
-                      type="password"
-                      placeholder="비밀번호(앞2자리)"
-                      v-model="joinData.cardPassword"
-                      maxlength="2"
-                      v-validate="'required'"
-                      style="text-align: right;"
-                      name="cardPwd">
+                  <div class="column">
+                    <label class="label-card" for="birdthDay">생년월일</label>
+                    <div class="text-field" :class="{'text-field-error': errors.has('birthDay')}">
+                      <input
+                        id="birdthDay"
+                        type="text"
+                        class="form-input"
+                        name="birthDay"
+                        v-model="joinData.userBirth"
+                        placeholder="생년월일(YYMMDD)"
+                        v-validate="'required'"
+                        @keyup="checkBirthExpiry">
+                    </div>
                   </div>
-                  <div class="column w-25">
-                    <div class="center-align">
-                      <div>
-                        <span class="icon-dot">&middot;</span>
-                        <span class="icon-dot">&middot;</span>
-                      </div>
+
+                  <div class="column w-31 o-2">
+                    <label class="label-card" for="cardPwd">비밀번호</label>
+                    <div class="text-field" :class="{'text-field-error': errors.has('cardPwd')}">
+                      <input
+                        id="cardPwd"
+                        type="password"
+                        placeholder="앞2자리"
+                        v-model="joinData.cardPassword"
+                        maxlength="2"
+                        v-validate="'required'"
+                        name="cardPwd">
                     </div>
                   </div>
                 </div>
+                <p class="txt-error" v-show="errors.has('birthDay')">생년월일을 입력해주세요.</p>
+                <p class="txt-error" v-show="birthVerify">{{ birthVerifyMsg }}</p>
                 <p class="txt-error" v-show="errors.has('cardPwd')">카드비밀번호 앞 2자리를 입력해주세요.</p>
               </div>
             </div>
@@ -128,7 +134,7 @@
                 </div>
               </div>
             </div>
-            <div class="row">
+            <!--<div class="row">
               <div class="form-title-wrap">
                 <p class="txt-form-title">공동 현관 비밀번호 <br/> <span class="txt-entrance">(문 앞까지 가기 전에 공동 현관이 있는 경우)</span></p>
               </div>
@@ -149,7 +155,7 @@
                   공동 현관 비밀번호를 입력해 주세요.
                 </p>
               </div>
-            </div>
+            </div>-->
             <!-- 추천인 임시 삭제 -->
             <!--<div class="row">
               <div class="form-title-wrap">
@@ -328,7 +334,6 @@ export default {
         cardMonthExpiry: '',
         userBirth: '',
         cardPassword: '',
-        lobbyPassword: null,
         coupon: null,
         membershipId: 1,
         recommendCode: null
@@ -549,6 +554,12 @@ export default {
   }
 }
 
+.label-card {
+  @include fontSize(14px);
+  display: block;
+  margin-bottom: 5px;
+}
+
 .column-left {
   .row {
     &:nth-child(1) {
@@ -622,18 +633,23 @@ export default {
   }
   th,
   td {
-    border-bottom: 1px solid #e9e9e9;
-    height: 60px;
     vertical-align: middle;
   }
+  th {
+    padding-bottom: 10px;
+    font-weight: 700;
+  }
   td {
+    height: 60px;
+    border-bottom: 1px solid #e9e9e9;
     &:nth-child(2) {
       text-align: right;
     }
   }
   thead {
     th {
-      font-weight: 400;
+      border-bottom: 1px solid $color-primary;
+      font-weight: 700;
       text-align: left;
     }
   }
@@ -644,6 +660,9 @@ export default {
   }
   .first-payment-wrap {
     td {
+      &:nth-child(1) {
+        color: $color-primary;
+      }
       color: #d16e7b;
     }
   }

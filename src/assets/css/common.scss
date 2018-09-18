@@ -41,7 +41,7 @@ img, svg {
     margin-right: $i+px;
   }
   .mb-#{$i} {
-    margin-bottom: $i+px;
+    margin-bottom: $i+px !important;
   }
   .ml-#{$i} {
     margin-left: $i+px;
@@ -71,6 +71,7 @@ img, svg {
 }
 .lang-en {
   font-family: $font-secondary;
+  letter-spacing: 0 !important;
 }
 
 // Layout
@@ -433,6 +434,9 @@ input:-webkit-autofill:focus {
   color: #566b9c;
   text-decoration: underline;
   cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .center-align {
