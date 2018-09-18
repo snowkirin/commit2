@@ -123,6 +123,8 @@ export default {
   width: 100% !important;
   left: 0;
   z-index: 100;
+  bottom: 0;
+  top: auto !important;
 }
 
 .content {

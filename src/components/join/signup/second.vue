@@ -91,7 +91,7 @@
                   <div class="column text-field" :class="{'text-field-error': errors.has('cardPwd')}">
                     <input
                       type="password"
-                      placeholder="비밀번호"
+                      placeholder="비밀번호(앞2자리)"
                       v-model="joinData.cardPassword"
                       maxlength="2"
                       v-validate="'required'"
