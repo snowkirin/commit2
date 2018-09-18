@@ -122,11 +122,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
 .not-mobile {
   display: none;
 }
 .footer {
   border-top: 1px solid #e9e9e9;
+  &.main {
+    padding-bottom: 56px;
+  }
   &.join {
   }
 }
@@ -202,6 +206,7 @@ export default {
   .footer {
     border-top: 0;
     &.main {
+      padding-bottom: 0;
       .footer-inner {
         width: 100%;
       }

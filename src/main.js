@@ -20,6 +20,7 @@ import VueLocalStorage from 'vue-localstorage';
 import VModal from 'vue-js-modal';
 import Notifications from 'vue-notification';
 import VueLodash from 'vue-lodash';
+import VueStickyKit from 'vue-stickykit';
 
 // Moment : https://momentjs.com/
 import moment from 'moment';
@@ -31,7 +32,7 @@ import html from '@/library/htmlinjection';
 import sess from '@/library/session';
 
 Vue.config.productionTip = false;
-
+Vue.use(VueStickyKit);
 Vue.use(VueCommon);
 Vue.use(VueGlobalConst);
 Vue.use(VeeValidate);
@@ -59,4 +60,4 @@ new Vue({
   router,
   store,
   render: h => h(App)
-}).$mount("#app");
+}).$mount('#app');

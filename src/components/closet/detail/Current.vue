@@ -135,7 +135,7 @@ export default {
       isCurrentFeedbacks: 'subscriptions/isCurrentFeedbacks',
       CurrentFeedbacksDirect: 'subscriptions/CurrentFeedbacksDirect', // 현재의 옷장 피드백 직접접속 데이터
       isCurrentFeedbacksDirect: 'subscriptions/isCurrentFeedbacksDirect'
-    }),
+    })
   },
   methods: {
     ...mapActions({
@@ -143,7 +143,7 @@ export default {
       getCurrentFeedbacks: 'subscriptions/getCurrentFeedbacks',
       destroyCurrentFeedbackDirect: 'subscriptions/destroyCurrentFeedbackDirect'
     }),
-    clickShow(){
+    clickShow() {
       this.isFeedback = true;
     },
     clickHide() {
@@ -163,18 +163,19 @@ export default {
     currentFeedbackType() {
       if (this.isCurrentFeedbacks && !this.isCurrentFeedbacksDirect) {
         // CurrentFeedback은 true, isCurrentFeedbacksDirect는 false일 경우
-        this.feedbacksType = () => import('@/components/closet/feedback/FeedbackCurrent.vue');
+        this.feedbacksType = () =>
+          import('@/components/closet/feedback/FeedbackCurrent.vue');
       }
       if (this.isCurrentFeedbacks && this.isCurrentFeedbacksDirect) {
         // isCurrentFeedbacks 와 isCurrentFeedbacksDirect 둘다 true일때만
-        this.feedbacksType = () => import('@/components/closet/feedback/FeedbackDirect.vue');
+        this.feedbacksType = () =>
+          import('@/components/closet/feedback/FeedbackDirect.vue');
       }
     }
   },
   async created() {
     // 직접접속 이라면
     if (this.isCurrentFeedbacksDirect) {
-
       const formData = {
         subscriptionId: this.CurrentFeedbacksDirect.subscription_id
       };
@@ -186,7 +187,7 @@ export default {
         }
       });
     } else {
-      await this.getCurrent().then((res) => {
+      await this.getCurrent().then(res => {
         if (!_.isEmpty(res.data.result)) {
           // 현재의 옷장 데이터가 있다면
           this.setCurrentData();
