@@ -237,16 +237,20 @@
               <div class="form-title-wrap">
                 <p class="txt-form-title">연령대</p>
               </div>
-              <ul class="list-flex">
-                <li class="item w-33 h-50" @click="clickAgeRange('number', $event)">20대</li>
-                <li class="item w-33 h-50" @click="clickAgeRange('number', $event)">30대</li>
-                <li class="item w-33 h-50" @click="clickAgeRange('number', $event)">40대</li>
-              </ul>
-              <ul class="list-flex" style="margin-top: -1px">
-                <li class="item w-33 h-50" @click="clickAgeRange('range', $event)">초반</li>
-                <li class="item w-33 h-50" @click="clickAgeRange('range', $event)">중반</li>
-                <li class="item w-33 h-50" @click="clickAgeRange('range', $event)">후반</li>
-              </ul>
+
+              <div>
+                <ul class="list-flex">
+                  <li
+                    class="item w-33 h-50"
+                    :class="{'selected': joinData.age === data.code}"
+                    v-for="(data, idx) in ageRange"
+                    :key="idx"
+                    @click="clickAgeRange(data.code, $event)"
+                  >
+                    {{data.text}}
+                  </li>
+                </ul>
+              </div>
             </div>
             <!-- 추가 정보 -->
             <div class="more-info">
@@ -347,10 +351,48 @@ export default {
       authErrMessage: '',
       personalText: Info.Personal.text, // 개인정보취급방침
       termsText: Info.Terms.text, // 서비스 약관
-      marketingText: Info.Marketing.text, // 마케팅 동의
+      marketingText: Info.Marketing.text, // 마케팅 동의,
+      ageRange: [
+        {
+          text: '20대 초반',
+          code: 16001
+        },
+        {
+          text: '20대 중반',
+          code: 16002
+        },
+        {
+          text: '20대 후반',
+          code: 16003
+        },
+        {
+          text: '30대 초반',
+          code: 16004
+        },
+        {
+          text: '30대 중반',
+          code: 16005
+        },
+        {
+          text: '30대 후반',
+          code: 16006
+        },
+        {
+          text: '40대 초반',
+          code: 16007
+        },
+        {
+          text: '40대 중반',
+          code: 16008
+        },
+        {
+          text: '40대 후반',
+          code: 16009
+        }
+      ],
       // 회원가입 정보
       joinData: {
-        age: 0,
+        age: null,
         name: '',
         email: '',
         password: '',
@@ -360,10 +402,6 @@ export default {
         addr: '',
         addrDetail: '',
         marketingAgree: 'N'
-      },
-      selectedAgeRange: {
-        number: '',
-        range: ''
       },
       resultPostCode: {}, // 주소 결과값,
       isPostCode: false
@@ -596,15 +634,9 @@ export default {
       window.interval = interval;
     },
 
-    clickAgeRange(type, event) {
-      this.selectedAgeRange[type] = event.target.innerText;
+    clickAgeRange(data, event) {
       if (!event.target.classList.contains('selected')) {
-        _.forEach(event.target.closest('ul').querySelectorAll('li'), function(
-          value
-        ) {
-          value.classList.remove('selected');
-        });
-        event.target.classList.add('selected');
+        this.joinData.age = data;
       }
     },
     toggleMarketing() {
@@ -617,6 +649,14 @@ export default {
     },
     validateBeforeSubmit() {
       const joinForm = document.joinForm;
+
+      if (_.isNull(this.joinData.age)) {
+        _.assign(alertObject, {
+          message: '연령대를 선택해 주세요.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
+        return;
+      }
 
       this.$validator.validateAll().then(result => {
         if (result) {
@@ -636,48 +676,12 @@ export default {
             this.$refs.alert.openSimplert(alertObject);
             return;
           }
-          if (
-            _.isEmpty(this.selectedAgeRange.number) ||
-            _.isEmpty(this.selectedAgeRange.range)
-          ) {
-            _.assign(alertObject, {
-              message: '연령대를 선택해 주세요.'
-            });
-            this.$refs.alert.openSimplert(alertObject);
-            return;
-          }
           if (this.PhoneVerify.isVerify) {
             if (!_.isEmpty(this.joinData.ann)) {
               const dateResult = this.joinData.ann;
               const monthResult = dateResult.substring(0, 2);
               const dayResult = dateResult.substring(2);
               this.joinData.ann = monthResult + '.' + dayResult;
-            }
-            // 연령대
-            if (this.selectedAgeRange.number === '20대') {
-              if (this.selectedAgeRange.range === '초반') {
-                this.joinData.age = 16001;
-              } else if (this.selectedAgeRange.range === '중반') {
-                this.joinData.age = 16002;
-              } else {
-                this.joinData.age = 16003;
-              }
-            } else if (this.selectedAgeRange.number === '30대') {
-              if (this.selectedAgeRange.range === '초반') {
-                this.joinData.age = 16004;
-              } else if (this.selectedAgeRange.range === '중반') {
-                this.joinData.age = 16005;
-              } else {
-                this.joinData.age = 16006;
-              }
-            } else {
-              if (this.selectedAgeRange.range === '초반') {
-                this.joinData.age = 16007;
-              } else if (this.selectedAgeRange.range === '중반') {
-                this.joinData.age = 16008;
-              } else {
-                this.joinData.age = 16009;
-              }
             }
             this.setJoin(this.joinData);
             this.$router.push({ path: '/join/signup/2' });
