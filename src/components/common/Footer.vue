@@ -153,7 +153,7 @@ export default {
     bottom: 0;
     .link-tok {
       display: block;
-      height: 34px;
+      height: 38px;
       img {
         height: 100%;
       }
