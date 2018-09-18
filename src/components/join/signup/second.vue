@@ -150,7 +150,8 @@
                 </p>
               </div>
             </div>
-            <div class="row">
+            <!-- 추천인 임시 삭제 -->
+            <!--<div class="row">
               <div class="form-title-wrap">
                 <p class="txt-form-title">추천인</p>
               </div>
@@ -175,7 +176,7 @@
 
 
               </div>
-            </div>
+            </div>-->
               <!-- 쿠폰 -->
               <!--<div class="coupon">
                 <p class="txt-form-title">쿠폰</p>
