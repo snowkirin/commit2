@@ -75,10 +75,10 @@ export default {
         //   text: '쿠폰',
         //   path: '/closet/coupon',
         // },
-        {
-          text: '문의내역',
-          path: '/closet/cs'
-        },
+        // {
+        //   text: '문의내역',
+        //   path: '/closet/cs'
+        // },
         {
           text: '공지사항',
           path: '/closet/notice'
