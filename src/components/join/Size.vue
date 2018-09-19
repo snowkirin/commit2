@@ -91,7 +91,7 @@
           <div class="column column-right">
             <div class="row">
               <div class="form-title-wrap">
-                <p class="txt-form-title">가슴둘레</p>
+                <p class="txt-form-title">가슴둘레 (브래지어 기준)</p>
               </div>
               <div>
                 <ul class="list-flex">
