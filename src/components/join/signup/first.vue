@@ -257,7 +257,7 @@
                     class="form-input"
                     v-validate="'required'"
                     name="lobbyPassword"
-                    placeholder="1층 공용 현관 비밀번호">
+                    placeholder="공용 현관이 없는 경우 없음을 입력해주세요.">
                 </div>
                 <p
                   class="txt-error"
@@ -463,7 +463,6 @@ export default {
             width: '100%',
             height: '498px',
             onresize: size => {
-              console.log(size);
             },
             onclose: state => {
               if (state === 'COMPLETE_CLOSE') {

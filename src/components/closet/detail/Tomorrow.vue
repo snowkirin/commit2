@@ -172,7 +172,7 @@ export default {
     ...mapActions({
       getTomorrow: 'subscriptions/getTomorrow',
       putTomorrow: 'subscriptions/putTomorrow',
-      getProductDetail: 'subscriptions/getProductDetail',
+      getTomorrowProductDetail: 'subscriptions/getTomorrowProductDetail',
       destroyTomorrowDirect: 'subscriptions/destroyTomorrowDirect',
       putTomorrowDirect: 'subscriptions/putTomorrowDirect'
     }),
@@ -243,7 +243,7 @@ export default {
       // 불필요한 API 호출을 방지하기 위해
       if (!this.TomorrowProductDetail[productCode]) {
         // 해당 상품 정보가 스토어에 없으면
-        await this.getProductDetail(productCode);
+        await this.getTomorrowProductDetail(productCode);
         this.$modal.show(
           ModalProductDetail,
           {data: this.TomorrowProductDetail[productCode]},

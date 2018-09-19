@@ -2,7 +2,10 @@
   <div class="feedback-content" ref="feedbackContent">
     <div class="feedback-answer">
       <div class="grid-flex">
-        <div class="column column-left">
+        <div
+          class="column column-left"
+          :class="{'only-column': feedbackDataResult.isEmptyB}"
+        >
           <div class="common-wrap">
             <template
               v-for="(data, idx) in feedbackDataResult.questionCommon"

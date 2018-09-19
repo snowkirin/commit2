@@ -120,10 +120,10 @@ export default {
     VueJsonPretty
   },
   watch: {
-    isCurrentFeedbacks(data) {
+    isCurrentFeedbacks() {
       this.currentFeedbackType();
     },
-    isCurrentFeedbacksDirect(data) {
+    isCurrentFeedbacksDirect() {
       this.currentFeedbackType();
     }
   },

@@ -391,6 +391,7 @@
                           <input
                             type="text"
                             v-model="lobbyPassword"
+                            placeholder="공용 현관이 없는 경우 없음을 입력해주세요."
                           >
                         </div>
                       </div>
@@ -609,7 +610,10 @@ export default {
     clickSendPhoneAuth() {
       this.$validator.validateAll('phone').then(result => {
         if (this.phoneNumber === this.initPhoneNumber) {
-          alert('같은 번호로는 변경이 불가능 합니다.');
+          _.assign(alertObject, {
+            message: '같은 번호로는 변경이 불가능 합니다.'
+          });
+          this.$refs.alert.openSimplert(alertObject);
           return;
         }
         if (result) {
@@ -623,7 +627,12 @@ export default {
               this.isFlag.phoneAuth = true;
               this.startTimer();
             } else {
-              alert('통신오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.');
+              _.assign(alertObject, {
+                message:
+                  '통신오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.'
+              });
+              this.$refs.alert.openSimplert(alertObject);
+              return;
             }
           });
         }
@@ -631,7 +640,10 @@ export default {
     },
     clickChangePhone() {
       if (_.isEmpty(this.phoneAuthNumber)) {
-        alert('인증번호를 입력해 주세요.');
+        _.assign(alertObject, {
+          message: '인증번호를 입력해 주세요.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
         return;
       } else {
         const formData = {
@@ -662,11 +674,17 @@ export default {
       };
 
       if (_.isEmpty(formData.cur_password)) {
-        alert('현재 비밀번호를 입력해 주세요');
+        _.assign(alertObject, {
+          message: '현재 비밀번호를 입력해 주세요.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
         return;
       }
       if (_.isEmpty(formData.new_password)) {
-        alert('새로운 비밀번호를 입력해 주세요');
+        _.assign(alertObject, {
+          message: '새로운 비밀번호를 입력해 주세요.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
         return;
       }
 
@@ -675,20 +693,32 @@ export default {
           this.patchPassword(formData).then(res => {
             if (res.data.result) {
               const formTarget = document.password;
-              alert('비밀번호가 변경되었습니다.');
+              _.assign(alertObject, {
+                message: '비밀번호가 변경되었습니다.'
+              });
+              this.$refs.alert.openSimplert(alertObject);
               // 초기화
               formTarget.currentPassword.value = '';
               formTarget.newPassword.value = '';
               formTarget.newPasswordConfirm.value = '';
             } else {
               if (res.data.uncorrent) {
-                alert('현재 비밀번호가 정확하지 않습니다.');
+                _.assign(alertObject, {
+                  message:
+                    '현재 비밀번호가 정확하지 않습니다. 다시 입력해 주세요.'
+                });
+                this.$refs.alert.openSimplert(alertObject);
+                return;
               }
             }
           });
           // 비밀번호 변경 API
         } else {
-          alert('새로운 비밀번호를 정확히 입력해 주세요.');
+          _.assign(alertObject, {
+            message: '새로운 비밀번호를 정확히 입력해 주세요.'
+          });
+          this.$refs.alert.openSimplert(alertObject);
+          return;
         }
       });
     },
@@ -702,22 +732,34 @@ export default {
       };
 
       if (_.isEmpty(formData.cardNumber)) {
-        alert('카드 번호를 입력해 주세요');
+        _.assign(alertObject, {
+          message: '카드번호를 입력해 주세요.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
         return;
       }
       if (
         _.isEmpty(formData.cardYearExpiry) ||
         _.isEmpty(formData.cardMonthExpiry)
       ) {
-        alert('카드 유효기간를 입력해 주세요');
+        _.assign(alertObject, {
+          message: '카드 유효기간을 입력해 주세요.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
         return;
       }
       if (_.isEmpty(formData.userBirth)) {
-        alert('생년월일를 입력해 주세요');
+        _.assign(alertObject, {
+          message: '생년월일을 입력해 주세요.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
         return;
       }
       if (_.isEmpty(formData.cardPassword)) {
-        alert('비밀번호를 입력해 주세요');
+        _.assign(alertObject, {
+          message: '카드 비밀번호를 입력해 주세요.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
         return;
       }
       this.$validator.validateAll('payment').then(result => {
@@ -726,7 +768,10 @@ export default {
           formData.cardMonthExpiry = formData.cardMonthExpiry.substring(0, 2);
           this.patchPayment(formData).then(res => {
             if (res.data.result) {
-              alert('성공!');
+              _.assign(alertObject, {
+                message: '카드정보가 변경되었습니다.'
+              });
+              this.$refs.alert.openSimplert(alertObject);
               this.currentCardNumber = this.newCardNumber;
               // 입력했던 카드 정보 초기화
               this.newCardNumber = '';
@@ -734,7 +779,12 @@ export default {
               this.newCardBitrh = '';
               this.newCardPassword = '';
             } else {
-              alert('통신오류 발생');
+              _.assign(alertObject, {
+                message:
+                  '통신 오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.'
+              });
+              this.$refs.alert.openSimplert(alertObject);
+              return;
             }
           });
         } else {
@@ -791,10 +841,17 @@ export default {
       };
       this.patchAddress(formData).then(res => {
         if (res.data.result) {
-          alert('변경되었습니다.');
+          _.assign(alertObject, {
+            message: '주소가 변경되었습니다.'
+          });
+          this.$refs.alert.openSimplert(alertObject);
           this.clickClosePostCode();
         } else {
-          alert('통신 오류 발생');
+          _.assign(alertObject, {
+            message: '통신오류가 발생하였습니다. 잠시후 다시 시도해 주세요.'
+          });
+          this.$refs.alert.openSimplert(alertObject);
+          return;
         }
       });
     },
@@ -805,13 +862,23 @@ export default {
       };
 
       if (_.isEmpty(this.lobbyPassword)) {
-        alert('공동 현관 번호를 입력해 주세요.');
+        _.assign(alertObject, {
+          message: '공동 현관 비밀번호를 입력해 주세요.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
+        return;
       } else {
         this.patchLobbyPassword(formData).then(res => {
           if (res.data.result) {
-            alert('변경되었습니다.');
+            _.assign(alertObject, {
+              message: '공동 현관 비밀번호가 정상적으로 변경되었습니다.'
+            });
+            this.$refs.alert.openSimplert(alertObject);
           } else {
-            alert('통신 오류 발생');
+            _.assign(alertObject, {
+              message: '통신오류가 발생하였습니다. 잠시후 다시 시도해 주세요.'
+            });
+            this.$refs.alert.openSimplert(alertObject);
           }
         });
       }
@@ -819,7 +886,11 @@ export default {
     clickChangeAnn() {
       // 기념일 변경
       if (_.isEmpty(this.anniversary)) {
-        alert('기념일을 입력해 주세요.');
+        _.assign(alertObject, {
+          message: '기념일을 입력해 주세요.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
+        return;
       } else {
         this.$validator.validateAll('ann').then(result => {
           if (result) {
@@ -832,9 +903,16 @@ export default {
             };
             this.patchAnn(formData).then(res => {
               if (res.data.result) {
-                alert('변경되었습니다.');
+                _.assign(alertObject, {
+                  message: '기념일이 정상적으로 변경되었습니다.'
+                });
+                this.$refs.alert.openSimplert(alertObject);
               } else {
-                alert('통신오류 발생');
+                _.assign(alertObject, {
+                  message:
+                    '통신오류가 발생하였습니다. 잠시후 다시 시도해 주세요.'
+                });
+                this.$refs.alert.openSimplert(alertObject);
               }
             });
           } else {
