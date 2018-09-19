@@ -123,7 +123,6 @@ export default {
         return;
       }
       this.postFindPwd(formData).then(res => {
-        console.log(res);
         if (res.data.result) {
           alert('인증번호를 입력해 주세요.');
           this.startTimer();
@@ -145,7 +144,6 @@ export default {
         return;
       }
       this.postFindPwdAuth(formData).then(res => {
-        console.log(res);
         if (res.data.result) {
           alert('인증되었습니다.');
           this.stopTimer();

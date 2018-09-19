@@ -1,9 +1,12 @@
 <template>
-	<div class="contents" id="mainFirst">
-		<div class="content">
+	<div class="contents">
+		<div
+			class="content"
+			:class="{'is-login': isLogin}"
+		>
 			<div
 				class="banner-wrap"
-				v-if="false"
+				v-if="isMainBanner"
 			>
 				<div class="center-align">
 					<p>지금 가입하시면 <span class="txt-free">첫달 무료 ♥</span></p>
@@ -129,7 +132,6 @@ export default {
   bottom: 0;
   top: auto !important;
 }
-
 .content {
   height: 100vh;
   height: calc(100vh - var(--vh-offset));
@@ -139,6 +141,10 @@ export default {
 }
 .banner-wrap {
   @include fontSize(12px);
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10;
   height: 40px;
   background-image: linear-gradient(97deg, #f5e3c7, #d0ebcb);
   width: 100%;
@@ -292,6 +298,23 @@ export default {
     .column {
       &:nth-child(1) {
         margin-right: 10px;
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+// 로그인 상태일때
+.content {
+  &.is-login {
+    .phrases-wrap {
+      margin-bottom: 0;
+      @media (min-width: 768px) {
+        margin-bottom: 16px;
+      }
+    }
+    .slogan-wrap {
+      @media (min-width: 768px) {
         margin-bottom: 0;
       }
     }

@@ -33,12 +33,12 @@ export default {
     commit(types.DESTROY_TOMORROW_DIRECT);
   },
 
-  getProductDetail({ commit }, data) {
+  getTomorrowProductDetail({ commit }, data) {
     return Subscriptions.getProductDetail(data).then(res => {
       if (!_.isEmpty(res.data)) {
         let obj = {};
         obj[data] = res.data;
-        commit(types.GET_PRODUCT_DETAIL, obj);
+        commit(types.GET_TOMORROW_PRODUCT_DETAIL, obj);
       } else {
         alert('상품 정보가 없습니다.');
       }
@@ -116,6 +116,19 @@ export default {
   // 과거의 옷장
   getPastFeedbacksAnswers(data) {
     return Subscriptions.getFeedbacksAnswers(data).then(res => {
+      return res;
+    });
+  },
+
+  getPastProductDetail({ commit }, data) {
+    return Subscriptions.getProductDetail(data).then(res => {
+      if (!_.isEmpty(res.data)) {
+        let obj = {};
+        obj[data] = res.data;
+        commit(types.GET_PAST_PRODUCT_DETAIL, obj);
+      } else {
+        alert('상품 정보가 없습니다.');
+      }
       return res;
     });
   },

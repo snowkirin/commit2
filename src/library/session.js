@@ -70,10 +70,8 @@ export default {
           if (to.path === '/closet/tomorrow') {
             if (!_.isEmpty(to.query.access_token)) {
               const token = to.query.access_token;
-              console.log(token);
               await $store.dispatch('subscriptions/getTomorrowDirect', token)
                 .then(res => {
-                  console.log(res);
                   $store.state.login.Authentication.userName = res.data.info.name;
                 })
               next();

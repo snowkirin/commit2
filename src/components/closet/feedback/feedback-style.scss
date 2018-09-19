@@ -184,7 +184,7 @@
   }
 }
 .button-wrap {
-  margin-top: 30px;
+
 }
 
 @media (min-width: 768px) {
@@ -216,6 +216,9 @@
   }
   .column-left {
     padding-right: 70px;
+    &.only-column {
+      padding-right: 0;
+    }
   }
   .column-right {
     border-top: 0 none;
@@ -226,6 +229,7 @@
   }
   .button-wrap {
     text-align: right;
+    margin-top: 30px;
     button {
       width: 287px;
     }

@@ -35,7 +35,6 @@ export default {
   methods: {
     processingData() {
       const feedbackData = this.data;
-      console.log(this.data);
       let formData = {
         result: feedbackData.result,
         feedbackId: feedbackData.feedback_id,
@@ -56,8 +55,6 @@ export default {
     }
   },
   async created() {
-    console.log(this.type);
-    // TODO: 추후에 MIXIN사용할것!!!!! (2018-09-07)
     await this.processingData();
   }
 };

@@ -2,14 +2,10 @@ import types from './mutation-types';
 import actions from './actions';
 
 const initialState = {
-  //내일의 옷장 데이터.
-  TomorrowResult: {},
-  //내일의 옷장 상품 상세보기
-  TomorrowProductDetail: {},
-  // 직접접속 했을경우에는 Member ID가 필요하다.
-  TomorrowDirectMemberId: '',
-  // 내일의 옷장 직접 접속 체크
-  isTomorrowDirect: false,
+  TomorrowResult: {}, //내일의 옷장 데이터.
+  TomorrowProductDetail: {}, //내일의 옷장 상품 상세보기
+  TomorrowDirectMemberId: '', // 직접접속 했을경우에는 Member ID가 필요하다.
+  isTomorrowDirect: false, // 내일의 옷장 직접 접속 체크
 
   CurrentResult: [], // 현재의 옷장 데이터
   CurrentImages: {}, // 현재의 옷장 이미지
@@ -23,6 +19,7 @@ const initialState = {
   PastResult: [],
   PastIsShow: false,
   PastFeedbacks: [],
+  PastProductDetail: {}, //과거의 옷장 상품 상세보기
 };
 const state = Object.assign({}, initialState);
 const mutations = {
@@ -54,7 +51,7 @@ const mutations = {
     state.CurrentResult = data.result;
     state.CurrentImages = data.images;
   },
-  [types.GET_PRODUCT_DETAIL](state, data) {
+  [types.GET_TOMORROW_PRODUCT_DETAIL](state, data) {
     _.assign(state.TomorrowProductDetail, data);
   },
   [types.GET_CURRENT_FEEDBACKS](state, data) {
@@ -84,7 +81,9 @@ const mutations = {
   [types.GET_PAST_FEEDBACKS](state, data) {
     state.PastFeedbacks = _.concat(state.PastFeedbacks, data);
   },
-
+  [types.GET_PAST_PRODUCT_DETAIL](state, data) {
+    _.assign(state.PastProductDetail, data);
+  },
 };
 const getters = {
   TomorrowResult: state => state.TomorrowResult,
@@ -101,7 +100,8 @@ const getters = {
 
   PastResult: state => state.PastResult,
   PastIsShow: state => state.PastIsShow,
-  PastFeedbacks: state => state.PastFeedbacks
+  PastFeedbacks: state => state.PastFeedbacks,
+  PastProductDetail: state => state.PastProductDetail
 };
 export default {
   namespaced: true,
