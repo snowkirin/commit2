@@ -1,3 +1,4 @@
+<!-- TODO: 스타일 정리할 것! Update: 2018-09-20-->
 <template>
   <footer
     class="footer"
@@ -122,7 +123,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
 .not-mobile {
   display: none;
 }
@@ -252,14 +252,14 @@ export default {
 
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1080px) {
   .footer {
     .footer-inner {
-      width: 1200px;
+      width: 1080px;
     }
     &.main {
       .footer-inner {
-        width: 1030px;
+        width: 1080px;
       }
     }
   }
@@ -268,7 +268,13 @@ export default {
       @include fontSize(21px, en);
     }
   }
+  .footer-top {
+    padding-right: 0;
+    padding-left: 0;
+  }
   .footer-bottom {
+    padding-right: 0;
+    padding-left: 0;
     padding-bottom: 31px;
   }
 }

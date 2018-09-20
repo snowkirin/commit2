@@ -30,18 +30,20 @@
 @media (min-width: 768px) {
   .contents {
     padding-top: 50px;
-    padding-bottom: 50px;
     padding-left: 45px;
+    padding-bottom: 50px;
     padding-right: 45px;
   }
   .contents-header {
     margin-bottom: 40px;
   }
 }
-@media (min-width: 1280px) {
+@media (min-width: 1080px) {
   .contents {
     padding-top: 60px;
+    padding-left: 0;
     padding-bottom: 60px;
+    padding-right: 0;
   }
   .contents-header {
     margin-bottom: 50px;

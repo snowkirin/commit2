@@ -164,9 +164,9 @@ export default {
     }
   }
 }
-@media (min-width: 1280px) {
+@media (min-width: 1080px) {
   .list-faq {
-    width: 1030px;
+    width: 1080px;
     margin: 0 auto;
     .column {
       flex-basis: calc(33.333% - (55px / 3));

@@ -25,7 +25,7 @@ export default {
     @media(min-width: 768px) {
       padding-bottom: 100px;
     }
-    @media (min-width: 1280px) {
+    @media (min-width: 1080px) {
       padding-bottom: 130px;
     }
   }

@@ -7,7 +7,7 @@ const initialState = {
   TomorrowDirectMemberId: '', // 직접접속 했을경우에는 Member ID가 필요하다.
   isTomorrowDirect: false, // 내일의 옷장 직접 접속 체크
 
-  CurrentResult: [], // 현재의 옷장 데이터
+  CurrentResult: {}, // 현재의 옷장 데이터
   CurrentImages: {}, // 현재의 옷장 이미지
   CurrentFeedbacks: {}, // 현재의 옷장 피드백 데이터
   isCurrentFeedbacks: false, // 현재의 옷장 피드백 체크
@@ -48,7 +48,7 @@ const mutations = {
   },
 
   [types.GET_CURRENT](state, data) {
-    state.CurrentResult = data.result;
+    state.CurrentResult = data.result[0];
     state.CurrentImages = data.images;
   },
   [types.GET_TOMORROW_PRODUCT_DETAIL](state, data) {

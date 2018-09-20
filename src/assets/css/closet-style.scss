@@ -9,20 +9,20 @@
     padding-left: 0;
     padding-right: 0;
   }
-  @media (min-width: 1280px) {
-    width: 1200px;
+  @media (min-width: 1080px) {
+    width: 1080px;
     padding-top: 40px;
   }
   .contents-header {
     &+.content {
       margin-top: 20px;
-      @media (min-width: 1280px) {
+      @media (min-width: 1080px) {
         margin-top: 25px;
       }
     }
     &+.content-form {
       margin-top: 15px;
-      @media (min-width: 1280px) {
+      @media (min-width: 1080px) {
         margin-top: 20px;
       }
 

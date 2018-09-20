@@ -21,6 +21,9 @@
     .txt-how {
       @include fontSize(16px);
       color: #fff;
+      strong {
+        font-weight: 700;
+      }
     }
     .txt-helpful {
       @include fontSize(12px);
@@ -34,7 +37,6 @@
       .item {
         display: inline-block;
         vertical-align: top;
-        width: 68px;
         margin-left: 25px;
         cursor: pointer;
         &:first-child {
@@ -46,6 +48,7 @@
       @include fontSize(14px);
       color: #fff;
       margin-top: 8px;
+      white-space: nowrap;
     }
     .great,
     .okay,
@@ -200,10 +203,43 @@
   .feedback-header {
     padding-left: 0;
     padding-right: 0;
+    .inner {
+      height: 244px;
+      padding-top: 34px;
+    }
+    .text-wrap {
+      .txt-how {
+        @include fontSize(20px);
+      }
+      .txt-helpful {
+        @include fontSize(14px);
+        margin-top: 5px;
+      }
+    }
+    .evaluate-wrap {
+      margin-top: 23px;
+      .great,
+      .okay,
+      .too-bad {
+        .image {
+          width: 66px;
+          height: 66px;
+        }
+      }
+      .txt-evaluate {
+        @include fontSize(15px);
+
+      }
+      .list-evaluate {
+        .item {
+          margin-left: 60px;
+        }
+      }
+    }
   }
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1080px) {
   .grid-flex {
     .column {
       flex-basis: 0;
@@ -213,16 +249,31 @@
   .feedback-answer {
     padding-left: 40px;
     padding-right: 40px;
+    padding-top: 30px;
+    padding-bottom: 42px;
+    border-bottom: 2px solid $color-primary;
   }
   .column-left {
-    padding-right: 70px;
+    padding-right: 29px;
+    padding-bottom: 0;
     &.only-column {
       padding-right: 0;
     }
   }
   .column-right {
     border-top: 0 none;
-    padding-left: 40px;
+    padding-left: 29px;
+    padding-bottom: 0;
+    position: relative;
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      left:0;
+      top: 0;
+      height: 100%;
+      border-left: 1px solid #e9e9e9;
+    }
     .info-wrap {
       margin-top: 0;
     }

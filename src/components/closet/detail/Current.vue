@@ -37,7 +37,10 @@
               </div>
             </div>
             <div v-show="$mq !== 'sm'">
-              <div class="list-product-image">
+              <div
+                class="list-product-image"
+                :class="{'single-product': isProductEmptyCheck, 'multi-product': !isProductEmptyCheck}"
+              >
                 <div
                   class="item"
                   v-for="(data, idx) in currentData.products"
@@ -51,8 +54,10 @@
               </div>
             </div>
           </div>
+
+
           <!-- // Swiper -->
-          <div class="product-explain">
+          <div class="product-explain" v-if="$mq === 'sm'">
             <div>
               <p class="txt-tip-today-style">TIP <span class="txt-dash"></span><br/>TODAY&apos;S STYLE</p>
             </div>
@@ -60,8 +65,22 @@
               <p class="txt-styling-title">{{currentData.stylingTitle}}</p>
               <p class="txt-styling-tip">{{currentData.stylingTip}}</p>
             </div>
-
           </div>
+
+          <div
+            class="product-explain"
+            :class="{'single-product': isProductEmptyCheck, 'multi-product': !isProductEmptyCheck}"
+            v-else
+          >
+            <div>
+              <p class="txt-tip-today-style">TIP <span class="txt-dash"></span><br/>TODAY&apos;S STYLE</p>
+            </div>
+            <div class="styling-desc">
+              <p class="txt-styling-title">{{currentData.stylingTitle}}</p>
+              <p class="txt-styling-tip">{{currentData.stylingTip}}</p>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -88,6 +107,8 @@ export default {
       isCurrentData: false,
       isFeedback: false,
       feedbacksType: null,
+
+      isProductEmptyCheck: false,
 
       // 2018-08-21 API 결과값 가공
       currentData: {
@@ -151,13 +172,23 @@ export default {
     },
     setCurrentData() {
       // CurrentResult를 관리하기 편하게 변환
+      /*
+      * 상품이 하나밖에 없을때 체크.
+      * 원래 하나하나 체크할려다가 디자인상 맞출수 없음.
+      * */
+      _.forEach(this.CurrentResult.products, value => {
+        if (_.isNull(value.id)) {
+          this.isProductEmptyCheck = true;
+        }
+      });
+
       this.currentData = {
-        subscriptionId: this.CurrentResult[0].subscription_id,
-        stylist: this.CurrentResult[0].stylist,
-        stylingTitle: this.CurrentResult[0].styling_title,
-        stylingTip: this.CurrentResult[0].styling_tip,
-        hashTag: this.CurrentResult[0].hashtag,
-        products: this.CurrentResult[0].products
+        subscriptionId: this.CurrentResult.subscription_id,
+        stylist: this.CurrentResult.stylist,
+        stylingTitle: this.CurrentResult.styling_title,
+        stylingTip: this.CurrentResult.styling_tip,
+        hashTag: this.CurrentResult.hashtag,
+        products: this.CurrentResult.products
       };
     },
     currentFeedbackType() {
@@ -280,6 +311,7 @@ export default {
   display: inline-block;
   line-height: 32px; // 간격을 위해 다시 설정
   padding-left: 20px;
+  margin-left: -20px;
   &::before {
     content: '#';
     display: inline-block;
@@ -303,16 +335,35 @@ export default {
 }
 
 @media (min-width: 768px) {
+  .current {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
   .current-styling {
     margin-top: 0;
   }
   .list-product-image {
-    text-align: center;
+    margin: 0 auto;
+    &::before {
+      left: -5px;
+    }
+    &.single-product {
+      width: 280px;
+      &::before {
+        bottom: 90px;
+      }
+    }
+    &.multi-product {
+      width: 590px;
+      &::before {
+        bottom: 160px;
+      }
+    }
     .item {
       display: inline-block;
       vertical-align: top;
       &:nth-child(2) {
-        margin-left: 30px;
+        margin-left: 25px;
         margin-top: 70px;
       }
     }
@@ -324,18 +375,41 @@ export default {
     }
   }
   .product-explain {
-    text-align: center;
+    &.single-product {
+      text-align: center;
+      .txt-tip-today-style {
+        text-align: left;
+      }
+      .styling-desc {
+        display: inline-block;
+      }
+    }
+    &.multi-product {
+      width: 590px;
+      margin: -45px auto 0;
+      .txt-tip-today-style {
+        margin-left: -30px;
+      }
+    }
   }
   .txt-tip-today-style {
     @include fontSize(44px);
     line-height: 44px;
-    text-align: left;
     padding-left: 30px;
+    letter-spacing: 0.5px;
+    .txt-dash {
+      width: 117px;
+      border-bottom-width: 4px;
+    }
     &::before {
       left: 0;
     }
   }
+  .styling-desc {
+    margin-top: 25px;
+  }
 }
-@media (min-width: 1280px) {
+@media (min-width: 1080px) {
+
 }
 </style>
