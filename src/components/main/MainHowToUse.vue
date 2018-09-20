@@ -14,7 +14,8 @@
 							</div>
 							<div>
 								<p class="txt-title">스타일 알려주기</p>
-								<p class="txt-desc">고객님의 취향을 알 수 있도록 아이템 이미지를 보고 받고 싶으신 스타일을 골라주세요.</p>
+								<p class="txt-desc">고객님의 취향을 알 수 있도록 아이템 이미지를 보고
+									받고 싶으신 스타일을 골라주세요.</p>
 							</div>
 						</div>
 					</div>
@@ -25,7 +26,8 @@
 							</div>
 							<div>
 								<p class="txt-title">서비스 가입하기</p>
-								<p class="txt-desc">첫 배송일을 선택하고 자택 주소와 결제 정보를 알려주시면 구독 준비 끝.</p>
+								<p class="txt-desc">첫 배송일을 선택하고 자택 주소와 결제 정보를
+									알려주시면 구독 준비 끝.</p>
 							</div>
 						</div>
 
@@ -38,7 +40,8 @@
 							</div>
 							<div>
 								<p class="txt-title">스타일 제안받기</p>
-								<p class="txt-desc">2가지 스타일 중 더 마음이 가는 쪽을 선택해주세요. 선택한 스타일을 배송해드립니다.</p>
+								<p class="txt-desc">2가지 스타일 중 더 마음이 가는 쪽을 선택해주세요.
+									선택한 스타일을 배송해드립니다.</p>
 							</div>
 						</div>
 
@@ -51,7 +54,8 @@
 							</div>
 							<div>
 								<p class="txt-title">줄라이 받아보기</p>
-								<p class="txt-desc">지정한 날짜에 맞춰 문 앞까지 배송된 옷들을 2주간 마음껏 입으세요. 세탁은 2주 후 줄라이가 하겠습니다.</p>
+								<p class="txt-desc">지정한 날짜에 맞춰 문 앞까지 배송된 옷들을 2주간
+									마음껏 입으세요. 세탁은 2주 후 줄라이가 하겠습니다.</p>
 							</div>
 						</div>
 					</div>
@@ -61,7 +65,8 @@
 								<span class="txt-number">5</span>
 							</div>
 							<div><p class="txt-title">맞교환하기</p>
-								<p class="txt-desc">이용하신 옷은 새로운 옷이 배송되는 날 회수합니다. 배송 전 날 문 앞에 걸어만 주세요.</p></div>
+								<p class="txt-desc">이용하신 옷은 새로운 옷이 배송되는 날 회수합니다.
+									배송 전 날 문 앞에 걸어만 주세요.</p></div>
 						</div>
 
 					</div>
@@ -72,7 +77,9 @@
 							</div>
 							<div>
 								<p class="txt-title">계속 이용하기</p>
-								<p class="txt-desc">새로운 옷을 경험하는 즐거움을 꾸준히 누리세요. 구독을 해지하시기 전까지 요금은 월 단위로 자동 결제됩니다.</p>
+								<p class="txt-desc">새로운 옷을 경험하는 즐거움을 꾸준히 누리세요.
+									구독을 해지하시기 전까지 요금은 월 단위로
+									자동 결제됩니다.</p>
 							</div>
 						</div>
 
@@ -159,9 +166,9 @@ export default {
   }
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1080px) {
   .list-how-to-use {
-    width: 1030px;
+    width: 1080px;
 		margin: 0 auto;
     .column {
       flex-basis: calc(33.333% - (84px / 3));
@@ -185,6 +192,9 @@ export default {
         margin-left: 28px;
       }
     }
+		.txt-desc {
+			white-space: pre-line;
+		}
   }
 }
 </style>

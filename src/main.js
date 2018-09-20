@@ -40,7 +40,7 @@ Validator.localize('ko', ko);
 Vue.use(VueMq, {
   breakpoints: {
     sm: 768,
-    md: 1280,
+    md: 1080,
     lg: Infinity
   }
 });

@@ -972,7 +972,7 @@ export default {
   }
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1080px) {
   .column-left {
     padding-right: 90px;
     position: relative;

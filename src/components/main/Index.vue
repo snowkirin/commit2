@@ -29,7 +29,7 @@ export default {
 		@media (min-width: 768px) {
 			padding-bottom: 50px;
 		}
-		@media (min-width: 1280px) {
+		@media (min-width: 1080px) {
 			padding-bottom: 80px;
 		}
 	}
