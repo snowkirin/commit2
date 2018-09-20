@@ -110,7 +110,7 @@ export default {
     }
   }
 }
-@media (min-width: 1280px) {
+@media (min-width: 1080px) {
   .item {
 		height: 400px;
 		.image-wrap {
@@ -122,7 +122,7 @@ export default {
 			left: -38px;
 		}
 		&.item-second {
-			margin-left: 88px;
+			margin-left: 80px;
 		}
     &.item-third {
       margin-top: 0;

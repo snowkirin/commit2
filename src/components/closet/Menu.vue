@@ -179,9 +179,9 @@ export default {
   }
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1080px) {
   .c-menu {
-    width: 1200px;
+    width: 1080px;
     .closet-link {
       @include fontSize(18px);
     }

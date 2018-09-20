@@ -130,18 +130,28 @@
       </div>
 
     </div>
-
+    <simplert ref="alert" :useRadius="false" :useIcon="false" />
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import Simplert from 'vue2-simplert';
 // 상품상세보기 팝업
 import ModalProductDetail from '@/components/common/modal/ModalProductDetail.vue';
+
+const alertObject = {
+  type: 'alert', // 타입
+  customClass: 'popup-custom-class', // 커스텀 클래스 네임
+  disableOverlayClick: false, // 오버레이 클릭시 닫기 방지
+  customCloseBtnText: '확인' // 닫기 버튼 텍스트
+};
+
 export default {
   name: 'tomorrow',
   components: {
-    ModalProductDetail
+    ModalProductDetail,
+    Simplert
   },
   data() {
     return {
@@ -219,7 +229,6 @@ export default {
             productB.stylingTitle = pickData.styling_title;
             productB.hashtag = pickData.hashtag;
             productB.products.push(omitData);
-
           } else {
             productB.products.push(value);
           }
@@ -246,22 +255,28 @@ export default {
         await this.getTomorrowProductDetail(productCode);
         this.$modal.show(
           ModalProductDetail,
-          {data: this.TomorrowProductDetail[productCode]},
+          { data: this.TomorrowProductDetail[productCode] },
           modalConfig
-        )
+        );
       } else {
         // 해당 상품 정보가 스토어에 있으면
         this.$modal.show(
           ModalProductDetail,
-          {data: this.TomorrowProductDetail[productCode]},
+          { data: this.TomorrowProductDetail[productCode] },
           modalConfig
         );
       }
     },
     clickSelected(type) {
       if (type === 'typeA') {
-      //  typeA를 선택하였을 경우
-        const productId = _.map([this.tomorrowData.productA.products[0].id, this.tomorrowData.productA.products[1].id], _.parseInt);
+        //  typeA를 선택하였을 경우
+        const productId = _.map(
+          [
+            this.tomorrowData.productA.products[0].id,
+            this.tomorrowData.productA.products[1].id
+          ],
+          _.parseInt
+        );
         const formData = {
           subscription_id: this.tomorrowData.subscriptionId,
           products: productId
@@ -271,21 +286,34 @@ export default {
           this.putTomorrow(formData).then(res => {
             if (res.data.result) {
               this.tomorrowData.selected = type;
+              _.assign(alertObject, {
+                message: 'TYPE A를 선택하셨습니다.'
+              });
+              this.$refs.alert.openSimplert(alertObject);
             }
           });
         } else {
           // 직접접속일 경우
-          _.assign(formData, {member_id: this.TomorrowDirectMemberId});
+          _.assign(formData, { member_id: this.TomorrowDirectMemberId });
           this.putTomorrowDirect(formData).then(res => {
             if (res.data.result) {
               this.tomorrowData.selected = type;
+              _.assign(alertObject, {
+                message: 'TYPE A를 선택하셨습니다.'
+              });
+              this.$refs.alert.openSimplert(alertObject);
             }
           });
         }
-      }
-      else {
+      } else {
         // typeB를 선택하였을 경우
-        const productId = _.map([this.tomorrowData.productB.products[0].id, this.tomorrowData.productB.products[1].id], _.parseInt);
+        const productId = _.map(
+          [
+            this.tomorrowData.productB.products[0].id,
+            this.tomorrowData.productB.products[1].id
+          ],
+          _.parseInt
+        );
         const formData = {
           subscription_id: this.tomorrowData.subscriptionId,
           products: productId
@@ -296,14 +324,22 @@ export default {
           this.putTomorrow(formData).then(res => {
             if (res.data.result) {
               this.tomorrowData.selected = type;
+              _.assign(alertObject, {
+                message: 'TYPE B를 선택하셨습니다.'
+              });
+              this.$refs.alert.openSimplert(alertObject);
             }
           });
         } else {
           // 직접접속일 경우
-          _.assign(formData, {member_id: this.TomorrowDirectMemberId});
+          _.assign(formData, { member_id: this.TomorrowDirectMemberId });
           this.putTomorrowDirect(formData).then(res => {
             if (res.data.result) {
               this.tomorrowData.selected = type;
+              _.assign(alertObject, {
+                message: 'TYPE B를 선택하셨습니다.'
+              });
+              this.$refs.alert.openSimplert(alertObject);
             }
           });
         }
@@ -313,8 +349,7 @@ export default {
   async created() {
     if (!this.isTomorrowDirect) {
       // 직접 접속이 아닐때. 이 부분은 세션전처리.
-      await this.getTomorrow()
-        .then(res => {
+      await this.getTomorrow().then(res => {
         if (res.data.result) {
           // 데이터 존재한다면.
           this.processingData();
@@ -335,7 +370,8 @@ export default {
   }
 };
 </script>
-<style scoped lang="scss" src="@/assets/css/closet-style.scss"></style>
+<style scoped lang="scss" src="@/assets/css/closet-style.scss">
+</style>
 <style scoped lang="scss">
 .none {
   height: 500px;
@@ -437,7 +473,6 @@ export default {
       border-top: 1px solid #e8e8e8;
       background-color: #fff;
       color: $color-secondary;
-
     }
   }
   .product-bot {
@@ -477,7 +512,7 @@ export default {
   }
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1080px) {
   .product {
     .product-top {
       .txt-type {

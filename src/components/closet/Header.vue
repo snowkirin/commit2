@@ -43,9 +43,9 @@ export default {
     @include fontSize(28px);
   }
 }
-@media (min-width: 1280px) {
+@media (min-width: 1080px) {
   .closet-header {
-    width: 1200px;
+    width: 1080px;
     padding-top: 30px;
     padding-bottom: 15px;
   }

@@ -128,6 +128,7 @@ export default {
   }
   .swiper-explain {
     @include fontSize(14px);
+    width: 60%;
   }
 }
 .modal-close {

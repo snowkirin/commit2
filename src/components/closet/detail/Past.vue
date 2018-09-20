@@ -186,8 +186,7 @@ export default {
   }
 };
 </script>
-<style scoped lang="scss" src="@/assets/css/closet-style.scss">
-</style>
+<style scoped lang="scss" src="@/assets/css/closet-style.scss"></style>
 <style scoped lang="scss">
 .none {
   padding-top: 14px;
@@ -279,7 +278,7 @@ export default {
   display: none;
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1080px) {
   .none {
     border-top: 1px solid #e9e9e9;
     position: relative;

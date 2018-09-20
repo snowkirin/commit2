@@ -265,10 +265,10 @@ export default {
     }
   }
 }
-@media (min-width: 1280px) {
+@media (min-width: 1080px) {
   .header {
     .header-wrap {
-      width: 1200px;
+      width: 1080px;
       padding-top: 25px;
       padding-bottom: 20px;
     }
@@ -286,7 +286,7 @@ export default {
     }
     &.header-main {
       .header-wrap {
-        width: 1030px;
+        width: 1080px;
         padding-left: 0;
         padding-right: 0;
       }

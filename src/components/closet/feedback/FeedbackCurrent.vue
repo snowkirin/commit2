@@ -297,7 +297,7 @@ export default {
       const list = event.target.closest('ul');
       const item = list.querySelectorAll('li');
       const formData = {
-        subscriptionId: this.CurrentResult[0].subscription_id, // N
+        subscriptionId: this.CurrentResult.subscription_id, // N
         feedbackId: this.feedbackDataResult.feedbackId, // N
         barcode: null,
         clothType: data.cloth_type,
@@ -331,7 +331,7 @@ export default {
       // Selected 효과 및 값 전송
       if (!target.classList.contains('selected')) {
         const formData = {
-          subscriptionId: this.CurrentResult[0].subscription_id, // N
+          subscriptionId: this.CurrentResult.subscription_id, // N
           feedbackId: this.feedbackDataResult.feedbackId, // N
           barcode: data.barcode,
           clothType: data.cloth_type,

@@ -306,7 +306,7 @@ export default {
     width: 100%;
     border-bottom: 1px solid #bbb;
   }
-  @media (min-width: 1280px) {
+  @media (min-width: 1080px) {
     margin-bottom: 25px;
   }
   .item {
