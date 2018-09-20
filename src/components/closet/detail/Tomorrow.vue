@@ -58,7 +58,7 @@
                   class="btn btn-primary h-56"
                   @click="clickSelected('typeA')"
                 >
-                  A 선택하기
+                  선택하기
                 </button>
               </div>
             </div>
@@ -102,7 +102,7 @@
                   class="btn btn-primary h-56"
                   @click="clickSelected('typeB')"
                 >
-                  B 선택하기
+                  선택하기
                 </button>
               </div>
             </div>
@@ -116,7 +116,7 @@
             :class="tomorrowData.selected === 'typeA'? 'btn-primary' : 'btn-secondary'"
             @click="clickSelected('typeA')"
           >
-            A 선택하기
+            {{tomorrowData.selected === 'typeA' ? 'A 선택됨' : 'A 선택하기'}}
           </button>
           <button
             type="button"
@@ -124,7 +124,7 @@
             :class="tomorrowData.selected === 'typeB'? 'btn-primary' : 'btn-secondary'"
             @click="clickSelected('typeB')"
           >
-            B 선택하기
+            {{tomorrowData.selected === 'typeB' ? 'B 선택됨' : 'B 선택하기'}}
           </button>
         </div>
       </div>
