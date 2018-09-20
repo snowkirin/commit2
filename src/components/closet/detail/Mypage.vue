@@ -176,19 +176,20 @@
               <!--결재 카드-->
               <form data-vv-scope="payment" name="payment">
                 <div>
-                  <div class="form-title-wrap">
-                    <p class="txt-form-title">결제 카드</p>
-                    <p class="txt-form-explain">마지막 3자리: {{ calcCardNumber }}</p>
+                  <div class="form-title-wrap mb-5">
+                    <p class="txt-form-title">결제 카드 변경 (등록 카드 마지막 3자리: {{ calcCardNumber }})</p>
                   </div>
                   <div class="form-row">
                     <div class="grid-flex grid-fixed">
                       <div class="column">
+                        <label class="label-card" for="newCardNumber">카드번호</label>
                         <div
                           class="text-field"
                           :class="{'text-field-error': errors.has('payment.newCardNumber')}">
                           <input
+                            id="newCardNumber"
                             type="text"
-                            placeholder="카드 번호 (-없이 16자리 입력)"
+                            placeholder="( - 없이, 15~16자리)"
                             name="newCardNumber"
                             maxlength="16"
                             v-validate="'max:16'"
@@ -198,11 +199,13 @@
                         </div>
                       </div>
                       <div class="column w-23 o-3">
+                        <label class="label-card" for="newCardValidity">유효기간</label>
                         <div
                           class="text-field"
                           :class="{'text-field-error': errors.has('payment.newCardValidity')}"
                         >
                           <input
+                            id="newCardValidity"
                             type="text"
                             placeholder="MMYY"
                             maxlength="4"
@@ -226,20 +229,7 @@
                   <div class="form-row">
                     <div class="grid-flex grid-fixed">
                       <div class="column">
-                        <div
-                          class="text-field"
-                          :class="{'text-field-error': errors.has('payment.newCardBirth')}"
-                        >
-                          <input
-                            type="text"
-                            placeholder="생년월일(YYMMDD)"
-                            maxlength="6"
-                            name="newCardBirth"
-                            v-validate="{date_format: 'YYMMDD'}"
-                            data-vv-as="생년월일"
-                            v-model.trim="newCardBitrh"
-                          >
-                        </div>
+
                       </div>
                     </div>
                     <p
@@ -251,12 +241,33 @@
                   <div class="form-row">
                     <div class="grid-flex grid-fixed">
                       <div class="column">
+                        <label class="label-card" for="newCardBirth">생년월일</label>
+                        <div
+                          class="text-field"
+                          :class="{'text-field-error': errors.has('payment.newCardBirth')}"
+                        >
+                          <input
+                            id="newCardBirth"
+                            type="text"
+                            placeholder="YYMMDD"
+                            maxlength="6"
+                            name="newCardBirth"
+                            v-validate="{date_format: 'YYMMDD'}"
+                            data-vv-as="생년월일"
+                            v-model.trim="newCardBitrh"
+                          >
+                        </div>
+                      </div>
+
+                      <div class="column o-3">
+                        <label class="label-card" for="newCardPassword">카드 비밀번호</label>
                         <div
                           class="text-field"
                           :class="{'text-field-error': errors.has('payment.newCardPassword')}">
                           <input
+                            id="newCardPassword"
                             type="text"
-                            placeholder="비밀번호"
+                            placeholder="앞 두자리"
                             maxlength="2"
                             name="newCardPassword"
                             v-validate="{digits: 2}"
@@ -265,15 +276,9 @@
                           >
                         </div>
                       </div>
-                      <div class="column">
-                        <div class="left-align ml-10">
-                          <div>
-                            <span class="icon-dot">*</span>
-                            <span class="icon-dot">*</span>
-                          </div>
-                        </div>
-                      </div>
+
                       <div class="column w-26 o-3">
+                        <label class="label-card">&nbsp;</label>
                         <button
                           type="button"
                           class="btn btn-primary h-50"
@@ -377,6 +382,7 @@
                 <div>
                   <div class="form-title-wrap">
                     <p class="txt-form-title">공동 현관 번호</p>
+                    <p class="txt-form-explain">(배송을 위해 공동현관 비밀번호 알려주세요)</p>
                   </div>
                   <div class="form-row">
                     <div class="grid-flex grid-fixed">
@@ -385,6 +391,7 @@
                           <input
                             type="text"
                             v-model="lobbyPassword"
+                            placeholder="공용 현관이 없는 경우 없음을 입력해주세요."
                           >
                         </div>
                       </div>
@@ -480,8 +487,7 @@ const alertObject = {
 
 export default {
   name: 'mypage',
-  components: {
-  },
+  components: {},
   data() {
     return {
       initPhoneNumber: '',
@@ -604,7 +610,10 @@ export default {
     clickSendPhoneAuth() {
       this.$validator.validateAll('phone').then(result => {
         if (this.phoneNumber === this.initPhoneNumber) {
-          alert('같은 번호로는 변경이 불가능 합니다.');
+          _.assign(alertObject, {
+            message: '같은 번호로는 변경이 불가능 합니다.'
+          });
+          this.$refs.alert.openSimplert(alertObject);
           return;
         }
         if (result) {
@@ -618,7 +627,12 @@ export default {
               this.isFlag.phoneAuth = true;
               this.startTimer();
             } else {
-              alert('통신오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.');
+              _.assign(alertObject, {
+                message:
+                  '통신오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.'
+              });
+              this.$refs.alert.openSimplert(alertObject);
+              return;
             }
           });
         }
@@ -626,7 +640,10 @@ export default {
     },
     clickChangePhone() {
       if (_.isEmpty(this.phoneAuthNumber)) {
-        alert('인증번호를 입력해 주세요.');
+        _.assign(alertObject, {
+          message: '인증번호를 입력해 주세요.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
         return;
       } else {
         const formData = {
@@ -657,11 +674,17 @@ export default {
       };
 
       if (_.isEmpty(formData.cur_password)) {
-        alert('현재 비밀번호를 입력해 주세요');
+        _.assign(alertObject, {
+          message: '현재 비밀번호를 입력해 주세요.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
         return;
       }
       if (_.isEmpty(formData.new_password)) {
-        alert('새로운 비밀번호를 입력해 주세요');
+        _.assign(alertObject, {
+          message: '새로운 비밀번호를 입력해 주세요.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
         return;
       }
 
@@ -670,21 +693,32 @@ export default {
           this.patchPassword(formData).then(res => {
             if (res.data.result) {
               const formTarget = document.password;
-              alert('비밀번호가 변경되었습니다.');
+              _.assign(alertObject, {
+                message: '비밀번호가 변경되었습니다.'
+              });
+              this.$refs.alert.openSimplert(alertObject);
               // 초기화
               formTarget.currentPassword.value = '';
               formTarget.newPassword.value = '';
               formTarget.newPasswordConfirm.value = '';
-
             } else {
               if (res.data.uncorrent) {
-                alert('현재 비밀번호가 정확하지 않습니다.');
+                _.assign(alertObject, {
+                  message:
+                    '현재 비밀번호가 정확하지 않습니다. 다시 입력해 주세요.'
+                });
+                this.$refs.alert.openSimplert(alertObject);
+                return;
               }
             }
           });
           // 비밀번호 변경 API
         } else {
-          alert('새로운 비밀번호를 정확히 입력해 주세요.');
+          _.assign(alertObject, {
+            message: '새로운 비밀번호를 정확히 입력해 주세요.'
+          });
+          this.$refs.alert.openSimplert(alertObject);
+          return;
         }
       });
     },
@@ -698,22 +732,34 @@ export default {
       };
 
       if (_.isEmpty(formData.cardNumber)) {
-        alert('카드 번호를 입력해 주세요');
+        _.assign(alertObject, {
+          message: '카드번호를 입력해 주세요.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
         return;
       }
       if (
         _.isEmpty(formData.cardYearExpiry) ||
         _.isEmpty(formData.cardMonthExpiry)
       ) {
-        alert('카드 유효기간를 입력해 주세요');
+        _.assign(alertObject, {
+          message: '카드 유효기간을 입력해 주세요.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
         return;
       }
       if (_.isEmpty(formData.userBirth)) {
-        alert('생년월일를 입력해 주세요');
+        _.assign(alertObject, {
+          message: '생년월일을 입력해 주세요.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
         return;
       }
       if (_.isEmpty(formData.cardPassword)) {
-        alert('비밀번호를 입력해 주세요');
+        _.assign(alertObject, {
+          message: '카드 비밀번호를 입력해 주세요.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
         return;
       }
       this.$validator.validateAll('payment').then(result => {
@@ -722,7 +768,10 @@ export default {
           formData.cardMonthExpiry = formData.cardMonthExpiry.substring(0, 2);
           this.patchPayment(formData).then(res => {
             if (res.data.result) {
-              alert('성공!');
+              _.assign(alertObject, {
+                message: '카드정보가 변경되었습니다.'
+              });
+              this.$refs.alert.openSimplert(alertObject);
               this.currentCardNumber = this.newCardNumber;
               // 입력했던 카드 정보 초기화
               this.newCardNumber = '';
@@ -730,7 +779,12 @@ export default {
               this.newCardBitrh = '';
               this.newCardPassword = '';
             } else {
-              alert('통신오류 발생');
+              _.assign(alertObject, {
+                message:
+                  '통신 오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.'
+              });
+              this.$refs.alert.openSimplert(alertObject);
+              return;
             }
           });
         } else {
@@ -749,8 +803,7 @@ export default {
           new window.daum.Postcode({
             width: '100%',
             height: '498px',
-            onresize: size => {
-            },
+            onresize: size => {},
             onclose: state => {
               if (state === 'COMPLETE_CLOSE') {
               }
@@ -788,10 +841,17 @@ export default {
       };
       this.patchAddress(formData).then(res => {
         if (res.data.result) {
-          alert('변경되었습니다.');
+          _.assign(alertObject, {
+            message: '주소가 변경되었습니다.'
+          });
+          this.$refs.alert.openSimplert(alertObject);
           this.clickClosePostCode();
         } else {
-          alert('통신 오류 발생');
+          _.assign(alertObject, {
+            message: '통신오류가 발생하였습니다. 잠시후 다시 시도해 주세요.'
+          });
+          this.$refs.alert.openSimplert(alertObject);
+          return;
         }
       });
     },
@@ -802,13 +862,23 @@ export default {
       };
 
       if (_.isEmpty(this.lobbyPassword)) {
-        alert('공동 현관 번호를 입력해 주세요.');
+        _.assign(alertObject, {
+          message: '공동 현관 비밀번호를 입력해 주세요.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
+        return;
       } else {
         this.patchLobbyPassword(formData).then(res => {
           if (res.data.result) {
-            alert('변경되었습니다.');
+            _.assign(alertObject, {
+              message: '공동 현관 비밀번호가 정상적으로 변경되었습니다.'
+            });
+            this.$refs.alert.openSimplert(alertObject);
           } else {
-            alert('통신 오류 발생');
+            _.assign(alertObject, {
+              message: '통신오류가 발생하였습니다. 잠시후 다시 시도해 주세요.'
+            });
+            this.$refs.alert.openSimplert(alertObject);
           }
         });
       }
@@ -816,7 +886,11 @@ export default {
     clickChangeAnn() {
       // 기념일 변경
       if (_.isEmpty(this.anniversary)) {
-        alert('기념일을 입력해 주세요.');
+        _.assign(alertObject, {
+          message: '기념일을 입력해 주세요.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
+        return;
       } else {
         this.$validator.validateAll('ann').then(result => {
           if (result) {
@@ -829,9 +903,16 @@ export default {
             };
             this.patchAnn(formData).then(res => {
               if (res.data.result) {
-                alert('변경되었습니다.');
+                _.assign(alertObject, {
+                  message: '기념일이 정상적으로 변경되었습니다.'
+                });
+                this.$refs.alert.openSimplert(alertObject);
               } else {
-                alert('통신오류 발생');
+                _.assign(alertObject, {
+                  message:
+                    '통신오류가 발생하였습니다. 잠시후 다시 시도해 주세요.'
+                });
+                this.$refs.alert.openSimplert(alertObject);
               }
             });
           } else {
@@ -860,8 +941,14 @@ export default {
 };
 </script>
 
-<style scoped lang="scss" src="@/assets/css/closet-style.scss"></style>
+<style scoped lang="scss" src="@/assets/css/closet-style.scss">
+</style>
 <style scoped lang="scss">
+.label-card {
+  @include fontSize(15px);
+  display: block;
+  margin-bottom: 5px;
+}
 
 .form-row {
   margin-bottom: 10px;
@@ -878,10 +965,30 @@ export default {
 @media (min-width: 768px) {
   .content-form {
     background-color: #f7f7f7;
-    padding: 30px;
+    padding: 25px 30px 30px;
   }
   .column-right {
     margin-left: 5%;
+  }
+}
+
+@media (min-width: 1280px) {
+  .column-left {
+    padding-right: 90px;
+    position: relative;
+    &::after {
+      content: '';
+      display: block;
+      height: 100%;
+      position: absolute;
+      right: 0;
+      border-right: 1px solid #e9e9e9;
+      top: 0;
+    }
+  }
+  .column-right {
+    padding-left: 30px;
+    padding-right: 60px;
   }
 }
 </style>

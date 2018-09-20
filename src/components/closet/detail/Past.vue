@@ -30,10 +30,12 @@
                   </div>
                   <div class="image-wrap content-item">
                     <div class="list-image">
-                      <div v-for="(imgData, imgIdx) in data.images" :key="imgIdx" v-if="imgData !== null">
+                      <div v-for="(imgData, imgIdx) in data.products" :key="imgIdx" v-if="imgData.image_path !== null">
                         <img
-                          :src="$common.ZulyImage() + imgData"
-                          alt="">
+                          :src="$common.ZulyImage() + imgData.image_path"
+                          alt=""
+                          @click="clickProductDetails(imgData)"
+                        >
                       </div>
                     </div>
                   </div>
@@ -76,7 +78,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import VueJsonPretty from 'vue-json-pretty';
+import ModalProductDetail from '@/components/common/modal/ModalProductDetail.vue';
 import CustomModal from '@/components/common/CustomModal';
 import FeedbackPast from '@/components/closet/feedback/FeedbackPast';
 
@@ -91,7 +93,7 @@ export default {
   components: {
     CustomModal,
     FeedbackPast,
-    VueJsonPretty
+    ModalProductDetail
   },
   watch: {
     feedbackData() {}
@@ -100,15 +102,41 @@ export default {
     ...mapGetters({
       PastResult: 'subscriptions/PastResult',
       PastIsShow: 'subscriptions/PastIsShow',
-      PastFeedbacks: 'subscriptions/PastFeedbacks'
+      PastFeedbacks: 'subscriptions/PastFeedbacks',
+      PastProductDetail: 'subscriptions/PastProductDetail'
     })
   },
   methods: {
     ...mapActions({
       getPast: 'subscriptions/getPast',
       getPastDetail: 'subscriptions/getPastDetail',
-      getPastFeedbacks: 'subscriptions/getPastFeedbacks'
+      getPastFeedbacks: 'subscriptions/getPastFeedbacks',
+      getPastProductDetail: 'subscriptions/getPastProductDetail'
     }),
+    async clickProductDetails(product) {
+      const modalConfig = {
+        scrollable: true,
+        height: 'auto',
+        width: '98%',
+        maxWidth: 600,
+        adaptive: true
+      };
+      const formData = product.id;
+      if (!_.has(this.PastProductDetail, formData)) {
+        await this.getPastProductDetail(formData);
+        this.$modal.show(
+          ModalProductDetail,
+          { data: this.PastProductDetail[formData] },
+          modalConfig
+        );
+      } else {
+        this.$modal.show(
+          ModalProductDetail,
+          { data: this.PastProductDetail[formData] },
+          modalConfig
+        );
+      }
+    },
     clickFeedbackShow(idx, event) {
       event.preventDefault();
       this.$refs['feedback' + idx][0].$el.style.display = 'block';
@@ -216,6 +244,7 @@ export default {
         vertical-align: top;
         img {
           width: 100%;
+          cursor: pointer;
         }
         &:nth-child(2) {
           margin-left: 10px;

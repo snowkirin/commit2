@@ -15,20 +15,22 @@ import MainFaq from './MainFaq';
 export default {
   name: 'MainIndex',
   components: {
-		MainFirst,
-		MainHowToUse,
-		MainReviewer,
-		MainFaq
+    MainFirst,
+    MainHowToUse,
+    MainReviewer,
+    MainFaq
   }
 };
 </script>
 
 <style scoped lang="scss">
-/* Main Common Style */
-@media (min-width: 768px) {
-  .contents {
-    /*width: 1200px;*/
-    /*margin: 0 auto;*/
-  }
-}
+	.container {
+		padding-bottom: 30px;
+		@media (min-width: 768px) {
+			padding-bottom: 50px;
+		}
+		@media (min-width: 1280px) {
+			padding-bottom: 80px;
+		}
+	}
 </style>

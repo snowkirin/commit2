@@ -90,9 +90,46 @@
               <!--가슴(브래지어)-->
               <div class="row">
                 <div class="form-title-wrap">
+                  <p class="txt-form-title">가슴둘레 (브래지어 기준)</p>
+                </div>
+                <div>
+                  <ul class="list-flex">
+                    <li
+                      class="item w-25 h-50"
+                      :class="{'selected': chestCircumResult === data}"
+                      v-for="(data, idx) in chestCircum"
+                      :key="idx"
+                      @click="clickSetSize('chestCircumResult', data, $event)"
+                    >
+                      {{ data }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-title-wrap">
+                  <p class="txt-form-title">컵</p>
+                </div>
+                <div>
+                  <ul class="list-flex">
+                    <li
+                      class="item w-25 h-50"
+                      :class="{'selected': chestCupResult === data}"
+                      v-for="(data, idx) in chestCup"
+                      :key="idx"
+                      @click="clickSetSize('chestCup', data, $event)"
+                    >
+                      {{ data }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <!--<div class="row">
+                <div class="form-title-wrap">
                   <p class="txt-form-title">가슴 (브래지어)</p>
                 </div>
-
                 <div class="text-field" :class="{'text-field-error': errors.has('bustSize')}">
                   <input
                     type="text"
@@ -102,7 +139,7 @@
                     v-validate="{ required: true, regex: /([0-9]{2,3})([a-fA-F]{1})$/ }"
                     placeholder="예) 80A">
                 </div>
-              </div>
+              </div>-->
               <!--체형-->
               <div class="row">
                 <div class="form-title-wrap">
@@ -294,6 +331,10 @@ export default {
   },
   data() {
     return {
+      chestCircum: [60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115],
+      chestCup: ['A', 'B', 'C', 'D'],
+      chestCircumResult: null,
+      chestCupResult: null,
       styleData: {
         tallSize: null,
         bustSize: '',
@@ -357,9 +398,15 @@ export default {
     },
     clickSetSize(type, data, event) {
       if (!event.target.classList.contains('disabled')) {
-        this.styleData[type] = data.code;
-        if (type === 'bodyType') {
-          this.bodyTypeText = data.description;
+        if (type === 'chestCircum') {
+          this.chestCircumResult = data;
+        } else if (type === 'chestCup') {
+          this.chestCupResult = data;
+        } else {
+          this.styleData[type] = data.code;
+          if (type === 'bodyType') {
+            this.bodyTypeText = data.description;
+          }
         }
       }
     },
@@ -491,7 +538,22 @@ export default {
       const formData = new FormData();
       formData.append('userImages', $this.imageFile);
 
+      if (_.isNull(this.chestCircumResult)) {
+        _.assign(alertObject, {
+          message: '가슴둘레 항목을 확인해 주세요.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
+        return false;
+      }
+      if (_.isNull(this.chestCupResult)) {
+        _.assign(alertObject, {
+          message: '컵 항목을 확인해 주세요.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
+        return false;
+      }
       if (_.isEmpty(this.previewImage)) {
+        $this.styleData.bustSize = $this.chestCircumResult + $this.chestCupResult;
         Member.patchMeberStyle($this.styleData).then(res => {
           if (res.status === 200) {
             _.assign(alertObject, {
@@ -506,6 +568,7 @@ export default {
           }
         });
       } else {
+        $this.styleData.bustSize = $this.chestCircumResult + $this.chestCupResult;
         Member.patchMemberImageStyle(formData, $this.styleData).then(res => {
           if (res[0].status === 200) {
             _.assign(alertObject, {
@@ -527,6 +590,12 @@ export default {
     await this.getMemberStyle().then(res => {
       if (res.data.result) {
         const memberStyle = this.MemberStyle;
+        const circumSize = _.parseInt(memberStyle.bust_size); // 숫자만 가져오기
+        const cupSize = _.trim(memberStyle.bust_size, circumSize); //
+
+        this.chestCircumResult = circumSize;
+        this.chestCupResult = _.toUpper(cupSize);
+
         this.styleData = {
           tallSize: memberStyle.tall_size,
           bustSize: memberStyle.bust_size,

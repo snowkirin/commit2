@@ -1,6 +1,9 @@
 <template>
-	<div class="contents" id="mainFirst">
-		<div class="content">
+	<div class="contents">
+		<div
+			class="content"
+			:class="{'is-login': isLogin}"
+		>
 			<div
 				class="banner-wrap"
 				v-if="isMainBanner"
@@ -35,7 +38,10 @@
 									<div class="column">
 										<router-link to="/login" class="link link-login">로그인</router-link>
 									</div>
-									<div class="column">
+									<div class="column only-mobile" v-stick-in-parent="stikyKit">
+										<router-link to="/join/size" class="link link-sign-up">{{textJoin}}</router-link>
+									</div>
+									<div class="column not-mobile">
 										<router-link to="/join/size" class="link link-sign-up">회원가입</router-link>
 									</div>
 								</div>
@@ -66,7 +72,25 @@ export default {
     ArrowIconSVG
   },
   data() {
-    return {};
+    return {
+      textJoin: '회원가입',
+      stikyKit: {
+        options: {
+          parent: '.container',
+          offset_top: 0
+        },
+        on: {
+          'sticky_kit:stick': e => {
+            e.target.classList.add('btn-sticky');
+            this.textJoin = '회원가입 (첫 달 무료)';
+          },
+          'sticky_kit:unstick': e => {
+            e.target.classList.remove('btn-sticky');
+            this.textJoin = '회원가입';
+          }
+        }
+      }
+    };
   },
   computed: {
     ...mapGetters({
@@ -98,6 +122,16 @@ export default {
 :root {
   --vh-offset: 0px;
 }
+.not-mobile {
+  display: none;
+}
+.btn-sticky {
+  width: 100% !important;
+  left: 0;
+  z-index: 100;
+  bottom: 0;
+  top: auto !important;
+}
 .content {
   height: 100vh;
   height: calc(100vh - var(--vh-offset));
@@ -107,6 +141,10 @@ export default {
 }
 .banner-wrap {
   @include fontSize(12px);
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10;
   height: 40px;
   background-image: linear-gradient(97deg, #f5e3c7, #d0ebcb);
   width: 100%;
@@ -118,7 +156,7 @@ export default {
     position: absolute;
     right: 13px;
     top: 13px;
-		line-height: 1;
+    line-height: 1;
   }
 }
 .content-inner {
@@ -156,8 +194,8 @@ export default {
     max-width: 100%;
   }
   .column {
-    &:nth-child(2) {
-      margin-top: 10px;
+    &:nth-child(1) {
+      margin-bottom: 10px;
     }
   }
   .link {
@@ -214,6 +252,13 @@ export default {
 }
 
 @media (min-width: 768px) {
+  .only-mobile {
+    display: none;
+  }
+  .not-mobile {
+    display: block;
+  }
+
   .content {
     background-image: url('~@/assets/img/main/img_main_large.png');
     height: 630px;
@@ -251,9 +296,26 @@ export default {
       max-width: 530px;
     }
     .column {
-      &:nth-child(2) {
-        margin-top: 0;
-        margin-left: 10px;
+      &:nth-child(1) {
+        margin-right: 10px;
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+// 로그인 상태일때
+.content {
+  &.is-login {
+    .phrases-wrap {
+      margin-bottom: 0;
+      @media (min-width: 768px) {
+        margin-bottom: 16px;
+      }
+    }
+    .slogan-wrap {
+      @media (min-width: 768px) {
+        margin-bottom: 0;
       }
     }
   }

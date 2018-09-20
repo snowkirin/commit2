@@ -91,10 +91,22 @@
           <div class="column column-right">
             <div class="row">
               <div class="form-title-wrap">
-                <p class="txt-form-title">가슴 (브래지어)</p>
+                <p class="txt-form-title">가슴둘레 (브래지어 기준)</p>
               </div>
               <div>
-                <div
+                <ul class="list-flex">
+                  <li
+                    class="item w-25 h-50 lang-en"
+                    :class="{'selected': chestCircumResult === data}"
+                    v-for="(data, idx) in chestCircum"
+                    :key="idx"
+                    @click="setData('chestCircum', data, $event)"
+                  >
+                    {{data}}
+                  </li>
+                </ul>
+
+                <!--<div
                   class="text-field"
                   :class="{'text-field-error': errors.has('bustSize')}"
                 >
@@ -105,7 +117,7 @@
                     ref="bustSize"
                     v-validate="{ required: true, regex: /([0-9]{2,3})([a-fA-F]{1})$/ }"
                     placeholder="예) 80A">
-                </div>
+                </div>-->
                 <p
                   class="txt-error"
                   v-show="errors.has('bustSize')">
@@ -113,6 +125,24 @@
                 </p>
               </div>
 
+            </div>
+            <div class="row">
+              <div class="form-title-wrap">
+                <p class="txt-form-title">컵</p>
+              </div>
+              <div>
+                <ul class="list-flex">
+                  <li
+                    class="item w-25 h-50 lang-en"
+                    :class="{'selected': chestCupResult === data }"
+                    v-for="(data, idx) in chestCup"
+                    :key="idx"
+                    @click="setData('chestCup', data, $event)"
+                  >
+                    {{data}}
+                  </li>
+                </ul>
+              </div>
             </div>
             <div class="row">
               <div class="form-title-wrap">
@@ -178,6 +208,10 @@ export default {
   data: function() {
     return {
       baseUrl: process.env.BASE_URL,
+      chestCircum: [60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115],
+      chestCup: ['A', 'B', 'C', 'D'],
+      chestCircumResult: null,
+      chestCupResult: null,
       bodyTypeText: '',
       joinData: {
         tallSize: null,
@@ -202,7 +236,8 @@ export default {
     ...mapActions({
       getSizes: 'codes/getSizes',
       setSizes: 'signup/setSizes',
-      setJoin: 'signup/setJoin'
+      setJoin: 'signup/setJoin',
+      enterJoin: 'signup/enterJoin'
     }),
     setDisabledClass(type, data) {
       // type: 블라우즈/셔츠, 치마, 바지
@@ -219,9 +254,15 @@ export default {
     },
     setData(type, data, event) {
       if (!event.target.classList.contains('disabled')) {
-        this.joinData[type] = data.code;
-        if (type === 'bodyType') {
-          this.bodyTypeText = data.description;
+        if (type === 'chestCircum') {
+          this.chestCircumResult = data;
+        } else if (type === 'chestCup') {
+          this.chestCupResult = data;
+        } else {
+          this.joinData[type] = data.code;
+          if (type === 'bodyType') {
+            this.bodyTypeText = data.description;
+          }
         }
       }
     },
@@ -261,14 +302,28 @@ export default {
         this.$refs.alert.openSimplert(obj);
         return false;
       }
+      if (_.isNull(this.chestCircumResult)) {
+        _.assign(obj, {
+          message: '가슴둘레 항목을 확인해 주세요.'
+        });
+        this.$refs.alert.openSimplert(obj);
+        return false;
+      }
+      if (_.isNull(this.chestCupResult)) {
+        _.assign(obj, {
+          message: '컵 항목을 확인해 주세요.'
+        });
+        this.$refs.alert.openSimplert(obj);
+        return false;
+      }
       this.$validator.validateAll().then(result => {
         if (result) {
           // String To Number
           this.joinData.tallSize = _.parseInt(this.joinData.tallSize);
+          // 가슴둘레 + 컵 합쳐서 joinData.bustSize에 넣기
+          this.joinData.bustSize = this.chestCircumResult + this.chestCupResult;
           // Save Store
           this.setJoin(this.joinData);
-          // Save LocalStorage
-          // this.$localStorage.set('Size', JSON.stringify(this.joinData));
 
           this.$router.push({
             path: 'preferred-style'
@@ -276,10 +331,6 @@ export default {
         } else {
           if (this.errors.has('tallSize')) {
             this.$refs.tallSize.focus();
-            return false;
-          }
-          if (this.errors.has('bustSize')) {
-            this.$refs.bustSize.focus();
             return false;
           }
         }
@@ -291,6 +342,14 @@ export default {
       await this.getSizes();
     }
     if (!_.isEmpty(this.Join)) {
+      const circumSize = this.Join.bustSize
+        ? _.parseInt(this.Join.bustSize)
+        : null; // 숫자만 가져오기
+      const cupSize = this.Join.bustSize
+        ? _.trim(this.Join.bustSize, circumSize)
+        : null; //
+      this.chestCircumResult = circumSize;
+      this.chestCupResult = cupSize;
       this.joinData = {
         tallSize: this.Join.tallSize ? this.Join.tallSize : null,
         bustSize: this.Join.bustSize ? this.Join.bustSize : null,
@@ -300,6 +359,8 @@ export default {
         bodyType: this.Join.bodyType ? this.Join.bodyType : null
       };
     }
+
+    this.enterJoin();
   },
   mounted: function() {
     if (this.joinData.bodyType === 12701) {
