@@ -368,7 +368,7 @@ export default {
             });
             this.$refs.alert.openSimplert(alertObject);
           }
-        })
+        });
       }
     },
     clickNPS(data, event) {
