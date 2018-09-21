@@ -380,7 +380,7 @@ export default {
       const item = list.querySelectorAll('li');
 
       const formData = {
-        subscriptionId: this.CurrentResult[0].subscription_id, // N
+        subscriptionId: this.CurrentResult.subscription_id, // N
         feedbackId: this.feedbackDataResult.feedbackId, // N
         npsScore: data
       };
@@ -418,7 +418,7 @@ export default {
           } else {
             reasonFlag = true;
             const formData = {
-              subscriptionId: this.CurrentResult[0].subscription_id, // N
+              subscriptionId: this.CurrentResult.subscription_id, // N
               feedbackId: this.feedbackDataResult.feedbackId, // N
               clothType: _.parseInt(data.getAttribute('data-clothType')), // N
               questionCode: _.parseInt(data.getAttribute('data-questionCode')), // N
