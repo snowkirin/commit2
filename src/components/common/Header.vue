@@ -253,6 +253,7 @@ export default {
         width: 100%;
         padding-left: 45px;
         padding-right: 45px;
+        display: flex;
       }
       &.is-login {
         .header-wrap {
