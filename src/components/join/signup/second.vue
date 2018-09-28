@@ -130,6 +130,7 @@
                   <ul>
                     <li>- 월 2회 의류 세트 정기 배송/수거 및 세탁</li>
                     <li>- 배송 전 상품 제안 및 스타일링 Tip 제공</li>
+                    <li class="txt-warning">- 구독 해지 전까지 매월 자동 결제</li>
                   </ul>
                 </div>
               </div>
@@ -581,19 +582,6 @@ export default {
   text-indent: -9999em;
   &:nth-child(1) {
     margin-right: 10px;
-  }
-}
-.list-delivery-days {
-  .item {
-    &.holy-day {
-      color: #f45649;
-      border: 1px solid #dadada;
-      background-color: inherit;
-    }
-  }
-  .txt-date-number {
-    @include fontSize(15px, en);
-    line-height: 1;
   }
 }
 .txt-delivery-date {
