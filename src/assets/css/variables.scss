@@ -104,5 +104,5 @@ $font-secondary: 'Open Sans', 'NotoSans', '맑은 고딕', 'Malgun Gothic', sans
 
 @mixin langEn() {
   font-family: $font-secondary;
-  letter-spacing: 0;
+  letter-spacing: 0 !important;
 }

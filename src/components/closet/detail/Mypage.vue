@@ -466,8 +466,8 @@
                         type="button"
                         class="btn btn-primary h-50"
                         @click="clickWithdrawal"
+                        :disabled="User.type !== 14701"
                       >
-                        <!--:disabled="User.type !== 14701"-->
                         회원탈퇴
                       </button>
                     </div>
@@ -937,19 +937,19 @@ export default {
     clickWithdrawal() {
 
 
-      const actToken = document.cookie.match(
+      /*const actToken = document.cookie.match(
         new RegExp(`${process.env.VUE_APP_TOKEN_NAME}=([^;]+)`)
       );
 
       console.log(document.cookie, 'COOKIE');
-      console.log(actToken, 'TOKEN');
+      console.log(actToken, 'TOKEN');*/
       // let tokenDecode = JSON.parse(Base64.decode(actToken[1].split('.')[1])).user;
       // tokenDecode.type = 14701;
 
 
 
       // this.$store.commit('login/LOGIN_SUCCESS',tokenDecode);
-      /*this.$dialog
+      this.$dialog
         .confirm('정말 회원 탈퇴하시겠습니까??', {
           okText: '예',
           cancelText: '아니오',
@@ -963,7 +963,7 @@ export default {
           dialog.close();
         })
         .catch(() => {
-        });*/
+        });
     }
   },
   async created() {
