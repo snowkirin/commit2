@@ -6,11 +6,13 @@ export default {
       const actToken = document.cookie.match(
         new RegExp(`${process.env.VUE_APP_TOKEN_NAME}=([^;]+)`)
       );
-      if (actToken)
+      if (actToken) {
+        const tokenDecode = JSON.parse(Base64.decode(actToken[1].split('.')[1])).user;
         $store.commit(
           'login/LOGIN_SUCCESS',
-          JSON.parse(Base64.decode(actToken[1].split('.')[1])).user
+          tokenDecode
         );
+      }
       else $store.commit('login/LOGOUT');
       if (to.matched.some(record => record.meta.requiresAuth)) {
         // 인증이 필요한 페이지에 들어갔을 경우
@@ -39,7 +41,7 @@ export default {
                 .then(res => {
                   // 유저이름 넣기
                   if (res.data.result) {
-                    $store.state.login.Authentication.userName =
+                    $store.state.login.User.displayName =
                       res.data.info.user_name;
                   } else {
                     alert('직접 접근 코드를 다시 입력해주세요.');
@@ -72,7 +74,7 @@ export default {
               const token = to.query.access_token;
               await $store.dispatch('subscriptions/getTomorrowDirect', token)
                 .then(res => {
-                  $store.state.login.Authentication.userName = res.data.info.name;
+                  $store.state.login.User.displayName = res.data.info.name;
                 })
               next();
             } else {

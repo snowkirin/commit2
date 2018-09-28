@@ -1,5 +1,7 @@
-import Auth from "@/library/api/auth";
-import types from "./mutation-types";
+import Auth from '@/library/api/auth';
+import Member from '@/library/api/member';
+import types from './mutation-types';
+import {Base64} from "js-base64";
 
 export default {
   doLogin({ commit }, data) {
@@ -35,5 +37,15 @@ export default {
       }
       return res;
     });
+  },
+  changeUserType({ commit }, data) {
+    return Member.postCancel(data).then(res => {
+      if (res.data.result) {
+        commit(types.CHANGE_USER_TYPE, data);
+      } else {
+        console.log('실패');
+      }
+    })
+
   }
 };

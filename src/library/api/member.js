@@ -251,7 +251,22 @@ export default {
         return {
           ...err.response,
           message: err.message
-        }
+        };
+      });
+  },
+  postCancel(data) {
+    return axios
+      .post(`${API_URL}/member/cancel`, data, {
+        withCredentials: true
       })
+      .then(res => {
+        return res;
+      })
+      .catch(err => {
+        return {
+          ...err.response,
+          message: err.message
+        };
+      });
   }
 };

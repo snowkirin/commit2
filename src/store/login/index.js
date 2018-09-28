@@ -5,15 +5,14 @@ const initialState = {
   isLogin: false,
   Authentication: {
     isAuthenticated: false,
-    userName: '',
-    userStyleList: ''
   },
-  feedbackDirect: {
-    result: false,
-    subscription_id: null,
-    feedback_id: null
-  },
-  tomorrowDirect: {}
+  User: {
+    userId: '',
+    email: '',
+    displayName: '',
+    type: null,
+    inserted: ''
+  }
 };
 const state = Object.assign({}, initialState);
 const mutations = {
@@ -26,7 +25,11 @@ const mutations = {
     state.isLogin = true;
     state.Authentication.isAuthenticated = true;
     if (data) {
-      state.Authentication.userName = data.displayName;
+      state.User.userId = data.userId;
+      state.User.email = data.email;
+      state.User.displayName = data.displayName;
+      state.User.type = data.type;
+      state.User.inserted = data.inserted;
     }
   },
   [types.LOGIN_FAILURE]() {
@@ -39,11 +42,16 @@ const mutations = {
     // console.log(rootState);
     state.isLogin = false;
     state.Authentication.isAuthenticated = false;
+    // 초가화 작업 할것.
+  },
+  [types.CHANGE_USER_TYPE](state, data) {
+    state.User.type = data;
   }
 };
 const getters = {
   isLogin: state => state.isLogin,
-  Authentication: state => state.Authentication
+  Authentication: state => state.Authentication,
+  User: state => state.User
 }
 
 export default {

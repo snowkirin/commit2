@@ -1,7 +1,7 @@
 <template>
   <div class="closet-header">
     <p class="user-info">
-      {{ Authentication.userName }}님 옷장
+      {{ User.displayName }}님 옷장
     </p>
   </div>
 </template>
@@ -15,7 +15,7 @@ export default {
     return {};
   },
   computed: mapGetters({
-    Authentication: 'login/Authentication'
+    User: 'login/User'
   }),
   methods: {}
 };
