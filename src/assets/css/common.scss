@@ -191,6 +191,15 @@ img, svg {
       border: 1px solid #dadada;
       cursor: not-allowed;
     }
+    &.holy-day {
+      color: #f45649;
+      border: 1px solid #dadada;
+      background-color: inherit;
+    }
+  }
+  .txt-date-number {
+    @include fontSize(15px, en);
+    line-height: 1;
   }
 }
 
@@ -328,7 +337,7 @@ input:-webkit-autofill:focus {
   &:disabled {
     color: #e9e9e9;
     background-color: #bbb;
-    cursor: wait; // 바뀔수 있음
+    cursor: no-drop; // 바뀔수 있음
   }
   &:read-only {
 
@@ -430,6 +439,11 @@ input:-webkit-autofill:focus {
   display: inline-block;
   margin-top: 10px; // 참고할것.
 }
+
+.txt-warning {
+  color: $color-pomegranate;
+}
+
 .txt-link {
   color: #566b9c;
   text-decoration: underline;
@@ -701,14 +715,5 @@ input:-webkit-autofill:focus {
   }
   .dg-btn--ok {
     background-color: $color-secondary;
-  }
-}
-
-.zuly-alert {
-  .dg-btn {
-    width: 100%;
-  }
-  .dg-btn--ok {
-    background-color: $color-primary;
   }
 }
