@@ -677,43 +677,28 @@ input:-webkit-autofill:focus {
     display: none;
   }
 }
+/*
 
-.zuly-dialog, .zuly-alert {
-  .dg-backdrop {
-    background-color: rgba(0,0,0,0.2);
-  }
-  .dg-content-body {
-    border-bottom: 0;
-  }
-  .dg-main-content {
-    padding: 30px 30px 20px;
-    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.3);
-    border: 1px solid $color-primary;
-    border-radius: 0;
-  }
-  .dg-content {
-    @include fontSize(15px);
-    font-weight: 700;
-    text-align: center;
-  }
-  .dg-btn {
-    @include fontSize(15px);
-    color: #fff;
-    border: 0;
-    border-radius: 0;
-    height: 50px;
-    font-weight: 400;
-  }
+.swiper-button-next, .swiper-container-rtl .swiper-button-prev {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%3E%3Cpath%20d%3D%27M4%20.755l14.374%2011.245-14.374%2011.219.619.781%2015.381-12-15.391-12-.609.755z%27%20fill%3D%27%233d3d35%27%2F%3E%3C%2Fsvg%3E") !important;
 }
 
-.zuly-dialog {
-  .dg-btn {
-    width: calc(50% - 4px);
-  }
-  .dg-btn--cancel {
-    background-color: $color-primary;
-  }
-  .dg-btn--ok {
-    background-color: $color-secondary;
-  }
+.swiper-button-prev,
+.swiper-container-rtl .swiper-button-next {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%3E%3Cpath%20d%3D%27M20%20.755l-14.374%2011.245%2014.374%2011.219-.619.781-15.381-12%2015.391-12%20.609.755z%27%20fill%3D%27%233d3d35%27%2F%3E%3C%2Fsvg%3E") !important;
+}
+
+.swiper-button-prev, .swiper-button-next {
+  background-size: cover !important;
+}*/
+
+
+.dg-backdrop {
+
+}
+.dg-main-content {
+  padding: 30px 30px 20px !important;
+}
+.dg-content {
+  text-align: center;
 }
