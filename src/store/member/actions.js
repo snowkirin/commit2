@@ -84,10 +84,12 @@ export default {
     return Member.patchPayment(data).then(res => {
       if (res.data.result) {
         commit(types.PATCH_PAYMENT);
-        return res;
       } else {
         console.log('Patch Payment Error');
       }
+      return res;
+    }).catch(err => {
+      console.log(err);
     });
   },
   patchAddress({ commit }, data) {
@@ -100,7 +102,7 @@ export default {
       }
     });
   },
-  patchLobbyPassword({ commit}, data) {
+  patchLobbyPassword({ commit }, data) {
     return Member.patchLobbyPassword(data).then(res => {
       if (res.data.result) {
         commit(types.PATCH_LOBBY_PASSWORD);
@@ -108,7 +110,7 @@ export default {
       } else {
         console.log('Patch Lobby Password Error');
       }
-    })
+    });
   },
   patchAnn({ commit }, data) {
     return Member.patchAnn(data).then(res => {
@@ -118,7 +120,7 @@ export default {
       } else {
         console.log('Patch Ann Error');
       }
-    })
+    });
   },
   patchPassword({ commit }, data) {
     return Member.patchPassword(data).then(res => {
@@ -129,11 +131,24 @@ export default {
         if (res.data.uncorrect) {
           console.log('비밀번호가 맞지 않습니다.');
           return res;
-        }
-        else {
+        } else {
           alert('통신 오류입니다. 잠시 후 다시 시도해 주세요');
         }
       }
-    })
+    });
+  },
+  checkBillingKey({ commit }) {
+    return Member.getPaymentSubscribeCustomer().then(res => {
+      if (res.data.result) {
+        commit(types.SUCCESS_BILLING_KEY);
+        return res;
+      } else {
+        commit(types.RESET_BILLING_KEY);
+        return res;
+      }
+    });
+  },
+  resetBillingKey({ commit }) {
+    commit(types.RESET_BILLING_KEY);
   }
 };

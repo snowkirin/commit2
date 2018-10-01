@@ -20,6 +20,12 @@ const initialState = {
   PastIsShow: false,
   PastFeedbacks: [],
   PastProductDetail: {}, //과거의 옷장 상품 상세보기
+  
+  SubscriptionInfo: {
+    info: {
+    },
+    coupons: [],
+  }
 };
 const state = Object.assign({}, initialState);
 const mutations = {
@@ -84,6 +90,10 @@ const mutations = {
   [types.GET_PAST_PRODUCT_DETAIL](state, data) {
     _.assign(state.PastProductDetail, data);
   },
+  [types.GET_SUBSCRIPTION_INFO](state, data) {
+    state.SubscriptionInfo.info = data.infors;
+    state.SubscriptionInfo.coupons = data.coupons;
+  }
 };
 const getters = {
   TomorrowResult: state => state.TomorrowResult,
@@ -101,7 +111,9 @@ const getters = {
   PastResult: state => state.PastResult,
   PastIsShow: state => state.PastIsShow,
   PastFeedbacks: state => state.PastFeedbacks,
-  PastProductDetail: state => state.PastProductDetail
+  PastProductDetail: state => state.PastProductDetail,
+
+  SubscriptionInfo: state => state.SubscriptionInfo
 };
 export default {
   namespaced: true,

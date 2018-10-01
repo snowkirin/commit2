@@ -1,7 +1,9 @@
+const RESET_STATE = 'RESET_STATE';
 const GET_FAQ = 'GET_FAQ';
 const GET_FAQ_MAIN_LIST = 'GET_FAQ_MAIN_LIST';
 
 export default {
+  RESET_STATE,
   GET_FAQ,
   GET_FAQ_MAIN_LIST
 };

@@ -155,5 +155,14 @@ export default {
     return Subscriptions.postFeedbacksNps(data).then(res => {
       return res;
     });
+  },
+
+  getSubscriptionInfo({ commit }) {
+    return Subscriptions.getSubscriptionInfo().then(res => {
+      if (res.data.result) {
+        commit(types.GET_SUBSCRIPTION_INFO, res.data);
+        return res;
+      }
+    });
   }
 };

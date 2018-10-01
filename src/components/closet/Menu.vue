@@ -71,6 +71,11 @@ export default {
           text: '나의정보관리',
           path: '/closet/security'
         },
+        {
+          text: '구독정보',
+          path: '/closet/subscription'
+        },
+
         // {
         //   text: '쿠폰',
         //   path: '/closet/coupon',

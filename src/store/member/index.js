@@ -13,9 +13,15 @@ const initialState = {
   isLobbyPasswordChange: false, // Boolean
   isAnnChange: false, // Boolean
   isPasswordChange: true, // Boolean
+  isBillingKey: false, // Boolean
 };
 const state = Object.assign({}, initialState);
 const mutations = {
+  [types.RESET_STATE](state) {
+    for (let prop in state) {
+      state[prop] = initialState[prop]
+    }
+  },
   [types.MEMBER_COUNT](state, data) {
     state.MemberCount = data;
   },
@@ -47,7 +53,13 @@ const mutations = {
     state.isAnnChange = true;
   },
   [types.PATCH_PASSWORD](state) {
-    state.isPasswordChange = true
+    state.isPasswordChange = true;
+  },
+  [types.SUCCESS_BILLING_KEY](state) {
+    state.isBillingKey = true;
+  },
+  [types.RESET_BILLING_KEY](state) {
+    state.isBillingKey = false;
   }
 };
 const getters = {
@@ -56,6 +68,7 @@ const getters = {
   MemberStyle: state => state.MemberStyle,
   Mypage: state => state.Mypage,
   PhoneAuth: state => state.PhoneAuth,
+  isBillingKey: state => state.isBillingKey
 };
 export default {
   namespaced: true,

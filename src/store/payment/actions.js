@@ -1,5 +1,5 @@
-import Payment from "@/library/api/payment";
-import types from "./mutation-types";
+import Payment from '@/library/api/payment';
+import types from './mutation-types';
 
 export default {
   getMembership({ commit }) {
