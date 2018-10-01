@@ -2,6 +2,7 @@
   <header
     class="header"
     :class="calcClassName"
+    :style="[calcStyle]"
   >
     <div class="header-wrap">
       <router-link to="/" class="logo">
@@ -75,6 +76,13 @@ export default {
       CurrentRoute: 'common/CurrentRoute',
       isMainBanner: 'common/isMainBanner'
     }),
+    calcBanner() {
+      if (this.isMain && this.isMainBanner) {
+        return {
+          top: '40px'
+        };
+      }
+    },
     calcClassName() {
       if (this.CurrentRoute === 'main') {
         if (this.isLogin) {
@@ -86,24 +94,17 @@ export default {
         return this.CurrentRoute;
       }
     },
-
-    calcMain() {
-      if (this.CurrentRoute === 'main' && this.isLogin && this.$mq === 'sm') {
-        return {
-          display: 'block'
-        };
-      } else if (this.CurrentRoute === 'main' && this.isLogin) {
-        return {
-          display: 'block'
-        };
-      } else if (
-        this.CurrentRoute === 'main' &&
-        !this.isLogin &&
-        this.$mq !== 'sm'
-      ) {
-        return {
-          display: 'none'
-        };
+    calcStyle() {
+      if (this.CurrentRoute === 'main') {
+        if (this.isMainBanner) {
+          return {
+            top: '40px'
+          }
+        } else {
+          return {
+            top: '0px'
+          }
+        }
       }
     }
   },
