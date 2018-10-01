@@ -479,11 +479,13 @@
         </div>
       </div>
     </div>
+    <simplert ref="alert" :useRadius="false" :useIcon="false" />
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import Simplert from 'vue2-simplert';
 
 const alertObject = {
   type: 'alert', // 타입
@@ -494,7 +496,7 @@ const alertObject = {
 
 export default {
   name: 'mypage',
-  components: {},
+  components: {Simplert},
   data() {
     return {
       initPhoneNumber: '',

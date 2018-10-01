@@ -32,6 +32,24 @@ export default {
         };
       });
   },
+  getChangeDeliveryDays(data) {
+    return axios
+      .get(`${API_URL}/calendar/changeDeliveryDays`, {
+        withCredentials: true,
+        params: {
+          schymd: data
+        }
+      })
+      .then(res => {
+        return res;
+      })
+      .catch(err => {
+        return {
+          ...err.response,
+          message: err.message
+        };
+      });
+  },
   getMembership() {
     return axios
       .get(`${API_URL}/payment/membership`, {

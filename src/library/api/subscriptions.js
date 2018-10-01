@@ -277,5 +277,24 @@ export default {
           message: err.message
         };
       });
+  },
+
+  /*
+  * 구독 정보 조회
+  * */
+  getSubscriptionInfo() {
+    return axios
+      .get(`${API_URL}/subscriptions/info`, {
+        withCredentials: true
+      })
+      .then(res => {
+        return res;
+      })
+      .catch(err => {
+        return {
+          ...err.response,
+          message: err.message
+        }
+      })
   }
 };

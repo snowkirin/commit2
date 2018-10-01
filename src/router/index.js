@@ -32,6 +32,8 @@ import ClosetStyleInfo from '@/components/closet/detail/StyleInfo.vue';
 import ClosetCoupon from '@/components/closet/detail/Coupon.vue';
 
 import ClosetSubscription from '@/components/closet/SubscriptionInfo/Index.vue';
+import ClosetSubscriptionInfo from '@/components/closet/SubscriptionInfo/Information.vue';
+import ClosetSubscriptionRestart from '@/components/closet/SubscriptionInfo/Restart.vue';
 
 import PageNotFound from '@/components/common/PageNotFound.vue';
 
@@ -194,9 +196,22 @@ const router = new Router({
             },
             {
               path: 'subscription',
-              name: 'Closet_Subscription',
               component: ClosetSubscription,
-              meta: { requiresAuth: true }
+              meta: { requiresAuth: true },
+              children: [
+                {
+                  path: '',
+                  name: 'Closet_Subscription_Info',
+                  component: ClosetSubscriptionInfo,
+                  meta: { requiresAuth: true }
+                },
+                {
+                  path: 'restart',
+                  name: 'Closet_Subscription_Restart',
+                  component: ClosetSubscriptionRestart,
+                  meta: { requiresAuth: true }
+                }
+              ]
             },
 
             /*{

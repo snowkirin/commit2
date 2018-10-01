@@ -65,17 +65,22 @@ export default {
             this.$router.push({ path: '/closet/security/mypage' });
           }
         } else if (!res.data.result) {
-          alert('비밀번호를 정확히 입력해 주세요.');
+          this.$dialog.alert('비밀번호를 정확히 입력해 주세요.', {
+            okText: '확인',
+            customClass: 'zuly-alert',
+            backdropClose: true
+          });
         } else {
-          alert('통신오류. 잠시후 다시 시도해 주세요.');
+          this.$dialog.alert(
+            '통신오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.',
+            {
+              okText: '확인',
+              customClass: 'zuly-alert',
+              backdropClose: true
+            }
+          );
         }
       });
-
-      // const pwd = document.getElementById('pwdInput');
-      // if (!this.$common.InputDataValidation(pwd, '비밀번호를 입력해주세요.', true)) return;
-      // await this.mypageSecurity({ password: pwd.value });
-      //
-      // if (this.mypageAuth) this.$router.push({ path: '/closet/mypage' });
     }
   }
 };
@@ -84,10 +89,9 @@ export default {
 <style scoped lang="scss" src="@/assets/css/closet-style.scss">
 </style>
 <style scoped lang="scss">
-  @media (min-width: 768px) {
-    .content {
-      width: 600px;
-    }
+@media (min-width: 768px) {
+  .content {
+    width: 600px;
   }
-
+}
 </style>

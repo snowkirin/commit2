@@ -268,5 +268,20 @@ export default {
           message: err.message
         };
       });
+  },
+  getPaymentSubscribeCustomer() {
+    return axios
+      .get(`${API_URL}/member/payment/subscribe-customer`, {
+        withCredentials: true
+      })
+      .then(res => {
+        return res
+      })
+      .catch(err => {
+        return {
+          ...err.response,
+          message: err.message
+        }
+      });
   }
 };

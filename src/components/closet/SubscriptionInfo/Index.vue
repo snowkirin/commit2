@@ -1,31 +1,14 @@
 <template>
-    <component :is="subscriptionType"></component>
+  <router-view></router-view>
 </template>
-
 <script>
-import Information from './Information';
-import Restart from './Restart';
 export default {
-  name: 'Index_Subscription-Info',
+  name: 'SubscriptionIndex',
   data() {
     return {
-      type: 111
     };
-  },
-  computed: {
-    subscriptionType() {
-      if (this.type === 111) {
-        return Information;
-      } else {
-        return Restart;
-      }
-    }
-  },
-  created() {}
+  }
 };
 </script>
-
-<style scoped lang="scss" src="@/assets/css/closet-style.scss">
-</style>
-<style scoped>
+<style scoped lang="scss">
 </style>

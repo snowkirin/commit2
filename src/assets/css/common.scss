@@ -664,12 +664,58 @@ input:-webkit-autofill:focus {
   }
 }
 
-.dg-backdrop {
 
+.zuly-dialog, .zuly-alert {
+  .dg-backdrop {
+    background-color: rgba(0,0,0,0.2);
+  }
+  .dg-content-body {
+    border-bottom: 0;
+  }
+  .dg-main-content {
+    padding: 30px 30px 20px;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.3);
+    border: 1px solid $color-primary;
+    border-radius: 0;
+  }
+  .dg-content {
+    @include fontSize(15px);
+    font-weight: 700;
+    text-align: center;
+  }
+  .dg-btn {
+    @include fontSize(15px);
+    color: #fff;
+    border: 0;
+    border-radius: 0;
+    height: 50px;
+    font-weight: 400;
+  }
 }
-.dg-main-content {
-  padding: 30px 30px 20px !important;
+
+.zuly-dialog {
+  .dg-btn {
+    width: calc(50% - 4px);
+  }
+  .dg-btn--cancel {
+    background-color: $color-primary;
+  }
+  .dg-btn--ok {
+    background-color: $color-secondary;
+  }
 }
-.dg-content {
-  text-align: center;
+
+.zuly-alert {
+  .dg-btn {
+    width: 100%;
+  }
+  .dg-btn--ok {
+    background-color: $color-primary;
+  }
 }
+
+
+/*
+
+
+*/

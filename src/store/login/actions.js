@@ -42,10 +42,8 @@ export default {
     return Member.postCancel(data).then(res => {
       if (res.data.result) {
         commit(types.CHANGE_USER_TYPE, 14702);
-      } else {
-        console.log('실패');
+        return res;
       }
-    })
-
+    });
   }
 };
