@@ -68,7 +68,8 @@ export default {
   getChangeDeliveryDays({ commit }, data) {
     return Codes.getChangeDeliveryDays(data).then(res => {
       if (res.data.result) {
-        commit(types.GET_CHANGE_DELIVERY_DAYS, res.data.list);
+        console.log(res.data);
+        commit(types.GET_CHANGE_DELIVERY_DAYS, res.data);
         return res;
       } else {
         return res;

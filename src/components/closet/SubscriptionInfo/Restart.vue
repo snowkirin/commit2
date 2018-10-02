@@ -163,7 +163,7 @@
       </div>
       <div class="restart-button-wrap">
         <button type="button" class="btn btn-secondary h-56" @click="clickBack">취소</button>
-        <button type="button" class="btn btn-primary h-56" :disabled="!restartValid">구독 신청</button>
+        <button type="button" class="btn btn-primary h-56" :disabled="!restartValid" @click="clickSubscribe">구독 신청</button>
       </div>
     </div>
   </div>
@@ -219,7 +219,10 @@ export default {
       checkBillingKey: 'member/checkBillingKey',
       getFirstDeliveryDays: 'codes/getFirstDeliveryDays',
       getMypage: 'member/getMypage',
-      patchPayment: 'member/patchPayment'
+      patchPayment: 'member/patchPayment',
+      putSubscriptionRestart: 'subscriptions/putSubscriptionRestart',
+      changeUserType: 'login/changeUserType',
+      doLogout: 'login/doLogout'
     }),
     setMypageData() {
       this.currentCardName = this.Mypage.card_name;
@@ -359,6 +362,56 @@ export default {
             '.text-field-error input'
           );
           errorTarget[0].focus();
+        }
+      });
+    },
+    resetStore() {
+      this.$store.commit('auth/RESET_STATE');
+      this.$store.commit('codes/RESET_STATE');
+      this.$store.commit('common/RESET_STATE');
+      this.$store.commit('faq/RESET_STATE');
+      this.$store.commit('inquiries/RESET_STATE');
+      this.$store.commit('login/RESET_STATE');
+      this.$store.commit('member/RESET_STATE');
+      this.$store.commit('notices/RESET_STATE');
+      this.$store.commit('payment/RESET_STATE');
+      this.$store.commit('signup/RESET_STATE');
+      this.$store.commit('subscriptions/RESET_STATE');
+    },
+    clickSubscribe() {
+      const formData = {
+        date: this.deliveryDate
+      };
+      this.putSubscriptionRestart(formData).then(res => {
+        if (res.data.result) {
+          this.$dialog.alert(
+            '구독 재시작 신청이 완료 되었습니다. 로그인을 다시 해주시기 바랍니다',
+            {
+              okText: '확인',
+              customClass: 'zuly-alert',
+              backdropClose: true
+            }
+          );
+          this.isChangePayment = false;
+          this.deliveryDate = '';
+          this.checkCardValid = false;
+
+          document.cookie = `${
+            process.env.VUE_APP_TOKEN_NAME
+          }=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=${
+            process.env.VUE_APP_HOST
+          }`;
+          this.resetStore();
+          this.$router.push({ path: '/login' });
+        } else {
+          this.$dialog.alert(
+            '통신오류가 발생하였습니다. 잠시 후 다시 시도해주세요.',
+            {
+              okText: '확인',
+              customClass: 'zuly-alert',
+              backdropClose: true
+            }
+          );
         }
       });
     }

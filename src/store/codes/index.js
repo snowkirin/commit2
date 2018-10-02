@@ -4,7 +4,10 @@ import actions from './actions';
 const initialState = {
   Sizes: {}, // Object
   FirstDeliveryDays: {}, //Object
-  ChangeDeliveryDays: [], // Array
+  ChangeDeliveryDays: {
+    list: [],
+    idNext: '',
+  },
   Options: {}, // Object
   SubscriptionPrice: {} // Object
 };
@@ -22,7 +25,8 @@ const mutations = {
     state.FirstDeliveryDays = data.result;
   },
   [types.GET_CHANGE_DELIVERY_DAYS](state, data) {
-    state.ChangeDeliveryDays = data;
+    state.ChangeDeliveryDays.list = data.list;
+    state.ChangeDeliveryDays.idNext = data.subscription_id
   },
   [types.GET_OPTIONS](state, data) {
     state.Options = data;

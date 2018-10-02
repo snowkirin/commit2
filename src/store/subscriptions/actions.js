@@ -57,7 +57,7 @@ export default {
     });
   },
   getCurrentFeedbacks({ commit }, data) {
-    return Subscriptions.getFeedbacks(data).then((res) => {
+    return Subscriptions.getFeedbacks(data).then(res => {
       if (res.data.result) {
         commit(types.GET_CURRENT_FEEDBACKS, res.data);
         return res;
@@ -89,8 +89,7 @@ export default {
   },
   /* 과거의 옷장 상품 상세보기, 2018-09-05: 사용 안하는중*/
   getPastDetail({ commit }, data) {
-    return Subscriptions.getPastDetail(data).then(res => {
-    });
+    return Subscriptions.getPastDetail(data).then(res => {});
   },
   getPastFeedbacks({ commit }, data) {
     return Subscriptions.getFeedbacks(data).then(res => {
@@ -161,6 +160,25 @@ export default {
     return Subscriptions.getSubscriptionInfo().then(res => {
       if (res.data.result) {
         commit(types.GET_SUBSCRIPTION_INFO, res.data);
+        return res;
+      }
+    });
+  },
+  putSubscriptionRestart({ commit }, data) {
+    return Subscriptions.putSubscriptionRestart(data).then(res => {
+      if (res.data.result) {
+        return res;
+      } else {
+        return res;
+      }
+    });
+  },
+
+  patchUpdateSubscriptionReturnDate({ commit }, data) {
+    return Subscriptions.patchUpdateSubscriptionReturnDate(data).then(res => {
+      if (res.data.result) {
+        return res;
+      } else {
         return res;
       }
     });

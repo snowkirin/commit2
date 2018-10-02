@@ -98,12 +98,12 @@ export default {
       if (this.CurrentRoute === 'main') {
         if (this.isMainBanner) {
           return {
-            top: '40px'
-          }
+            top: '50px'
+          };
         } else {
           return {
             top: '0px'
-          }
+          };
         }
       }
     }
@@ -112,9 +112,19 @@ export default {
     ...mapActions({
       doLogout: 'login/doLogout'
     }),
-    ...mapMutations({
-      resetState: 'subscriptions/RESET_STATE'
-    }),
+    resetStore() {
+      this.$store.commit('auth/RESET_STATE');
+      this.$store.commit('codes/RESET_STATE');
+      this.$store.commit('common/RESET_STATE');
+      this.$store.commit('faq/RESET_STATE');
+      this.$store.commit('inquiries/RESET_STATE');
+      this.$store.commit('login/RESET_STATE');
+      this.$store.commit('member/RESET_STATE');
+      this.$store.commit('notices/RESET_STATE');
+      this.$store.commit('payment/RESET_STATE');
+      this.$store.commit('signup/RESET_STATE');
+      this.$store.commit('subscriptions/RESET_STATE');
+    },
     clickLogout() {
       this.doLogout().then(() => {
         document.cookie = `${
@@ -125,17 +135,19 @@ export default {
         _.assign(alertObject, {
           message: '로그아웃 되었습니다.'
         });
+        this.resetStore();
         this.$refs.alert.openSimplert(alertObject);
-        this.resetState();
         this.$router.push({ path: '/login' });
       });
     }
+  },
+  created() {
   }
 };
 </script>
 
 <style scoped lang="scss">
-  // Mobile
+// Mobile
 .header {
   // 안에 있는 컨텐츠의 가운데 정렬
   display: flex;
@@ -194,7 +206,6 @@ export default {
     width: 100%;
     z-index: 10;
     .header-wrap {
-
       display: none;
     }
     .logo {

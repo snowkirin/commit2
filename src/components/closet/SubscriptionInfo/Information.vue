@@ -6,7 +6,7 @@
     <div class="content">
       <div class="product-information">
         <div class="form-title-wrap">
-          <p class="txt-form-title">구독 상품 정보</p>
+          <p class="txt-form-title">이용중인 구독 서비스 정보입니다.</p>
         </div>
         <div class="table-info">
           <div class="header">
@@ -36,7 +36,7 @@
             <div class="cell">
               <div :key="idx" v-for="(data, idx) in SubscriptionInfo.info.price_coupons">
                 {{ data.coupon_name }}
-                <span class="txt-time-limit"> ({{ data.end_date }} 결제시까지 가능)</span>
+                <span class="txt-time-limit"> ({{ data.end_date }} 결제시까지 적용)</span>
               </div>
             </div>
           </div>
@@ -48,14 +48,14 @@
           type="button"
           v-if="User.type !== 14703"
           class="btn btn-primary h-56"
-          :disabled="isStopSubscription || User.type === 14702"
+          :disabled="User.type === 14702"
           @click="clickStopSubscription"
 
         >
           구독 중지
         </button>
 
-        <button
+        <!--<button
           v-if="User.type === 14701"
           type="button"
           class="btn btn-primary h-56"
@@ -63,13 +63,14 @@
           @click="toggleChangeDelivery"
         >
           {{ txtChangeDelivery }}
-        </button>
+        </button>-->
         <button
+          v-if="User.type === 14703"
           type="button"
           class="btn btn-primary h-56"
           @click="clickGoRestart"
         >
-          <!--v-if="User.type === 14703"-->
+
           구독 재시작
         </button>
       </div>
@@ -82,7 +83,7 @@
             <div class="date">
               <ul class="list-flex">
                 <li
-                  v-for="(data, idx) in ChangeDeliveryDays"
+                  v-for="(data, idx) in ChangeDeliveryDays.list"
                   :key="idx"
                   class="item w-20 h-50"
                   :class="[{'holy-day': data.is_holiday === 'Y'}, {'selected-day': data.dday}, {'selected': data.solar_date === deliveryDate}]"
@@ -109,7 +110,14 @@
           </div>
         </div>
         <div class="button-wrap">
-          <button type="button" class="btn btn-primary h-56" @click="clickChangeDelivery">배송 예정일 변경</button>
+          <button
+            type="button"
+            class="btn btn-primary h-56"
+            @click="clickChangeDelivery"
+            :disabled="deliveryDate === ''"
+          >
+            배송 예정일 변경
+          </button>
         </div>
       </div>
       <div class="coupon">
@@ -169,7 +177,6 @@ export default {
   data() {
     return {
       isChangeDelivery: false, // 배송 예정일 변경 활성화 & 비활성화
-      isStopSubscription: false, // 구독중지 상태 체크
       deliveryDate: ''
     };
   },
@@ -191,8 +198,14 @@ export default {
     ...mapActions({
       getSubscriptionInfo: 'subscriptions/getSubscriptionInfo',
       getChangeDeliveryDays: 'codes/getChangeDeliveryDays',
-      successRestart: 'common/successRestart'
+      successRestart: 'common/successRestart',
+      postCancel: 'login/postCancel', // 구독 중지 및 회원 탈퇴
+      changeUserType: 'login/changeUserType', // 유저 타입 변경,
+      patchUpdateSubscriptionReturnDate:
+        'subscriptions/patchUpdateSubscriptionReturnDate' // 배송일 변경
     }),
+
+    // 구독중지
     clickStopSubscription() {
       this.$dialog
         .confirm(
@@ -200,20 +213,60 @@ export default {
           {
             okText: '중지하기',
             cancelText: '취소',
-            loader: true,
             customClass: 'zuly-dialog',
             backdropClose: true,
             html: true
           }
         )
-        .then(dialog => {
-          this.isStopSubscription = true;
-          dialog.close();
-        })
-        .catch(() => {
-          console.log('구독 중지 안해!');
+        .then(() => {
+          const formData = {
+            reqType: 15101
+          };
+          this.postCancel(formData).then(res => {
+            if (res.data.result) {
+              this.$dialog.alert('구독 중지되었습니다.', {
+                okText: '확인',
+                customClass: 'zuly-alert',
+                backdropClose: true
+              });
+              this.changeUserType(14702);
+            } else {
+              this.$dialog.alert('통신 오류가 발생하였습니다.', {
+                okText: '확인',
+                customClass: 'zuly-alert',
+                backdropClose: true
+              });
+            }
+          });
         });
     },
+    // 구독 중지 상태일때 구독 재시작 버튼
+    clickGoRestart() {
+      this.successRestart();
+      this.$router.push({ path: '/closet/subscription/restart' });
+    },
+
+    // 배송일 스타일 관련
+    calcDate(data, idx) {
+      if (idx === 0) {
+        if (data.day_of_week === '(월)') {
+          return { marginLeft: 'calc(0% - 1px)' };
+        } else if (data.day_of_week === '(화)') {
+          return { marginLeft: 'calc(20% - 1px)' };
+        } else if (data.day_of_week === '(수)') {
+          return { marginLeft: 'calc(40% - 1px)' };
+        } else if (data.day_of_week === '(목)') {
+          return { marginLeft: 'calc(60% - 1px)' };
+        } else {
+          return { marginLeft: 'calc(80% - 1px)' };
+        }
+      }
+    },
+    // 배송일 변경 Show/Hide
+    toggleChangeDelivery() {
+      this.isChangeDelivery = !this.isChangeDelivery;
+    },
+    // 배송일 날짜 클릭
     clickDeliveryDate(data, event) {
       const eleTarget =
         event.target.tagName === 'LI'
@@ -230,64 +283,37 @@ export default {
       }
       this.deliveryDate = data.solar_date;
     },
-    clickGoRestart() {
-      this.successRestart();
-      this.$router.push({ path: '/closet/subscription/restart' });
-    },
-    toggleChangeDelivery() {
-      this.isChangeDelivery = !this.isChangeDelivery;
-    },
+
+    // 배송일 변경 버튼 클릭
     clickChangeDelivery() {
-      if (this.deliveryDate === '') {
-        this.$dialog.alert('날짜를 선택해 주십시오.', {
-          okText: '확인',
-          customClass: 'zuly-alert'
-        });
-      } else {
-        this.$dialog
-          .alert('변경되었습니다.', {
+      const formData = {
+        idNext: this.ChangeDeliveryDays.idNext,
+        date: this.deliveryDate
+      };
+
+      this.patchUpdateSubscriptionReturnDate(formData).then(res => {
+        if (res.data.result) {
+          this.$dialog.alert('변경되었습니다.', {
             okText: '확인',
             customClass: 'zuly-alert',
             backdropClose: true
-          })
-          .then(dialog => {
-            this.isChangeDelivery = false;
-            dialog.close();
           });
-      }
-    },
-    calcDate(data, idx) {
-      if (idx === 0) {
-        if (data.day_of_week === '(월)') {
-          return { marginLeft: 'calc(0% - 1px)' };
-        } else if (data.day_of_week === '(화)') {
-          return { marginLeft: 'calc(20% - 1px)' };
-        } else if (data.day_of_week === '(수)') {
-          return { marginLeft: 'calc(40% - 1px)' };
-        } else if (data.day_of_week === '(목)') {
-          return { marginLeft: 'calc(60% - 1px)' };
+          this.isChangeDelivery = false;
         } else {
-          return { marginLeft: 'calc(80% - 1px)' };
-        }
-      }
-    },
-    pickCurrentDDay() {
-      _.forEach(this.ChangeDeliveryDays, value => {
-        if (value.dday) {
-          this.dday = value.month_day;
+          this.$dialog.alert('통신 오류가 발생하였습니다. 잠시후 다시 시도해 주세요.', {
+            okText: '확인',
+            customClass: 'zuly-alert',
+            backdropClose: true
+          });
         }
       });
     }
   },
   created() {
     this.getSubscriptionInfo();
-    this.getChangeDeliveryDays();
-    if (this.User.type !== 14703) {
-      // 현재 유저 상태 : 구독중, 구독중지 요청중
-      console.log('구독 중, 구독중지 요청');
-    } else {
-      // 현재 유저 상태 : 구독 중지
-      console.log('구독 중지');
+    if (this.User.type === 14701) {
+      // 구독중일때만 배송일 변경관련 정보 가져옴
+      this.getChangeDeliveryDays();
     }
   }
 };

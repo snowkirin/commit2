@@ -20,11 +20,10 @@ const initialState = {
   PastIsShow: false,
   PastFeedbacks: [],
   PastProductDetail: {}, //과거의 옷장 상품 상세보기
-  
+
   SubscriptionInfo: {
-    info: {
-    },
-    coupons: [],
+    info: {},
+    coupons: []
   }
 };
 const state = Object.assign({}, initialState);
@@ -37,9 +36,7 @@ const mutations = {
   [types.GET_TOMORROW](state, data) {
     state.TomorrowResult = data;
   },
-  [types.PUT_TOMORROW](state) {
-
-  },
+  [types.PUT_TOMORROW](state) {},
   [types.GET_TOMORROW_DIRECT](state, data) {
     state.TomorrowResult = data.data;
     state.isTomorrowDirect = true;
@@ -121,4 +118,4 @@ export default {
   mutations,
   actions,
   getters
-}
+};

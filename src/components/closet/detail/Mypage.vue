@@ -496,7 +496,7 @@ const alertObject = {
 
 export default {
   name: 'mypage',
-  components: {Simplert},
+  components: { Simplert },
   data() {
     return {
       initPhoneNumber: '',
@@ -554,7 +554,8 @@ export default {
       patchAddress: 'member/patchAddress',
       patchLobbyPassword: 'member/patchLobbyPassword',
       patchAnn: 'member/patchAnn',
-      changeUserType: 'login/changeUserType',
+      postCancel: 'login/postCancel',
+      changeUserType: 'login/changeUserType'
     }),
     setMypageData() {
       // 핸드폰 번호
@@ -937,34 +938,32 @@ export default {
       }
     },
     clickWithdrawal() {
-
-
-      /*const actToken = document.cookie.match(
-        new RegExp(`${process.env.VUE_APP_TOKEN_NAME}=([^;]+)`)
-      );
-
-      console.log(document.cookie, 'COOKIE');
-      console.log(actToken, 'TOKEN');*/
-      // let tokenDecode = JSON.parse(Base64.decode(actToken[1].split('.')[1])).user;
-      // tokenDecode.type = 14701;
-
-
-
-      // this.$store.commit('login/LOGIN_SUCCESS',tokenDecode);
       this.$dialog
         .confirm('정말 회원 탈퇴하시겠습니까??', {
           okText: '예',
           cancelText: '아니오',
-          loader: true
+          customClass: 'zuly-dialog',
+          backdropClose: true
         })
-        .then((dialog) => {
+        .then(dialog => {
           const formData = {
             reqType: 15102
-          }
-          this.changeUserType(formData);
-          dialog.close();
-        })
-        .catch(() => {
+          };
+          this.postCancel(formData).then(res => {
+            if (res.data.result) {
+              dialog.close();
+              this.changeUserType(14702);
+              this.$dialog
+                .alert('탈퇴 신청되었습니다.', {
+                  okText: '확인',
+                  backdropClose: true,
+                  customClass: 'zuly-alert'
+                })
+                .then(dialog1 => {
+                  dialog1.close();
+                });
+            }
+          });
         });
     }
   },

@@ -39,9 +39,24 @@ export default {
     });
   },
   changeUserType({ commit }, data) {
+    commit(types.CHANGE_USER_TYPE, data);
+    // return Member.postCancel(data).then(res => {
+    //   if (res.data.result) {
+    //
+    //     return res;
+    //   }
+    // });
+  },
+
+  /*
+  * 구독 중지 및 회원 탈퇴
+  * reqType = 15101(구독중지), 15102(회원탈퇴)
+  * */
+  postCancel({ commit }, data) {
     return Member.postCancel(data).then(res => {
       if (res.data.result) {
-        commit(types.CHANGE_USER_TYPE, 14702);
+        return res;
+      } else {
         return res;
       }
     });
