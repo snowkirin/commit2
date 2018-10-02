@@ -19,6 +19,7 @@
               v-model="email"
               data-vv-as="이메일"
               v-validate="'email'"
+              @keyup.enter="$refs.btnLogin.$el.click()"
             />
           </div>
           <p
@@ -96,26 +97,15 @@
         </ul>
       </div>
     </div>
-    <simplert ref="alert" :useRadius="false" :useIcon="false" />
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import Simplert from 'vue2-simplert';
-
-const alertObject = {
-  type: 'alert', // 타입
-  customClass: 'popup-custom-class', // 커스텀 클래스 네임
-  disableOverlayClick: false, // 오버레이 클릭시 닫기 방지
-  customCloseBtnText: '확인' // 닫기 버튼 텍스트
-};
 
 export default {
   name: 'login',
-  components: {
-    Simplert
-  },
+  components: {},
   computed: {
     ...mapGetters({
       isLogin: 'login/isLogin',
@@ -138,27 +128,30 @@ export default {
         password: this.password
       };
       if (_.isEmpty(formData.email)) {
-        _.assign(alertObject, {
-          message: '이메일을 입력해주세요.'
+        this.$dialog.alert('이메일을 입력해주세요.', {
+          okText: '확인',
+          customClass: 'zuly-alert',
+          backdropClose: true
         });
-        this.$refs.alert.openSimplert(alertObject);
         return;
       }
       if (_.isEmpty(formData.password)) {
-        _.assign(alertObject, {
-          message: '비밀번호를 다시 확인해주세요.'
+        this.$dialog.alert('비밀번호를 다시 확인해 주세요.', {
+          okText: '확인',
+          customClass: 'zuly-alert',
+          backdropClose: true
         });
-        this.$refs.alert.openSimplert(alertObject);
         return;
       }
       return this.$validator.validateAll().then(result => {
         if (result) {
           return this.doLogin(formData).then(res => {
             if (!res.data.result) {
-              _.assign(alertObject, {
-                message: '이메일 혹은 비밀번호를 다시 확인해주세요.'
+              this.$dialog.alert('이메일 혹은 비밀번호를 다시 확인해주세요.', {
+                okText: '확인',
+                customClass: 'zuly-alert',
+                backdropClose: true
               });
-              this.$refs.alert.openSimplert(alertObject);
             }
             return res;
           });
@@ -173,21 +166,26 @@ export default {
   },
   mounted() {
     if (this.isLogin) {
-      _.assign(alertObject, {
-        message: '잘못된 경로로 들어오셨습니다.',
-        onClose: function() {
+      this.$dialog
+        .alert('잘못된 경로로 들어오셨습니다.', {
+          okText: '확인',
+          customClass: 'zuly-alert',
+          backdropClose: true
+        })
+        .then(() => {
           this.$router.push({ path: '/' });
-        }
-      });
-      this.$refs.alert.openSimplert(alertObject);
+        })
+        .catch(() => {
+          this.$router.push({ path: '/' });
+        });
     }
   }
 };
 </script>
 
-<style scoped lang="scss" src="@/assets/css/login-style.scss"></style>
+<style scoped lang="scss" src="@/assets/css/login-style.scss">
+</style>
 <style scoped lang="scss">
-
 .menu-login {
   text-align: center;
   margin-top: 30px;

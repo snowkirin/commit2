@@ -132,7 +132,6 @@ export default {
       });
     }
   },
-  created() {}
 };
 </script>
 
