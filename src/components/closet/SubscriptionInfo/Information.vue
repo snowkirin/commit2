@@ -1,169 +1,174 @@
 <template>
-  <div class="contents">
-    <div class="contents-header">
-      <h3>구독 정보입니다.</h3>
-    </div>
-    <div class="content">
-      <div class="product-information">
-        <div class="form-title-wrap">
-          <p class="txt-form-title">이용중인 구독 서비스 정보입니다.</p>
-        </div>
-        <div class="table-info">
-          <div class="header">
-            <div class="cell">
-              배송/회수 예정일
-            </div>
-            <div class="cell">
-              이용 요금제
-            </div>
-            <div class="cell">
-              결제 예정일
-            </div>
-            <div class="cell">
-              할인 혜택
-            </div>
+  <div>
+    <div class="contents">
+      <div class="contents-header">
+        <h3>이용중인 구독 서비스 정보입니다.</h3>
+      </div>
+
+      <div class="content">
+        <div class="product-information">
+          <div class="form-title-wrap">
+            <p class="txt-form-title">구독 정보</p>
           </div>
-          <div class="body">
-            <div class="cell">
-              {{ SubscriptionInfo.info.return_date }}
+          <div class="table-info">
+            <div class="header">
+              <div class="cell">
+                배송/회수 예정일
+              </div>
+              <div class="cell">
+                이용 요금제
+              </div>
+              <div class="cell">
+                결제 예정일
+              </div>
+              <div class="cell">
+                할인 혜택
+              </div>
             </div>
-            <div class="cell">
-              {{ SubscriptionInfo.info.membership_name }} / {{ SubscriptionInfo.info.membership_price }}원
-            </div>
-            <div class="cell">
-              {{ SubscriptionInfo.info.payment_date }}
-            </div>
-            <div class="cell">
-              <div :key="idx" v-for="(data, idx) in SubscriptionInfo.info.price_coupons">
-                {{ data.coupon_name }}
-                <span class="txt-time-limit"> ({{ data.end_date }} 결제시까지 적용)</span>
+            <div class="body">
+              <div class="cell">
+                {{ SubscriptionInfo.info.return_date }}
+              </div>
+              <div class="cell">
+                {{ SubscriptionInfo.info.membership_name }} / {{ SubscriptionInfo.info.membership_price }}원
+              </div>
+              <div class="cell">
+                {{ SubscriptionInfo.info.payment_date }}
+              </div>
+              <div class="cell">
+                <div :key="idx" v-for="(data, idx) in SubscriptionInfo.info.price_coupons">
+                  {{ data.coupon_name }}
+                  <span class="txt-time-limit"> ({{ data.end_date }} 결제시까지 적용)</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="button-wrap info-button-wrap">
-        <!-- 버튼-->
-        <button
-          type="button"
-          v-if="User.type !== 14703"
-          class="btn btn-primary h-56"
-          :disabled="User.type === 14702"
-          @click="clickStopSubscription"
-
-        >
-          구독 중지
-        </button>
-
-        <!--<button
-          v-if="User.type === 14701"
-          type="button"
-          class="btn btn-primary h-56"
-          :style="isChangeDelivery ? 'background-color: #797979' : ''"
-          @click="toggleChangeDelivery"
-        >
-          {{ txtChangeDelivery }}
-        </button>-->
-        <button
-          v-if="User.type === 14703"
-          type="button"
-          class="btn btn-primary h-56"
-          @click="clickGoRestart"
-        >
-
-          구독 재시작
-        </button>
-      </div>
-      <div class="change-delivery" v-if="isChangeDelivery">
-        <div class="inner-wrap">
-          <div class="form-title-wrap">
-            <p class="txt-form-title">현재 변경 가능한 날짜</p>
-          </div>
-          <div class="row-content">
-            <div class="date">
-              <ul class="list-flex">
-                <li
-                  v-for="(data, idx) in ChangeDeliveryDays.list"
-                  :key="idx"
-                  class="item w-20 h-50"
-                  :class="[{'holy-day': data.is_holiday === 'Y'}, {'selected-day': data.dday}, {'selected': data.solar_date === deliveryDate}]"
-                  style="flex-direction: column;"
-                  :style="calcDate(data, idx)"
-                  @click="clickDeliveryDate(data, $event)"
-                >
-                  <span class="txt-date-number">{{ data.month_day }}</span>
-                  <span>{{ data.day_of_week }}</span>
-                </li>
-              </ul>
-            </div>
-            <ol class="list">
-              <li>
-                1. 바로 다음 구독 상품의 배송일만 변경 가능하며 배송일을
-                변경하시더라도 <br v-show="$mq !== 'sm'">예정된 구독 일정에 따라 다음 구독 상품의
-                회수 예정일은 변경되지 않습니다.
-              </li>
-              <li>
-                2. 이번에 이용 중인 상품의 회수는 변경되는 배송일이 맞추어
-                함께 이루어집니다.
-              </li>
-            </ol>
-          </div>
-        </div>
-        <div class="button-wrap">
+        <div class="button-wrap info-button-wrap">
+          <!-- 버튼-->
           <button
             type="button"
+            v-if="User.type !== 14703"
             class="btn btn-primary h-56"
-            @click="clickChangeDelivery"
-            :disabled="deliveryDate === ''"
+            :disabled="User.type === 14702"
+            @click="clickStopSubscription"
+
           >
-            배송 예정일 변경
+            구독 중지
+          </button>
+
+          <!--<button
+            v-if="User.type === 14701"
+            type="button"
+            class="btn btn-primary h-56"
+            :style="isChangeDelivery ? 'background-color: #797979' : ''"
+            @click="toggleChangeDelivery"
+          >
+            {{ txtChangeDelivery }}
+          </button>-->
+          <button
+            v-if="User.type === 14703"
+            type="button"
+            class="btn btn-primary h-56"
+            @click="clickGoRestart"
+          >
+            구독 재시작
           </button>
         </div>
-      </div>
-      <div class="coupon">
-        <div class="form-title-wrap">
-          <p class="txt-form-title">이용 상품 구매 시 가능한 쿠폰</p>
+        <div class="change-delivery" v-if="isChangeDelivery">
+          <div class="inner-wrap">
+            <div class="form-title-wrap">
+              <p class="txt-form-title">현재 변경 가능한 날짜</p>
+            </div>
+            <div class="row-content">
+              <div class="date">
+                <ul class="list-flex">
+                  <li
+                    v-for="(data, idx) in ChangeDeliveryDays.list"
+                    :key="idx"
+                    class="item w-20 h-50"
+                    :class="[{'holy-day': data.is_holiday === 'Y'}, {'selected-day': data.dday}, {'selected': data.solar_date === deliveryDate}]"
+                    style="flex-direction: column;"
+                    :style="calcDate(data, idx)"
+                    @click="clickDeliveryDate(data, $event)"
+                  >
+                    <span class="txt-date-number">{{ data.month_day }}</span>
+                    <span>{{ data.day_of_week }}</span>
+                  </li>
+                </ul>
+              </div>
+              <ol class="list">
+                <li>
+                  1. 바로 다음 구독 상품의 배송일만 변경 가능하며 배송일을
+                  변경하시더라도 <br v-show="$mq !== 'sm'">예정된 구독 일정에 따라 다음 구독 상품의
+                  회수 예정일은 변경되지 않습니다.
+                </li>
+                <li>
+                  2. 이번에 이용 중인 상품의 회수는 변경되는 배송일이 맞추어
+                  함께 이루어집니다.
+                </li>
+              </ol>
+            </div>
+          </div>
+          <div class="button-wrap">
+            <button
+              type="button"
+              class="btn btn-primary h-56"
+              @click="clickChangeDelivery"
+              :disabled="deliveryDate === ''"
+            >
+              배송 예정일 변경
+            </button>
+          </div>
         </div>
-
-        <div class="table-coupon">
-          <table>
-            <thead>
-            <tr>
-              <th>쿠폰 종류</th>
-              <th>쿠폰명</th>
-              <th>사용가능기간</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr
-              v-if="SubscriptionInfo.coupons.length === 0"
-            >
-              <td colspan="3" style="text-align: center">
-                현재 쿠폰이 없습니다.
-              </td>
-            </tr>
-            <tr
-              v-else
-              v-for="(data, idx) in SubscriptionInfo.coupons"
-              :key="idx"
-            >
-              <td>
-                <div class="coupon-label">
-                  {{ data.sale_rate }}{{ data.coupon_type === 15001 ? '원' : '%'}}
-                </div>
-              </td>
-              <td>
-                <div class="txt">{{ data.coupon_name }}</div>
-              </td>
-              <td>
-                <div class="txt">
-                  {{ data.start_date }}~<br/>
-                  {{ data.end_date }}
-                </div>
-              </td>
-            </tr>
-            </tbody>
-          </table>
+      </div>
+    </div>
+    <div class="contents">
+      <div class="contents-header">
+        <h3>이용 상품 구매시 사용 가능한 쿠폰입니다.</h3>
+      </div>
+      <div class="content">
+        <div class="coupon">
+          <div class="table-coupon">
+            <table>
+              <thead>
+              <tr>
+                <th>쿠폰 종류</th>
+                <th>쿠폰명</th>
+                <th>사용가능기간</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr
+                v-if="SubscriptionInfo.coupons.length === 0"
+              >
+                <td colspan="3" style="text-align: center">
+                  현재 쿠폰이 없습니다.
+                </td>
+              </tr>
+              <tr
+                v-else
+                v-for="(data, idx) in SubscriptionInfo.coupons"
+                :key="idx"
+              >
+                <td>
+                  <div class="coupon-label">
+                    {{ data.sale_rate }}{{ data.coupon_type === 15001 ? '원' : '%'}}
+                  </div>
+                </td>
+                <td>
+                  <div class="txt">{{ data.coupon_name }}</div>
+                </td>
+                <td>
+                  <div class="txt">
+                    {{ data.start_date }}~<br/>
+                    {{ data.end_date }}
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -300,20 +305,25 @@ export default {
           });
           this.isChangeDelivery = false;
         } else {
-          this.$dialog.alert('통신 오류가 발생하였습니다. 잠시후 다시 시도해 주세요.', {
-            okText: '확인',
-            customClass: 'zuly-alert',
-            backdropClose: true
-          });
+          this.$dialog.alert(
+            '통신 오류가 발생하였습니다. 잠시후 다시 시도해 주세요.',
+            {
+              okText: '확인',
+              customClass: 'zuly-alert',
+              backdropClose: true
+            }
+          );
         }
       });
     }
   },
   created() {
-    this.getSubscriptionInfo();
     if (this.User.type === 14701) {
       // 구독중일때만 배송일 변경관련 정보 가져옴
       this.getChangeDeliveryDays();
+    }
+    if (this.User.type !== 14703) {
+      this.getSubscriptionInfo();
     }
   }
 };
@@ -321,12 +331,19 @@ export default {
 <style scoped lang="scss" src="@/assets/css/closet-style.scss">
 </style>
 <style scoped lang="scss">
-.content {
-  padding-top: 20px;
-  border-top: 1px solid #333;
+.contents {
+  &:nth-child(2) {
+    padding-top: 40px;
+  }
+}
+
+.contents-header {
+  border-bottom: 1px solid $color-primary;
+  padding-bottom: 15px;
 }
 
 .product-information {
+  margin-top: 10px;
   .table-info {
     @include fontSize(14px);
     background-color: #f5f5f5;
@@ -356,6 +373,89 @@ export default {
       .txt-time-limit {
         @include fontSize(12px);
       }
+    }
+  }
+}
+
+.coupon {
+  .table-coupon {
+    table {
+      width: 100%;
+      table-layout: fixed;
+      @include fontSize(15px);
+      th,
+      td {
+        vertical-align: middle;
+        border-bottom: 1px solid #e9e9e9;
+      }
+      th {
+        color: $color-primary;
+        font-weight: 700;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        &:nth-child(1) {
+          text-align: left;
+        }
+        &:nth-child(2),
+        &:nth-child(3) {
+          text-align: center;
+        }
+      }
+      td {
+
+        padding-top: 16px;
+        padding-bottom: 15px;
+        .txt {
+          display: inline-block;
+          text-align: left;
+        }
+        &:nth-child(2),
+        &:nth-child(3) {
+          text-align: center;
+        }
+        &:nth-child(3) {
+          @include langEn;
+        }
+      }
+      tbody {
+        tr {
+          &:last-child {
+            td {
+              border-bottom: 1px solid $color-primary;
+            }
+          }
+        }
+      }
+    }
+  }
+  .coupon-label {
+    @include fontSize(15px, en);
+    line-height: 36px;
+    font-weight: 700;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    height: 38px;
+    border: 1px solid #333;
+    border-radius: 3px;
+    padding-left: 16px;
+    padding-right: 32px;
+    &::after {
+      @include fontSize(11px);
+      content: 'ZULY';
+      text-align: center;
+      line-height: 16px;
+      font-weight: 400;
+      color: #fff;
+      display: block;
+      position: absolute;
+      width: 36px;
+      height: 16px;
+      background-color: #333;
+      transform-origin: 0 0;
+      transform: rotate(90deg);
+      left: 100%;
+      top: 0;
     }
   }
 }
@@ -400,93 +500,30 @@ export default {
   }
 }
 
-.coupon {
-  margin-top: 30px;
-  .table-coupon {
-    border-top: 1px solid #3d3d35;
-    border-bottom: 1px solid #3d3d35;
-    table {
-      width: 100%;
-      table-layout: fixed;
-      @include fontSize(15px);
-      th,
-      td {
-        vertical-align: middle;
-      }
-      th {
-        color: $color-primary;
-        font-weight: 700;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        &:nth-child(1) {
-          text-align: left;
-        }
-        &:nth-child(2),
-        &:nth-child(3) {
-          text-align: center;
-        }
-      }
-      td {
-        border-top: 1px solid #e9e9e9;
-        padding-top: 16px;
-        padding-bottom: 15px;
-        .txt {
-          display: inline-block;
-          text-align: left;
-        }
-        &:nth-child(2),
-        &:nth-child(3) {
-          text-align: center;
-        }
-        &:nth-child(3) {
-          @include langEn;
-        }
-      }
-    }
-  }
-  .coupon-label {
-    @include fontSize(15px, en);
-    line-height: 36px;
-    font-weight: 700;
-    text-align: center;
-    position: relative;
-    display: inline-block;
-    height: 38px;
-    border: 1px solid #333;
-    border-radius: 3px;
-    padding-left: 16px;
-    padding-right: 32px;
-    &::after {
-      @include fontSize(11px);
-      content: 'ZULY';
-      text-align: center;
-      line-height: 16px;
-      font-weight: 400;
-      color: #fff;
-      display: block;
-      position: absolute;
-      width: 36px;
-      height: 16px;
-      background-color: #333;
-      transform-origin: 0 0;
-      transform: rotate(90deg);
-      left: 100%;
-      top: 0;
-    }
-  }
-}
-
 @media (min-width: 1080px) {
+  .contents {
+    &:nth-child(2) {
+      padding-top: 50px;
+    }
+  }
   .content {
-    padding-top: 0;
-    border-top: 0;
+    margin-top: 0 !important;
+  }
+  .contents-header {
+    padding-bottom: 20px;
+    border-bottom: 2px solid $color-primary;
   }
   .product-information {
+    margin-top: 0;
+    .form-title-wrap {
+      display: none;
+    }
     .table-info {
       @include fontSize(15px);
       background-color: #fff;
       color: $color-primary;
       display: block;
+      border-top: 0;
       .header,
       .body {
         display: flex;
@@ -501,7 +538,6 @@ export default {
         }
       }
       .header {
-        border-top: 2px solid $color-primary;
         padding-top: 11px;
         padding-bottom: 11px;
         .cell {
@@ -567,7 +603,17 @@ export default {
         td {
           text-align: center !important;
         }
+        tbody {
+          tr {
+            &:last-child {
+              td {
+                border-bottom: 1px solid #e9e9e9;
+              }
+            }
+          }
+        }
       }
+
     }
   }
 }

@@ -447,6 +447,9 @@ export default {
 <style scoped lang="scss" src="@/assets/css/closet-style.scss">
 </style>
 <style scoped lang="scss">
+  .content {
+    margin-top: 15px !important;
+  }
 .restart-wrap {
   border-top: 1px solid #333;
   border-bottom: 1px solid #3d3d35;
@@ -514,6 +517,9 @@ export default {
 }
 
 @media (min-width: 1080px) {
+  .content {
+    margin-top: 20px !important;
+  }
   .restart-wrap {
     display: flex;
     background-color: #f7f7f7;
@@ -521,6 +527,7 @@ export default {
     padding-left: 30px;
     padding-right: 30px;
     padding-bottom: 30px;
+    border-top: 2px solid $color-primary;
     .change-delivery,
     .change-payment {
       flex: 0 1 50%;
