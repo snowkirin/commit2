@@ -11,37 +11,70 @@
             <p class="txt-form-title">구독 정보</p>
           </div>
           <div class="table-info">
-            <div class="header">
-              <div class="cell">
+
+            <!-- Mobile용 Table -->
+            <table v-if="$mq !== 'lg'">
+              <tbody>
+              <tr>
+                <th>배송/회수 예정일</th>
+                <td>{{ SubscriptionInfo.info.return_date }}</td>
+              </tr>
+              <tr>
+                <th>이용 요금제</th>
+                <td>{{ SubscriptionInfo.info.membership_name }} / {{ SubscriptionInfo.info.membership_price }}원</td>
+              </tr>
+              <tr>
+                <th>결제 예정일</th>
+                <td>{{ SubscriptionInfo.info.payment_date }}</td>
+              </tr>
+              <tr>
+                <th>할인 혜택</th>
+                <td>
+                  <div :key="idx" v-for="(data, idx) in SubscriptionInfo.info.price_coupons">
+                    {{ data.coupon_name }}
+                    <span class="txt-time-limit"> ({{ data.end_date }} 결제시까지 적용)</span>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+            <!-- Desktop용 Table -->
+
+            <table v-else>
+              <thead>
+              <th>
                 배송/회수 예정일
-              </div>
-              <div class="cell">
+              </th>
+              <th>
                 이용 요금제
-              </div>
-              <div class="cell">
+              </th>
+              <th>
                 결제 예정일
-              </div>
-              <div class="cell">
+              </th>
+              <th>
                 할인 혜택
-              </div>
-            </div>
-            <div class="body">
-              <div class="cell">
-                {{ SubscriptionInfo.info.return_date }}
-              </div>
-              <div class="cell">
-                {{ SubscriptionInfo.info.membership_name }} / {{ SubscriptionInfo.info.membership_price }}원
-              </div>
-              <div class="cell">
-                {{ SubscriptionInfo.info.payment_date }}
-              </div>
-              <div class="cell">
-                <div :key="idx" v-for="(data, idx) in SubscriptionInfo.info.price_coupons">
-                  {{ data.coupon_name }}
-                  <span class="txt-time-limit"> ({{ data.end_date }} 결제시까지 적용)</span>
-                </div>
-              </div>
-            </div>
+              </th>
+              </thead>
+              <tbody>
+              <tr>
+                <td>
+                  {{ SubscriptionInfo.info.return_date }}
+                </td>
+                <td>
+                  {{ SubscriptionInfo.info.membership_name }} / {{ SubscriptionInfo.info.membership_price }}원
+                </td>
+                <td>
+                  {{ SubscriptionInfo.info.payment_date }}
+                </td>
+                <td>
+                  <div :key="idx" v-for="(data, idx) in SubscriptionInfo.info.price_coupons">
+                    {{ data.coupon_name }}
+                    <span class="txt-time-limit"> ({{ data.end_date }} 결제시까지 적용)</span>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
           </div>
         </div>
         <div class="button-wrap info-button-wrap">
@@ -153,7 +186,7 @@
               >
                 <td>
                   <div class="coupon-label">
-                    {{ data.sale_rate }}{{ data.coupon_type === 15001 ? '원' : '%'}}
+                    {{data.sale_type === 14602 ? `${data.sale_price}원`: `${data.sale_rate}%` }}
                   </div>
                 </td>
                 <td>
@@ -337,6 +370,10 @@ export default {
   }
 }
 
+.content {
+  margin-top: 0 !important;
+}
+
 .contents-header {
   border-bottom: 1px solid $color-primary;
   padding-bottom: 15px;
@@ -348,31 +385,36 @@ export default {
     @include fontSize(14px);
     background-color: #f5f5f5;
     color: #797979;
-    display: flex;
     border-top: 1px solid #e9e9e9;
     border-bottom: 1px solid #e9e9e9;
-    .header {
-      .cell {
-        padding-left: 10px;
+    table {
+      width: 100%;
+      table-layout: fixed;
+    }
+    tr {
+      &:last-child {
+        th, td {
+          border-bottom: 0;
+        }
       }
     }
-    .body {
-      flex: 1 0 auto;
-      .cell {
-        text-align: right;
-        padding-right: 10px;
-      }
-    }
-    .cell {
+    th, td {
       padding-top: 10px;
       padding-bottom: 10px;
-      border-top: 1px solid #e9e9e9;
-      &:first-child {
-        border: 0;
-      }
-      .txt-time-limit {
-        @include fontSize(12px);
-      }
+      border-bottom: 1px solid #e9e9e9;
+    }
+    th {
+      text-align: left;
+      width: 120px;
+      padding-left: 10px;
+    }
+    td {
+      text-align: right;
+      padding-right: 10px;
+      word-break: keep-all;
+    }
+    .txt-time-limit {
+      @include fontSize(12px);
     }
   }
 }
@@ -381,7 +423,6 @@ export default {
   .table-coupon {
     table {
       width: 100%;
-      table-layout: fixed;
       @include fontSize(15px);
       th,
       td {
@@ -440,8 +481,9 @@ export default {
     border-radius: 3px;
     padding-left: 16px;
     padding-right: 32px;
+    white-space: nowrap;
     &::after {
-      @include fontSize(11px);
+      @include fontSize(11px,en);
       content: 'ZULY';
       text-align: center;
       line-height: 16px;
@@ -522,41 +564,36 @@ export default {
       @include fontSize(15px);
       background-color: #fff;
       color: $color-primary;
-      display: block;
       border-top: 0;
-      .header,
-      .body {
-        display: flex;
-        align-items: center;
-        .cell {
-          text-align: center;
-          flex-grow: 1;
-          flex-shrink: 0;
-          padding: 0;
-          max-width: 25%;
-          flex-basis: 25%;
+
+      table {
+        width: 100%;
+        table-layout: fixed;
+      }
+      tr {
+        &:last-child {
+          th, td {
+            border-bottom: 0;
+          }
         }
       }
-      .header {
-        padding-top: 11px;
-        padding-bottom: 11px;
-        .cell {
-          font-weight: 700;
-          border-top: 0;
-        }
+      th, td {
+        border-bottom: 1px solid #e9e9e9;
+        text-align: center;
+        vertical-align: middle;
       }
-      .body {
-        padding-top: 14px;
-        padding-bottom: 14px;
-        border-top: 1px solid #e9e9e9;
-        .cell {
-          border-top: 0;
-        }
+      th {
+        width: auto;
+        padding-left: 0;
+        font-weight: 700;
       }
-      .cell {
-        .txt-time-limit {
-          @include fontSize(15px);
-        }
+      td {
+        padding-right: 0;
+        padding-top: 15px;
+        padding-bottom: 15px;
+      }
+      .txt-time-limit {
+        @include fontSize(15px);
       }
     }
   }

@@ -38,7 +38,7 @@
 
 <script>
 import ZulyLogoSVG from '@/assets/img/logo.svg?inline';
-import { mapGetters, mapActions, mapMutations } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import Simplert from 'vue2-simplert';
 
 const alertObject = {
@@ -76,13 +76,6 @@ export default {
       CurrentRoute: 'common/CurrentRoute',
       isMainBanner: 'common/isMainBanner'
     }),
-    calcBanner() {
-      if (this.isMain && this.isMainBanner) {
-        return {
-          top: '40px'
-        };
-      }
-    },
     calcClassName() {
       if (this.CurrentRoute === 'main') {
         if (this.isLogin) {
@@ -102,7 +95,7 @@ export default {
           };
         } else {
           return {
-            top: '0px'
+            top: '10px'
           };
         }
       }
