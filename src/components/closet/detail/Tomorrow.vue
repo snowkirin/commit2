@@ -494,6 +494,11 @@ export default {
   bottom: 0;
   left: 0;
   z-index: 100;
+  button {
+    &:nth-child(2) {
+      border-left: 1px solid #fff;
+    }
+  }
 }
 
 @media (min-width: 768px) {

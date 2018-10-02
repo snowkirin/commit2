@@ -91,11 +91,11 @@ export default {
       if (this.CurrentRoute === 'main') {
         if (this.isMainBanner) {
           return {
-            top: '50px'
+            top: '40px'
           };
         } else {
           return {
-            top: '10px'
+            top: '0px'
           };
         }
       }
@@ -293,6 +293,7 @@ export default {
     &.header-main {
       .header-wrap {
         width: 1080px;
+        padding-top: 35px;
         padding-left: 0;
         padding-right: 0;
       }

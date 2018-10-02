@@ -162,7 +162,7 @@ export default {
 .content-inner {
   max-width: 100%;
   flex: 0 0 100%;
-  padding: 0 25px;
+  padding: 10px 25px 0 25px;
 }
 .logo-wrap {
   text-align: center;
@@ -286,7 +286,7 @@ export default {
   .phrases-wrap {
     @include fontSize(26px);
     order: -1;
-    margin-top: 0;
+    margin-top: 20px;
     margin-bottom: 16px;
     font-weight: 100;
   }

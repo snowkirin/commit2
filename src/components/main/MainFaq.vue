@@ -94,6 +94,11 @@ export default {
       }
     }
     &[data-show='true'] {
+      .icon-plus {
+        &::before {
+          display: none;
+        }
+      }
       .answer-wrap {
         display: block;
       }
