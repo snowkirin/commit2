@@ -26,6 +26,41 @@
           <div class="swiper-button-next" slot="button-next"></div>
         </swiper>
       </div>
+      <div>
+        <div class="table-model-info">
+          <table>
+            <caption>
+              모델 사이즈
+            </caption>
+            <colgroup>
+              <col width="14.51612903225806%">
+              <col width="*">
+              <col width="*">
+              <col width="*">
+              <col width="22.58064516129032%">
+              <col width="21.61290322580645%">
+            </colgroup>
+            <thead>
+            <tr>
+              <th>키</th>
+              <th>가슴</th>
+              <th>상의</th>
+              <th>치마</th>
+              <th>바지</th>
+              <th>체형</th>
+            </tr>
+            </thead>
+            <tr>
+              <td>168cm</td>
+              <td>75</td>
+              <td>55</td>
+              <td>55</td>
+              <td>55(26inch)</td>
+              <td>모래시계형</td>
+            </tr>
+          </table>
+        </div>
+      </div>
     </div>
 
     <div class="modal-close">
@@ -97,7 +132,7 @@ export default {
 </script>
 <style scoped lang="scss">
 .modal-product-detail {
-  padding: 20px;
+  padding: 15px 20px 20px;
 }
 .modal-content {
   margin-top: 15px;
@@ -131,9 +166,39 @@ export default {
     width: 60%;
   }
 }
+
+.table-model-info {
+  margin-top: 15px;
+  table {
+    width: 100%;
+  }
+  caption {
+    @include fontSize(14px);
+    text-align: left;
+    margin-bottom: 10px;
+  }
+  th, td {
+    @include fontSize(12px);
+    text-align: center;
+    height: 34px;
+    vertical-align: middle;
+    border: 1px solid #e9e9e9;
+  }
+  th {
+    background-color: #f5f5f5;
+    color: $color-primary;
+  }
+  td {
+    color: $color-secondary;
+    letter-spacing: 0;
+    :last-child {
+      letter-spacing: -1px;
+    }
+  }
+}
 .modal-close {
   position: absolute;
-  top: 15px;
+  top: 10px;
   right: 15px;
   overflow: hidden;
   z-index: 10;
@@ -145,8 +210,8 @@ export default {
   }
   .icon-close {
     display: block;
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -173,4 +238,12 @@ export default {
 }
 @media (min-width: 768px) {
 }
+
+  @media (min-width: 1080px) {
+    .table-model-info {
+      th, td {
+        @include fontSize(14px);
+      }
+    }
+  }
 </style>
