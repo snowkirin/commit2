@@ -58,12 +58,13 @@
             <input
               class="custom-control-input"
               type="checkbox"
-              name="sess_forever"
               id="sess_forever"
+              v-model="isChecked"
             >
             <label
               class="custom-control-label"
-              for="sess_forever">
+              for="sess_forever"
+            >
               아이디 (이메일주소) 저장
             </label>
           </div>
@@ -115,7 +116,8 @@ export default {
   data() {
     return {
       email: '',
-      password: ''
+      password: '',
+      isChecked: false
     };
   },
   methods: {
@@ -160,8 +162,20 @@ export default {
     },
     successLogin() {
       if (this.isLogin && this.Authentication.isAuthenticated) {
+        if (this.isChecked) {
+          this.$localStorage.set('email', this.email);
+        } else {
+          this.$localStorage.remove('email');
+        }
         this.$router.push({ path: '/closet/tomorrow' });
       }
+    }
+  },
+  created() {
+    const emailStorage = this.$localStorage.get('email');
+    if (!_.isNull(emailStorage)) {
+      this.isChecked = true;
+      this.email = emailStorage;
     }
   },
   mounted() {

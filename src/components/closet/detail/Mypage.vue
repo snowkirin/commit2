@@ -466,7 +466,7 @@
                         type="button"
                         class="btn btn-primary h-50"
                         @click="clickWithdrawal"
-                        :disabled="User.type !== 14701"
+                        :disabled="User.type === 14702"
                       >
                         회원탈퇴
                       </button>
@@ -945,26 +945,22 @@ export default {
           customClass: 'zuly-dialog',
           backdropClose: true
         })
-        .then(dialog => {
+        .then(() => {
           const formData = {
             reqType: 15102
           };
           this.postCancel(formData).then(res => {
             if (res.data.result) {
-              dialog.close();
               this.changeUserType(14702);
-              this.$dialog
-                .alert('탈퇴 신청되었습니다.', {
-                  okText: '확인',
-                  backdropClose: true,
-                  customClass: 'zuly-alert'
-                })
-                .then(dialog1 => {
-                  dialog1.close();
-                });
+              this.$dialog.alert('탈퇴 신청되었습니다.', {
+                okText: '확인',
+                backdropClose: true,
+                customClass: 'zuly-alert'
+              });
             }
           });
-        });
+        })
+        .catch(() => {});
     }
   },
   async created() {

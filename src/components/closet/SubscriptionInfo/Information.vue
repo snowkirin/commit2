@@ -17,20 +17,26 @@
               <tbody>
               <tr>
                 <th>배송/회수 예정일</th>
-                <td>{{ SubscriptionInfo.info.return_date }}</td>
+                <td>
+                  {{ User.type !== 14703 ? SubscriptionInfo.info.return_date : '' }}
+                </td>
               </tr>
               <tr>
                 <th>이용 요금제</th>
-                <td>{{ SubscriptionInfo.info.membership_name }} / {{ SubscriptionInfo.info.membership_price }}원</td>
+                <td>
+                  {{ User.type !== 14703 ? SubscriptionInfo.info.membership_name + SubscriptionInfo.info.membership_price + '원' : '이용중이 아닙니다.'}}
+                </td>
               </tr>
               <tr>
                 <th>결제 예정일</th>
-                <td>{{ SubscriptionInfo.info.payment_date }}</td>
+                <td>
+                  {{ User.type !== 14703 ? SubscriptionInfo.info.payment_date : ''}}
+                </td>
               </tr>
               <tr>
                 <th>할인 혜택</th>
                 <td>
-                  <div :key="idx" v-for="(data, idx) in SubscriptionInfo.info.price_coupons">
+                  <div v-if="User.type !== 14703" :key="idx" v-for="(data, idx) in SubscriptionInfo.info.price_coupons">
                     {{ data.coupon_name }}
                     <span class="txt-time-limit"> ({{ data.end_date }} 결제시까지 적용)</span>
                   </div>
@@ -57,21 +63,28 @@
               </thead>
               <tbody>
               <tr>
-                <td>
-                  {{ SubscriptionInfo.info.return_date }}
-                </td>
-                <td>
-                  {{ SubscriptionInfo.info.membership_name }} / {{ SubscriptionInfo.info.membership_price }}원
-                </td>
-                <td>
-                  {{ SubscriptionInfo.info.payment_date }}
-                </td>
-                <td>
-                  <div :key="idx" v-for="(data, idx) in SubscriptionInfo.info.price_coupons">
-                    {{ data.coupon_name }}
-                    <span class="txt-time-limit"> ({{ data.end_date }} 결제시까지 적용)</span>
-                  </div>
-                </td>
+                <template v-if="User.type !== 14703">
+                  <td>
+                    {{ SubscriptionInfo.info.return_date }}
+                  </td>
+                  <td>
+                    {{ `${SubscriptionInfo.info.membership_name} / ${SubscriptionInfo.info.membership_price}원`}}
+                  </td>
+                  <td>
+                    {{ SubscriptionInfo.info.payment_date}}
+                  </td>
+                  <td>
+                    <div :key="idx" v-for="(data, idx) in SubscriptionInfo.info.price_coupons">
+                      {{ data.coupon_name }}
+                      <span class="txt-time-limit"> ({{ data.end_date }} 결제시까지 적용)</span>
+                    </div>
+                  </td>
+                </template>
+                <template v-else>
+                  <td colspan="4">
+                    이용중이 아닙니다.
+                  </td>
+                </template>
               </tr>
               </tbody>
             </table>
@@ -507,10 +520,12 @@ export default {
 }
 
 .info-button-wrap {
-  display: flex;
-  justify-content: space-between;
+  text-align: right;
   button {
-    flex: 0 0 calc(50% - 5px);
+    width: calc(50% - 5px);
+    &:nth-child(2) {
+      margin-left: 10px;
+    }
   }
 }
 

@@ -29,15 +29,16 @@
         <div class="change-payment">
           <div class="change-payment-inner">
             <div class="form-title-wrap">
-              <p class="txt-form-title">결제 카드 변경 <span>(등록 카드 마지막 3자리: {{ calcCardNumber }})</span></p>
+              <p class="txt-form-title">결제 카드 인증 또는 변경</p>
             </div>
             <div class="button-wrap">
               <button
                 v-if="!isChangePayment"
                 type="button"
                 class="btn btn-primary h-50 btn-recertification"
-                @click="clickCheckBillingKey">
-                등록 카드 재인증
+                @click="clickCheckBillingKey"
+              >
+                등록 카드 (끝3자리:{{ calcCardNumber }}) 재인증
               </button>
               <button
                 type="button"
@@ -127,7 +128,7 @@
                       :class="{'text-field-error': errors.has('payment.newCardPassword')}">
                       <input
                         id="newCardPassword"
-                        type="text"
+                        type="password"
                         placeholder="앞 두자리"
                         maxlength="2"
                         name="newCardPassword"
@@ -447,9 +448,9 @@ export default {
 <style scoped lang="scss" src="@/assets/css/closet-style.scss">
 </style>
 <style scoped lang="scss">
-  .content {
-    margin-top: 15px !important;
-  }
+.content {
+  margin-top: 15px !important;
+}
 .restart-wrap {
   border-top: 1px solid #333;
   border-bottom: 1px solid #3d3d35;
@@ -465,8 +466,11 @@ export default {
   }
   .button-wrap {
     text-align: right;
+    button {
+      vertical-align: top;
+    }
     .btn-recertification {
-      width: 128px;
+      width: 200px;
     }
     .btn-toggle-payment {
       width: 88px;
