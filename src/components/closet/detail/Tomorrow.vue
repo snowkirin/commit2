@@ -58,7 +58,7 @@
                   class="btn btn-primary h-56"
                   @click="clickSelected('typeA')"
                 >
-                  선택하기
+                  {{tomorrowData.selected === 'typeA' ? 'A 선택됨' : 'A 선택하기'}}
                 </button>
               </div>
             </div>
@@ -102,7 +102,7 @@
                   class="btn btn-primary h-56"
                   @click="clickSelected('typeB')"
                 >
-                  선택하기
+                  {{tomorrowData.selected === 'typeB' ? 'B 선택됨' : 'B 선택하기'}}
                 </button>
               </div>
             </div>
@@ -494,6 +494,11 @@ export default {
   bottom: 0;
   left: 0;
   z-index: 100;
+  button {
+    &:nth-child(2) {
+      border-left: 1px solid #fff;
+    }
+  }
 }
 
 @media (min-width: 768px) {

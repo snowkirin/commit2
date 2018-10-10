@@ -11,6 +11,11 @@ const initialState = {
 };
 const state = Object.assign({}, initialState);
 const mutations = {
+  [types.RESET_STATE](state) {
+    for (let prop in state) {
+      state[prop] = initialState[prop]
+    }
+  },
   [types.POST_PASSWORD](state) {
     state.PasswordAuth = true;
   },

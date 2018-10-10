@@ -1,7 +1,7 @@
 <template>
   <div class="contents">
     <div class="contents-header">
-      <h3>{{ Authentication.userName }}님<br/>가입을 환영합니다.</h3>
+      <h3>{{ User.displayName }}님<br/>가입을 환영합니다.</h3>
       <p>고객님에 대해 조금 더 자세히 알려주시면 더 어울리는 아이템을 보내드릴 수 있습니다.</p>
     </div>
     <form>
@@ -136,7 +136,7 @@ export default {
   name: 'addinfo',
   components: {},
   computed: mapGetters({
-    Authentication: 'login/Authentication',
+    User: 'login/User',
     Options: 'codes/Options'
   }),
   data() {
@@ -291,10 +291,7 @@ export default {
       const $this = this;
       const formData = new FormData();
       formData.append('userImages', $this.imageFile);
-      Members.postMemberImageStyle(formData, $this.memberStyle).then(function(
-        res
-      ) {});
-
+      Members.postMemberImageStyle(formData, $this.memberStyle).then(() => {});
       this.$router.push({ path: '/closet/tomorrow' });
     }
   },

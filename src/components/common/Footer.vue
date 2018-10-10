@@ -263,7 +263,7 @@ export default {
       }
     }
   }
-  .footer-lay1 {
+  .footer-layer1 {
     .txt-tel {
       @include fontSize(21px, en);
     }

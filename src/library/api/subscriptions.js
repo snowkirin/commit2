@@ -277,5 +277,61 @@ export default {
           message: err.message
         };
       });
+  },
+
+  /*
+  * 구독 정보 조회
+  * */
+  getSubscriptionInfo() {
+    return axios
+      .get(`${API_URL}/subscriptions/info`, {
+        withCredentials: true
+      })
+      .then(res => {
+        return res;
+      })
+      .catch(err => {
+        return {
+          ...err.response,
+          message: err.message
+        };
+      });
+  },
+
+  // 구독 재시작
+  putSubscriptionRestart(data) {
+    return axios
+      .put(`${API_URL}/subscriptions/restart`, data, {
+        withCredentials: true
+      })
+      .then(res => {
+        return res;
+      })
+      .catch(err => {
+        return {
+          ...err.response,
+          message: err.message
+        };
+      });
+  },
+
+  /*
+  * 배송일 변경
+  * params: { idNext: Number, date: YYYY-MM-DD }
+  * */
+  patchUpdateSubscriptionReturnDate(data) {
+    return axios
+      .patch(`${API_URL}/subscriptions/updateSubscriptionReturnDate`, data, {
+        withCredentials: true
+      })
+      .then(res => {
+        return res;
+      })
+      .catch(err => {
+        return {
+          ...err.response,
+          message: err.message
+        };
+      });
   }
 };

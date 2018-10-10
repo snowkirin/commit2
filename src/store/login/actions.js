@@ -1,5 +1,7 @@
-import Auth from "@/library/api/auth";
-import types from "./mutation-types";
+import Auth from '@/library/api/auth';
+import Member from '@/library/api/member';
+import types from './mutation-types';
+import {Base64} from "js-base64";
 
 export default {
   doLogin({ commit }, data) {
@@ -34,6 +36,29 @@ export default {
         }
       }
       return res;
+    });
+  },
+  changeUserType({ commit }, data) {
+    commit(types.CHANGE_USER_TYPE, data);
+    // return Member.postCancel(data).then(res => {
+    //   if (res.data.result) {
+    //
+    //     return res;
+    //   }
+    // });
+  },
+
+  /*
+  * 구독 중지 및 회원 탈퇴
+  * reqType = 15101(구독중지), 15102(회원탈퇴)
+  * */
+  postCancel({ commit }, data) {
+    return Member.postCancel(data).then(res => {
+      if (res.data.result) {
+        return res;
+      } else {
+        return res;
+      }
     });
   }
 };

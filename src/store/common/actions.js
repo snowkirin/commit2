@@ -39,5 +39,11 @@ export default {
   },
   checkCurrentRoute({ commit }, data) {
     commit(types.CHECK_CURRENT_ROUTE, data);
+  },
+  successRestart({commit}){
+    commit(types.SUCCESS_RESTART);
+  },
+  resetRestart({commit}) {
+    commit(types.RESET_RESTART);
   }
 };

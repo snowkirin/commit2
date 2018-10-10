@@ -448,7 +448,7 @@
               </form>
             </div>
             <!-- 현재 사용되지 않음-->
-            <div class="row" v-if="false">
+            <div class="row">
               <!--회원 가입일-->
               <div>
                 <div class="form-title-wrap">
@@ -458,11 +458,18 @@
                   <div class="grid-flex grid-fixed">
                     <div class="column">
                       <div class="text-field">
-                        <input type="text">
+                        <input type="text" readonly :value="User.inserted">
                       </div>
                     </div>
-                    <div class="column">
-                      <button type="button" class="btn btn-primary h-50">회원탈퇴</button>
+                    <div class="column w-26 o-3">
+                      <button
+                        type="button"
+                        class="btn btn-primary h-50"
+                        @click="clickWithdrawal"
+                        :disabled="User.type === 14702"
+                      >
+                        회원탈퇴
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -472,11 +479,13 @@
         </div>
       </div>
     </div>
+    <simplert ref="alert" :useRadius="false" :useIcon="false" />
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import Simplert from 'vue2-simplert';
 
 const alertObject = {
   type: 'alert', // 타입
@@ -487,7 +496,7 @@ const alertObject = {
 
 export default {
   name: 'mypage',
-  components: {},
+  components: { Simplert },
   data() {
     return {
       initPhoneNumber: '',
@@ -526,7 +535,8 @@ export default {
   computed: {
     ...mapGetters({
       Mypage: 'member/Mypage',
-      PhoneAuth: 'member/PhoneAuth'
+      PhoneAuth: 'member/PhoneAuth',
+      User: 'login/User'
     }),
     calcCardNumber() {
       return this.currentCardNumber.substring(
@@ -543,7 +553,9 @@ export default {
       patchPayment: 'member/patchPayment',
       patchAddress: 'member/patchAddress',
       patchLobbyPassword: 'member/patchLobbyPassword',
-      patchAnn: 'member/patchAnn'
+      patchAnn: 'member/patchAnn',
+      postCancel: 'login/postCancel',
+      changeUserType: 'login/changeUserType'
     }),
     setMypageData() {
       // 핸드폰 번호
@@ -803,7 +815,7 @@ export default {
           new window.daum.Postcode({
             width: '100%',
             height: '498px',
-            onresize: size => {},
+            onresize: () => {},
             onclose: state => {
               if (state === 'COMPLETE_CLOSE') {
               }
@@ -924,6 +936,31 @@ export default {
           }
         });
       }
+    },
+    clickWithdrawal() {
+      this.$dialog
+        .confirm('정말 회원 탈퇴하시겠습니까??', {
+          okText: '예',
+          cancelText: '아니오',
+          customClass: 'zuly-dialog',
+          backdropClose: true
+        })
+        .then(() => {
+          const formData = {
+            reqType: 15102
+          };
+          this.postCancel(formData).then(res => {
+            if (res.data.result) {
+              this.changeUserType(14702);
+              this.$dialog.alert('탈퇴 신청되었습니다.', {
+                okText: '확인',
+                backdropClose: true,
+                customClass: 'zuly-alert'
+              });
+            }
+          });
+        })
+        .catch(() => {});
     }
   },
   async created() {

@@ -294,6 +294,7 @@ export default {
   }
 
   .past {
+    border-top: 2px solid $color-primary;
     .body-row {
       &:first-child {
         border-top: 1px solid #e9e9e9;

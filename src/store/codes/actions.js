@@ -65,6 +65,17 @@ export default {
       }
     });
   },
+  getChangeDeliveryDays({ commit }, data) {
+    return Codes.getChangeDeliveryDays(data).then(res => {
+      if (res.data.result) {
+        console.log(res.data);
+        commit(types.GET_CHANGE_DELIVERY_DAYS, res.data);
+        return res;
+      } else {
+        return res;
+      }
+    });
+  },
   getOptions({ commit }) {
     return Codes.getOptions().then(res => {
       if (res.data.result || res.status === 200) {

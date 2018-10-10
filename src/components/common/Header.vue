@@ -2,6 +2,7 @@
   <header
     class="header"
     :class="calcClassName"
+    :style="[calcStyle]"
   >
     <div class="header-wrap">
       <router-link to="/" class="logo">
@@ -31,21 +32,13 @@
         </ul>
       </nav>
     </div>
-    <simplert ref="alert" :useRadius="false" :useIcon="false" />
+
   </header>
 </template>
 
 <script>
 import ZulyLogoSVG from '@/assets/img/logo.svg?inline';
-import { mapGetters, mapActions, mapMutations } from 'vuex';
-import Simplert from 'vue2-simplert';
-
-const alertObject = {
-  type: 'alert', // 타입
-  customClass: 'popup-custom-class', // 커스텀 클래스 네임
-  disableOverlayClick: false, // 오버레이 클릭시 닫기 방지
-  customCloseBtnText: '확인' // 닫기 버튼 텍스트
-};
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'zuly-header',
@@ -65,7 +58,6 @@ export default {
   props: {},
   watch: {},
   components: {
-    Simplert,
     ZulyLogoSVG
   },
   computed: {
@@ -86,24 +78,17 @@ export default {
         return this.CurrentRoute;
       }
     },
-
-    calcMain() {
-      if (this.CurrentRoute === 'main' && this.isLogin && this.$mq === 'sm') {
-        return {
-          display: 'block'
-        };
-      } else if (this.CurrentRoute === 'main' && this.isLogin) {
-        return {
-          display: 'block'
-        };
-      } else if (
-        this.CurrentRoute === 'main' &&
-        !this.isLogin &&
-        this.$mq !== 'sm'
-      ) {
-        return {
-          display: 'none'
-        };
+    calcStyle() {
+      if (this.CurrentRoute === 'main') {
+        if (this.isMainBanner) {
+          return {
+            top: '40px'
+          };
+        } else {
+          return {
+            top: '0px'
+          };
+        }
       }
     }
   },
@@ -111,30 +96,47 @@ export default {
     ...mapActions({
       doLogout: 'login/doLogout'
     }),
-    ...mapMutations({
-      resetState: 'subscriptions/RESET_STATE'
-    }),
+    // 로그아웃시
+    resetStore() {
+      this.$store.commit('auth/RESET_STATE');
+      this.$store.commit('codes/RESET_STATE');
+      this.$store.commit('common/RESET_STATE');
+      this.$store.commit('faq/RESET_STATE');
+      this.$store.commit('inquiries/RESET_STATE');
+      this.$store.commit('login/RESET_STATE');
+      this.$store.commit('member/RESET_STATE');
+      this.$store.commit('notices/RESET_STATE');
+      this.$store.commit('payment/RESET_STATE');
+      this.$store.commit('signup/RESET_STATE');
+      this.$store.commit('subscriptions/RESET_STATE');
+    },
+
     clickLogout() {
       this.doLogout().then(() => {
+        this.$dialog
+          .alert('로그아웃 되었습니다.', {
+            okText: '확인',
+            customClass: 'zuly-alert',
+            backdropClose: true
+          })
+          .then(() => {
+          })
+          .catch(() => {});
         document.cookie = `${
           process.env.VUE_APP_TOKEN_NAME
-        }=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=${
+          }=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=${
           process.env.VUE_APP_HOST
-        }`;
-        _.assign(alertObject, {
-          message: '로그아웃 되었습니다.'
-        });
-        this.$refs.alert.openSimplert(alertObject);
-        this.resetState();
+          }`;
+        this.resetStore();
         this.$router.push({ path: '/login' });
       });
     }
-  }
+  },
 };
 </script>
 
 <style scoped lang="scss">
-  // Mobile
+// Mobile
 .header {
   // 안에 있는 컨텐츠의 가운데 정렬
   display: flex;
@@ -193,7 +195,6 @@ export default {
     width: 100%;
     z-index: 10;
     .header-wrap {
-
       display: none;
     }
     .logo {
@@ -288,6 +289,7 @@ export default {
     &.header-main {
       .header-wrap {
         width: 1080px;
+        padding-top: 35px;
         padding-left: 0;
         padding-right: 0;
       }
