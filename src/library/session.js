@@ -75,7 +75,8 @@ export default {
               await $store.dispatch('subscriptions/getTomorrowDirect', token)
                 .then(res => {
                   $store.state.login.User.displayName = res.data.info.name;
-                })
+                  $store.state.login.User.userId = res.data.info.member_id;
+                });
               next();
             } else {
               alert('로그인 하셔야만 이용이 가능합니다.');

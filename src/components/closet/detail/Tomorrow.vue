@@ -171,7 +171,8 @@ export default {
       TomorrowResult: 'subscriptions/TomorrowResult',
       TomorrowProductDetail: 'subscriptions/TomorrowProductDetail',
       isTomorrowDirect: 'subscriptions/isTomorrowDirect',
-      TomorrowDirectMemberId: 'subscriptions/TomorrowDirectMemberId'
+      TomorrowDirectMemberId: 'subscriptions/TomorrowDirectMemberId',
+      User: 'login/User'
     }),
     isShowButton() {
       // 선택 버튼은 스타일 지정 상태일때만 보여야 한다.
@@ -361,6 +362,7 @@ export default {
       this.processingData();
       this.isTomorrowData = true;
     }
+    window.mid = this.User.userId;
   },
   destroyed() {
     if (this.isTomorrowDirect) {
