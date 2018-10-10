@@ -55,7 +55,7 @@
                     </div>
                   </div>
                   <div class="column w-31 o-2">
-                    <label class="label-card" for="cardExpiry">생년월일</label>
+                    <label class="label-card" for="cardExpiry">유효기간</label>
                     <div class="text-field" :class="{'text-field-error': errors.has('cardExpiry')}">
                       <input
                         id="cardExpiry"
