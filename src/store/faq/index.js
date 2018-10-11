@@ -2,7 +2,13 @@ import types from './mutation-types';
 import actions from './actions';
 
 const initialState = {
-  FaqMainListResult: []
+  Faq: {
+    total_cnt: 0,
+    page_cnt: 0,
+    data: []
+  },
+  FaqMainListResult: [],
+  FaqTypes: [],
 };
 const state = Object.assign({}, initialState);
 const mutations = {
@@ -11,12 +17,21 @@ const mutations = {
       state[prop] = initialState[prop];
     }
   },
+  [types.GET_FAQ](state, data) {
+    state.Faq = data;
+  },
   [types.GET_FAQ_MAIN_LIST](state, data) {
     state.FaqMainListResult = data;
+  },
+  [types.GET_FAQ_TYPES](state, data) {
+    state.FaqTypes = data;
   }
+
 };
 const getters = {
-  FaqMainListResult: state => state.FaqMainListResult
+  Faq: state => state.Faq,
+  FaqMainListResult: state => state.FaqMainListResult,
+  FaqTypes: state => state.FaqTypes
 };
 
 export default {

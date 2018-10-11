@@ -213,21 +213,6 @@ const router = new Router({
                 }
               ]
             },
-
-            /*{
-              path: 'security',
-              name: 'Closet_Security',
-              component: ClosetMypageSecurity,
-              meta: { requiresAuth: true },
-              children: [
-                {
-                  path: 'mypage',
-                  name: 'Closet_Mypage',
-                  component: ClosetMypage,
-                  meta: { requiresAuth: true }
-                }
-              ]
-            },*/
             {
               path: 'style',
               name: 'Closet_StyleInfo',
@@ -239,6 +224,12 @@ const router = new Router({
               name: 'Closet_Coupon',
               component: ClosetCoupon,
               meta: { requiresAuth: true }
+            },
+            {
+              path: 'faq',
+              name: 'Closet_Faq',
+              component: () => import('@/components/closet/detail/Faq.vue'),
+              meta: { requiresAuth: false }
             }
           ]
         },

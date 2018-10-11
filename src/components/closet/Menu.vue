@@ -6,6 +6,7 @@
           :key="idx"
           :to="data.path"
           class="closet-link"
+          :class="{'en-menu': data.lang === 'en'}"
           active-class="active">
           {{ data.text }}
         </router-link>
@@ -87,6 +88,11 @@ export default {
         {
           text: '공지사항',
           path: '/closet/notice'
+        },
+        {
+          text: 'FAQ',
+          path: '/closet/faq',
+          lang: 'en'
         }
       ]
     };
@@ -165,6 +171,9 @@ export default {
       padding-right: 1px;
       display: inline-block;
       margin-right: 27px;
+      &:last-child {
+        margin-right: 0;
+      }
       &.active {
         &::after {
           content: '';
@@ -189,6 +198,10 @@ export default {
     width: 1080px;
     .closet-link {
       @include fontSize(18px);
+      &.en-menu {
+        @include fontSize(19px);
+        letter-spacing: -0.4px;
+      }
     }
   }
 }
