@@ -8,9 +8,9 @@ module.exports = {
     }
   },
   chainWebpack: config => {
-		const svgRule = config.module.rule('svg');
-		svgRule.uses.clear();
-		// add replacement loader(s)
+    const svgRule = config.module.rule('svg');
+    svgRule.uses.clear();
+    // add replacement loader(s)
 
     svgRule
       .oneOf('inline')
@@ -23,11 +23,14 @@ module.exports = {
       .use('file-loader')
       .loader('file-loader')
       .options({
-        name: 'assets/[name].[hash:8].[ext]',
+        name: 'assets/[name].[hash:8].[ext]'
       });
-
-		// svgRule
-		// 	.use('vue-svg-loader')
-		// 	.loader('vue-svg-loader');
-	}
+  },
+  pwa: {
+    workboxPluginMode: 'GenerateSW',
+    workboxOptions: {
+      skipWaiting: true,
+      offlineGoogleAnalytics : true
+    }
+  }
 };
