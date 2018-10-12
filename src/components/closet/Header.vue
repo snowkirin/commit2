@@ -1,6 +1,9 @@
 <template>
   <div class="closet-header">
-    <p class="user-info" ref="displayName">
+    <p class="user-info" v-if="loginFaq">
+      환영합니다.
+    </p>
+    <p class="user-info" v-else>
       {{ User.displayName }}님 옷장
     </p>
   </div>
@@ -12,21 +15,18 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'closet-header',
   data() {
-    return {};
+    return {
+      loginFaq: false
+    };
   },
   computed: mapGetters({
     User: 'login/User',
     FaqLoginCheck: 'common/FaqLoginCheck',
-    isLogin: 'login/isLogin',
+    isLogin: 'login/isLogin'
   }),
   methods: {},
   mounted() {
-    console.log(this.$route.path);
-    if (this.$route.path === '/closet/faq' && !this.isLogin) {
-      this.$refs.displayName.style.display = 'none';
-    } else {
-      this.$refs.displayName.style.display = 'block';
-    }
+    this.loginFaq = this.$route.path === '/closet/faq' && !this.isLogin;
   }
 };
 </script>
