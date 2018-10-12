@@ -1,6 +1,6 @@
 <template>
   <div class="closet-header">
-    <p class="user-info">
+    <p class="user-info" ref="displayName">
       {{ User.displayName }}님 옷장
     </p>
   </div>
@@ -15,9 +15,19 @@ export default {
     return {};
   },
   computed: mapGetters({
-    User: 'login/User'
+    User: 'login/User',
+    FaqLoginCheck: 'common/FaqLoginCheck',
+    isLogin: 'login/isLogin',
   }),
-  methods: {}
+  methods: {},
+  mounted() {
+    console.log(this.$route.path);
+    if (this.$route.path === '/closet/faq' && !this.isLogin) {
+      this.$refs.displayName.style.display = 'none';
+    } else {
+      this.$refs.displayName.style.display = 'block';
+    }
+  }
 };
 </script>
 
