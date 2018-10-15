@@ -78,6 +78,7 @@
                     ref="tallSize"
                     v-model="joinData.tallSize"
                     v-validate="{ required: true, regex: /^\d+$/ }"
+                    data-vv-as="키"
                     placeholder="최근 측정한 키를 입력해주세요.">
                 </div>
                 <p
@@ -185,23 +186,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import { Validator } from 'vee-validate';
 import Simplert from 'vue2-simplert';
-
-const dict = {
-  custom: {
-    tallSize: {
-      min: '3자 이상 입력해주세요',
-      required: '키를 입력해주세요.',
-      regex: '숫자만 입력 가능합니다.'
-    },
-    bustSize: {
-      required: '가슴사이즈를 입력해주세요.',
-      regex: '올바른 형식이 아닙니다.'
-    }
-  }
-};
-Validator.localize('ko', dict);
 
 export default {
   name: 'size',
