@@ -207,7 +207,18 @@
                   <input
                     type="text"
                     placeholder="한 개 이상인 경우 콤마(,)로 구분하여 입력해 주세요"
-                    v-model="styleData.preferBrand">
+                    v-model="styleData.preferBrand"/>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-title-wrap">
+                  <p class=" txt-form-title">주로 이용하는 온라인 쇼핑몰은?</p>
+                </div>
+                <div class="text-field">
+                  <input
+                    type="text"
+                    placeholder="예) W 컨셉, 29cm"
+                    v-model="styleData.preferShop"/>
                 </div>
               </div>
               <!--Dress Code-->
@@ -345,6 +356,7 @@ export default {
         preferColor: null,
         preferPattern: null,
         preferBrand: '',
+        preferShop: '',
         dressCode: null,
         requirement: ''
       },
@@ -606,6 +618,7 @@ export default {
           preferColor: memberStyle.prefer_color,
           preferPattern: memberStyle.prefer_pattern,
           preferBrand: memberStyle.prefer_brand,
+          preferShop: memberStyle.prefer_shop,
           dressCode: memberStyle.dress_code,
           requirement: memberStyle.etc
         };

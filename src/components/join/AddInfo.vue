@@ -47,6 +47,15 @@
                   v-model="memberStyle.preferBrand">
               </div>
             </div>
+            <div class="row">
+              <p class="txt-form-title">[선택] 주로 이용하는 온라인 쇼핑몰은?</p>
+              <div class="text-field">
+                <input
+                  type="text"
+                  placeholder="예) W 컨셉, 29cm"
+                  v-model="memberStyle.preferShop">
+              </div>
+            </div>
             <!-- 업로드 -->
             <div class="row">
               <p class="txt-form-title">[선택] My Daily Look - 사진을 올려주세요.</p>
@@ -146,7 +155,8 @@ export default {
         preferPattern: null,
         preferBrand: null,
         dressCode: null,
-        requirement: null
+        requirement: null,
+        preferShop: null,
       },
       imageFile: {},
       previewImage: ''
