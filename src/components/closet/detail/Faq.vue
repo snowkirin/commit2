@@ -7,7 +7,7 @@
       <div v-if="$mq !== 'sm'">
         <ul class="list-flex">
           <li
-            class="item"
+            class="item h-50"
             :class="{'selected': currentFaqType === ''}"
             @click="faqListFilter()"
           >
