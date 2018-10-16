@@ -30,6 +30,14 @@
           </div>
         </div>
       </div>
+      <div class="link-faq">
+        <router-link
+          class="txt-link"
+          to="closet/faq"
+        >
+          + 더보기
+        </router-link>
+      </div>
 
     </div>
   </div>
@@ -77,8 +85,6 @@ export default {
 <style scoped lang="scss" src="@/assets/css/main-style.scss">
 </style>
 <style scoped lang="scss">
-.content {
-}
 .list-faq {
   .column {
     margin-top: 15px;
@@ -156,6 +162,13 @@ export default {
     white-space: pre-wrap;
   }
 }
+.link-faq {
+  text-align: right;
+  margin-top: 20px;
+  .txt-link {
+    @include fontSize(14px);
+  }
+}
 @media (min-width: 768px) {
   .list-faq {
     .column {
@@ -170,9 +183,13 @@ export default {
   }
 }
 @media (min-width: 1080px) {
+  .link-faq,
   .list-faq {
     width: 1080px;
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .list-faq {
     .column {
       flex-basis: calc(33.333% - (55px / 3));
       &:nth-child(1) {
@@ -194,6 +211,9 @@ export default {
         margin-left: 27.5px;
       }
     }
+  }
+  .link-faq {
+
   }
 }
 </style>

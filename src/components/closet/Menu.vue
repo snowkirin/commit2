@@ -6,6 +6,7 @@
           :key="idx"
           :to="data.path"
           class="closet-link"
+          :class="{'en-menu': data.lang === 'en'}"
           active-class="active">
           {{ data.text }}
         </router-link>
@@ -21,7 +22,8 @@
         <router-link
           :to="data.path"
           class="closet-link"
-          active-class="active">
+          active-class="active"
+        >
           {{ data.text }}
         </router-link>
       </swiper-slide>
@@ -34,18 +36,29 @@
   *  vue-awesome-swiper 클릭 이벤트 제대로 작동 안할시 참고 할것
   *  https://github.com/surmon-china/vue-awesome-swiper/issues/226
   * */
+import { mapGetters } from 'vuex';
 import { swiper, swiperSlide } from 'vue-awesome-swiper';
 import 'swiper/dist/css/swiper.css';
 
 export default {
   name: 'closet-menu',
-  watch: {},
+  watch: {
+    loginFaq() {
+      this.menuFilter();
+    }
+  },
   components: {
     swiper,
     swiperSlide
   },
+  computed: {
+    ...mapGetters({
+      isLogin: 'login/isLogin'
+    })
+  },
   data() {
     return {
+      loginFaq: false,
       swiperOption: {
         slidesPerView: 'auto',
         spaceBetween: 20
@@ -85,6 +98,11 @@ export default {
         //   path: '/closet/cs'
         // },
         {
+          text: 'FAQ',
+          path: '/closet/faq',
+          lang: 'en'
+        },
+        {
           text: '공지사항',
           path: '/closet/notice'
         }
@@ -94,9 +112,18 @@ export default {
   methods: {
     clickMenu(idx) {
       this.$refs.mySwiper.swiper.slideTo(idx - 1, 400);
+    },
+    menuFilter() {
+      if (this.loginFaq) {
+        this.routerJSON = _.filter(this.routerJSON, value => {
+          return value.text === 'FAQ';
+        })
+      }
     }
   },
-  mounted() {}
+  mounted() {
+    this.loginFaq = this.$route.path === '/closet/faq' && !this.isLogin;
+  }
 };
 </script>
 
@@ -165,6 +192,9 @@ export default {
       padding-right: 1px;
       display: inline-block;
       margin-right: 27px;
+      &:last-child {
+        margin-right: 0;
+      }
       &.active {
         &::after {
           content: '';
@@ -189,6 +219,10 @@ export default {
     width: 1080px;
     .closet-link {
       @include fontSize(18px);
+      &.en-menu {
+        @include fontSize(19px);
+        letter-spacing: -0.4px;
+      }
     }
   }
 }

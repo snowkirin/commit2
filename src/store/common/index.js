@@ -7,13 +7,13 @@ const initialState = {
   userId: '',
   isMainBanner: true,
   CurrentRoute: '',
-  isRestart: false,
+  isRestart: false
 };
 const state = Object.assign({}, initialState);
 const mutations = {
   [types.RESET_STATE](state) {
     for (let prop in state) {
-      state[prop] = initialState[prop]
+      state[prop] = initialState[prop];
     }
   },
   [types.PHONE_VERIFY](state, data) {
