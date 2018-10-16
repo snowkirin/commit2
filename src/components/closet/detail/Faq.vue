@@ -1,7 +1,7 @@
 <template>
   <div class="contents">
     <div class="contents-header">
-      <h3>찾으시는 답변이 없으시면 카카오톡 문의를 이용해 주세요.</h3>
+      <h3>찾으시는 답변이 없으시면 카카오톡을 이용해 주세요.</h3>
     </div>
     <div class="content">
       <div v-if="$mq !== 'sm'">
@@ -57,6 +57,7 @@
               class="table-row"
               :key="`title-${idx}`"
               @click="clickTitle"
+              data-selector="title"
             >
               <td class="type">{{item.name}}</td>
               <td class="title">{{item.title}}</td>
@@ -87,7 +88,7 @@ export default {
   data() {
     return {
       currentFaqList: [],
-      currentFaqType: '',
+      currentFaqType: ''
     };
   },
   computed: {
@@ -119,9 +120,15 @@ export default {
           ? event.target
           : event.target.closest('tr');
       this.hideTableContent();
+      eleSelf.classList.add('active');
       eleSelf.nextElementSibling.style.display = 'table-row';
     },
     hideTableContent() {
+      const activeTitle = this.$refs.table.querySelectorAll('.active');
+
+      if (activeTitle.length !== 0) {
+        activeTitle[0].classList.remove('active');
+      }
       const lists = this.$refs.table.querySelectorAll(
         'tr[data-selector="content"]'
       );
@@ -181,6 +188,11 @@ export default {
     padding-bottom: 20px;
     padding-left: 24px;
     padding-right: 24px;
+  }
+  tr {
+    &.active {
+      font-weight: 700;
+    }
   }
 }
 .list-flex {
