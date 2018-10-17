@@ -1,5 +1,8 @@
 <template>
-  <div class="contents">
+  <div
+    class="contents"
+    :style="promotionStyle"
+  >
     <!--데이터가 없다면-->
     <div v-if="!isTomorrowData">
       <div class="none">
@@ -13,6 +16,25 @@
     </div>
     <!--데이터가 있다면 -->
     <div v-else>
+      <div class="promotion-wrap">
+        <div>
+          <p
+            @click="clickPromotion"
+          >
+            <img style="width: 100%;" src="@/assets/img/closet/event_banner.png"/>
+          </p>
+        </div>
+        <transition name="popover-promotion">
+          <div v-if="isPromotionShow" class="promotion" :style="{height: promotionSize + 'px'}">
+            <div class="promotion-content">
+              <div>
+                <img style="width: 100%;" src="@/assets/img/closet/event_banner_more.png" alt="">
+              </div>
+              <button type="button" @click="isPromotionShow = !isPromotionShow">X</button>
+            </div>
+          </div>
+        </transition>
+      </div>
       <div class="contents-header">
         <h3>데일리룩 후보 중 마음에 드는 의상을 선택해주세요.</h3>
         <p>(기한 내 미선택 시, 회원님께 더 어울릴 스타일로 자동 지정 후 배송 됩니다.)</p>
@@ -43,7 +65,8 @@
                     type="button"
                     class="btn btn-product-detail h-40"
                     @click="clickProductDetail(data)"
-                  >상품 상세보기</button>
+                  >상품 상세보기
+                  </button>
                 </div>
               </div>
               <div class="product-bot">
@@ -87,7 +110,8 @@
                     type="button"
                     class="btn btn-product-detail h-40"
                     @click="clickProductDetail(data)"
-                  >상품 상세보기</button>
+                  >상품 상세보기
+                  </button>
                 </div>
               </div>
               <div class="product-bot">
@@ -130,7 +154,7 @@
       </div>
 
     </div>
-    <simplert ref="alert" :useRadius="false" :useIcon="false" />
+    <simplert ref="alert" :useRadius="false" :useIcon="false"/>
   </div>
 </template>
 
@@ -163,7 +187,9 @@ export default {
         selected: '',
         productA: {},
         productB: {}
-      }
+      },
+      isPromotionShow: false,
+      promotionSize: 0,
     };
   },
   computed: {
@@ -177,6 +203,13 @@ export default {
     isShowButton() {
       // 선택 버튼은 스타일 지정 상태일때만 보여야 한다.
       return this.TomorrowResult.subscription_status === 14403;
+    },
+    promotionStyle() {
+      if (this.isPromotionShow) {
+        return {
+          // overflow: 'hidden'
+        }
+      }
     }
   },
   methods: {
@@ -345,6 +378,13 @@ export default {
           });
         }
       }
+    },
+    clickPromotion() {
+      const _body = window.document.body,
+        _bodyHeight = _body.offsetHeight,
+        _contentsOffsetTop = _body.querySelector('.contents').offsetTop;
+      this.isPromotionShow = true;
+      this.promotionSize = _bodyHeight - _contentsOffsetTop;
     }
   },
   async created() {
@@ -396,8 +436,10 @@ export default {
   }
 }
 
-.content {
+.contents {
+  position: relative;
 }
+
 .column {
   &:nth-child(2) {
     margin-top: 25px;
@@ -501,6 +543,38 @@ export default {
       border-left: 1px solid #fff;
     }
   }
+}
+
+.promotion-wrap {
+  margin-top: -30px;
+  margin-left: -20px;
+  margin-right: -20px;
+  margin-bottom: 30px;
+}
+.promotion {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 10000;
+  .promotion-content {
+    position: relative;
+    z-index: 10;
+  }
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0,0,0,0.6);
+  }
+}
+.popover-promotion-enter-active {
+}
+.popover-promotion-leave-active {
 }
 
 @media (min-width: 768px) {

@@ -1,48 +1,53 @@
 <template>
-  <div>
-    <!-- 2018 겨울 프로모션-->
-    <div v-if="!isTomorrow" class="banner-winter-season">
-      <div>
-        이것은 내일의 옷장에서만 작동되는 띠 배너입니다.
-      </div>
-    </div>
-    <header
-      class="header"
-      :class="calcClassName"
-      :style="[calcStyle]"
-    >
-
-
-      <div class="header-wrap">
-        <router-link to="/" class="logo">
-          <ZulyLogoSVG class="logo-svg" viewBox="0 0 66 20"/>
-        </router-link>
-        <nav class="global-navigation">
-          <ul>
-            <li v-if="isLogin">
-              <router-link
-                to="/closet/tomorrow"
-                class="menu-title">
-                나만의 옷장
-              </router-link>
-            </li>
-            <li>
-              <router-link
-                v-if="!isLogin"
-                to="/login">
-                로그인
-              </router-link>
-              <span
-                v-else
-                @click="clickLogout">
+  <header
+    class="header"
+    :class="calcClassName"
+    :style="[calcStyle]"
+  >
+    <div class="header-wrap">
+      <router-link to="/" class="logo">
+        <ZulyLogoSVG class="logo-svg" viewBox="0 0 66 20"/>
+      </router-link>
+      <nav class="global-navigation">
+        <ul>
+          <li v-if="isLogin">
+            <router-link
+              to="/closet/tomorrow"
+              class="menu-title">
+              나만의 옷장
+            </router-link>
+          </li>
+          <li>
+            <router-link
+              v-if="!isLogin"
+              to="/login">
+              로그인
+            </router-link>
+            <span
+              v-else
+              @click="clickLogout">
               로그아웃
             </span>
-            </li>
-          </ul>
-        </nav>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+    <!-- 2018 겨울 프로모션-->
+    <!--<div v-if="isTomorrow" class="banner-winter-season">
+      <transition name="popover-promotion">
+        <div v-if="isPromotionShow" class="promotion">
+          Animation Bar
+          <button type="button" @click="isPromotionShow = !isPromotionShow">X</button>
+        </div>
+      </transition>
+
+
+      <div @click="isPromotionShow = !isPromotionShow">
+        이것은 내일의 옷장에서만 작동되는 띠 배너입니다.
       </div>
-    </header>
-  </div>
+    </div>-->
+
 
 </template>
 
@@ -54,7 +59,6 @@ export default {
   name: 'zuly-header',
   data() {
     return {
-      isTomorrow: false,
       isMain: false,
       headerLine: false,
       gnbToggle: false,
@@ -66,8 +70,12 @@ export default {
       }
     };
   },
-  props: {},
-  watch: {},
+
+  watch: {
+    // $route() {
+    //   this.routerCheck();
+    // }
+  },
   components: {
     ZulyLogoSVG
   },
@@ -121,7 +129,6 @@ export default {
       this.$store.commit('signup/RESET_STATE');
       this.$store.commit('subscriptions/RESET_STATE');
     },
-
     clickLogout() {
       this.doLogout().then(() => {
         this.$dialog
@@ -130,19 +137,27 @@ export default {
             customClass: 'zuly-alert',
             backdropClose: true
           })
-          .then(() => {
-          })
+          .then(() => {})
           .catch(() => {});
         document.cookie = `${
           process.env.VUE_APP_TOKEN_NAME
-          }=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=${
+        }=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=${
           process.env.VUE_APP_HOST
-          }`;
+        }`;
         this.resetStore();
         this.$router.push({ path: '/login' });
       });
-    }
+    },
+    // animation() {
+    //   console.log('Hello');
+    // },
+    // routerCheck() {
+    //   this.isTomorrow = this.$route.path === '/closet/tomorrow';
+    // }
   },
+  created() {
+    // this.routerCheck();
+  }
 };
 </script>
 
