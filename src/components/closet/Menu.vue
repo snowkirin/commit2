@@ -88,15 +88,6 @@ export default {
           text: '구독정보',
           path: '/closet/subscription'
         },
-
-        // {
-        //   text: '쿠폰',
-        //   path: '/closet/coupon',
-        // },
-        // {
-        //   text: '문의내역',
-        //   path: '/closet/cs'
-        // },
         {
           text: 'FAQ',
           path: '/closet/faq',

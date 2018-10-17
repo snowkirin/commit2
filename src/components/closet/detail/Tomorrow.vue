@@ -17,20 +17,32 @@
     <!--데이터가 있다면 -->
     <div v-else>
       <div class="promotion-wrap">
-        <div>
+        <div class="band-banner">
           <p
             @click="clickPromotion"
           >
-            <img style="width: 100%;" src="@/assets/img/closet/event_banner.png"/>
+            <img src="@/assets/img/closet/event_banner.png"/>
           </p>
+          <button
+            type="button"
+            class="btn btn-close"
+          >
+            <span class="icon-close">X</span>
+          </button>
         </div>
         <transition name="popover-promotion">
           <div v-if="isPromotionShow" class="promotion" :style="{height: promotionSize + 'px'}">
             <div class="promotion-content">
               <div>
-                <img style="width: 100%;" src="@/assets/img/closet/event_banner_more.png" alt="">
+                <img src="@/assets/img/closet/event_banner_more.png" alt="">
               </div>
-              <button type="button" @click="isPromotionShow = !isPromotionShow">X</button>
+              <button
+                type="button"
+                class="btn btn-close"
+                @click="isPromotionShow = !isPromotionShow"
+              >
+                <span class="icon-close">X</span>
+              </button>
             </div>
           </div>
         </transition>
@@ -189,7 +201,7 @@ export default {
         productB: {}
       },
       isPromotionShow: false,
-      promotionSize: 0,
+      promotionSize: 0
     };
   },
   computed: {
@@ -208,7 +220,7 @@ export default {
       if (this.isPromotionShow) {
         return {
           // overflow: 'hidden'
-        }
+        };
       }
     }
   },
@@ -550,34 +562,96 @@ export default {
   margin-left: -20px;
   margin-right: -20px;
   margin-bottom: 30px;
-}
-.promotion {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  z-index: 10000;
-  .promotion-content {
-    position: relative;
-    z-index: 10;
+  .btn-close {
+    position: absolute;
+    right: 17px;
+    width: 20px;
+    height: 20px;
+    overflow: hidden;
+    text-indent: -9999em;
+    .icon-close {
+      display: block;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      &::before,
+      &::after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 1px;
+        background-color: #fff;
+        position: absolute;
+        transform-origin: 50% 50%;
+        top: 50%;
+        left: 0;
+      }
+      &::before {
+        transform: rotate(45deg);
+      }
+      &::after {
+        transform: rotate(-45deg);
+      }
+    }
   }
-  &::before {
-    content: '';
-    display: block;
+  .band-banner {
+    position: relative;
+    text-align: center;
+    background-color: #714c39;
+    img {
+      width: 375px;
+      max-width: 100%;
+    }
+    .btn-close {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+  .promotion {
     position: absolute;
     left: 0;
     top: 0;
-    bottom: 0;
-    right: 0;
-    background-color: rgba(0,0,0,0.6);
+    width: 100%;
+    z-index: 10000;
+    .promotion-content {
+      position: relative;
+      z-index: 10;
+      background-color: #714c39;
+      width: 100%;
+      img {
+        width: 100%;
+      }
+    }
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+    .btn-close {
+      top: 18px;
+    }
   }
 }
+
 .popover-promotion-enter-active {
 }
 .popover-promotion-leave-active {
 }
 
 @media (min-width: 768px) {
+  .promotion-wrap {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
   .column {
     &:nth-child(2) {
       margin-top: 0;
@@ -594,6 +668,27 @@ export default {
 }
 
 @media (min-width: 1080px) {
+  .promotion-wrap {
+    margin-top: -40px;
+    margin-bottom: 40px;
+    .band-banner {
+      img {
+        width: 410px;
+      }
+    }
+    .promotion {
+      .promotion-content {
+        text-align: center;
+        padding: 15px;
+        img {
+          width: 458px;
+        }
+      }
+      .btn-close {
+        top: 20px;
+      }
+    }
+  }
   .product {
     .product-top {
       .txt-type {

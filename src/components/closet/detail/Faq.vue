@@ -163,9 +163,9 @@ export default {
   border-bottom: 1px solid $color-primary;
 }
 .table-zuly {
+  @include fontSize(15px);
   .type,
   .title {
-    @include fontSize(15px);
     padding-top: 12px;
     padding-bottom: 15px;
   }
