@@ -2,6 +2,7 @@
   <div
     class="contents"
     :style="promotionStyle"
+    ref="contents"
   >
     <!--데이터가 없다면-->
     <div v-if="!isTomorrowData">
@@ -16,7 +17,7 @@
     </div>
     <!--데이터가 있다면 -->
     <div v-else>
-      <div class="promotion-wrap">
+      <div class="promotion-wrap" v-if="isPromotionShow">
         <div class="band-banner">
           <p
             @click="clickPromotion"
@@ -26,12 +27,19 @@
           <button
             type="button"
             class="btn btn-close"
+            @click="isPromotionShow = !isPromotionShow"
           >
             <span class="icon-close">X</span>
           </button>
         </div>
-        <transition name="popover-promotion">
-          <div v-if="isPromotionShow" class="promotion" :style="{height: promotionSize + 'px'}">
+        <transition
+          name="popover-promotion"
+          v-on:before-enter="beforeEnter"
+          v-on:after-enter="afterEnter"
+          v-on:before-leave="beforeLeave"
+          v-on:after-leave="afterLeave"
+        >
+          <div v-if="isPromotionContentShow" class="promotion" :style="{height: promotionSize + 'px'}">
             <div class="promotion-content">
               <div>
                 <img src="@/assets/img/closet/event_banner_more.png" alt="">
@@ -39,7 +47,7 @@
               <button
                 type="button"
                 class="btn btn-close"
-                @click="isPromotionShow = !isPromotionShow"
+                @click="isPromotionContentShow = !isPromotionContentShow"
               >
                 <span class="icon-close">X</span>
               </button>
@@ -200,7 +208,8 @@ export default {
         productA: {},
         productB: {}
       },
-      isPromotionShow: false,
+      isPromotionShow: true,
+      isPromotionContentShow: false,
       promotionSize: 0
     };
   },
@@ -395,8 +404,22 @@ export default {
       const _body = window.document.body,
         _bodyHeight = _body.offsetHeight,
         _contentsOffsetTop = _body.querySelector('.contents').offsetTop;
-      this.isPromotionShow = true;
+      this.isPromotionContentShow = true;
       this.promotionSize = _bodyHeight - _contentsOffsetTop;
+    },
+
+    // Animation
+    beforeEnter() {
+      this.$refs.contents.style.overflow = 'hidden';
+    },
+    afterEnter() {
+      this.$refs.contents.removeAttribute('style');
+    },
+    beforeLeave() {
+      this.$refs.contents.style.overflow = 'hidden';
+    },
+    afterLeave() {
+      this.$refs.contents.removeAttribute('style');
     }
   },
   async created() {
@@ -427,6 +450,27 @@ export default {
 <style scoped lang="scss" src="@/assets/css/closet-style.scss">
 </style>
 <style scoped lang="scss">
+@keyframes slideInDown {
+  from {
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+    visibility: visible;
+  }
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes rotation {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(359deg);
+  }
+}
+
 .none {
   height: 500px;
   background: url('~@/assets/img/closet/img_none.png') no-repeat 50% 0;
@@ -562,6 +606,7 @@ export default {
   margin-left: -20px;
   margin-right: -20px;
   margin-bottom: 30px;
+
   .btn-close {
     position: absolute;
     right: 17px;
@@ -569,6 +614,9 @@ export default {
     height: 20px;
     overflow: hidden;
     text-indent: -9999em;
+    &:hover {
+      animation: rotation 1s;
+    }
     .icon-close {
       display: block;
       width: 20px;
@@ -607,7 +655,7 @@ export default {
     }
     .btn-close {
       top: 50%;
-      transform: translateY(-50%);
+      margin-top: -10px;
     }
   }
   .promotion {
@@ -640,10 +688,11 @@ export default {
     }
   }
 }
-
 .popover-promotion-enter-active {
+  animation: slideInDown 1s;
 }
 .popover-promotion-leave-active {
+  animation: slideInDown 1s reverse;
 }
 
 @media (min-width: 768px) {
@@ -683,6 +732,9 @@ export default {
         img {
           width: 458px;
         }
+      }
+      &::before {
+        display: none;
       }
       .btn-close {
         top: 20px;

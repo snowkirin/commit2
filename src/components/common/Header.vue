@@ -33,22 +33,6 @@
       </nav>
     </div>
   </header>
-    <!-- 2018 겨울 프로모션-->
-    <!--<div v-if="isTomorrow" class="banner-winter-season">
-      <transition name="popover-promotion">
-        <div v-if="isPromotionShow" class="promotion">
-          Animation Bar
-          <button type="button" @click="isPromotionShow = !isPromotionShow">X</button>
-        </div>
-      </transition>
-
-
-      <div @click="isPromotionShow = !isPromotionShow">
-        이것은 내일의 옷장에서만 작동되는 띠 배너입니다.
-      </div>
-    </div>-->
-
-
 </template>
 
 <script>
@@ -72,9 +56,6 @@ export default {
   },
 
   watch: {
-    // $route() {
-    //   this.routerCheck();
-    // }
   },
   components: {
     ZulyLogoSVG
@@ -148,15 +129,8 @@ export default {
         this.$router.push({ path: '/login' });
       });
     },
-    // animation() {
-    //   console.log('Hello');
-    // },
-    // routerCheck() {
-    //   this.isTomorrow = this.$route.path === '/closet/tomorrow';
-    // }
   },
   created() {
-    // this.routerCheck();
   }
 };
 </script>
