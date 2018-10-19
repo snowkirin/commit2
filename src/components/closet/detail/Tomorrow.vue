@@ -85,7 +85,7 @@
                     type="button"
                     class="btn btn-product-detail h-40"
                     @click="clickProductDetail(data)"
-                  >상품 상세보기
+                  >{{data.category}} 상세보기
                   </button>
                 </div>
               </div>
@@ -130,7 +130,7 @@
                     type="button"
                     class="btn btn-product-detail h-40"
                     @click="clickProductDetail(data)"
-                  >상품 상세보기
+                  >{{data.category}} 상세보기
                   </button>
                 </div>
               </div>
