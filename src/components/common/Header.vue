@@ -32,7 +32,6 @@
         </ul>
       </nav>
     </div>
-
   </header>
 </template>
 
@@ -55,8 +54,9 @@ export default {
       }
     };
   },
-  props: {},
-  watch: {},
+
+  watch: {
+  },
   components: {
     ZulyLogoSVG
   },
@@ -110,7 +110,6 @@ export default {
       this.$store.commit('signup/RESET_STATE');
       this.$store.commit('subscriptions/RESET_STATE');
     },
-
     clickLogout() {
       this.doLogout().then(() => {
         this.$dialog
@@ -119,19 +118,20 @@ export default {
             customClass: 'zuly-alert',
             backdropClose: true
           })
-          .then(() => {
-          })
+          .then(() => {})
           .catch(() => {});
         document.cookie = `${
           process.env.VUE_APP_TOKEN_NAME
-          }=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=${
+        }=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=${
           process.env.VUE_APP_HOST
-          }`;
+        }`;
         this.resetStore();
         this.$router.push({ path: '/login' });
       });
-    }
+    },
   },
+  created() {
+  }
 };
 </script>
 

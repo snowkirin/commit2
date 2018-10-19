@@ -23,6 +23,7 @@
           :to="data.path"
           class="closet-link"
           active-class="active"
+          :class="{'en-menu': data.lang === 'en'}"
         >
           {{ data.text }}
         </router-link>
@@ -88,15 +89,6 @@ export default {
           text: '구독정보',
           path: '/closet/subscription'
         },
-
-        // {
-        //   text: '쿠폰',
-        //   path: '/closet/coupon',
-        // },
-        // {
-        //   text: '문의내역',
-        //   path: '/closet/cs'
-        // },
         {
           text: 'FAQ',
           path: '/closet/faq',
@@ -117,9 +109,9 @@ export default {
       if (this.loginFaq) {
         this.routerJSON = _.filter(this.routerJSON, value => {
           return value.text === 'FAQ';
-        })
+        });
       }
-    }
+    },
   },
   mounted() {
     this.loginFaq = this.$route.path === '/closet/faq' && !this.isLogin;
@@ -165,6 +157,10 @@ export default {
         width: 100%;
         z-index: 10;
       }
+    }
+    &.en-menu {
+      @include fontSize(17px, en);
+      letter-spacing: -0.4px;
     }
   }
   .swiper-container {
@@ -220,7 +216,7 @@ export default {
     .closet-link {
       @include fontSize(18px);
       &.en-menu {
-        @include fontSize(19px);
+        @include fontSize(19px,en);
         letter-spacing: -0.4px;
       }
     }
