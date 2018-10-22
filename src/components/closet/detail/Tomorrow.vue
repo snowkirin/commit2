@@ -24,13 +24,6 @@
           >
             <img src="@/assets/img/closet/event_banner.png"/>
           </p>
-          <button
-            type="button"
-            class="btn btn-close"
-            @click="isPromotionShow = !isPromotionShow"
-          >
-            <span class="icon-close">X</span>
-          </button>
         </div>
         <transition
           name="popover-promotion"
@@ -675,13 +668,10 @@ export default {
     position: relative;
     text-align: center;
     background-color: #714c39;
+    cursor: pointer;
     img {
       width: 375px;
       max-width: 100%;
-    }
-    .btn-close {
-      top: 50%;
-      margin-top: -10px;
     }
   }
   .promotion {
@@ -705,10 +695,10 @@ export default {
   }
 }
 .popover-promotion-enter-active {
-  animation: slideInDown 1s;
+  animation: slideInDown 0.5s;
 }
 .popover-promotion-leave-active {
-  animation: slideInDown 1s reverse;
+  animation: slideInDown 0.5s reverse;
 }
 
 .dim_overlay {
