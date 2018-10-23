@@ -4,7 +4,7 @@
       <div class="inner">
         <div class="text-wrap">
           <p class="txt-how">현재 대여 중인 <strong>의상 사이즈</strong>가 어떠세요?</p>
-          <p class="txt-helpful">※ 고객님의 의견은 맞춤형 큰 도움이 됩니다.</p>
+          <p class="txt-helpful">※ 고객님의 의견은 맞춤형 스타일링에 큰 도움이 됩니다.</p>
         </div>
         <div class="evaluate-wrap">
           <template

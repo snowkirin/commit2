@@ -2,9 +2,11 @@ import axios from 'axios';
 const API_URL = process.env.VUE_APP_API_URL;
 
 export default {
-  getFaq() {
+  getFaq(data) {
     return axios
-      .get(`${API_URL}/faq`)
+      .get(`${API_URL}/faq`, {
+        params: data
+      })
       .then(res => {
         return res;
       })
@@ -32,6 +34,21 @@ export default {
           message: err.message
         };
       });
+  },
+  getFaqTypes(data) {
+    return axios
+      .get(`${API_URL}/faq/types`, {
+        params: data
+      })
+      .then(res => {
+        return res;
+      })
+      .catch(err => {
+        return {
+          ...err.response,
+          message: err.message
+        }
+      })
   }
 };
 

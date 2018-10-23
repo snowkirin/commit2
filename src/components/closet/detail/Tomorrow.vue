@@ -1,5 +1,9 @@
 <template>
-  <div class="contents">
+  <div
+    class="contents"
+    :style="promotionStyle"
+    ref="contents"
+  >
     <!--데이터가 없다면-->
     <div v-if="!isTomorrowData">
       <div class="none">
@@ -13,6 +17,41 @@
     </div>
     <!--데이터가 있다면 -->
     <div v-else>
+      <div class="promotion-wrap" v-if="promotionOpenDate">
+        <div class="band-banner" v-if="isPromotionShow">
+          <p
+            @click="clickPromotion"
+          >
+            <img src="@/assets/img/closet/event_banner.png"/>
+          </p>
+        </div>
+        <transition
+          name="popover-promotion"
+          v-on:before-enter="beforeEnter"
+          v-on:after-enter="afterEnter"
+          v-on:before-leave="beforeLeave"
+          v-on:after-leave="afterLeave"
+        >
+          <div v-if="isPromotionContentShow" class="promotion">
+            <div class="promotion-content">
+              <div>
+                <img src="@/assets/img/closet/event_banner_more.png" alt="">
+              </div>
+              <button
+                type="button"
+                class="btn btn-close"
+                @click="hidePromotion"
+              >
+                <span class="icon-close">X</span>
+              </button>
+            </div>
+          </div>
+        </transition>
+        <div
+          class="dim_overlay"
+          v-if="isPromotionContentShow && $mq === 'sm'"
+          :style="{height: promotionSize + 'px'}"></div>
+      </div>
       <div class="contents-header">
         <h3>데일리룩 후보 중 마음에 드는 의상을 선택해주세요.</h3>
         <p>(기한 내 미선택 시, 회원님께 더 어울릴 스타일로 자동 지정 후 배송 됩니다.)</p>
@@ -43,7 +82,8 @@
                     type="button"
                     class="btn btn-product-detail h-40"
                     @click="clickProductDetail(data)"
-                  >상품 상세보기</button>
+                  >{{data.category}} 상세보기
+                  </button>
                 </div>
               </div>
               <div class="product-bot">
@@ -87,7 +127,8 @@
                     type="button"
                     class="btn btn-product-detail h-40"
                     @click="clickProductDetail(data)"
-                  >상품 상세보기</button>
+                  >{{data.category}} 상세보기
+                  </button>
                 </div>
               </div>
               <div class="product-bot">
@@ -130,7 +171,7 @@
       </div>
 
     </div>
-    <simplert ref="alert" :useRadius="false" :useIcon="false" />
+    <simplert ref="alert" :useRadius="false" :useIcon="false"/>
   </div>
 </template>
 
@@ -163,7 +204,11 @@ export default {
         selected: '',
         productA: {},
         productB: {}
-      }
+      },
+      isPromotionShow: true,
+      isPromotionContentShow: false,
+      promotionSize: 0,
+      promotionOpenDate: false,
     };
   },
   computed: {
@@ -177,6 +222,13 @@ export default {
     isShowButton() {
       // 선택 버튼은 스타일 지정 상태일때만 보여야 한다.
       return this.TomorrowResult.subscription_status === 14403;
+    },
+    promotionStyle() {
+      if (this.isPromotionShow) {
+        return {
+          // overflow: 'hidden'
+        };
+      }
     }
   },
   methods: {
@@ -345,6 +397,47 @@ export default {
           });
         }
       }
+    },
+    clickPromotion() {
+      const _body = window.document.body,
+        _bodyHeight = _body.offsetHeight,
+        _contentsOffsetTop = _body.querySelector('.contents').offsetTop;
+      this.isPromotionContentShow = true;
+      this.promotionSize = _bodyHeight - _contentsOffsetTop;
+    },
+    hidePromotion() {
+      this.isPromotionContentShow = false;
+      this.isPromotionShow = false;
+    },
+
+    // Animation
+    beforeEnter() {
+      this.$refs.contents.style.overflow = 'hidden';
+    },
+    afterEnter() {
+      this.$refs.contents.removeAttribute('style');
+    },
+    beforeLeave() {
+      this.$refs.contents.style.overflow = 'hidden';
+    },
+    afterLeave() {
+      this.$refs.contents.removeAttribute('style');
+    },
+    calcPromotionOpen() {
+      const d = new Date();
+      // 10월 29일 오전 9시
+      if (d.getFullYear() > 2018) {
+        this.promotionOpenDate = true;
+        return;
+      }
+      if (d.getMonth() + 1 > 10) {
+        this.promotionOpenDate = true;
+        return;
+      }
+      if (d.getFullYear() >= 2018 && d.getDate() >= 29 && d.getHours() >= 9) {
+        this.promotionOpenDate = true;
+        return;
+      }
     }
   },
   async created() {
@@ -363,6 +456,7 @@ export default {
       this.isTomorrowData = true;
     }
     window.mid = this.User.userId;
+    this.calcPromotionOpen();
   },
   destroyed() {
     if (this.isTomorrowDirect) {
@@ -375,6 +469,27 @@ export default {
 <style scoped lang="scss" src="@/assets/css/closet-style.scss">
 </style>
 <style scoped lang="scss">
+@keyframes slideInDown {
+  from {
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+    visibility: visible;
+  }
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes rotation {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(359deg);
+  }
+}
+
 .none {
   height: 500px;
   background: url('~@/assets/img/closet/img_none.png') no-repeat 50% 0;
@@ -396,8 +511,10 @@ export default {
   }
 }
 
-.content {
+.contents {
+  position: relative;
 }
+
 .column {
   &:nth-child(2) {
     margin-top: 25px;
@@ -503,7 +620,102 @@ export default {
   }
 }
 
+.promotion-wrap {
+  margin-top: -30px;
+  margin-left: -20px;
+  margin-right: -20px;
+  margin-bottom: 30px;
+
+  .btn-close {
+    position: absolute;
+    right: 17px;
+    width: 20px;
+    height: 20px;
+    overflow: hidden;
+    text-indent: -9999em;
+    &:hover {
+      animation: rotation 1s;
+    }
+    .icon-close {
+      display: block;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      &::before,
+      &::after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 1px;
+        background-color: #fff;
+        position: absolute;
+        transform-origin: 50% 50%;
+        top: 50%;
+        left: 0;
+      }
+      &::before {
+        transform: rotate(45deg);
+      }
+      &::after {
+        transform: rotate(-45deg);
+      }
+    }
+  }
+  .band-banner {
+    position: relative;
+    text-align: center;
+    background-color: #714c39;
+    cursor: pointer;
+    img {
+      width: 375px;
+      max-width: 100%;
+    }
+  }
+  .promotion {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 10000;
+    .promotion-content {
+      position: relative;
+      z-index: 10;
+      background-color: #714c39;
+      width: 100%;
+      img {
+        width: 100%;
+      }
+    }
+    .btn-close {
+      top: 18px;
+    }
+  }
+}
+.popover-promotion-enter-active {
+  animation: slideInDown 0.5s;
+}
+.popover-promotion-leave-active {
+  animation: slideInDown 0.5s reverse;
+}
+
+.dim_overlay {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 100;
+}
+
 @media (min-width: 768px) {
+  .promotion-wrap {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
   .column {
     &:nth-child(2) {
       margin-top: 0;
@@ -520,6 +732,30 @@ export default {
 }
 
 @media (min-width: 1080px) {
+  .promotion-wrap {
+    margin-top: -40px;
+    margin-bottom: 40px;
+    .band-banner {
+      img {
+        width: 410px;
+      }
+    }
+    .promotion {
+      .promotion-content {
+        text-align: center;
+        padding: 15px;
+        img {
+          width: 458px;
+        }
+      }
+      &::before {
+        display: none;
+      }
+      .btn-close {
+        top: 20px;
+      }
+    }
+  }
   .product {
     .product-top {
       .txt-type {

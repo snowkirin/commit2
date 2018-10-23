@@ -366,7 +366,7 @@ export default {
   created() {
     if (this.User.type === 14701) {
       // 구독중일때만 배송일 변경관련 정보 가져옴
-      this.getChangeDeliveryDays();
+      // this.getChangeDeliveryDays();
     }
     if (this.User.type !== 14703) {
       this.getSubscriptionInfo();
