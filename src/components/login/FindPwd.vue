@@ -93,7 +93,7 @@ export default {
       authErrMessage: '',
       userEmail: '',
       phoneNumber: '',
-      authNumber: '',
+      authNumber: ''
     };
   },
   computed: {
@@ -115,124 +115,89 @@ export default {
       };
 
       if (_.isEmpty(formData.email)) {
-        alert('이메일을 입력해 주세요.');
+        this.$dialog.alert('이메일을 입력해주세요.', {
+          okText: '확인',
+          customClass: 'zuly-alert',
+          backdropClose: true
+        });
         return;
       }
       if (_.isEmpty(formData.phone)) {
-        alert('휴대전화를 입력해 주세요.');
+        this.$dialog.alert('휴대폰번호를 입력해주세요.', {
+          okText: '확인',
+          customClass: 'zuly-alert',
+          backdropClose: true
+        });
         return;
       }
       this.postFindPwd(formData).then(res => {
         if (res.data.result) {
-          alert('인증번호를 입력해 주세요.');
+          this.$dialog.alert('인증번호를 입력해주세요.', {
+            okText: '확인',
+            customClass: 'zuly-alert',
+            backdropClose: true
+          });
           this.startTimer();
           this.authErr = true;
         } else {
-          alert('이메일 또는 휴대펀 번호를 정확히 입력해 주세요.');
+          this.$dialog.alert(
+            '이메일을 또는 휴대폰번호를 정확히 입력해주세요.',
+            {
+              okText: '확인',
+              customClass: 'zuly-alert',
+              backdropClose: true
+            }
+          );
         }
       });
-
     },
-    clickAuthConfirm(){
+    clickAuthConfirm() {
       const formData = {
         authId: this.FindPwdAuth,
         authNumber: this.authNumber
       };
 
-      if (_.isEmpty(formData.authNumber)){
-        alert('인증번호를 입력해 주세요');
+      if (_.isEmpty(formData.authNumber)) {
+        this.$dialog.alert('인증번호를 입력해주세요.', {
+          okText: '확인',
+          customClass: 'zuly-alert',
+          backdropClose: true
+        });
         return;
       }
       this.postFindPwdAuth(formData).then(res => {
         if (res.data.result) {
-          alert('인증되었습니다.');
+          this.$dialog.alert('인증되었습니다.', {
+            okText: '확인',
+            customClass: 'zuly-alert',
+            backdropClose: true
+          });
           this.stopTimer();
         } else if (!res.data.result) {
-          alert('인증번호를 정확히 입력해 주세요.');
+          this.$dialog.alert('인증번호를 정확히 입력해주세요.', {
+            okText: '확인',
+            customClass: 'zuly-alert',
+            backdropClose: true
+          });
         } else {
-          alert('통신오류가 발생하였습니다.');
+          this.$dialog.alert('통신오류가 발생하였습니다.', {
+            okText: '확인',
+            customClass: 'zuly-alert',
+            backdropClose: true
+          });
         }
-      })
+      });
     },
     clickComplete() {
       if (this.isFindPwdAuth) {
         this.$router.push({ path: '/find/password/complete' });
       } else {
-        alert('인증 후 진행해 주세요.');
-      }
-    },
-    async phoneVerify() {
-      const email = document.querySelector('input[name=email]');
-      const phone = document.querySelector('input[name=phone]');
-
-      if (
-        !this.$common.InputDataValidation(
-          email,
-          '이메일을 입력해주세요.',
-          true,
-          true
-        )
-      )
-        return;
-
-      await this.$validator
-        .validate('phone', phone.value)
-        .then(async result => {
-          let resultMsg = true;
-
-          if (result) {
-            if (this.$common.phoneValidation(phone.value)) {
-              await this.actPhoneVerify({
-                email: email.value,
-                phone: phone.value.split('-').join('')
-              });
-
-              return true;
-            }
-
-            alert('올바른 휴대폰번호를 입력해주세요.');
-            resultMsg = false;
-          }
-
-          if (resultMsg) alert('휴대폰 번호를 입력해주세요.');
-          phone.focus();
-          return false;
+        this.$dialog.alert('인증 후 진행해주세요.', {
+          okText: '확인',
+          customClass: 'zuly-alert',
+          backdropClose: true
         });
-
-      if (this.$store.getters['common/getPhoneAuthKeyPwd'] > 0) {
-        this.startTimer();
-        this.authErr = true;
       }
-    },
-    async authKeyConfirm() {
-      const phoneAuthNumber = document.querySelector(
-        'input[name=phone_auth_number]'
-      );
-
-      if (!this.$store.getters['common/getPhoneAuthKeyPwd']) {
-        alert('먼저 휴대전화를 입력하고 인증버튼을 눌러주세요.');
-        return false;
-      }
-
-      if (
-        !this.$common.InputDataValidation(
-          phoneAuthNumber,
-          '인증번호를 입력해주세요.',
-          true
-        )
-      )
-        return false;
-
-      await this.actPhoneCheckVerify({
-        authNumber: phoneAuthNumber.value
-      });
-
-      if (this.phoneAuth) {
-        alert('인증되었습니다.');
-        this.$router.push({ path: '/find/password/complete' });
-      } else alert('인증번호를 다시 확인하시고 진행해주세요.');
-
-      return true;
     },
     startTimer() {
       const timer =
@@ -268,5 +233,7 @@ export default {
   }
 };
 </script>
-<style scoped lang="scss" src="@/assets/css/login-style.scss"></style>
-<style scoped lang="scss"></style>
+<style scoped lang="scss" src="@/assets/css/login-style.scss">
+</style>
+<style scoped lang="scss">
+</style>
