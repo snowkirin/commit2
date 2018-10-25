@@ -57,6 +57,30 @@
         </div>
       </div>
     </div>
+    <sweet-modal
+      ref="private"
+      :enable-mobile-fullscreen="false"
+      :hide-close-button="true"
+    >
+      <CommonModal
+        modalTitle="개인 정보 관리 지침"
+        :modalContent="personalText"
+        modalContentType="html"
+        :modalCustomCloseFunc="closeModal"
+      />
+    </sweet-modal>
+    <sweet-modal
+      ref="use"
+      :enable-mobile-fullscreen="false"
+      :hide-close-button="true"
+    >
+      <CommonModal
+        modalTitle="서비스 약관"
+        :modalContent="termsText"
+        modalContentType="html"
+        :modalCustomCloseFunc="closeModal"
+      />
+    </sweet-modal>
   </footer>
 </template>
 
@@ -87,33 +111,15 @@ export default {
   },
   methods: {
     viewModal(param) {
-      let modalConfig = {};
       if (param === 'private') {
-        modalConfig = {
-          modalTitle: '개인 정보 관리 지침',
-          modalContent: this.personalText,
-          modalContentType: 'html'
-        };
+        this.$refs.private.open();
       } else if (param === 'use') {
-        modalConfig = {
-          modalTitle: '서비스 약관',
-          modalContent: this.termsText,
-          modalContentType: 'html'
-        };
-      } else if (param === 'marketing') {
-        modalConfig = {
-          modalTitle: '마케팅 정보 수신 동의',
-          modalContent: this.marketingText,
-          modalContentType: 'html'
-        };
+        this.$refs.use.open();
       }
-
-      this.$modal.show(CommonModal, modalConfig, {
-        scrollable: true,
-        height: 'auto',
-        width: '80%',
-        adaptive: true
-      });
+    },
+    closeModal() {
+      this.$refs.private.close();
+      this.$refs.use.close();
     }
   },
   created() {

@@ -630,6 +630,17 @@ input:-webkit-autofill:focus {
   }
 }
 
+.sweet-modal {
+  max-height: 80vh !important;
+  .sweet-content {
+    padding: 0 !important;
+    text-align: left !important;
+  }
+}
+.sweet-modal-overlay {
+  background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
 .v--modal-background-click {
   display: flex;
   justify-content: center;
@@ -712,6 +723,9 @@ input:-webkit-autofill:focus {
 }
 
 .zuly-alert {
+  .dg-main-content {
+    width: 80%;
+  }
   .dg-btn {
     width: 100%;
   }

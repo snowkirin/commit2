@@ -358,6 +358,44 @@
       </div>
     </form>
     <simplert ref="alert" :useRadius="false" :useIcon="false" />
+    <sweet-modal
+      ref="private"
+      :enable-mobile-fullscreen="false"
+      :hide-close-button="true"
+    >
+      <CommonModal
+        modalTitle="개인 정보 관리 지침"
+        :modalContent="personalText"
+        modalContentType="html"
+        :modalCustomCloseFunc="closeModal"
+      />
+    </sweet-modal>
+    <sweet-modal
+      ref="use"
+      :enable-mobile-fullscreen="false"
+      :hide-close-button="true"
+    >
+      <CommonModal
+        modalTitle="서비스 약관"
+        :modalContent="termsText"
+        modalContentType="html"
+        :modalCustomCloseFunc="closeModal"
+      />
+    </sweet-modal>
+
+    <sweet-modal
+      ref="marketing"
+      :enable-mobile-fullscreen="false"
+      :hide-close-button="true"
+    >
+      <CommonModal
+        modalTitle="서비스 약관"
+        :modalContent="marketingText"
+        modalContentType="html"
+        :modalCustomCloseFunc="closeModal"
+      />
+    </sweet-modal>
+
   </div>
 </template>
 <script>
@@ -492,33 +530,18 @@ export default {
       this.closePostCode();
     },
     viewModal(param) {
-      let modalConfig = {};
       if (param === 'private') {
-        modalConfig = {
-          modalTitle: '개인 정보 관리 지침',
-          modalContent: this.personalText,
-          modalContentType: 'html'
-        };
+        this.$refs.private.open();
       } else if (param === 'use') {
-        modalConfig = {
-          modalTitle: '서비스 약관',
-          modalContent: this.termsText,
-          modalContentType: 'html'
-        };
+        this.$refs.use.open();
       } else if (param === 'marketing') {
-        modalConfig = {
-          modalTitle: '마케팅 정보 수신 동의',
-          modalContent: this.marketingText,
-          modalContentType: 'html'
-        };
+        this.$refs.marketing.open();
       }
-
-      this.$modal.show(CommonModal, modalConfig, {
-        scrollable: true,
-        height: 'auto',
-        width: '80%',
-        adaptive: true
-      });
+    },
+    closeModal() {
+      this.$refs.private.close();
+      this.$refs.use.close();
+      this.$refs.marketing.close();
     },
     pwdCheck(isBoolean) {
       const pwd = document.querySelector('input[name=password]');
@@ -528,8 +551,7 @@ export default {
         if (!checkBoolean) checkBoolean = !checkBoolean;
         this.pwdMsg = '비밀번호를 입력해주세요.';
       } else {
-        this.pwdMsg =
-          '비밀번호가 안전하지 않습니다. (최소 8자리 이상의 영문,숫자,특수문자 포함)';
+        this.pwdMsg = '비밀번호 형식에 맞지 않습니다. 8자리 이상의 영문,숫자,특수문자(!@#$%^&*) 포함';
       }
 
       this.isPwd = !checkBoolean;
