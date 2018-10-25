@@ -12,7 +12,7 @@
 					</div>
 					<div class="text-wrap center-align">
 						<div>
-							<p class="txt-comment">지인 추천으로 베타 오픈때 이용해보았는데, 디자이너샵에서 갖고싶었던 옷을 추천해주셔서 기분이 너무 좋았어요~</p>
+							<p class="txt-comment">비싼 코트를 사지 않고, 추천받아 입어<br/>볼 수 있어서 너무 좋고 새로운 스타일을 입으니 주변에서 다들 이쁘데요.</p>
 							<p class="txt-user">20대 후반 직장인</p>
 						</div>
 					</div>
@@ -23,8 +23,8 @@
 					</div>
 					<div class="text-wrap center-align">
 						<div>
-							<p class="txt-comment">가을이 짧아져서, 옷 사기 애매한데 렌탈해서 입으니 너무 좋네요~</p>
-							<p class="txt-user">30대 초반 직장인</p>
+							<p class="txt-comment">재킷을 많이 사기도 애매했는데 줄라이를 이용하니, 사지 않고도 입을 수 있어서<br/>좋았어요^^</p>
+							<p class="txt-user">30대 후반 직장인</p>
 						</div>
 					</div>
 				</div>
@@ -35,8 +35,8 @@
 					</div>
 					<div class="text-wrap center-align">
 						<div>
-							<p class="txt-comment">평소와 다른 스타일 선택 해봤는데 좀 어색하긴 한데, 다들 잘 어울린다고 해서 기분이 좋은 하루가 되었어요^^</p>
-							<p class="txt-user">30대 후반 직장인</p>
+							<p class="txt-comment">2주마다 새로운 옷을 받으니, 쇼핑도<br/>덜 하고도 회사 갈 때 옷 걱정을 안 해도<br/>되어서 너무 편해요.</p>
+							<p class="txt-user">30대 중반 직장인</p>
 						</div>
 					</div>
 				</div>

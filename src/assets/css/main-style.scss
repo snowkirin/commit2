@@ -47,5 +47,8 @@
   }
   .contents-header {
     margin-bottom: 50px;
+    p {
+      @include fontSize(26px);
+    }
   }
 }
