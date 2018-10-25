@@ -129,15 +129,15 @@
                             ref="newPassword"
                             v-model="newPassword"
                             data-vv-as="신규 비밀번호"
-                            v-validate="{
-                        regex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}/
-                      }"
+                            v-validate="{regex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}/}"
+                            @keyup="pwdCheck(errors.has('password.newPassword'))"
                           >
                         </div>
                       </div>
                     </div>
                     <p class="txt-error" v-if="errors.has('password.newPassword')">
-                      {{ errors.first('password.newPassword') }}
+                      {{ pwdMsg }}
+                      <!--{{ errors.first('password.newPassword') }}-->
                     </p>
                   </div>
                   <div class="form-row">
@@ -499,6 +499,7 @@ export default {
   components: { Simplert },
   data() {
     return {
+      pwdMsg: '',
       initPhoneNumber: '',
 
       phoneNumber: '',
@@ -557,6 +558,16 @@ export default {
       postCancel: 'login/postCancel',
       changeUserType: 'login/changeUserType'
     }),
+    pwdCheck(isBoolean) {
+      if (isBoolean) {
+        if (this.newPassword === '') {
+          this.pwdMsg = '비밀번호를 입력해주세요.';
+        }
+        else {
+          this.pwdMsg = '비밀번호 형식에 맞지 않습니다. 8자리 이상의 영문,숫자,특수문자(!@#$%^&*) 포함';
+        }
+      }
+    },
     setMypageData() {
       // 핸드폰 번호
       this.initPhoneNumber = this.Mypage.phone_no;

@@ -134,7 +134,8 @@ export default {
 }
 .content {
   height: 100vh;
-  height: calc(100vh - var(--vh-offset));
+	height: calc(var(--vh, 1vh) * 100);
+  /*height: calc(100vh - var(--vh-offset));*/
   background: url('~@/assets/img/main/img_main_small.png') no-repeat 50% 50%;
   background-size: cover;
   position: relative;
@@ -168,6 +169,8 @@ export default {
   text-align: center;
   margin-bottom: 9%;
   .logo-svg {
+		width: 66px;
+		height: 20px;
     /deep/ path {
       fill: #fff;
     }

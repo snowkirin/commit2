@@ -22,12 +22,13 @@
               regex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}/
               }"
               data-vv-as="비밀번호"
+              @keyup="pwdCheck(errors.has('password'))"
             />
           </div>
           <p
             class="txt-error"
             v-if="errors.has('password')">
-            {{errors.first('password')}}
+            {{ pwdMsg }}
           </p>
         </div>
         <div class="row">
@@ -66,7 +67,8 @@ export default {
   name: 'pwd-success',
   data() {
     return {
-      password: ''
+      password: '',
+      pwdMsg: '',
     };
   },
   computed: {
@@ -78,6 +80,16 @@ export default {
     ...mapActions({
       postPasswordComplete: 'auth/postPasswordComplete'
     }),
+    pwdCheck(isBoolean) {
+      if (isBoolean) {
+        if (this.newPassword === '') {
+          this.pwdMsg = '비밀번호를 입력해주세요.';
+        }
+        else {
+          this.pwdMsg = '비밀번호 형식에 맞지 않습니다. 8자리 이상의 영문,숫자,특수문자(!@#$%^&*) 포함';
+        }
+      }
+    },
     clickChangePassword() {
       const formData = {
         authId: this.FindPwdAuth,

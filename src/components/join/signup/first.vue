@@ -551,8 +551,7 @@ export default {
         if (!checkBoolean) checkBoolean = !checkBoolean;
         this.pwdMsg = '비밀번호를 입력해주세요.';
       } else {
-        this.pwdMsg =
-          '비밀번호가 안전하지 않습니다. (최소 8자리 이상의 영문,숫자,특수문자 포함)';
+        this.pwdMsg = '비밀번호 형식에 맞지 않습니다. 8자리 이상의 영문,숫자,특수문자(!@#$%^&*) 포함';
       }
 
       this.isPwd = !checkBoolean;
