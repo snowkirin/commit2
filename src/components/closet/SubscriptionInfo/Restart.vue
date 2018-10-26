@@ -354,7 +354,7 @@ export default {
                 }
               );
               this.checkCardValid = false;
-              return;
+
             }
           });
         } else {

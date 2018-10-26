@@ -52,7 +52,7 @@ const getters = {
   isLogin: state => state.isLogin,
   Authentication: state => state.Authentication,
   User: state => state.User
-}
+};
 
 export default {
   namespaced: true,

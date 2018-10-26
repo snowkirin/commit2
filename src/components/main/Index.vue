@@ -7,7 +7,6 @@
 		<MainBrand/>
   </div>
 </template>
-
 <script>
 import MainFirst from './MainFirst';
 import MainHowToUse from './MainHowToUse';
@@ -25,7 +24,6 @@ export default {
   }
 };
 </script>
-
 <style scoped lang="scss">
 .container {
   padding-bottom: 30px;

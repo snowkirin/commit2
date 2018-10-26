@@ -436,7 +436,7 @@ export default {
       }
       if (d.getFullYear() >= 2018 && d.getDate() >= 29 && d.getHours() >= 9) {
         this.promotionOpenDate = true;
-        return;
+
       }
     }
   },
