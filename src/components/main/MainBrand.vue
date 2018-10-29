@@ -529,6 +529,13 @@ export default {
   }
 }
 
+@media (max-width: 370px) {
+  .swiper-slide img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
+
 @media (min-width: 1080px) {
   /deep/ .v--modal {
     max-width: 584px;
