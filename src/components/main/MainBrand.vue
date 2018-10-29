@@ -70,6 +70,7 @@
       :key="idx"
       :name="data.name"
       height="auto"
+      :scrollable="true"
     >
       <div class="modal-content">
         <div class="modal-header">
@@ -133,7 +134,7 @@ export default {
           name: 'among',
           title: '어몽',
           desc:
-            'AMONG(어몽)은 옷을 입는 당신과, 당신을 보는 타인과, 옷을 만드는 우리, 그 사이의 조화로운 관계에 대해서 생각한다. 사소하지만 사소하지 않은, 평범하지만 평범하지 않은 이야기를 추구하는 브랜드이다.',
+            'AMONG(어몽)은 옷을 입는 당신과, 당신을 보는 타인과, 옷을 만드는 우리, 그 사이의 조화로운 관계에 대해서 생각한다.',
           image: [
             {
               path: 'http://image.zuly.co.kr/resource/among/01.jpg'
@@ -171,7 +172,7 @@ export default {
           name: 'atre',
           title: '아트레',
           desc:
-            'ATRE(아트레)는 여유롭고 편안한 감성으로 심플하지만 노멀하지 않은, 실용적이지만 고급스러운, 어디에서나 돋보이는 여성을 지향한다. 당당한 여성에게 숨겨진 낭만적이고 위트 있는 순간을 표현하며 멋진 실루엣과 고급스러운 소재로 오리지날리티를 강조한 지속 가능 디자인을 추구한다.',
+            'ATRE(아트레)는 여유롭고 편안한 감성으로 심플하지만 노멀하지 않은, 실용적이지만 고급스러운, 어디에서나 돋보이는 여성을 지향한다.',
           image: [
             {
               path: 'http://image.zuly.co.kr/resource/atre/01.jpg'
@@ -247,7 +248,7 @@ export default {
           name: 'kinder',
           title: '킨더살몬',
           desc:
-            'KINDERSALMON(킨더살몬)은 새롭고 차별화된 감각과 세심한디테일, 정교한 마무리 그리고 편안함을 원칙으로 제품을 제작하고 있다. 매 시즌 브랜드만의 색깔이 담긴 컨셉과 스타일을 선보이며, 각각의 아이템에는 개별적인 특성이드러남과 동시에 지속적이고 자유로울 수 있도록 디자인한다.',
+            'KINDERSALMON(킨더살몬)은 새롭고 차별화된 감각과 세심한디테일, 정교한 마무리 그리고 편안함을 원칙으로 제품을 제작하고 있다.',
           image: [
             {
               path: 'http://image.zuly.co.kr/resource/kinder/01.jpg'
@@ -323,7 +324,7 @@ export default {
           name: 'rocket',
           title: '로켓런치',
           desc:
-            'ROCKET X LUNCH(로켓런치)는 우진원 디자이너의 브랜드 로켓 런치는 로고가 없어도 컬러 배색과 디자인만으로도 식별할 수 있도록 디자인된 브랜드이다. 당연하게 느껴지는 것들은 뒤집고, 새롭게 조합함으로써 유머로 함을 함께 선보인다.',
+            'ROCKET X LUNCH(로켓런치)는 우진원 디자이너의 브랜드 로켓 런치는 로고가 없어도 컬러 배색과 디자인만으로도 식별할 수 있도록 디자인된 브랜드이다.',
           image: [
             {
               path: 'http://image.zuly.co.kr/resource/rocket/01.jpg'
@@ -346,7 +347,7 @@ export default {
           name: 'wnderkammer',
           title: '분더캄머',
           desc:
-            'WNDERKAMMER(분더캄머) 브랜드 분더캄머는 자극적이지도 도발적이지도 않으며 꾸밈이 없는 자연스러움을 강조하고자 하는 브랜드이다. 그 속에서 대중이 느낄 수 있는 은근히 다가오는 강렬함이 있는 브랜드이다.',
+            'WNDERKAMMER(분더캄머) 브랜드 분더캄머는 자극적이지도 도발적이지도 않으며 꾸밈이 없는 자연스러움을 강조하고자 하는 브랜드이다.',
           image: [
             {
               path: 'http://image.zuly.co.kr/resource/wnderkammer/01.jpg'
@@ -434,6 +435,8 @@ export default {
 <style scoped lang="scss" src="@/assets/css/main-style.scss">
 </style>
 <style lang="scss" scoped>
+  /deep/ .v--modal-overlay .v--modal-box {
+  }
   /deep/ .swiper-lazy-preloader {
     position: relative;
     margin-top: 0;
@@ -462,7 +465,8 @@ export default {
 }
 .swiper-slide {
   img {
-    width: 310px;
+    /*width: 310px;*/
+    max-height: calc(100vh - 150px);
   }
 }
 
@@ -530,9 +534,10 @@ export default {
 }
 
 @media (max-width: 370px) {
+  .swiper-slide {
+  }
   .swiper-slide img {
-    max-width: 100%;
-    max-height: 100%;
+
   }
 }
 
