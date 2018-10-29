@@ -137,34 +137,34 @@ export default {
             'AMONG(어몽)은 옷을 입는 당신과, 당신을 보는 타인과, 옷을 만드는 우리, 그 사이의 조화로운 관계에 대해서 생각한다.',
           image: [
             {
-              path: 'http://image.zuly.co.kr/resource/among/01.jpg'
+              path: 'http://image.zuly.co.kr/resource/among-02/01.jpg'
             },
             {
-              path: 'http://image.zuly.co.kr/resource/among/02.jpg'
+              path: 'http://image.zuly.co.kr/resource/among-02/02.jpg'
             },
             {
-              path: 'http://image.zuly.co.kr/resource/among/03.jpg'
+              path: 'http://image.zuly.co.kr/resource/among-02/03.jpg'
             },
             {
-              path: 'http://image.zuly.co.kr/resource/among/04.jpg'
+              path: 'http://image.zuly.co.kr/resource/among-02/04.jpg'
             },
             {
-              path: 'http://image.zuly.co.kr/resource/among/05.jpg'
+              path: 'http://image.zuly.co.kr/resource/among-02/05.jpg'
             },
             {
-              path: 'http://image.zuly.co.kr/resource/among/06.jpg'
+              path: 'http://image.zuly.co.kr/resource/among-02/06.jpg'
             },
             {
-              path: 'http://image.zuly.co.kr/resource/among/07.jpg'
+              path: 'http://image.zuly.co.kr/resource/among-02/07.jpg'
             },
             {
-              path: 'http://image.zuly.co.kr/resource/among/08.jpg'
+              path: 'http://image.zuly.co.kr/resource/among-02/08.jpg'
             },
             {
-              path: 'http://image.zuly.co.kr/resource/among/09.jpg'
+              path: 'http://image.zuly.co.kr/resource/among-02/09.jpg'
             },
             {
-              path: 'http://image.zuly.co.kr/resource/among/10.jpg'
+              path: 'http://image.zuly.co.kr/resource/among-02/10.jpg'
             }
           ]
         },
@@ -251,34 +251,34 @@ export default {
             'KINDERSALMON(킨더살몬)은 새롭고 차별화된 감각과 세심한디테일, 정교한 마무리 그리고 편안함을 원칙으로 제품을 제작하고 있다.',
           image: [
             {
-              path: 'http://image.zuly.co.kr/resource/kinder/01.jpg'
+              path: 'http://image.zuly.co.kr/resource/kinder-02/01.jpg'
             },
             {
-              path: 'http://image.zuly.co.kr/resource/kinder/02.jpg'
+              path: 'http://image.zuly.co.kr/resource/kinder-02/02.jpg'
             },
             {
-              path: 'http://image.zuly.co.kr/resource/kinder/03.jpg'
+              path: 'http://image.zuly.co.kr/resource/kinder-02/03.jpg'
             },
             {
-              path: 'http://image.zuly.co.kr/resource/kinder/04.jpg'
+              path: 'http://image.zuly.co.kr/resource/kinder-02/04.jpg'
             },
             {
-              path: 'http://image.zuly.co.kr/resource/kinder/05.jpg'
+              path: 'http://image.zuly.co.kr/resource/kinder-02/05.jpg'
             },
             {
-              path: 'http://image.zuly.co.kr/resource/kinder/06.jpg'
+              path: 'http://image.zuly.co.kr/resource/kinder-02/06.jpg'
             },
             {
-              path: 'http://image.zuly.co.kr/resource/kinder/07.jpg'
+              path: 'http://image.zuly.co.kr/resource/kinder-02/07.jpg'
             },
             {
-              path: 'http://image.zuly.co.kr/resource/kinder/08.jpg'
+              path: 'http://image.zuly.co.kr/resource/kinder-02/08.jpg'
             },
             {
-              path: 'http://image.zuly.co.kr/resource/kinder/09.jpg'
+              path: 'http://image.zuly.co.kr/resource/kinder-02/09.jpg'
             },
             {
-              path: 'http://image.zuly.co.kr/resource/kinder/10.jpg'
+              path: 'http://image.zuly.co.kr/resource/kinder-02/10.jpg'
             }
           ]
         },
@@ -327,19 +327,19 @@ export default {
             'ROCKET X LUNCH(로켓런치)는 우진원 디자이너의 브랜드 로켓 런치는 로고가 없어도 컬러 배색과 디자인만으로도 식별할 수 있도록 디자인된 브랜드이다.',
           image: [
             {
-              path: 'http://image.zuly.co.kr/resource/rocket/01.jpg'
+              path: 'http://image.zuly.co.kr/resource/rocket-02/01.jpg'
             },
             {
-              path: 'http://image.zuly.co.kr/resource/rocket/02.jpg'
+              path: 'http://image.zuly.co.kr/resource/rocket-02/02.jpg'
             },
             {
-              path: 'http://image.zuly.co.kr/resource/rocket/03.jpg'
+              path: 'http://image.zuly.co.kr/resource/rocket-02/03.jpg'
             },
             {
-              path: 'http://image.zuly.co.kr/resource/rocket/04.jpg'
+              path: 'http://image.zuly.co.kr/resource/rocket-02/04.jpg'
             },
             {
-              path: 'http://image.zuly.co.kr/resource/rocket/05.jpg'
+              path: 'http://image.zuly.co.kr/resource/rocket-02/05.jpg'
             }
           ]
         },
