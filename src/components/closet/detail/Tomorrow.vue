@@ -463,11 +463,7 @@ export default {
       this.isTomorrowData = true;
     }
     window.mid = this.User.userId;
-
     this.calcPromotionOpen();
-
-
-
   },
   destroyed() {
     if (this.isTomorrowDirect) {
