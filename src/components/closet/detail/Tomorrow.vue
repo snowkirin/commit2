@@ -17,8 +17,8 @@
     </div>
     <!--데이터가 있다면 -->
     <div v-else>
-      <div class="promotion-wrap" v-if="isPromotionShow">
-        <div class="band-banner">
+      <div class="promotion-wrap" v-if="promotionOpenDate">
+        <div class="band-banner" v-if="isPromotionShow">
           <p
             @click="clickPromotion"
           >
@@ -39,7 +39,7 @@
           v-on:before-leave="beforeLeave"
           v-on:after-leave="afterLeave"
         >
-          <div v-if="isPromotionContentShow" class="promotion" :style="{height: promotionSize + 'px'}">
+          <div v-if="isPromotionContentShow" class="promotion">
             <div class="promotion-content">
               <div>
                 <img src="@/assets/img/closet/event_banner_more.png" alt="">
@@ -47,13 +47,17 @@
               <button
                 type="button"
                 class="btn btn-close"
-                @click="isPromotionContentShow = !isPromotionContentShow"
+                @click="hidePromotion"
               >
                 <span class="icon-close">X</span>
               </button>
             </div>
           </div>
         </transition>
+        <div
+          class="dim_overlay"
+          v-if="isPromotionContentShow && $mq === 'sm'"
+          :style="{height: promotionSize + 'px'}"></div>
       </div>
       <div class="contents-header">
         <h3>데일리룩 후보 중 마음에 드는 의상을 선택해주세요.</h3>
@@ -210,7 +214,8 @@ export default {
       },
       isPromotionShow: true,
       isPromotionContentShow: false,
-      promotionSize: 0
+      promotionSize: 0,
+      promotionOpenDate: false,
     };
   },
   computed: {
@@ -407,6 +412,10 @@ export default {
       this.isPromotionContentShow = true;
       this.promotionSize = _bodyHeight - _contentsOffsetTop;
     },
+    hidePromotion() {
+      this.isPromotionContentShow = false;
+      this.isPromotionShow = false;
+    },
 
     // Animation
     beforeEnter() {
@@ -420,6 +429,22 @@ export default {
     },
     afterLeave() {
       this.$refs.contents.removeAttribute('style');
+    },
+    calcPromotionOpen() {
+      const d = new Date();
+      // 10월 29일 오전 9시
+      if (d.getFullYear() > 2018) {
+        this.promotionOpenDate = true;
+        return;
+      }
+      if (d.getMonth() + 1 > 10) {
+        this.promotionOpenDate = true;
+        return;
+      }
+      if (d.getFullYear() >= 2018 && d.getDate() >= 29 && d.getHours() >= 9) {
+        this.promotionOpenDate = true;
+        return;
+      }
     }
   },
   async created() {
@@ -438,6 +463,11 @@ export default {
       this.isTomorrowData = true;
     }
     window.mid = this.User.userId;
+
+    this.calcPromotionOpen();
+
+
+
   },
   destroyed() {
     if (this.isTomorrowDirect) {
@@ -673,16 +703,6 @@ export default {
         width: 100%;
       }
     }
-    &::before {
-      content: '';
-      display: block;
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      right: 0;
-      background-color: rgba(0, 0, 0, 0.6);
-    }
     .btn-close {
       top: 18px;
     }
@@ -693,6 +713,15 @@ export default {
 }
 .popover-promotion-leave-active {
   animation: slideInDown 1s reverse;
+}
+
+.dim_overlay {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 100;
 }
 
 @media (min-width: 768px) {
