@@ -465,7 +465,7 @@ export default {
 }
 .swiper-slide {
   img {
-    /*width: 310px;*/
+    max-width: 310px;
     max-height: calc(100vh - 150px);
   }
 }
