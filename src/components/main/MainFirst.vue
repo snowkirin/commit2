@@ -119,9 +119,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-:root {
-  --vh-offset: 0px;
-}
 .not-mobile {
   display: none;
 }
@@ -134,8 +131,8 @@ export default {
 }
 .content {
   height: 100vh;
-	height: calc(var(--vh, 1vh) * 100);
-  /*height: calc(100vh - var(--vh-offset));*/
+	/*height: calc(var(--vh, 1vh) * 100);*/
+  height: calc(100vh - var(--vh-offset, 0px));
   background: url('~@/assets/img/main/img_main_small.png') no-repeat 50% 50%;
   background-size: cover;
   position: relative;
