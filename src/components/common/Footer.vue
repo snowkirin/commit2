@@ -2,7 +2,7 @@
 <template>
   <footer
     class="footer"
-    :class="CurrentRoute"
+    :class="[CurrentRoute, {'is-login': isLogin}]"
   >
     <div class="footer-top">
       <div class="footer-inner">
@@ -106,7 +106,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      CurrentRoute: 'common/CurrentRoute'
+      CurrentRoute: 'common/CurrentRoute',
+      isLogin: 'login/isLogin'
     })
   },
   methods: {
@@ -121,10 +122,7 @@ export default {
       this.$refs.private.close();
       this.$refs.use.close();
     }
-  },
-  created() {
-  },
-  mounted() {}
+  }
 };
 </script>
 
@@ -137,6 +135,9 @@ export default {
   &.main {
     padding-bottom: 56px;
     border-top: 0;
+  }
+  &.is-login {
+    padding-bottom: 0 !important;
   }
   &.join {
   }
