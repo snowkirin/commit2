@@ -655,7 +655,7 @@ export default {
                   '통신오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.'
               });
               this.$refs.alert.openSimplert(alertObject);
-              return;
+
             }
           });
         }
@@ -667,7 +667,7 @@ export default {
           message: '인증번호를 입력해 주세요.'
         });
         this.$refs.alert.openSimplert(alertObject);
-        return;
+
       } else {
         const formData = {
           authId: this.PhoneAuth,
@@ -731,7 +731,7 @@ export default {
                     '현재 비밀번호가 정확하지 않습니다. 다시 입력해 주세요.'
                 });
                 this.$refs.alert.openSimplert(alertObject);
-                return;
+
               }
             }
           });
@@ -741,7 +741,7 @@ export default {
             message: '새로운 비밀번호를 정확히 입력해 주세요.'
           });
           this.$refs.alert.openSimplert(alertObject);
-          return;
+
         }
       });
     },
@@ -807,7 +807,7 @@ export default {
                   '통신 오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.'
               });
               this.$refs.alert.openSimplert(alertObject);
-              return;
+
             }
           });
         } else {
@@ -874,7 +874,7 @@ export default {
             message: '통신오류가 발생하였습니다. 잠시후 다시 시도해 주세요.'
           });
           this.$refs.alert.openSimplert(alertObject);
-          return;
+
         }
       });
     },
@@ -889,7 +889,7 @@ export default {
           message: '공동 현관 비밀번호를 입력해 주세요.'
         });
         this.$refs.alert.openSimplert(alertObject);
-        return;
+
       } else {
         this.patchLobbyPassword(formData).then(res => {
           if (res.data.result) {
@@ -913,7 +913,7 @@ export default {
           message: '기념일을 입력해 주세요.'
         });
         this.$refs.alert.openSimplert(alertObject);
-        return;
+
       } else {
         this.$validator.validateAll('ann').then(result => {
           if (result) {
