@@ -273,12 +273,6 @@ export default {
             },
             {
               path: 'http://image.zuly.co.kr/resource/kinder-02/08.jpg'
-            },
-            {
-              path: 'http://image.zuly.co.kr/resource/kinder-02/09.jpg'
-            },
-            {
-              path: 'http://image.zuly.co.kr/resource/kinder-02/10.jpg'
             }
           ]
         },
