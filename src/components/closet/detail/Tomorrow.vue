@@ -667,7 +667,7 @@ export default {
   .band-banner {
     position: relative;
     text-align: center;
-    background-color: #714c39;
+    background-color: #745140;
     cursor: pointer;
     img {
       width: 375px;
@@ -683,7 +683,7 @@ export default {
     .promotion-content {
       position: relative;
       z-index: 10;
-      background-color: #714c39;
+      background-color: #745140;
       width: 100%;
       img {
         width: 100%;

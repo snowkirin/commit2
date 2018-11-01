@@ -80,8 +80,7 @@
         <div>
           <swiper :options="swiperOption">
             <swiper-slide v-for="(imageData, imageIdx) in data.image" :key="imageIdx">
-              <img :data-src="imageData.path" class="swiper-lazy">
-              <div class="swiper-lazy-preloader"></div>
+              <img :src="imageData.path">
             </swiper-slide>
             <div class="swiper-pagination" slot="pagination"></div>
             <div class="swiper-button-prev" slot="button-prev"></div>
@@ -429,14 +428,14 @@ export default {
 <style scoped lang="scss" src="@/assets/css/main-style.scss">
 </style>
 <style lang="scss" scoped>
-  /deep/ .v--modal-overlay .v--modal-box {
-  }
-  /deep/ .swiper-lazy-preloader {
-    position: relative;
-    margin-top: 0;
-    width: 30px;
-    height: 30px;
-  }
+/deep/ .v--modal-overlay .v--modal-box {
+}
+/deep/ .swiper-lazy-preloader {
+  position: relative;
+  margin-top: 0;
+  width: 30px;
+  height: 30px;
+}
 /deep/ .v--modal {
   max-width: 350px;
 }
@@ -458,6 +457,7 @@ export default {
   }
 }
 .swiper-slide {
+  text-align: center;
   img {
     max-width: 310px;
     max-height: calc(100vh - 150px);
@@ -531,7 +531,6 @@ export default {
   .swiper-slide {
   }
   .swiper-slide img {
-
   }
 }
 
