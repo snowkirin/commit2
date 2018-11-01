@@ -177,22 +177,27 @@ export default {
 .footer-layer1 {
   position: relative;
   .txt-tel {
-    @include fontSize(18px, en);
+    @include fontSize(17px, en);
     font-weight: 700;
   }
   .txt-operation {
-    @include fontSize(14px);
+    @include fontSize(13px);
     margin-top: 5px;
   }
   .tok-wrap {
     position: absolute;
     right: 0;
     bottom: 0;
+    @media (max-width: 339px) {
+      top: 0;
+      bottom: auto;
+    }
     .link-tok {
       display: block;
       height: 38px;
       img {
         height: 100%;
+
       }
     }
   }
@@ -299,10 +304,10 @@ export default {
   }
   .footer-layer1 {
     .txt-tel {
-      @include fontSize(18px, en);
+      @include fontSize(17px, en);
     }
     .txt-operation {
-      @include fontSize(15px);
+      @include fontSize(14px);
       margin-top: 7px;
     }
     .tok-wrap {
@@ -351,7 +356,7 @@ export default {
   }
   .footer-layer1 {
     .txt-tel {
-      @include fontSize(21px, en);
+      @include fontSize(20px, en);
     }
   }
   .footer-top {
