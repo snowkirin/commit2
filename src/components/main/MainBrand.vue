@@ -80,7 +80,7 @@
         <div>
           <swiper :options="swiperOption">
             <swiper-slide v-for="(imageData, imageIdx) in data.image" :key="imageIdx">
-              <img src="imageData.path">
+              <img :src="imageData.path">
             </swiper-slide>
             <div class="swiper-pagination" slot="pagination"></div>
             <div class="swiper-button-prev" slot="button-prev"></div>
