@@ -30,6 +30,28 @@
         </div>
       </div>
     </div>
+    <div class="footer-middle">
+      <div class="footer-inner">
+        <ul class="list-follow">
+          <li>
+            <a href="https://www.youtube.com/watch?v=oRPTT363lMw" target="_blank">
+              <YoutubeIconSVG></YoutubeIconSVG>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.instagram.com/zuly_korea/" target="_blank">
+              <InstagramIconSVG></InstagramIconSVG>
+            </a>
+          </li>
+          <li v-if="false">
+            <a href="">
+              <FacebookIconSVG></FacebookIconSVG>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
     <div class="footer-bottom">
       <div class="footer-inner">
         <div class="footer-layer2">
@@ -89,10 +111,17 @@ import { mapGetters } from 'vuex';
 import Info from '@/info';
 import CommonModal from '@/components/common/modal/CommonModal';
 
+import FacebookIconSVG from '@/assets/img/follow_facebook.svg?inline';
+import InstagramIconSVG from '@/assets/img/follow_instagram.svg?inline';
+import YoutubeIconSVG from '@/assets/img/follow_youtube.svg?inline';
+
 export default {
   name: 'zuly-footer',
   components: {
-    CommonModal
+    CommonModal,
+    FacebookIconSVG,
+    InstagramIconSVG,
+    YoutubeIconSVG
   },
   watch: {
     CurrentRoute() {}
@@ -168,6 +197,45 @@ export default {
     }
   }
 }
+.footer-middle {
+  padding-left: 20px;
+  padding-right: 20px;
+  img,
+  svg {
+    vertical-align: middle;
+  }
+  .footer-inner {
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-top: 1px solid #e8e8e8;
+  }
+  .list-follow {
+    li {
+      position: relative;
+      display: inline-block;
+      vertical-align: top;
+      padding-left: 15px;
+      padding-right: 15px;
+      &::before {
+        content: '';
+        position: absolute;
+        display: block;
+        left: -1px;
+        top: 50%;
+        margin-top: -8px;
+        width: 1px;
+        height: 17px;
+        background-color: #d8d8d8;
+      }
+      &:first-child {
+        padding-left: 0;
+        &::before {
+          display: none;
+        }
+      }
+    }
+  }
+}
 .footer-bottom {
   background-color: #e8e8e8;
   padding: 20px 26px;
@@ -202,7 +270,6 @@ export default {
   .txt-copyright {
   }
 }
-
 
 @media (min-width: 768px) {
   .only-mobile {
@@ -244,6 +311,18 @@ export default {
       }
     }
   }
+  .footer-middle {
+    padding-left: 45px;
+    padding-right: 45px;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    border-top: 1px solid #e8e8e8;
+    .footer-inner {
+      padding-top: 0;
+      padding-bottom: 0;
+      border-top: 0;
+    }
+  }
   .footer-bottom {
     background-color: #fff;
     border-top: 1px solid #e9e9e9;
@@ -257,7 +336,6 @@ export default {
   }
   .footer-layer3 {
   }
-
 }
 
 @media (min-width: 1080px) {

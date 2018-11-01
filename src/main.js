@@ -31,6 +31,7 @@ import VueLazyload from 'vue-lazyload';
 // Moment : https://momentjs.com/
 import moment from 'moment';
 import VueMomentJs from 'vue-momentjs';
+import Vue2Filters from 'vue2-filters';
 // 임시 전역 컴포넌트
 import FormButton from '@/components/common/FormButton.vue';
 
@@ -59,6 +60,7 @@ Vue.use(VuejsDialog);
 
 Vue.use(VueMomentJs, moment);
 Vue.use(VueLazyload, { lazyComponent: true });
+Vue.use(Vue2Filters);
 // 임시 전역 컴포넌트
 Vue.component('FormButton', FormButton);
 
