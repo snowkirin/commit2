@@ -266,7 +266,7 @@
                           :class="{'text-field-error': errors.has('payment.newCardPassword')}">
                           <input
                             id="newCardPassword"
-                            type="text"
+                            type="password"
                             placeholder="앞 두자리"
                             maxlength="2"
                             name="newCardPassword"
