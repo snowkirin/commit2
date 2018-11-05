@@ -99,7 +99,7 @@
                       :class="{'selected': chestCircumResult === data}"
                       v-for="(data, idx) in chestCircum"
                       :key="idx"
-                      @click="clickSetSize('chestCircumResult', data, $event)"
+                      @click="clickSetSize('chestCircum', data, $event)"
                     >
                       {{ data }}
                     </li>
