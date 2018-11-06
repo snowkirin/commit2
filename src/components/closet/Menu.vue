@@ -214,9 +214,9 @@ export default {
   .c-menu {
     width: 1080px;
     .closet-link {
-      @include fontSize(18px);
+      @include fontSize(17px);
       &.en-menu {
-        @include fontSize(19px,en);
+        @include fontSize(18px,en);
         letter-spacing: -0.4px;
       }
     }

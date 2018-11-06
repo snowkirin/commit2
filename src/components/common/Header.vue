@@ -282,7 +282,7 @@ export default {
     }
     .global-navigation {
       li {
-        @include fontSize(18px);
+        @include fontSize(17px);
         line-height: 25px;
       }
     }
