@@ -296,16 +296,10 @@
         <button
           type="button"
           class="btn btn-primary h-56"
-          @click="signinInter"
+          @click="signIn"
         >
           완료
         </button>
-        <!--<button
-          type="button"
-          @click="finalSignup"
-          class="btn btn-primary h-56">
-          완료
-        </button>-->
       </div>
     </form>
     <simplert ref="alert" :useRadius="false" :useIcon="false" />
@@ -460,75 +454,11 @@ export default {
       this.$localStorage.remove('Mood');
       this.$localStorage.remove('Size');
     },
-    async progressJoin() {
-      const privateFlag = document.querySelector(
-        'input[name=private_flag]:checked'
-      );
-      // 배송일 지정
-      if (this.joinData.deliveryDate === '') {
-        _.assign(alertObject, {
-          message: '배송일을 선택해주세요.'
-        });
-        this.$refs.alert.openSimplert(alertObject);
-        return;
-      }
-      // 구매 동의 체크박스
-      if (!privateFlag) {
-        _.assign(alertObject, {
-          message: '구매진행에 동의해주세요.'
-        });
-        this.$refs.alert.openSimplert(alertObject);
-        return;
-      }
-      if (!_.isEmpty(this.joinData.recommendCode)) {
-        if (!this.isRecommendCode) {
-          _.assign(alertObject, {
-            message: '추천인 확인을 눌러주세요.'
-          });
-          this.$refs.alert.openSimplert(alertObject);
-          return;
-        }
-      }
-      await this.setJoin(this.joinData);
-      this.$validator.validateAll().then(result => {
-        if (result) {
-          this.postJoin().then(res => {
-            if (!res.data.result) {
-              if(res.data.paymentRtn) {
-                // 카드정보는 정확히 입력하였으나 다른 이유로 오류가 난 경우
-                _.assign(alertObject, {
-                  message: '오류가 발생 되었습니다. 잠시 후 다시 시도해 주세요.'
-                });
-              } else {
-                // 카드정보가 정확히 입력되지 않은 경우
-                _.assign(alertObject, {
-                  message: '카드 정보를 확인해주세요.'
-                });
-              }
-              this.$refs.alert.openSimplert(alertObject);
-            }
-            else {
-              this.successJoin();
-            }
-          });
-        }
-        document
-          .querySelectorAll('.text-field-error input')[0]
-          .setAttribute('tabindex', -1);
-        document.querySelectorAll('.text-field-error input')[0].focus();
-        document
-          .querySelectorAll('.text-field-error input')[0]
-          .setAttribute('tabindex', null);
-      });
-    },
     successJoin() {
       this.$router.push({
         path: '/join/addinfo'
       });
     },
-    submitJoinThrottle: _.throttle(function() {
-      this.progressJoin();
-    }, 2000),
     calcDate(data, idx) {
       if (idx === 0) {
         if (data.day_of_week === '(월)') {
@@ -544,13 +474,12 @@ export default {
         }
       }
     },
-    signinInter(e) {
+    signIn(e) {
       const instance = axios.create();
       const API_URL = process.env.VUE_APP_API_URL;
 
       instance.interceptors.request.use(
         function(config) {
-          // console.log(config, 'CONFIG')
           e.target.disabled = true;
           return config;
         },
@@ -560,7 +489,6 @@ export default {
       );
       instance.interceptors.response.use(
         function(response) {
-          // console.log(response);
           e.target.disabled = false;
           return response;
         },

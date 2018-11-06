@@ -70,20 +70,12 @@
           </div>
         </div>
         <div class="button-wrap">
-          <!--<button-->
-            <!--type="button"-->
-            <!--class="btn btn-primary h-56"-->
-            <!--@click="submitLoginThrottle"-->
-          <!--&gt;로그인</button>-->
           <button
             type="button"
             class="btn btn-primary h-56"
             ref="btnLogin"
-            @click="loginInter"
+            @click="clickLogin"
           >로그인</button>
-          <!--<FormButton ref="btnLogin" v-show="false" :api-data="submitLogin" @success="successLogin">-->
-            <!--<span>로그인</span>-->
-          <!--</FormButton>-->
         </div>
       </form>
       <div class="menu-login">
@@ -140,43 +132,6 @@ export default {
     ...mapMutations({
       loginSuccess: 'login/LOGIN_SUCCESS'
     }),
-    submitLogin() {
-      const formData = {
-        email: this.email,
-        password: this.password
-      };
-      if (_.isEmpty(formData.email)) {
-        this.$dialog.alert('이메일을 입력해주세요.', {
-          okText: '확인',
-          customClass: 'zuly-alert',
-          backdropClose: true
-        });
-        return;
-      }
-      if (_.isEmpty(formData.password)) {
-        this.$dialog.alert('비밀번호를 다시 확인해 주세요.', {
-          okText: '확인',
-          customClass: 'zuly-alert',
-          backdropClose: true
-        });
-        return;
-      }
-      this.$validator.validateAll().then(result => {
-        if (result) {
-          this.doLogin(formData).then(res => {
-            if (!res.data.result) {
-              this.$dialog.alert('이메일 혹은 비밀번호를 다시 확인해주세요.', {
-                okText: '확인',
-                customClass: 'zuly-alert',
-                backdropClose: true
-              });
-            } else {
-              this.successLogin();
-            }
-          });
-        }
-      });
-    },
     successLogin() {
       if (this.isLogin && this.Authentication.isAuthenticated) {
         if (this.isChecked) {
@@ -187,13 +142,12 @@ export default {
         this.$router.push({ path: '/closet/tomorrow' });
       }
     },
-    loginInter(e) {
+    clickLogin(e) {
       const instance = axios.create();
       const API_URL = process.env.VUE_APP_API_URL;
 
       instance.interceptors.request.use(
         function(config) {
-          // console.log(config, 'CONFIG')
           e.target.disabled = true;
           return config;
         },
@@ -203,7 +157,6 @@ export default {
       );
       instance.interceptors.response.use(
         function(response) {
-          // console.log(response);
           e.target.disabled = false;
           return response;
         },
@@ -258,16 +211,6 @@ export default {
         }
       });
     },
-    submitLoginThrottle: _.throttle(function(e) {
-      this.buttonToggle(e.target, 2000);
-      this.submitLogin();
-    }, 2000),
-    buttonToggle(target, timer) {
-      target.disabled = true;
-      _.delay(function() {
-        target.disabled = false;
-      }, timer);
-    }
   },
   created() {
     const emailStorage = this.$localStorage.get('email');

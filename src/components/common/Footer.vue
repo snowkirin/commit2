@@ -197,7 +197,6 @@ export default {
       height: 38px;
       img {
         height: 100%;
-
       }
     }
   }
