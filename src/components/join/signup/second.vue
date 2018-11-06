@@ -293,9 +293,13 @@
         </div>
       </div>
       <div class="btn-complete">
-        <FormButton ref="btnComplete" :api-data="progressJoin" @success="successJoin">
-          <span>완료</span>
-        </FormButton>
+        <button
+          type="button"
+          class="btn btn-primary h-56"
+          @click="signinInter"
+        >
+          완료
+        </button>
         <!--<button
           type="button"
           @click="finalSignup"
@@ -307,11 +311,12 @@
     <simplert ref="alert" :useRadius="false" :useIcon="false" />
   </div>
 </template>
-
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import Simplert from 'vue2-simplert';
 import VueNumeric from 'vue-numeric';
+import axios from 'axios';
+import _ from 'lodash';
 
 const alertObject = {
   type: 'alert', // 타입
@@ -363,7 +368,7 @@ export default {
       const week = _.trim(this.deliveryDay.dayOfWeek, '()');
       return `${date[0]}월 ${
         date[1]
-      }일 첫 배송 후 격주 ${week}요일에 배송됩니다.`;
+        }일 첫 배송 후 격주 ${week}요일에 배송됩니다.`;
     }
   },
   methods: {
@@ -485,9 +490,9 @@ export default {
         }
       }
       await this.setJoin(this.joinData);
-      return this.$validator.validateAll().then(result => {
+      this.$validator.validateAll().then(result => {
         if (result) {
-          return this.postJoin().then(res => {
+          this.postJoin().then(res => {
             if (!res.data.result) {
               if(res.data.paymentRtn) {
                 // 카드정보는 정확히 입력하였으나 다른 이유로 오류가 난 경우
@@ -502,7 +507,9 @@ export default {
               }
               this.$refs.alert.openSimplert(alertObject);
             }
-            return res;
+            else {
+              this.successJoin();
+            }
           });
         }
         document
@@ -519,8 +526,9 @@ export default {
         path: '/join/addinfo'
       });
     },
-    async finalSignup() {
-    },
+    submitJoinThrottle: _.throttle(function() {
+      this.progressJoin();
+    }, 2000),
     calcDate(data, idx) {
       if (idx === 0) {
         if (data.day_of_week === '(월)') {
@@ -535,6 +543,94 @@ export default {
           return { marginLeft: 'calc(80% - 1px)' };
         }
       }
+    },
+    signinInter(e) {
+      const instance = axios.create();
+      const API_URL = process.env.VUE_APP_API_URL;
+
+      instance.interceptors.request.use(
+        function(config) {
+          // console.log(config, 'CONFIG')
+          e.target.disabled = true;
+          return config;
+        },
+        function(error) {
+          return error;
+        }
+      );
+      instance.interceptors.response.use(
+        function(response) {
+          // console.log(response);
+          e.target.disabled = false;
+          return response;
+        },
+        function(error) {
+          e.target.disabled = false;
+          return error;
+        }
+      );
+
+      const privateFlag = document.querySelector(
+        'input[name=private_flag]:checked'
+      );
+      // 배송일 지정
+      if (this.joinData.deliveryDate === '') {
+        _.assign(alertObject, {
+          message: '배송일을 선택해주세요.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
+        return;
+      }
+      // 구매 동의 체크박스
+      if (!privateFlag) {
+        _.assign(alertObject, {
+          message: '구매진행에 동의해주세요.'
+        });
+        this.$refs.alert.openSimplert(alertObject);
+        return;
+      }
+      if (!_.isEmpty(this.joinData.recommendCode)) {
+        if (!this.isRecommendCode) {
+          _.assign(alertObject, {
+            message: '추천인 확인을 눌러주세요.'
+          });
+          this.$refs.alert.openSimplert(alertObject);
+          return;
+        }
+      }
+      this.setJoin(this.joinData);
+      this.$validator.validateAll().then(result => {
+        if (result) {
+          instance
+            .post(`${API_URL}/auth/join`, {
+              withCredentials: true
+            }).then(res => {
+              if (!res.data.result) {
+                if(res.data.paymentRtn) {
+                  // 카드정보는 정확히 입력하였으나 다른 이유로 오류가 난 경우
+                  _.assign(alertObject, {
+                    message: '오류가 발생 되었습니다. 잠시 후 다시 시도해 주세요.'
+                  });
+                } else {
+                  // 카드정보가 정확히 입력되지 않은 경우
+                  _.assign(alertObject, {
+                    message: '카드 정보를 확인해주세요.'
+                  });
+                }
+                this.$refs.alert.openSimplert(alertObject);
+              } else {
+                this.successJoin();
+              }
+          })
+        }
+        document
+          .querySelectorAll('.text-field-error input')[0]
+          .setAttribute('tabindex', -1);
+        document.querySelectorAll('.text-field-error input')[0].focus();
+        document
+          .querySelectorAll('.text-field-error input')[0]
+          .setAttribute('tabindex', null);
+      });
     }
   },
   async created() {
@@ -545,6 +641,7 @@ export default {
   }
 };
 </script>
+
 <style scoped lang="scss" src="@/assets/css/join-style.scss"/>
 <style scoped lang="scss">
 .list-flex {

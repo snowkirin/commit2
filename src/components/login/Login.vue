@@ -19,7 +19,7 @@
               v-model="email"
               data-vv-as="이메일"
               v-validate="'email'"
-              @keyup.enter="$refs.btnLogin.$el.click()"
+              @keyup.enter="$refs.btnLogin.click()"
             />
           </div>
           <p
@@ -43,7 +43,7 @@
               v-model="password"
               v-validate="'required'"
               data-vv-as="패스워드"
-              @keyup.enter="$refs.btnLogin.$el.click()"
+              @keyup.enter="$refs.btnLogin.click()"
             />
           </div>
           <p
@@ -70,9 +70,20 @@
           </div>
         </div>
         <div class="button-wrap">
-          <FormButton ref="btnLogin" v-show="true" :api-data="submitLogin" @success="successLogin">
-            <span>로그인</span>
-          </FormButton>
+          <!--<button-->
+            <!--type="button"-->
+            <!--class="btn btn-primary h-56"-->
+            <!--@click="submitLoginThrottle"-->
+          <!--&gt;로그인</button>-->
+          <button
+            type="button"
+            class="btn btn-primary h-56"
+            ref="btnLogin"
+            @click="loginInter"
+          >로그인</button>
+          <!--<FormButton ref="btnLogin" v-show="false" :api-data="submitLogin" @success="successLogin">-->
+            <!--<span>로그인</span>-->
+          <!--</FormButton>-->
         </div>
       </form>
       <div class="menu-login">
@@ -102,7 +113,9 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
+import _ from 'lodash';
+import axios from 'axios';
 
 export default {
   name: 'login',
@@ -123,6 +136,9 @@ export default {
   methods: {
     ...mapActions({
       doLogin: 'login/doLogin'
+    }),
+    ...mapMutations({
+      loginSuccess: 'login/LOGIN_SUCCESS'
     }),
     submitLogin() {
       const formData = {
@@ -145,17 +161,18 @@ export default {
         });
         return;
       }
-      return this.$validator.validateAll().then(result => {
+      this.$validator.validateAll().then(result => {
         if (result) {
-          return this.doLogin(formData).then(res => {
+          this.doLogin(formData).then(res => {
             if (!res.data.result) {
               this.$dialog.alert('이메일 혹은 비밀번호를 다시 확인해주세요.', {
                 okText: '확인',
                 customClass: 'zuly-alert',
                 backdropClose: true
               });
+            } else {
+              this.successLogin();
             }
-            return res;
           });
         }
       });
@@ -169,6 +186,87 @@ export default {
         }
         this.$router.push({ path: '/closet/tomorrow' });
       }
+    },
+    loginInter(e) {
+      const instance = axios.create();
+      const API_URL = process.env.VUE_APP_API_URL;
+
+      instance.interceptors.request.use(
+        function(config) {
+          // console.log(config, 'CONFIG')
+          e.target.disabled = true;
+          return config;
+        },
+        function(error) {
+          return error;
+        }
+      );
+      instance.interceptors.response.use(
+        function(response) {
+          // console.log(response);
+          e.target.disabled = false;
+          return response;
+        },
+        function(error) {
+          e.target.disabled = false;
+          return error;
+        }
+      );
+
+      const formData = {
+        email: this.email,
+        password: this.password
+      };
+      if (_.isEmpty(formData.email)) {
+        this.$dialog.alert('이메일을 입력해주세요.', {
+          okText: '확인',
+          customClass: 'zuly-alert',
+          backdropClose: true
+        });
+        return;
+      }
+      if (_.isEmpty(formData.password)) {
+        this.$dialog.alert('비밀번호를 다시 확인해 주세요.', {
+          okText: '확인',
+          customClass: 'zuly-alert',
+          backdropClose: true
+        });
+        return;
+      }
+
+      this.$validator.validateAll().then(result => {
+        if (result) {
+          instance
+            .post(`${API_URL}/auth/login`, formData, {
+              withCredentials: true
+            })
+            .then(res => {
+              if (!res.data.result) {
+                this.$dialog.alert(
+                  '이메일 혹은 비밀번호를 다시 확인해주세요.',
+                  {
+                    okText: '확인',
+                    customClass: 'zuly-alert',
+                    backdropClose: true
+                  }
+                );
+              } else {
+                this.loginSuccess();
+                this.successLogin();
+              }
+            });
+        }
+      });
+    },
+    submitLoginThrottle: _.throttle(function(e) {
+      this.buttonToggle(e.target, 2000);
+      this.submitLogin();
+    }, 2000),
+    buttonToggle(target, timer) {
+      target.disabled = true;
+      _.delay(function() {
+        target.disabled = false;
+      }, timer);
     }
   },
   created() {
@@ -236,12 +334,6 @@ export default {
       @include fontSize(15px);
       a {
         padding: 0 26px;
-      }
-      &:nth-child(1) {
-      }
-      &:nth-child(2) {
-      }
-      &:nth-child(3) {
       }
     }
   }

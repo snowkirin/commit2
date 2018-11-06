@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "FormButton",
+  name: 'FormButton',
   props: {
     apiData: {
       // required: true,
@@ -14,23 +14,14 @@ export default {
   },
   methods: {
     async clickInteraction() {
-      this.apiData()
-        .then(res => {
-          this.$refs.formButton.disabled = true;
+      _.throttle(
+        this.apiData().then(res => {
           if (res.data.result) {
-            this.$emit("success");
+            this.$emit('success');
           }
-        })
-        .catch(err => {
-          if (this.$refs.formButton) {
-            this.$refs.formButton.disabled = false;
-          }
-        })
-        .then(() => {
-          if (this.$refs.formButton) {
-            this.$refs.formButton.disabled = false;
-          }
-        });
+        }),
+        10000
+      );
     }
   },
   created() {}
