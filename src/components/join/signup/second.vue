@@ -602,7 +602,7 @@ export default {
       this.$validator.validateAll().then(result => {
         if (result) {
           instance
-            .post(`${API_URL}/auth/join`, {
+            .post(`${API_URL}/auth/join`, this.Join, {
               withCredentials: true
             }).then(res => {
               if (!res.data.result) {
