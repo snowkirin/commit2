@@ -64,7 +64,7 @@
 @media (min-width: 768px) {
   .contents-header {
     h3 {
-      @include fontSize(18px);
+      @include fontSize(17px);
     }
     p {
       @include fontSize(15px);

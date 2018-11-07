@@ -197,14 +197,13 @@ export default {
       height: 38px;
       img {
         height: 100%;
-
       }
     }
   }
 }
 .footer-middle {
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 25px;
+  padding-right: 25px;
   img,
   svg {
     vertical-align: middle;

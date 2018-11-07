@@ -505,9 +505,9 @@ export default {
   }
   p {
     text-align: center;
-    font-size: 18px;
-    line-height: 28px;
-    letter-spacing: -1.2px;
+    font-size: 17px;
+    line-height: 25px;
+    letter-spacing: -1px;
   }
 }
 
