@@ -44,7 +44,7 @@
                     <p class="txt-styling-tip">{{ data.styling_tip }}</p>
                   </div>
                   <div
-                    v-if="_.has(feedbackData[(PastResult.length -1) - idx], 'result') && feedbackData[(PastResult.length -1) - idx].result"
+                    v-if="_.has(feedbackData[idx], 'result') && feedbackData[idx].result"
                     class="link-wrap content-item"
                   >
                     <a
@@ -60,8 +60,8 @@
                   <feedback-past
                     style="display: none"
                     :ref="'feedback'+idx"
-                    v-if="_.has(feedbackData[(PastResult.length -1) - idx], 'result') && feedbackData[(PastResult.length -1) - idx].result"
-                    :feedbackData="feedbackData[(PastResult.length -1) - idx]"
+                    v-if="_.has(feedbackData[idx], 'result') && feedbackData[idx].result"
+                    :feedbackData="feedbackData[idx]"
                     :subscriptionId="data.id"
                     @hide="clickFeedbackHide(idx)"
                   >
@@ -95,9 +95,7 @@ export default {
     FeedbackPast,
     ModalProductDetail
   },
-  watch: {
-    feedbackData() {}
-  },
+  watch: {},
   computed: {
     ...mapGetters({
       PastResult: 'subscriptions/PastResult',
@@ -174,19 +172,27 @@ export default {
     await this.getPast().then(res => {
       this.isPastData = res.data.result.length !== 0;
     });
-
-    this.PastResult.forEach(value => {
+    _.forEach(this.PastResult, (value, idx) => {
       const formData = {
         subscriptionId: value.id
       };
-      this.getPastFeedbacks(formData).then(res => {
-        this.feedbackData.push(res.data);
-      });
+      this.getPastFeedbacks(formData)
+        .then(res => {
+          let _data = res.data;
+          _data.index = idx;
+          this.feedbackData.push(_data);
+        })
+        .then(() => {
+          this.feedbackData = _.chain(this.feedbackData)
+            .sortBy('index')
+            .value();
+        });
     });
   }
 };
 </script>
-<style scoped lang="scss" src="@/assets/css/closet-style.scss"></style>
+<style scoped lang="scss" src="@/assets/css/closet-style.scss">
+</style>
 <style scoped lang="scss">
 .none {
   padding-top: 14px;
