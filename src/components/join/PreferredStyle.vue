@@ -28,7 +28,8 @@
               </svg>
               </span>
               <div>
-                <img :src="$common.ZulyImage(data.image_width) + data.image_path" alt="">
+                <img :src="$common.IMAGEURL() + data.image_path"/>
+                <!--<img :src="$common.ZulyImage(data.image_width) + data.image_path" alt="">-->
               </div>
             </div>
           </div>
