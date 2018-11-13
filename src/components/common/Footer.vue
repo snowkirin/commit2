@@ -35,17 +35,17 @@
         <ul class="list-follow">
           <li>
             <a href="https://www.youtube.com/watch?v=oRPTT363lMw" target="_blank">
-              <YoutubeIconSVG></YoutubeIconSVG>
+              <img src="~@/assets/img/ytlogo.png">
             </a>
           </li>
           <li>
             <a href="https://www.instagram.com/zuly_korea/" target="_blank">
-              <InstagramIconSVG></InstagramIconSVG>
+              <img src="~@/assets/img/iglogo.png">
             </a>
           </li>
           <li v-if="false">
             <a href="">
-              <FacebookIconSVG></FacebookIconSVG>
+              <img src="~@/assets/img/fblogo.png">
             </a>
           </li>
         </ul>
@@ -111,17 +111,11 @@ import { mapGetters } from 'vuex';
 import Info from '@/info';
 import CommonModal from '@/components/common/modal/CommonModal';
 
-import FacebookIconSVG from '@/assets/img/follow_facebook.svg?inline';
-import InstagramIconSVG from '@/assets/img/follow_instagram.svg?inline';
-import YoutubeIconSVG from '@/assets/img/follow_youtube.svg?inline';
 
 export default {
   name: 'zuly-footer',
   components: {
     CommonModal,
-    FacebookIconSVG,
-    InstagramIconSVG,
-    YoutubeIconSVG
   },
   watch: {
     CurrentRoute() {}
@@ -206,6 +200,7 @@ export default {
   padding-right: 25px;
   img,
   svg {
+    width: 21px;
     vertical-align: middle;
   }
   .footer-inner {
@@ -321,6 +316,9 @@ export default {
     padding-top: 18px;
     padding-bottom: 18px;
     border-top: 1px solid #e8e8e8;
+    img, svg {
+      width: 24px;
+    }
     .footer-inner {
       padding-top: 0;
       padding-bottom: 0;

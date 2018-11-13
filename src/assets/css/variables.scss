@@ -78,7 +78,11 @@ $font-secondary: 'Open Sans', 'NotoSans', '맑은 고딕', 'Malgun Gothic', sans
     font-size: $val+px; 
   }
   @if $lang == ko {
-    letter-spacing: -(0.9 + (($val - 15) / 10))+px;
+    @if $val == 15 {
+      letter-spacing: -0.8px;
+    } @else {
+      letter-spacing: -(0.9 + (($val - 15) / 10))+px;
+    }
     @if $val == 14 {
       line-height: 21px;
     } @else {
