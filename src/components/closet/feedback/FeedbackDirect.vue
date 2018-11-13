@@ -400,7 +400,7 @@ export default {
     },
     clickComplete() {
       const fbContent = this.$refs.feedbackContent;
-      const inputs = fbContent.querySelectorAll('input[type="text"');
+      const inputs = fbContent.querySelectorAll('input[type="text"]');
       let reasonFlag = true;
       _.forEach(inputs, data => {
         if (data.getAttribute('data-active') === 'true') {

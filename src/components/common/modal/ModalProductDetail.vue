@@ -177,7 +177,8 @@ export default {
     text-align: left;
     margin-bottom: 10px;
   }
-  th, td {
+  th,
+  td {
     @include fontSize(12px);
     text-align: center;
     height: 34px;
@@ -239,11 +240,12 @@ export default {
 @media (min-width: 768px) {
 }
 
-  @media (min-width: 1080px) {
-    .table-model-info {
-      th, td {
-        @include fontSize(14px);
-      }
+@media (min-width: 1080px) {
+  .table-model-info {
+    th,
+    td {
+      @include fontSize(14px);
     }
   }
+}
 </style>
