@@ -276,7 +276,7 @@ export default {
     li {
       @include fontSize(15px);
       a {
-        padding: 0 26px;
+        padding: 0 25px;
       }
     }
   }

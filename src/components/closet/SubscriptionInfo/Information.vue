@@ -36,7 +36,7 @@
               <tr>
                 <th>할인 혜택</th>
                 <td>
-                  <div v-if="User.type !== 14703" :key="idx" v-for="(data, idx) in SubscriptionInfo.info.price_coupons">
+                  <div v-if="User.type !== 14703" :key="idx" v-for="(data, idx) in SubscriptionInfo.info.price_coupons" class="txt-discount">
                     {{ data.coupon_name }}
                     <span class="txt-time-limit"> ({{ data.end_date }} 결제시까지 적용)</span>
                   </div>
@@ -74,7 +74,7 @@
                     {{ SubscriptionInfo.info.payment_date}}
                   </td>
                   <td>
-                    <div :key="idx" v-for="(data, idx) in SubscriptionInfo.info.price_coupons">
+                    <div :key="idx" v-for="(data, idx) in SubscriptionInfo.info.price_coupons" class="txt-discount">
                       {{ data.coupon_name }}
                       <span class="txt-time-limit"> ({{ data.end_date }} 결제시까지 적용)</span>
                     </div>
@@ -428,6 +428,9 @@ export default {
     }
     .txt-time-limit {
       @include fontSize(12px);
+    }
+    .txt-discount {
+      color: #f45649;
     }
   }
 }
