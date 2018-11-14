@@ -1,5 +1,6 @@
 <template>
   <div class="contents">
+    <!--<ItemPayment/>-->
     <div class="content">
       <!-- 데이터가 존재하지 않는다면 -->
       <div v-if="!isCurrentData">
@@ -97,7 +98,7 @@ import DetailModal from '@/components/common/DetailModal';
 
 import 'swiper/dist/css/swiper.css';
 
-import VueJsonPretty from 'vue-json-pretty';
+import ItemPayment from '@/components/closet/detail/ItemPayment';
 
 export default {
   name: 'current',
@@ -138,7 +139,7 @@ export default {
     DetailModal,
     swiper,
     swiperSlide,
-    VueJsonPretty
+    ItemPayment
   },
   watch: {
     isCurrentFeedbacks() {
@@ -265,9 +266,9 @@ export default {
   }
   p {
     text-align: center;
-    font-size: 18px;
-    line-height: 28px;
-    letter-spacing: -1.2px;
+    font-size: 17px;
+    line-height: 25px;
+    letter-spacing: -1px;
   }
 }
 
