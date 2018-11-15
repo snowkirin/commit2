@@ -52,7 +52,7 @@ const router = new Router({
       path: '/',
       component: Index,
       meta: {
-        title: 'ZULY'
+        title: '줄라이'
       },
       children: [
         {
@@ -60,7 +60,7 @@ const router = new Router({
           name: 'Zuly_Main',
           component: Main,
           meta: {
-            title: 'ZULY'
+            title: '줄라이'
           }
         },
         {

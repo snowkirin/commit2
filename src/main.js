@@ -38,6 +38,8 @@ import FormButton from '@/components/common/FormButton.vue';
 import html from '@/library/htmlinjection';
 import sess from '@/library/session';
 
+import "nprogress/nprogress.css";
+
 Vue.config.productionTip = false;
 Vue.use(VueStickyKit);
 Vue.use(VueCommon);
