@@ -423,7 +423,7 @@ export default {
     afterLeave() {
       this.$refs.contents.removeAttribute('style');
     },
-    calcPromotionOpen() {
+    /*calcPromotionOpen() {
       const d = new Date();
       // 10월 29일 오전 9시
       if (d.getFullYear() > 2018) {
@@ -438,7 +438,7 @@ export default {
         this.promotionOpenDate = true;
 
       }
-    }
+    }*/
   },
   async created() {
     if (!this.isTomorrowDirect) {
@@ -456,7 +456,7 @@ export default {
       this.isTomorrowData = true;
     }
     window.mid = this.User.userId;
-    this.calcPromotionOpen();
+    // this.calcPromotionOpen();
   },
   destroyed() {
     if (this.isTomorrowDirect) {
