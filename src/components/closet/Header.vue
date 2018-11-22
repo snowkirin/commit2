@@ -22,11 +22,11 @@ export default {
   computed: mapGetters({
     User: 'login/User',
     FaqLoginCheck: 'common/FaqLoginCheck',
-    isLogin: 'login/isLogin'
+    isAuthenticated: 'login/isAuthenticated'
   }),
   methods: {},
   mounted() {
-    this.loginFaq = this.$route.path === '/closet/faq' && !this.isLogin;
+    this.loginFaq = this.$route.path === '/closet/faq' && !this.isAuthenticated;
   }
 };
 </script>

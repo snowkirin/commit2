@@ -1,51 +1,30 @@
 import Auth from '@/library/api/auth';
 import Member from '@/library/api/member';
 import types from './mutation-types';
-import {Base64} from "js-base64";
 
 export default {
-  doLogin({ commit }, data) {
-    return Auth.postLogin(data).then(res => {
-      if (res.data.result) {
-        commit(types.LOGIN_SUCCESS, res.data);
-      } else if (!res.data.result) {
-        console.log('로그인 실패');
-      } else {
-        if (res.data.errorMessage) {
-          const errorMessage = JSON.stringify(res.data.errorMessage.details);
-          console.error(errorMessage);
-        } else {
-          console.error(res.message);
-        }
-      }
-      return res;
+  LOGIN(context, data) {
+    return new Promise((resolve, reject) => {
+      Auth.PostLogin(data)
+        .then(({ data }) => {
+          context.commit(types.LOGIN_SUCCESS, data);
+          resolve(data);
+        })
+        .catch(({ response }) => {
+          reject(response);
+        });
     });
   },
-  doLogout({ commit }) {
-    return Auth.postLogout().then(res => {
-      if (res.data.result) {
-        commit(types.LOGOUT);
-      } else if (!res.data.result) {
-        console.log('로그아웃 실패');
-      } else {
-        if (res.data.errorMessage) {
-          const errorMessage = JSON.stringify(res.data.errorMessage.details);
-          console.error(errorMessage);
-        } else {
-          console.error(res.message);
-        }
-      }
-      return res;
+  LOGOUT(context) {
+    return new Promise(resolve => {
+      Auth.PostLogout().then(({ data }) => {
+        context.commit(types.LOGOUT_SUCCESS);
+        resolve(data);
+      });
     });
   },
   changeUserType({ commit }, data) {
     commit(types.CHANGE_USER_TYPE, data);
-    // return Member.postCancel(data).then(res => {
-    //   if (res.data.result) {
-    //
-    //     return res;
-    //   }
-    // });
   },
 
   /*

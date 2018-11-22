@@ -483,7 +483,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      isLogin: 'login/isLogin',
+      isAuthenticated: 'login/isAuthenticated',
       PhoneVerify: 'signup/PhoneVerify'
     })
   },

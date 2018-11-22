@@ -110,3 +110,28 @@ $font-secondary: 'Open Sans', 'NotoSans', '맑은 고딕', 'Malgun Gothic', sans
   letter-spacing: 0 !important;
 }
 
+// Mixin for Media Query
+
+/*
+Breakpoints:
+ ~ 767px = Mobile
+768px ~ 1079px = Tablet
+1080px ~ =  Desktop
+*/
+
+@mixin mobile {
+  // 0 ~ 767px
+  @media (max-width: 767px) { @content; }
+}
+@mixin mobile-tablet {
+  // 0 ~ 1079px
+  @media (max-width: 1079px) { @content; }
+}
+@mixin tablet {
+  // 768px ~
+  @media (min-width: 768px) { @content; }
+}
+@mixin desktop {
+  // 1080px ~
+  @media (min-width: 1080px) { @content; }
+}

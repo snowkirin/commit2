@@ -1,6 +1,5 @@
 <template>
   <div class="contents">
-    <!--<ItemPayment/>-->
     <div class="content">
       <!-- 데이터가 존재하지 않는다면 -->
       <div v-if="!isCurrentData">
@@ -15,8 +14,18 @@
       </div>
       <div v-else>
         <component :is="feedbacksType" :feedbackData="CurrentFeedbacks" v-if="feedbacksType"></component>
-        <div class="current" v-show="!isCurrentFeedbacksDirect">
-          <!-- Swiper ?-->
+        <div>
+          <ItemPayment
+            :data="currentData"
+            @init="setCurrentData"
+          />
+          <div class="styling-tip">
+            <p class="txt-title"># TODAY`S STYLE TIP</p>
+            <p class="txt-desc">{{ currentData.styling_tip }}</p>
+          </div>
+        </div>
+        <!--<div class="current" v-show="!isCurrentFeedbacksDirect">
+          &lt;!&ndash; Swiper ?&ndash;&gt;
           <div class="product-image">
             <div v-show="$mq === 'sm'">
               <div class="list-product-image">
@@ -55,9 +64,7 @@
               </div>
             </div>
           </div>
-
-
-          <!-- // Swiper -->
+          &lt;!&ndash; // Swiper &ndash;&gt;
           <div class="product-explain" v-if="$mq === 'sm'">
             <div>
               <p class="txt-tip-today-style">TIP <span class="txt-dash"></span><br/>TODAY&apos;S STYLE</p>
@@ -82,7 +89,7 @@
             </div>
           </div>
 
-        </div>
+        </div>-->
       </div>
     </div>
   </div>
@@ -108,7 +115,6 @@ export default {
       isCurrentData: false,
       isFeedback: false,
       feedbacksType: null,
-
       isProductEmptyCheck: false,
 
       // 2018-08-21 API 결과값 가공
@@ -118,7 +124,9 @@ export default {
         stylingTitle: '',
         stylingTip: '',
         hashTag: null,
-        products: []
+        products: [],
+        coupons: [],
+        images: {}
       },
       // Swiper Options
       swiperOption: {
@@ -153,6 +161,7 @@ export default {
     ...mapGetters({
       CurrentResult: 'subscriptions/CurrentResult', // 현재의 옷장 데이터
       CurrentImages: 'subscriptions/CurrentImages', // 현재의 옷장 이미지 데이터
+      CurrentCoupons: 'subscriptions/CurrentCoupons', // 현재의 옷장 쿠폰 데이터
       CurrentFeedbacks: 'subscriptions/CurrentFeedbacks', // 현재의 옷장 피드백 데이터
       isCurrentFeedbacks: 'subscriptions/isCurrentFeedbacks',
       CurrentFeedbacksDirect: 'subscriptions/CurrentFeedbacksDirect', // 현재의 옷장 피드백 직접접속 데이터
@@ -161,7 +170,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      getCurrent: 'subscriptions/getCurrent',
+      CURRENT: 'subscriptions/CURRENT',
       getCurrentFeedbacks: 'subscriptions/getCurrentFeedbacks',
       destroyCurrentFeedbackDirect: 'subscriptions/destroyCurrentFeedbackDirect'
     }),
@@ -172,11 +181,6 @@ export default {
       this.isFeedback = false;
     },
     setCurrentData() {
-      // CurrentResult를 관리하기 편하게 변환
-      /*
-      * 상품이 하나밖에 없을때 체크.
-      * 원래 하나하나 체크할려다가 디자인상 맞출수 없음.
-      * */
       _.forEach(this.CurrentResult.products, value => {
         if (_.isNull(value.id)) {
           this.isProductEmptyCheck = true;
@@ -184,12 +188,9 @@ export default {
       });
 
       this.currentData = {
-        subscriptionId: this.CurrentResult.subscription_id,
-        stylist: this.CurrentResult.stylist,
-        stylingTitle: this.CurrentResult.styling_title,
-        stylingTip: this.CurrentResult.styling_tip,
-        hashTag: this.CurrentResult.hashtag,
-        products: this.CurrentResult.products
+        ...this.CurrentResult,
+        coupons: [...this.CurrentCoupons],
+        images: { ...this.CurrentImages }
       };
     },
     currentFeedbackType() {
@@ -212,29 +213,26 @@ export default {
         subscriptionId: this.CurrentFeedbacksDirect.subscription_id
       };
 
-      this.getCurrentFeedbacks(formData).then(res => {
+      await this.getCurrentFeedbacks(formData).then(res => {
         if (res.data.result) {
           // 피드백 데이터가 있다면
           this.isCurrentData = true;
         }
       });
     } else {
-      await this.getCurrent().then(res => {
-        if (!_.isEmpty(res.data.result)) {
-          // 현재의 옷장 데이터가 있다면
-          this.setCurrentData();
-          this.isCurrentData = true;
-          // 피드백 API 호출
-          const formData = {
-            subscriptionId: this.currentData.subscriptionId
-          };
-          this.getCurrentFeedbacks(formData).then(res => {
-            if (res.data.result) {
-              this.feedbacksData = this.CurrentFeedbacks;
-            }
-          });
-        }
-      });
+      const result = await this.CURRENT();
+      if (!_.isEmpty(result.result)) {
+        this.setCurrentData();
+        this.isCurrentData = true;
+        const formData = {
+          subscriptionId: this.currentData.subscription_id
+        };
+        this.getCurrentFeedbacks(formData).then(res => {
+          if (res.data.result) {
+            this.feedbacksData = this.CurrentFeedbacks;
+          }
+        });
+      }
     }
   },
   mounted() {
@@ -271,8 +269,26 @@ export default {
     letter-spacing: -1px;
   }
 }
+.styling-tip {
+  background-color: #f5f5f5;
+  padding: 15px 20px;
+  margin-top: 30px;
+  @include desktop {
+    margin-top: 40px;
+  }
+  .txt-title {
+    @include fontSize(15px, en);
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  .txt-desc {
+    @include fontSize(14px);
+    word-break: keep-all;
+  }
+}
 
-.current {
+/*.current {
   background-color: #d8d8d8;
   padding: 30px;
 }
@@ -411,6 +427,5 @@ export default {
   }
 }
 @media (min-width: 1080px) {
-
-}
+}*/
 </style>

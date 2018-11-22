@@ -2,7 +2,7 @@
 	<div class="contents">
 		<div
 			class="content"
-			:class="{'is-login': isLogin}"
+			:class="{'is-login': isAuthenticated}"
 		>
 			<div
 				class="banner-wrap"
@@ -19,7 +19,7 @@
 				<div class="content-inner">
 					<div
 						class="logo-wrap"
-						v-if="!isLogin && this.$mq === 'sm'"
+						v-if="!isAuthenticated && this.$mq === 'sm'"
 					>
 						<ZulyLogoSVG class="logo-svg"/>
 					</div>
@@ -32,7 +32,7 @@
 						<div class="phrases-wrap">
 							<p>데일리룩 구독 서비스 줄라이</p>
 						</div>
-						<div class="link-wrap" v-if="!isLogin">
+						<div class="link-wrap" v-if="!isAuthenticated">
 							<div class="center-align">
 								<div class="grid-flex">
 									<div class="column">
@@ -94,7 +94,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      isLogin: 'login/isLogin',
+      isAuthenticated: 'login/isAuthenticated',
       isMainBanner: 'common/isMainBanner'
     })
   },
@@ -108,7 +108,7 @@ export default {
     }
   },
   created() {
-    if (this.isLogin) {
+    if (this.isAuthenticated) {
       this.toggleMainBanner(false);
     }
   },

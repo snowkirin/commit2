@@ -2,8 +2,8 @@
   <div class="container">
     <div class="container-header">
       <p class="styling-title">
-        <span v-show="!Authentication.isAuthenticated">선호 스타일</span>
-        <styleMenu v-show="Authentication.isAuthenticated" menuTitle="선호 스타일"></styleMenu>
+        <span v-show="!isAuthenticated">선호 스타일</span>
+        <styleMenu v-show="isAuthenticated" menuTitle="선호 스타일"></styleMenu>
       </p>
       <p class="styling-text">줄라이는 베이직 스타일을 기본으로 합니다.</p>
       <div class="line line__default"></div>
@@ -84,7 +84,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      Authentication: "login/Authentication"
+      isAuthenticated: "login/isAuthenticated"
     })
   },
   methods: {

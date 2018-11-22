@@ -54,7 +54,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      isLogin: 'login/isLogin'
+      isAuthenticated: 'login/isAuthenticated'
     })
   },
   data() {
@@ -114,7 +114,7 @@ export default {
     },
   },
   mounted() {
-    this.loginFaq = this.$route.path === '/closet/faq' && !this.isLogin;
+    this.loginFaq = this.$route.path === '/closet/faq' && !this.isAuthenticated;
   }
 };
 </script>

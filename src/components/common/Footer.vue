@@ -2,7 +2,7 @@
 <template>
   <footer
     class="footer"
-    :class="[CurrentRoute, {'is-login': isLogin}]"
+    :class="[CurrentRoute, {'is-login': isAuthenticated}]"
   >
     <div class="footer-top">
       <div class="footer-inner">
@@ -61,19 +61,20 @@
         <div class="footer-layer3">
           <div class="txt-info only-mobile">
             <p>
-              법인명(상호) : 주식 회사 어니언 그라운드(<span class="lang-en">Onion Ground</span>)
-              대표자(성명) : 김경규, 이시진
-              개인정보보호책임자 : 황우진(<a class="lang-en" href="mailto:admin@onionground.com">admin@onionground.com</a>)
-              사업자 등록 번호 : 729-81-00963 서울 특별시 테헤란로 78길 14-6 동성빌딩 7층
+              법인명(상호) : 주식 회사 어니언 그라운드(<span class="lang-en">Onion Ground</span>)<br v-if="$mq==='sm'">
+              대표자(성명) : 김경규, 이시진<br v-if="$mq==='sm'">
+              개인정보보호책임자 : 황우진(<a class="lang-en" href="mailto:admin@onionground.com">admin@onionground.com</a>)<br v-if="$mq==='sm'">
+              사업자 등록 번호 : 729-81-00963 <br v-if="$mq==='sm'">서울 특별시 테헤란로 78길 14-6 동성빌딩 7층
             </p>
             <p>
-              입점 문의 및 마케팅 제휴 : <a class="lang-en" href="mailto:sjsj00@onionground.com">sjsj00@onionground.com</a>
-              기타 문의 : <a class="lang-en" href="mailto:admin@onionground.com">admin@onionground.com</a> &copy; Onion Ground All Right RESERVED
+              입점 문의 및 마케팅 제휴 : <a class="lang-en" href="mailto:sjsj00@onionground.com">sjsj00@onionground.com</a><br v-if="$mq==='sm'">
+              기타 문의 : <a class="lang-en" href="mailto:admin@onionground.com">admin@onionground.com</a><br v-if="$mq==='sm'">
+              &copy; Onion Ground All Right RESERVED
             </p>
           </div>
           <div class="txt-info not-mobile">
-            법인명(상호) : 주식 회사 어니언 그라운드(Onion Ground) 대표자(성명) : 김경규, 이시진 개인정보보호책임자 : 황우진(<a class="en-font" href="mailto:admin@onionground.com">admin@onionground.com</a>)<br/>
-            사업자 등록 번호 : 729-81-00963서울 특별시 테헤란로 78길 14-6 동성빌딩 7층<br/>
+            법인명(상호) : 주식 회사 어니언 그라운드(Onion Ground) 대표자(성명) : 김경규, 이시진<br/>
+            개인정보보호책임자 : 황우진(<a class="en-font" href="mailto:admin@onionground.com">admin@onionground.com</a>) 사업자 등록 번호 : 729-81-00963서울 특별시 테헤란로 78길 14-6 동성빌딩 7층<br/>
             입점 문의 및 마케팅 제휴 : <a class="lang-en" href="mailto:sjsj00@onionground.com">sjsj00@onionground.com</a> 기타 문의 : <a class="en-font" href="mailto:admin@onionground.com">admin@onionground.com</a> &copy; Onion Ground All Right RESERVED
           </div>
         </div>
@@ -130,7 +131,7 @@ export default {
   computed: {
     ...mapGetters({
       CurrentRoute: 'common/CurrentRoute',
-      isLogin: 'login/isLogin'
+      isAuthenticated: 'login/isAuthenticated'
     })
   },
   methods: {

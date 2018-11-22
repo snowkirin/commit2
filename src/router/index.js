@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import NProgress from 'nprogress';
 import Router from 'vue-router';
 
 import Index from '../views/Home.vue';
@@ -41,12 +42,6 @@ Vue.use(Router);
 
 const router = new Router({
   mode: 'history',
-  scrollBehavior(to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition;
-    }
-    return { x: 0, y: 0 };
-  },
   routes: [
     {
       path: '/',
@@ -242,15 +237,15 @@ const router = new Router({
   ]
 });
 
-// router.beforeResolve((to, from, next) => {
-//   if (to.name) {
-//     NProgress.start();
-//   }
-//   next();
-// });
-//
-// router.afterEach((to, from) => {
-//   NProgress.done();
-// });
+router.beforeResolve((to, from, next) => {
+  if (to.name) {
+    NProgress.start();
+  }
+  next();
+});
+
+router.afterEach(() => {
+  NProgress.done();
+});
 
 export default router;

@@ -17,7 +17,7 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'pageNotFound',
   computed: mapGetters({
-    Authentication: 'login/Authentication'
+    isAuthenticated: 'login/isAuthenticated'
   }),
   methods: {},
   created() {
@@ -38,7 +38,7 @@ export default {
 }
 .result,
 .code {
-  font-family: "Open Sans", "맑은 고딕", "Malgun Gothic", sans-serif;
+  font-family: 'Open Sans', '맑은 고딕', 'Malgun Gothic', sans-serif;
 }
 .result {
   font-size: 15px;
@@ -47,7 +47,7 @@ export default {
   letter-spacing: -0.9px;
   position: relative;
   &:after {
-    content: "";
+    content: '';
     display: block;
     border-bottom: 1px solid #333;
     position: absolute;

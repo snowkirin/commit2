@@ -6,9 +6,9 @@ const initialState = {
   TomorrowProductDetail: {}, //내일의 옷장 상품 상세보기
   TomorrowDirectMemberId: '', // 직접접속 했을경우에는 Member ID가 필요하다.
   isTomorrowDirect: false, // 내일의 옷장 직접 접속 체크
-
   CurrentResult: {}, // 현재의 옷장 데이터
   CurrentImages: {}, // 현재의 옷장 이미지
+  CurrentCoupons: [],
   CurrentFeedbacks: {}, // 현재의 옷장 피드백 데이터
   isCurrentFeedbacks: false, // 현재의 옷장 피드백 체크
   CurrentFeedbacksAnswers: {},
@@ -36,7 +36,6 @@ const mutations = {
   [types.GET_TOMORROW](state, data) {
     state.TomorrowResult = data;
   },
-  [types.PUT_TOMORROW](state) {},
   [types.GET_TOMORROW_DIRECT](state, data) {
     state.TomorrowResult = data.data;
     state.isTomorrowDirect = true;
@@ -52,6 +51,7 @@ const mutations = {
 
   [types.GET_CURRENT](state, data) {
     state.CurrentResult = data.result[0];
+    state.CurrentCoupons = data.coupons;
     state.CurrentImages = data.images;
   },
   [types.GET_TOMORROW_PRODUCT_DETAIL](state, data) {
@@ -99,6 +99,7 @@ const getters = {
   isTomorrowDirect: state => state.isTomorrowDirect,
 
   CurrentResult: state => state.CurrentResult,
+  CurrentCoupons: state => state.CurrentCoupons,
   CurrentImages: state => state.CurrentImages,
   CurrentFeedbacks: state => state.CurrentFeedbacks,
   isCurrentFeedbacks: state => state.isCurrentFeedbacks,

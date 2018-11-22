@@ -3,9 +3,10 @@
   <div>
     <component
       :is="whichStep"
-      :productData="productData"
+      :data="data"
       @sequence="setSequence"
       @selectProduct="selectProduct"
+      @init="resetData"
       :selectedProduct="selectedProduct"
     ></component>
   </div>
@@ -15,6 +16,10 @@
 <script>
 export default {
   name: 'ItemPayment',
+  props: {
+    data: Object,
+
+  },
   components: {
     Step1: () => import('./ItemPayment_Step1'),
     Step2: () => import('./ItemPayment_Step2'),
@@ -22,30 +27,6 @@ export default {
   },
   data() {
     return {
-      productData: [
-        {
-          image: {
-            path: 'https://placeimg.com/640/860/people'
-          },
-          product: {
-            id: 4985092180912,
-            name: '레드 슬림 롱 트렌치',
-            brand: '어몽',
-            price: 138000
-          }
-        },
-        {
-          image: {
-            path: 'https://placeimg.com/640/860/tech'
-          },
-          product: {
-            id: 7808431231238,
-            name: '폴딩 스커트',
-            brand: '유니스',
-            price: 78000
-          }
-        }
-      ],
       selectedProduct: [],
       sequence: 'step1'
     };
@@ -70,7 +51,10 @@ export default {
     },
     selectProduct(param) {
       this.selectedProduct = param;
-    }
+    },
+    resetData() {
+      this.$emit('init');
+    },
   }
 };
 </script>

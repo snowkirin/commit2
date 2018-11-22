@@ -105,17 +105,14 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex';
-import _ from 'lodash';
-import axios from 'axios';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'login',
   components: {},
   computed: {
     ...mapGetters({
-      isLogin: 'login/isLogin',
-      Authentication: 'login/Authentication'
+      isAuthenticated: 'login/isAuthenticated'
     })
   },
   data() {
@@ -127,13 +124,10 @@ export default {
   },
   methods: {
     ...mapActions({
-      doLogin: 'login/doLogin'
-    }),
-    ...mapMutations({
-      loginSuccess: 'login/LOGIN_SUCCESS'
+      LOGIN: 'login/LOGIN'
     }),
     successLogin() {
-      if (this.isLogin && this.Authentication.isAuthenticated) {
+      if (this.isAuthenticated) {
         if (this.isChecked) {
           this.$localStorage.set('email', this.email);
         } else {
@@ -143,33 +137,11 @@ export default {
       }
     },
     clickLogin(e) {
-      const instance = axios.create();
-      const API_URL = process.env.VUE_APP_API_URL;
-
-      instance.interceptors.request.use(
-        function(config) {
-          e.target.disabled = true;
-          return config;
-        },
-        function(error) {
-          return error;
-        }
-      );
-      instance.interceptors.response.use(
-        function(response) {
-          e.target.disabled = false;
-          return response;
-        },
-        function(error) {
-          e.target.disabled = false;
-          return error;
-        }
-      );
-
       const formData = {
         email: this.email,
         password: this.password
       };
+
       if (_.isEmpty(formData.email)) {
         this.$dialog.alert('이메일을 입력해주세요.', {
           okText: '확인',
@@ -189,28 +161,23 @@ export default {
 
       this.$validator.validateAll().then(result => {
         if (result) {
-          instance
-            .post(`${API_URL}/auth/login`, formData, {
-              withCredentials: true
+          e.target.disabled = true;
+          this.LOGIN(formData)
+            .then(() => {
+              e.target.disabled = false;
+              this.successLogin();
             })
-            .then(res => {
-              if (!res.data.result) {
-                this.$dialog.alert(
-                  '이메일 혹은 비밀번호를 다시 확인해주세요.',
-                  {
-                    okText: '확인',
-                    customClass: 'zuly-alert',
-                    backdropClose: true
-                  }
-                );
-              } else {
-                this.loginSuccess();
-                this.successLogin();
-              }
+            .catch(() => {
+              this.$dialog.alert('이메일 혹은 비밀번호를 다시 확인해주세요.', {
+                okText: '확인',
+                customClass: 'zuly-alert',
+                backdropClose: true
+              });
+              e.target.disabled = false;
             });
         }
       });
-    },
+    }
   },
   created() {
     const emailStorage = this.$localStorage.get('email');
@@ -220,7 +187,7 @@ export default {
     }
   },
   mounted() {
-    if (this.isLogin) {
+    if (this.isAuthenticated) {
       this.$dialog
         .alert('잘못된 경로로 들어오셨습니다.', {
           okText: '확인',

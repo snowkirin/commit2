@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="mobile" v-if="$mq !== 'lg'">
+    <div class="mobile" v-if="$mq === 'sm'">
       <div class="payment-item">
         <div class="payment-item__header">
           <p>결제 상품</p>
@@ -9,19 +9,19 @@
           <div class="inner">
             <div class="items">
               <div
-                v-for="(data, idx) in selectedProduct"
+                v-for="(item, idx) in selectedProduct"
                 :key="idx"
                 class="item"
               >
-                <p class="txt-name">{{data.product.name}}</p>
-                <p class="txt-price"><span class="amount">{{ data.product.price | currency('', 0) }}</span><span class="unit">원</span></p>
+                <p class="txt-name">{{item.name}}</p>
+                <p class="txt-price"><span class="amount">{{ _.parseInt(item.sale_price) | currency('', 0) }}</span><span class="unit">원</span></p>
               </div>
             </div>
             <div class="coupon">
               <select v-model="selectCoupon">
                 <option value="">쿠폰 선택 하세요</option>
-                <option v-for="(data, idx) in couponData" :key="idx" :value="data">
-                  {{ data.coupon_name }}
+                <option v-for="(item, idx) in data.coupons" :key="idx" :value="item">
+                  {{ item.coupon_name }}
                 </option>
               </select>
             </div>
@@ -40,11 +40,11 @@
           <input
             class="custom-control-input"
             type="checkbox"
-            id="productPayment"
+            id="productPaymentMobile"
           >
           <label
             class="custom-control-label"
-            for="productPayment"
+            for="productPaymentMobile"
           >
             상기 상품 구매는 줄라이 구독 서비스를 통해 현재 고객님께서 이용중인 상품을 구매하는 것이므로 교환 및 환불이 불가능합니다. 구매 진행에 동의합니다 (필수)
           </label>
@@ -96,25 +96,25 @@
             </tfoot>
             <tbody>
             <tr
-              v-for="(data, idx) in selectedProduct"
+              v-for="(item, idx) in selectedProduct"
               :key="idx"
               class="item"
             >
               <td>
                 <div class="left-side">
                   <div class="image">
-                    <img :src="data.image.path">
+                    <img :src="$common.IMAGEURL() + item.image.path">
                   </div>
                 </div>
                 <div class="right-side">
                   <div>
-                    <p class="txt-name">{{ data.product.name }}</p>
-                    <p class="txt-brand">{{ data.product.brand }}</p>
+                    <p class="txt-name">{{ item.name }}</p>
+                    <p class="txt-brand">{{ item.brand_kor_name }}</p>
                   </div>
                 </div>
               </td>
               <td>
-                <span class="txt-price-amount">{{data.product.price | currency('', 0)}}</span><span class="txt-price-unit">원</span>
+                <span class="txt-price-amount">{{ _.parseInt(item.sale_price) | currency('', 0)}}</span><span class="txt-price-unit">원</span>
               </td>
             </tr>
             <tr class="coupon">
@@ -124,8 +124,8 @@
                   <div class="select-wrap">
                     <select v-model="selectCoupon">
                       <option value="">쿠폰 선택 하세요</option>
-                      <option v-for="(data, idx) in couponData" :key="idx" :value="data">
-                        {{ data.coupon_name }}
+                      <option v-for="(item, idx) in data.coupons" :key="idx" :value="item">
+                        {{ item.coupon_name }}
                       </option>
                     </select>
                   </div>
@@ -142,11 +142,11 @@
           <input
             class="custom-control-input"
             type="checkbox"
-            id="productPayment"
+            id="productPaymentDesktop"
           >
           <label
             class="custom-control-label"
-            for="productPayment"
+            for="productPaymentDesktop"
           >
             상기 상품 구매는 줄라이 구독 서비스를 통해 현재 고객님께서 이용중인 상품을 구매하는 것이므로 교환 및 환불이 불가능합니다. 구매 진행에 동의합니다 (필수)
           </label>
@@ -169,49 +169,39 @@
         </button>
       </div>
     </div>
+
+    <div class="payment-loading" v-if="loading">
+      <div class="loading-inner">
+        <p>결제 진행중</p>
+        <div class="loaders">
+          <div class="line-spin-fade-loader"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import APISubscriptions from '@/library/api/subscriptions';
+
 export default {
   name: 'ItemPayment_Step2',
   props: {
-    selectedProduct: Array
+    selectedProduct: Array,
+    data: Object
   },
   data() {
     return {
-      couponData: [
-        {
-          sale_type: 14601,
-          sale_rate: 20,
-          coupon_name: '20% 할인 쿠폰'
-        },
-        {
-          sale_type: 14601,
-          sale_rate: 30,
-          coupon_name: '30% 할인 쿠폰'
-        },
-        {
-          sale_type: 14602,
-          sale_price: 50000,
-          coupon_name: '5만원 할인 쿠폰'
-        },
-        {
-          sale_type: 14602,
-          sale_price: 3000,
-          coupon_name: '3천원 할인 쿠폰'
-        }
-      ],
       selectCoupon: '',
       finalPrice: 0,
-      progress: false
+      loading: false,
     };
   },
   computed: {
     finalPaymentAmount() {
       let price = 0;
       _.forEach(this.selectedProduct, value => {
-        price += value.product.price;
+        price += _.parseInt(value.sale_price);
       });
       if (this.selectCoupon !== '') {
         if (this.selectCoupon.sale_type === 14601) {
@@ -220,35 +210,170 @@ export default {
           price = price - this.selectCoupon.sale_price;
         }
       }
-      return price;
+      return price < 0 ? 0 : price;
     }
   },
   methods: {
     backStep() {
       this.$emit('sequence', 'step1');
     },
-    nextStep() {
-      const paymentCheck = document.getElementById('productPayment');
+    async nextStep() {
+      const paymentCheck =
+        this.$mq === 'sm'
+          ? document.getElementById('productPaymentMobile')
+          : document.getElementById('productPaymentDesktop');
       this.finalPrice = this.finalPaymentAmount;
-      if (this.finalPrice === 0) {
-        alert('알 수 없는 에러가 발생!');
-      } else {
-        if (paymentCheck.checked) {
-          alert(`${this.finalPrice}원이 결재됩니다!!!!!!!!!!!!!!!!!!!!!!!`);
+      if (paymentCheck.checked) {
+        let formData = {
+          subscriptionId: this.data.subscription_id, // Number
+          barcodes: [], // Number In Array
+          salePrices: [], // Number In Array
+          orderPrices: [], // Number In Array
+          totalAmount: this.finalPrice, // Number
+          usedCoupon: this.selectCoupon === '' ? null : this.selectCoupon.id // Number 쿠폰을 사용하지 않을 시 null로
+        };
+        _.forEach(this.selectedProduct, value => {
+          formData.salePrices.push(_.parseInt(value.sale_price));
+          formData.barcodes.push(_.parseInt(value.barcode));
+          if (this.selectCoupon !== '') {
+            if (this.selectCoupon.sale_type === 14601) {
+              let price =
+                _.parseInt(value.sale_price) -
+                _.parseInt(value.sale_price) *
+                  (this.selectCoupon.sale_rate / 100);
+              price = price < 0 ? 0 : price;
+              formData.orderPrices.push(price);
+            } else if (this.selectCoupon.sale_type === 14602) {
+              let price =
+                _.parseInt(value.sale_price) -
+                this.selectCoupon.sale_price / this.selectedProduct.length;
+              price = price < 0 ? 0 : price;
+              formData.orderPrices.push(price);
+            }
+          } else {
+            formData.orderPrices.push(_.parseInt(value.sale_price));
+          }
+        });
+        try {
+          this.loading = true;
+          await APISubscriptions.PostOrders(formData);
           this.$emit('sequence', 'step3');
-        } else {
-          alert('구매 진행에 동의해주세요!');
+        } catch {
+          this.$dialog.alert('결재 중 오류가 발생하였습니다.', {
+            okText: '확인',
+            customClass: 'zuly-alert',
+            backdropClose: true
+          });
+          this.loading = false;
         }
+      } else {
+        this.$dialog.alert('구매 진행에 동의해주세요.', {
+          okText: '확인',
+          customClass: 'zuly-alert',
+          backdropClose: true
+        });
       }
     }
-  },
-  created() {
-    //  시작할때 Subscription.info 정보 호출해야 쿠폰 데이터를 가져 올 수 있다.
   }
 };
 </script>
 
 <style scoped lang="scss">
+@-webkit-keyframes line-spin-fade-loader {
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes line-spin-fade-loader {
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.line-spin-fade-loader {
+  position: relative;
+  top: -10px;
+  left: -4px;
+}
+.line-spin-fade-loader > div:nth-child(1) {
+  top: 20px;
+  left: 0;
+  -webkit-animation: line-spin-fade-loader 1.2s -0.84s infinite ease-in-out;
+  animation: line-spin-fade-loader 1.2s -0.84s infinite ease-in-out;
+}
+.line-spin-fade-loader > div:nth-child(2) {
+  top: 13.63636px;
+  left: 13.63636px;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  -webkit-animation: line-spin-fade-loader 1.2s -0.72s infinite ease-in-out;
+  animation: line-spin-fade-loader 1.2s -0.72s infinite ease-in-out;
+}
+.line-spin-fade-loader > div:nth-child(3) {
+  top: 0;
+  left: 20px;
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+  -webkit-animation: line-spin-fade-loader 1.2s -0.6s infinite ease-in-out;
+  animation: line-spin-fade-loader 1.2s -0.6s infinite ease-in-out;
+}
+.line-spin-fade-loader > div:nth-child(4) {
+  top: -13.63636px;
+  left: 13.63636px;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  -webkit-animation: line-spin-fade-loader 1.2s -0.48s infinite ease-in-out;
+  animation: line-spin-fade-loader 1.2s -0.48s infinite ease-in-out;
+}
+.line-spin-fade-loader > div:nth-child(5) {
+  top: -20px;
+  left: 0;
+  -webkit-animation: line-spin-fade-loader 1.2s -0.36s infinite ease-in-out;
+  animation: line-spin-fade-loader 1.2s -0.36s infinite ease-in-out;
+}
+.line-spin-fade-loader > div:nth-child(6) {
+  top: -13.63636px;
+  left: -13.63636px;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  -webkit-animation: line-spin-fade-loader 1.2s -0.24s infinite ease-in-out;
+  animation: line-spin-fade-loader 1.2s -0.24s infinite ease-in-out;
+}
+.line-spin-fade-loader > div:nth-child(7) {
+  top: 0;
+  left: -20px;
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+  -webkit-animation: line-spin-fade-loader 1.2s -0.12s infinite ease-in-out;
+  animation: line-spin-fade-loader 1.2s -0.12s infinite ease-in-out;
+}
+.line-spin-fade-loader > div:nth-child(8) {
+  top: 13.63636px;
+  left: -13.63636px;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  -webkit-animation: line-spin-fade-loader 1.2s 0s infinite ease-in-out;
+  animation: line-spin-fade-loader 1.2s 0s infinite ease-in-out;
+}
+.line-spin-fade-loader > div {
+  background-color: #000;
+  width: 4px;
+  height: 35px;
+  border-radius: 2px;
+  margin: 2px;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  position: absolute;
+  width: 5px;
+  height: 15px;
+}
 .mobile {
   .payment-item {
     display: flex;
@@ -472,7 +597,6 @@ export default {
                 padding-right: 13px;
               }
             }
-
           }
         }
       }
@@ -492,6 +616,29 @@ export default {
         margin-left: 24px;
       }
     }
+  }
+}
+.payment-loading {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.6);
+  z-index: 9999;
+  .loading-inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+  }
+  .loaders {
+    transform-origin: 0 0;
+    transform: scale(0.75);
+  }
+  p {
+    @include fontSize(15px);
+    height: 60px;
+    transform: translateX(-50%);
   }
 }
 </style>

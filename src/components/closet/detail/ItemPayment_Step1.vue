@@ -1,32 +1,34 @@
 <template>
   <div class="step1">
     <!-- Mobile -->
-    <div class="mobile" v-if="$mq !== 'lg'">
+    <div class="mobile" v-if="$mq === 'sm'">
       <div class="list">
         <div
-          v-for="(data, idx) in productData"
+          v-for="(item, idx) in data.products"
           :key="idx"
+          v-if="item.id !== null"
           class="item"
         >
           <div class="left-side">
             <div class="image">
-              <img :src="data.image.path">
+              <img :src="$common.IMAGEURL() + item.image.path">
             </div>
           </div>
           <div class="right-side">
             <div>
-              <p class="txt-name">{{data.product.name}}</p>
-              <p class="txt-brand">{{data.product.brand}}</p>
+              <p class="txt-name">{{item.name}}</p>
+              <p class="txt-brand">{{item.brand_kor_name}}</p>
             </div>
             <div>
               <p class="txt-price">
                 <span class="desc">구매 가격:</span>
-                <span class="amount">{{data.product.price | currency('', 0)}}</span>
+                <span class="amount">{{ _.parseInt(item.sale_price) | currency('', 0)}}</span>
                 <span class="unit">원</span></p>
               <p class="txt-notice">(구매 시 다음 달 구독 요금 20% 할인)</p>
             </div>
             <div class="button-wrap">
               <button
+                v-if="item.is_sellable"
                 class="btn btn-primary h-40"
                 type="button"
                 @click="selectProduct(idx)"
@@ -39,10 +41,11 @@
         <a href="#" class="txt-link" @click="showTooltip">이용 중 상품 구매란?</a>
         <button
           type="button"
-          @click="selectProduct"
           class="btn btn-primary h-50"
+          v-if="this.sellableCounter !== 0"
+          @click="selectProduct"
         >
-          {{productData.length}}개 상품 모두 구매
+          {{this.sellableCounter}}개 상품 모두 구매
         </button>
       </div>
     </div>
@@ -59,35 +62,35 @@
           <tr>
             <th>상품 정보</th>
             <th>구매 가격</th>
-            <th>선택</th>
+            <th>구매</th>
           </tr>
           </thead>
           <tbody>
           <tr
-            v-for="(data, idx) in productData"
+            v-for="(item, idx) in data.products"
             :key="idx"
+            v-if="item.id !== null"
           >
             <td>
                 <div class="left-side">
                   <div class="image">
-                    <img
-                      :src="data.image.path"
-                    >
+                    <img :src="$common.IMAGEURL() + item.image.path">
                   </div>
                 </div>
                 <div class="right-side">
                   <div>
-                    <p class="txt-name">{{data.product.name}}</p>
-                    <p class="txt-brand">{{data.product.brand}}</p>
+                    <p class="txt-name">{{item.name}}</p>
+                    <p class="txt-brand">{{item.brand_kor_name}}</p>
                   </div>
                 </div>
             </td>
             <td>
-              <p class="txt-price"><span class="amount">{{data.product.price}}</span><span class="unit">원</span></p>
+              <p class="txt-price"><span class="amount">{{ _.parseInt(item.sale_price) | currency('', 0)}}</span><span class="unit">원</span></p>
               <p class="txt-notice">(구매 시 다음 달 구독 요금 20% 할인)</p>
             </td>
             <td>
               <button
+                v-if="item.is_sellable"
                 class="btn btn-primary h-40"
                 type="button"
                 @click="selectProduct(idx)"
@@ -104,7 +107,8 @@
           type="button"
           class="btn btn-primary h-50"
           @click="selectProduct"
-        >{{productData.length}}개 상품 모두 구매</button>
+          v-if="this.sellableCounter !== 0"
+        >{{this.sellableCounter}}개 상품 모두 구매</button>
       </div>
     </div>
     <template v-if="tooltipToggle">
@@ -126,7 +130,7 @@
 export default {
   name: 'ItemPayment_Step1',
   props: {
-    productData: Array
+    data: Object
   },
   data() {
     return {
@@ -138,29 +142,48 @@ export default {
       tooltipLatelyPosition: 0
     };
   },
+  computed: {
+    sellableCounter() {
+      let count = 0;
+      _.forEach(this.data.products, value => {
+        if (value.is_sellable) {
+          count++;
+        }
+      });
+      return count;
+    }
+  },
   methods: {
     changeSequence() {
       this.$emit('sequence', 'step2');
     },
     selectProduct(param) {
-      _.isNumber(param)
-        ? this.$emit('selectProduct', _.concat(this.productData[param]))
-        : this.$emit('selectProduct', this.productData);
+      if (_.isNumber(param)) {
+        this.$emit('selectProduct', _.concat(this.data.products[param]));
+      } else {
+        let allProduct = [];
+        _.forEach(this.data.products, value => {
+          if (value.is_sellable) {
+            allProduct.push(value);
+          }
+        });
+        this.$emit('selectProduct', allProduct);
+      }
       this.$emit('sequence', 'step2');
     },
     showTooltip(event) {
       event.preventDefault();
       const _target = event.target;
 
-      if (this.$mq !== 'lg') {
-        //  Mobile & Tablet
+      if (this.$mq === 'sm') {
+        //  Mobile
         this.tooltipStyle = {
           left: `${_target.offsetLeft}px`,
           top: `${_target.offsetTop + _target.offsetHeight}px`,
           width: `calc(100% - ${_target.offsetLeft * 2}px)`
         };
       } else {
-        //  Desktop
+        //  Tablet & Desktop
         this.tooltipStyle = {
           left: `${_target.offsetLeft + _target.offsetWidth + 11}px`,
           top: `${_target.offsetTop + _target.offsetHeight - 10}px`
@@ -173,6 +196,7 @@ export default {
       this.tooltipToggle = false;
     }
   },
+  created() {},
   mounted() {},
   destroyed() {}
 };

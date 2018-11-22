@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Http from '@/library/HTTP';
 const API_URL = process.env.VUE_APP_API_URL;
 
 export default {
@@ -95,21 +96,33 @@ export default {
   },
 
   /* 현재의 옷장 데이터 */
-  getCurrent() {
-    return axios
-      .get(`${API_URL}/subscriptions/current`, {
-        withCredentials: true
-      })
-      .then(res => {
-        return res;
-      })
-      .catch(err => {
-        return {
-          ...err.response,
-          message: err.message
-        };
-      });
+  GetCurrent() {
+    return Http.get('/subscriptions/current', { withCredentials: true });
   },
+  PostOrders(data) {
+    return Http.post('/subscriptions/orders', data, { withCredentials: true });
+  },
+  GetTomorrowDirect(data) {
+    return Http.get(`/subscriptions/tomorrow/${data}`);
+  },
+  GetCurrentDirect(data) {
+    return Http.get(`/subscriptions/feedbacks/directs/${data}`)
+  },
+  // getCurrent() {
+  //   return axios
+  //     .get(`${API_URL}/subscriptions/current`, {
+  //       withCredentials: true
+  //     })
+  //     .then(res => {
+  //       return res;
+  //     })
+  //     .catch(err => {
+  //       return {
+  //         ...err.response,
+  //         message: err.message
+  //       };
+  //     });
+  // },
 
   /*
   * 과거의 옷장 데이터

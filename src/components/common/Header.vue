@@ -10,7 +10,7 @@
       </router-link>
       <nav class="global-navigation">
         <ul>
-          <li v-if="isLogin">
+          <li v-if="isAuthenticated">
             <router-link
               to="/closet/tomorrow"
               class="menu-title">
@@ -19,7 +19,7 @@
           </li>
           <li>
             <router-link
-              v-if="!isLogin"
+              v-if="!isAuthenticated"
               to="/login">
               로그인
             </router-link>
@@ -54,22 +54,18 @@ export default {
       }
     };
   },
-
-  watch: {
-  },
   components: {
     ZulyLogoSVG
   },
   computed: {
     ...mapGetters({
-      Authentication: 'login/Authentication',
-      isLogin: 'login/isLogin',
+      isAuthenticated: 'login/isAuthenticated',
       CurrentRoute: 'common/CurrentRoute',
       isMainBanner: 'common/isMainBanner'
     }),
     calcClassName() {
       if (this.CurrentRoute === 'main') {
-        if (this.isLogin) {
+        if (this.isAuthenticated) {
           return 'header-main is-login';
         } else {
           return 'header-main';
@@ -94,7 +90,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      doLogout: 'login/doLogout'
+      LOGOUT: 'login/LOGOUT'
     }),
     // 로그아웃시
     resetStore() {
@@ -111,26 +107,23 @@ export default {
       this.$store.commit('subscriptions/RESET_STATE');
     },
     clickLogout() {
-      this.doLogout().then(() => {
-        this.$dialog
-          .alert('로그아웃 되었습니다.', {
+      this.LOGOUT().then(() => {
+        if (!this.isAuthenticated) {
+          this.$dialog.alert('로그아웃 되었습니다.', {
             okText: '확인',
             customClass: 'zuly-alert',
             backdropClose: true
-          })
-          .then(() => {})
-          .catch(() => {});
-        document.cookie = `${
-          process.env.VUE_APP_TOKEN_NAME
-        }=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=${
-          process.env.VUE_APP_HOST
-        }`;
-        this.resetStore();
-        this.$router.push({ path: '/login' });
+          });
+          document.cookie = `${
+            process.env.VUE_APP_TOKEN_NAME
+          }=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=${
+            process.env.VUE_APP_HOST
+          }`;
+          this.resetStore();
+          this.$router.push({ path: '/login' });
+        }
       });
-    },
-  },
-  created() {
+    }
   }
 };
 </script>

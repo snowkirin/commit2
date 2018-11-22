@@ -10,7 +10,7 @@ export default {
   name: 'join',
   computed: {
     ...mapGetters({
-      isLogin: 'login/isLogin'
+      isAuthenticated: 'login/isAuthenticated'
     })
   },
   created() {
