@@ -751,17 +751,6 @@ input:-webkit-autofill:focus {
 
 /* Remove these to get rid of the spinner */
 #nprogress .spinner {
-  //&::before {
-  //  content: "";
-  //  z-index: 1;
-  //  position: fixed;
-  //  top: 0;
-  //  right: 0;
-  //  bottom: 0;
-  //  left: 0;
-  //  //background-color: #999;
-  //  //opacity: .6;
-  //}
   width: 24px;
   height: 24px;
   .spinner-icon {
@@ -789,22 +778,3 @@ input:-webkit-autofill:focus {
     opacity: 1;
   }
 }
-
-//.nprogress-custom-parent {
-//  overflow: hidden;
-//  position: relative;
-//}
-//
-//.nprogress-custom-parent #nprogress .spinner,
-//.nprogress-custom-parent #nprogress .bar {
-//  position: absolute;
-//}
-//
-//@-webkit-keyframes nprogress-spinner {
-//  0%   { -webkit-transform: rotate(0deg); }
-//  100% { -webkit-transform: rotate(360deg); }
-//}
-//@keyframes nprogress-spinner {
-//  0%   { transform: rotate(0deg); }
-//  100% { transform: rotate(360deg); }
-//}

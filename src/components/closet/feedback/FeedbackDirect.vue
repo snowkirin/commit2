@@ -229,8 +229,11 @@
             </div>
           </div>
         </div>
+        <div class="button-wrap" v-if="$mq !== 'lg'">
+          <button type="button" class="btn btn-primary h-56" @click="clickComplete">제출하기</button>
+        </div>
       </div>
-      <div class="button-wrap">
+      <div class="button-wrap" v-if="$mq === 'lg'">
         <button type="button" class="btn btn-primary h-56" @click="clickComplete">제출하기</button>
       </div>
     </div>

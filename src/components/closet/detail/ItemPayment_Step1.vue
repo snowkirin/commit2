@@ -232,6 +232,9 @@ export default {
       }
       .right-side {
         flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         .txt-name,
         .txt-brand {
           @include fontSize(14px);
@@ -291,7 +294,6 @@ export default {
 }
 .desktop {
   .payment-table {
-    margin-top: 30px;
     border-top: 2px solid #3d3d35;
     table {
       table-layout: fixed;

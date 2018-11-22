@@ -24,6 +24,7 @@
                   {{ item.coupon_name }}
                 </option>
               </select>
+              <i data-v-5a0e556a="" class="fas fa-sort"></i>
             </div>
           </div>
         </div>
@@ -128,6 +129,7 @@
                         {{ item.coupon_name }}
                       </option>
                     </select>
+                    <i data-v-5a0e556a="" class="fas fa-sort"></i>
                   </div>
                 </div>
 
@@ -424,6 +426,11 @@ export default {
       }
       .coupon {
         position: relative;
+        .fa-sort {
+          position: absolute;
+          right: 10px;
+          top: 18px;
+        }
         select {
           @include fontSize(15px);
           height: 50px;
@@ -595,6 +602,11 @@ export default {
                 border: 1px solid #c4c4c4;
                 padding-left: 13px;
                 padding-right: 13px;
+              }
+              .fa-sort {
+                position: absolute;
+                top: 18px;
+                right: 10px;
               }
             }
           }

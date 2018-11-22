@@ -20,7 +20,7 @@
             @init="setCurrentData"
           />
           <div class="styling-tip">
-            <p class="txt-title"># TODAY`S STYLE TIP</p>
+            <p class="txt-title"># TODAY'S STYLE TIP</p>
             <p class="txt-desc">{{ currentData.styling_tip }}</p>
           </div>
         </div>

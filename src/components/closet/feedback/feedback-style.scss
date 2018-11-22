@@ -6,7 +6,7 @@
 .feedback-header {
   padding-left: 20px;
   padding-right: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 30px;
   .inner {
     height: 157px;
     background-image: url(~@/assets/img/closet/img_feedback.png);
@@ -187,7 +187,8 @@
   }
 }
 .button-wrap {
-
+  border-top: 1px solid #3d3d35;
+  padding-top: 21px;
 }
 
 @media (min-width: 768px) {
@@ -282,6 +283,8 @@
   .button-wrap {
     text-align: right;
     margin-top: 30px;
+    border-top: 0;
+    padding-top: 0;
     button {
       width: 287px;
     }
