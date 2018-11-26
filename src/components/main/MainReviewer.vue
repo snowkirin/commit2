@@ -23,8 +23,8 @@
 					</div>
 					<div class="text-wrap center-align">
 						<div>
-							<p class="txt-comment">재킷을 많이 사기도 애매했는데 줄라이를 이용하니, 사지 않고도 입을 수 있어서<br/>좋았어요^^</p>
-							<p class="txt-user">30대 후반 직장인</p>
+							<p class="txt-comment">2주마다 새로운 아이템을 받아서 가지고 있던 옷이랑 코디해서 입으니까 다양하게 연출이 가능해서 좋아요.</p>
+							<p class="txt-user">30대 초반 직장인</p>
 						</div>
 					</div>
 				</div>
@@ -35,8 +35,8 @@
 					</div>
 					<div class="text-wrap center-align">
 						<div>
-							<p class="txt-comment">2주마다 새로운 옷을 받으니, 쇼핑도<br/>덜 하고도 회사 갈 때 옷 걱정을 안 해도<br/>되어서 너무 편해요.</p>
-							<p class="txt-user">30대 중반 직장인</p>
+							<p class="txt-comment">육아에 일에 쇼핑할 시간이 없는데 제 취향에 맞는 옷을 추천해줘서 항상 기대되고 주변 반응이 좋아서 뿌듯해요.</p>
+							<p class="txt-user">30대 후반 직장인</p>
 						</div>
 					</div>
 				</div>
