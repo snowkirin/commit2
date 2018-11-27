@@ -1,24 +1,33 @@
 <template>
   <div class="modal-product-detail">
     <div class="modal-header">
-      <p class="txt-modal-title">
-        {{this.basics.product_name}}
-      </p>
+      <p class="txt-modal-title">{{ this.basics.product_name }}</p>
     </div>
 
     <div class="modal-content">
       <div class="swiper">
         <swiper :options="swiperOption" ref="mySwiper" class="swiper-box">
-          <swiper-slide v-for="(data, idx) in images" :key="idx" class="swiper-item">
-            <img :src="$common.ZulyImage()+data.image_path" alt="">
+          <swiper-slide
+            v-for="(data, idx) in images"
+            :key="idx"
+            class="swiper-item"
+          >
+            <img :src="$common.ZulyImage() + data.image_path" />
           </swiper-slide>
-          <swiper-slide class="swiper-item" :style="{ height: containerHeight+'px'}">
+          <swiper-slide
+            class="swiper-item"
+            :style="{ height: containerHeight + 'px' }"
+          >
             <div class="swiper-explain">
-              <p>핏감: {{details.fit}}</p>
-              <p>두께: {{details.thickness}}</p>
-              <p>신축성: {{details.flexibility}}</p>
-              <p v-if="materialType('겉감')">겉감: {{materialType('겉감')}}</p>
-              <p v-if="materialType('안감')">안감: {{materialType('안감')}}</p>
+              <p>핏감: {{ details.fit }}</p>
+              <p>두께: {{ details.thickness }}</p>
+              <p>신축성: {{ details.flexibility }}</p>
+              <p v-if="materialType('겉감')">
+                겉감: {{ materialType('겉감') }}
+              </p>
+              <p v-if="materialType('안감')">
+                안감: {{ materialType('안감') }}
+              </p>
             </div>
           </swiper-slide>
           <div class="swiper-pagination" slot="pagination"></div>
@@ -33,22 +42,22 @@
               모델 사이즈
             </caption>
             <colgroup>
-              <col width="14.51612903225806%">
-              <col width="*">
-              <col width="*">
-              <col width="*">
-              <col width="22.58064516129032%">
-              <col width="21.61290322580645%">
+              <col width="14.51612903225806%" />
+              <col width="*" />
+              <col width="*" />
+              <col width="*" />
+              <col width="22.58064516129032%" />
+              <col width="21.61290322580645%" />
             </colgroup>
             <thead>
-            <tr>
-              <th>키</th>
-              <th>가슴</th>
-              <th>상의</th>
-              <th>치마</th>
-              <th>바지</th>
-              <th>체형</th>
-            </tr>
+              <tr>
+                <th>키</th>
+                <th>가슴</th>
+                <th>상의</th>
+                <th>치마</th>
+                <th>바지</th>
+                <th>체형</th>
+              </tr>
             </thead>
             <tr>
               <td>168cm</td>
@@ -64,11 +73,10 @@
     </div>
 
     <div class="modal-close">
-      <a class="btn-close" @click="$emit('close')">
+      <a class="btn-close" @click="$emit('close');">
         <span class="icon-close"></span>
       </a>
     </div>
-
   </div>
 </template>
 <script>
@@ -77,7 +85,7 @@ import 'swiper/dist/css/swiper.css';
 
 export default {
   name: 'ModalProductDetail',
-  props: ['data'],
+  props: ['data', 'type'],
   components: {
     swiper,
     swiperSlide

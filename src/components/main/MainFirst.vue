@@ -1,60 +1,53 @@
 <template>
-	<div class="contents">
-		<div
-			class="content"
-			:class="{'is-login': isAuthenticated}"
-		>
-			<div
-				class="banner-wrap"
-				v-if="isMainBanner"
-			>
-				<div class="center-align">
-					<p>지금 가입하시면 <span class="txt-free">첫달 무료 ♥</span></p>
-				</div>
-				<a href="#" class="btn-close" @click="clickBannerHide">
-					<CloseIconSVG/>
-				</a>
-			</div>
-			<div class="center-align">
-				<div class="content-inner">
-					<div
-						class="logo-wrap"
-						v-if="!isAuthenticated && this.$mq === 'sm'"
-					>
-						<ZulyLogoSVG class="logo-svg"/>
-					</div>
-					<div class="text-wrap">
-						<div class="slogan-wrap">
-							<p>Save money</p>
-							<p>Save time</p>
-							<p>Save the space</p>
-						</div>
-						<div class="phrases-wrap">
-							<p>데일리룩 구독 서비스 줄라이</p>
-						</div>
-						<div class="link-wrap" v-if="!isAuthenticated">
-							<div class="center-align">
-								<div class="grid-flex">
-									<div class="column">
-										<router-link to="/login" class="link link-login">로그인</router-link>
-									</div>
-									<div class="column only-mobile" v-stick-in-parent="stikyKit">
-										<router-link to="/join/size" class="link link-sign-up">{{textJoin}}</router-link>
-									</div>
-									<div class="column not-mobile">
-										<router-link to="/join/size" class="link link-sign-up">회원가입</router-link>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="arrow-wrap">
-				<ArrowIconSVG/>
-			</div>
-		</div>
-	</div>
+  <div class="contents">
+    <div class="content" :class="{ 'is-login': isAuthenticated }">
+      <div class="banner-wrap" v-if="isMainBanner">
+        <div class="center-align">
+          <p>지금 가입하시면 <span class="txt-free">첫달 무료 ♥</span></p>
+        </div>
+        <a href="#" class="btn-close" @click="clickBannerHide">
+          <CloseIconSVG />
+        </a>
+      </div>
+      <div class="center-align">
+        <div class="content-inner">
+          <div class="logo-wrap" v-if="!isAuthenticated && this.$mq === 'sm'">
+            <ZulyLogoSVG class="logo-svg" />
+          </div>
+          <div class="text-wrap">
+            <div class="slogan-wrap">
+              <p>Save money</p>
+              <p>Save time</p>
+              <p>Save the space</p>
+            </div>
+            <div class="phrases-wrap"><p>데일리룩 구독 서비스 줄라이</p></div>
+            <div class="link-wrap" v-if="!isAuthenticated">
+              <div class="center-align">
+                <div class="grid-flex">
+                  <div class="column">
+                    <router-link to="/login" class="link link-login"
+                      >로그인</router-link
+                    >
+                  </div>
+                  <div class="column only-mobile" v-stick-in-parent="stikyKit">
+                    <router-link to="/join" class="link link-sign-up">{{
+                      textJoin
+                    }}</router-link>
+                  </div>
+                  <div class="column not-mobile">
+                    <router-link to="/join" class="link link-sign-up"
+                      >회원가입</router-link
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="arrow-wrap"><ArrowIconSVG /></div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -131,7 +124,7 @@ export default {
 }
 .content {
   height: 100vh;
-	/*height: calc(var(--vh, 1vh) * 100);*/
+  /*height: calc(var(--vh, 1vh) * 100);*/
   height: calc(100vh - var(--vh-offset, 0px));
   background: url('~@/assets/img/main/img_main_small.png') no-repeat 50% 50%;
   background-size: cover;
@@ -166,8 +159,8 @@ export default {
   text-align: center;
   margin-bottom: 9%;
   .logo-svg {
-		width: 66px;
-		height: 20px;
+    width: 66px;
+    height: 20px;
     /deep/ path {
       fill: #fff;
     }

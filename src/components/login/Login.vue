@@ -82,19 +82,19 @@
         <ul>
           <li>
             <router-link
-              to="/join/size">
+              to="/join">
               회원가입
             </router-link>
           </li>
           <li>
             <router-link
-              to="/find/id">
+              to="/find/id-inquiry">
               아이디찾기
             </router-link>
           </li>
           <li>
             <router-link
-              to="/find/password">
+              to="/find/pw-inquiry">
               비밀번호찾기
             </router-link>
           </li>

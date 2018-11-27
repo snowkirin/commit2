@@ -16,10 +16,13 @@
                 <ul class="list-flex">
                   <li
                     class="item w-25 h-50 lang-en"
-                    :class="[{selected: joinData.blouseSize  === data.code}, setDisabledClass('blouse', data.name)]"
+                    :class="[
+                      { selected: joinData.blouseSize === data.code },
+                      setDisabledClass('blouse', data.name)
+                    ]"
                     v-for="(data, idx) in Sizes.blouse"
                     :key="idx"
-                    @click="setData('blouseSize', data, $event)"
+                    @click="setData('blouseSize', data, $event);"
                   >
                     {{ data.name }}
                   </li>
@@ -34,10 +37,14 @@
                 <ul class="list-flex">
                   <li
                     class="item w-25 h-50 lang-en"
-                    :class="[{selected: joinData.skirtSize === data.code}, setDisabledClass('skirt', data.name)]"
+                    :class="[
+                      { selected: joinData.skirtSize === data.code },
+                      setDisabledClass('skirt', data.name)
+                    ]"
                     v-for="(data, idx) in Sizes.skirt"
                     :key="idx"
-                    @click="setData('skirtSize', data, $event)">
+                    @click="setData('skirtSize', data, $event);"
+                  >
                     {{ data.name }}
                   </li>
                 </ul>
@@ -51,11 +58,15 @@
                 <ul class="list-flex">
                   <li
                     class="item w-25 h-50 lang-en"
-                    :class="[{selected: joinData.pantsSize === data.code}, setDisabledClass('pants', data.name)]"
+                    :class="[
+                      { selected: joinData.pantsSize === data.code },
+                      setDisabledClass('pants', data.name)
+                    ]"
                     v-for="(data, idx) in Sizes.pants"
                     v-if="data.name !== '31'"
                     :key="idx"
-                    @click="setData('pantsSize', data, $event)">
+                    @click="setData('pantsSize', data, $event);"
+                  >
                     {{ data.name }}
                   </li>
                 </ul>
@@ -68,7 +79,7 @@
               <div>
                 <div
                   class="text-field"
-                  :class="{'text-field-error': errors.has('tallSize')}"
+                  :class="{ 'text-field-error': errors.has('tallSize') }"
                 >
                   <input
                     type="text"
@@ -79,11 +90,10 @@
                     v-model="joinData.tallSize"
                     v-validate="{ required: true, regex: /^\d+$/ }"
                     data-vv-as="키"
-                    placeholder="최근 측정한 키를 입력해주세요.">
+                    placeholder="최근 측정한 키를 입력해주세요."
+                  />
                 </div>
-                <p
-                  class="txt-error"
-                  v-show="errors.has('tallSize')">
+                <p class="txt-error" v-show="errors.has('tallSize')">
                   {{ errors.first('tallSize') }}
                 </p>
               </div>
@@ -98,34 +108,33 @@
                 <ul class="list-flex">
                   <li
                     class="item w-25 h-50 lang-en"
-                    :class="{'selected': chestCircumResult === data}"
+                    :class="{ selected: chestCircumResult === data }"
                     v-for="(data, idx) in chestCircum"
                     :key="idx"
-                    @click="setData('chestCircum', data, $event)"
+                    @click="setData('chestCircum', data, $event);"
                   >
-                    {{data}}
+                    {{ data }}
                   </li>
                 </ul>
 
-                <!--<div
-                  class="text-field"
-                  :class="{'text-field-error': errors.has('bustSize')}"
-                >
-                  <input
-                    type="text"
-                    v-model="joinData.bustSize"
-                    name="bustSize"
-                    ref="bustSize"
-                    v-validate="{ required: true, regex: /([0-9]{2,3})([a-fA-F]{1})$/ }"
-                    placeholder="예) 80A">
-                </div>-->
-                <p
-                  class="txt-error"
-                  v-show="errors.has('bustSize')">
+                <!--
+                  <div
+                    class="text-field"
+                    :class="{'text-field-error': errors.has('bustSize')}"
+                  >
+                    <input
+                      type="text"
+                      v-model="joinData.bustSize"
+                      name="bustSize"
+                      ref="bustSize"
+                      v-validate="{ required: true, regex: /([0-9]{2,3})([a-fA-F]{1})$/ }"
+                      placeholder="예) 80A">
+                  </div>
+                -->
+                <p class="txt-error" v-show="errors.has('bustSize')">
                   {{ errors.first('bustSize') }}
                 </p>
               </div>
-
             </div>
             <div class="row">
               <div class="form-title-wrap">
@@ -135,12 +144,12 @@
                 <ul class="list-flex">
                   <li
                     class="item w-25 h-50 lang-en"
-                    :class="{'selected': chestCupResult === data }"
+                    :class="{ selected: chestCupResult === data }"
                     v-for="(data, idx) in chestCup"
                     :key="idx"
-                    @click="setData('chestCup', data, $event)"
+                    @click="setData('chestCup', data, $event);"
                   >
-                    {{data}}
+                    {{ data }}
                   </li>
                 </ul>
               </div>
@@ -150,21 +159,24 @@
                 <p class="txt-form-title">체형</p>
               </div>
               <div class="body-type">
-                <p
-                  v-if="!_.isEmpty(bodyTypeText)"
-                  class="txt-body-type"
-                >
+                <p v-if="!_.isEmpty(bodyTypeText)" class="txt-body-type">
                   {{ bodyTypeText }}
                 </p>
                 <ul class="list-body-type">
-                    <li
-                      :class="{selected: joinData.bodyType === data.code}"
-                      v-for="(data, idx) in Sizes.body_type"
-                      :key="idx"
-                      @click="setData('bodyType', data, $event)"
-                    >
-                      <img :src="`${require('@/assets/img/signup/img_body'+(idx+1)+'.png')}`"/>
-                    </li>
+                  <li
+                    :class="{ selected: joinData.bodyType === data.code }"
+                    v-for="(data, idx) in Sizes.body_type"
+                    :key="idx"
+                    @click="setData('bodyType', data, $event);"
+                  >
+                    <img
+                      :src="
+                        `${require('@/assets/img/signup/img_body' +
+                          (idx + 1) +
+                          '.png')}`
+                      "
+                    />
+                  </li>
                 </ul>
               </div>
             </div>
@@ -175,7 +187,8 @@
         <button
           type="button"
           class="btn btn-primary h-56"
-          @click="clickComplete">
+          @click="clickComplete"
+        >
           <span>다음(1/4)</span>
         </button>
       </div>
@@ -311,7 +324,7 @@ export default {
           this.setJoin(this.joinData);
 
           this.$router.push({
-            path: 'preferred-style'
+            path: '/join/preferred-style'
           });
         } else {
           if (this.errors.has('tallSize')) {
@@ -368,8 +381,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss" src="@/assets/css/join-style.scss">
-</style>
+<style scoped lang="scss" src="@/assets/css/join-style.scss"></style>
 <style scoped lang="scss">
 .list-flex {
   background-color: #f5f5f5;

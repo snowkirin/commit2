@@ -4,8 +4,8 @@ const API_URL = process.env.VUE_APP_API_URL;
 
 export default {
   /*
-  * 내일의 옷장 데이터
-  * */
+   * 내일의 옷장 데이터
+   * */
   getTomorrow() {
     return axios
       .get(`${API_URL}/subscriptions/tomorrow`, {
@@ -22,9 +22,9 @@ export default {
       });
   },
   /*
-  * 내일의 옷장 - 선택하기
-  * data = { subscription_id: 65, products: [175,176] }
-  * */
+   * 내일의 옷장 - 선택하기
+   * data = { subscription_id: 65, products: [175,176] }
+   * */
   putTomorrow(data) {
     return axios
       .put(`${API_URL}/subscriptions/tomorrow`, data, {
@@ -41,9 +41,9 @@ export default {
       });
   },
   /*
-  * 내일의 옷장 직접 접속
-  * data = D2D42E57A6DC11E88ED9028465BB46CC (access_token)
-  * */
+   * 내일의 옷장 직접 접속
+   * data = D2D42E57A6DC11E88ED9028465BB46CC (access_token)
+   * */
   getTomorrowDirect(data) {
     return axios
       .get(`${API_URL}/subscriptions/tomorrow/${data}`)
@@ -58,9 +58,9 @@ export default {
       });
   },
   /*
-  * 내일의 옷장 직접 접속후 선택하기
-  * data = {"subscription_id": 65,"member_id": 65, "products": [175,176]}
-  * */
+   * 내일의 옷장 직접 접속후 선택하기
+   * data = {"subscription_id": 65,"member_id": 65, "products": [175,176]}
+   * */
   putTomorrowDirect(data) {
     return axios
       .put(`${API_URL}/subscriptions/tomorrow/direct`, data)
@@ -76,9 +76,9 @@ export default {
   },
 
   /*
-  * 상품 상세보기 - 현재는 내일의 옷장에 적용이 되어 있음.
-  * data(params) = { id: 381 (Number) }
-  * */
+   * 상품 상세보기 - 현재는 내일의 옷장에 적용이 되어 있음.
+   * data(params) = { id: 381 (Number) }
+   * */
   getProductDetail(data) {
     return axios
       .get(`${API_URL}/subscriptions/products/detail/${data}`, {
@@ -106,7 +106,10 @@ export default {
     return Http.get(`/subscriptions/tomorrow/${data}`);
   },
   GetCurrentDirect(data) {
-    return Http.get(`/subscriptions/feedbacks/directs/${data}`)
+    return Http.get(`/subscriptions/feedbacks/directs/${data}`);
+  },
+  GetProductDetail(data) {
+    return Http.get(`/subscriptions/products/detail/${data}`);
   },
   // getCurrent() {
   //   return axios
@@ -125,8 +128,8 @@ export default {
   // },
 
   /*
-  * 과거의 옷장 데이터
-  * */
+   * 과거의 옷장 데이터
+   * */
   getPast() {
     return axios
       .get(`${API_URL}/subscriptions/past`, {
@@ -143,9 +146,9 @@ export default {
       });
   },
   /*
-  * 과거의 옷장 상세 (구매내역) 2018-09-05: 사용안하는중
-  * data = { id: 1 }
-  * */
+   * 과거의 옷장 상세 (구매내역) 2018-09-05: 사용안하는중
+   * data = { id: 1 }
+   * */
   getPastDetail(data) {
     return axios
       .get(`${API_URL}/subscriptions/past/${data}`, {
@@ -162,13 +165,13 @@ export default {
       });
   },
   /*
-  * 현재의 옷장 데이터
-  * */
+   * 현재의 옷장 데이터
+   * */
 
   /*
-  * 피드백 가져오기 (과거의 옷장, 현재의 옷장)
-  * data = { subscriptionId: 180810000002 (Number) }
-  * */
+   * 피드백 가져오기 (과거의 옷장, 현재의 옷장)
+   * data = { subscriptionId: 180810000002 (Number) }
+   * */
   getFeedbacks(data) {
     return axios
       .get(`${API_URL}/subscriptions/feedbacks`, {
@@ -185,9 +188,9 @@ export default {
       });
   },
   /*
-  * 피드백 답변했던 데이터 가져오기
-  * data = { subscriptionId : 0000000, feedbackId : 0000 }
-  * */
+   * 피드백 답변했던 데이터 가져오기
+   * data = { subscriptionId : 0000000, feedbackId : 0000 }
+   * */
   getFeedbacksAnswers(data) {
     return axios
       .get(`${API_URL}/subscriptions/feedbacks/answers`, { params: data })
@@ -275,9 +278,9 @@ export default {
       });
   },
   /*
-  * 피드백 직접접근 : 현재의 옷장
-  * data = '469DB8B49C3F11E88ED9028465BB46CC' (String)
-  * */
+   * 피드백 직접접근 : 현재의 옷장
+   * data = '469DB8B49C3F11E88ED9028465BB46CC' (String)
+   * */
   getFeedbacksDirect(data) {
     return axios
       .get(`${API_URL}/subscriptions/feedbacks/directs/${data}`)
@@ -293,8 +296,8 @@ export default {
   },
 
   /*
-  * 구독 정보 조회
-  * */
+   * 구독 정보 조회
+   * */
   getSubscriptionInfo() {
     return axios
       .get(`${API_URL}/subscriptions/info`, {
@@ -329,9 +332,9 @@ export default {
   },
 
   /*
-  * 배송일 변경
-  * params: { idNext: Number, date: YYYY-MM-DD }
-  * */
+   * 배송일 변경
+   * params: { idNext: Number, date: YYYY-MM-DD }
+   * */
   patchUpdateSubscriptionReturnDate(data) {
     return axios
       .patch(`${API_URL}/subscriptions/updateSubscriptionReturnDate`, data, {
