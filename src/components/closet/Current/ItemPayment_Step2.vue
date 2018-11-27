@@ -273,7 +273,6 @@ export default {
         try {
           this.loading = true;
           const result = await APISubscriptions.PostOrders(formData);
-          console.log(result);
           if (result.data.result) {
             this.$emit('sequence', 'step3');
           } else {
