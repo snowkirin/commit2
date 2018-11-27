@@ -129,7 +129,10 @@
                 <div class="coupon-wrap">
                   <p class="txt-coupon">쿠폰</p>
                   <div class="select-wrap">
-                    <select v-model="selectCoupon" v-if="data.coupons.length === 0">
+                    <select
+                      v-model="selectCoupon"
+                      v-if="data.coupons.length === 0"
+                    >
                       <option value="">없음</option>
                     </select>
                     <select v-model="selectCoupon" v-else>
@@ -158,7 +161,9 @@
             id="productPaymentDesktop"
           />
           <label class="custom-control-label" for="productPaymentDesktop">
-            상기 상품 구매는 줄라이 구독 서비스를 통해 현재 고객님께서 이용중인 상품을 구매하는 것이므로 교환 및 반품, 환불이 불가능 합니다. 위 내용을 확인하였으며 결재에 동의 합니다.
+            상기 상품 구매는 줄라이 구독 서비스를 통해 현재 고객님께서 이용중인
+            상품을 구매하는 것이므로 교환 및 반품, 환불이 불가능 합니다. 위
+            내용을 확인하였으며 결재에 동의 합니다.
           </label>
         </div>
       </div>
@@ -268,14 +273,19 @@ export default {
         try {
           this.loading = true;
           const result = await APISubscriptions.PostOrders(formData);
+          console.log(result);
           if (result.data.result) {
             this.$emit('sequence', 'step3');
           } else {
-            this.$dialog.alert('결제가 실패하였습니다. 카드를 확인해 주세요.', {
-              okText: '확인',
-              customClass: 'zuly-alert',
-              backdropClose: true
-            });
+            this.$dialog.alert(
+              `결제에 실패하였습니다. <br/>${result.data.fail_reason}`,
+              {
+                okText: '확인',
+                customClass: 'zuly-alert',
+                backdropClose: true,
+                html: true
+              }
+            );
             this.loading = false;
           }
         } catch {
