@@ -22,10 +22,10 @@
             </div>
             <div class="coupon">
               <select v-model="selectCoupon" v-if="data.coupons.length === 0">
-                <option value="">없음</option>
+                <option value="">사용 가능한 쿠폰이 없습니다.</option>
               </select>
               <select v-model="selectCoupon" v-else>
-                <option value="">사용하지 않음</option>
+                <option value="">쿠폰 사용하지 않음</option>
                 <option
                   v-for="(item, idx) in data.coupons"
                   :key="idx"
@@ -133,10 +133,10 @@
                       v-model="selectCoupon"
                       v-if="data.coupons.length === 0"
                     >
-                      <option value="">없음</option>
+                      <option value="">사용 가능한 쿠폰이 없습니다.</option>
                     </select>
                     <select v-model="selectCoupon" v-else>
-                      <option value="">사용하지 않음</option>
+                      <option value="">쿠폰 사용하지 않음</option>
                       <option
                         v-for="(item, idx) in data.coupons"
                         :key="idx"

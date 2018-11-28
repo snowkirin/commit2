@@ -84,7 +84,6 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import ModalProductDetail from '@/components/common/modal/ModalProductDetail.vue';
-import CustomModal from '@/components/common/CustomModal';
 import FeedbackPast from '@/components/closet/feedback/FeedbackPast';
 
 export default {
@@ -96,7 +95,6 @@ export default {
     };
   },
   components: {
-    CustomModal,
     FeedbackPast,
     ModalProductDetail
   },

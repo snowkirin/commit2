@@ -48,7 +48,7 @@
         <button
           type="button"
           class="btn btn-primary h-50"
-          v-if="this.sellableCounter !== 0"
+          v-if="this.sellableCounter >= 2"
           @click="selectProduct"
         >
           {{ this.sellableCounter }}개 상품 모두 구매
@@ -127,7 +127,7 @@
           type="button"
           class="btn btn-primary h-50"
           @click="selectProduct"
-          v-if="this.sellableCounter !== 0"
+          v-if="this.sellableCounter >= 2"
         >
           {{ this.sellableCounter }}개 상품 모두 구매
         </button>

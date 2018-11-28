@@ -3,11 +3,13 @@ import Member from '@/library/api/member';
 import types from './mutation-types';
 
 export default {
-  LOGIN(context, data) {
+  LOGIN(context, payload) {
     return new Promise((resolve, reject) => {
-      Auth.PostLogin(data)
+      Auth.PostLogin(payload)
         .then(({ data }) => {
-          context.commit(types.LOGIN_SUCCESS, data);
+          if (data.result) {
+            context.commit(types.LOGIN_SUCCESS, data);
+          }
           resolve(data);
         })
         .catch(({ response }) => {
@@ -28,9 +30,9 @@ export default {
   },
 
   /*
-  * 구독 중지 및 회원 탈퇴
-  * reqType = 15101(구독중지), 15102(회원탈퇴)
-  * */
+   * 구독 중지 및 회원 탈퇴
+   * reqType = 15101(구독중지), 15102(회원탈퇴)
+   * */
   postCancel({ commit }, data) {
     return Member.postCancel(data).then(res => {
       if (res.data.result) {

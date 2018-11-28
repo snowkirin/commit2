@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <CommonHeader />
+  <div class="wrapper">
+    <CommonHeader types="closet" />
     <div class="container">
       <ClosetHeader />
       <ClosetMenu />
@@ -28,13 +28,13 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .container {
-    padding-bottom: 70px;
-    @media(min-width: 768px) {
-      padding-bottom: 100px;
-    }
-    @media (min-width: 1080px) {
-      padding-bottom: 130px;
-    }
+.container {
+  padding-bottom: 70px;
+  @include tablet {
+    padding-bottom: 100px;
   }
+  @include desktop {
+    padding-bottom: 130px;
+  }
+}
 </style>

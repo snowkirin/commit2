@@ -1,11 +1,7 @@
 <template>
   <div class="closet-header">
-    <p class="user-info" v-if="loginFaq">
-      환영합니다.
-    </p>
-    <p class="user-info" v-else>
-      {{ User.displayName }}님 옷장
-    </p>
+    <p class="user-info" v-if="loginFaq">환영합니다.</p>
+    <p class="user-info" v-else>{{ User.displayName }}님 옷장</p>
   </div>
 </template>
 

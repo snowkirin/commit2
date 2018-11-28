@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <CommonHeader/>
-    <router-view/>
-    <CommonFooter/>
+  <div class="wrapper">
+    <CommonHeader />
+    <router-view />
+    <CommonFooter />
   </div>
 </template>
 
@@ -18,5 +18,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

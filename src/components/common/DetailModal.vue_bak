@@ -1,63 +1,130 @@
 <template>
-<div class="detail-frame">
-  <div class="detail-content scroll">
-    <span class="detail-info-header" v-if="isMobile">{{closetInfo.name}}</span>
-    <div class="detail-modal-btn" @click="closeModal">
-      <div class="btn-times"></div>
-    </div>
-    <div class="detail-image-area">
-      <div class="detail-message detail-subimage" v-if="!isMobile">
-        <div v-for="(image, idx) in closetImage.path" v-bind:key="idx" class="thumnail-image-area" @click="clickThum(idx)">
-          <img class="thumnail-detailimage" :class="{ 'thumnail-active': idx ===  0 }" :src="API_IMAGE_URL+image" />
-        </div>
+  <div class="detail-frame">
+    <div class="detail-content scroll">
+      <span class="detail-info-header" v-if="isMobile">{{
+        closetInfo.name
+      }}</span>
+      <div class="detail-modal-btn" @click="closeModal">
+        <div class="btn-times"></div>
       </div>
-      <div class="detail-message detail-mainimage">
-        <div class="prev-navigation" @click="clickPrev()">
-          <svg class="nav-svg-size" viewBox="0 0 50 80" xml:space="preserve">
-            <polyline fill="none" stroke="#333333" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" points="45.63,75.8 0.375,38.087 45.63,0.375"></polyline>
-          </svg>
-        </div>
-        <div class="next-navigation" @click="clickNext()">
-          <svg class="nav-svg-size" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 80" xml:space="preserve">
-            <polyline fill="none" stroke="#333333" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" points="0.375,0.375 45.63,38.087 0.375,75.8"/>
-          </svg>
-        </div>
-        <div class="main-image-area">
-          <carousel
-            :per-page="1"
-            :navigateTo.sync="navigateTo"
-            :navigationEnabled="navigationEnabled"
-            :paginationEnabled="paginationEnabled">
-            <slide v-for="(image, idx) in closetImage.path" v-bind:key="idx" :data-index="idx">
-              <img class="main-image" :src="(closetImage.width[idx] > 600) ? API_IMAGE_URL+image : API_IMAGE_URL+image" />
-            </slide>
-          </carousel>
-          <div class="carousel-pagination" v-if="isMobile">
-            <ul role="tablist" class="carousel-dot-container">
-              <li v-for="(image, idx) in closetImage.path" v-bind:key="idx" aria-hidden="false" role="presentation" aria-selected="false" class="carousel-dot">
-                <button type="button" role="button" :tabindex="idx" class="carousel-dot-button" :class="{ 'carousel-dot-button-active': idx ===  0 }" @click="clickDot(idx)"></button>
-              </li>
-            </ul>
+      <div class="detail-image-area">
+        <div class="detail-message detail-subimage" v-if="!isMobile">
+          <div
+            v-for="(image, idx) in closetImage.path"
+            v-bind:key="idx"
+            class="thumnail-image-area"
+            @click="clickThum(idx);"
+          >
+            <img
+              class="thumnail-detailimage"
+              :class="{ 'thumnail-active': idx === 0 }"
+              :src="API_IMAGE_URL + image"
+            />
           </div>
         </div>
-      </div>
-      <div class="detail-message detail-maininfo en-font">
-        <span class="detail-info-header" v-if="!isMobile">{{closetInfo.name}}</span>
-        <span class="detail-info-subheader" v-if="isMobile">상품정보 보기</span>
-        <span class="detail-info">겉감소재 :
-          <span v-for="(material, idx) in materialList" v-bind:key="idx">
-            {{material.kind}} {{material.percent}}%<span v-if="materialList.length-1 !== idx">, </span>
+        <div class="detail-message detail-mainimage">
+          <div class="prev-navigation" @click="clickPrev();">
+            <svg class="nav-svg-size" viewBox="0 0 50 80" xml:space="preserve">
+              <polyline
+                fill="none"
+                stroke="#333333"
+                stroke-width="1"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                points="45.63,75.8 0.375,38.087 45.63,0.375"
+              ></polyline>
+            </svg>
+          </div>
+          <div class="next-navigation" @click="clickNext();">
+            <svg
+              class="nav-svg-size"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              viewBox="0 0 50 80"
+              xml:space="preserve"
+            >
+              <polyline
+                fill="none"
+                stroke="#333333"
+                stroke-width="1"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                points="0.375,0.375 45.63,38.087 0.375,75.8"
+              />
+            </svg>
+          </div>
+          <div class="main-image-area">
+            <carousel
+              :per-page="1"
+              :navigateTo.sync="navigateTo"
+              :navigationEnabled="navigationEnabled"
+              :paginationEnabled="paginationEnabled"
+            >
+              <slide
+                v-for="(image, idx) in closetImage.path"
+                v-bind:key="idx"
+                :data-index="idx"
+              >
+                <img
+                  class="main-image"
+                  :src="
+                    closetImage.width[idx] > 600
+                      ? API_IMAGE_URL + image
+                      : API_IMAGE_URL + image
+                  "
+                />
+              </slide>
+            </carousel>
+            <div class="carousel-pagination" v-if="isMobile">
+              <ul role="tablist" class="carousel-dot-container">
+                <li
+                  v-for="(image, idx) in closetImage.path"
+                  v-bind:key="idx"
+                  aria-hidden="false"
+                  role="presentation"
+                  aria-selected="false"
+                  class="carousel-dot"
+                >
+                  <button
+                    type="button"
+                    role="button"
+                    :tabindex="idx"
+                    class="carousel-dot-button"
+                    :class="{ 'carousel-dot-button-active': idx === 0 }"
+                    @click="clickDot(idx);"
+                  ></button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="detail-message detail-maininfo en-font">
+          <span class="detail-info-header" v-if="!isMobile">{{
+            closetInfo.name
+          }}</span>
+          <span class="detail-info-subheader" v-if="isMobile"
+            >상품정보 보기</span
+          >
+          <span class="detail-info"
+            >겉감소재 :
+            <span v-for="(material, idx) in materialList" v-bind:key="idx">
+              {{ material.kind }} {{ material.percent }}%<span
+                v-if="materialList.length - 1 !== idx"
+                >,
+              </span>
+            </span>
           </span>
-        </span>
-        <span class="detail-info">색상 : {{closetOption.color}}</span>
-        <span class="detail-info">핏감 : {{closetOption.fit}}</span>
-        <span class="detail-info">두께 : {{closetOption.thickness}}</span>
-        <span class="detail-info">신축성 : {{closetOption.flexibility}}</span>
-        <span class="detail-info">비침 : {{closetOption.see_through}}</span>
+          <span class="detail-info">색상 : {{ closetOption.color }}</span>
+          <span class="detail-info">핏감 : {{ closetOption.fit }}</span>
+          <span class="detail-info">두께 : {{ closetOption.thickness }}</span>
+          <span class="detail-info"
+            >신축성 : {{ closetOption.flexibility }}</span
+          >
+          <span class="detail-info">비침 : {{ closetOption.see_through }}</span>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -277,7 +344,7 @@ div.btn-times {
 
 div.btn-times:before,
 div.btn-times:after {
-  content: "";
+  content: '';
   position: absolute;
   width: 30px;
   height: 2px;

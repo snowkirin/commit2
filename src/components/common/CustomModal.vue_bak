@@ -1,16 +1,18 @@
 <template>
-<div class="custom-modal" :data-id="this.modalType">
-  <div class="custom-modal-title">
-    {{ title }}
-    <div v-if="this.modalType === 'csView'" class="csView">(상담사 업무시간 : 오전 10시~오후 5시)</div>
-    <div class="custom-modal-btn" @click="closeModal">
-      <div class="btn-times"></div>
+  <div class="custom-modal" :data-id="this.modalType">
+    <div class="custom-modal-title">
+      {{ title }}
+      <div v-if="this.modalType === 'csView'" class="csView">
+        (상담사 업무시간 : 오전 10시~오후 5시)
+      </div>
+      <div class="custom-modal-btn" @click="closeModal">
+        <div class="btn-times"></div>
+      </div>
+    </div>
+    <div class="custom-modal-content scroll">
+      <component v-bind:is="modalType" :data-id="dataId"></component>
     </div>
   </div>
-  <div class="custom-modal-content scroll">
-    <component v-bind:is="modalType" :data-id="dataId"></component>
-  </div>
-</div>
 </template>
 
 <script>
@@ -145,7 +147,7 @@ div.btn-times {
 
 div.btn-times:before,
 div.btn-times:after {
-  content: "";
+  content: '';
   position: absolute;
   width: 30px;
   height: 2px;

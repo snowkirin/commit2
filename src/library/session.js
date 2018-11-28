@@ -87,12 +87,12 @@ export default {
 
             } else {
               alert('로그인 하셔야만 이용이 가능합니다.');
-              const query = to.fullPath.match(/^\/$/)
-                ? {}
-                : { redirect: to.fullPath };
+              // const query = to.fullPath.match(/^\/$/)
+              //   ? {}
+              //   : { redirect: to.fullPath };
               next({
                 path: '/login',
-                query
+                // query
               });
             }
           }

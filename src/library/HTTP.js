@@ -7,17 +7,35 @@ const instance = axios.create({
   baseURL: API_URL
 });
 
-// before a request is made start the nprogress
-instance.interceptors.request.use(config => {
-  NProgress.start();
-  return config;
-});
+// Add a request interceptor
+instance.interceptors.request.use(
+  function(config) {
+    // Do something before request is sent
+    NProgress.start();
+    return config;
+  },
+  function(error) {
+    // Do something with request error
+    console.error(error);
+    return Promise.reject(error);
+  }
+);
 
-// before a response is returned stop nprogress
-instance.interceptors.response.use(response => {
-  NProgress.done();
-  return response;
-});
+// Add a response interceptor
+instance.interceptors.response.use(
+  function(response) {
+    // Do something with response data
+    NProgress.done();
+    return response;
+  },
+  function(error) {
+    // Do something with response error
+    console.error(error);
+    NProgress.done();
+    return Promise.reject(error);
+  }
+);
+
 export default {
   query(url, params) {
     return instance.get(url, params).catch(err => {

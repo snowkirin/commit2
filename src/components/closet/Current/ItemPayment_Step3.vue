@@ -23,7 +23,7 @@
            -->을 제공해 드렸습니다. <br v-if="$mq !== 'sm'">다음 요금 결제 시 자동 적용됩니다.
         </p>
         <div class="link-subscription">
-          <router-link to="/closet/subscription" class="txt-link">구독 정보 보러가기</router-link>
+          <router-link to="/closet/subscribe-info" class="txt-link">구독 정보 보러가기</router-link>
         </div>
       </div>
     </div>
