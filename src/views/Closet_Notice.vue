@@ -4,7 +4,7 @@
     <div class="content-form" v-if="_.isEmpty(Notices)">
       <div class="none">공지사항이 존재하지 않습니다.</div>
     </div>
-    <div class="content-form content-border" v-else>
+    <div class="content content-border" v-else>
       <table class="table table-zuly">
         <colgroup>
           <col width="50" />
@@ -78,7 +78,8 @@ export default {
   }
 };
 </script>
-<style scoped lang="scss" src="@/assets/css/closet-style.scss"></style>
+<style scoped lang="scss" src="@/assets/css/closet-style.scss">
+</style>
 <style scoped lang="scss">
 .none {
   @include fontSize(15px);

@@ -4,7 +4,7 @@
       <div class="contents-header">
         <h3>그 동안의 옷장을 확인하실 수 있습니다.</h3>
       </div>
-      <div class="content">
+      <div class="content mt-15">
         <div class="past">
           <div class="past-header">
             <div class="index-wrap content-item">회차</div>
@@ -85,6 +85,7 @@
 import { mapActions, mapGetters } from 'vuex';
 import ModalProductDetail from '@/components/common/modal/ModalProductDetail.vue';
 import FeedbackPast from '@/components/closet/feedback/FeedbackPast';
+import SubsciptionAPI from '@/library/api/subscriptions';
 
 export default {
   name: 'Closet_Past',
@@ -104,7 +105,6 @@ export default {
       PastResult: 'subscriptions/PastResult',
       PastIsShow: 'subscriptions/PastIsShow',
       PastFeedbacks: 'subscriptions/PastFeedbacks',
-      PastProductDetail: 'subscriptions/PastProductDetail'
     })
   },
   methods: {
@@ -112,9 +112,8 @@ export default {
       getPast: 'subscriptions/getPast',
       getPastDetail: 'subscriptions/getPastDetail',
       getPastFeedbacks: 'subscriptions/getPastFeedbacks',
-      getPastProductDetail: 'subscriptions/getPastProductDetail'
     }),
-    async clickProductDetails(product) {
+    async clickProductDetails(param) {
       const modalConfig = {
         scrollable: true,
         height: 'auto',
@@ -122,20 +121,19 @@ export default {
         maxWidth: 600,
         adaptive: true
       };
-      const formData = product.id;
-      if (!_.has(this.PastProductDetail, formData)) {
-        await this.getPastProductDetail(formData);
+      try {
+        const resultData = await SubsciptionAPI.GetProductDetail(param.id);
         this.$modal.show(
           ModalProductDetail,
-          { data: this.PastProductDetail[formData] },
+          { data: resultData.data },
           modalConfig
         );
-      } else {
-        this.$modal.show(
-          ModalProductDetail,
-          { data: this.PastProductDetail[formData] },
-          modalConfig
-        );
+      } catch {
+        this.$dialog.alert('데이터가 존재하지 않습니다.', {
+          okText: '확인',
+          customClass: 'zuly-alert',
+          backdropClose: true
+        });
       }
     },
     clickFeedbackShow(idx, event) {
@@ -194,7 +192,8 @@ export default {
   }
 };
 </script>
-<style scoped lang="scss" src="@/assets/css/closet-style.scss"></style>
+<style scoped lang="scss" src="@/assets/css/closet-style.scss">
+</style>
 <style scoped lang="scss">
 .none {
   padding-top: 14px;

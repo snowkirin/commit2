@@ -132,19 +132,6 @@ export default {
     });
   },
 
-  getPastProductDetail({ commit }, data) {
-    return Subscriptions.getProductDetail(data).then(res => {
-      if (!_.isEmpty(res.data)) {
-        let obj = {};
-        obj[data] = res.data;
-        commit(types.GET_PAST_PRODUCT_DETAIL, obj);
-      } else {
-        alert('상품 정보가 없습니다.');
-      }
-      return res;
-    });
-  },
-
   /* 피드백 답변하기 */
 
   // 일반적인 피드백 답변

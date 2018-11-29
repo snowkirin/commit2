@@ -119,6 +119,10 @@ Breakpoints:
 1080px ~ =  Desktop
 */
 
+@mixin small-mobile {
+  @media (max-width: 374px) { @content;}
+}
+
 @mixin mobile {
   // 0 ~ 767px
   @media (max-width: 767px) { @content; }

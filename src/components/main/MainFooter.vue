@@ -155,7 +155,6 @@ export default {
   display: none;
 }
 .footer {
-  border-top: 1px solid #e9e9e9;
   &.main {
     padding-bottom: 56px;
     border-top: 0;

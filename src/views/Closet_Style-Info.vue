@@ -3,7 +3,7 @@
     <div class="contents-header">
       <h3>줄라이는 베이직 스타일을 기본으로 합니다.</h3>
     </div>
-    <div class="content-form content-border">
+    <div class="content content-border">
       <form>
         <div class="content-inner">
           <div class="grid-flex">
@@ -315,7 +315,7 @@
                   />
                 </div>
                 <p class="txt-image-upload">
-                  ※ 고객님 일상에서 자연스러운 사진을 업로드 하시면<br />
+                  ※ 고객님 일상에서 자연스러운 사진을 업로드 하시면
                   스타일링 추천에 많은 도움이 됩니다.<br />
                   (상, 하의를 볼 수 있는 착장샷이 좋아요)
                 </p>
@@ -952,6 +952,7 @@ export default {
   @include fontSize(14px);
   color: #797979;
   margin-top: 11px;
+  word-break: keep-all;
 }
 
 .image-preview {
@@ -982,13 +983,13 @@ export default {
   margin-top: 30px;
 }
 
-.content-form {
+.content {
   padding-top: 20px;
   padding-bottom: 30px;
 }
 
 @media (min-width: 768px) {
-  .content-form {
+  .content {
     background-color: #f7f7f7;
     padding: 30px;
   }

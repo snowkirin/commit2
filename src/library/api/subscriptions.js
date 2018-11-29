@@ -108,6 +108,7 @@ export default {
   GetCurrentDirect(data) {
     return Http.get(`/subscriptions/feedbacks/directs/${data}`);
   },
+  /* 상품 상세 정보 가져오기 */
   GetProductDetail(data) {
     return Http.get(`/subscriptions/products/detail/${data}`);
   },

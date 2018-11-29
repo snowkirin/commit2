@@ -66,8 +66,8 @@ export default {
         maxWidth: 600,
         adaptive: true
       };
-      const result = await SubsciptionAPI.GetProductDetail(param);
-      this.$modal.show(ModalProductDetail, { data: result.data }, modalConfig);
+      const resultData = await SubsciptionAPI.GetProductDetail(param);
+      this.$modal.show(ModalProductDetail, { data: resultData.data }, modalConfig);
     }
   }
 };

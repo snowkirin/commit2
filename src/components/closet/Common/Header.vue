@@ -29,7 +29,7 @@ export default {
 
 <style scoped lang="scss">
 .closet-header {
-  padding: 23px 18px 14px;
+  padding: 25px 18px 15px;
 }
 .user-info {
   @include fontSize(24px);
@@ -39,10 +39,12 @@ export default {
   .closet-header {
     width: 708px;
     margin: 0 auto;
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 19px;
-    padding-bottom: 13px;
+    padding: {
+      top: 19px;
+      bottom: 13px;
+      left: 0;
+      right: 0;
+    }
     font-weight: 300;
   }
   .user-info {
@@ -52,8 +54,10 @@ export default {
 @media (min-width: 1080px) {
   .closet-header {
     width: 1080px;
-    padding-top: 30px;
-    padding-bottom: 15px;
+    padding: {
+      top: 30px;
+      bottom: 15px;
+    }
   }
   .user-info {
     @include fontSize(30px);

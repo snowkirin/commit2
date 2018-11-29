@@ -1,7 +1,9 @@
 <template>
   <div class="wrapper">
     <CommonHeader />
-    <router-view />
+    <div class="container">
+      <router-view />
+    </div>
     <CommonFooter />
   </div>
 </template>
@@ -18,4 +20,18 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.container {
+  padding: {
+    top: 25px;
+    bottom: 70px;
+  }
+  /* Tablet ~ Desktop Style */
+  @include tablet {
+    padding: {
+      top: 100px;
+      bottom: 100px;
+    }
+  }
+}
+</style>

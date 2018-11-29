@@ -19,8 +19,6 @@ const initialState = {
   PastResult: [],
   PastIsShow: false,
   PastFeedbacks: [],
-  PastProductDetail: {}, //과거의 옷장 상품 상세보기
-
   SubscriptionInfo: {
     info: {},
     coupons: []
@@ -83,9 +81,6 @@ const mutations = {
   },
   [types.GET_PAST_FEEDBACKS](state, data) {
     state.PastFeedbacks = _.concat(state.PastFeedbacks, data);
-  },
-  [types.GET_PAST_PRODUCT_DETAIL](state, data) {
-    _.assign(state.PastProductDetail, data);
   },
   [types.GET_SUBSCRIPTION_INFO](state, data) {
     state.SubscriptionInfo.info = data.infors;

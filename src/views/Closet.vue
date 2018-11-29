@@ -1,12 +1,11 @@
 <template>
   <div class="wrapper">
     <CommonHeader types="closet" />
+    <ClosetHeader />
+    <ClosetMenu />
     <div class="container">
-      <ClosetHeader />
-      <ClosetMenu />
       <router-view></router-view>
     </div>
-
     <CommonFooter />
   </div>
 </template>
@@ -29,12 +28,15 @@ export default {
 
 <style scoped lang="scss">
 .container {
-  padding-bottom: 70px;
-  @include tablet {
-    padding-bottom: 100px;
+  padding: {
+    top: 30px;
+    bottom: 70px;
   }
-  @include desktop {
-    padding-bottom: 130px;
+  @include tablet {
+    padding: {
+      top: 40px;
+      bottom: 130px;
+    }
   }
 }
 </style>

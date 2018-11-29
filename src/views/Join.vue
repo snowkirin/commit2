@@ -1,14 +1,14 @@
 <template>
   <div class="wrapper">
     <CommonHeader />
-    <div class="container"><router-view /></div>
+    <div class="container">
+      <router-view />
+    </div>
     <CommonFooter />
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 import CommonHeader from '@/components/common/Header';
 import CommonFooter from '@/components/common/Footer';
 export default {
@@ -16,23 +16,22 @@ export default {
   components: {
     CommonHeader,
     CommonFooter
-  },
-  computed: {
-    ...mapGetters({
-      isAuthenticated: 'login/isAuthenticated'
-    })
   }
 };
 </script>
 
 <style scoped lang="scss">
 .container {
-  padding-bottom: 70px;
-  @media (min-width: 768px) {
-    padding-bottom: 100px;
+  padding: {
+    top: 25px;
+    bottom: 70px;
   }
-  @media (min-width: 1080px) {
-    padding-bottom: 130px;
+  /* Tablet ~ Desktop Style */
+  @include tablet {
+    padding: {
+      top: 70px;
+      bottom: 100px;
+    }
   }
 }
 </style>

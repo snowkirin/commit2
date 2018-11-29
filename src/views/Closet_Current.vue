@@ -1,29 +1,27 @@
 <template>
   <div class="contents">
-    <div class="content">
-      <!-- 데이터가 존재하지 않는다면 -->
-      <div v-if="!isCurrentData">
-        <div class="none">
-          <div class="inner center-align">
-            <p>
-              조금만 기다리세요<br />
-              곧 옷장이 채워집니다.
-            </p>
-          </div>
+    <!-- 데이터가 존재하지 않는다면 -->
+    <div v-if="!isCurrentData">
+      <div class="none">
+        <div class="inner center-align">
+          <p>
+            조금만 기다리세요<br />
+            곧 옷장이 채워집니다.
+          </p>
         </div>
       </div>
-      <div v-else>
-        <component
-          :is="feedbacksType"
-          :feedbackData="CurrentFeedbacks"
-          v-if="feedbacksType"
-        ></component>
-        <div>
-          <ItemPayment :data="currentData" @init="setCurrentData" />
-          <div class="styling-tip">
-            <p class="txt-title"># TODAY'S STYLE TIP</p>
-            <p class="txt-desc">{{ currentData.styling_tip }}</p>
-          </div>
+    </div>
+    <div v-else>
+      <component
+        :is="feedbacksType"
+        :feedbackData="CurrentFeedbacks"
+        v-if="feedbacksType"
+      ></component>
+      <div>
+        <ItemPayment :data="currentData" @init="setCurrentData" />
+        <div class="styling-tip">
+          <p class="txt-title"># TODAY'S STYLE TIP</p>
+          <p class="txt-desc">{{ currentData.styling_tip }}</p>
         </div>
       </div>
     </div>

@@ -172,8 +172,8 @@ export default {
 }
 @media (min-width: 768px) {
   .c-menu {
-    margin: 0 auto;
     width: 708px;
+    margin: 0 auto;
     border-top: 1px solid #f3f3f3;
     padding-left: 0;
     padding-right: 0;

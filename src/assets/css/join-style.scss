@@ -1,5 +1,8 @@
 .contents {
-  padding: 24px 20px 30px;
+  padding: {
+    left: 20px;
+    right: 20px;
+  }
 }
 .contents-header {
   text-align: center;
@@ -24,7 +27,6 @@
     margin: 0 auto;
     padding-left: 0;
     padding-right: 0;
-    padding-top: 70px;
   }
   .contents-header {
     h3 {

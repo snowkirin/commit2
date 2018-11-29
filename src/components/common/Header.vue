@@ -1,13 +1,13 @@
 <template>
   <header
     class="header"
-    :style="[types !== 'closet' ? { borderBottom: '1px solid #dadada' } : {}]"
+    :class="`is-${types !== undefined ? types : 'another'}`"
   >
     <div class="header-inner">
       <router-link to="/" class="logo">
         <ZulyLogoSVG class="logo-svg" viewBox="0 0 66 20" />
       </router-link>
-      <nav class="global-navigation">
+      <nav class="global-navigation" v-if="types === 'closet'">
         <ul>
           <li v-if="isAuthenticated">
             <router-link to="/closet/tomorrow" class="menu-title">
@@ -95,18 +95,27 @@ export default {
 </script>
 
 <style scoped lang="scss">
-// Mobile
 .header {
+  /* Tablet ~ Desktop */
+  @include tablet {
+    border-bottom: 1px solid #dadada;
+  }
+  &.is-closet {
+    @include tablet {
+      border-bottom: 0;
+    }
+  }
+
   .header-inner {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: {
-      top: 21px;
-      bottom: 21px;
-      left: 18px;
-      right: 18px;
+      top: 18px;
+      bottom: 18px;
+      left: 21px;
+      right: 21px;
     }
     /* Tablet Style */
     @include tablet {

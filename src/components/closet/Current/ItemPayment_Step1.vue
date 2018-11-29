@@ -61,8 +61,8 @@
         <table>
           <colgroup>
             <col width="*" />
-            <col width="286" />
-            <col width="170" />
+            <col width="26.48148148148148%" />
+            <col width="15.74074074074074%" />
           </colgroup>
           <thead>
             <tr>
@@ -250,11 +250,14 @@ export default {
         padding-bottom: 0;
       }
       .left-side {
+        @include small-mobile {
+          flex: 0 0 85px;
+        }
         flex: 0 0 108px;
         margin-right: 15px;
         img {
-          width: 108px;
-          height: 145px;
+          width: 100%;
+          /*height: 145px;*/
         }
       }
       .right-side {
@@ -301,7 +304,7 @@ export default {
         .button-wrap {
           button {
             @include fontSize(14px);
-            width: 130px;
+            width: 140px;
           }
         }
       }
@@ -329,9 +332,6 @@ export default {
     th,
     td {
       border-bottom: 1px solid #e9e9e9;
-      &:nth-child(2) {
-        padding-right: 115px;
-      }
     }
     thead {
       th {
@@ -355,10 +355,10 @@ export default {
           text-align: center;
         }
         &:nth-child(3) {
-          padding-left: 20px;
-          padding-right: 20px;
+          text-align: center;
           button {
             @include fontSize(14px);
+            max-width: 140px;
           }
         }
       }

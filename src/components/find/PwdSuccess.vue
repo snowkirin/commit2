@@ -113,6 +113,6 @@ export default {
 };
 </script>
 
-<style scoped lang="scss" src="@/assets/css/login-style.scss">
+<style scoped lang="scss" src="@/assets/css/find-style.scss">
 </style>
 <style scoped lang="scss"></style>

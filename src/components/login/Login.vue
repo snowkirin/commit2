@@ -203,8 +203,14 @@ export default {
     color: $color-secondary;
     display: inline-block;
     position: relative;
+    width: 33.3333333333%;
+    /* Tablet ~ Desktop Style */
+    @include tablet {
+      @include fontSize(15px);
+    }
     a {
-      padding: 0 16px;
+      display: block;
+      width: 100%;
     }
     &::after {
       content: '';
@@ -218,16 +224,6 @@ export default {
     &:last-child {
       &::after {
         display: none;
-      }
-    }
-  }
-}
-@media (min-width: 768px) {
-  .menu-login {
-    li {
-      @include fontSize(15px);
-      a {
-        padding: 0 25px;
       }
     }
   }
