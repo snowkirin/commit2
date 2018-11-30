@@ -77,7 +77,7 @@
                 </div>
                 <div class="item item-column">
                   <span>품질보증기준</span>
-                  <span>{{ basics.quailty_text }}</span>
+                  <span>{{ basics.quality_text }}</span>
                 </div>
                 <div class="item item-column">
                   <span>소비자 피해보상 기준</span>
