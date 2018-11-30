@@ -460,6 +460,9 @@ export default {
   },
   async created() {
     await this.processingData(this.feedbackData);
+  },
+  destroyed() {
+    this.$store.commit('subscriptions/RESET_STATE');
   }
 };
 </script>

@@ -17,7 +17,7 @@
         :feedbackData="CurrentFeedbacks"
         v-if="feedbacksType"
       ></component>
-      <div>
+      <div v-if="!isCurrentFeedbacksDirect">
         <ItemPayment :data="currentData" @init="setCurrentData" />
         <div class="styling-tip">
           <p class="txt-title"># TODAY'S STYLE TIP</p>

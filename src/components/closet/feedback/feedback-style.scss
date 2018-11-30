@@ -37,8 +37,14 @@
       .item {
         display: inline-block;
         vertical-align: top;
-        margin-left: 25px;
+
         cursor: pointer;
+        &:nth-child(2) {
+          margin-left: 25px;
+        }
+        &:nth-child(3) {
+          margin-left: 31px;
+        }
         &:first-child {
           margin-left: 0;
         }
@@ -219,6 +225,17 @@
     }
     .evaluate-wrap {
       margin-top: 17px;
+      .list-evaluate {
+        .item {
+          &:nth-child(2) {
+            margin-left: 55px;
+          }
+          &:nth-child(3) {
+            margin-left: 55px;
+          }
+        }
+      }
+
       .great,
       .okay,
       .too-bad {

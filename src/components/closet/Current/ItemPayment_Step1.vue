@@ -42,8 +42,8 @@
         </div>
       </div>
       <div class="footer">
-        <a href="#" class="txt-link" @click="showTooltip"
-          >이용 중 상품 구매란?</a
+        <p class="txt-link" @click="showTooltip"
+          >이용 중 상품 구매란?</p
         >
         <button
           type="button"
@@ -120,8 +120,8 @@
         </table>
       </div>
       <div class="footer">
-        <a href="#" class="txt-link" @click="showTooltip"
-          >이용 중 상품 구매란?</a
+        <p class="txt-link" @click="showTooltip"
+          >이용 중 상품 구매란?</p
         >
         <button
           type="button"
@@ -315,6 +315,7 @@ export default {
     margin-top: 20px;
     .txt-link {
       @include fontSize(14px);
+      display: inline-block;
     }
     button {
       width: 163px;
@@ -411,6 +412,7 @@ export default {
     }
     .txt-link {
       @include fontSize(14px);
+      display: inline-block;
     }
     button {
       float: right;

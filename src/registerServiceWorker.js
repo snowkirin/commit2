@@ -2,7 +2,7 @@
 
 const updated = () => {
   console.log('Has new content!');
-  window.location.reload(true)
+  // window.location.reload(true)
   // use window.location.reload(true) to get new cache
 };
 
@@ -24,14 +24,13 @@ const register = async path => {
   registration.onupdatefound = () => updated();
 };
 
-// const { NODE_ENV, BASE_URL } = process.env;
+const { NODE_ENV, BASE_URL } = process.env;
 
-// if (NODE_ENV === 'development') {
-//   if ('serviceWorker' in navigator) {
-//     console.log(BASE_URL);
-//     register(`${BASE_URL}service-worker.js`);
-//   }
-// }
+if (NODE_ENV === 'production') {
+  if ('serviceWorker' in navigator) {
+    register(`${BASE_URL}service-worker.js`);
+  }
+}
 
 /*
 import { register } from 'register-service-worker';
