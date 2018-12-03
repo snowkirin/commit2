@@ -35,7 +35,7 @@
                 type="button"
                 @click="selectProduct(idx);"
               >
-                이용 중인 상품 구매 
+                이용 중인 상품 구매
               </button>
             </div>
           </div>
