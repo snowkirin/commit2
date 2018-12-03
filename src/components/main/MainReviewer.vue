@@ -87,9 +87,9 @@ export default {
     padding-left: 20px;
     padding-right: 20px;
     background-color: #fff;
-		position: relative;
-		z-index: 10;
-		margin-top: -50px;
+    position: relative;
+    z-index: 10;
+    margin-top: -50px;
     .txt-comment {
       @include fontSize(15px);
     }
@@ -112,21 +112,24 @@ export default {
 }
 @media (min-width: 1080px) {
   .item {
-		height: 400px;
-		.image-wrap {
-			position: relative;
-			top: -9px;
-			left: 9px;
-		}
-		.text-wrap {
-			left: -38px;
-		}
-		&.item-second {
-			margin-left: 80px;
-		}
+    height: 400px;
+    .image-wrap {
+      position: relative;
+      top: -9px;
+      left: 9px;
+    }
+    .text-wrap {
+      left: -38px;
+    }
+    &.item-first {
+      margin-left: 38px;
+    }
+    &.item-second {
+      margin-left: 117px;
+    }
     &.item-third {
       margin-top: 0;
-      margin-left: 88px;
+      margin-left: 115px;
     }
   }
 }
