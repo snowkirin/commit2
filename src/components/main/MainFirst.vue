@@ -201,7 +201,7 @@ export default {
     color: #fff;
   }
   .link-login {
-    background-color: $color-pink-main;
+    background-color: #d05a68;
   }
   .link-sign-up {
     background-color: $color-primary;

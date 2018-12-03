@@ -1,6 +1,6 @@
 <template>
 	<div class="contents">
-		<div class="contents-header">
+		<!--<div class="contents-header">
 			<h3>How To Use</h3>
 			<p>줄라이 이용 설명서</p>
 		</div>
@@ -87,6 +87,43 @@
 				</div>
 			</div>
 
+		</div>-->
+
+		<div class="content">
+			<div class="row">
+				<div class="item">
+					<div class="box">
+						<p class="txt-question">받고 싶은 옷을 선택할 수 있나요?</p>
+						<p class="txt-answer">저희가 제안하는 2Type 중에서만 선택 가능합니다.<br/>
+							가입 시 입력한 정보와 구독 기간 동안 주신 피드백을 바탕으로 가장 어울리는 스타일을 제안합니다.</p>
+					</div>
+					<div class="box">
+						<p class="txt-question">한 세트는 어떻게 구성되나요?</p>
+						<p class="txt-answer">아우터/원피스의 경우 1pcs, 상의/하의의 경우 2 pcs으로 구성됩니다. 배송 3일 전에(영업일 기준) 카카오톡을 통해 어떤 옷인지 사진으로 보고 선택할 수 있는 링크를 보내드립니다.</p>
+					</div>
+				</div>
+				<div class="image">
+					<img v-if="$mq==='sm'" src="@/assets/img/main/main_about1_m.jpg" alt="">
+					<img v-else src="@/assets/img/main/main_about1_w.jpg" alt="">
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="item">
+					<div class="box">
+						<p class="txt-question">배송/반납은 어떻게 이루어지나요?</p>
+						<p class="txt-answer">바로 입을 수 있도록, 슈트케이스에 넣어 현관문 앞에 걸어드립니다. 반납과 다음 상품 배송이 함께 이루어지므로 이용하신 옷은 돌아오는 배송일자에 맞춰 현관문 앞에 걸어두시기만 하면 됩니다.</p>
+					</div>
+					<div class="box">
+						<p class="txt-question">배송/반납 날짜는 어떻게 알 수 있나요?</p>
+						<p class="txt-answer">배송/반납은 새벽에 이루어지며 날짜는 카카오톡을 통해 알려드립니다. (지정된 반납일에 수거되지 않을 경우 추가 배송비를 부담하실 수 있습니다.)</p>
+					</div>
+				</div>
+				<div class="image">
+					<img v-if="$mq==='sm'" src="@/assets/img/main/main_about2_m.jpg" alt="">
+					<img v-else src="@/assets/img/main/main_about2_w.jpg" alt="">
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -99,102 +136,81 @@ export default {
   }
 };
 </script>
-<style scoped lang="scss" src="@/assets/css/main-style.scss">
-</style>
 <style scoped lang="scss">
+.contents {
+  padding: {
+    top: 40px;
+    bottom: 40px;
+    left: 25px;
+    right: 25px;
+  }
+  @include tablet {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+  @include desktop {
+    padding-top: 60px;
+    padding-left: 0;
+    padding-bottom: 60px;
+    padding-right: 0;
+  }
+}
 .content {
-}
-.list-how-to-use {
-  @include fontSize(15px);
-  .column {
-    margin-top: 40px;
-    &:nth-child(1) {
-      margin-top: 0;
-    }
-  }
-  .txt-number {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 40px;
-    line-height: 40px;
-    color: #c4c4c4;
-  }
-  .txt-title {
-    font-weight: 700;
-    margin-bottom: 5px;
-  }
-  .item {
-    display: flex;
-    flex-wrap: wrap;
-    div {
-      flex: 0;
-      &:nth-child(1) {
-        flex-basis: 26px;
-        text-align: center;
-      }
-      &:nth-child(2) {
-        flex-grow: 1;
-        margin-left: 10px;
-      }
-    }
-  }
-}
-@media (min-width: 768px) {
-  .list-how-to-use {
-    .column {
-      flex-basis: calc(50% - (31px / 2));
-      margin-top: 60px;
-      &:nth-child(1) {
-        margin-left: 0;
-      }
-      &:nth-child(2) {
-        margin-top: 0;
-        margin-left: 31px;
-      }
-      &:nth-child(3) {
-        margin-left: 0;
-      }
-      &:nth-child(4) {
-        margin-left: 31px;
-      }
-      &:nth-child(5) {
-        margin-left: 0;
-      }
-      &:nth-child(6) {
-        margin-left: 31px;
-      }
-    }
+  @include desktop {
+    width: 1080px;
+    margin: 0 auto;
   }
 }
 
-@media (min-width: 1080px) {
-  .list-how-to-use {
-    width: 1080px;
-		margin: 0 auto;
-    .column {
-      flex-basis: calc(33.333% - (84px / 3));
-      &:nth-child(1) {
-        margin-left: 0;
-      }
-      &:nth-child(2) {
-        margin-left: 28px;
-      }
-      &:nth-child(3) {
-        margin-top: 0;
-        margin-left: 28px;
-      }
-      &:nth-child(4) {
-        margin-left: 0;
-      }
-      &:nth-child(5) {
-        margin-left: 28px;
-      }
-      &:nth-child(6) {
-        margin-left: 28px;
-      }
-    }
-		.txt-desc {
-			white-space: pre-line;
-		}
+.row {
+  @include tablet {
+    display: flex;
   }
+  .item {
+    @include tablet {
+      flex: 1 1 auto;
+      margin-right: 30px;
+    }
+  }
+  .box {
+    margin-bottom: 20px;
+    &:nth-child(2) {
+      margin-bottom: 0;
+    }
+  }
+  .image {
+    width: 100%;
+    margin-top: 30px;
+    @include tablet {
+      flex: 0 0 238px;
+      height: 240px;
+      margin-top: 0;
+    }
+    @include desktop {
+      flex-basis: 252px;
+      height: 200px;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+.txt-question {
+  @include fontSize(15px);
+  font-weight: 700;
+  color: #d16e7b;
+}
+.txt-answer {
+  @include fontSize(15px);
+  margin-top: 12px;
+}
+
+hr {
+  margin: 30px 0;
+  border: 0;
+  border-top: 1px solid #d8d8d8;
 }
 </style>
