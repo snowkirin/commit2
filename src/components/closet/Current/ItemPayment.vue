@@ -21,7 +21,6 @@ export default {
   name: 'ItemPayment',
   props: {
     data: Object,
-
   },
   components: {
     Step1: () => import('./ItemPayment_Step1'),

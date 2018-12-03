@@ -122,7 +122,7 @@ export default {
         adaptive: true
       };
       try {
-        const resultData = await SubsciptionAPI.GetProductDetail(param.id);
+        const resultData = await SubsciptionAPI.GetProductDetail(param.barcode);
         this.$modal.show(
           ModalProductDetail,
           { data: resultData.data },
