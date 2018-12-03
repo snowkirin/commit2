@@ -14,14 +14,16 @@ export default {
       return res;
     });
   },
-  getTomorrowDirect({ commit }, data) {
-    return Subscriptions.getTomorrowDirect(data).then(res => {
-      if (res.data.result) {
-        commit(types.GET_TOMORROW_DIRECT, res.data);
-        return res;
-      } else {
-        console.log('내일의 옷장 직접접속 오류');
-      }
+  getTomorrowDirect(context, payload) {
+    return new Promise((resolve, reject) => {
+      Subscriptions.GetTomorrowDirect(payload)
+        .then(({ data }) => {
+          context.commit(types.GET_TOMORROW_DIRECT, data);
+          resolve(data);
+        })
+        .catch(err => {
+          reject(err);
+        });
     });
   },
   putTomorrowDirect({ commit }, data) {
@@ -45,17 +47,28 @@ export default {
       return res;
     });
   },
-
-  getCurrent({ commit }) {
-    return Subscriptions.getCurrent().then(res => {
-      // 여기엔 result 값으로 판단 할 수가 없다.
-      if (!_.isEmpty(res.data.result)) {
-        // 제대로 result 값이 있다면
-        commit(types.GET_CURRENT, res.data);
-      }
-      return res;
+  CURRENT(context) {
+    return new Promise((resolve, reject) => {
+      Subscriptions.GetCurrent()
+        .then(({ data }) => {
+          context.commit(types.GET_CURRENT, data);
+          resolve(data);
+        })
+        .catch(err => {
+          reject(err);
+        });
     });
   },
+  // getCurrent({ commit }) {
+  //   return Subscriptions.getCurrent().then(res => {
+  //     // 여기엔 result 값으로 판단 할 수가 없다.
+  //     if (!_.isEmpty(res.data.result)) {
+  //       // 제대로 result 값이 있다면
+  //       commit(types.GET_CURRENT, res.data);
+  //     }
+  //     return res;
+  //   });
+  // },
   getCurrentFeedbacks({ commit }, data) {
     return Subscriptions.getFeedbacks(data).then(res => {
       if (res.data.result) {
@@ -66,7 +79,7 @@ export default {
   },
 
   /* 현재의 옷장 피드백 다이렉트 */
-  getCurrentFeedbacksDirect({ commit }, data) {
+  getCurrentFeedbacksDirect( {commit} , data) {
     return Subscriptions.getFeedbacksDirect(data).then(res => {
       commit(types.GET_CURRENT_FEEDBACKS_DIRECT, res.data.info);
       return res;
@@ -115,19 +128,6 @@ export default {
   // 과거의 옷장
   getPastFeedbacksAnswers(data) {
     return Subscriptions.getFeedbacksAnswers(data).then(res => {
-      return res;
-    });
-  },
-
-  getPastProductDetail({ commit }, data) {
-    return Subscriptions.getProductDetail(data).then(res => {
-      if (!_.isEmpty(res.data)) {
-        let obj = {};
-        obj[data] = res.data;
-        commit(types.GET_PAST_PRODUCT_DETAIL, obj);
-      } else {
-        alert('상품 정보가 없습니다.');
-      }
       return res;
     });
   },

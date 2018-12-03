@@ -25,8 +25,6 @@ export default {
       this.routeCheck();
     }
   },
-  computed: {
-  },
   methods: {
     ...mapActions({
       checkCurrentRoute: 'common/checkCurrentRoute'

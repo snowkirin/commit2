@@ -1,14 +1,12 @@
 <template>
   <div class="contents">
-    <div class="contents-header">
-      <h3 class="txt-title">로그인</h3>
-    </div>
+    <div class="contents-header"><h3 class="txt-title">로그인</h3></div>
     <div class="content">
       <form class="form">
         <div class="row">
           <div
             class="text-field email"
-            :class="{'text-field-error': errors.has('email') }"
+            :class="{ 'text-field-error': errors.has('email') }"
           >
             <input
               class="form-input"
@@ -19,20 +17,17 @@
               v-model="email"
               data-vv-as="이메일"
               v-validate="'email'"
-              @keyup.enter="$refs.btnLogin.click()"
+              @keyup.enter="$refs.btnLogin.click();"
             />
           </div>
-          <p
-            v-show="errors.has('email')"
-            class="txt-error"
-          >
+          <p v-show="errors.has('email')" class="txt-error">
             {{ errors.first('email') }}
           </p>
         </div>
         <div class="row">
           <div
             class="text-field password"
-            :class="{'text-field-error': errors.has('password')}"
+            :class="{ 'text-field-error': errors.has('password') }"
           >
             <input
               class="form-input"
@@ -43,13 +38,10 @@
               v-model="password"
               v-validate="'required'"
               data-vv-as="패스워드"
-              @keyup.enter="$refs.btnLogin.click()"
+              @keyup.enter="$refs.btnLogin.click();"
             />
           </div>
-          <p
-            class="txt-error"
-            v-show="errors.has('password')"
-          >
+          <p class="txt-error" v-show="errors.has('password')">
             {{ errors.first('password') }}
           </p>
         </div>
@@ -60,11 +52,8 @@
               type="checkbox"
               id="sess_forever"
               v-model="isChecked"
-            >
-            <label
-              class="custom-control-label"
-              for="sess_forever"
-            >
+            />
+            <label class="custom-control-label" for="sess_forever">
               아이디 (이메일주소) 저장
             </label>
           </div>
@@ -75,28 +64,17 @@
             class="btn btn-primary h-56"
             ref="btnLogin"
             @click="clickLogin"
-          >로그인</button>
+          >
+            로그인
+          </button>
         </div>
       </form>
       <div class="menu-login">
         <ul>
+          <li><router-link to="/join"> 회원가입 </router-link></li>
+          <li><router-link to="/find/id-inquiry"> 아이디찾기 </router-link></li>
           <li>
-            <router-link
-              to="/join/size">
-              회원가입
-            </router-link>
-          </li>
-          <li>
-            <router-link
-              to="/find/id">
-              아이디찾기
-            </router-link>
-          </li>
-          <li>
-            <router-link
-              to="/find/password">
-              비밀번호찾기
-            </router-link>
+            <router-link to="/find/pw-inquiry"> 비밀번호찾기 </router-link>
           </li>
         </ul>
       </div>
@@ -105,17 +83,13 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex';
-import _ from 'lodash';
-import axios from 'axios';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
-  name: 'login',
-  components: {},
+  name: 'Login',
   computed: {
     ...mapGetters({
-      isLogin: 'login/isLogin',
-      Authentication: 'login/Authentication'
+      isAuthenticated: 'login/isAuthenticated'
     })
   },
   data() {
@@ -127,13 +101,10 @@ export default {
   },
   methods: {
     ...mapActions({
-      doLogin: 'login/doLogin'
-    }),
-    ...mapMutations({
-      loginSuccess: 'login/LOGIN_SUCCESS'
+      LOGIN: 'login/LOGIN'
     }),
     successLogin() {
-      if (this.isLogin && this.Authentication.isAuthenticated) {
+      if (this.isAuthenticated) {
         if (this.isChecked) {
           this.$localStorage.set('email', this.email);
         } else {
@@ -143,33 +114,11 @@ export default {
       }
     },
     clickLogin(e) {
-      const instance = axios.create();
-      const API_URL = process.env.VUE_APP_API_URL;
-
-      instance.interceptors.request.use(
-        function(config) {
-          e.target.disabled = true;
-          return config;
-        },
-        function(error) {
-          return error;
-        }
-      );
-      instance.interceptors.response.use(
-        function(response) {
-          e.target.disabled = false;
-          return response;
-        },
-        function(error) {
-          e.target.disabled = false;
-          return error;
-        }
-      );
-
       const formData = {
         email: this.email,
         password: this.password
       };
+
       if (_.isEmpty(formData.email)) {
         this.$dialog.alert('이메일을 입력해주세요.', {
           okText: '확인',
@@ -187,30 +136,33 @@ export default {
         return;
       }
 
-      this.$validator.validateAll().then(result => {
+      this.$validator.validateAll().then(async result => {
         if (result) {
-          instance
-            .post(`${API_URL}/auth/login`, formData, {
-              withCredentials: true
-            })
-            .then(res => {
-              if (!res.data.result) {
-                this.$dialog.alert(
-                  '이메일 혹은 비밀번호를 다시 확인해주세요.',
-                  {
-                    okText: '확인',
-                    customClass: 'zuly-alert',
-                    backdropClose: true
-                  }
-                );
-              } else {
-                this.loginSuccess();
-                this.successLogin();
-              }
+          e.target.disabled = true;
+          try {
+            const resultData = await this.LOGIN(formData);
+            if (resultData.result) {
+              e.target.disabled = false;
+              this.successLogin();
+            } else {
+              this.$dialog.alert('이메일 혹은 비밀번호를 다시 확인해주세요.', {
+                okText: '확인',
+                customClass: 'zuly-alert',
+                backdropClose: true
+              });
+              e.target.disabled = false;
+            }
+          } catch {
+            this.$dialog.alert('이메일 혹은 비밀번호를 다시 확인해주세요.', {
+              okText: '확인',
+              customClass: 'zuly-alert',
+              backdropClose: true
             });
+            e.target.disabled = false;
+          }
         }
       });
-    },
+    }
   },
   created() {
     const emailStorage = this.$localStorage.get('email');
@@ -220,7 +172,7 @@ export default {
     }
   },
   mounted() {
-    if (this.isLogin) {
+    if (this.isAuthenticated) {
       this.$dialog
         .alert('잘못된 경로로 들어오셨습니다.', {
           okText: '확인',
@@ -238,8 +190,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss" src="@/assets/css/login-style.scss">
-</style>
+<style scoped lang="scss" src="@/assets/css/login-style.scss"></style>
 <style scoped lang="scss">
 .menu-login {
   text-align: center;
@@ -252,8 +203,14 @@ export default {
     color: $color-secondary;
     display: inline-block;
     position: relative;
+    width: 33.3333333333%;
+    /* Tablet ~ Desktop Style */
+    @include tablet {
+      @include fontSize(15px);
+    }
     a {
-      padding: 0 16px;
+      display: block;
+      width: 100%;
     }
     &::after {
       content: '';
@@ -267,16 +224,6 @@ export default {
     &:last-child {
       &::after {
         display: none;
-      }
-    }
-  }
-}
-@media (min-width: 768px) {
-  .menu-login {
-    li {
-      @include fontSize(15px);
-      a {
-        padding: 0 25px;
       }
     }
   }

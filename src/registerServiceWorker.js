@@ -2,6 +2,7 @@
 
 const updated = () => {
   console.log('Has new content!');
+  // window.location.reload(true)
   // use window.location.reload(true) to get new cache
 };
 

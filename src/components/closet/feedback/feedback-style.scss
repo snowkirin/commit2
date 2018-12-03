@@ -6,20 +6,20 @@
 .feedback-header {
   padding-left: 20px;
   padding-right: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 30px;
   .inner {
-    height: 187px;
+    height: 157px;
     background-image: url(~@/assets/img/closet/img_feedback.png);
     background-repeat: no-repeat;
     background-position: 50% 50%;
     background-size: cover;
-    padding-top: 22px;
+    padding-top: 17px;
     opacity: 0.8;
   }
   .text-wrap {
     text-align: center;
     .txt-how {
-      @include fontSize(16px);
+      @include fontSize(15px);
       color: #fff;
       strong {
         font-weight: 700;
@@ -31,31 +31,37 @@
     }
   }
   .evaluate-wrap {
-    margin-top: 20px;
+    margin-top: 15px;
     .list-evaluate {
       text-align: center;
       .item {
         display: inline-block;
         vertical-align: top;
-        margin-left: 25px;
+
         cursor: pointer;
+        &:nth-child(2) {
+          margin-left: 25px;
+        }
+        &:nth-child(3) {
+          margin-left: 31px;
+        }
         &:first-child {
           margin-left: 0;
         }
       }
     }
     .txt-evaluate {
-      @include fontSize(14px);
+      @include fontSize(12px);
       color: #fff;
-      margin-top: 8px;
+      margin-top: 5px;
       white-space: nowrap;
     }
     .great,
     .okay,
     .too-bad {
       .image {
-        width: 52px;
-        height: 52px;
+        width: 40px;
+        height: 40px;
         background-size: 100%;
         margin: 0 auto;
       }
@@ -187,7 +193,8 @@
   }
 }
 .button-wrap {
-
+  border-top: 1px solid #3d3d35;
+  padding-top: 21px;
 }
 
 @media (min-width: 768px) {
@@ -204,30 +211,42 @@
     padding-left: 0;
     padding-right: 0;
     .inner {
-      height: 244px;
-      padding-top: 34px;
+      height: 210px;
+      padding-top: 32px;
     }
     .text-wrap {
       .txt-how {
-        @include fontSize(20px);
+        @include fontSize(18px);
       }
       .txt-helpful {
         @include fontSize(14px);
-        margin-top: 5px;
+        margin-top: 3px;
       }
     }
     .evaluate-wrap {
-      margin-top: 23px;
+      margin-top: 17px;
+      .list-evaluate {
+        .item {
+          &:nth-child(2) {
+            margin-left: 55px;
+          }
+          &:nth-child(3) {
+            margin-left: 55px;
+          }
+        }
+      }
+
       .great,
       .okay,
       .too-bad {
         .image {
-          width: 66px;
-          height: 66px;
+          width: 50px;
+          height: 50px;
         }
       }
       .txt-evaluate {
-        @include fontSize(15px);
+        @include fontSize(14px);
+        margin-top: 8px;
 
       }
       .list-evaluate {
@@ -281,6 +300,8 @@
   .button-wrap {
     text-align: right;
     margin-top: 30px;
+    border-top: 0;
+    padding-top: 0;
     button {
       width: 287px;
     }

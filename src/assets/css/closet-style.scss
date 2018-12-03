@@ -1,44 +1,36 @@
 // contents
 .contents {
-  padding-top: 30px;
-  padding-left: 20px;
-  padding-right: 20px;
-  @media (min-width: 768px) {
+  padding: {
+    left: 20px;
+    right: 20px;
+  }
+  @include tablet {
     width: 708px;
     margin: 0 auto;
-    padding-left: 0;
-    padding-right: 0;
+    padding: {
+      left: 0;
+      right: 0;
+    }
   }
-  @media (min-width: 1080px) {
+  @include desktop {
     width: 1080px;
-    padding-top: 40px;
-  }
-  .contents-header {
-    &+.content {
-      margin-top: 20px;
-      @media (min-width: 1080px) {
-        margin-top: 25px;
-      }
-    }
-    &+.content-form {
-      margin-top: 15px;
-      @media (min-width: 1080px) {
-        margin-top: 20px;
-      }
-
-    }
   }
 }
-
 .contents-header {
+  margin-top: -5px;
   h3 {
     @include fontSize(15px);
-
   }
   p {
     @include fontSize(14px);
     color: $color-secondary;
     margin-top: 3px;
+  }
+}
+.content {
+  margin-top: 15px;
+  @include tablet {
+    margin-top: 20px;
   }
 }
 
@@ -68,7 +60,6 @@
     }
     p {
       @include fontSize(15px);
-      margin-top: 6px;
     }
   }
   .column-left,

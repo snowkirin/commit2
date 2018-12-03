@@ -144,7 +144,7 @@ export default {
       this.preferredStyleData.selectSeq = _.toString(this.clickHistory);
       this.setJoin(this.preferredStyleData);
       this.$router.push({
-        path: 'signup'
+        path: '/join/user-info'
       });
     }
   },
@@ -156,11 +156,6 @@ export default {
     }
   },
   mounted() {
-    // if (!this.EnterJoin) {
-    //   alert('리로드');
-    // } else {
-    //   alert('정상적');
-    // }
   }
 };
 </script>

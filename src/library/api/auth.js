@@ -1,40 +1,37 @@
-import axios from "axios";
+import axios from 'axios';
+import Http from '@/library/HTTP';
+
 const API_URL = process.env.VUE_APP_API_URL;
 
 export default {
-  postLogin(data) {
-    return axios
-      .post(`${API_URL}/auth/login`, data, {
-        withCredentials: true
-      })
-      .then(res => {
-        return res;
-      })
-      .catch(err => {
-        return {
-          ...err.response,
-          message: err.message
-        };
-      });
+  // PostJoin(data) {
+  //   return Http.post(`/auth/join`, data, { withCredentials: true });
+  // },
+  PostLogin(data) {
+    return Http.post(`/auth/login`, data, { withCredentials: true });
   },
+  PostLogout() {
+    return Http.post(`/auth/logout`, { withCredentials: true });
+  },
+  // GetCheckLogin() {
+  //   return Http.get('/auth/checkLoginStatus', { withCredentials: true });
+  // },
+  // PostPhone(data) {
+  //   return Http.post('/auth/phone', data);
+  // },
+  // PatchPhone(data) {
+  //   return Http.patch('/auth/phone', data);
+  // },
+  // PostFindId(data) {
+  //   return Http.post('/auth/findId', data);
+  // },
+  // PostFindPwd(data) {
+  //   return Http.post('/auth/findPwd', data);
+  // },
+
   postJoin(data) {
     return axios
       .post(`${API_URL}/auth/join`, data, {
-        withCredentials: true
-      })
-      .then(res => {
-        return res;
-      })
-      .catch(err => {
-        return {
-          ...err.response,
-          message: err.message
-        };
-      });
-  },
-  postLogout() {
-    return axios
-      .post(`${API_URL}/auth/logout`, {
         withCredentials: true
       })
       .then(res => {

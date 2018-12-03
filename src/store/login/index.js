@@ -2,10 +2,7 @@ import types from './mutation-types';
 import actions from './actions';
 
 const initialState = {
-  isLogin: false,
-  Authentication: {
-    isAuthenticated: false,
-  },
+  isAuthenticated: false, // Login Status
   User: {
     userId: '',
     email: '',
@@ -22,8 +19,7 @@ const mutations = {
     }
   },
   [types.LOGIN_SUCCESS](state, data) {
-    state.isLogin = true;
-    state.Authentication.isAuthenticated = true;
+    state.isAuthenticated = true;
     if (data) {
       state.User.userId = data.userId;
       state.User.email = data.email;
@@ -32,25 +28,15 @@ const mutations = {
       state.User.inserted = data.inserted;
     }
   },
-  [types.LOGIN_FAILURE]() {
-    alert('아이디 혹은 비밀번호를 다시 확인해주세요.');
-  },
-  [types.LOGIN_ERROR]() {
-    alert('현재 시스템이 불안정합니다.\n잠시후 다시 시도해주세요.');
-  },
-  [types.LOGOUT](state) {
-    // console.log(rootState);
-    state.isLogin = false;
-    state.Authentication.isAuthenticated = false;
-    // 초가화 작업 할것.
+  [types.LOGOUT_SUCCESS](state) {
+    state.isAuthenticated = false;
   },
   [types.CHANGE_USER_TYPE](state, data) {
     state.User.type = data;
   }
 };
 const getters = {
-  isLogin: state => state.isLogin,
-  Authentication: state => state.Authentication,
+  isAuthenticated: state => state.isAuthenticated,
   User: state => state.User
 };
 
