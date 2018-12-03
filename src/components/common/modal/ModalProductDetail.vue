@@ -202,8 +202,6 @@
   </div>
 </template>
 <script>
-
-
 import { swiper, swiperSlide } from 'vue-awesome-swiper';
 import 'swiper/dist/css/swiper.css';
 
@@ -258,6 +256,8 @@ export default {
     this.details = this.data.details;
     this.images = this.data.images;
     this.sizes = this.data.sizes;
+
+    console.log(this.data);
   },
   mounted() {
     this.resize();
