@@ -318,7 +318,7 @@ export default {
         maxWidth: 600,
         adaptive: true
       };
-      const productCode = data.product_id;
+      const productCode = data.barcode;
       // 불필요한 API 호출을 방지하기 위해
       if (!this.TomorrowProductDetail[productCode]) {
         // 해당 상품 정보가 스토어에 없으면
