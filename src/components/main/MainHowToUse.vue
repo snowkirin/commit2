@@ -64,7 +64,7 @@ export default {
   @include desktop {
     padding-top: 50px;
     padding-left: 0;
-    padding-bottom: 50px;
+    padding-bottom: 60px;
     padding-right: 0;
   }
 }
