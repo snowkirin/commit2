@@ -23,7 +23,7 @@
 					</div>
 					<div class="text-wrap center-align">
 						<div>
-							<p class="txt-comment">재킷을 많이 사기도 애매했는데 줄라이를 이용하니, 사지 않고도 입을 수 있어서<br/>좋았어요^^</p>
+							<p class="txt-comment">재킷을 많이 사기도 애매했는데 줄라이를 이용하니, 사지 않고도 입을 수 있어서 좋았어요^^</p>
 							<p class="txt-user">30대 후반 직장인</p>
 						</div>
 					</div>
@@ -92,6 +92,7 @@ export default {
     margin-top: -50px;
     .txt-comment {
       @include fontSize(15px);
+			word-break: keep-all;
     }
     .txt-user {
       margin-top: 5px;

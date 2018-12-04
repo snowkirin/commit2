@@ -58,7 +58,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      getFaqMain: 'faq/getFaqMain'
+      getFaqMain: 'faq/getFaqMain',
+      QUERY_FAQ_MAINS: 'faq/QUERY_FAQ_MAINS'
     }),
     clickQuestion(event) {
       const item =
@@ -75,9 +76,9 @@ export default {
   async created() {
     if (this.FaqMainListResult.length === 0) {
       const formData = {
-        id: '113,122,112,114,111,120'
+        id: '113,120,122,118,116,111'
       };
-      this.getFaqMain(formData);
+      await this.QUERY_FAQ_MAINS(formData);
     }
   }
 };

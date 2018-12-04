@@ -20,7 +20,7 @@ const mutations = {
   [types.GET_FAQ](state, data) {
     state.Faq = data;
   },
-  [types.GET_FAQ_MAIN_LIST](state, data) {
+  [types.SET_FAQ_MAIN_LIST](state, data) {
     state.FaqMainListResult = data;
   },
   [types.GET_FAQ_TYPES](state, data) {
