@@ -18,6 +18,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
 .contents {
   background-color: #e38392;
   text-align: center;
@@ -34,7 +35,7 @@ export default {
     padding-right: 45px;
   }
   @include desktop {
-    padding-top: 60px;
+    padding-top: 50px;
     padding-left: 0;
     padding-bottom: 60px;
     padding-right: 0;
@@ -67,7 +68,9 @@ export default {
       @include fontSize(24px);
     }
     @include desktop {
-      @include fontSize(26px);
+      font-size: 26px;
+      letter-spacing: -2px;
+      line-height: 40px;
     }
   }
   .txt-bill-desc {

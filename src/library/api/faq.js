@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Http from '@/library/HTTP';
 const API_URL = process.env.VUE_APP_API_URL;
 
 export default {
@@ -17,24 +18,26 @@ export default {
         };
       });
   },
-  /*
-  * data = {id: '113,122,112,114,111'}
-  * */
-  getFaqMain(data) {
-    return axios
-      .get(`${API_URL}/faq/mains`, {
-        params: data
-      })
-      .then(res => {
-        return res;
-      })
-      .catch(err => {
-        return {
-          ...err.response,
-          message: err.message
-        };
-      });
+  QueryMainFaq(data) {
+    return Http.query('/faq/mains', {
+      params: data
+    });
   },
+  // getFaqMain(data) {
+  //   return axios
+  //     .get(`${API_URL}/faq/mains`, {
+  //       params: data
+  //     })
+  //     .then(res => {
+  //       return res;
+  //     })
+  //     .catch(err => {
+  //       return {
+  //         ...err.response,
+  //         message: err.message
+  //       };
+  //     });
+  // },
   getFaqTypes(data) {
     return axios
       .get(`${API_URL}/faq/types`, {
