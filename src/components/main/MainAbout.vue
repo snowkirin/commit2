@@ -63,6 +63,12 @@ export default {
   .txt-about-zuly {
     @include fontSize(22px);
     font-weight: 300;
+    @include tablet {
+      @include fontSize(24px);
+    }
+    @include desktop {
+      @include fontSize(26px);
+    }
   }
   .txt-bill-desc {
     @include fontSize(15px);

@@ -99,7 +99,7 @@
 					</div>
 					<div class="box">
 						<p class="txt-question">한 세트는 어떻게 구성되나요?</p>
-						<p class="txt-answer">아우터/원피스의 경우 1pcs, 상의/하의의 경우 2 pcs으로 구성됩니다. 배송 3일 전에(영업일 기준) 카카오톡을 통해 어떤 옷인지 사진으로 보고 선택할 수 있는 링크를 보내드립니다.</p>
+						<p class="txt-answer">아우터/원피스의 경우 1pcs, 상의/하의의 경우 2 pcs으로 구성됩니다.<br v-if="$mq!== 'sm'"/> 배송 3일 전에(영업일 기준) 카카오톡을 통해 어떤 옷인지 사진으로 보고 선택할 수 있는 링크를 보내드립니다.</p>
 					</div>
 				</div>
 				<div class="image">
@@ -112,11 +112,11 @@
 				<div class="item">
 					<div class="box">
 						<p class="txt-question">배송/반납은 어떻게 이루어지나요?</p>
-						<p class="txt-answer">바로 입을 수 있도록, 슈트케이스에 넣어 현관문 앞에 걸어드립니다. 반납과 다음 상품 배송이 함께 이루어지므로 이용하신 옷은 돌아오는 배송일자에 맞춰 현관문 앞에 걸어두시기만 하면 됩니다.</p>
+						<p class="txt-answer">바로 입을 수 있도록, 슈트케이스에 넣어 현관문 앞에 걸어드립니다.<br v-if="$mq!== 'sm'"/> 반납과 다음 상품 배송이 함께 이루어지므로 이용하신 옷은 돌아오는 배송일자에 맞춰 현관문 앞에 걸어두시기만 하면 됩니다.</p>
 					</div>
 					<div class="box">
 						<p class="txt-question">배송/반납 날짜는 어떻게 알 수 있나요?</p>
-						<p class="txt-answer">배송/반납은 새벽에 이루어지며 날짜는 카카오톡을 통해 알려드립니다. (지정된 반납일에 수거되지 않을 경우 추가 배송비를 부담하실 수 있습니다.)</p>
+						<p class="txt-answer">배송/반납은 새벽에 이루어지며 날짜는 카카오톡을 통해 알려드립니다.<br v-if="$mq!== 'sm'"/> (지정된 반납일에 수거되지 않을 경우 추가 배송비를 부담하실 수 있습니다.)</p>
 					</div>
 				</div>
 				<div class="image">
@@ -151,9 +151,9 @@ export default {
     padding-right: 45px;
   }
   @include desktop {
-    padding-top: 60px;
+    padding-top: 50px;
     padding-left: 0;
-    padding-bottom: 60px;
+    padding-bottom: 50px;
     padding-right: 0;
   }
 }
