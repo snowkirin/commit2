@@ -23,7 +23,7 @@
 					</div>
 					<div class="text-wrap center-align">
 						<div>
-							<p class="txt-comment">2주마다 새로운 아이템을 받아서 가지고 있던 옷이랑 코디해서 입으니까 다양하게 연출이 가능해서 좋아요.</p>
+							<p class="txt-comment">2주마다 새로운 아이템을 받아서 가지고 있던 옷이랑 코디해서 입으니까 <br/>다양하게 연출이 가능해서 좋아요.</p>
 							<p class="txt-user">30대 초반 직장인</p>
 						</div>
 					</div>
@@ -35,7 +35,7 @@
 					</div>
 					<div class="text-wrap center-align">
 						<div>
-							<p class="txt-comment">육아에 일에 쇼핑할 시간이 없는데 제 취향에 맞는 옷을 추천해줘서 항상 기대되고 주변 반응이 좋아서 뿌듯해요.</p>
+							<p class="txt-comment">육아에 일에 쇼핑할 시간이 없는데 <br/>제 취향에 맞는 옷을 추천해줘서 항상 <br/>기대되고 주변 반응이 좋아서 뿌듯해요.</p>
 							<p class="txt-user">30대 후반 직장인</p>
 						</div>
 					</div>
