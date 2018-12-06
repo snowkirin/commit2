@@ -23,8 +23,8 @@
 					</div>
 					<div class="text-wrap center-align">
 						<div>
-							<p class="txt-comment">재킷을 많이 사기도 애매했는데 줄라이를 이용하니, 사지 않고도 입을 수 있어서 좋았어요^^</p>
-							<p class="txt-user">30대 후반 직장인</p>
+							<p class="txt-comment">2주마다 새로운 아이템을 받아서 가지고 있던 옷이랑 코디해서 입으니까 다양하게 연출이 가능해서 좋아요.</p>
+							<p class="txt-user">30대 초반 직장인</p>
 						</div>
 					</div>
 				</div>
