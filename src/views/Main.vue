@@ -3,6 +3,7 @@
     <MainHeader></MainHeader>
     <div class="container">
       <MainFirst />
+      <MainAbout />
       <MainHowToUse />
       <MainReviewer />
       <MainFaq />
@@ -15,6 +16,7 @@
 <script>
 import MainHeader from '@/components/main/MainHeader';
 import MainFirst from '@/components/main/MainFirst';
+import MainAbout from '@/components/main/MainAbout';
 import MainHowToUse from '@/components/main/MainHowToUse';
 import MainReviewer from '@/components/main/MainReviewer';
 import MainFaq from '@/components/main/MainFaq';
@@ -26,6 +28,7 @@ export default {
   components: {
     MainHeader,
     MainFirst,
+    MainAbout,
     MainHowToUse,
     MainReviewer,
     MainFaq,

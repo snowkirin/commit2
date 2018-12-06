@@ -59,16 +59,6 @@ export default {
         });
     });
   },
-  // getCurrent({ commit }) {
-  //   return Subscriptions.getCurrent().then(res => {
-  //     // 여기엔 result 값으로 판단 할 수가 없다.
-  //     if (!_.isEmpty(res.data.result)) {
-  //       // 제대로 result 값이 있다면
-  //       commit(types.GET_CURRENT, res.data);
-  //     }
-  //     return res;
-  //   });
-  // },
   getCurrentFeedbacks({ commit }, data) {
     return Subscriptions.getFeedbacks(data).then(res => {
       if (res.data.result) {

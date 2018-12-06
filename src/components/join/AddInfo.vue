@@ -56,6 +56,8 @@
                   v-model="memberStyle.preferShop">
               </div>
             </div>
+          </div>
+          <div class="column column-right">
             <!-- 업로드 -->
             <div class="row">
               <p class="txt-form-title">[선택] My Daily Look - 사진을 올려주세요.</p>
@@ -102,10 +104,8 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="column column-right">
             <!--Dress Code-->
-            <div class="row">
+            <div class="row" v-if="false">
               <p class="txt-form-title">[선택] 내가 주로 활동 하는 곳의 드레스 코드는?</p>
               <ul class="list-dresscode">
                 <li

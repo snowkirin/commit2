@@ -7,19 +7,19 @@
       <div class="txt-complete-desc">
         <p class="txt-purchase-info">
           고객님께서는
-          <span class=" txt-emphasis">{{`${selectedProduct[0].name} ${selectedProduct.length -1 !== 0 ? '외 ' + (selectedProduct.length -1)+'벌': '상품'}`}}</span>{{ selectedProduct.length -1 !== 0 ? '을/를' : '을'}} 구매하셨습니다.
+          <span class=" txt-emphasis">{{`${selectedProduct.products[0].name} ${selectedProduct.products.length -1 !== 0 ? '외 ' + (selectedProduct.products.length -1)+'벌': '상품'}`}}</span>{{ selectedProduct.products.length -1 !== 0 ? '을/를' : '을'}} 구매하셨습니다.
           <br/>
           해당 상품은 반납하지 않고 계속 이용 가능합니다.
         </p>
         <p
-          v-if="data.products.length !== selectedProduct.length"
+          v-if="data.products.length !== selectedProduct.products.length"
           class="txt-purchase-noti"
         >
           ※ 구매하지 않으신 상품은 돌아오는 배송/수거일에 맞춰 문앞에 걸어주시기 바랍니다.
         </p>
         <p class="txt-purchase-bonus">
           상품 구매 기념으로 <br v-if="$mq === 'sm'"/>
-          <span class="txt-point">구독 요금 {{selectedProduct.length * 20}}% 할인({{selectedProduct.length * 15600 | currency('', 0)}}원) 혜택</span><!--
+          <span class="txt-point">구독 요금 {{selectedProduct.products.length * selectedProduct.info.sale_rate}}% 할인({{ 78000 * ( (selectedProduct.products.length * selectedProduct.info.sale_rate) / 100) | currency('', 0)}}원) 혜택</span><!--
            -->을 제공해 드렸습니다. <br v-if="$mq !== 'sm'">다음 요금 결제 시 자동 적용됩니다.
         </p>
         <div class="link-subscription">
@@ -42,7 +42,7 @@ export default {
   name: 'ItemPayment_Step3',
   props: {
     data: Object,
-    selectedProduct: Array
+    selectedProduct: Object
   },
   data() {
     return {};

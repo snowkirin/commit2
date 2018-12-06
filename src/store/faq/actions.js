@@ -8,18 +8,20 @@ export default {
         commit(types.GET_FAQ, res.data.result);
         return res;
       } else {
-        console.log('GET FAQ Error')
+        console.log('GET FAQ Error');
       }
     });
   },
-  getFaqMain({ commit }, data) {
-    return Faq.getFaqMain(data).then(res => {
-      if (res.data.list.length !== 0) {
-        commit(types.GET_FAQ_MAIN_LIST, res.data.list);
-        return res;
-      } else {
-        console.log('GET FAQ MAIN Error ');
-      }
+  QUERY_FAQ_MAINS(context, payload) {
+    return new Promise((resolve, reject) => {
+      Faq.QueryMainFaq(payload)
+        .then(({ data }) => {
+          context.commit(types.SET_FAQ_MAIN_LIST, data.list);
+          resolve(data);
+        })
+        .catch(err => {
+          reject(err);
+        });
     });
   },
   getFaqTypes({ commit }, data) {
