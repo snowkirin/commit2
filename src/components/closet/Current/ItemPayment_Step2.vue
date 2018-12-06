@@ -7,7 +7,7 @@
           <div class="inner">
             <div class="items">
               <div
-                v-for="(item, idx) in selectedProduct"
+                v-for="(item, idx) in selectedProduct.products"
                 :key="idx"
                 class="item"
               >
@@ -100,7 +100,7 @@
             </tr>
           </tfoot>
           <tbody>
-            <tr v-for="(item, idx) in selectedProduct" :key="idx" class="item">
+            <tr v-for="(item, idx) in selectedProduct.products" :key="idx" class="item">
               <td>
                 <div class="left-side">
                   <div class="image">
@@ -163,7 +163,7 @@
           <label class="custom-control-label" for="productPaymentDesktop">
             상기 상품 구매는 줄라이 구독 서비스를 통해 현재 고객님께서 이용중인
             상품을 구매하는 것이므로 교환 및 반품, 환불이 불가능 합니다. 위
-            내용을 확인하였으며 결재에 동의 합니다.
+            내용을 확인하였으며 결제에 동의 합니다.
           </label>
         </div>
       </div>
@@ -203,7 +203,7 @@ import APISubscriptions from '@/library/api/subscriptions';
 export default {
   name: 'ItemPayment_Step2',
   props: {
-    selectedProduct: Array,
+    selectedProduct: Object,
     data: Object
   },
   data() {
@@ -216,7 +216,7 @@ export default {
   computed: {
     finalPaymentAmount() {
       let price = 0;
-      _.forEach(this.selectedProduct, value => {
+      _.forEach(this.selectedProduct.products, value => {
         price += _.parseInt(value.sale_price);
       });
       if (this.selectCoupon !== '') {
@@ -248,7 +248,7 @@ export default {
           totalAmount: this.finalPrice, // Number
           usedCoupon: this.selectCoupon === '' ? null : this.selectCoupon.id // Number 쿠폰을 사용하지 않을 시 null로
         };
-        _.forEach(this.selectedProduct, value => {
+        _.forEach(this.selectedProduct.products, value => {
           formData.salePrices.push(_.parseInt(value.sale_price));
           formData.barcodes.push(_.parseInt(value.barcode));
           if (this.selectCoupon !== '') {
@@ -262,7 +262,7 @@ export default {
             } else if (this.selectCoupon.sale_type === 14602) {
               let price =
                 _.parseInt(value.sale_price) -
-                this.selectCoupon.sale_price / this.selectedProduct.length;
+                this.selectCoupon.sale_price / this.selectedProduct.products.length;
               price = price < 0 ? 0 : price;
               formData.orderPrices.push(price);
             }
@@ -462,7 +462,7 @@ export default {
           top: 18px;
         }
         select {
-          @include fontSize(15px);
+          @include fontSize(14px);
           height: 50px;
           width: 100%;
           padding-left: 10px;
@@ -630,6 +630,7 @@ export default {
               position: relative;
               flex: 0 0 250px;
               select {
+                @include fontSize(14px);
                 width: 100%;
                 height: 50px;
                 border: 1px solid #c4c4c4;

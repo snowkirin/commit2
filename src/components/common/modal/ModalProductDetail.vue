@@ -256,8 +256,6 @@ export default {
     this.details = this.data.details;
     this.images = this.data.images;
     this.sizes = this.data.sizes;
-
-    console.log(this.data);
   },
   mounted() {
     this.resize();
@@ -369,10 +367,7 @@ export default {
       transform: rotate(-45deg);
     }
   }
-}
-
-
-
+};
 .product-information {
   display: inline-flex;
   flex-direction: column;
@@ -407,10 +402,7 @@ export default {
       flex: 1 !important;
     }
   }
-}
-
-
-
+};
 @media (min-width: 768px) {
 }
 

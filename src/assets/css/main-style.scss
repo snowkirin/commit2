@@ -1,19 +1,26 @@
+/* Reviewer, Faq, Brand 에 공통적으로 쓰이는 스타일 */
 .contents {
-  padding-top: 40px;
-  padding-bottom: 40px;
-  padding-left: 25px;
-  padding-right: 25px;
+  padding: {
+    top: 40px;
+    bottom: 40px;
+    left: 25px;
+    right: 25px;
+  }
   @include tablet {
-    padding-top: 50px;
-    padding-bottom: 50px;
-    padding-left: 45px;
-    padding-right: 45px;
+    padding: {
+      top: 50px;
+      bottom: 50px;
+      left: 45px;
+      right: 45px;
+    }
   }
   @include desktop {
-    padding-top: 60px;
-    padding-left: 0;
-    padding-bottom: 60px;
-    padding-right: 0;
+    padding: {
+      top: 60px;
+      bottom: 60px;
+      left: 0;
+      right: 0;
+    }
   }
 }
 
