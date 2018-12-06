@@ -35,8 +35,8 @@
 					</div>
 					<div class="text-wrap center-align">
 						<div>
-							<p class="txt-comment">2주마다 새로운 옷을 받으니, 쇼핑도<br/>덜 하고도 회사 갈 때 옷 걱정을 안 해도<br/>되어서 너무 편해요.</p>
-							<p class="txt-user">30대 중반 직장인</p>
+							<p class="txt-comment">육아에 일에 쇼핑할 시간이 없는데 제 취향에 맞는 옷을 추천해줘서 항상 기대되고 주변 반응이 좋아서 뿌듯해요.</p>
+							<p class="txt-user">30대 후반 직장인</p>
 						</div>
 					</div>
 				</div>
