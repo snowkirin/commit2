@@ -27,7 +27,9 @@
                 }}</span>
                 <span class="unit">원</span>
               </p>
-              <p class="txt-notice">(구매 시 다음 달 구독 요금 20% 할인)</p>
+              <p class="txt-notice">
+                (구매 시 다음 달 구독 요금 {{productCalc.length === 1 ? '40%': '20%'}} 할인)
+              </p>
             </div>
             <div class="button-wrap" v-if="item.is_sellable">
               <button
@@ -48,10 +50,10 @@
         <button
           type="button"
           class="btn btn-primary h-50"
-          v-if="this.sellableCounter >= 2"
+          v-if="this.productCalc.sellable >= 2"
           @click="selectProduct"
         >
-          {{ this.sellableCounter }}개 상품 모두 구매
+          {{ this.productCalc.sellable }}개 상품 모두 구매
         </button>
       </div>
     </div>
@@ -62,7 +64,7 @@
           <colgroup>
             <col width="*" />
             <col width="26.48148148148148%" />
-            <col width="15.74074074074074%" />
+            <col width="170" />
           </colgroup>
           <thead>
             <tr>
@@ -78,18 +80,20 @@
               v-if="item.id !== null"
             >
               <td>
-                <div class="left-side">
-                  <div class="image">
-                    <img
-                      :src="$common.IMAGEURL() + item.image.path"
-                      @click="emitProductDetails(item.barcode);"
-                    />
+                <div class="product-info">
+                  <div class="left-side">
+                    <div class="image">
+                      <img
+                        :src="$common.IMAGEURL() + item.image.path"
+                        @click="emitProductDetails(item.barcode);"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div class="right-side">
-                  <div>
-                    <p class="txt-name">{{ item.name }}</p>
-                    <p class="txt-brand">{{ item.brand_kor_name }}</p>
+                  <div class="right-side">
+                    <div>
+                      <p class="txt-name">{{ item.name }}</p>
+                      <p class="txt-brand">{{ item.brand_kor_name }}</p>
+                    </div>
                   </div>
                 </div>
               </td>
@@ -101,7 +105,9 @@
                   }}</span
                   ><span class="unit">원</span>
                   </p>
-                  <p class="txt-notice">(구매 시 다음 달 구독 요금 20% 할인)</p>
+                  <p class="txt-notice">
+                    (구매 시 다음 달 구독 요금 {{productCalc.length === 1 ? '40%': '20%'}} 할인)
+                  </p>
                 </div>
               </td>
               <td>
@@ -127,9 +133,9 @@
           type="button"
           class="btn btn-primary h-50"
           @click="selectProduct"
-          v-if="this.sellableCounter >= 2"
+          v-if="this.productCalc.sellable >= 2"
         >
-          {{ this.sellableCounter }}개 상품 모두 구매
+          {{ this.productCalc.sellable }}개 상품 모두 구매
         </button>
       </div>
     </div>
@@ -153,7 +159,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'ItemPayment_Step1',
   props: {
@@ -165,36 +170,54 @@ export default {
       tooltipStyle: {
         left: 0,
         top: 0
-      },
-      tooltipLatelyPosition: 0
+      }
     };
   },
   computed: {
-    sellableCounter() {
-      let count = 0;
-      _.forEach(this.data.products, value => {
-        if (value.is_sellable && value.product_id !== null) {
-          count++;
-        }
-      });
-      return count;
+    productCalc() {
+      return this.calcProduct();
     }
   },
   methods: {
     changeSequence() {
       this.$emit('sequence', 'step2');
     },
+
+    calcProduct() {
+      const product = {
+        sellable: 0,
+        length: 0
+      };
+      _.forEach(this.data.products, value => {
+        if (value.barcode !== null) {
+          product.length++;
+          if (value.is_sellable) {
+            product.sellable++;
+          }
+        }
+      });
+      return product;
+    },
     selectProduct(param) {
+      // 상품을 선택했을때
+      const productsInfo = this.calcProduct();
+      let productsInfoData = {
+        products: [],
+        info: {}
+      };
+      productsInfoData.info = {
+        sale_rate: productsInfo.length === 1 ? 40 : 20
+      };
       if (_.isNumber(param)) {
-        this.$emit('selectProduct', _.concat(this.data.products[param]));
+        productsInfoData.products.push(this.data.products[param]);
+        this.$emit('selectProduct', productsInfoData);
       } else {
-        let allProduct = [];
         _.forEach(this.data.products, value => {
           if (value.is_sellable && value.product_id !== null) {
-            allProduct.push(value);
+            productsInfoData.products.push(value);
           }
         });
-        this.$emit('selectProduct', allProduct);
+        this.$emit('selectProduct', productsInfoData);
       }
       this.$emit('sequence', 'step2');
     },
@@ -333,6 +356,7 @@ export default {
     th,
     td {
       border-bottom: 1px solid #e9e9e9;
+      vertical-align: middle;
     }
     thead {
       th {
@@ -385,10 +409,12 @@ export default {
       @include fontSize(12px);
       color: #797979;
     }
+    .product-info {
+      display: flex;
+      align-items: center;
+    }
     .left-side,
     .right-side {
-      display: inline-block;
-      vertical-align: middle;
     }
     .left-side {
       margin-right: 13px;

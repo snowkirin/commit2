@@ -154,8 +154,6 @@ export default {
     if (_.isEmpty(this.MemberStyleType)) {
       await this.getMemberStyleType();
     }
-  },
-  mounted() {
   }
 };
 </script>
@@ -181,12 +179,12 @@ export default {
     &::before {
       content: '';
       display: block;
-      width: calc(100% - 4px);
-      height: calc(100% - 4px);
+      width: 100%;
+      height: 100%;
       position: absolute;
-      left: 2px;
-      top: 2px;
-      background-color: rgba(0, 0, 0, 0.07);
+      left: 0;
+      top: 0;
+      background-color: rgba(0, 0, 0, 0.05);
       z-index: 10;
     }
     &.selected {

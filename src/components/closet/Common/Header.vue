@@ -33,6 +33,7 @@ export default {
 }
 .user-info {
   @include fontSize(24px);
+  font-family: 'Open Sans', 'NotoSans', '맑은 고딕', 'Malgun Gothic', sans-serif;
   font-weight: 100;
 }
 @media (min-width: 768px) {

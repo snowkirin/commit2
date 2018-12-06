@@ -3,7 +3,7 @@
     <div class="contents-header">
       <h3>나의 정보를 변경 하실 수 있습니다.</h3>
     </div>
-    <div class="content-form content-border">
+    <div class="content content-border">
       <div>
         <div class="grid-flex">
           <div class="column column-left">
@@ -988,16 +988,13 @@ export default {
   }
 };
 </script>
-
-<style scoped lang="scss" src="@/assets/css/closet-style.scss">
-</style>
+<style scoped lang="scss" src="@/assets/css/closet-style.scss"></style>
 <style scoped lang="scss">
 .label-card {
   @include fontSize(15px);
   display: block;
   margin-bottom: 5px;
 }
-
 .form-row {
   margin-bottom: 10px;
   &:last-child {
@@ -1005,24 +1002,20 @@ export default {
   }
 }
 
-.content-form {
-  padding-top: 20px;
-  padding-bottom: 30px;
-}
-
-@media (min-width: 768px) {
-  .content-form {
+.content {
+  padding: {
+    top: 10px;
+    bottom: 30px;
+  }
+  @include tablet {
     background-color: #f7f7f7;
     padding: 25px 30px 30px;
   }
-  .column-right {
-    margin-left: 5%;
-  }
 }
 
-@media (min-width: 1080px) {
+@include tablet {
   .column-left {
-    padding-right: 90px;
+    padding-right: 30px;
     position: relative;
     &::after {
       content: '';
@@ -1036,7 +1029,6 @@ export default {
   }
   .column-right {
     padding-left: 30px;
-    padding-right: 60px;
   }
 }
 </style>

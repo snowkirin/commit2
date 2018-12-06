@@ -1,7 +1,7 @@
 <template>
   <div class="contents">
     <div class="contents-header">
-      <h3>ZULY ABOUT</h3>
+      <h3>ABOUT</h3>
     </div>
     <div class="content">
       <p class="txt-about-zuly">줄라이는 2주에 한 세트씩<br v-if="$mq === 'sm'"/> 옷을 보내드리고,<br v-if="$mq === 'sm'"/> 회수하는<br/>패션 구독 서비스</p>
@@ -18,7 +18,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
 .contents {
   background-color: #e38392;
   text-align: center;
@@ -29,18 +28,23 @@ export default {
     right: 25px;
   }
   @include tablet {
-    padding-top: 50px;
-    padding-bottom: 50px;
-    padding-left: 45px;
-    padding-right: 45px;
+    padding: {
+      top: 50px;
+      bottom: 50px;
+      left: 45px;
+      right: 45px;
+    }
   }
   @include desktop {
-    padding-top: 50px;
-    padding-left: 0;
-    padding-bottom: 50px;
-    padding-right: 0;
+    padding: {
+      top: 50px;
+      bottom: 50px;
+      left: 0;
+      right: 0;
+    }
   }
 }
+
 .contents-header {
   h3 {
     color: #fff;
