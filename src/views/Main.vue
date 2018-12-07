@@ -34,7 +34,7 @@ export default {
     MainFaq,
     MainBrand,
     MainFooter
-  }
+  },
 };
 </script>
 

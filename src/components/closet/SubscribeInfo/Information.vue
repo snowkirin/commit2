@@ -47,6 +47,10 @@
                   </td>
                 </tr>
                 <tr>
+                  <th>결제 예정 금액</th>
+                  <td>{{paymentAmount}}원</td>
+                </tr>
+                <tr>
                   <th>할인 혜택</th>
                   <td>
                     <div
@@ -57,7 +61,7 @@
                     >
                       {{ data.coupon_name }}
                       <span class="txt-time-limit">
-                        ({{ data.end_date }} 결제시까지 적용)</span
+                        ({{ data.end_date }}까지 유효)</span
                       >
                     </div>
                   </td>
@@ -252,7 +256,8 @@ export default {
   data() {
     return {
       isChangeDelivery: false, // 배송 예정일 변경 활성화 & 비활성화
-      deliveryDate: ''
+      deliveryDate: '',
+      resultPrice: 0
     };
   },
   computed: {
@@ -267,6 +272,46 @@ export default {
       } else {
         return '배송 예정일 변경';
       }
+    },
+    paymentAmount() {
+      // 날짜를 숫자로 바꿔주는 함수
+      function dateToNumber(str = '') {
+        if (str === '') {
+          return false;
+        } else {
+          const regex = /[^0-9]/g;
+          let response;
+          response = _.toNumber(str.replace(regex, ''));
+          return response;
+        }
+      }
+      const price = this.SubscriptionInfo.info.membership_price; // 78000
+      const paymentDate = dateToNumber(this.SubscriptionInfo.info.payment_date);
+      const coupon = this.SubscriptionInfo.info.price_coupons; // 쿠폰 배열
+      let priceResult = price;
+
+      _.forEach(coupon, value => {
+        const startDate = dateToNumber(value.start_date);
+        const endDate = dateToNumber(value.end_date);
+
+        if (startDate <= paymentDate) {
+          if (paymentDate <= endDate) {
+            if (value.sale_type === 14601) {
+              // 할인율이 백분율이라면
+              priceResult -= price * (value.sale_rate / 100);
+            } else if (value.sale_type === 14602) {
+              // 할인율이 정량이라면
+              priceResult -= price - (price - value.sale_price);
+            }
+          }
+        }
+      });
+      // 결졔예정 금액이 음수일 경우 0으로
+      if (priceResult < 0) {
+        priceResult = 0;
+      }
+
+      return priceResult;
     }
   },
   methods: {
@@ -398,7 +443,8 @@ export default {
   }
 };
 </script>
-<style scoped lang="scss" src="@/assets/css/closet-style.scss"></style>
+<style scoped lang="scss" src="@/assets/css/closet-style.scss">
+</style>
 <style scoped lang="scss">
 .contents {
   &:nth-child(2) {
