@@ -50,9 +50,10 @@ const router = new Router({
     {
       path: '/join',
       component: () => import('@/views/Join.vue'),
+      redirect: '/join/size',
       children: [
         {
-          path: '',
+          path: 'size',
           component: () => import('@/components/join/Size'),
           name: 'Join_Size'
         },
@@ -82,6 +83,7 @@ const router = new Router({
       path: '/closet',
       component: () => import('@/views/Closet.vue'),
       name: 'Closet',
+      redirect: '/closet/tomorrow',
       children: [
         {
           // 내일의 옷장

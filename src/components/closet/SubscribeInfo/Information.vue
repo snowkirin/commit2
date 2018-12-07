@@ -69,7 +69,6 @@
               </tbody>
             </table>
             <!-- Desktop용 Table -->
-
             <table v-else>
               <thead>
                 <th>배송/회수 예정일</th>
