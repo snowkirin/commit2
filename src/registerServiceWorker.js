@@ -28,7 +28,7 @@
 //
 // if (NODE_ENV === 'production') {
 //   if ('serviceWorker' in navigator) {
-//     register(`${BASE_URL}service-worker.js`);
+//     register(`${BASE_URL}service-worker.js` );
 //   }
 // }
 
