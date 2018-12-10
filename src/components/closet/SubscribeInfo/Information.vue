@@ -29,9 +29,8 @@
                   <td>
                     {{
                       User.type !== 14703
-                        ? SubscriptionInfo.info.membership_name +
-                          SubscriptionInfo.info.membership_price +
-                          '원'
+
+                        ? `${SubscriptionInfo.info.membership_name} ${this.$options.filters.currency(SubscriptionInfo.info.membership_price, '', 0)}원`
                         : '이용중이 아닙니다.'
                     }}
                   </td>
@@ -47,30 +46,39 @@
                   </td>
                 </tr>
                 <tr>
+                  <th>결제 예정 금액</th>
+                  <td>{{calcDateResult.price | currency('',0)}}원</td>
+                </tr>
+                <tr>
                   <th>할인 혜택</th>
                   <td>
-                    <div
-                      v-if="User.type !== 14703"
-                      :key="idx"
-                      v-for="(data, idx) in SubscriptionInfo.info.price_coupons"
-                      class="txt-discount"
-                    >
-                      {{ data.coupon_name }}
-                      <span class="txt-time-limit">
-                        ({{ data.end_date }} 결제시까지 적용)</span
+                    <div v-if="calcDateResult.coupons.length === 0">
+                      -
+                    </div>
+                    <div v-else>
+                      <div
+                        v-if="User.type !== 14703"
+                        :key="idx"
+                        v-for="(data, idx) in calcDateResult.coupons"
+                        class="txt-discount"
                       >
+                        {{ data.coupon_name }}
+                        <span class="txt-time-limit">
+                        ({{ data.end_date.slice(6) }}까지 유효)</span
+                        >
+                      </div>
                     </div>
                   </td>
                 </tr>
               </tbody>
             </table>
             <!-- Desktop용 Table -->
-
             <table v-else>
               <thead>
                 <th>배송/회수 예정일</th>
                 <th>이용 요금제</th>
                 <th>결제 예정일</th>
+                <th>결제 예정 금액</th>
                 <th>할인 혜택</th>
               </thead>
               <tbody>
@@ -79,28 +87,29 @@
                     <td>{{ SubscriptionInfo.info.return_date }}</td>
                     <td>
                       {{
-                        `${SubscriptionInfo.info.membership_name} / ${
-                          SubscriptionInfo.info.membership_price
-                        }원`
+                        `${SubscriptionInfo.info.membership_name} / ${this.$options.filters.currency(SubscriptionInfo.info.membership_price, '', 0)}원`
                       }}
                     </td>
                     <td>{{ SubscriptionInfo.info.payment_date }}</td>
+                    <td>{{calcDateResult.price | currency('', 0)}}원</td>
                     <td>
+                      <div v-if="calcDateResult.coupons.length === 0">
+                        -
+                      </div>
                       <div
-                        :key="idx"
-                        v-for="(data, idx) in SubscriptionInfo.info
-                          .price_coupons"
+                        v-else
+                        v-for="(data, idx) in calcDateResult.coupons"
                         class="txt-discount"
+                        :key="idx"
                       >
                         {{ data.coupon_name }}
                         <span class="txt-time-limit">
-                          ({{ data.end_date }} 결제시까지 적용)</span
-                        >
+                        ({{ data.end_date.slice(6) }}까지 유효)</span>
                       </div>
                     </td>
                   </template>
                   <template v-else>
-                    <td colspan="4">이용중이 아닙니다.</td>
+                    <td colspan="5">이용중이 아닙니다.</td>
                   </template>
                 </tr>
               </tbody>
@@ -118,7 +127,6 @@
           >
             구독 중지
           </button>
-
           <!--
             <button
               v-if="User.type === 14701"
@@ -267,6 +275,50 @@ export default {
       } else {
         return '배송 예정일 변경';
       }
+    },
+    calcDateResult() {
+      // 날짜를 숫자로 바꿔주는 함수
+      function dateToNumber(str = '') {
+        if (str === '') {
+          return false;
+        } else {
+          const regex = /[^0-9]/g;
+          let response;
+          response = _.toNumber(str.replace(regex, ''));
+          return response;
+        }
+      }
+
+      const membershipPrice = this.SubscriptionInfo.info.membership_price; // 78000
+      const paymentDate = dateToNumber(this.SubscriptionInfo.info.payment_date);
+      const coupon = this.SubscriptionInfo.info.price_coupons; // 쿠폰 배열
+
+      let results = {
+        price: membershipPrice,
+        coupons: []
+      };
+
+      _.forEach(coupon, value => {
+        const startDate = dateToNumber(value.start_date);
+        const endDate = dateToNumber(value.end_date);
+
+        if (startDate <= paymentDate && paymentDate <= endDate) {
+          results.coupons.push(value);
+          if (value.sale_type === 14601) {
+            // 할인율이 백분율이라면
+            results.price -= membershipPrice * (value.sale_rate / 100);
+          } else if (value.sale_type === 14602) {
+            // 할인율이 정량이라면
+            results.price -=
+              membershipPrice - (membershipPrice - value.sale_price);
+          }
+        }
+      });
+      // 결졔예정 금액이 음수일 경우 0으로
+      if (results.price < 0) {
+        results.price = 0;
+      }
+      return results;
     }
   },
   methods: {
@@ -320,7 +372,6 @@ export default {
       this.successRestart();
       this.$router.push({ path: '/closet/subscribe-info/restart' });
     },
-
     // 배송일 스타일 관련
     calcDate(data, idx) {
       if (idx === 0) {
@@ -358,7 +409,6 @@ export default {
       }
       this.deliveryDate = data.solar_date;
     },
-
     // 배송일 변경 버튼 클릭
     clickChangeDelivery() {
       const formData = {
@@ -398,7 +448,8 @@ export default {
   }
 };
 </script>
-<style scoped lang="scss" src="@/assets/css/closet-style.scss"></style>
+<style scoped lang="scss" src="@/assets/css/closet-style.scss">
+</style>
 <style scoped lang="scss">
 .contents {
   &:nth-child(2) {

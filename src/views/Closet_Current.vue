@@ -33,7 +33,6 @@ import { mapActions, mapGetters } from 'vuex';
 import { swiper, swiperSlide } from 'vue-awesome-swiper';
 
 import FeedBack from '@/components/closet/feedback/Index';
-// import DetailModal from '@/components/common/DetailModal';
 import ItemPayment from '@/components/closet/Current/ItemPayment';
 
 import 'swiper/dist/css/swiper.css';

@@ -30,7 +30,7 @@ module.exports = {
     workboxPluginMode: 'GenerateSW',
     workboxOptions: {
       skipWaiting: false,
-      offlineGoogleAnalytics : true
+      offlineGoogleAnalytics : false
     }
   }
 };
