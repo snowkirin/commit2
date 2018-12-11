@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Http from '@/library/HTTP';
 const API_URL = process.env.VUE_APP_API_URL;
 
 export default {
@@ -103,5 +104,12 @@ export default {
           message: err.message
         };
       });
+  },
+  GetZipCodes(data) {
+    return Http.get(`/code/address/zipcodes`, {
+      params: {
+        zipcode: data
+      }
+    })
   }
 };
