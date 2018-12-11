@@ -486,6 +486,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import Simplert from 'vue2-simplert';
+import Codes from '@/library/api/codes';
 
 const alertObject = {
   type: 'alert', // 타입
@@ -831,7 +832,18 @@ export default {
               if (state === 'COMPLETE_CLOSE') {
               }
             },
-            oncomplete: data => {
+            oncomplete: async data => {
+              const validZipCode = await Codes.GetZipCodes(data.zonecode);
+              if (!validZipCode.data.result) {
+                this.$dialog.alert(
+                  '입력하신 주소는 현재 서비스 지역이 아닙니다.',
+                  {
+                    okText: '확인',
+                    customClass: 'zuly-alert',
+                    backdropClose: true
+                  }
+                );
+              }
               this.completePostCode(data);
             }
           }).embed(document.getElementById('postCode'), {});

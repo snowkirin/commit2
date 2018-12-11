@@ -435,6 +435,8 @@ import { mapGetters, mapActions } from 'vuex';
 import CommonModal from '@/components/common/modal/CommonModal';
 import Simplert from 'vue2-simplert';
 import Info from '@/info';
+import Codes from '@/library/api/codes';
+
 const alertObject = {
   type: 'alert', // 타입
   customClass: 'popup-custom-class', // 커스텀 클래스 네임
@@ -532,12 +534,23 @@ export default {
           new window.daum.Postcode({
             width: '100%',
             height: '498px',
-            onresize: size => {},
+            onresize: () => {},
             onclose: state => {
               if (state === 'COMPLETE_CLOSE') {
               }
             },
-            oncomplete: data => {
+            oncomplete: async data => {
+              const validZipCode = await Codes.GetZipCodes(data.zonecode);
+              if (!validZipCode.data.result) {
+                this.$dialog.alert(
+                  '입력하신 주소는 현재 서비스 지역이 아닙니다.',
+                  {
+                    okText: '확인',
+                    customClass: 'zuly-alert',
+                    backdropClose: true
+                  }
+                );
+              }
               this.completePostCode(data);
             }
           }).embed(document.getElementById('postCode'), {});
@@ -819,7 +832,8 @@ export default {
 };
 </script>
 
-<style scoped lang="scss" src="@/assets/css/join-style.scss"></style>
+<style scoped lang="scss" src="@/assets/css/join-style.scss">
+</style>
 <style scoped lang="scss">
 .contents {
   .content {
