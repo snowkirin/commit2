@@ -19,7 +19,7 @@
                       v-for="(data, idx) in FirstDeliveryDays"
                       :key="idx"
                       class="item w-20 h-50"
-                      :class="[{'selected': joinData.deliveryDate === data.solar_date}, {'holy-day': data.is_holiday === 'Y'}]"
+                      :class="[{'selected': joinData.deliveryDate === data.solar_date}, {'disabled': data.is_holiday === 'Y'}]"
                       style="flex-direction: column;"
                       :style="calcDate(data, idx)"
                       @click="selectDay(data)"
