@@ -27,7 +27,7 @@
           <template v-for="(data, idx) in Notices.data">
             <tr class="table-row" :key="'title' + idx">
               <td class="index">{{ data.id }}</td>
-              <td class="title" @click="clickTitle(idx);">{{ data.title }}</td>
+              <td class="title" @click="clickTitle(idx)">{{ data.title }}</td>
               <td class="date">{{ data.inserted }}</td>
             </tr>
             <tr

@@ -78,7 +78,7 @@ export default {
                 next();
               } catch {
                 alert('올바르지 않는 접속입니다.');
-                const query = to.fullPath.match(/^\/$/)
+                const query = to.fullPath.match(/^\/$/);
                 next({
                   path: '/login',
                   query

@@ -9,7 +9,7 @@
           <li
             class="item h-50"
             :class="{ selected: currentFaqType === '' }"
-            @click="faqListFilter();"
+            @click="faqListFilter()"
           >
             전체
           </li>
@@ -18,7 +18,7 @@
             v-for="(item, idx) in FaqTypes"
             :class="{ selected: currentFaqType === item.name }"
             :key="idx"
-            @click="faqListFilter(item.name);"
+            @click="faqListFilter(item.name)"
           >
             {{ item.name }}
           </li>
@@ -28,7 +28,7 @@
         <label>
           <select
             v-model="currentFaqType"
-            @change="faqListFilter(currentFaqType);"
+            @change="faqListFilter(currentFaqType)"
           >
             <option value="" selected="selected">전체</option>
             <option

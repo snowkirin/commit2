@@ -1,9 +1,24 @@
+import CodesAPI from '@/library/api/codes';
 import Auth from '@/library/api/auth';
 import types from './mutation-types';
 
 export default {
+  FETCH_FAILED() {
+
+  },
+
+  FETCH_SIZES(context) {
+    CodesAPI.GetSizes()
+      .then(({ data }) => {
+        context.commit(types.SET_SIZES, data);
+      })
+      .catch(error => {
+        throw new Error(error);
+      });
+  },
+
   // 삭제 예정
-  phoneVerify({commit}, data) {
+  phoneVerify({ commit }, data) {
     try {
       commit(types.PHONE_VERIFY_COUNT);
 
@@ -30,7 +45,6 @@ export default {
   },
   // 삭제예정
 
-
   /*
   * data = boolean (true, false)
   * */
@@ -40,10 +54,10 @@ export default {
   checkCurrentRoute({ commit }, data) {
     commit(types.CHECK_CURRENT_ROUTE, data);
   },
-  successRestart({commit}){
+  successRestart({ commit }) {
     commit(types.SUCCESS_RESTART);
   },
-  resetRestart({commit}) {
+  resetRestart({ commit }) {
     commit(types.RESET_RESTART);
   }
 };

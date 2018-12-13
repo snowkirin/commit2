@@ -106,7 +106,7 @@
                   <div class="image">
                     <img
                       :src="$common.IMAGEURL() + item.image.path"
-                      @click="emitProductDetails(item.barcode);"
+                      @click="emitProductDetails(item.barcode)"
                     />
                   </div>
                 </div>

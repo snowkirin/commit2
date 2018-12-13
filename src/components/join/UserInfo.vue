@@ -67,7 +67,7 @@
                         regex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}/
                       }"
                       v-model="joinData.password"
-                      @keyup="pwdCheck(errors.has('password'));"
+                      @keyup="pwdCheck(errors.has('password'))"
                     />
                   </div>
                   <p class="txt-error" v-show="errors.has('password')">
@@ -296,7 +296,7 @@
                     :class="{ selected: joinData.age === data.code }"
                     v-for="(data, idx) in ageRange"
                     :key="idx"
-                    @click="clickAgeRange(data.code, $event);"
+                    @click="clickAgeRange(data.code, $event)"
                   >
                     {{ data.text }}
                   </li>
@@ -340,8 +340,8 @@
                 <label class="custom-control-label" for="private_flag">
                   개인정보의 수집 및 이용에 대한 동의
                 </label>
-                <a href="#" class="txt-link" @click="viewModal('private');"
-                  >자세히보기</a
+                <a href="#" class="txt-link" @click="viewModal('private')"
+                >자세히보기</a
                 >
               </div>
               <div class="custom-checkbox">
@@ -354,8 +354,8 @@
                 <label class="custom-control-label" for="use_flag">
                   이용약관
                 </label>
-                <a href="#" class="txt-link" @click="viewModal('use');"
-                  >자세히보기</a
+                <a href="#" class="txt-link" @click="viewModal('use')"
+                >자세히보기</a
                 >
               </div>
               <div class="custom-checkbox">
@@ -372,8 +372,8 @@
                 >
                   [선택] 마케팅 정보 수신 동의
                 </label>
-                <a href="#" class="txt-link" @click="viewModal('marketing');"
-                  >자세히보기</a
+                <a href="#" class="txt-link" @click="viewModal('marketing')"
+                >자세히보기</a
                 >
               </div>
             </div>

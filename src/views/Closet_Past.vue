@@ -33,7 +33,7 @@
                       >
                         <img
                           :src="$common.ZulyImage() + imgData.image_path"
-                          @click="clickProductDetails(imgData);"
+                          @click="clickProductDetails(imgData)"
                         />
                       </div>
                     </div>
@@ -52,7 +52,7 @@
                     <a
                       href="#"
                       class="txt-link"
-                      @click="clickFeedbackShow(idx, $event);"
+                      @click="clickFeedbackShow(idx, $event)"
                     >
                       옷장 후기 입력하기
                     </a>
@@ -68,7 +68,7 @@
                     "
                     :feedbackData="feedbackData[idx]"
                     :subscriptionId="data.id"
-                    @hide="clickFeedbackHide(idx);"
+                    @hide="clickFeedbackHide(idx)"
                   >
                   </feedback-past>
                 </div>

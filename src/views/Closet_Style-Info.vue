@@ -23,7 +23,7 @@
                       ]"
                       v-for="(data, idx) in Sizes.blouse"
                       :key="idx"
-                      @click="clickSetSize('blouseSize', data, $event);"
+                      @click="clickSetSize('blouseSize', data, $event)"
                     >
                       {{ data.name }}
                     </li>
@@ -45,7 +45,7 @@
                       ]"
                       v-for="(data, idx) in Sizes.skirt"
                       :key="idx"
-                      @click="clickSetSize('skirtSize', data, $event);"
+                      @click="clickSetSize('skirtSize', data, $event)"
                     >
                       {{ data.name }}
                     </li>
@@ -68,7 +68,7 @@
                       v-for="(data, idx) in Sizes.pants"
                       v-if="data.name !== '31'"
                       :key="idx"
-                      @click="clickSetSize('pantsSize', data, $event);"
+                      @click="clickSetSize('pantsSize', data, $event)"
                     >
                       {{ data.name }}
                     </li>
@@ -113,7 +113,7 @@
                       :class="{ selected: chestCircumResult === data }"
                       v-for="(data, idx) in chestCircum"
                       :key="idx"
-                      @click="clickSetSize('chestCircum', data, $event);"
+                      @click="clickSetSize('chestCircum', data, $event)"
                     >
                       {{ data }}
                     </li>
@@ -132,7 +132,7 @@
                       :class="{ selected: chestCupResult === data }"
                       v-for="(data, idx) in chestCup"
                       :key="idx"
-                      @click="clickSetSize('chestCup', data, $event);"
+                      @click="clickSetSize('chestCup', data, $event)"
                     >
                       {{ data }}
                     </li>
@@ -171,7 +171,7 @@
                         :class="{ selected: styleData.bodyType === data.code }"
                         v-for="(data, idx) in Sizes.body_type"
                         :key="idx"
-                        @click="clickSetSize('bodyType', data, $event);"
+                        @click="clickSetSize('bodyType', data, $event)"
                       >
                         <img
                           :src="
@@ -200,7 +200,7 @@
                       ]"
                       v-for="(data, idx) in Options.prefer_color"
                       :key="idx"
-                      @click="clickPreferColor(data, $event);"
+                      @click="clickPreferColor(data, $event)"
                     >
                       <div class="center-align">
                         <span>{{ data.name }}</span>
@@ -211,7 +211,7 @@
                     <li
                       v-for="(data, idx) in Options.prefer_pattern"
                       :key="idx"
-                      @click="clickPattern(data, $event);"
+                      @click="clickPattern(data, $event)"
                       :class="[
                         patternName(data.name),
                         { selected: data.code === styleData.preferPattern }
@@ -259,7 +259,7 @@
                 <ul class="list-dresscode">
                   <li
                     v-for="(data, idx) in Options.dress_code"
-                    @click="clickDressCode(data, $event);"
+                    @click="clickDressCode(data, $event)"
                     :class="{ selected: data.code === styleData.dressCode }"
                     :key="idx"
                   >

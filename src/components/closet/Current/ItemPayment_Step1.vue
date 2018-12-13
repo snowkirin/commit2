@@ -11,7 +11,7 @@
         >
           <div class="left-side">
             <div class="image">
-              <img :src="$common.IMAGEURL() + item.image.path" @click="emitProductDetails(item.barcode);" />
+              <img :src="$common.IMAGEURL() + item.image.path" @click="emitProductDetails(item.barcode)"/>
             </div>
           </div>
           <div class="right-side">
@@ -35,7 +35,7 @@
               <button
                 class="btn btn-primary h-40"
                 type="button"
-                @click="selectProduct(idx);"
+                @click="selectProduct(idx)"
               >
                 이용 중인 상품 구매 
               </button>
@@ -85,7 +85,7 @@
                     <div class="image">
                       <img
                         :src="$common.IMAGEURL() + item.image.path"
-                        @click="emitProductDetails(item.barcode);"
+                        @click="emitProductDetails(item.barcode)"
                       />
                     </div>
                   </div>
@@ -115,7 +115,7 @@
                   <button
                     class="btn btn-primary h-40"
                     type="button"
-                    @click="selectProduct(idx);"
+                    @click="selectProduct(idx)"
                   >
                     이용 중인 상품 구매
                   </button>

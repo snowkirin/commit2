@@ -10,7 +10,6 @@ import payment from './payment';
 import auth from './auth';
 import subscriptions from './subscriptions';
 import notices from './notices';
-import inquiries from './inquiries';
 import faq from './faq';
 
 Vue.use(Vuex);
@@ -26,7 +25,6 @@ export default new Vuex.Store({
     auth,
     subscriptions,
     notices,
-    inquiries,
     faq
   }
 });

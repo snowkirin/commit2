@@ -30,7 +30,6 @@ instance.interceptors.response.use(
   },
   function(error) {
     // Do something with response error
-    console.error(error);
     NProgress.done();
     return Promise.reject(error);
   }

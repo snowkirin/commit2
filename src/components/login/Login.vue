@@ -17,7 +17,7 @@
               v-model="email"
               data-vv-as="이메일"
               v-validate="'email'"
-              @keyup.enter="$refs.btnLogin.click();"
+              @keyup.enter="$refs.btnLogin.click()"
             />
           </div>
           <p v-show="errors.has('email')" class="txt-error">
@@ -38,7 +38,7 @@
               v-model="password"
               v-validate="'required'"
               data-vv-as="패스워드"
-              @keyup.enter="$refs.btnLogin.click();"
+              @keyup.enter="$refs.btnLogin.click()"
             />
           </div>
           <p class="txt-error" v-show="errors.has('password')">

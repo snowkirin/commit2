@@ -2,6 +2,8 @@ import types from './mutation-types';
 import actions from './actions';
 
 const initialState = {
+  sizes: {},
+
   phoneAuth: false,
   phoneAuthKey: 0,
   userId: '',
@@ -15,6 +17,9 @@ const mutations = {
     for (let prop in state) {
       state[prop] = initialState[prop];
     }
+  },
+  [types.SET_SIZES](state, payload) {
+    state.sizes = payload;
   },
   [types.PHONE_VERIFY](state, data) {
     if (data.result) state.phoneAuthKey = data.authId;
@@ -40,6 +45,7 @@ const mutations = {
   }
 };
 const getters = {
+  sizes: state => state.sizes,
   getPhoneAuth: state => state.phoneAuth,
   getPhoneAuthKey: state => state.phoneAuthKey,
   isMainBanner: state => state.isMainBanner,

@@ -5,6 +5,15 @@
       <p>즐겨입는 옷의 사이즈와 체형 관련 정보를 입력해주세요.</p>
     </div>
     <form>
+
+      <FlexList
+        title="안녕하세요~"
+        :data="sizes.blouse"
+        textExpress="name"
+        :excludeData="['44','44반','66반','77']"
+      >
+      </FlexList>
+
       <div class="content">
         <div class="grid-flex">
           <div class="column column-left">
@@ -20,9 +29,9 @@
                       { selected: joinData.blouseSize === data.code },
                       setDisabledClass('blouse', data.name)
                     ]"
-                    v-for="(data, idx) in Sizes.blouse"
+                    v-for="(data, idx) in sizes.blouse"
                     :key="idx"
-                    @click="setData('blouseSize', data, $event);"
+                    @click="setData('blouseSize', data, $event)"
                   >
                     {{ data.name }}
                   </li>
@@ -41,9 +50,9 @@
                       { selected: joinData.skirtSize === data.code },
                       setDisabledClass('skirt', data.name)
                     ]"
-                    v-for="(data, idx) in Sizes.skirt"
+                    v-for="(data, idx) in sizes.skirt"
                     :key="idx"
-                    @click="setData('skirtSize', data, $event);"
+                    @click="setData('skirtSize', data, $event)"
                   >
                     {{ data.name }}
                   </li>
@@ -62,10 +71,10 @@
                       { selected: joinData.pantsSize === data.code },
                       setDisabledClass('pants', data.name)
                     ]"
-                    v-for="(data, idx) in Sizes.pants"
+                    v-for="(data, idx) in sizes.pants"
                     v-if="data.name !== '31'"
                     :key="idx"
-                    @click="setData('pantsSize', data, $event);"
+                    @click="setData('pantsSize', data, $event)"
                   >
                     {{ data.name }}
                   </li>
@@ -111,7 +120,7 @@
                     :class="{ selected: chestCircumResult === data }"
                     v-for="(data, idx) in chestCircum"
                     :key="idx"
-                    @click="setData('chestCircum', data, $event);"
+                    @click="setData('chestCircum', data, $event)"
                   >
                     {{ data }}
                   </li>
@@ -147,7 +156,7 @@
                     :class="{ selected: chestCupResult === data }"
                     v-for="(data, idx) in chestCup"
                     :key="idx"
-                    @click="setData('chestCup', data, $event);"
+                    @click="setData('chestCup', data, $event)"
                   >
                     {{ data }}
                   </li>
@@ -165,9 +174,9 @@
                 <ul class="list-body-type">
                   <li
                     :class="{ selected: joinData.bodyType === data.code }"
-                    v-for="(data, idx) in Sizes.body_type"
+                    v-for="(data, idx) in sizes.body_type"
                     :key="idx"
-                    @click="setData('bodyType', data, $event);"
+                    @click="setData('bodyType', data, $event)"
                   >
                     <img
                       :src="
@@ -199,6 +208,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import FlexList from '@/components/join/common/FlexList';
 import Simplert from 'vue2-simplert';
 
 export default {
@@ -222,20 +232,21 @@ export default {
     };
   },
   components: {
-    Simplert
+    Simplert,
+    FlexList
   },
   computed: {
     ...mapGetters({
-      Sizes: 'codes/Sizes',
-      Join: 'signup/Join'
+      sizes: 'common/sizes',
+      // Join: 'signup/Join'
     })
   },
   methods: {
     ...mapActions({
-      getSizes: 'codes/getSizes',
-      setSizes: 'signup/setSizes',
-      setJoin: 'signup/setJoin',
-      enterJoin: 'signup/enterJoin'
+      FETCH_SIZES: 'common/FETCH_SIZES',
+      // setSizes: 'signup/setSizes',
+      // setJoin: 'signup/setJoin',
+      // enterJoin: 'signup/enterJoin'
     }),
     setDisabledClass(type, data) {
       // type: 블라우즈/셔츠, 치마, 바지
@@ -336,29 +347,32 @@ export default {
     }
   },
   async created() {
-    if (_.isEmpty(this.Sizes) || !_.isObject(this.Sizes)) {
-      await this.getSizes();
+    if (_.isEmpty(this.sizes)) {
+      await this.FETCH_SIZES();
     }
-    if (!_.isEmpty(this.Join)) {
-      const circumSize = this.Join.bustSize
-        ? _.parseInt(this.Join.bustSize)
-        : null; // 숫자만 가져오기
-      const cupSize = this.Join.bustSize
-        ? _.trim(this.Join.bustSize, circumSize)
-        : null; //
-      this.chestCircumResult = circumSize;
-      this.chestCupResult = cupSize;
-      this.joinData = {
-        tallSize: this.Join.tallSize ? this.Join.tallSize : null,
-        bustSize: this.Join.bustSize ? this.Join.bustSize : null,
-        blouseSize: this.Join.blouseSize ? this.Join.blouseSize : null,
-        skirtSize: this.Join.skirtSize ? this.Join.skirtSize : null,
-        pantsSize: this.Join.pantsSize ? this.Join.pantsSize : null,
-        bodyType: this.Join.bodyType ? this.Join.bodyType : null
-      };
-    }
-
-    this.enterJoin();
+    // if (_.isEmpty(this.Sizes) || !_.isObject(this.Sizes)) {
+    //   await this.getSizes();
+    // }
+    // if (!_.isEmpty(this.Join)) {
+    //   const circumSize = this.Join.bustSize
+    //     ? _.parseInt(this.Join.bustSize)
+    //     : null; // 숫자만 가져오기
+    //   const cupSize = this.Join.bustSize
+    //     ? _.trim(this.Join.bustSize, circumSize)
+    //     : null; //
+    //   this.chestCircumResult = circumSize;
+    //   this.chestCupResult = cupSize;
+    //   this.joinData = {
+    //     tallSize: this.Join.tallSize ? this.Join.tallSize : null,
+    //     bustSize: this.Join.bustSize ? this.Join.bustSize : null,
+    //     blouseSize: this.Join.blouseSize ? this.Join.blouseSize : null,
+    //     skirtSize: this.Join.skirtSize ? this.Join.skirtSize : null,
+    //     pantsSize: this.Join.pantsSize ? this.Join.pantsSize : null,
+    //     bodyType: this.Join.bodyType ? this.Join.bodyType : null
+    //   };
+    // }
+    //
+    // this.enterJoin();
   },
   mounted: function() {
     if (this.joinData.bodyType === 12701) {

@@ -195,7 +195,7 @@
     </div>
 
     <div class="modal-close">
-      <a class="btn-close" @click="$emit('close');">
+      <a class="btn-close" @click="$emit('close')">
         <span class="icon-close"></span>
       </a>
     </div>

@@ -166,7 +166,7 @@
                     ]"
                     style="flex-direction: column;"
                     :style="calcDate(data, idx)"
-                    @click="clickDeliveryDate(data, $event);"
+                    @click="clickDeliveryDate(data, $event)"
                   >
                     <span class="txt-date-number">{{ data.month_day }}</span>
                     <span>{{ data.day_of_week }}</span>
