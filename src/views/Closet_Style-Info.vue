@@ -10,70 +10,45 @@
             <div class="column column-left">
               <!-- 블라우스/셔츠 -->
               <div class="row">
-                <div class="form-title-wrap">
-                  <p class="txt-form-title">블라우스/셔츠</p>
-                </div>
-                <div>
-                  <ul class="list-flex">
-                    <li
-                      class="item w-25 h-50 lang-en"
-                      :class="[
-                        { selected: styleData.blouseSize === data.code },
-                        setDisabledClass('blouse', data.name)
-                      ]"
-                      v-for="(data, idx) in Sizes.blouse"
-                      :key="idx"
-                      @click="clickSetSize('blouseSize', data, $event)"
-                    >
-                      {{ data.name }}
-                    </li>
-                  </ul>
-                </div>
+                <FlexList
+                  title="블라우스/셔츠"
+                  :data="Sizes.blouse"
+                  textExpress="name"
+                  :excludeData="['44','44반','66반','77']"
+                  :column="4"
+                  :height="50"
+                  @extractFunc="setSizes('blouse', ...arguments)"
+                  extractData="code"
+                  :watchData="sizesData.blouseSize"
+                />
               </div>
               <!-- 치마 -->
               <div class="row">
-                <div class="form-title-wrap">
-                  <p class="txt-form-title">치마</p>
-                </div>
-                <div>
-                  <ul class="list-flex">
-                    <li
-                      class="item w-25 h-50 lang-en"
-                      :class="[
-                        { selected: styleData.skirtSize === data.code },
-                        setDisabledClass('skirt', data.name)
-                      ]"
-                      v-for="(data, idx) in Sizes.skirt"
-                      :key="idx"
-                      @click="clickSetSize('skirtSize', data, $event)"
-                    >
-                      {{ data.name }}
-                    </li>
-                  </ul>
-                </div>
+                <FlexList
+                  title="치마"
+                  :data="Sizes.skirt"
+                  textExpress="name"
+                  :excludeData="['44','44반','66반','77']"
+                  :column="4"
+                  :height="50"
+                  @extractFunc="setSizes('skirt', ...arguments)"
+                  extractData="code"
+                  :watchData="sizesData.skirtSize"
+                />
               </div>
               <!-- 바지 -->
               <div class="row">
-                <div class="form-title-wrap">
-                  <p class="txt-form-title">바지</p>
-                </div>
-                <div>
-                  <ul class="list-flex">
-                    <li
-                      class="item w-25 h-50 lang-en"
-                      :class="[
-                        { selected: styleData.pantsSize === data.code },
-                        setDisabledClass('pants', data.name)
-                      ]"
-                      v-for="(data, idx) in Sizes.pants"
-                      v-if="data.name !== '31'"
-                      :key="idx"
-                      @click="clickSetSize('pantsSize', data, $event)"
-                    >
-                      {{ data.name }}
-                    </li>
-                  </ul>
-                </div>
+                <FlexList
+                  title="바지 (inch)"
+                  :data="Sizes.pants"
+                  textExpress="name"
+                  :excludeData="['25','30','31']"
+                  :column="4"
+                  :height="50"
+                  @extractFunc="setSizes('pants',...arguments)"
+                  extractData="code"
+                  :watchData="sizesData.pantsSize"
+                />
               </div>
               <!-- 키 -->
               <div class="row">
@@ -91,7 +66,7 @@
                       minlength="3"
                       maxlength="3"
                       ref="tallSize"
-                      v-model.number="styleData.tallSize"
+                      v-model.number="sizesData.tallSize"
                       v-validate="{ required: true, regex: /^\d+$/ }"
                       placeholder="최근 측정한 키를 입력해주세요."
                     />
@@ -103,75 +78,47 @@
               </div>
               <!-- 가슴(브래지어) -->
               <div class="row">
-                <div class="form-title-wrap">
-                  <p class="txt-form-title">가슴둘레 (브래지어 기준)</p>
-                </div>
-                <div>
-                  <ul class="list-flex">
-                    <li
-                      class="item w-25 h-50"
-                      :class="{ selected: chestCircumResult === data }"
-                      v-for="(data, idx) in chestCircum"
-                      :key="idx"
-                      @click="clickSetSize('chestCircum', data, $event)"
-                    >
-                      {{ data }}
-                    </li>
-                  </ul>
-                </div>
+                <FlexList
+                  title="가슴둘레 (브래지어 기준)"
+                  :data="bustData"
+                  textExpress="code"
+                  :column="4"
+                  :height="50"
+                  @extractFunc="setSizes('bust',...arguments)"
+                  extractData="code"
+                  :watchData="bustResult"
+                />
               </div>
-
               <div class="row">
-                <div class="form-title-wrap">
-                  <p class="txt-form-title">컵</p>
-                </div>
-                <div>
-                  <ul class="list-flex">
-                    <li
-                      class="item w-25 h-50"
-                      :class="{ selected: chestCupResult === data }"
-                      v-for="(data, idx) in chestCup"
-                      :key="idx"
-                      @click="clickSetSize('chestCup', data, $event)"
-                    >
-                      {{ data }}
-                    </li>
-                  </ul>
-                </div>
+                <FlexList
+                  title="컵"
+                  :data="cupData"
+                  textExpress="code"
+                  :column="4"
+                  :height="50"
+                  @extractFunc="setSizes('cup',...arguments)"
+                  extractData="code"
+                  :watchData="cupResult"
+                />
               </div>
-
-              <!--
-                <div class="row">
-                  <div class="form-title-wrap">
-                    <p class="txt-form-title">가슴 (브래지어)</p>
-                  </div>
-                  <div class="text-field" :class="{'text-field-error': errors.has('bustSize')}">
-                    <input
-                      type="text"
-                      name="bustSize"
-                      ref="bustSize"
-                      v-model="styleData.bustSize"
-                      v-validate="{ required: true, regex: /([0-9]{2,3})([a-fA-F]{1})$/ }"
-                      placeholder="예) 80A">
-                  </div>
-                </div>
-              -->
               <!-- 체형 -->
               <div class="row">
                 <div class="form-title-wrap">
                   <p class="txt-form-title">체형</p>
                 </div>
                 <div class="body-type">
-                  <p class="txt-body-type" v-if="!_.isEmpty(bodyTypeText)">
+                  <p
+                    v-if="!_.isEmpty(bodyTypeText)"
+                    class="txt-body-type"
+                  >
                     {{ bodyTypeText }}
                   </p>
                   <ul class="list-body-type">
-                    <template>
-                      <li
-                        :class="{ selected: styleData.bodyType === data.code }"
+                    <li
+                        :class="{ selected: sizesData.bodyType === data.code }"
                         v-for="(data, idx) in Sizes.body_type"
                         :key="idx"
-                        @click="clickSetSize('bodyType', data, $event)"
+                        @click="setSizes('bodyType', data.code, $event)"
                       >
                         <img
                           :src="
@@ -181,7 +128,6 @@
                           "
                         />
                       </li>
-                    </template>
                   </ul>
                 </div>
               </div>
@@ -195,7 +141,7 @@
                   <ul class="list-prefer-color">
                     <li
                       :class="[
-                        { selected: data.code === styleData.preferColor },
+                        { selected: data.code === addInfoData.preferColor },
                         setColorName(data)
                       ]"
                       v-for="(data, idx) in Options.prefer_color"
@@ -214,7 +160,7 @@
                       @click="clickPattern(data, $event)"
                       :class="[
                         patternName(data.name),
-                        { selected: data.code === styleData.preferPattern }
+                        { selected: data.code === addInfoData.preferPattern }
                       ]"
                     >
                       <div class="center-align">
@@ -233,7 +179,7 @@
                   <input
                     type="text"
                     placeholder="한 개 이상인 경우 콤마(,)로 구분하여 입력해 주세요"
-                    v-model="styleData.preferBrand"
+                    v-model="addInfoData.preferBrand"
                   />
                 </div>
               </div>
@@ -245,7 +191,7 @@
                   <input
                     type="text"
                     placeholder="예) W 컨셉, 29cm"
-                    v-model="styleData.preferShop"
+                    v-model="addInfoData.preferShop"
                   />
                 </div>
               </div>
@@ -260,7 +206,7 @@
                   <li
                     v-for="(data, idx) in Options.dress_code"
                     @click="clickDressCode(data, $event)"
-                    :class="{ selected: data.code === styleData.dressCode }"
+                    :class="{ selected: data.code === addInfoData.dressCode }"
                     :key="idx"
                   >
                     <img :src="dressCodeImage(data.name)" />
@@ -393,7 +339,7 @@
                 <div class="textarea-required">
                   <textarea
                     placeholder="신체적인 특징이나 싫어하는 스타일, 장식등 별도 요청사항을 적어주세요."
-                    v-model="styleData.requirement"
+                    v-model="addInfoData.requirement"
                   >
                   </textarea>
                 </div>
@@ -408,50 +354,104 @@
         수정하기
       </button>
     </div>
-    <simplert ref="alert" :useRadius="false" :useIcon="false" />
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import Member from '@/library/api/member';
-import Simplert from 'vue2-simplert';
-
-const alertObject = {
-  type: 'alert', // 타입
-  customClass: 'popup-custom-class', // 커스텀 클래스 네임
-  disableOverlayClick: false, // 오버레이 클릭시 닫기 방지
-  customCloseBtnText: '확인' // 닫기 버튼 텍스트
-};
+import MemberAPI from '@/library/api/member';
+import FlexList from '@/components/common/FlexList';
 
 export default {
   name: 'Closet_Style-Info',
   components: {
-    Simplert
+    FlexList
   },
   data() {
     return {
-      chestCircum: [60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115],
-      chestCup: ['A', 'B', 'C', 'D'],
-      chestCircumResult: null,
-      chestCupResult: null,
-      styleData: {
-        tallSize: null,
-        bustSize: '',
+      // 이거 추후에 글로벌 변수로 뺄것.
+      dialogOptions: {
+        okText: '확인',
+        customClass: 'zuly-alert',
+        backdropClose: true
+      },
+
+      bustData: [
+        {
+          code: 60
+        },
+        {
+          code: 65
+        },
+        {
+          code: 70
+        },
+        {
+          code: 75
+        },
+        {
+          code: 80
+        },
+        {
+          code: 85
+        },
+        {
+          code: 90
+        },
+        {
+          code: 95
+        },
+        {
+          code: 100
+        },
+        {
+          code: 105
+        },
+        {
+          code: 110
+        },
+        {
+          code: 115
+        }
+      ],
+      cupData: [
+        {
+          code: 'A'
+        },
+        {
+          code: 'B'
+        },
+        {
+          code: 'C'
+        },
+        {
+          code: 'D'
+        }
+      ],
+      bustResult: null,
+      cupResult: null,
+
+      sizesData: {
         blouseSize: null,
         skirtSize: null,
         pantsSize: null,
-        bodyType: null,
+        tallSize: null,
+        bustSize: null,
+        bodyType: null
+      },
+      addInfoData: {
         preferColor: null,
         preferPattern: null,
-        preferBrand: '',
-        preferShop: '',
+        preferBrand: null,
+        preferShop: null,
         dressCode: null,
-        requirement: ''
+        requirement: null
       },
       bodyTypeText: '',
+
       imageFile: {},
       previewImage: '',
+
       getImageInfo: {
         imageName: '',
         imagePath: '',
@@ -460,12 +460,19 @@ export default {
       }
     };
   },
+  watch: {
+    bustCombination() {
+      this.sizesData.bustSize = `${this.bustResult}${this.cupResult}`;
+    }
+  },
   computed: {
     ...mapGetters({
-      MemberStyle: 'member/MemberStyle',
-      Sizes: 'codes/Sizes',
-      Options: 'codes/Options'
+      Sizes: 'common/Sizes',
+      Options: 'common/Options'
     }),
+    bustCombination() {
+      return this.bustResult, this.cupResult, Date.now();
+    },
     changeImageFileName() {
       if (!_.isEmpty(this.imageFile.name)) {
         return this.imageFile.name;
@@ -480,35 +487,32 @@ export default {
   },
   methods: {
     ...mapActions({
-      getMemberStyle: 'member/getMemberStyle',
-      getSizes: 'codes/getSizes',
-      getOptions: 'codes/getOptions'
+      FETCH_SIZES: 'common/FETCH_SIZES',
+      FETCH_OPTIONS: 'common/FETCH_OPTIONS'
     }),
-    setDisabledClass(type, data) {
-      // type: 블라우즈/셔츠, 치마, 바지
-      if (type === 'blouse' || type === 'skirt') {
-        return {
-          disabled:
-            data === '44' || data === '44반' || data === '66반' || data === '77'
-        };
-      } else if (type === 'pants') {
-        return {
-          disabled: data === '25' || data === '30'
-        };
-      }
-    },
-    clickSetSize(type, data, event) {
-      if (!event.target.classList.contains('disabled')) {
-        if (type === 'chestCircum') {
-          this.chestCircumResult = data;
-        } else if (type === 'chestCup') {
-          this.chestCupResult = data;
-        } else {
-          this.styleData[type] = data.code;
-          if (type === 'bodyType') {
-            this.bodyTypeText = data.description;
-          }
-        }
+    setSizes(type, param) {
+      switch (type) {
+        case 'blouse':
+          this.sizesData.blouseSize = param;
+          break;
+        case 'skirt':
+          this.sizesData.skirtSize = param;
+          break;
+        case 'pants':
+          this.sizesData.pantsSize = param;
+          break;
+        case 'bust':
+          this.bustResult = param;
+          break;
+        case 'cup':
+          this.cupResult = param;
+          break;
+        case 'bodyType':
+          this.sizesData.bodyType = param;
+          this.changeBodyTypeText();
+          break;
+        default:
+          console.error('조건에 맞는 타입이 없습니다.');
       }
     },
     // 추가 정보 입력
@@ -522,7 +526,7 @@ export default {
         value.classList.remove('selected');
       });
       eleSelf.classList.add('selected');
-      this.styleData.preferColor = data.code;
+      this.addInfoData.preferColor = data.code;
     },
     setColorName(data) {
       let colorClassName = '';
@@ -564,14 +568,14 @@ export default {
           : event.target.closest('li');
       if (eleSelf.classList.contains('selected')) {
         eleSelf.classList.remove('selected');
-        this.styleData.preferPattern = null;
+        this.addInfoData.preferPattern = null;
       } else {
         _.forEach(eleParent.querySelectorAll('li'), value => {
           const eleCurrent = value;
           eleCurrent.classList.remove('selected');
         });
         eleSelf.classList.add('selected');
-        this.styleData.preferPattern = data.code;
+        this.addInfoData.preferPattern = data.code;
       }
     },
     clickDressCode(data, event) {
@@ -585,7 +589,7 @@ export default {
         eleCurrent.classList.remove('selected');
       });
       eleSelf.classList.add('selected');
-      this.styleData.dressCode = data.code;
+      this.addInfoData.dressCode = data.code;
     },
     patternName(data) {
       if (data === '스트라이프') {
@@ -613,19 +617,41 @@ export default {
     },
     changeImage(event) {
       if (event.target.files.length !== 0) {
-        this.imageFile = event.target.files[0];
-        this.renderPreviewImage(this.imageFile);
+        if (
+          event.target.files[0].type &&
+          event.target.files[0].type.indexOf('image') !== -1
+        ) {
+          // 이미지라면
+          this.imageFile = event.target.files[0];
+          this.renderPreviewImage(this.imageFile);
+        } else {
+          this.$dialog.alert(
+            '선택하신 파일은 이미지가 아닙니다. 이미지 파일을 선택해주세요.',
+            {
+              okText: '확인',
+              customClass: 'zuly-alert',
+              backdropClose: true
+            }
+          );
+          this.imageFile = {};
+          this.previewImage = '';
+          this.$refs.imagePreview.style.display = 'none';
+        }
+      } else {
+        this.imageFile = {};
+        this.previewImage = '';
+        this.$refs.imagePreview.style.display = 'none';
       }
     },
     renderPreviewImage(file) {
       const reader = new FileReader();
       const $this = this;
-      reader.onloadstart = e => {
+      reader.onloadstart = () => {
         this.$refs.imagePreview.style.display = 'block';
         this.$refs.imagePreview.querySelector('img').style.display = 'none';
         this.$refs.imagePreview.querySelector('svg').style.display = 'block';
       };
-      reader.onloadend = e => {
+      reader.onloadend = () => {
         this.$refs.imagePreview.querySelector('svg').style.display = 'none';
         this.$refs.imagePreview.querySelector('img').style.display = 'block';
       };
@@ -635,120 +661,109 @@ export default {
       reader.readAsDataURL(file);
     },
     clickComplete() {
+      const styleInfoData = { ...this.sizesData, ...this.addInfoData };
       const $this = this;
       const formData = new FormData();
       formData.append('userImages', $this.imageFile);
 
-      if (_.isNull(this.chestCircumResult)) {
-        _.assign(alertObject, {
-          message: '가슴둘레 항목을 확인해 주세요.'
-        });
-        this.$refs.alert.openSimplert(alertObject);
-        return false;
+      if (this.bustResult) {
+        if (!this.cupResult) {
+          this.$dialog.alert(
+            '가슴둘레 항목을 확인해 주세요.',
+            this.dialogOptions
+          );
+          return;
+        }
       }
-      if (_.isNull(this.chestCupResult)) {
-        _.assign(alertObject, {
-          message: '컵 항목을 확인해 주세요.'
-        });
-        this.$refs.alert.openSimplert(alertObject);
-        return false;
+      if (this.cupResult) {
+        if (!this.bustResult) {
+          this.$dialog.alert('컵 항목을 확인해 주세요.', this.dialogOptions);
+          return;
+        }
       }
-      if (_.isEmpty(this.previewImage)) {
-        $this.styleData.bustSize =
-          $this.chestCircumResult + $this.chestCupResult;
-        Member.patchMeberStyle($this.styleData).then(res => {
-          if (res.status === 200) {
-            _.assign(alertObject, {
-              message: '변경되었습니다.'
-            });
-            this.$refs.alert.openSimplert(alertObject);
-          } else {
-            _.assign(alertObject, {
-              message: '통신 중 오류가 발생하였습니다.'
-            });
-            this.$refs.alert.openSimplert(alertObject);
-          }
-        });
-      } else {
-        $this.styleData.bustSize =
-          $this.chestCircumResult + $this.chestCupResult;
-        Member.patchMemberImageStyle(formData, $this.styleData).then(res => {
-          if (res[0].status === 200) {
-            _.assign(alertObject, {
-              message: '변경되었습니다.'
-            });
-            this.$refs.alert.openSimplert(alertObject);
-          } else {
-            _.assign(alertObject, {
-              message: '통신 중 오류가 발생하였습니다.'
-            });
-            this.$refs.alert.openSimplert(alertObject);
-          }
-        });
+
+      console.log(styleInfoData);
+
+      // MemberAPI.PatchStyleInfo()
+    },
+    changeBodyTypeText() {
+      // 해당 함수는 join/Sizes에서도 사용된다.
+      if (this.sizesData.bodyType === 12701) {
+        this.bodyTypeText =
+          '허리둘레와 엉덩이 둘레가 거의 같으며 골격이 잘 발달되지 않은 보이쉬한 일자형 체형입니다.';
+      } else if (this.sizesData.bodyType === 12702) {
+        this.bodyTypeText =
+          '전체적으로 어깨가 잘 발달되어 상체가 넓고 아래로 내려갈수록 점점 작아지는 체형입니다.';
+      } else if (this.sizesData.bodyType === 12703) {
+        this.bodyTypeText =
+          '전반적으로 상체에 살이 많고 배가 조금 나온, 둥글둥글한 모습을 띠고 있는 체형입니다.';
+      } else if (this.sizesData.bodyType === 12704) {
+        this.bodyTypeText =
+          '어깨에 비해서 히프 사이즈가 크고 하체로 갈수록 점점 넓어지는 한국인에게 흔히 볼 수 있는 체형입니다.';
+      } else if (this.sizesData.bodyType === 12705) {
+        this.bodyTypeText =
+          '가슴둘레와 엉덩이 둘레는 거의 비슷한데, 허리는 가는 이상적인 체형입니다.';
       }
     }
   },
   async created() {
-    await this.getMemberStyle().then(res => {
-      if (res.data.result) {
-        const memberStyle = this.MemberStyle;
-        const circumSize = _.parseInt(memberStyle.bust_size); // 숫자만 가져오기
-        const cupSize = _.trim(memberStyle.bust_size, circumSize); //
-
-        this.chestCircumResult = circumSize;
-        this.chestCupResult = _.toUpper(cupSize);
-
-        this.styleData = {
-          tallSize: memberStyle.tall_size,
-          bustSize: memberStyle.bust_size,
-          blouseSize: memberStyle.blouse_size,
-          skirtSize: memberStyle.skirt_size,
-          pantsSize: memberStyle.pants_size,
-          bodyType: memberStyle.body_type,
-          preferColor: memberStyle.prefer_color,
-          preferPattern: memberStyle.prefer_pattern,
-          preferBrand: memberStyle.prefer_brand,
-          preferShop: memberStyle.prefer_shop,
-          dressCode: memberStyle.dress_code,
-          requirement: memberStyle.etc
+    // 사이즈 코드 가져오기
+    if (_.isEmpty(this.Sizes)) {
+      this.FETCH_SIZES();
+    }
+    // 추가 정보 입력 코드 가져오기
+    if (_.isEmpty(this.Options)) {
+      this.FETCH_OPTIONS();
+    }
+    await MemberAPI.GetStyleInfo().then(({ data }) => {
+      if (data.result) {
+        const _data = data.data;
+        // 사이즈 관련 데이터 추출
+        const pickSizesData = {
+          blouseSize: _data.blouse_size,
+          skirtSize: _data.skirt_size,
+          pantsSize: _data.pants_size,
+          tallSize: _data.tall_size,
+          bustSize: _data.bust_size,
+          bodyType: _data.body_type
         };
-        this.getImageInfo = {
-          imageName: memberStyle.image_name,
-          imagePath: memberStyle.image_path,
-          imageWidth: memberStyle.image_width,
-          imageHeight: memberStyle.image_height
+        // 추가 정보 입력 관련 데이터 추출
+        const pickAddInfoData = {
+          preferColor: _data.prefer_color,
+          preferPattern: _data.prefer_pattern,
+          preferBrand: _data.prefer_brand,
+          preferShop: _data.prefer_shop,
+          dressCode: _data.dress_code,
+          requirement: _data.etc
         };
+        // 이미지 관련 데이터 추출
+        const imageInfoData = {
+          imageName: _data.image_name,
+          imagePath: _data.image_path,
+          imageWidth: _data.image_width,
+          imageHeight: _data.image_height
+        };
+        // 사이즈 데이터 넣기
+        this.sizesData = { ...pickSizesData };
+        // 추가 정보 데이터 넣기
+        this.addInfoData = { ...pickAddInfoData };
+        // 이미지 데이터 넣기
+        this.getImageInfo = { ...imageInfoData };
+        // 가슴둘레 데이터 넣기
+        this.bustResult = _.parseInt(_data.bust_size.replace(/[^0-9]/g, ''));
+        this.cupResult = _data.bust_size.replace(/[^A-Z]/g, '');
+
+        this.changeBodyTypeText();
       } else {
-        alert('통신중 문제가 발생하였습니다. 잠시 후 다시 시도해 주세요.');
+        // 데이터가 존재하지 않습니다.
       }
     });
-    if (_.isEmpty(this.Sizes) || !_.isObject(this.Sizes)) {
-      await this.getSizes();
-    }
-    if (_.isEmpty(this.Options) || !_.isObject(this.Options)) {
-      await this.getOptions();
-    }
-    if (this.styleData.bodyType === 12701) {
-      this.bodyTypeText =
-        '허리둘레와 엉덩이 둘레가 거의 같으며 골격이 잘 발달되지 않은 보이쉬한 일자형 체형입니다.';
-    } else if (this.styleData.bodyType === 12702) {
-      this.bodyTypeText =
-        '전체적으로 어깨가 잘 발달되어 상체가 넓고 아래로 내려갈수록 점점 작아지는 체형입니다.';
-    } else if (this.styleData.bodyType === 12703) {
-      this.bodyTypeText =
-        '전반적으로 상체에 살이 많고 배가 조금 나온, 둥글둥글한 모습을 띠고 있는 체형입니다.';
-    } else if (this.styleData.bodyType === 12704) {
-      this.bodyTypeText =
-        '어깨에 비해서 히프 사이즈가 크고 하체로 갈수록 점점 넓어지는 한국인에게 흔히 볼 수 있는 체형입니다.';
-    } else if (this.styleData.bodyType === 12705) {
-      this.bodyTypeText =
-        '가슴둘레와 엉덩이 둘레는 거의 비슷한데, 허리는 가는 이상적인 체형입니다.';
-    }
-  }
+  },
 };
 </script>
 
-<style scoped lang="scss" src="@/assets/css/closet-style.scss"></style>
+<style scoped lang="scss" src="@/assets/css/closet-style.scss">
+</style>
 <style scoped lang="scss">
 @mixin txtListStyle {
   @include fontSize(15px);

@@ -331,7 +331,7 @@ export default {
           await MemberAPI.PostImages(formData);
         }
       });
-      this.$router.push('/closet/tomorrow');
+      this.$router.push('/closet/subscribe-info');
     }
   },
   async created() {

@@ -303,5 +303,14 @@ export default {
       withCredentials: true
     });
   },
-
+  GetStyleInfo() {
+    return Http.get('/member/style', {
+      withCredentials: true
+    });
+  },
+  PatchStyleInfo(data) {
+    return Http.patch('/member/style', data, {
+      withCredentials: true
+    })
+  }
 };

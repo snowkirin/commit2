@@ -9,7 +9,6 @@
         <div class="grid-flex">
           <div class="column column-left">
             <div class="row">
-
               <FlexList
                 title="블라우스/셔츠"
                 :data="Sizes.blouse"
@@ -20,8 +19,7 @@
                 @extractFunc="setSizes('blouse', ...arguments)"
                 extractData="code"
                 :watchData="sizesData.blouseSize"
-              >
-              </FlexList>
+              />
             </div>
             <div class="row">
               <FlexList
@@ -34,8 +32,7 @@
                 @extractFunc="setSizes('skirt', ...arguments)"
                 extractData="code"
                 :watchData="sizesData.skirtSize"
-              >
-              </FlexList>
+              />
             </div>
             <div class="row">
               <FlexList
@@ -48,8 +45,7 @@
                 @extractFunc="setSizes('pants',...arguments)"
                 extractData="code"
                 :watchData="sizesData.pantsSize"
-              >
-              </FlexList>
+              />
             </div>
             <div class="row">
               <div class="form-title-wrap">
@@ -109,7 +105,10 @@
                 <p class="txt-form-title">체형</p>
               </div>
               <div class="body-type">
-                <p v-if="!_.isEmpty(bodyTypeText)" class="txt-body-type">
+                <p
+                  v-if="!_.isEmpty(bodyTypeText)"
+                  class="txt-body-type"
+                >
                   {{ bodyTypeText }}
                 </p>
                 <ul class="list-body-type">
@@ -152,6 +151,9 @@ import FlexList from '@/components/common/FlexList';
 
 export default {
   name: 'size',
+  components: {
+    FlexList
+  },
   data() {
     return {
       dialogOptions: {
@@ -232,9 +234,6 @@ export default {
     bustCombination() {
       this.sizesData.bustSize = `${this.bustResult}${this.cupResult}`;
     }
-  },
-  components: {
-    FlexList
   },
   computed: {
     ...mapGetters({
