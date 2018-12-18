@@ -5,81 +5,51 @@
       <p>즐겨입는 옷의 사이즈와 체형 관련 정보를 입력해주세요.</p>
     </div>
     <form>
-
-      <FlexList
-        title="안녕하세요~"
-        :data="sizes.blouse"
-        textExpress="name"
-        :excludeData="['44','44반','66반','77']"
-      >
-      </FlexList>
-
       <div class="content">
         <div class="grid-flex">
           <div class="column column-left">
             <div class="row">
-              <div class="form-title-wrap">
-                <p class="txt-form-title">블라우스/셔츠</p>
-              </div>
-              <div>
-                <ul class="list-flex">
-                  <li
-                    class="item w-25 h-50 lang-en"
-                    :class="[
-                      { selected: joinData.blouseSize === data.code },
-                      setDisabledClass('blouse', data.name)
-                    ]"
-                    v-for="(data, idx) in sizes.blouse"
-                    :key="idx"
-                    @click="setData('blouseSize', data, $event)"
-                  >
-                    {{ data.name }}
-                  </li>
-                </ul>
-              </div>
+
+              <FlexList
+                title="블라우스/셔츠"
+                :data="Sizes.blouse"
+                textExpress="name"
+                :excludeData="['44','44반','66반','77']"
+                :column="4"
+                :height="50"
+                @extractFunc="setSizes('blouse', ...arguments)"
+                extractData="code"
+                :watchData="sizesData.blouseSize"
+              >
+              </FlexList>
             </div>
             <div class="row">
-              <div class="form-title-wrap">
-                <p class="txt-form-title">치마</p>
-              </div>
-              <div>
-                <ul class="list-flex">
-                  <li
-                    class="item w-25 h-50 lang-en"
-                    :class="[
-                      { selected: joinData.skirtSize === data.code },
-                      setDisabledClass('skirt', data.name)
-                    ]"
-                    v-for="(data, idx) in sizes.skirt"
-                    :key="idx"
-                    @click="setData('skirtSize', data, $event)"
-                  >
-                    {{ data.name }}
-                  </li>
-                </ul>
-              </div>
+              <FlexList
+                title="치마"
+                :data="Sizes.skirt"
+                textExpress="name"
+                :excludeData="['44','44반','66반','77']"
+                :column="4"
+                :height="50"
+                @extractFunc="setSizes('skirt', ...arguments)"
+                extractData="code"
+                :watchData="sizesData.skirtSize"
+              >
+              </FlexList>
             </div>
             <div class="row">
-              <div class="form-title-wrap">
-                <p class="txt-form-title">바지 (inch)</p>
-              </div>
-              <div>
-                <ul class="list-flex">
-                  <li
-                    class="item w-25 h-50 lang-en"
-                    :class="[
-                      { selected: joinData.pantsSize === data.code },
-                      setDisabledClass('pants', data.name)
-                    ]"
-                    v-for="(data, idx) in sizes.pants"
-                    v-if="data.name !== '31'"
-                    :key="idx"
-                    @click="setData('pantsSize', data, $event)"
-                  >
-                    {{ data.name }}
-                  </li>
-                </ul>
-              </div>
+              <FlexList
+                title="바지 (inch)"
+                :data="Sizes.pants"
+                textExpress="name"
+                :excludeData="['25','30','31']"
+                :column="4"
+                :height="50"
+                @extractFunc="setSizes('pants',...arguments)"
+                extractData="code"
+                :watchData="sizesData.pantsSize"
+              >
+              </FlexList>
             </div>
             <div class="row">
               <div class="form-title-wrap">
@@ -96,7 +66,7 @@
                     minlength="3"
                     maxlength="3"
                     ref="tallSize"
-                    v-model="joinData.tallSize"
+                    v-model.number="sizesData.tallSize"
                     v-validate="{ required: true, regex: /^\d+$/ }"
                     data-vv-as="키"
                     placeholder="최근 측정한 키를 입력해주세요."
@@ -110,58 +80,29 @@
           </div>
           <div class="column column-right">
             <div class="row">
-              <div class="form-title-wrap">
-                <p class="txt-form-title">가슴둘레 (브래지어 기준)</p>
-              </div>
-              <div>
-                <ul class="list-flex">
-                  <li
-                    class="item w-25 h-50 lang-en"
-                    :class="{ selected: chestCircumResult === data }"
-                    v-for="(data, idx) in chestCircum"
-                    :key="idx"
-                    @click="setData('chestCircum', data, $event)"
-                  >
-                    {{ data }}
-                  </li>
-                </ul>
-
-                <!--
-                  <div
-                    class="text-field"
-                    :class="{'text-field-error': errors.has('bustSize')}"
-                  >
-                    <input
-                      type="text"
-                      v-model="joinData.bustSize"
-                      name="bustSize"
-                      ref="bustSize"
-                      v-validate="{ required: true, regex: /([0-9]{2,3})([a-fA-F]{1})$/ }"
-                      placeholder="예) 80A">
-                  </div>
-                -->
-                <p class="txt-error" v-show="errors.has('bustSize')">
-                  {{ errors.first('bustSize') }}
-                </p>
-              </div>
+              <FlexList
+                title="가슴둘레 (브래지어 기준)"
+                :data="bustData"
+                textExpress="code"
+                :column="4"
+                :height="50"
+                @extractFunc="setSizes('bust',...arguments)"
+                extractData="code"
+                :watchData="bustResult"
+              />
+              <!-- 여기에 Validation이 있음-->
             </div>
             <div class="row">
-              <div class="form-title-wrap">
-                <p class="txt-form-title">컵</p>
-              </div>
-              <div>
-                <ul class="list-flex">
-                  <li
-                    class="item w-25 h-50 lang-en"
-                    :class="{ selected: chestCupResult === data }"
-                    v-for="(data, idx) in chestCup"
-                    :key="idx"
-                    @click="setData('chestCup', data, $event)"
-                  >
-                    {{ data }}
-                  </li>
-                </ul>
-              </div>
+              <FlexList
+                title="컵"
+                :data="cupData"
+                textExpress="code"
+                :column="4"
+                :height="50"
+                @extractFunc="setSizes('cup',...arguments)"
+                extractData="code"
+                :watchData="cupResult"
+              />
             </div>
             <div class="row">
               <div class="form-title-wrap">
@@ -173,10 +114,10 @@
                 </p>
                 <ul class="list-body-type">
                   <li
-                    :class="{ selected: joinData.bodyType === data.code }"
-                    v-for="(data, idx) in sizes.body_type"
+                    :class="{ selected: sizesData.bodyType === data.code }"
+                    v-for="(data, idx) in Sizes.body_type"
                     :key="idx"
-                    @click="setData('bodyType', data, $event)"
+                    @click="setSizes('bodyType', data.code, $event)"
                   >
                     <img
                       :src="
@@ -202,200 +143,236 @@
         </button>
       </div>
     </form>
-    <simplert ref="alert" :useRadius="false" :useIcon="false" />
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import FlexList from '@/components/join/common/FlexList';
-import Simplert from 'vue2-simplert';
+import FlexList from '@/components/common/FlexList';
 
 export default {
   name: 'size',
-  data: function() {
+  data() {
     return {
-      baseUrl: process.env.BASE_URL,
-      chestCircum: [60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115],
-      chestCup: ['A', 'B', 'C', 'D'],
-      chestCircumResult: null,
-      chestCupResult: null,
-      bodyTypeText: '',
-      joinData: {
-        tallSize: null,
-        bustSize: null,
+      dialogOptions: {
+        okText: '확인',
+        customClass: 'zuly-alert',
+        backdropClose: true
+      },
+      // 회원가입이 필요한 데이터 집어 넣기.
+      sizesData: {
         blouseSize: null,
         skirtSize: null,
         pantsSize: null,
+        tallSize: null,
+        bustSize: null,
         bodyType: null
-      }
+      },
+      //
+      bustData: [
+        {
+          code: 60
+        },
+        {
+          code: 65
+        },
+        {
+          code: 70
+        },
+        {
+          code: 75
+        },
+        {
+          code: 80
+        },
+        {
+          code: 85
+        },
+        {
+          code: 90
+        },
+        {
+          code: 95
+        },
+        {
+          code: 100
+        },
+        {
+          code: 105
+        },
+        {
+          code: 110
+        },
+        {
+          code: 115
+        }
+      ],
+      cupData: [
+        {
+          code: 'A'
+        },
+        {
+          code: 'B'
+        },
+        {
+          code: 'C'
+        },
+        {
+          code: 'D'
+        }
+      ],
+      //
+      bustResult: null,
+      cupResult: null,
+      //
+      bodyTypeText: ''
     };
   },
+  watch: {
+    bustCombination() {
+      this.sizesData.bustSize = `${this.bustResult}${this.cupResult}`;
+    }
+  },
   components: {
-    Simplert,
     FlexList
   },
   computed: {
     ...mapGetters({
-      sizes: 'common/sizes',
-      // Join: 'signup/Join'
-    })
+      // 사이즈 리스트 정보가져오기
+      Sizes: 'common/Sizes',
+      // 회원가입을 위해 입력한 사이즈 데이터 가져오기
+      SizesForMembership: 'join/SizesForMembership'
+    }),
+    bustCombination() {
+      //복수의 데이터값이 변경되었을때 watch에서 감지할 수 있게 묶어주는 함수.
+      /*
+      * UPDATE To skip the performance penalty of allocating and discarding an array, you can comma-separate all the dependent values, and finally return something that will always be different (Date.now() taking from comments below this):
+      * */
+      return this.bustResult, this.cupResult, Date.now();
+    }
   },
   methods: {
     ...mapActions({
       FETCH_SIZES: 'common/FETCH_SIZES',
-      // setSizes: 'signup/setSizes',
-      // setJoin: 'signup/setJoin',
-      // enterJoin: 'signup/enterJoin'
+      // 사이즈 데이터를 스토어에 저장하는 액션
+      ADD_SIZES_DATA: 'join/ADD_SIZES_DATA'
     }),
-    setDisabledClass(type, data) {
-      // type: 블라우즈/셔츠, 치마, 바지
-      if (type === 'blouse' || type === 'skirt') {
-        return {
-          disabled:
-            data === '44' || data === '44반' || data === '66반' || data === '77'
-        };
-      } else if (type === 'pants') {
-        return {
-          disabled: data === '25' || data === '30'
-        };
-      }
-    },
-    setData(type, data, event) {
-      if (!event.target.classList.contains('disabled')) {
-        if (type === 'chestCircum') {
-          this.chestCircumResult = data;
-        } else if (type === 'chestCup') {
-          this.chestCupResult = data;
-        } else {
-          this.joinData[type] = data.code;
-          if (type === 'bodyType') {
-            this.bodyTypeText = data.description;
-          }
-        }
+    setSizes(type, param) {
+      switch (type) {
+        case 'blouse':
+          this.sizesData.blouseSize = param;
+          break;
+        case 'skirt':
+          this.sizesData.skirtSize = param;
+          break;
+        case 'pants':
+          this.sizesData.pantsSize = param;
+          break;
+        case 'bust':
+          this.bustResult = param;
+          break;
+        case 'cup':
+          this.cupResult = param;
+          break;
+        case 'bodyType':
+          this.sizesData.bodyType = param;
+          this.changeBodyTypeText();
+          break;
+        default:
+          console.error('조건에 맞는 타입이 없습니다.');
       }
     },
     clickComplete() {
-      let obj = {
-        type: 'alert', // 타입
-        customClass: 'popup-custom-class', // 커스텀 클래스 네임
-        disableOverlayClick: false, // 오버레이 클릭시 닫기 방지
-        customCloseBtnText: '확인' // 닫기 버튼 텍스트
-      };
+      // Validation 체크
+      if (!this.sizesData.blouseSize) {
+        this.$dialog.alert(
+          '블라우스/셔츠 항목을 확인해 주세요.',
+          this.dialogOptions
+        );
+        return;
+      }
+      if (!this.sizesData.skirtSize) {
+        this.$dialog.alert('치마 항목을 확인해 주세요.', this.dialogOptions);
+        return;
+      }
+      if (!this.sizesData.pantsSize) {
+        this.$dialog.alert('바지 항목을 확인해 주세요.', this.dialogOptions);
+        return;
+      }
+      if (!this.sizesData.tallSize) {
+        this.$dialog.alert('키 항목을 확인해 주세요.', this.dialogOptions);
+        return;
+      }
+      if (!this.bustResult) {
+        this.$dialog.alert(
+          '가슴둘레 항목을 확인해 주세요.',
+          this.dialogOptions
+        );
+        return;
+      }
+      if (!this.cupResult) {
+        this.$dialog.alert('컵 항목을 확인해 주세요.', this.dialogOptions);
+        return;
+      }
+      if (!this.sizesData.bodyType) {
+        this.$dialog.alert('체형 항목을 확인해 주세요.', this.dialogOptions);
+        return;
+      }
+      // Validation 체크후 vuex로 데이터 저장
+      this.ADD_SIZES_DATA({ ...this.sizesData });
 
-      if (this.joinData.blouseSize === null) {
-        _.assign(obj, {
-          message: '블라우스/셔츠 항목을 확인해 주세요.'
-        });
-        this.$refs.alert.openSimplert(obj);
-        return false;
-      }
-      if (this.joinData.skirtSize === null) {
-        _.assign(obj, {
-          message: '치마 항목을 확인해 주세요.'
-        });
-        this.$refs.alert.openSimplert(obj);
-        return false;
-      }
-      if (this.joinData.pantsSize === null) {
-        _.assign(obj, {
-          message: '바지 항목을 확인해 주세요.'
-        });
-        this.$refs.alert.openSimplert(obj);
-        return false;
-      }
-      if (this.joinData.bodyType === null) {
-        _.assign(obj, {
-          message: '체형 항목을 확인해 주세요.'
-        });
-        this.$refs.alert.openSimplert(obj);
-        return false;
-      }
-      if (_.isNull(this.chestCircumResult)) {
-        _.assign(obj, {
-          message: '가슴둘레 항목을 확인해 주세요.'
-        });
-        this.$refs.alert.openSimplert(obj);
-        return false;
-      }
-      if (_.isNull(this.chestCupResult)) {
-        _.assign(obj, {
-          message: '컵 항목을 확인해 주세요.'
-        });
-        this.$refs.alert.openSimplert(obj);
-        return false;
-      }
-      this.$validator.validateAll().then(result => {
-        if (result) {
-          // String To Number
-          this.joinData.tallSize = _.parseInt(this.joinData.tallSize);
-          // 가슴둘레 + 컵 합쳐서 joinData.bustSize에 넣기
-          this.joinData.bustSize = this.chestCircumResult + this.chestCupResult;
-          // Save Store
-          this.setJoin(this.joinData);
-
-          this.$router.push({
-            path: '/join/preferred-style'
-          });
-        } else {
-          if (this.errors.has('tallSize')) {
-            this.$refs.tallSize.focus();
-            return false;
-          }
-        }
+      // 다음페이지로 이동
+      this.$router.push({
+        path: '/join/preferred-style'
       });
+    },
+    changeBodyTypeText() {
+      if (this.sizesData.bodyType === 12701) {
+        this.bodyTypeText =
+          '허리둘레와 엉덩이 둘레가 거의 같으며 골격이 잘 발달되지 않은 보이쉬한 일자형 체형입니다.';
+      } else if (this.sizesData.bodyType === 12702) {
+        this.bodyTypeText =
+          '전체적으로 어깨가 잘 발달되어 상체가 넓고 아래로 내려갈수록 점점 작아지는 체형입니다.';
+      } else if (this.sizesData.bodyType === 12703) {
+        this.bodyTypeText =
+          '전반적으로 상체에 살이 많고 배가 조금 나온, 둥글둥글한 모습을 띠고 있는 체형입니다.';
+      } else if (this.sizesData.bodyType === 12704) {
+        this.bodyTypeText =
+          '어깨에 비해서 히프 사이즈가 크고 하체로 갈수록 점점 넓어지는 한국인에게 흔히 볼 수 있는 체형입니다.';
+      } else if (this.sizesData.bodyType === 12705) {
+        this.bodyTypeText =
+          '가슴둘레와 엉덩이 둘레는 거의 비슷한데, 허리는 가는 이상적인 체형입니다.';
+      }
     }
   },
   async created() {
-    if (_.isEmpty(this.sizes)) {
+    // Sizes 관련 데이터가 없으면 호출
+    if (_.isEmpty(this.Sizes)) {
       await this.FETCH_SIZES();
     }
-    // if (_.isEmpty(this.Sizes) || !_.isObject(this.Sizes)) {
-    //   await this.getSizes();
-    // }
-    // if (!_.isEmpty(this.Join)) {
-    //   const circumSize = this.Join.bustSize
-    //     ? _.parseInt(this.Join.bustSize)
-    //     : null; // 숫자만 가져오기
-    //   const cupSize = this.Join.bustSize
-    //     ? _.trim(this.Join.bustSize, circumSize)
-    //     : null; //
-    //   this.chestCircumResult = circumSize;
-    //   this.chestCupResult = cupSize;
-    //   this.joinData = {
-    //     tallSize: this.Join.tallSize ? this.Join.tallSize : null,
-    //     bustSize: this.Join.bustSize ? this.Join.bustSize : null,
-    //     blouseSize: this.Join.blouseSize ? this.Join.blouseSize : null,
-    //     skirtSize: this.Join.skirtSize ? this.Join.skirtSize : null,
-    //     pantsSize: this.Join.pantsSize ? this.Join.pantsSize : null,
-    //     bodyType: this.Join.bodyType ? this.Join.bodyType : null
-    //   };
-    // }
-    //
-    // this.enterJoin();
-  },
-  mounted: function() {
-    if (this.joinData.bodyType === 12701) {
-      this.bodyTypeText =
-        '허리둘레와 엉덩이 둘레가 거의 같으며 골격이 잘 발달되지 않은 보이쉬한 일자형 체형입니다.';
-    } else if (this.joinData.bodyType === 12702) {
-      this.bodyTypeText =
-        '전체적으로 어깨가 잘 발달되어 상체가 넓고 아래로 내려갈수록 점점 작아지는 체형입니다.';
-    } else if (this.joinData.bodyType === 12703) {
-      this.bodyTypeText =
-        '전반적으로 상체에 살이 많고 배가 조금 나온, 둥글둥글한 모습을 띠고 있는 체형입니다.';
-    } else if (this.joinData.bodyType === 12704) {
-      this.bodyTypeText =
-        '어깨에 비해서 히프 사이즈가 크고 하체로 갈수록 점점 넓어지는 한국인에게 흔히 볼 수 있는 체형입니다.';
-    } else if (this.joinData.bodyType === 12705) {
-      this.bodyTypeText =
-        '가슴둘레와 엉덩이 둘레는 거의 비슷한데, 허리는 가는 이상적인 체형입니다.';
+
+    // 기존에 입력된 값들이 있으면 그 값을 넣어준다.
+    if (!_.isEmpty(this.SizesForMembership)) {
+      if (this.SizesForMembership.bustSize) {
+        this.bustResult = _.parseInt(
+          this.SizesForMembership.bustSize.replace(/[^0-9]/g, '')
+        );
+        this.cupResult = this.SizesForMembership.bustSize.replace(
+          /[^A-Z]/g,
+          ''
+        );
+      }
+      this.sizesData = { ...this.SizesForMembership };
     }
+  },
+  mounted() {
+    this.changeBodyTypeText();
   }
 };
 </script>
 
-<style scoped lang="scss" src="@/assets/css/join-style.scss"></style>
+<style scoped lang="scss" src="@/assets/css/join-style.scss">
+</style>
 <style scoped lang="scss">
 .list-flex {
   background-color: #f5f5f5;

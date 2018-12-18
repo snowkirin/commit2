@@ -12,6 +12,9 @@ import subscriptions from './subscriptions';
 import notices from './notices';
 import faq from './faq';
 
+// 신규 추가
+import join from './join';
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -25,6 +28,7 @@ export default new Vuex.Store({
     auth,
     subscriptions,
     notices,
-    faq
+    faq,
+    join
   }
 });

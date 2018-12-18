@@ -14,7 +14,7 @@
               <div>
                 <ul class="list-prefer-color">
                   <li
-                    :class="[{selected: data.code === memberStyle.preferColor}, setColorName(data)]"
+                    :class="[{selected: data.code === addInfoData.preferColor}, setColorName(data)]"
                     v-for="(data, idx) in Options.prefer_color"
                     :key="idx"
                     @click="clickColor(data, $event)"
@@ -44,7 +44,7 @@
                 <input
                   type="text"
                   placeholder="한 개 이상인 경우 콤마(,)로 구분하여 입력해 주세요"
-                  v-model="memberStyle.preferBrand">
+                  v-model="addInfoData.preferBrand">
               </div>
             </div>
             <div class="row">
@@ -53,7 +53,7 @@
                 <input
                   type="text"
                   placeholder="예) W 컨셉, 29cm"
-                  v-model="memberStyle.preferShop">
+                  v-model="addInfoData.preferShop">
               </div>
             </div>
           </div>
@@ -122,7 +122,7 @@
             <div class="row">
               <p class="txt-form-title">[선택] 추가 요청사항</p>
               <div class="textarea-required">
-                <textarea placeholder="신체적인 특징이나 싫어하는 스타일, 장식등 별도 요청사항을 적어주세요." v-model="memberStyle.requirement"></textarea>
+                <textarea placeholder="신체적인 특징이나 싫어하는 스타일, 장식등 별도 요청사항을 적어주세요." v-model="addInfoData.requirement"></textarea>
               </div>
             </div>
             <div class="row">
@@ -139,32 +139,34 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import Members from '@/library/api/member';
+import MemberAPI from '@/library/api/member';
 
 export default {
   name: 'addinfo',
   components: {},
-  computed: mapGetters({
-    User: 'login/User',
-    Options: 'codes/Options'
-  }),
   data() {
     return {
-      memberStyle: {
+      addInfoData: {
         preferColor: null,
         preferPattern: null,
         preferBrand: null,
         dressCode: null,
         requirement: null,
-        preferShop: null,
+        preferShop: null
       },
       imageFile: {},
       previewImage: ''
     };
   },
+  computed: {
+    ...mapGetters({
+      User: 'login/User',
+      Options: 'common/Options'
+    })
+  },
   methods: {
     ...mapActions({
-      getOptions: 'codes/getOptions'
+      FETCH_OPTIONS: 'common/FETCH_OPTIONS'
     }),
     clickColor(data, event) {
       const eleParent = document.querySelector('.list-prefer-color');
@@ -177,7 +179,7 @@ export default {
         value.classList.remove('selected');
       });
       eleTarget.classList.add('selected');
-      this.memberStyle.preferColor = data.code;
+      this.addInfoData.preferColor = data.code;
     },
     setColorName(data) {
       let colorClassName = '';
@@ -217,14 +219,14 @@ export default {
 
       if (eleTarget.classList.contains('selected')) {
         eleTarget.classList.remove('selected');
-        this.memberStyle.preferPattern = null;
+        this.addInfoData.preferPattern = null;
       } else {
         _.forEach($parent.querySelectorAll('li'), function(value) {
           value.style.backgroundColor = '#fff';
           value.classList.remove('selected');
         });
         eleTarget.classList.add('selected');
-        this.memberStyle.preferPattern = data.code;
+        this.addInfoData.preferPattern = data.code;
       }
     },
     patternName(data) {
@@ -243,7 +245,7 @@ export default {
         value.classList.remove('selected');
       });
       eleTarget.classList.add('selected');
-      this.memberStyle.dressCode = data.code;
+      this.addInfoData.dressCode = data.code;
     },
     dressCodeName(data) {
       let codeName = '';
@@ -276,19 +278,41 @@ export default {
     },
     changeImage(event) {
       if (event.target.files.length !== 0) {
-        this.imageFile = event.target.files[0];
-        this.renderPreviewImage(this.imageFile);
+        if (
+          event.target.files[0].type &&
+          event.target.files[0].type.indexOf('image') !== -1
+        ) {
+          // 이미지라면
+          this.imageFile = event.target.files[0];
+          this.renderPreviewImage(this.imageFile);
+        } else {
+          this.$dialog.alert(
+            '선택하신 파일은 이미지가 아닙니다. 이미지 파일을 선택해주세요.',
+            {
+              okText: '확인',
+              customClass: 'zuly-alert',
+              backdropClose: true
+            }
+          );
+          this.imageFile = {};
+          this.previewImage = '';
+          this.$refs.imagePreview.style.display = 'none';
+        }
+      } else {
+        this.imageFile = {};
+        this.previewImage = '';
+        this.$refs.imagePreview.style.display = 'none';
       }
     },
     renderPreviewImage(file) {
       const reader = new FileReader();
       const $this = this;
-      reader.onloadstart = e => {
+      reader.onloadstart = () => {
         this.$refs.imagePreview.style.display = 'block';
         this.$refs.imagePreview.querySelector('img').style.display = 'none';
         this.$refs.imagePreview.querySelector('svg').style.display = 'block';
       };
-      reader.onloadend = e => {
+      reader.onloadend = () => {
         this.$refs.imagePreview.querySelector('svg').style.display = 'none';
         this.$refs.imagePreview.querySelector('img').style.display = 'block';
       };
@@ -297,17 +321,22 @@ export default {
       };
       reader.readAsDataURL(file);
     },
-    clickComplete() {
-      const $this = this;
-      const formData = new FormData();
-      formData.append('userImages', $this.imageFile);
-      Members.postMemberImageStyle(formData, $this.memberStyle).then(() => {});
-      this.$router.push({ path: '/closet/tomorrow' });
+    async clickComplete() {
+      // 이미지(데일리룩)를 제외한 추가정보 데이터 전송
+      await MemberAPI.PostAddInfo(this.addInfoData).then(async () => {
+        if (this.previewImage) {
+          // 이미지(데일리룩)이 존재한다면
+          const formData = new FormData();
+          formData.append('userImages', this.imageFile);
+          await MemberAPI.PostImages(formData);
+        }
+      });
+      this.$router.push('/closet/tomorrow');
     }
   },
   async created() {
-    if (_.isEmpty(this.Options) || !_.isObject(this.Options)) {
-      await this.getOptions();
+    if (_.isEmpty(this.Options)) {
+      await this.FETCH_OPTIONS();
     }
   }
 };
@@ -408,13 +437,13 @@ export default {
     }
   }
   .stripe {
-    background-image: url("~@/assets/img/signup/img_patten_1.png");
+    background-image: url('~@/assets/img/signup/img_patten_1.png');
   }
   .check {
-    background-image: url("~@/assets/img/signup/img_patten_2.png");
+    background-image: url('~@/assets/img/signup/img_patten_2.png');
   }
   .floral {
-    background-image: url("~@/assets/img/signup/img_patten_3.png");
+    background-image: url('~@/assets/img/signup/img_patten_3.png');
   }
 }
 .list-dresscode {
@@ -466,7 +495,7 @@ export default {
   }
 }
 .image-upload {
-  input[type="file"] {
+  input[type='file'] {
     opacity: 0;
     position: absolute;
     width: 0;

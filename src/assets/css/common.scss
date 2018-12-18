@@ -1,10 +1,15 @@
 @import 'reset.css';
 
-// Font
+// 아이콘 폰트
 @import '~@fortawesome/fontawesome-free/css/all.min.css';
+// 한글 폰트
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,700&subset=korean');
+// 영문 폰트
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700');
+// 특수한 경우의 폰트
 @import url('https://fonts.googleapis.com/css?family=Cormorant');
 @import url('https://fonts.googleapis.com/css?family=Montserrat:200');
-@import 'font.scss';
+//@import 'font.scss';
 
 *,
 *::before,

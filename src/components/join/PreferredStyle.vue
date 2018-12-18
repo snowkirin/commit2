@@ -10,7 +10,7 @@
           <div
             class="column"
             :class="{'w-50': $mq === 'sm', 'w-33': $mq === 'md', 'w-25': $mq === 'lg'}"
-            v-for="(data, idx) in MemberStyleType"
+            v-for="(data, idx) in preferredStyleListData"
             :key="idx"
           >
             <div
@@ -29,7 +29,6 @@
               </span>
               <div>
                 <img :src="$common.IMAGEURL() + data.image_path"/>
-                <!--<img :src="$common.ZulyImage(data.image_width) + data.image_path" alt="">-->
               </div>
             </div>
           </div>
@@ -46,31 +45,26 @@
         </button>
       </div>
     </form>
-    <simplert ref="alert" :useRadius="false" :useIcon="false" />
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-import Simplert from 'vue2-simplert';
-
-const alertObject = {
-  type: 'alert', // 타입
-  customClass: 'popup-custom-class', // 커스텀 클래스 네임
-  disableOverlayClick: false, // 오버레이 클릭시 닫기 방지
-  customCloseBtnText: '확인' // 닫기 버튼 텍스트
-};
+import { mapActions } from 'vuex';
+import MemberAPI from '@/library/api/member';
 
 export default {
   name: 'PreferredStyle',
-  components: {
-    Simplert
-  },
-  data: function() {
+  data() {
     return {
+      // 페이지 진입했을때의 시간.
       startTime: 0,
+      // 총 이미지 선택 갯수.
       totalSelected: 0,
+      // 이미지의 선택, 취소를 기록.
       clickHistory: [],
+      // 호출한 데이터를 이곳에 넣어준다.
+      preferredStyleListData: [],
+      // 회원가입에 필요한 데이터 집어넣기
       preferredStyleData: {
         selectCntT: 0,
         selectCntM: 0,
@@ -81,79 +75,100 @@ export default {
       }
     };
   },
-  computed: {
-    ...mapGetters({
-      MemberStyleType: 'member/MemberStyleType',
-      Join: 'signup/Join',
-      EnterJoin: 'signup/EnterJoin'
-    })
-  },
   methods: {
     ...mapActions({
-      getMemberStyleType: 'member/getMemberStyleType',
-      setJoin: 'signup/setJoin'
+      ADD_PREFERRED_STYLE_DATA: 'join/ADD_PREFERRED_STYLE_DATA'
     }),
     clickPreferredStyle(data, event) {
+      /*
+      * 선호 스타일 이미지를 클릭하였을때
+      * 기존에 선택되지 않은것이라면 해당 이미지의 타입과 지금까지 선택된 이미지의 카운터를 상승,
+      * 기존에 선택된 것이라면 해당 이미지의 타입과 지금까지 선택된 이미지의 카운터를 하락.
+      * 추적을 위해 어떤 이미지를 선택하고 뺏는지 클릭 히스토리 저장
+      * 이미지는 총 6개까지 선택할 수 있다.
+      * */
       const item = event.target.closest('.item');
-
       if (!item.classList.contains('selected')) {
         if (this.totalSelected === 6) {
-          _.assign(alertObject, {
-            message: '최대 6개까지 선택 가능합니다.'
+          this.$dialog.alert('최대 6개까지 선택 가능합니다.', {
+            okText: '확인',
+            customClass: 'zuly-alert',
+            backdropClose: true
           });
-          this.$refs.alert.openSimplert(alertObject);
           return;
         }
-        if (data.style_type === 'T') {
-          // T 일 경우
-          this.preferredStyleData.selectCntT++;
-        } else if (data.style_type === 'M') {
-          // M 일 경우
-          this.preferredStyleData.selectCntM++;
-        } else if (data.style_type === 'C') {
-          // C 일 경우
-          this.preferredStyleData.selectCntC++;
-        } else {
-          // F 일 경우
-          this.preferredStyleData.selectCntF++;
+        switch (data.style_type) {
+          case 'T':
+            this.preferredStyleData.selectCntT++;
+            break;
+          case 'M':
+            this.preferredStyleData.selectCntM++;
+            break;
+          case 'C':
+            this.preferredStyleData.selectCntC++;
+            break;
+          case 'F':
+            this.preferredStyleData.selectCntF++;
+            break;
+          default:
+            console.error('조건에 맞는 타입이 없습니다.');
         }
-
         this.totalSelected++;
         item.classList.add('selected');
       } else {
-        if (data.style_type === 'T') {
-          // T 일 경우
-          this.preferredStyleData.selectCntT--;
-        } else if (data.style_type === 'M') {
-          // M 일 경우
-          this.preferredStyleData.selectCntM--;
-        } else if (data.style_type === 'C') {
-          // C 일 경우
-          this.preferredStyleData.selectCntC--;
-        } else {
-          // F 일 경우
-          this.preferredStyleData.selectCntF--;
+        switch (data.style_type) {
+          case 'T':
+            this.preferredStyleData.selectCntT--;
+            break;
+          case 'M':
+            this.preferredStyleData.selectCntM--;
+            break;
+          case 'C':
+            this.preferredStyleData.selectCntC--;
+            break;
+          case 'F':
+            this.preferredStyleData.selectCntF--;
+            break;
+          default:
+            console.error('조건에 맞는 타입이 없습니다.');
         }
         this.totalSelected--;
         item.classList.remove('selected');
       }
+      // 클릭 히스토리 저장
       this.clickHistory.push(data.image_id);
     },
     clickComplete() {
+      // 버튼을 눌렀을 시의 시간에서 페이지 접속했을때의 시간을 뺀다.
       this.preferredStyleData.selectDuration = new Date() - this.startTime;
+      // 전달해야 할 값이 배열이 아니라 문자열이라 Array -> String 으로 변경
       this.preferredStyleData.selectSeq = _.toString(this.clickHistory);
-      this.setJoin(this.preferredStyleData);
+      // 입력한 값을 스토어에 저장한다.
+      this.ADD_PREFERRED_STYLE_DATA({ ...this.preferredStyleData });
+      // 다음페이지로 이동
       this.$router.push({
         path: '/join/user-info'
       });
     }
   },
-  async created() {
-    // 페이지 시작 시작
+  created() {
+    MemberAPI.GetStyleType()
+      .then(({ data }) => {
+        if (data.questions.length === 0) {
+          alert('데이터가 존재하지 않습니다.');
+        } else {
+          // Success
+          this.preferredStyleListData = data.questions;
+        }
+      })
+      .catch(error => {
+        alert('통신중 오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.');
+        console.error(error);
+      });
+  },
+  mounted() {
+    // 페이지에 진입했을때 그 시간을 저장한다.
     this.startTime = new Date();
-    if (_.isEmpty(this.MemberStyleType)) {
-      await this.getMemberStyleType();
-    }
   }
 };
 </script>
@@ -209,7 +224,6 @@ export default {
       }
     }
   }
-
   img {
     width: 100%;
   }

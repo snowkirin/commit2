@@ -4,9 +4,9 @@ import Http from '@/library/HTTP';
 const API_URL = process.env.VUE_APP_API_URL;
 
 export default {
-  // PostJoin(data) {
-  //   return Http.post(`/auth/join`, data, { withCredentials: true });
-  // },
+  PostJoin(data) {
+    return Http.post(`/auth/join`, data, { withCredentials: true });
+  },
   PostLogin(data) {
     return Http.post(`/auth/login`, data, { withCredentials: true });
   },
@@ -16,62 +16,18 @@ export default {
   // GetCheckLogin() {
   //   return Http.get('/auth/checkLoginStatus', { withCredentials: true });
   // },
-  // PostPhone(data) {
-  //   return Http.post('/auth/phone', data);
-  // },
-  // PatchPhone(data) {
-  //   return Http.patch('/auth/phone', data);
-  // },
+  PostPhone(data) {
+    return Http.post('/auth/phone', data);
+  },
+  PatchPhone(data) {
+    return Http.patch('/auth/phone', data);
+  },
   // PostFindId(data) {
   //   return Http.post('/auth/findId', data);
   // },
   // PostFindPwd(data) {
   //   return Http.post('/auth/findPwd', data);
   // },
-
-  postJoin(data) {
-    return axios
-      .post(`${API_URL}/auth/join`, data, {
-        withCredentials: true
-      })
-      .then(res => {
-        return res;
-      })
-      .catch(err => {
-        return {
-          ...err.response,
-          message: err.message
-        };
-      });
-  },
-  // 회원가입시 핸드폰 인증
-  postPhone(data) {
-    return axios
-      .post(`${API_URL}/auth/phone`, data)
-      .then(res => {
-        return res;
-      })
-      .catch(err => {
-        return {
-          ...err.response,
-          message: err.message
-        };
-      });
-  },
-  // 회원가입시 핸드폰 인증 체크
-  patchPhone(data) {
-    return axios
-      .patch(`${API_URL}/auth/phone`, data)
-      .then(res => {
-        return res;
-      })
-      .catch(err => {
-        return {
-          ...err.response,
-          message: err.message
-        };
-      });
-  },
   postPassword(data) {
     return axios
       .post(`${API_URL}/auth/password`, data, {

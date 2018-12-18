@@ -1,37 +1,29 @@
-import axios from 'axios';
-const API_URL = process.env.VUE_APP_API_URL;
+import Http from '@/library/HTTP';
 
 export default {
-  getMembership() {
-    return axios
-      .get(`${API_URL}/payment/membership`, {
-        params: {
-          id: 1
-        }
-      })
-      .then(res => {
-        return res;
-      })
-      .catch(err => {
-        return {
-          ...err.response,
-          message: err.message
-        };
-      });
+  GetMembership(data = 1) {
+    return Http.get(`/payment/membership`, {
+      params: {
+        id: data
+      }
+    });
   },
-  getRecommendCode(data) {
-    return axios
-      .get(`${API_URL}/payment/recommendCode`, {
-        params: data
-      })
-      .then(res => {
-        return res;
-      })
-      .catch(err => {
-        return {
-          ...err.response,
-          message: err.message
-        };
-      });
-  }
+  // getMembership() {
+  //   return axios
+  //     .get(`${API_URL}/payment/membership`, {
+  //       params: {
+  //         id: 1
+  //       }
+  //     })
+  //     .then(res => {
+  //       return res;
+  //     })
+  //     .catch(err => {
+  //       return {
+  //         ...err.response,
+  //         message: err.message
+  //       };
+  //     });
+  // },
+
 };

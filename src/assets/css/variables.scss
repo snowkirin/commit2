@@ -10,8 +10,8 @@ $color-pomegranate: #ec4b1a;
 $color-pink-button: #d06774;
 $color-pink-main: #d16e7b;
 
-$font-primary: 'NotoSans', '맑은 고딕', 'Malgun Gothic', sans-serif;
-$font-secondary: 'Open Sans', 'NotoSans', '맑은 고딕', 'Malgun Gothic', sans-serif;
+$font-primary: 'Noto Sans KR', '맑은 고딕', 'Malgun Gothic', sans-serif;
+$font-secondary: 'Open Sans', 'Noto Sans KR', '맑은 고딕', 'Malgun Gothic', sans-serif;
 
 @function parseInt($n) {
   @return $n / ($n * 0 + 1);

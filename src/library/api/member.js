@@ -1,3 +1,5 @@
+import Http from '@/library/HTTP';
+
 import axios from 'axios';
 const API_URL = process.env.VUE_APP_API_URL;
 
@@ -283,5 +285,23 @@ export default {
           message: err.message
         }
       });
-  }
+  },
+
+  GetStyleType() {
+    return Http.get('/member/styletype');
+  },
+  PostAddInfo(data) {
+    return Http.post(`/member/style`, data, {
+      withCredentials: true
+    });
+  },
+  PostImages(data) {
+    return Http.post('/member/images', data, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      withCredentials: true
+    });
+  },
+
 };

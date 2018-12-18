@@ -1,4 +1,3 @@
-<!--suppress ALL -->
 <template>
   <div class="contents">
     <div class="contents-header">
@@ -16,10 +15,10 @@
                 <div>
                   <ul class="list-flex list-delivery-days">
                     <li
-                      v-for="(data, idx) in FirstDeliveryDays"
+                      v-for="(data, idx) in deliveryDateData"
                       :key="idx"
                       class="item w-20 h-50"
-                      :class="[{'selected': joinData.deliveryDate === data.solar_date}, {'holy-day': data.is_holiday === 'Y'}]"
+                      :class="[{'selected': paymentInfoData.deliveryDate === data.solar_date}, {'holy-day': data.is_holiday === 'Y'}]"
                       style="flex-direction: column;"
                       :style="calcDate(data, idx)"
                       @click="selectDay(data)"
@@ -29,7 +28,6 @@
                     </li>
                   </ul>
                 </div>
-                <!--<p class="txt-delivery-date">신청 주에 수령을 원하시면 별도 연락 부탁드립니다.<br/>(02-6929-3823)</p>-->
               </div>
               <notifications group="deliveryDate" width="100%" position="bottom left" :max="1" class="zuly-notify"/>
             </div>
@@ -50,7 +48,7 @@
                         maxlength="16"
                         v-validate="'required'"
                         name="cardNumber"
-                        v-model="joinData.cardNumber"
+                        v-model="paymentInfoData.cardNumber"
                       >
                     </div>
                   </div>
@@ -90,7 +88,7 @@
                         type="text"
                         class="form-input"
                         name="birthDay"
-                        v-model="joinData.userBirth"
+                        v-model="paymentInfoData.userBirth"
                         placeholder="생년월일(YYMMDD)"
                         v-validate="'required'"
                         @keyup="checkBirthExpiry">
@@ -104,7 +102,7 @@
                         id="cardPwd"
                         type="password"
                         placeholder="앞2자리"
-                        v-model="joinData.cardPassword"
+                        v-model="paymentInfoData.cardPassword"
                         maxlength="2"
                         v-validate="'required'"
                         name="cardPwd">
@@ -135,70 +133,6 @@
                 </div>
               </div>
             </div>
-            <!--<div class="row">
-              <div class="form-title-wrap">
-                <p class="txt-form-title">공동 현관 비밀번호 <br/> <span class="txt-entrance">(문 앞까지 가기 전에 공동 현관이 있는 경우)</span></p>
-              </div>
-              <div>
-                <div class="text-field" :class="{'text-field-error': errors.has('lobbyPassword')}">
-                  <input
-                    type="text"
-                    v-model="joinData.lobbyPassword"
-                    class="form-input"
-                    v-validate="'required'"
-                    name="lobbyPassword"
-                    placeholder="현관 비밀번호">
-                </div>
-                <p
-                  class="txt-error"
-                  v-if="errors.has('lobbyPassword')"
-                >
-                  공동 현관 비밀번호를 입력해 주세요.
-                </p>
-              </div>
-            </div>-->
-            <!-- 추천인 임시 삭제 -->
-            <!--<div class="row">
-              <div class="form-title-wrap">
-                <p class="txt-form-title">추천인</p>
-              </div>
-              <div>
-                <div class="grid-flex grid-fixed">
-                  <div class="column text-field">
-                    <input
-                      type="text"
-                      class="form-input"
-                      placeholder="이메일 또는 코드"
-                      v-model="joinData.recommendCode">
-                  </div>
-                  <div class="column w-31 o-2">
-                    <button
-                      type="button"
-                      @click="recommendVerify"
-                      class="btn btn-secondary h-50">
-                      확인
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>-->
-              <!-- 쿠폰 -->
-              <!--<div class="coupon">
-                <p class="txt-form-title">쿠폰</p>
-                <div class="form-row form-group" data-grid="7:3">
-                  <input
-                    type="text"
-                    class="form-input"
-                    v-model="joinData.coupon"
-                    placeholder="쿠폰">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    @click="couponVerify">
-                    확인
-                  </button>
-                </div>
-              </div>-->
               <!-- 주문합계 -->
             <div class="row">
               <div>
@@ -216,20 +150,9 @@
                   <tr>
                     <td>월 결제금액</td>
                     <td>
-                    <span class="txt-number">
-                      <vue-numeric
-                        v-if="isRecommendCode"
-                        separator=","
-                        :value="RecommendCode.total_price"
-                        read-only>
-                      </vue-numeric>
-                      <vue-numeric
-                        v-else
-                        separator=","
-                        :value="Membership.promotion_price"
-                        read-only>
-                      </vue-numeric>
-                    </span>
+                      <span class="txt-number">
+                        {{membershipData.promotion_price| currency('',0)}}
+                      </span>
                       <span class="txt-unit">원</span>
                     </td>
                   </tr>
@@ -243,34 +166,16 @@
                     <td>월 2회 단일 요금제</td>
                     <td>
                     <span class="txt-number">
-                      <vue-numeric
-                        separator=","
-                        v-model="Membership.price"
-                        read-only/>
+                      {{membershipData.price | currency('',0)}}
                     </span>
                       <span class="txt-unit">원</span>
                     </td>
                   </tr>
-                  <tr v-if="Membership.promotion_price !== Membership.price">
+                  <tr v-if="membershipData.promotion_price !== membershipData.price">
                     <td>프로모션 기간 금액</td>
                     <td>
                     <span class="txt-number">
-                      <vue-numeric
-                        separator=","
-                        v-model="Membership.promotion_price"
-                        read-only/>
-                    </span>
-                      <span class="txt-unit">원</span>
-                    </td>
-                  </tr>
-                  <tr v-if="RecommendCode.sale_price">
-                    <td>추천인 할인</td>
-                    <td>
-                    <span class="txt-number">(-)
-                      <vue-numeric
-                        separator=","
-                        :value="RecommendCode.sale_price"
-                        read-only/>
+                      {{membershipData.promotion_price | currency('',0)}}
                     </span>
                       <span class="txt-unit">원</span>
                     </td>
@@ -294,37 +199,51 @@
         <button
           type="button"
           class="btn btn-primary h-56"
-          @click="signIn"
+          @click="clickComplete"
         >
           완료
         </button>
       </div>
     </form>
-    <simplert ref="alert" :useRadius="false" :useIcon="false" />
   </div>
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import Simplert from 'vue2-simplert';
-import VueNumeric from 'vue-numeric';
-import axios from 'axios';
-import _ from 'lodash';
-
-const alertObject = {
-  type: 'alert', // 타입
-  customClass: 'popup-custom-class', // 커스텀 클래스 네임
-  disableOverlayClick: false, // 오버레이 클릭시 닫기 방지
-  customCloseBtnText: '확인' // 닫기 버튼 텍스트
-};
+import CalendarAPI from '@/library/api/calendar';
+import PaymentAPI from '@/library/api/payment';
 
 export default {
   name: 'signUp-second',
-  components: {
-    VueNumeric,
-    Simplert
-  },
+  components: {},
   data() {
     return {
+      dialogOptions: {
+        okText: '확인',
+        customClass: 'zuly-alert',
+        backdropClose: true
+      },
+      // 배송일 지정 데이터
+      deliveryDateData: [],
+      // 멤버쉽 데이터
+      membershipData: {
+        price: 0,
+        promotion_price: 0,
+        title: ''
+      },
+
+      // 회원가입을 위한 해당 페이지 저장소.
+      paymentInfoData: {
+        deliveryDate: '',
+        cardNumber: '',
+        cardYearExpiry: '',
+        cardMonthExpiry: '',
+        userBirth: '',
+        cardPassword: '',
+        coupon: null,
+        membershipId: 1,
+        recommendCode: null
+      },
+
       joinData: {
         deliveryDate: '',
         cardNumber: '',
@@ -336,50 +255,42 @@ export default {
         membershipId: 1,
         recommendCode: null
       },
+
       deliveryDay: {
         monthDay: '',
         dayOfWeek: ''
       },
+
       cardVerify: false,
       cardVerifyMsg: '',
       birthVerify: false,
       birthVerifyMsg: '',
-      isConfirm: false,
-      isRecommendCode: false
+      isConfirm: false
     };
   },
   computed: {
-    ...mapGetters({
-      FirstDeliveryDays: 'codes/FirstDeliveryDays', // 첫구독시 배송일 데이터
-      Membership: 'payment/Membership', // 멤버십 가격
-      RecommendCode: 'payment/RecommendCode',
-      Join: 'signup/Join'
-    }),
     msgDeliveryDay() {
       const date = _.split(this.deliveryDay.monthDay, '/');
       const week = _.trim(this.deliveryDay.dayOfWeek, '()');
       return `${date[0]}월 ${
         date[1]
-        }일 첫 배송 후 격주 ${week}요일에 배송됩니다.`;
+      }일 첫 배송 후 격주 ${week}요일에 배송됩니다.`;
     }
   },
   methods: {
     ...mapActions({
-      getFirstDeliveryDays: 'codes/getFirstDeliveryDays', // 첫 구독시 배송일 데이터 호출
-      getMembership: 'payment/getMembership',
-      getRecommendCode: 'payment/getRecommendCode',
-      setJoin: 'signup/setJoin',
-      postJoin: 'signup/postJoin'
+      ADD_PAYMENT_INFO_DATA: 'join/ADD_PAYMENT_INFO_DATA',
+      SIGNIN: 'join/SIGNIN'
     }),
     selectDay(param) {
       if (param.is_holiday === 'Y') {
         return;
       } else {
-        this.joinData.deliveryDate = param.solar_date;
+        this.paymentInfoData.deliveryDate = param.solar_date;
         this.deliveryDay.monthDay = param.month_day;
         this.deliveryDay.dayOfWeek = param.day_of_week;
         this.$notify({
-          group: "deliveryDate",
+          group: 'deliveryDate',
           text: `※ ${this.msgDeliveryDay}`
         });
       }
@@ -395,8 +306,8 @@ export default {
         const cardYear = evt.target.value.substr(2, 4);
 
         this.cardVerify = false;
-        this.joinData.cardMonthExpiry = cardMonth;
-        this.joinData.cardYearExpiry = _.padStart(cardYear, 4, '20');
+        this.paymentInfoData.cardMonthExpiry = cardMonth;
+        this.paymentInfoData.cardYearExpiry = _.padStart(cardYear, 4, '20');
       }
     },
     checkBirthExpiry(evt) {
@@ -406,51 +317,6 @@ export default {
         this.birthVerifyMsg =
           '생년월일을 YYMMDD(년월일) 형태로 입력해주세요. (ex: 851211)';
       } else this.birthVerify = false;
-    },
-    couponVerify() {
-      const coupon = document.querySelector('input[name=coupon]');
-      return this.$common.InputDataValidation(
-        coupon,
-        '쿠폰을 입력해주세요.',
-        true
-      );
-    },
-    async recommendVerify() {
-      if (
-        this.joinData.recommendCode === '' ||
-        this.joinData.recommendCode === null
-      ) {
-        _.assign(alertObject, {
-          message: '추천인을 입력해 주세요.'
-        });
-        this.$refs.alert.openSimplert(alertObject);
-        this.isRecommendCode = false;
-      } else {
-        const formData = {
-          id: this.joinData.membershipId,
-          code: this.joinData.recommendCode
-        };
-        await this.getRecommendCode(formData).then(res => {
-          if (res.data.result) {
-            _.assign(alertObject, {
-              message: '정상 등록 되었습니다.'
-            });
-            this.$refs.alert.openSimplert(alertObject);
-            this.isRecommendCode = true;
-          } else {
-            _.assign(alertObject, {
-              message: '등록 가능한 추천인이 아닙니다.'
-            });
-            this.$refs.alert.openSimplert(alertObject);
-            this.isRecommendCode = false;
-          }
-        });
-      }
-    },
-    clearStorage() {
-      this.$localStorage.remove('joinFirst');
-      this.$localStorage.remove('Mood');
-      this.$localStorage.remove('Size');
     },
     successJoin() {
       this.$router.push({
@@ -472,98 +338,54 @@ export default {
         }
       }
     },
-    signIn(e) {
-      const instance = axios.create();
-      const API_URL = process.env.VUE_APP_API_URL;
-
-      instance.interceptors.request.use(
-        function(config) {
-          e.target.disabled = true;
-          return config;
-        },
-        function(error) {
-          return error;
-        }
-      );
-      instance.interceptors.response.use(
-        function(response) {
-          e.target.disabled = false;
-          return response;
-        },
-        function(error) {
-          e.target.disabled = false;
-          return error;
-        }
-      );
-
+    clickComplete() {
       const privateFlag = document.querySelector(
         'input[name=private_flag]:checked'
       );
+
       // 배송일 지정
-      if (this.joinData.deliveryDate === '') {
-        _.assign(alertObject, {
-          message: '배송일을 선택해주세요.'
-        });
-        this.$refs.alert.openSimplert(alertObject);
+      if (this.paymentInfoData.deliveryDate === '') {
+        this.$dialog.alert('배송일을 선택해주세요.', this.dialogOptions);
         return;
       }
       // 구매 동의 체크박스
       if (!privateFlag) {
-        _.assign(alertObject, {
-          message: '구매진행에 동의해주세요.'
-        });
-        this.$refs.alert.openSimplert(alertObject);
+        this.$dialog.alert('구매진행에 동의해주세요.', this.dialogOptions);
         return;
       }
-      if (!_.isEmpty(this.joinData.recommendCode)) {
-        if (!this.isRecommendCode) {
-          _.assign(alertObject, {
-            message: '추천인 확인을 눌러주세요.'
-          });
-          this.$refs.alert.openSimplert(alertObject);
-          return;
-        }
-      }
-      this.setJoin(this.joinData);
-      this.$validator.validateAll().then(result => {
+      this.$validator.validateAll().then(async result => {
         if (result) {
-          instance
-            .post(`${API_URL}/auth/join`, this.Join, {
-              withCredentials: true
-            }).then(res => {
-              if (!res.data.result) {
-                if(res.data.paymentRtn) {
-                  // 카드정보는 정확히 입력하였으나 다른 이유로 오류가 난 경우
-                  _.assign(alertObject, {
-                    message: '오류가 발생 되었습니다. 잠시 후 다시 시도해 주세요.'
-                  });
-                } else {
-                  // 카드정보가 정확히 입력되지 않은 경우
-                  _.assign(alertObject, {
-                    message: '카드 정보를 확인해주세요.'
-                  });
-                }
-                this.$refs.alert.openSimplert(alertObject);
-              } else {
-                this.successJoin();
-              }
-          })
+          // 배송 및 결제정보에서 입력했던 값을 저장한다.
+          await this.ADD_PAYMENT_INFO_DATA({ ...this.paymentInfoData });
+          // 지금까지 취합했던 값들을 취합한다. 만약 입력하지 않았다면 등등.
+          // 모든 값들이 정확히 있다면 회원가입 API를 호출한다.
+
+          const resultData = await this.SIGNIN();
+          if (resultData.results) {
+            // 성공했으니 다음페이지로 가시오!
+            this.successJoin();
+          } else {
+            this.$dialog.alert(resultData.errorMsg, this.dialogOptions);
+          }
+        } else {
+          document
+            .querySelectorAll('.text-field-error input')[0]
+            .setAttribute('tabindex', -1);
+          document.querySelectorAll('.text-field-error input')[0].focus();
+          document
+            .querySelectorAll('.text-field-error input')[0]
+            .setAttribute('tabindex', null);
         }
-        document
-          .querySelectorAll('.text-field-error input')[0]
-          .setAttribute('tabindex', -1);
-        document.querySelectorAll('.text-field-error input')[0].focus();
-        document
-          .querySelectorAll('.text-field-error input')[0]
-          .setAttribute('tabindex', null);
       });
     }
   },
   async created() {
-    if (_.isEmpty(this.FirstDeliveryDays)) {
-      await this.getFirstDeliveryDays();
-    }
-    this.getMembership();
+    // 배송일 데이터를 가져온다.
+    const firstDeliveryDaysResult = await CalendarAPI.GetFirstDeliveryDays();
+    this.deliveryDateData = firstDeliveryDaysResult.data.result;
+    // 기본 멤버쉽 정보를 가져온다.
+    const membershipDataResult = await PaymentAPI.GetMembership();
+    this.membershipData = membershipDataResult.data.data;
   }
 };
 </script>

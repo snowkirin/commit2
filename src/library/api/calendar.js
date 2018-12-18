@@ -41,7 +41,7 @@ export default {
   * 첫 배송 가능 요일 목록
   * */
   GetFirstDeliveryDays(data) {
-    return Http.get(`/calendar/changeDeliveryDays`, {
+    return Http.get(`/calendar/firstdeliverydays`, {
       params: {
         schymd: data
       }

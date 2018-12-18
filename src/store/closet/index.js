@@ -10,10 +10,9 @@ const mutations = {
     for (let prop in state) {
       state[prop] = initialState[prop];
     }
-  },
+  }
 };
-const getters = {
-};
+const getters = {};
 
 export default {
   namespaced: true,

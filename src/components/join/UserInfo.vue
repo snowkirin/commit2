@@ -24,7 +24,7 @@
                       autocomplete="name"
                       maxlength="15"
                       v-validate="'required'"
-                      v-model="joinData.name"
+                      v-model="userInfoData.name"
                     />
                   </div>
                   <p v-if="errors.has('name')" class="txt-error">
@@ -43,7 +43,7 @@
                       autocomplete="email"
                       maxlength="50"
                       v-validate="'required|email'"
-                      v-model="joinData.email"
+                      v-model="userInfoData.email"
                     />
                   </div>
                   <p class="txt-error" v-if="errors.has('email')">
@@ -66,7 +66,7 @@
                         required: true,
                         regex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}/
                       }"
-                      v-model="joinData.password"
+                      v-model="userInfoData.password"
                       @keyup="pwdCheck(errors.has('password'))"
                     />
                   </div>
@@ -117,7 +117,7 @@
                         required: true,
                         regex: /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})/
                       }"
-                      v-model="joinData.phone"
+                      v-model="userInfoData.phone"
                     />
                   </div>
                   <div class="column w-31 o-2">
@@ -135,20 +135,16 @@
                   휴대전화를 입력해주세요.
                 </p>
               </div>
-              <div v-show="isPhoneAuth" class="form-row">
+              <div v-show="phoneAuthData.showPhoneAuthArea" class="form-row">
                 <div class="grid-flex grid-fixed">
                   <div
-                    class="column text-field"
-                    :class="{
-                      'text-field-error': errors.has('phoneAuthNumber')
-                    }"
-                  >
+                    class="column text-field">
                     <input
                       type="text"
                       name="phoneAuthNumber"
                       placeholder="인증번호"
                       autocomplete="tel-extension"
-                      v-validate="'required'"
+                      v-model="phoneAuthData.authNumber"
                     />
                   </div>
                   <div class="column w-31 o-2">
@@ -162,7 +158,7 @@
                     </button>
                   </div>
                 </div>
-                <p class="txt-error" v-if="authErr">{{ authErrMessage }}</p>
+                <p class="txt-error" v-if="phoneAuthData.showPhoneAuthTimer">{{ phoneAuthData.msgPhoneAuthTimer }}</p>
               </div>
             </div>
             <!-- 주소 -->
@@ -183,7 +179,7 @@
                       autocomplete="postal-code"
                       readonly
                       v-validate="'required'"
-                      v-model="joinData.zipcode"
+                      v-model="userInfoData.zipcode"
                       @click="openPostCode"
                     />
                   </div>
@@ -215,7 +211,7 @@
                     maxlength="30"
                     readonly
                     v-validate="'required'"
-                    v-model="joinData.addr"
+                    v-model="userInfoData.addr"
                     @click="openPostCode"
                   />
                 </div>
@@ -236,7 +232,7 @@
                     maxlength="30"
                     ref="detailAddress"
                     v-validate="'required'"
-                    v-model="joinData.addrDetail"
+                    v-model="userInfoData.addrDetail"
                   />
                 </div>
                 <p class="txt-error" v-if="errors.has('detail_address')">
@@ -272,7 +268,7 @@
                 >
                   <input
                     type="text"
-                    v-model="joinData.lobbyPassword"
+                    v-model="userInfoData.lobbyPassword"
                     class="form-input"
                     v-validate="'required'"
                     name="lobbyPassword"
@@ -286,22 +282,16 @@
             </div>
             <!-- 연령대 -->
             <div class="row">
-              <div class="form-title-wrap">
-                <p class="txt-form-title">연령대</p>
-              </div>
-              <div>
-                <ul class="list-flex">
-                  <li
-                    class="item w-33 h-50"
-                    :class="{ selected: joinData.age === data.code }"
-                    v-for="(data, idx) in ageRange"
-                    :key="idx"
-                    @click="clickAgeRange(data.code, $event)"
-                  >
-                    {{ data.text }}
-                  </li>
-                </ul>
-              </div>
+              <FlexList
+                title="연령대"
+                :data="ageData"
+                textExpress="text"
+                @extractFunc="setAgeRange"
+                extractData="code"
+                :column="3"
+                :height="50"
+                :watchData="userInfoData.age"
+              />
             </div>
             <!-- 기념일 -->
             <div class="row more-info">
@@ -320,7 +310,7 @@
                     v-validate="{
                       regex: /(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])/
                     }"
-                    v-model="joinData.ann"
+                    v-model="userInfoData.ann"
                   />
                 </div>
                 <p class="txt-error" v-if="errors.has('ann')">
@@ -384,13 +374,12 @@
         <button
           class="btn btn-primary h-56"
           type="button"
-          @click="validateBeforeSubmit"
+          @click="clickComplete"
         >
           다음(3/4)
         </button>
       </div>
     </form>
-    <simplert ref="alert" :useRadius="false" :useIcon="false" />
     <sweet-modal
       ref="private"
       :enable-mobile-fullscreen="false"
@@ -432,34 +421,35 @@
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import CodesAPI from '@/library/api/codes';
+import AuthAPI from '@/library/api/auth';
 import CommonModal from '@/components/common/modal/CommonModal';
-import Simplert from 'vue2-simplert';
 import Info from '@/info';
-import Codes from '@/library/api/codes';
+import FlexList from '@/components/common/FlexList';
 
-const alertObject = {
-  type: 'alert', // 타입
-  customClass: 'popup-custom-class', // 커스텀 클래스 네임
-  disableOverlayClick: false, // 오버레이 클릭시 닫기 방지
-  customCloseBtnText: '확인' // 닫기 버튼 텍스트
-};
 export default {
   name: 'signUp-first',
   components: {
     CommonModal,
-    Simplert
+    FlexList
   },
   data() {
     return {
       pwdMsg: '비밀번호를 입력해주세요.',
       isPwd: false,
-      isPhoneAuth: false,
-      authErr: false,
-      authErrMessage: '',
+      phoneAuthData: {
+        showPhoneAuthArea: false,
+        showPhoneAuthTimer: false,
+        msgPhoneAuthTimer: '',
+        authId: null,
+        authNumber: null,
+        isPhoneAuthComplete: false
+      },
       personalText: Info.Personal.text, // 개인정보취급방침
       termsText: Info.Terms.text, // 서비스 약관
-      marketingText: Info.Marketing.text, // 마케팅 동의,
-      ageRange: [
+      marketingText: Info.Marketing.text, // 마케팅 동의
+      // 연령대 데이터 리스트
+      ageData: [
         {
           text: '20대 초반',
           code: 16001
@@ -498,7 +488,7 @@ export default {
         }
       ],
       // 회원가입 정보
-      joinData: {
+      userInfoData: {
         age: null,
         name: '',
         email: '',
@@ -512,20 +502,23 @@ export default {
         lobbyPassword: null
       },
       resultPostCode: {}, // 주소 결과값,
-      isPostCode: false
+      isPostCode: false,
+      // 알럿창 옵션
+      dialogOptions: {
+        okText: '확인',
+        customClass: 'zuly-alert',
+        backdropClose: true
+      }
     };
   },
   computed: {
     ...mapGetters({
-      isAuthenticated: 'login/isAuthenticated',
-      PhoneVerify: 'signup/PhoneVerify'
+      UserInfoForMembership: 'join/UserInfoForMembership'
     })
   },
   methods: {
     ...mapActions({
-      setJoin: 'signup/setJoin',
-      postPhone: 'signup/postPhone',
-      patchPhone: 'signup/patchPhone'
+      ADD_USER_INFO_DATA: 'join/ADD_USER_INFO_DATA'
     }),
     openPostCode() {
       if (!this.isPostCode) {
@@ -535,20 +528,16 @@ export default {
             width: '100%',
             height: '498px',
             onresize: () => {},
-            onclose: state => {
-              if (state === 'COMPLETE_CLOSE') {
-              }
-            },
+            // onclose: state => {
+            //   if (state === 'COMPLETE_CLOSE') {
+            //   }
+            // },
             oncomplete: async data => {
-              const validZipCode = await Codes.GetZipCodes(data.zonecode);
+              const validZipCode = await CodesAPI.GetZipCodes(data.zonecode);
               if (!validZipCode.data.result) {
                 this.$dialog.alert(
                   '입력하신 주소는 현재 서비스 지역이 아닙니다.',
-                  {
-                    okText: '확인',
-                    customClass: 'zuly-alert',
-                    backdropClose: true
-                  }
+                  this.dialogOptions
                 );
               }
               this.completePostCode(data);
@@ -564,12 +553,12 @@ export default {
     completePostCode(result) {
       if (result.userSelectedType === 'R') {
         //  도로명 주소
-        this.joinData.addr = result.roadAddress;
+        this.userInfoData.addr = result.roadAddress;
       } else {
         //  지번 주소
-        this.joinData.addr = result.jibunAddress;
+        this.userInfoData.addr = result.jibunAddress;
       }
-      this.joinData.zipcode = result.zonecode;
+      this.userInfoData.zipcode = result.zonecode;
       this.$refs.detailAddress.focus();
       this.closePostCode();
     },
@@ -589,7 +578,6 @@ export default {
     },
     pwdCheck(isBoolean) {
       const pwd = document.querySelector('input[name=password]');
-
       let checkBoolean = isBoolean;
       if (pwd.value === '') {
         if (!checkBoolean) checkBoolean = !checkBoolean;
@@ -602,107 +590,111 @@ export default {
       this.isPwd = !checkBoolean;
     },
     async clickPhoneVerify(event) {
-      const joinForm = document.joinForm,
-        email = joinForm.email,
-        phone = joinForm.phone,
-        phoneAuthNumber = joinForm.phoneAuthNumber;
-
-      if (!this.joinData.email) {
-        _.assign(alertObject, {
-          message: '이메일을 먼저 입력해주세요.',
-          onClose: function() {
-            email.focus();
-          }
-        });
-        this.$refs.alert.openSimplert(alertObject);
+      const joinForm = document.joinForm;
+      const email = joinForm.email;
+      const phone = joinForm.phone;
+      const phoneAuthNumber = joinForm.phoneAuthNumber;
+      // 이메일을 입력하지 않은 경우 알럿창을 띄움
+      if (!this.userInfoData.email) {
+        this.$dialog.alert('이메일을 입력해주세요.', this.dialogOptions);
+        return;
+      }
+      if (!this.userInfoData.phone) {
+        this.$dialog.alert('휴대폰 번호를 입력해주세요.', this.dialogOptions);
         return;
       }
 
-      this.$validator.validate('phone', phone.value).then(result => {
-        if (result) {
-          const phoneData = {
-            email: _.trim(this.joinData.email),
-            phone: _.trim(this.joinData.phone)
-          };
-          this.postPhone(phoneData).then(res => {
-            if (res.data.result) {
-              this.isPhoneAuth = true;
-              event.target.disabled = true;
-              this.startTimer();
-              this.authErr = true;
-              phoneAuthNumber.focus();
-            }
-            if (res.data.phoneDuplicated) {
-              _.assign(alertObject, {
-                message: '이미 등록된 핸드폰 번호입니다. 다시 확인해 주세요.'
-              });
-              this.$refs.alert.openSimplert(alertObject);
-            }
-            if (res.data.emailDuplicated) {
-              _.assign(alertObject, {
-                message: '이미 등록된 이메일 주소입니다. 다시 확인해 주세요.'
-              });
-              this.$refs.alert.openSimplert(alertObject);
-            }
-          });
+      const emailValidator = await this.$validator.validate(
+        'email',
+        email.value
+      );
+      const phoneValidator = await this.$validator.validate(
+        'phone',
+        phone.value
+      );
+
+      if (emailValidator && phoneValidator) {
+        const phoneData = {
+          email: _.trim(this.userInfoData.email),
+          phone: _.trim(this.userInfoData.phone)
+        };
+        const resultData = await AuthAPI.PostPhone(phoneData);
+        if (resultData.data.result) {
+          // 전달받은 authId 저장.
+          this.phoneAuthData.authId = resultData.data.authId;
+
+          this.phoneAuthData.showPhoneAuthArea = true;
+          this.phoneAuthData.showPhoneAuthTimer = true;
+
+          // 더이상 값을 바꿀 수 없게 ReadOnly 속성.
+          phone.readOnly = true;
+          // 중복 클릭 방지를 위한 버튼 Disabled 속성.
+          event.target.disabled = true;
+
+          this.startTimer();
+          phoneAuthNumber.focus();
         } else {
-          _.assign(alertObject, {
-            message: '올바른 휴대폰번호를 입력해주세요.'
-          });
-          this.$refs.alert.openSimplert(alertObject);
+          if (resultData.data.emailDuplicated) {
+            this.$dialog.alert(
+              '이미 등록된 이메일 주소입니다. 다시 확인해 주세요.',
+              this.dialogOptions
+            );
+          } else if (resultData.data.phoneDuplicated) {
+            this.$dialog.alert(
+              '이미 등록된 휴대폰 번호입니다. 다시 확인해 주세요.',
+              this.dialogOptions
+            );
+          }
         }
-      });
+      } else {
+        if (!emailValidator) {
+          this.$dialog.alert(
+            '올바른 이메일을 입력해주세요.',
+            this.dialogOptions
+          );
+        } else if (!phoneValidator) {
+          this.$dialog.alert(
+            '올바른 휴대폰 번호를 입력해주세요.',
+            this.dialogOptions
+          );
+        }
+      }
     },
     async authKeyConfirm() {
-      const joinForm = document.joinForm,
-        phoneAuthNumber = joinForm.phoneAuthNumber;
-
-      if (this.PhoneVerify.authId === null || this.PhoneVerify.authId === '') {
-        _.assign(alertObject, {
-          message: '먼저 휴대전화를 입력하고 인증버튼을 눌러주세요.'
-        });
-        this.$refs.alert.openSimplert(alertObject);
-        return false;
-      }
-
-      if (phoneAuthNumber.value === '') {
-        _.assign(alertObject, {
-          message: '인증번호를 입력해주세요.',
-          onClose: function() {
-            phoneAuthNumber.focus();
-          }
-        });
-        this.$refs.alert.openSimplert(alertObject);
+      if (!this.phoneAuthData.authId) {
+        this.$dialog.alert(
+          '먼저 휴대폰 번호를 입력하고 인증버튼을 눌러주세요.',
+          this.dialogOptions
+        );
         return;
       }
 
-      let formData = {
-        authId: this.PhoneVerify.authId,
-        authNumber: phoneAuthNumber.value
-      };
-      await this.patchPhone(formData);
-
-      if (this.PhoneVerify.isVerify) {
-        const phone = document.querySelector('input[name=phone]');
-        _.assign(alertObject, {
-          message: '인증되었습니다.'
-        });
-        this.$refs.alert.openSimplert(alertObject);
-        document.querySelector('#phoneVerify').disabled = true;
-        document.querySelector('#authKeyConfirm').disabled = true;
-        phone.disabled = true;
-        phoneAuthNumber.disabled = true;
-        this.authErr = false;
-        clearInterval(window.interval);
-        this.isPhoneAuth = false;
-      } else {
-        _.assign(alertObject, {
-          message: '인증번호를 다시 확인하시고 진행해주세요.'
-        });
-        this.$refs.alert.openSimplert(alertObject);
+      if (!this.phoneAuthData.authNumber) {
+        this.$dialog.alert('인증번호를 입력해주세요.', this.dialogOptions);
+        return;
       }
 
-      return true;
+      const formData = {
+        authId: this.phoneAuthData.authId,
+        authNumber: this.phoneAuthData.authNumber
+      };
+      const resultData = await AuthAPI.PatchPhone(formData);
+
+      if (resultData.data.result === 0) {
+        // 결과값이 0이면 인증번호에 잘못된 값 입력한것
+        this.$dialog.alert(
+          '인증번호를 다시 확인하시고 진행해주세요.',
+          this.dialogOptions
+        );
+      } else if (resultData.data.result >= 1) {
+        // 결과값이 1이상이면 성공
+        this.$dialog.alert('인증되었습니다.', this.dialogOptions);
+        this.phoneAuthData.showPhoneAuthTimer = false;
+        this.phoneAuthData.showPhoneAuthArea = false;
+        // 폰인증 검증 완료
+        this.phoneAuthData.isPhoneAuthComplete = true;
+        clearInterval(window.interval);
+      }
     },
     startTimer() {
       const timer =
@@ -722,105 +714,100 @@ export default {
         minutes = minutes < 10 ? `0${minutes}` : minutes;
         seconds = seconds < 10 ? `0${seconds}` : seconds;
 
-        this.authErrMessage = `메시지를 확인하시고 인증번호를 입력해주세요.  ${minutes}:${seconds}`;
+        this.phoneAuthData.msgPhoneAuthTimer = `메시지를 확인하시고 인증번호를 입력해주세요.  ${minutes}:${seconds}`;
 
         if (printTimer <= 0) {
           clearInterval(interval);
-          _.assign(alertObject, {
-            message: '시간이 초과되었습니다. 다시 인증해주십시오.'
-          });
-          this.$refs.alert.openSimplert(alertObject);
+          this.$dialog.alert(
+            '시간이 초과되었습니다. 다시 인증해주십시오.',
+            this.dialogOptions
+          );
           document.querySelector('#phoneVerify').disabled = false;
-          this.authErr = false;
+          this.phoneAuthData.showPhoneAuthTimer = false;
         }
       }, 1000);
 
       window.interval = interval;
     },
-
-    clickAgeRange(data, event) {
-      if (!event.target.classList.contains('selected')) {
-        this.joinData.age = data;
-      }
+    setAgeRange(param) {
+      this.userInfoData.age = param;
     },
     toggleMarketing() {
       const isChecked = document.joinForm.marketingFlag.checked;
       if (isChecked) {
-        this.joinData.marketingAgree = 'N';
+        this.userInfoData.marketingAgree = 'N';
       } else {
-        this.joinData.marketingAgree = 'Y';
+        this.userInfoData.marketingAgree = 'Y';
       }
     },
-    validateBeforeSubmit() {
+    clickComplete() {
       const joinForm = document.joinForm;
-
-      if (_.isNull(this.joinData.age)) {
-        _.assign(alertObject, {
-          message: '연령대를 선택해 주세요.'
-        });
-        this.$refs.alert.openSimplert(alertObject);
-        return;
-      }
-
       this.$validator.validateAll().then(result => {
         if (result) {
           const privateFlag = joinForm.private_flag.checked;
           const useFlag = joinForm.use_flag.checked;
+          if (!this.phoneAuthData.isPhoneAuthComplete) {
+            this.$dialog.alert(
+              '휴대전화 인증을 진행해주세요.',
+              this.dialogOptions
+            );
+            return;
+          }
+          if (!this.userInfoData.age) {
+            this.$dialog.alert('연령대를 선택해 주세요.', this.dialogOptions);
+            return;
+          }
           if (!privateFlag) {
-            _.assign(alertObject, {
-              message: '개인정보의 수집 및 이용에 동의해주세요.'
-            });
-            this.$refs.alert.openSimplert(alertObject);
+            this.$dialog.alert(
+              '개인정보의 수집 및 이용에 동의해주세요.',
+              this.dialogOptions
+            );
             return;
           }
           if (!useFlag) {
-            _.assign(alertObject, {
-              message: '이용약관을 확인해주세요.'
-            });
-            this.$refs.alert.openSimplert(alertObject);
+            this.$dialog.alert('이용약관을 확인해주세요.', this.dialogOptions);
             return;
           }
-          if (this.PhoneVerify.isVerify) {
-            if (!_.isEmpty(this.joinData.ann)) {
-              const dateResult = this.joinData.ann;
+          if (!_.isEmpty(this.userInfoData.ann)) {
+            // mmdd 형식의 정규식.
+            const dateExp = /(0\d{1}|1[0-2])([0-2]\d{1}|3[0-1])/;
+
+            if (dateExp.test(this.userInfoData.ann)) {
+              const dateResult = this.userInfoData.ann;
               const monthResult = dateResult.substring(0, 2);
               const dayResult = dateResult.substring(2);
-              this.joinData.ann = monthResult + '.' + dayResult;
+              this.userInfoData.ann = monthResult + '.' + dayResult;
+            } else {
+              this.$dialog.alert('기념일을 확인해주세요.', this.dialogOptions);
+              return;
             }
-            this.setJoin(this.joinData);
-            this.$router.push({ path: '/join/payment-info' });
-            return;
           }
-          _.assign(alertObject, {
-            message: '휴대전화 인증을 진행해주세요.'
+          this.ADD_USER_INFO_DATA({ ...this.userInfoData });
+          this.$router.push({
+            path: '/join/payment-info'
           });
-          this.$refs.alert.openSimplert(alertObject);
-          return;
+        } else {
+          document
+            .querySelectorAll('.text-field-error input')[0]
+            .setAttribute('tabindex', -1);
+          document.querySelectorAll('.text-field-error input')[0].focus();
+          document
+            .querySelectorAll('.text-field-error input')[0]
+            .setAttribute('tabindex', null);
         }
-        document
-          .querySelectorAll('.text-field-error input')[0]
-          .setAttribute('tabindex', -1);
-        document.querySelectorAll('.text-field-error input')[0].focus();
-        document
-          .querySelectorAll('.text-field-error input')[0]
-          .setAttribute('tabindex', null);
       });
     }
   },
   created() {
-    if (!_.isEmpty(this.Join)) {
-      this.joinData = {
-        name: this.Join.name ? this.Join.name : '',
-        email: this.Join.email ? this.Join.email : '',
-        phone: this.Join.phone ? this.Join.phone : ' ',
-        skirtSize: this.Join.skirtSize ? this.Join.skirtSize : null,
-        pantsSize: this.Join.pantsSize ? this.Join.pantsSize : null,
-        bodyType: this.Join.bodyType ? this.Join.bodyType : null,
-        age: this.Join.age ? this.Join.age : null,
-        lobbyPassword: this.Join.lobbyPassword ? this.Join.lobbyPassword : null
-      };
+    // 기존에 입력하던 유저 정보가 있다면 그 값을 넣어준다.
+    if (!_.isEmpty(this.UserInfoForMembership)) {
+      const convertData = _.assign(this.UserInfoForMembership, {
+        ann:
+          this.UserInfoForMembership.ann.substring(0, 2) +
+          this.UserInfoForMembership.ann.substring(3)
+      });
+      this.userInfoData = { ...convertData };
     }
-
     // POSTCODE
     const htmlScript = document.createElement('script');
     htmlScript.setAttribute(
@@ -828,6 +815,10 @@ export default {
       'https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js?autoload=false'
     );
     document.head.appendChild(htmlScript);
+    clearInterval(window.interval);
+  },
+  destroy() {
+    clearInterval(window.interval);
   }
 };
 </script>

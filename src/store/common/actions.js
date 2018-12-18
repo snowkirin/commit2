@@ -16,6 +16,15 @@ export default {
         throw new Error(error);
       });
   },
+  FETCH_OPTIONS(context) {
+    CodesAPI.GetOptions()
+      .then(({ data }) => {
+        context.commit(types.SET_OPTIONS, data);
+      })
+      .catch(error => {
+        throw new Error(error);
+      });
+  },
 
   // 삭제 예정
   phoneVerify({ commit }, data) {
