@@ -776,30 +776,31 @@ input:-webkit-autofill:focus {
 
 /* Remove these to get rid of the spinner */
 #nprogress .spinner {
-  width: 24px;
-  height: 24px;
-  .spinner-icon {
-    display: none;
-  }
-  &::after {
-    z-index: 2;
-    content: "";
-    height: 24px;
-    width: 24px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: -15px 0 0 -15px;
-    transition: all .75s ease 0s;
-    border-radius: 100%;
-    border-right: 4px solid $color-primary;
-    border-top: 4px solid #ddd;
-    border-left: 4px solid #ddd;
-    border-bottom: 4px solid #ddd;
-    -webkit-animation: nprogress-spinner .45s infinite linear;
-    animation: nprogress-spinner .45s infinite linear;
-    -webkit-transform-origin: center;
-    transform-origin: center;
-    opacity: 1;
-  }
+  display: none !important;
+  //width: 24px;
+  //height: 24px;
+  //.spinner-icon {
+  //  display: none;
+  //}
+  //&::after {
+  //  z-index: 2;
+  //  content: "";
+  //  height: 24px;
+  //  width: 24px;
+  //  position: absolute;
+  //  top: 50%;
+  //  left: 50%;
+  //  margin: -15px 0 0 -15px;
+  //  transition: all .75s ease 0s;
+  //  border-radius: 100%;
+  //  border-right: 4px solid $color-primary;
+  //  border-top: 4px solid #ddd;
+  //  border-left: 4px solid #ddd;
+  //  border-bottom: 4px solid #ddd;
+  //  -webkit-animation: nprogress-spinner .45s infinite linear;
+  //  animation: nprogress-spinner .45s infinite linear;
+  //  -webkit-transform-origin: center;
+  //  transform-origin: center;
+  //  opacity: 1;
+  //}
 }

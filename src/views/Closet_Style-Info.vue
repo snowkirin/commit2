@@ -660,12 +660,7 @@ export default {
       };
       reader.readAsDataURL(file);
     },
-    clickComplete() {
-      const styleInfoData = { ...this.sizesData, ...this.addInfoData };
-      const $this = this;
-      const formData = new FormData();
-      formData.append('userImages', $this.imageFile);
-
+    async clickComplete() {
       if (this.bustResult) {
         if (!this.cupResult) {
           this.$dialog.alert(
@@ -682,9 +677,24 @@ export default {
         }
       }
 
-      console.log(styleInfoData);
-
-      // MemberAPI.PatchStyleInfo()
+      await MemberAPI.PatchStyleInfo({
+        ...this.sizesData,
+        ...this.addInfoData
+      })
+        .then(async () => {
+          if (this.previewImage) {
+            const formData = new FormData();
+            formData.append('userImages', this.imageFile);
+            await MemberAPI.PostImages(formData);
+          }
+          this.$dialog.alert('수정되었습니다.', this.dialogOptions);
+        })
+        .catch(() => {
+          this.$dialog.alert(
+            '통신 중 오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.',
+            this.dialogOptions
+          );
+        });
     },
     changeBodyTypeText() {
       // 해당 함수는 join/Sizes에서도 사용된다.
@@ -758,7 +768,7 @@ export default {
         // 데이터가 존재하지 않습니다.
       }
     });
-  },
+  }
 };
 </script>
 

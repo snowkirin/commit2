@@ -3,7 +3,10 @@ const VueCommon = {};
 VueCommon.install = Vue => {
   Vue.prototype.$common = {
     IMAGEURL() {
-      return process.env.VUE_APP_API_IMAGE_URL + "medium/";
+      return process.env.VUE_APP_API_IMAGE_URL + 'medium/';
+    },
+    DEFAULT_IMAGE() {
+      return `${require('@/assets/img/no-image.svg')}`;
     },
     /**
      * @return {string}

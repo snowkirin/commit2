@@ -85,6 +85,7 @@
                     <div class="image">
                       <img
                         :src="$common.IMAGEURL() + item.image.path"
+                        @error="imageNotExist"
                         @click="emitProductDetails(item.barcode)"
                       />
                     </div>
@@ -181,6 +182,10 @@ export default {
   methods: {
     changeSequence() {
       this.$emit('sequence', 'step2');
+    },
+    imageNotExist(event) {
+      console.log(event);
+      event.target.src = this.$common.DEFAULT_IMAGE();
     },
 
     calcProduct() {

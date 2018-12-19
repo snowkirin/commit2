@@ -51,8 +51,8 @@ export default {
       throw new Error(`[ZULY] Service - Post ${err}`);
     });
   },
-  patch(url, params) {
-    return instance.patch(url, params).catch(err => {
+  patch(url, params, config) {
+    return instance.patch(url, params, config).catch(err => {
       throw new Error(`[ZULY] Service - Patch ${err}`);
     });
   },

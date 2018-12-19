@@ -11,7 +11,7 @@
             :key="idx"
             class="swiper-item"
           >
-            <img :src="$common.ZulyImage() + data.image_path" />
+            <img :src="$common.ZulyImage() + data.image_path" @error="imageNotExist"/>
           </swiper-slide>
           <swiper-slide
             class="swiper-item"
@@ -233,6 +233,10 @@ export default {
   },
   computed: {},
   methods: {
+    imageNotExist(event) {
+      event.target.height = this.containerHeight;
+      event.target.src = this.$common.DEFAULT_IMAGE();
+    },
     materialType(type) {
       const materialData = this.details.material;
       let materialResult = '';
@@ -248,7 +252,7 @@ export default {
       return materialResult;
     },
     resize() {
-      this.containerHeight = this.$refs.mySwiper.$el.offsetHeight;
+      this.containerHeight = this.$refs.mySwiper.$el.offsetHeight ? this.$refs.mySwiper.$el.offsetHeight : 290;
     }
   },
   created() {

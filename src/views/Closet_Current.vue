@@ -120,7 +120,7 @@ export default {
       this.currentData = {
         ...this.CurrentResult,
         coupons: [...this.CurrentCoupons],
-        images: {...this.CurrentImages}
+        images: { ...this.CurrentImages }
       };
     },
     currentFeedbackType() {
@@ -134,7 +134,7 @@ export default {
         this.feedbacksType = () =>
           import('@/components/closet/feedback/FeedbackDirect.vue');
       }
-    },
+    }
   },
   async created() {
     // 직접접속 이라면
@@ -176,7 +176,8 @@ export default {
 };
 </script>
 
-<style scoped lang="scss" src="@/assets/css/closet-style.scss"></style>
+<style scoped lang="scss" src="@/assets/css/closet-style.scss">
+</style>
 <style scoped lang="scss">
 .none {
   height: 500px;

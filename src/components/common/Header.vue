@@ -64,7 +64,6 @@ export default {
       this.$store.commit('codes/RESET_STATE');
       this.$store.commit('common/RESET_STATE');
       this.$store.commit('faq/RESET_STATE');
-      this.$store.commit('inquiries/RESET_STATE');
       this.$store.commit('login/RESET_STATE');
       this.$store.commit('member/RESET_STATE');
       this.$store.commit('notices/RESET_STATE');
