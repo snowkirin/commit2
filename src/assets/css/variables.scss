@@ -1,3 +1,4 @@
+// [ Variable ]
 $baseFontSize: 15;
 $color-primary: #3d3d35;
 $color-secondary: #797979;
@@ -9,9 +10,15 @@ $color-pomegranate: #ec4b1a;
 // 2018-08-16 New Color
 $color-pink-button: #d06774;
 $color-pink-main: #d16e7b;
-
 $font-primary: 'Noto Sans KR', '맑은 고딕', 'Malgun Gothic', sans-serif;
 $font-secondary: 'Open Sans', 'Noto Sans KR', '맑은 고딕', 'Malgun Gothic', sans-serif;
+// Default Mobile Viewport
+$base-viewport-width: 375;
+
+// [ Function ]
+@function vwCalculator($px) {
+  @return ($px / $base-viewport-width) * 100;
+}
 
 @function parseInt($n) {
   @return $n / ($n * 0 + 1);
@@ -30,6 +37,30 @@ $font-secondary: 'Open Sans', 'Noto Sans KR', '맑은 고딕', 'Malgun Gothic', 
   @return $return;
 }
 
+// [ Mixin ]
+
+// [ Mixin - Media Query ]
+@mixin small-mobile {
+  @media (max-width: 374px) { @content;}
+}
+@mixin mobile {
+  // 0 ~ 767px
+  @media (max-width: 767px) { @content; }
+}
+@mixin mobile-tablet {
+  // 0 ~ 1079px
+  @media (max-width: 1079px) { @content; }
+}
+@mixin tablet {
+  // 768px ~
+  @media (min-width: 768px) { @content; }
+}
+@mixin desktop {
+  // 1080px ~
+  @media (min-width: 1080px) { @content; }
+}
+
+// [ Mixin - pixel to rem ]
 @mixin rem($property, $values) {
   $px : ();
   $rem: ();
@@ -75,7 +106,7 @@ $font-secondary: 'Open Sans', 'Noto Sans KR', '맑은 고딕', 'Malgun Gothic', 
   @if $activeRem {
     @include rem(font-size, $fontSize);
   } @else {
-    font-size: $val+px; 
+    font-size: $val+px;
   }
   @if $lang == ko {
     @if $val == 15 {
@@ -110,32 +141,3 @@ $font-secondary: 'Open Sans', 'Noto Sans KR', '맑은 고딕', 'Malgun Gothic', 
   letter-spacing: 0 !important;
 }
 
-// Mixin for Media Query
-
-/*
-Breakpoints:
- ~ 767px = Mobile
-768px ~ 1079px = Tablet
-1080px ~ =  Desktop
-*/
-
-@mixin small-mobile {
-  @media (max-width: 374px) { @content;}
-}
-
-@mixin mobile {
-  // 0 ~ 767px
-  @media (max-width: 767px) { @content; }
-}
-@mixin mobile-tablet {
-  // 0 ~ 1079px
-  @media (max-width: 1079px) { @content; }
-}
-@mixin tablet {
-  // 768px ~
-  @media (min-width: 768px) { @content; }
-}
-@mixin desktop {
-  // 1080px ~
-  @media (min-width: 1080px) { @content; }
-}

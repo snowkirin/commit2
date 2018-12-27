@@ -198,7 +198,7 @@
 </template>
 
 <script>
-import APISubscriptions from '@/library/api/subscriptions';
+import SubscriptionsAPI from '@/library/api/subscriptions';
 
 export default {
   name: 'ItemPayment_Step2',
@@ -241,7 +241,7 @@ export default {
       this.finalPrice = this.finalPaymentAmount;
       if (paymentCheck.checked) {
         let formData = {
-          subscriptionId: this.data.subscription_id, // Number
+          subscriptionId: this.data.result.subscription_id, // Number
           barcodes: [], // Number In Array
           salePrices: [], // Number In Array
           orderPrices: [], // Number In Array
@@ -272,12 +272,12 @@ export default {
         });
         try {
           this.loading = true;
-          const result = await APISubscriptions.PostOrders(formData);
-          if (result.data.result) {
+          const resultData = await SubscriptionsAPI.PostOrders(formData);
+          if (resultData.data.result) {
             this.$emit('sequence', 'step3');
           } else {
             this.$dialog.alert(
-              `결제에 실패하였습니다. <br/>${result.data.fail_reason}`,
+              `결제에 실패하였습니다. <br/>${resultData.data.fail_reason}`,
               {
                 okText: '확인',
                 customClass: 'zuly-alert',

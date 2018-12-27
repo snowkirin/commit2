@@ -14,6 +14,7 @@ import faq from './faq';
 
 // 신규 추가
 import join from './join';
+import closet from './closet';
 
 Vue.use(Vuex);
 
@@ -29,6 +30,7 @@ export default new Vuex.Store({
     subscriptions,
     notices,
     faq,
-    join
+    join,
+    closet
   }
 });

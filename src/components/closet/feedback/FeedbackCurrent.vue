@@ -239,25 +239,18 @@
         </div>
       </div>
     </div>
-    <simplert ref="alert" :useRadius="false" :useIcon="false" />
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-import Simplert from 'vue2-simplert';
-
-const alertObject = {
-  type: 'alert', // 타입
-  customClass: 'popup-custom-class', // 커스텀 클래스 네임
-  disableOverlayClick: false, // 오버레이 클릭시 닫기 방지
-  customCloseBtnText: '확인' // 닫기 버튼 텍스트
-};
+import SubscriptionAPI from '@/library/api/subscriptions';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'FeedbackCurrent',
   props: {
-    feedbackData: {}
+    feedbackData: {},
+    subscriptionId: {}
   },
   data() {
     return {
@@ -267,9 +260,6 @@ export default {
       reasonB: ''
     };
   },
-  components: {
-    Simplert
-  },
   computed: {
     ...mapGetters({
       CurrentFeedbacks: 'subscriptions/CurrentFeedbacks',
@@ -277,12 +267,6 @@ export default {
     })
   },
   methods: {
-    ...mapActions({
-      postFeedbacksAnswers: 'subscriptions/postFeedbacksAnswers',
-      postFeedbacksAnswersReasons: 'subscriptions/postFeedbacksAnswersReasons',
-      postFeedbacksNps: 'subscriptions/postFeedbacksNps'
-    }),
-
     calcEvaluateClass(data) {
       if (data === '10001') {
         return 'great';
@@ -300,14 +284,14 @@ export default {
       const list = event.target.closest('ul');
       const item = list.querySelectorAll('li');
       const formData = {
-        subscriptionId: this.CurrentResult.subscription_id, // N
+        subscriptionId: this.subscriptionId, // N
         feedbackId: this.feedbackDataResult.feedbackId, // N
         barcode: null,
         clothType: data.cloth_type,
         questionCode: data.question_code,
         answerCode: _.parseInt(data.answer_code[idx])
       };
-      this.postFeedbacksAnswers(formData).then(res => {
+      SubscriptionAPI.PostFeedbacksAnswers(formData).then(res => {
         if (res.data.result) {
           _.forEach(item, value => {
             value.classList.remove('selected');
@@ -315,11 +299,10 @@ export default {
           target.classList.add('selected');
           this.isAnswer = true;
         } else {
-          _.assign(alertObject, {
-            message:
-              '통신중에 오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.'
-          });
-          this.$refs.alert.openSimplert(alertObject);
+          this.$dialog.alert(
+            '통신중에 오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.',
+            this.$common.dialogAlertOptions
+          );
         }
       });
     },
@@ -334,14 +317,14 @@ export default {
       // Selected 효과 및 값 전송
       if (!target.classList.contains('selected')) {
         const formData = {
-          subscriptionId: this.CurrentResult.subscription_id, // N
+          subscriptionId: this.subscriptionId, // N
           feedbackId: this.feedbackDataResult.feedbackId, // N
           barcode: data.barcode,
           clothType: data.cloth_type,
           questionCode: data.question_code,
           answerCode: _.parseInt(data.answer_code[idx])
         };
-        this.postFeedbacksAnswers(formData).then(res => {
+        SubscriptionAPI.PostFeedbacksAnswers(formData).then(res => {
           if (res.data.result) {
             _.forEach(item, value => {
               value.classList.remove('selected');
@@ -365,11 +348,10 @@ export default {
               }
             }
           } else {
-            _.assign(alertObject, {
-              message:
-                '통신중에 오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.'
-            });
-            this.$refs.alert.openSimplert(alertObject);
+            this.$dialog.alert(
+              '통신중에 오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.',
+              this.$common.dialogAlertOptions
+            );
           }
         });
       }
@@ -383,24 +365,23 @@ export default {
       const item = list.querySelectorAll('li');
 
       const formData = {
-        subscriptionId: this.CurrentResult.subscription_id, // N
+        subscriptionId: this.subscriptionId, // N
         feedbackId: this.feedbackDataResult.feedbackId, // N
         npsScore: data
       };
       // 선택한걸 클릭하지 않았을 경우만 작동한다.
       if (!target.classList.contains('selected')) {
-        this.postFeedbacksNps(formData).then(res => {
+        SubscriptionAPI.PostFeedbacksNps(formData).then(res => {
           if (res.data.result) {
             _.forEach(item, value => {
               value.classList.remove('selected');
             });
             target.classList.add('selected');
           } else {
-            _.assign(alertObject, {
-              message:
-                '통신중 오류가 발생하였습니다. 잠시후 다시 시도해 주세요.'
-            });
-            this.$refs.alert.openSimplert(alertObject);
+            this.$dialog.alert(
+              '통신중에 오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.',
+              this.$common.dialogAlertOptions
+            );
           }
         });
       }
@@ -413,15 +394,14 @@ export default {
         if (data.getAttribute('data-active') === 'true') {
           if (data.value === '') {
             reasonFlag = false;
-            _.assign(alertObject, {
-              message: '별로인 이유를 적어주세요.'
-            });
-            this.$refs.alert.openSimplert(alertObject);
-            return false;
+            this.$dialog.alert(
+              '별로인 이유를 적어주세요.',
+              this.$common.dialogAlertOptions
+            );
           } else {
             reasonFlag = true;
             const formData = {
-              subscriptionId: this.CurrentResult.subscription_id, // N
+              subscriptionId: this.subscriptionId, // N
               feedbackId: this.feedbackDataResult.feedbackId, // N
               clothType: _.parseInt(data.getAttribute('data-clothType')), // N
               questionCode: _.parseInt(data.getAttribute('data-questionCode')), // N
@@ -430,15 +410,15 @@ export default {
               barcode: _.parseInt(data.getAttribute('data-barCode')) // N
             };
             // 보내야 할 값
-            this.postFeedbacksAnswersReasons(formData);
+            SubscriptionAPI.PostFeedbacksAnswersReasons(formData);
           }
         }
       });
       if (reasonFlag) {
-        _.assign(alertObject, {
-          message: '소중한 의견 감사드립니다.'
-        });
-        this.$refs.alert.openSimplert(alertObject);
+        this.$dialog.alert(
+          '소중한 의견. 감사드립니다.',
+          this.$common.dialogAlertOptions
+        );
         this.isAnswer = false;
       }
     },

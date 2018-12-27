@@ -4,14 +4,17 @@
     <div class="mobile" v-if="$mq === 'sm'">
       <div class="list">
         <div
-          v-for="(item, idx) in data.products"
+          v-for="(item, idx) in data.result.products"
           :key="idx"
           v-if="item.id !== null"
           class="item"
         >
           <div class="left-side">
             <div class="image">
-              <img :src="$common.IMAGEURL() + item.image.path" @click="emitProductDetails(item.barcode)"/>
+              <img
+                :src="$common.IMAGEURL() + item.image.path"
+                @click="emitProductDetails(item.barcode)"
+              />
             </div>
           </div>
           <div class="right-side">
@@ -75,7 +78,7 @@
           </thead>
           <tbody>
             <tr
-              v-for="(item, idx) in data.products"
+              v-for="(item, idx) in data.result.products"
               :key="idx"
               v-if="item.id !== null"
             >
@@ -171,7 +174,7 @@ export default {
       tooltipStyle: {
         left: 0,
         top: 0
-      }
+      },
     };
   },
   computed: {
@@ -193,7 +196,7 @@ export default {
         sellable: 0,
         length: 0
       };
-      _.forEach(this.data.products, value => {
+      _.forEach(this.data.result.products, value => {
         if (value.barcode !== null) {
           product.length++;
           if (value.is_sellable) {
@@ -214,10 +217,10 @@ export default {
         sale_rate: productsInfo.length === 1 ? 40 : 20
       };
       if (_.isNumber(param)) {
-        productsInfoData.products.push(this.data.products[param]);
+        productsInfoData.products.push(this.data.result.products[param]);
         this.$emit('selectProduct', productsInfoData);
       } else {
-        _.forEach(this.data.products, value => {
+        _.forEach(this.data.result.products, value => {
           if (value.is_sellable && value.product_id !== null) {
             productsInfoData.products.push(value);
           }
@@ -253,6 +256,8 @@ export default {
     emitProductDetails(param) {
       this.$emit('productDetail', param);
     }
+  },
+  mounted() {
   }
 };
 </script>

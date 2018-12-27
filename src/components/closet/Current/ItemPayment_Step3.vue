@@ -12,7 +12,7 @@
           해당 상품은 반납하지 않고 계속 이용 가능합니다.
         </p>
         <p
-          v-if="data.products.length !== selectedProduct.products.length"
+          v-if="data.result.products.length !== selectedProduct.products.length"
           class="txt-purchase-noti"
         >
           ※ 구매하지 않으신 상품은 돌아오는 배송/수거일에 맞춰 문앞에 걸어주시기 바랍니다.
@@ -49,8 +49,8 @@ export default {
   },
   methods: {
     async complete() {
-      await this.$store.dispatch('subscriptions/CURRENT');
-      this.$emit('init');
+      // await this.$store.dispatch('subscriptions/CURRENT');
+      await this.$emit('init');
       this.$emit('sequence', 'step1');
     }
   }

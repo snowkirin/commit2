@@ -70,6 +70,7 @@ export default {
       this.$store.commit('payment/RESET_STATE');
       this.$store.commit('signup/RESET_STATE');
       this.$store.commit('subscriptions/RESET_STATE');
+      this.$store.commit('closet/RESET_STATE');
     },
     clickLogout() {
       this.LOGOUT().then(() => {

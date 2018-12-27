@@ -2,10 +2,6 @@ import types from './mutation-types';
 import actions from './actions';
 
 const initialState = {
-  TomorrowResult: {}, //내일의 옷장 데이터.
-  TomorrowProductDetail: {}, //내일의 옷장 상품 상세보기
-  TomorrowDirectMemberId: '', // 직접접속 했을경우에는 Member ID가 필요하다.
-  isTomorrowDirect: false, // 내일의 옷장 직접 접속 체크
   CurrentResult: {}, // 현재의 옷장 데이터
   CurrentImages: {}, // 현재의 옷장 이미지
   CurrentCoupons: [],
@@ -30,21 +26,6 @@ const mutations = {
     for (let prop in state) {
       state[prop] = initialState[prop];
     }
-  },
-  [types.GET_TOMORROW](state, data) {
-    state.TomorrowResult = data;
-  },
-  [types.GET_TOMORROW_DIRECT](state, data) {
-    state.TomorrowResult = data.data;
-    state.isTomorrowDirect = true;
-    state.TomorrowDirectMemberId = data.info.member_id;
-  },
-  [types.DESTROY_TOMORROW_DIRECT](state) {
-    // 내일의 옷장 초기화
-    state.TomorrowResult = {};
-    state.TomorrowProductDetail = {};
-    state.isTomorrowDirect = false;
-    state.TomorrowDirectMemberId = '';
   },
 
   [types.GET_CURRENT](state, data) {

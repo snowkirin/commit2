@@ -2,15 +2,17 @@ const VueCommon = {};
 
 VueCommon.install = Vue => {
   Vue.prototype.$common = {
+    /* [ Function ] */
     IMAGEURL() {
       return process.env.VUE_APP_API_IMAGE_URL + 'medium/';
+    },
+    IMAGE_NOT_EXIST(event, height = '100%') {
+      event.target.src = this.DEFAULT_IMAGE();
+      event.target.style.height = height;
     },
     DEFAULT_IMAGE() {
       return `${require('@/assets/img/no-image.svg')}`;
     },
-    /**
-     * @return {string}
-     */
     ZulyImage(data) {
       let imageSize = '';
       if (!data) {
@@ -47,10 +49,6 @@ VueCommon.install = Vue => {
       }
       return false;
     },
-    // Validation Check
-    /**
-     * @return {boolean}
-     */
     InputDataValidation(target, msg, focus, email = false) {
       if (!target) {
         alert(msg);
@@ -76,6 +74,13 @@ VueCommon.install = Vue => {
       const phone = data.split('-').join('');
 
       return regPhone.test(phone);
+    },
+    /* [ Variable ] */
+    // 경고창 옵션
+    dialogAlertOptions: {
+      okText: '확인',
+      customClass: 'zuly-alert',
+      backdropClose: true
     }
   };
 };

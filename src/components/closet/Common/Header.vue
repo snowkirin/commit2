@@ -17,7 +17,7 @@ export default {
   },
   computed: mapGetters({
     User: 'login/User',
-    FaqLoginCheck: 'common/FaqLoginCheck',
+    // FaqLoginCheck: 'common/FaqLoginCheck',
     isAuthenticated: 'login/isAuthenticated'
   }),
   methods: {},

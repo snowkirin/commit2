@@ -156,11 +156,6 @@ export default {
   },
   data() {
     return {
-      dialogOptions: {
-        okText: '확인',
-        customClass: 'zuly-alert',
-        backdropClose: true
-      },
       // 회원가입이 필요한 데이터 집어 넣기.
       sizesData: {
         blouseSize: null,
@@ -170,7 +165,6 @@ export default {
         bustSize: null,
         bodyType: null
       },
-      //
       bustData: [
         {
           code: 60
@@ -223,10 +217,8 @@ export default {
           code: 'D'
         }
       ],
-      //
       bustResult: null,
       cupResult: null,
-      //
       bodyTypeText: ''
     };
   },
@@ -286,39 +278,56 @@ export default {
       if (!this.sizesData.blouseSize) {
         this.$dialog.alert(
           '블라우스/셔츠 항목을 확인해 주세요.',
-          this.dialogOptions
+          this.$common.dialogAlertOptions
         );
         return;
       }
       if (!this.sizesData.skirtSize) {
-        this.$dialog.alert('치마 항목을 확인해 주세요.', this.dialogOptions);
+        this.$dialog.alert(
+          '치마 항목을 확인해 주세요.',
+          this.$common.dialogAlertOptions
+        );
         return;
       }
       if (!this.sizesData.pantsSize) {
-        this.$dialog.alert('바지 항목을 확인해 주세요.', this.dialogOptions);
+        this.$dialog.alert(
+          '바지 항목을 확인해 주세요.',
+          this.$common.dialogAlertOptions
+        );
         return;
       }
       if (!this.sizesData.tallSize) {
-        this.$dialog.alert('키 항목을 확인해 주세요.', this.dialogOptions);
+        this.$dialog.alert(
+          '키 항목을 확인해 주세요.',
+          this.$common.dialogAlertOptions
+        );
         return;
       }
       if (!this.bustResult) {
         this.$dialog.alert(
           '가슴둘레 항목을 확인해 주세요.',
-          this.dialogOptions
+          this.$common.dialogAlertOptions
         );
         return;
       }
       if (!this.cupResult) {
-        this.$dialog.alert('컵 항목을 확인해 주세요.', this.dialogOptions);
+        this.$dialog.alert(
+          '컵 항목을 확인해 주세요.',
+          this.$common.dialogAlertOptions
+        );
         return;
       }
       if (!this.sizesData.bodyType) {
-        this.$dialog.alert('체형 항목을 확인해 주세요.', this.dialogOptions);
+        this.$dialog.alert(
+          '체형 항목을 확인해 주세요.',
+          this.$common.dialogAlertOptions
+        );
         return;
       }
       // Validation 체크후 vuex로 데이터 저장
       this.ADD_SIZES_DATA({ ...this.sizesData });
+
+
 
       // 다음페이지로 이동
       this.$router.push({

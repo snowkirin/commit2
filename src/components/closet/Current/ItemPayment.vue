@@ -16,7 +16,7 @@
 
 <script>
 import ModalProductDetail from '@/components/common/modal/ModalProductDetail.vue';
-import SubsciptionAPI from '@/library/api/subscriptions';
+import SubscriptionAPI from '@/library/api/subscriptions';
 export default {
   name: 'ItemPayment',
   props: {
@@ -65,7 +65,7 @@ export default {
         maxWidth: 600,
         adaptive: true
       };
-      const resultData = await SubsciptionAPI.GetProductDetail(param);
+      const resultData = await SubscriptionAPI.GetProductDetail(param);
       this.$modal.show(ModalProductDetail, { data: resultData.data }, modalConfig);
     }
   }

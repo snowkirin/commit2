@@ -72,16 +72,27 @@
 
               </template>
             </div>
-            <div class="info-wrap">
+
+            <FeedbackColumn
+              :data="feedbackData.question.A"
+              :feedback-id="feedbackData.feedback_id"
+              :subscription-id="feedbackData.subscription_id"
+              prefix="A"
+            />
+            <!--<div class="info-wrap">
               <div>
                 <p class="txt-feedback-title">A. {{feedbackDataResult.infoA.name}}는 어떠셨나요?</p>
                 <div class="product-wrap">
                   <div class="image">
-                    <img :src="$common.ZulyImage(feedbackDataResult.infoA.image_width)+feedbackDataResult.infoA.image_path" alt="">
+                    <img
+                      :src="$common.ZulyImage(feedbackDataResult.infoA.image_width)+feedbackDataResult.infoA.image_path"
+                      @error="$common.IMAGE_NOT_EXIST($event)"
+                    >
                   </div>
                 </div>
               </div>
             </div>
+
             <div class="question-wrap">
               <template v-for="(data, idx) in feedbackDataResult.questionA">
                 <div class="row" :key="idx">
@@ -147,86 +158,93 @@
                   {{data}}
                 </li>
               </ul>
-            </div>
+            </div>-->
           </div>
           <div class="column column-right" v-if="!feedbackDataResult.isEmptyB">
+            <FeedbackColumn
+              :data="feedbackData.question.B"
+              :feedback-id="feedbackData.feedback_id"
+              :subscription-id="feedbackData.subscription_id"
+              prefix="B"
+            />
+
               <!-- 질문 B Info-->
-            <div class="info-wrap">
-              <div>
-                <p class="txt-feedback-title">B. {{feedbackDataResult.infoB.name}}는 어떠셨나요?</p>
-                <div class="product-wrap">
-                  <div class="image">
-                    <img :src="$common.ZulyImage(feedbackDataResult.infoB.image_width)+feedbackDataResult.infoB.image_path" alt="">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="question-wrap">
-              <template v-for="(data, idx) in feedbackDataResult.questionB">
-                <div class="row" :key="idx">
-                  <p class="txt-feedback-title">B-{{idx+1}}.{{data.question_text}}</p>
-                  <div>
-                    <ul class="list-flex">
-                      <li
-                        class="item w-25 h-50"
-                        v-for="(data2, idx2) in data.answer_code"
-                        :class="{'selected': _.has(data, 'customer_answer') && data2 === data.customer_answer }"
-                        :key="idx2"
-                        @click="clickItem(data, idx2, $event)"
-                      >
-                        {{data.answer_text[idx2]}}
-                      </li>
-                    </ul>
-                  </div>
-                  <div
-                    class="text-field mt-10"
-                    style="display: none;"
-                    :style="_.has(data, 'customer_answer') && data.customer_answer.indexOf('003') !== -1 ? 'display:block' : null"
-                    v-if="data.question_text === '색상 및 패턴'"
-                  >
-                    <input
-                      v-if="_.has(data, 'customer_answer_reason') && data.customer_answer_reason !== 'null'"
-                      type="text"
-                      v-model="reasonB = data.customer_answer_reason"
-                      placeholder="색상, 패턴이 맘에 들지 않은 이유를 적어주세요."
-                      :data-active="_.has(data, 'customer_answer_reason') && data.customer_answer.indexOf('003') !== -1 ? 'true' : 'false'"
-                      :data-answerCode="_.has(data, 'customer_answer') && data.customer_answer.indexOf('003') !== -1 ? data.customer_answer : ''"
-                      :data-clothType="data.cloth_type"
-                      :data-barCode="data.barcode"
-                      :data-questionCode="data.question_code"
-                    >
-                    <input
-                      v-else
-                      type="text"
-                      v-model="reasonB"
-                      placeholder="색상, 패턴이 맘에 들지 않은 이유를 적어주세요."
-                      :data-active="_.has(data, 'customer_answer_reason') && data.customer_answer.indexOf('003') !== -1 ? 'true' : 'false'"
-                      :data-answerCode="_.has(data, 'customer_answer') && data.customer_answer.indexOf('003') !== -1 ? data.customer_answer : ''"
-                      :data-clothType="data.cloth_type"
-                      :data-barCode="data.barcode"
-                      :data-questionCode="data.question_code"
-                    >
-                  </div>
-                </div>
-              </template>
-            </div>
-            <div class="nps-wrap" v-if="feedbackDataResult.setNPS && !feedbackDataResult.isEmptyB">
-              <div class="text-nps-wrap">
-                <p class="txt-feedback-title">ZULY 서비스를 지인이나 친구에게 추천하실 의향이 있으신가요?</p>
-                <p class="txt-nps">(적극 추천하는 것을 10점 만점으로 생각하고 점수를 매겨주세요.)</p>
-              </div>
-              <ul class="list-flex">
-                <li
-                  class="item w-20 h-50"
-                  v-for="(data, idx) in ['10', '9', '8', '7', '6', '5' , '4', '3', '2', '1']"
-                  :class="{'selected': feedbackDataResult.npsScore === _.parseInt(data)}"
-                  :key="idx"
-                  @click="clickNPS(data, $event)"
-                >
-                  {{item}}
-                </li>
-              </ul>
-            </div>
+            <!--<div class="info-wrap">-->
+              <!--<div>-->
+                <!--<p class="txt-feedback-title">B. {{feedbackDataResult.infoB.name}}는 어떠셨나요?</p>-->
+                <!--<div class="product-wrap">-->
+                  <!--<div class="image">-->
+                    <!--<img :src="$common.ZulyImage(feedbackDataResult.infoB.image_width)+feedbackDataResult.infoB.image_path" alt="">-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="question-wrap">-->
+              <!--<template v-for="(data, idx) in feedbackDataResult.questionB">-->
+                <!--<div class="row" :key="idx">-->
+                  <!--<p class="txt-feedback-title">B-{{idx+1}}.{{data.question_text}}</p>-->
+                  <!--<div>-->
+                    <!--<ul class="list-flex">-->
+                      <!--<li-->
+                        <!--class="item w-25 h-50"-->
+                        <!--v-for="(data2, idx2) in data.answer_code"-->
+                        <!--:class="{'selected': _.has(data, 'customer_answer') && data2 === data.customer_answer }"-->
+                        <!--:key="idx2"-->
+                        <!--@click="clickItem(data, idx2, $event)"-->
+                      <!--&gt;-->
+                        <!--{{data.answer_text[idx2]}}-->
+                      <!--</li>-->
+                    <!--</ul>-->
+                  <!--</div>-->
+                  <!--<div-->
+                    <!--class="text-field mt-10"-->
+                    <!--style="display: none;"-->
+                    <!--:style="_.has(data, 'customer_answer') && data.customer_answer.indexOf('003') !== -1 ? 'display:block' : null"-->
+                    <!--v-if="data.question_text === '색상 및 패턴'"-->
+                  <!--&gt;-->
+                    <!--<input-->
+                      <!--v-if="_.has(data, 'customer_answer_reason') && data.customer_answer_reason !== 'null'"-->
+                      <!--type="text"-->
+                      <!--v-model="reasonB = data.customer_answer_reason"-->
+                      <!--placeholder="색상, 패턴이 맘에 들지 않은 이유를 적어주세요."-->
+                      <!--:data-active="_.has(data, 'customer_answer_reason') && data.customer_answer.indexOf('003') !== -1 ? 'true' : 'false'"-->
+                      <!--:data-answerCode="_.has(data, 'customer_answer') && data.customer_answer.indexOf('003') !== -1 ? data.customer_answer : ''"-->
+                      <!--:data-clothType="data.cloth_type"-->
+                      <!--:data-barCode="data.barcode"-->
+                      <!--:data-questionCode="data.question_code"-->
+                    <!--&gt;-->
+                    <!--<input-->
+                      <!--v-else-->
+                      <!--type="text"-->
+                      <!--v-model="reasonB"-->
+                      <!--placeholder="색상, 패턴이 맘에 들지 않은 이유를 적어주세요."-->
+                      <!--:data-active="_.has(data, 'customer_answer_reason') && data.customer_answer.indexOf('003') !== -1 ? 'true' : 'false'"-->
+                      <!--:data-answerCode="_.has(data, 'customer_answer') && data.customer_answer.indexOf('003') !== -1 ? data.customer_answer : ''"-->
+                      <!--:data-clothType="data.cloth_type"-->
+                      <!--:data-barCode="data.barcode"-->
+                      <!--:data-questionCode="data.question_code"-->
+                    <!--&gt;-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</template>-->
+            <!--</div>-->
+            <!--<div class="nps-wrap" v-if="feedbackDataResult.setNPS && !feedbackDataResult.isEmptyB">-->
+              <!--<div class="text-nps-wrap">-->
+                <!--<p class="txt-feedback-title">ZULY 서비스를 지인이나 친구에게 추천하실 의향이 있으신가요?</p>-->
+                <!--<p class="txt-nps">(적극 추천하는 것을 10점 만점으로 생각하고 점수를 매겨주세요.)</p>-->
+              <!--</div>-->
+              <!--<ul class="list-flex">-->
+                <!--<li-->
+                  <!--class="item w-20 h-50"-->
+                  <!--v-for="(data, idx) in ['10', '9', '8', '7', '6', '5' , '4', '3', '2', '1']"-->
+                  <!--:class="{'selected': feedbackDataResult.npsScore === _.parseInt(data)}"-->
+                  <!--:key="idx"-->
+                  <!--@click="clickNPS(data, $event)"-->
+                <!--&gt;-->
+                  <!--{{item}}-->
+                <!--</li>-->
+              <!--</ul>-->
+            <!--</div>-->
           </div>
         </div>
         <div class="button-wrap" v-if="$mq !== 'lg'">
@@ -237,25 +255,21 @@
         <button type="button" class="btn btn-primary h-56" @click="clickComplete">제출하기</button>
       </div>
     </div>
-    <simplert ref="alert" :useRadius="false" :useIcon="false" />
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-import Simplert from 'vue2-simplert';
-
-const alertObject = {
-  type: 'alert', // 타입
-  customClass: 'popup-custom-class', // 커스텀 클래스 네임
-  disableOverlayClick: false, // 오버레이 클릭시 닫기 방지
-  customCloseBtnText: '확인' // 닫기 버튼 텍스트
-};
+import SubscriptionAPI from '@/library/api/subscriptions';
+import FeedbackColumn from './Feedback_Column.vue';
 
 export default {
+
   name: 'FeedbackDirect',
   props: {
     feedbackData: {}
+  },
+  components: {
+    FeedbackColumn
   },
   data() {
     return {
@@ -264,20 +278,9 @@ export default {
       reasonB: ''
     };
   },
-  components: { Simplert },
   computed: {
-    ...mapGetters({
-      CurrentFeedbacksDirect: 'subscriptions/CurrentFeedbacksDirect'
-    })
   },
   methods: {
-    ...mapActions({
-      getCurrentFeedbacksDirectAnswers:
-        'subscriptions/getCurrentFeedbacksDirectAnswers',
-      postFeedbacksAnswers: 'subscriptions/postFeedbacksAnswers',
-      postFeedbacksAnswersReasons: 'subscriptions/postFeedbacksAnswersReasons',
-      postFeedbacksNps: 'subscriptions/postFeedbacksNps'
-    }),
     calcEvaluateClass(data) {
       if (data === '10001') {
         return 'great';
@@ -302,18 +305,17 @@ export default {
         questionCode: data.question_code,
         answerCode: _.parseInt(data.answer_code[idx])
       };
-      this.postFeedbacksAnswers(formData).then(res => {
+      SubscriptionAPI.PostFeedbacksAnswers(formData).then(res => {
         if (res.data.result) {
           _.forEach(item, value => {
             value.classList.remove('selected');
           });
           target.classList.add('selected');
         } else {
-          _.assign(alertObject, {
-            message:
-              '통신중에 오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.'
-          });
-          this.$refs.alert.openSimplert(alertObject);
+          this.$dialog.alert(
+            '통신중에 오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.',
+            this.$common.dialogAlertOptions
+          );
         }
       });
     },
@@ -338,7 +340,7 @@ export default {
         };
 
         // 이값을 보내자.
-        this.postFeedbacksAnswers(formData).then(res => {
+        SubscriptionAPI.PostFeedbacksAnswers(formData).then(res => {
           if (res.data.result) {
             _.forEach(item, value => {
               value.classList.remove('selected');
@@ -361,11 +363,10 @@ export default {
               }
             }
           } else {
-            _.assign(alertObject, {
-              message:
-                '통신중에 오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.'
-            });
-            this.$refs.alert.openSimplert(alertObject);
+            this.$dialog.alert(
+              '통신중에 오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.',
+              this.$common.dialogAlertOptions
+            );
           }
         });
       }
@@ -385,18 +386,17 @@ export default {
       };
       // 선택한걸 클릭하지 않았을 경우만 작동한다.
       if (!target.classList.contains('selected')) {
-        this.postFeedbacksNps(formData).then(res => {
+        SubscriptionAPI.PostFeedbacksNps(formData).then(res => {
           if (res.data.result) {
             _.forEach(item, value => {
               value.classList.remove('selected');
             });
             target.classList.add('selected');
           } else {
-            _.assign(alertObject, {
-              message:
-                '통신중에 오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.'
-            });
-            this.$refs.alert.openSimplert(alertObject);
+            this.$dialog.alert(
+              '통신중에 오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.',
+              this.$common.dialogAlertOptions
+            );
           }
         });
       }
@@ -409,11 +409,10 @@ export default {
         if (data.getAttribute('data-active') === 'true') {
           if (data.value === '') {
             reasonFlag = false;
-            _.assign(alertObject, {
-              message: '별로인 이유를 적어주세요.'
-            });
-            this.$refs.alert.openSimplert(alertObject);
-            return false;
+            this.$dialog.alert(
+              '별로인 이유를 적어주세요.',
+              this.$common.dialogAlertOptions
+            );
           } else {
             reasonFlag = true;
             const formData = {
@@ -426,15 +425,15 @@ export default {
               barcode: _.parseInt(data.getAttribute('data-barCode')) // N
             };
             // 보내야 할 값
-            this.postFeedbacksAnswersReasons(formData);
+            SubscriptionAPI.PostFeedbacksAnswersReasons(formData);
           }
         }
       });
       if (reasonFlag) {
-        _.assign(alertObject, {
-          message: '소중한 의견 감사드립니다.'
-        });
-        this.$refs.alert.openSimplert(alertObject);
+        this.$dialog.alert(
+          '소중한 의견 감사드립니다.',
+          this.$common.dialogAlertOptions
+        );
         this.isAnswer = false;
       }
     },
@@ -462,7 +461,7 @@ export default {
     await this.processingData(this.feedbackData);
   },
   destroyed() {
-    this.$store.commit('subscriptions/RESET_STATE');
+    // this.$store.commit('closet/RESET_STATE');
   }
 };
 </script>

@@ -1,6 +1,6 @@
+import types from './mutation-types';
 import CodesAPI from '@/library/api/codes';
 import Auth from '@/library/api/auth';
-import types from './mutation-types';
 
 export default {
   FETCH_FAILED() {

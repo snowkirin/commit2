@@ -98,13 +98,13 @@ export default {
       this.$store.commit('codes/RESET_STATE');
       this.$store.commit('common/RESET_STATE');
       this.$store.commit('faq/RESET_STATE');
-      this.$store.commit('inquiries/RESET_STATE');
       this.$store.commit('login/RESET_STATE');
       this.$store.commit('member/RESET_STATE');
       this.$store.commit('notices/RESET_STATE');
       this.$store.commit('payment/RESET_STATE');
       this.$store.commit('signup/RESET_STATE');
       this.$store.commit('subscriptions/RESET_STATE');
+      this.$store.commit('closet/RESET_STATE');
     },
     clickLogout() {
       this.LOGOUT().then(() => {
