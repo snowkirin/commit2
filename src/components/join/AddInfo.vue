@@ -131,7 +131,7 @@
         </div>
       </div>
       <div class="btn-complete">
-        <button class="btn btn-primary h-56" type="button" @click="clickComplete">내일의 옷장 선택하러 가기</button>
+        <button class="btn btn-primary h-56" type="button" @click="clickComplete">추가 정보 저장</button>
       </div>
     </form>
   </div>
@@ -302,7 +302,7 @@ export default {
       const formData = new FormData();
       formData.append('userImages', $this.imageFile);
       Members.postMemberImageStyle(formData, $this.memberStyle).then(() => {});
-      this.$router.push({ path: '/closet/tomorrow' });
+      this.$router.push({ path: '/closet/subscribe-info' });
     }
   },
   async created() {
