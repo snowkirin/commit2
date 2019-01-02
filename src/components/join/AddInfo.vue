@@ -131,7 +131,7 @@
         </div>
       </div>
       <div class="btn-complete">
-        <button class="btn btn-primary h-56" type="button" @click="clickComplete">내일의 옷장 선택하러 가기</button>
+        <button class="btn btn-primary h-56" type="button" @click="clickComplete">추가 정보 저장</button>
       </div>
     </form>
   </div>
@@ -156,7 +156,7 @@ export default {
         preferBrand: null,
         dressCode: null,
         requirement: null,
-        preferShop: null,
+        preferShop: null
       },
       imageFile: {},
       previewImage: ''
@@ -301,8 +301,20 @@ export default {
       const $this = this;
       const formData = new FormData();
       formData.append('userImages', $this.imageFile);
-      Members.postMemberImageStyle(formData, $this.memberStyle).then(() => {});
-      this.$router.push({ path: '/closet/tomorrow' });
+      Members.postMemberImageStyle(formData, $this.memberStyle).then(() => {
+        this.$dialog
+          .alert('저장되었습니다.', {
+            okText: '확인',
+            customClass: 'zuly-alert',
+            backdropClose: true
+          })
+          .then(() => {
+            this.$router.push({ path: '/closet/subscribe-info' });
+          })
+          .catch(() => {
+            this.$router.push({ path: '/closet/subscribe-info' });
+          });
+      });
     }
   },
   async created() {
@@ -408,13 +420,13 @@ export default {
     }
   }
   .stripe {
-    background-image: url("~@/assets/img/signup/img_patten_1.png");
+    background-image: url('~@/assets/img/signup/img_patten_1.png');
   }
   .check {
-    background-image: url("~@/assets/img/signup/img_patten_2.png");
+    background-image: url('~@/assets/img/signup/img_patten_2.png');
   }
   .floral {
-    background-image: url("~@/assets/img/signup/img_patten_3.png");
+    background-image: url('~@/assets/img/signup/img_patten_3.png');
   }
 }
 .list-dresscode {
@@ -466,7 +478,7 @@ export default {
   }
 }
 .image-upload {
-  input[type="file"] {
+  input[type='file'] {
     opacity: 0;
     position: absolute;
     width: 0;

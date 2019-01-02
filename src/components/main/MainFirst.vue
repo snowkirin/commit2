@@ -3,7 +3,7 @@
     <div class="content" :class="{ 'is-login': isAuthenticated }">
       <div class="banner-wrap" v-if="isMainBanner">
         <div class="center-align">
-          <p>지금 가입하시면 <span class="txt-free">첫달 무료 ♥</span></p>
+          <p>지금 가입하시면 <span class="txt-free">첫달 50% 할인 ♥</span></p>
         </div>
         <a href="#" class="btn-close" @click="clickBannerHide">
           <CloseIconSVG />
@@ -75,7 +75,7 @@ export default {
         on: {
           'sticky_kit:stick': e => {
             e.target.classList.add('btn-sticky');
-            this.textJoin = '회원가입 (첫 달 무료)';
+            this.textJoin = '회원가입 (첫 달 50% 할인)';
           },
           'sticky_kit:unstick': e => {
             e.target.classList.remove('btn-sticky');

@@ -235,22 +235,19 @@
                   </tr>
                   <tr class="first-payment-wrap">
                     <td>첫 결제 금액</td>
-                    <td>무료</td>
+                    <td>
+                      <span>
+                        <vue-numeric
+                          separator=","
+                          :value="39000"
+                          read-only>
+                        </vue-numeric>
+                        <span class="txt-unit">원</span>
+                      </span>
+                    </td>
                   </tr>
                   </tfoot>
                   <tbody>
-                  <tr>
-                    <td>월 2회 단일 요금제</td>
-                    <td>
-                    <span class="txt-number">
-                      <vue-numeric
-                        separator=","
-                        v-model="Membership.price"
-                        read-only/>
-                    </span>
-                      <span class="txt-unit">원</span>
-                    </td>
-                  </tr>
                   <tr v-if="Membership.promotion_price !== Membership.price">
                     <td>프로모션 기간 금액</td>
                     <td>
