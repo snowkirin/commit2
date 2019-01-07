@@ -142,6 +142,7 @@ export default {
           try {
             const resultData = await this.LOGIN(formData);
             if (resultData.result) {
+              console.log(resultData);
               e.target.disabled = false;
               this.successLogin();
             } else {
