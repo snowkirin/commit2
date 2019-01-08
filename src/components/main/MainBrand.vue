@@ -510,20 +510,33 @@ export default {
 }
 
 .list-brand {
-  display: flex;
-  flex-wrap: wrap;
   margin-top: -10px;
+  @include desktop {
+    width: 1080px;
+    margin: -20px auto 0;
+  }
   .item {
-    flex: 0 0 calc(50% - (11px / 2));
-    max-width: calc(50% - (11px / 2));
+    display: inline-block;
     margin-top: 10px;
     cursor: pointer;
+    width: 100%;
+    @include tablet {
+      width: calc(50% - 11px / 2 );
+      &:nth-child(even) {
+        margin-left: 11px;
+      }
+    }
+    @include desktop {
+      width: calc(25% - ((24px * 3) / 4));
+      margin-top: 20px;
+      &:not(:nth-child(4n + 1)) {
+        margin-left: 24px;
+      }
+    }
     img {
       width: 100%;
     }
-    &:nth-child(even) {
-      margin-left: 11px;
-    }
+
   }
 }
 
@@ -548,20 +561,6 @@ export default {
   }
   .contents {
     padding-bottom: 65px;
-  }
-  .list-brand {
-    width: 1080px;
-    margin: -20px auto 0;
-
-    .item {
-      flex: 0 0 calc(25% - ((24px * 3) / 4));
-      max-width: 25%;
-      margin-top: 20px;
-
-      &:not(:nth-child(4n + 1)) {
-        margin-left: 24px;
-      }
-    }
   }
   .modal-content {
     .txt-brand-desc {

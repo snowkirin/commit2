@@ -20,8 +20,6 @@ import VueLocalStorage from 'vue-localstorage';
 import VModal from 'vue-js-modal';
 import Notifications from 'vue-notification';
 import VueLodash from 'vue-lodash';
-import VueStickyKit from 'vue-stickykit';
-import SweetModal from 'sweet-modal-vue/src/plugin';
 
 import VuejsDialog from 'vuejs-dialog';
 import 'vuejs-dialog/dist/vuejs-dialog.min.css';
@@ -37,10 +35,10 @@ import Vue2Filters from 'vue2-filters';
 import html from '@/library/htmlinjection';
 import sess from '@/library/session';
 
-import "nprogress/nprogress.css";
+import 'nprogress/nprogress.css';
 
 Vue.config.productionTip = false;
-Vue.use(VueStickyKit);
+
 Vue.use(VueCommon);
 // Vue.use(VueGlobalConst);
 Vue.use(VeeValidate);
@@ -56,7 +54,6 @@ Vue.use(VueLocalStorage);
 Vue.use(VModal, { injectModalsContainer: true, dynamic: true });
 Vue.use(Notifications);
 Vue.use(VueLodash);
-Vue.use(SweetModal);
 Vue.use(VuejsDialog);
 
 // Vue.use(VueMomentJs, moment);

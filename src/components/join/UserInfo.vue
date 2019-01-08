@@ -391,51 +391,14 @@
       </div>
     </form>
     <simplert ref="alert" :useRadius="false" :useIcon="false" />
-    <sweet-modal
-      ref="private"
-      :enable-mobile-fullscreen="false"
-      :hide-close-button="true"
-    >
-      <CommonModal
-        modalTitle="개인 정보 관리 지침"
-        :modalContent="personalText"
-        modalContentType="html"
-        :modalCustomCloseFunc="closeModal"
-      />
-    </sweet-modal>
-    <sweet-modal
-      ref="use"
-      :enable-mobile-fullscreen="false"
-      :hide-close-button="true"
-    >
-      <CommonModal
-        modalTitle="서비스 약관"
-        :modalContent="termsText"
-        modalContentType="html"
-        :modalCustomCloseFunc="closeModal"
-      />
-    </sweet-modal>
-
-    <sweet-modal
-      ref="marketing"
-      :enable-mobile-fullscreen="false"
-      :hide-close-button="true"
-    >
-      <CommonModal
-        modalTitle="서비스 약관"
-        :modalContent="marketingText"
-        modalContentType="html"
-        :modalCustomCloseFunc="closeModal"
-      />
-    </sweet-modal>
+    <Terms :type="termsData" ref="terms"/>
   </div>
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import CommonModal from '@/components/common/modal/CommonModal';
 import Simplert from 'vue2-simplert';
-import Info from '@/info';
 import Codes from '@/library/api/codes';
+import Terms from '@/components/common/modal/terms/Terms.vue';
 
 const alertObject = {
   type: 'alert', // 타입
@@ -446,7 +409,7 @@ const alertObject = {
 export default {
   name: 'signUp-first',
   components: {
-    CommonModal,
+    Terms,
     Simplert
   },
   data() {
@@ -456,9 +419,7 @@ export default {
       isPhoneAuth: false,
       authErr: false,
       authErrMessage: '',
-      personalText: Info.Personal.text, // 개인정보취급방침
-      termsText: Info.Terms.text, // 서비스 약관
-      marketingText: Info.Marketing.text, // 마케팅 동의,
+      termsData: null,
       ageRange: [
         {
           text: '20대 초반',
@@ -575,11 +536,11 @@ export default {
     },
     viewModal(param) {
       if (param === 'private') {
-        this.$refs.private.open();
+        this.$refs.terms.$data.type = 'Privacy';
       } else if (param === 'use') {
-        this.$refs.use.open();
+        this.$refs.terms.$data.type = 'Service';
       } else if (param === 'marketing') {
-        this.$refs.marketing.open();
+        this.$refs.terms.$data.type = 'Marketing';
       }
     },
     closeModal() {
