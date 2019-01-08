@@ -80,43 +80,18 @@
         </div>
       </div>
     </div>
-    <sweet-modal
-      ref="private"
-      :enable-mobile-fullscreen="false"
-      :hide-close-button="true"
-    >
-      <CommonModal
-        modalTitle="개인 정보 관리 지침"
-        :modalContent="personalText"
-        modalContentType="html"
-        :modalCustomCloseFunc="closeModal"
-      />
-    </sweet-modal>
-    <sweet-modal
-      ref="use"
-      :enable-mobile-fullscreen="false"
-      :hide-close-button="true"
-    >
-      <CommonModal
-        modalTitle="서비스 약관"
-        :modalContent="termsText"
-        modalContentType="html"
-        :modalCustomCloseFunc="closeModal"
-      />
-    </sweet-modal>
+    <Terms :type="termsData" ref="terms"/>
   </footer>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import Info from '@/info';
-import CommonModal from '@/components/common/modal/CommonModal';
-
+import Terms from '@/components/common/modal/terms/Terms.vue';
 
 export default {
   name: 'zuly-footer',
   components: {
-    CommonModal,
+    Terms,
   },
   watch: {
     CurrentRoute() {}
@@ -124,8 +99,7 @@ export default {
   data() {
     return {
       currentPath: '',
-      personalText: Info.Personal.text, // 개인정보취급방침
-      termsText: Info.Terms.text // 서비스 약관
+      termsData: null,
     };
   },
   computed: {
@@ -137,9 +111,9 @@ export default {
   methods: {
     viewModal(param) {
       if (param === 'private') {
-        this.$refs.private.open();
+        this.$refs.terms.$data.type = 'Privacy';
       } else if (param === 'use') {
-        this.$refs.use.open();
+        this.$refs.terms.$data.type = 'Service';
       }
     },
     closeModal() {
