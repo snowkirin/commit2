@@ -34,7 +34,7 @@
                       textJoin
                     }}</router-link>
                   </div>-->
-                  <div class="column not-mobile">
+                  <div class="column">
                     <router-link to="/join" class="link link-sign-up"
                       >회원가입</router-link
                     >
