@@ -1,6 +1,7 @@
 <template>
   <div class="contents" :style="promotionStyle" ref="contents">
     <!-- 데이터가 없다면 -->
+    <CMS/>
     <div v-if="!isTomorrowData">
       <div class="none">
         <div class="inner center-align">
@@ -13,7 +14,7 @@
     </div>
     <!-- 데이터가 있다면 -->
     <div v-else>
-      <div class="promotion-wrap" v-if="promotionOpenDate">
+      <!--<div class="promotion-wrap" v-if="promotionOpenDate">
         <div class="band-banner" v-if="isPromotionShow">
           <p @click="clickPromotion">
             <img src="@/assets/img/closet/event_banner.png" />
@@ -46,7 +47,7 @@
           v-if="isPromotionContentShow && $mq === 'sm'"
           :style="{ height: promotionSize + 'px' }"
         ></div>
-      </div>
+      </div>-->
       <div class="contents-header">
         <h3>데일리룩 후보 중 마음에 드는 의상을 선택해주세요.</h3>
         <p>
@@ -197,6 +198,7 @@ import { mapActions, mapGetters } from 'vuex';
 import Simplert from 'vue2-simplert';
 // 상품상세보기 팝업
 import ModalProductDetail from '@/components/common/modal/ModalProductDetail.vue';
+import CMS from '@/components/closet/Tomorrow/CMS.vue'
 
 const alertObject = {
   type: 'alert', // 타입
@@ -209,7 +211,8 @@ export default {
   name: 'Closet_Tomorrow',
   components: {
     ModalProductDetail,
-    Simplert
+    Simplert,
+    CMS
   },
   data() {
     return {
