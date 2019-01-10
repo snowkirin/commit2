@@ -26,8 +26,6 @@ import SweetModal from 'sweet-modal-vue/src/plugin';
 import VuejsDialog from 'vuejs-dialog';
 import 'vuejs-dialog/dist/vuejs-dialog.min.css';
 
-import VueLazyload from 'vue-lazyload';
-
 // Moment : https://momentjs.com/
 // import moment from 'moment';
 // import VueMomentJs from 'vue-momentjs';
@@ -60,7 +58,6 @@ Vue.use(SweetModal);
 Vue.use(VuejsDialog);
 
 // Vue.use(VueMomentJs, moment);
-Vue.use(VueLazyload, { lazyComponent: true });
 Vue.use(Vue2Filters);
 // 임시 전역 컴포넌트
 

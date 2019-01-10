@@ -6,20 +6,10 @@
     </div>
     <div class="content">
       <div>
-        <div class="grid-flex list-faq">
-          <div
-            class="column"
-            v-for="(data, idx) in FaqMainListResult"
-            :key="idx"
-          >
-            <div
-              class="item"
-              data-show="false"
-            >
-              <div
-                class="question-wrap"
-                @click="clickQuestion"
-              >
+        <div v-if="dataExist" class="grid-flex list-faq">
+          <div class="column" v-for="(data, idx) in faqData" :key="idx">
+            <div class="item" data-show="false">
+              <div class="question-wrap" @click="clickQuestion">
                 <p class="txt-question">Q. {{ data.title }}</p>
                 <i class="icon-plus">+</i>
               </div>
@@ -29,38 +19,38 @@
             </div>
           </div>
         </div>
+        <div v-else class="grid-flex list-faq">
+          <div class="column">
+            <div class="item">
+              <div class="question-wrap">
+                <p class="txt-question">데이터가 존재하지 않습니다.</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="link-faq">
-        <router-link
-          class="txt-link"
-          to="closet/faq"
-        >
-          + 더보기
-        </router-link>
+        <router-link class="txt-link" to="closet/faq"> + 더보기 </router-link>
       </div>
-
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import FaqAPI from '@/library/api/faq';
 
 export default {
   name: 'MainFaq',
   data() {
-    return {};
+    return {
+      // FAQ 데이터
+      faqData: [],
+      // FAQ 데이터 존재 여부 체크
+      dataExist: false
+    };
   },
-  computed: {
-    ...mapGetters({
-      FaqMainListResult: 'faq/FaqMainListResult'
-    })
-  },
+  computed: {},
   methods: {
-    ...mapActions({
-      getFaqMain: 'faq/getFaqMain',
-      QUERY_FAQ_MAINS: 'faq/QUERY_FAQ_MAINS'
-    }),
     clickQuestion(event) {
       const item =
         event.target.className === 'item'
@@ -74,17 +64,20 @@ export default {
     }
   },
   async created() {
-    if (this.FaqMainListResult.length === 0) {
-      const formData = {
-        id: '113,120,122,118,116,111'
-      };
-      await this.QUERY_FAQ_MAINS(formData);
+    const formData = {
+      id: '113,120,122,118,116,111'
+    };
+    const resultData = await FaqAPI.GetMainFaq(formData);
+    if (resultData.data.list.length !== 0) {
+      this.faqData = resultData.data.list;
+      this.dataExist = true;
+    } else {
+      this.dataExist = false;
     }
   }
 };
 </script>
-<style scoped lang="scss" src="@/assets/css/main-style.scss">
-</style>
+<style scoped lang="scss" src="@/assets/css/main-style.scss"></style>
 <style scoped lang="scss">
 .list-faq {
   .column {
@@ -214,7 +207,6 @@ export default {
     }
   }
   .link-faq {
-
   }
 }
 </style>
