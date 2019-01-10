@@ -162,7 +162,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 30px;
+    padding: 30px 15px;
     position: absolute;
     left: 0;
     top: 0;
