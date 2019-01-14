@@ -112,6 +112,10 @@ export default {
   GetProductDetail(data) {
     return Http.get(`/subscriptions/products/detail/${data}`);
   },
+  GetCMS(data) {
+    const config = data ? { params: { id: data } } : { withCredentials: true };
+    return Http.get('/member/banner', config);
+  },
   // getCurrent() {
   //   return axios
   //     .get(`${API_URL}/subscriptions/current`, {
