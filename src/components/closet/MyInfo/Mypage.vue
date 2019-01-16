@@ -479,13 +479,13 @@
         </div>
       </div>
     </div>
-    <simplert ref="alert" :useRadius="false" :useIcon="false" />
+    <!--<simplert ref="alert" :useRadius="false" :useIcon="false" />-->
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import Simplert from 'vue2-simplert';
+// import Simplert from 'vue2-simplert';
 import Codes from '@/library/api/codes';
 
 const alertObject = {
@@ -497,7 +497,9 @@ const alertObject = {
 
 export default {
   name: 'mypage',
-  components: { Simplert },
+  components: {
+    // Simplert
+  },
   data() {
     return {
       pwdMsg: '',
@@ -538,7 +540,7 @@ export default {
     ...mapGetters({
       Mypage: 'member/Mypage',
       PhoneAuth: 'member/PhoneAuth',
-      User: 'login/User'
+      User: 'common/User'
     }),
     calcCardNumber() {
       return this.currentCardNumber.substring(

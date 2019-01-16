@@ -1,24 +1,13 @@
-import axios from 'axios'
-const API_URL = process.env.VUE_APP_API_URL;
+import Http from '@/library/HTTP';
 
 export default {
-  getNotices() {
+  GetNotice() {
     const formData = {
       size: 9999,
       page: 1
     };
-    return axios
-      .get(`${API_URL}/notices`, {
-        params: formData
-      })
-      .then(res => {
-        return res;
-      })
-      .catch(err => {
-        return {
-          ...err.response,
-          message: err.message
-        };
-      });
+    return Http.get('/notices', {
+      params: formData
+    });
   }
 };

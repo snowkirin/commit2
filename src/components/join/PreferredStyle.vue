@@ -9,27 +9,37 @@
         <div class="grid-flex list-preferred-style">
           <div
             class="column"
-            :class="{'w-50': $mq === 'sm', 'w-33': $mq === 'md', 'w-25': $mq === 'lg'}"
+            :class="{
+              'w-50': $mq === 'sm',
+              'w-33': $mq === 'md',
+              'w-25': $mq === 'lg'
+            }"
             v-for="(data, idx) in preferredStyleListData"
             :key="idx"
           >
-            <div
-              class="item"
-              @click="clickPreferredStyle(data, $event)"
-            >
+            <div class="item" @click="clickPreferredStyle(data, $event)">
               <span class="icon-heart">
-                <svg width="20px" height="19px" viewBox="0 0 20 19" version="1.1" xmlns="http://www.w3.org/2000/svg"
-                     xmlns:xlink="http://www.w3.org/1999/xlink">
-                <g transform="translate(-153.000000, -246.000000)" fill="#ffffff" class="svg">
+                <svg
+                  width="20px"
+                  height="19px"
+                  viewBox="0 0 20 19"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                >
+                  <g
+                    transform="translate(-153.000000, -246.000000)"
+                    fill="#ffffff"
+                    class="svg"
+                  >
                     <path
                       d="M163,264.333333 L162.653278,264.036854 C155.057295,257.540361 153,255.253502 153,251.538828 C153,248.484719 155.366214,246 158.27466,246 C160.705257,246 162.079149,247.449523 163,248.539922 C163.920851,247.449523 165.294743,246 167.72534,246 C170.633786,246 173,248.484719 173,251.538828 C173,255.253502 170.942705,257.540361 163.346722,264.036854 L163,264.333333 Z"
-                      id="Fill-1"></path>
-                </g>
-              </svg>
+                      id="Fill-1"
+                    ></path>
+                  </g>
+                </svg>
               </span>
-              <div>
-                <img :src="$common.IMAGEURL() + data.image_path"/>
-              </div>
+              <div><img :src="$common.IMAGEURL() + data.image_path" /></div>
             </div>
           </div>
         </div>
@@ -81,12 +91,12 @@ export default {
     }),
     clickPreferredStyle(data, event) {
       /*
-      * 선호 스타일 이미지를 클릭하였을때
-      * 기존에 선택되지 않은것이라면 해당 이미지의 타입과 지금까지 선택된 이미지의 카운터를 상승,
-      * 기존에 선택된 것이라면 해당 이미지의 타입과 지금까지 선택된 이미지의 카운터를 하락.
-      * 추적을 위해 어떤 이미지를 선택하고 뺏는지 클릭 히스토리 저장
-      * 이미지는 총 6개까지 선택할 수 있다.
-      * */
+       * 선호 스타일 이미지를 클릭하였을때
+       * 기존에 선택되지 않은것이라면 해당 이미지의 타입과 지금까지 선택된 이미지의 카운터를 상승,
+       * 기존에 선택된 것이라면 해당 이미지의 타입과 지금까지 선택된 이미지의 카운터를 하락.
+       * 추적을 위해 어떤 이미지를 선택하고 뺏는지 클릭 히스토리 저장
+       * 이미지는 총 6개까지 선택할 수 있다.
+       * */
       const item = event.target.closest('.item');
       if (!item.classList.contains('selected')) {
         if (this.totalSelected === 6) {
@@ -172,8 +182,7 @@ export default {
   }
 };
 </script>
-<style scoped lang="scss" src="@/assets/css/join-style.scss">
-</style>
+<style scoped lang="scss" src="@/assets/css/join-style.scss"></style>
 <style scoped lang="scss">
 .list-preferred-style {
   margin-left: -15px;

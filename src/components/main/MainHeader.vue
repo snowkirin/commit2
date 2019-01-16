@@ -1,33 +1,21 @@
 <template>
-  <header
-    class="header"
-    :class="calcClassName"
-    :style="[calcStyle]"
-  >
+  <header class="header header-main" :class="calcClassName">
     <div class="header-wrap">
       <router-link to="/" class="logo">
-        <ZulyLogoSVG class="logo-svg" viewBox="0 0 66 20"/>
+        <ZulyLogoSVG class="logo-svg" viewBox="0 0 66 20" />
       </router-link>
       <nav class="global-navigation">
         <ul>
           <li v-if="isAuthenticated">
-            <router-link
-              to="/closet/tomorrow"
-              class="menu-title">
+            <router-link to="/closet/tomorrow" class="menu-title">
               나만의 옷장
             </router-link>
           </li>
           <li>
-            <router-link
-              v-if="!isAuthenticated"
-              to="/login">
+            <router-link v-if="!isAuthenticated" to="/login">
               로그인
             </router-link>
-            <span
-              v-else
-              @click="clickLogout">
-              로그아웃
-            </span>
+            <span v-else @click="clickLogout"> 로그아웃 </span>
           </li>
         </ul>
       </nav>
@@ -37,94 +25,27 @@
 
 <script>
 import ZulyLogoSVG from '@/assets/img/logo.svg?inline';
-import { mapGetters, mapActions } from 'vuex';
+import HeaderMixin from '@/library/mixins/Header';
 
 export default {
   name: 'zuly-header',
   data() {
-    return {
-      isMain: false,
-      headerLine: false,
-      gnbToggle: false,
-      isClose: false,
-      result: null,
-      menu: {
-        closet: false,
-        login: false
-      }
-    };
+    return {};
   },
+  mixins: [HeaderMixin],
   components: {
     ZulyLogoSVG
   },
   computed: {
-    ...mapGetters({
-      isAuthenticated: 'login/isAuthenticated',
-      CurrentRoute: 'common/CurrentRoute',
-      isMainBanner: 'common/isMainBanner'
-    }),
     calcClassName() {
-      if (this.CurrentRoute === '') {
-        if (this.isAuthenticated) {
-          return 'header-main is-login';
-        } else {
-          return 'header-main';
-        }
+      if (this.isAuthenticated) {
+        return 'is-login';
       } else {
-        return this.CurrentRoute;
-      }
-    },
-    calcStyle() {
-      if (this.CurrentRoute === '') {
-        if (this.isMainBanner) {
-          return {
-            top: '40px'
-          };
-        } else {
-          return {
-            top: '0px'
-          };
-        }
+        return '';
       }
     }
   },
-  methods: {
-    ...mapActions({
-      LOGOUT: 'login/LOGOUT'
-    }),
-    // 로그아웃시
-    resetStore() {
-      this.$store.commit('auth/RESET_STATE');
-      this.$store.commit('codes/RESET_STATE');
-      this.$store.commit('common/RESET_STATE');
-      this.$store.commit('faq/RESET_STATE');
-      this.$store.commit('login/RESET_STATE');
-      this.$store.commit('member/RESET_STATE');
-      this.$store.commit('notices/RESET_STATE');
-      this.$store.commit('payment/RESET_STATE');
-      this.$store.commit('signup/RESET_STATE');
-      this.$store.commit('subscriptions/RESET_STATE');
-      this.$store.commit('closet/RESET_STATE');
-    },
-    clickLogout() {
-      this.LOGOUT().then(() => {
-        if (!this.isAuthenticated) {
-          this.$dialog.alert('로그아웃 되었습니다.', {
-            okText: '확인',
-            customClass: 'zuly-alert',
-            backdropClose: true
-          });
-          document.cookie = `${
-            process.env.VUE_APP_TOKEN_NAME
-          }=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=${
-            process.env.VUE_APP_HOST
-          }`;
-          this.resetStore();
-          this.$router.push({ path: '/login' });
-        }
-      });
-    }
-  }
+  methods: {}
 };
 </script>
 

@@ -89,27 +89,27 @@ export default {
   name: 'Closet_Faq',
   data() {
     return {
-      currentFaqList: [],
+      currentFaqList: this.FaqData,
       currentFaqType: ''
     };
   },
   computed: {
     ...mapGetters({
-      Faq: 'faq/Faq',
-      FaqTypes: 'faq/FaqTypes'
+      FaqData: 'closet/FaqData',
+      FaqTypes: 'closet/FaqTypes'
     })
   },
   methods: {
     ...mapActions({
-      getFaq: 'faq/getFaq',
-      getFaqTypes: 'faq/getFaqTypes'
+      FETCH_FAQ_DATA: 'closet/FETCH_FAQ_DATA',
+      FETCH_FAQ_TYPES: 'closet/FETCH_FAQ_TYPES'
     }),
     faqListFilter(type) {
       if (!type || type === '') {
-        this.currentFaqList = this.Faq.data;
+        this.currentFaqList = this.FaqData.data;
         this.currentFaqType = '';
       } else {
-        this.currentFaqList = _.filter(this.Faq.data, value => {
+        this.currentFaqList = _.filter(this.FaqData.data, value => {
           return value.name === type;
         });
         this.currentFaqType = type;
@@ -140,10 +140,12 @@ export default {
     }
   },
   async created() {
-    await this.getFaq();
-    await this.getFaqTypes();
-    this.faqListFilter();
-  }
+    await this.FETCH_FAQ_DATA().then(() => {
+      this.faqListFilter();
+    });
+    await this.FETCH_FAQ_TYPES();
+  },
+
 };
 </script>
 <style scoped lang="scss" src="@/assets/css/closet-style.scss"></style>

@@ -200,13 +200,13 @@
     <div class="button-wrap" v-if="$mq === 'lg'">
       <button type="button" class="btn btn-primary h-56" @click="clickComplete">제출하기</button>
     </div>
-    <simplert ref="alert" :useRadius="false" :useIcon="false" />
+    <!--<simplert ref="alert" :useRadius="false" :useIcon="false" />-->
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
-import Simplert from 'vue2-simplert';
+// import Simplert from 'vue2-simplert';
 
 const alertObject = {
   type: 'alert', // 타입
@@ -229,7 +229,7 @@ export default {
     };
   },
   components: {
-    Simplert
+    // Simplert
   },
   methods: {
     ...mapActions({

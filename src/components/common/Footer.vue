@@ -2,7 +2,6 @@
 <template>
   <footer
     class="footer"
-    :class="[CurrentRoute, {'is-login': isAuthenticated}]"
   >
     <div class="footer-top">
       <div class="footer-inner">
@@ -80,71 +79,27 @@
         </div>
       </div>
     </div>
-    <sweet-modal
-      ref="private"
-      :enable-mobile-fullscreen="false"
-      :hide-close-button="true"
-    >
-      <CommonModal
-        modalTitle="개인 정보 관리 지침"
-        :modalContent="personalText"
-        modalContentType="html"
-        :modalCustomCloseFunc="closeModal"
-      />
-    </sweet-modal>
-    <sweet-modal
-      ref="use"
-      :enable-mobile-fullscreen="false"
-      :hide-close-button="true"
-    >
-      <CommonModal
-        modalTitle="서비스 약관"
-        :modalContent="termsText"
-        modalContentType="html"
-        :modalCustomCloseFunc="closeModal"
-      />
-    </sweet-modal>
   </footer>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import Info from '@/info';
-import CommonModal from '@/components/common/modal/CommonModal';
-
-
 export default {
   name: 'zuly-footer',
   components: {
-    CommonModal,
   },
   watch: {
     CurrentRoute() {}
   },
   data() {
     return {
-      currentPath: '',
-      personalText: Info.Personal.text, // 개인정보취급방침
-      termsText: Info.Terms.text // 서비스 약관
     };
   },
   computed: {
-    ...mapGetters({
-      CurrentRoute: 'common/CurrentRoute',
-      isAuthenticated: 'login/isAuthenticated'
-    })
   },
   methods: {
     viewModal(param) {
-      if (param === 'private') {
-        this.$refs.private.open();
-      } else if (param === 'use') {
-        this.$refs.use.open();
-      }
     },
     closeModal() {
-      this.$refs.private.close();
-      this.$refs.use.close();
     }
   }
 };

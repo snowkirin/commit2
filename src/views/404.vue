@@ -15,7 +15,7 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'pageNotFound',
   computed: mapGetters({
-    isAuthenticated: 'login/isAuthenticated'
+    isAuthenticated: 'common/isAuthenticated'
   }),
   methods: {},
   created() {

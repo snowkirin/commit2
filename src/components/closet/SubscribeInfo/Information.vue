@@ -19,7 +19,7 @@
                   <td>
                     {{
                       User.type !== 14703
-                        ? SubscriptionInfo.info.return_date
+                        ? SubscriptionData.infors.return_date
                         : ''
                     }}
                   </td>
@@ -29,8 +29,13 @@
                   <td>
                     {{
                       User.type !== 14703
-
-                        ? `${SubscriptionInfo.info.membership_name} ${this.$options.filters.currency(SubscriptionInfo.info.membership_price, '', 0)}원`
+                        ? `${
+                            SubscriptionData.infors.membership_name
+                          } ${this.$options.filters.currency(
+                            SubscriptionData.infors.membership_price,
+                            '',
+                            0
+                          )}원`
                         : '이용중이 아닙니다.'
                     }}
                   </td>
@@ -40,21 +45,19 @@
                   <td>
                     {{
                       User.type !== 14703
-                        ? SubscriptionInfo.info.payment_date
+                        ? SubscriptionData.infors.payment_date
                         : ''
                     }}
                   </td>
                 </tr>
                 <tr>
                   <th>결제 예정 금액</th>
-                  <td>{{calcDateResult.price | currency('',0)}}원</td>
+                  <td>{{ calcDateResult.price | currency('', 0) }}원</td>
                 </tr>
                 <tr>
                   <th>할인 혜택</th>
                   <td>
-                    <div v-if="calcDateResult.coupons.length === 0">
-                      -
-                    </div>
+                    <div v-if="calcDateResult.coupons.length === 0">-</div>
                     <div v-else>
                       <div
                         v-if="User.type !== 14703"
@@ -64,7 +67,7 @@
                       >
                         {{ data.coupon_name }}
                         <span class="txt-time-limit">
-                        ({{ data.end_date.slice(6) }}까지 유효)</span
+                          ({{ data.end_date.slice(6) }}까지 유효)</span
                         >
                       </div>
                     </div>
@@ -84,18 +87,22 @@
               <tbody>
                 <tr>
                   <template v-if="User.type !== 14703">
-                    <td>{{ SubscriptionInfo.info.return_date }}</td>
+                    <td>{{ SubscriptionData.infors.return_date }}</td>
                     <td>
                       {{
-                        `${SubscriptionInfo.info.membership_name} / ${this.$options.filters.currency(SubscriptionInfo.info.membership_price, '', 0)}원`
+                        `${
+                          SubscriptionData.infors.membership_name
+                        } / ${this.$options.filters.currency(
+                          SubscriptionData.infors.membership_price,
+                          '',
+                          0
+                        )}원`
                       }}
                     </td>
-                    <td>{{ SubscriptionInfo.info.payment_date }}</td>
-                    <td>{{calcDateResult.price | currency('', 0)}}원</td>
+                    <td>{{ SubscriptionData.infors.payment_date }}</td>
+                    <td>{{ calcDateResult.price | currency('', 0) }}원</td>
                     <td>
-                      <div v-if="calcDateResult.coupons.length === 0">
-                        -
-                      </div>
+                      <div v-if="calcDateResult.coupons.length === 0">-</div>
                       <div
                         v-else
                         v-for="(data, idx) in calcDateResult.coupons"
@@ -104,7 +111,8 @@
                       >
                         {{ data.coupon_name }}
                         <span class="txt-time-limit">
-                        ({{ data.end_date.slice(6) }}까지 유효)</span>
+                          ({{ data.end_date.slice(6) }}까지 유효)
+                        </span>
                       </div>
                     </td>
                   </template>
@@ -215,14 +223,14 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-if="SubscriptionInfo.coupons.length === 0">
+                <tr v-if="SubscriptionData.coupons.length === 0">
                   <td colspan="3" style="text-align: center">
                     현재 쿠폰이 없습니다.
                   </td>
                 </tr>
                 <tr
                   v-else
-                  v-for="(data, idx) in SubscriptionInfo.coupons"
+                  v-for="(data, idx) in SubscriptionData.coupons"
                   :key="idx"
                 >
                   <td>
@@ -255,6 +263,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import CalendarAPI from '@/library/api/calendar';
 export default {
   name: 'Information',
   data() {
@@ -265,9 +274,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      User: 'login/User',
-      SubscriptionInfo: 'subscriptions/SubscriptionInfo',
-      ChangeDeliveryDays: 'codes/ChangeDeliveryDays'
+      User: 'common/User',
+      SubscriptionData: 'closet/SubscriptionData'
     }),
     txtChangeDelivery() {
       if (this.isChangeDelivery) {
@@ -289,9 +297,11 @@ export default {
         }
       }
 
-      const membershipPrice = this.SubscriptionInfo.info.membership_price; // 78000
-      const paymentDate = dateToNumber(this.SubscriptionInfo.info.payment_date);
-      const coupon = this.SubscriptionInfo.info.price_coupons; // 쿠폰 배열
+      const membershipPrice = this.SubscriptionData.infors.membership_price; // 78000
+      const paymentDate = dateToNumber(
+        this.SubscriptionData.infors.payment_date
+      );
+      const coupon = this.SubscriptionData.infors.price_coupons; // 쿠폰 배열
 
       let results = {
         price: membershipPrice,
@@ -323,13 +333,14 @@ export default {
   },
   methods: {
     ...mapActions({
-      getSubscriptionInfo: 'subscriptions/getSubscriptionInfo',
-      getChangeDeliveryDays: 'codes/getChangeDeliveryDays',
-      successRestart: 'common/successRestart',
-      postCancel: 'login/postCancel', // 구독 중지 및 회원 탈퇴
-      changeUserType: 'login/changeUserType', // 유저 타입 변경,
-      patchUpdateSubscriptionReturnDate:
-        'subscriptions/patchUpdateSubscriptionReturnDate' // 배송일 변경
+      // getSubscriptionInfo: 'subscriptions/getSubscriptionInfo',
+      // getChangeDeliveryDays: 'codes/getChangeDeliveryDays',
+      // successRestart: 'common/successRestart',
+      // postCancel: 'login/postCancel', // 구독 중지 및 회원 탈퇴
+      // changeUserType: 'login/changeUserType', // 유저 타입 변경,
+      // patchUpdateSubscriptionReturnDate:
+      //   'subscriptions/patchUpdateSubscriptionReturnDate' // 배송일 변경
+      FETCH_SUBSCRIPTION_DATA: 'closet/FETCH_SUBSCRIPTION_DATA'
     }),
 
     // 구독중지
@@ -438,18 +449,21 @@ export default {
     }
   },
   created() {
+    this.FETCH_SUBSCRIPTION_DATA();
     if (this.User.type === 14701) {
-      // 구독중일때만 배송일 변경관련 정보 가져옴
-      // this.getChangeDeliveryDays();
+      console.log('구독중');
+      CalendarAPI.GetChangeDeliveryDays().then(data => {
+        console.log(data);
+      });
     }
     if (this.User.type !== 14703) {
-      this.getSubscriptionInfo();
+      console.log('구독 중지 상태가 아님.');
+      // this.getSubscriptionInfo();
     }
   }
 };
 </script>
-<style scoped lang="scss" src="@/assets/css/closet-style.scss">
-</style>
+<style scoped lang="scss" src="@/assets/css/closet-style.scss"></style>
 <style scoped lang="scss">
 .contents {
   &:nth-child(2) {

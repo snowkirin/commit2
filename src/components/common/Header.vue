@@ -28,11 +28,12 @@
 
 <script>
 import ZulyLogoSVG from '@/assets/img/logo.svg?inline';
-import { mapGetters, mapActions } from 'vuex';
+import HeaderMixin from '@/library/mixins/Header';
 
 export default {
   name: 'zuly-header',
   props: ['types'],
+  mixins: [HeaderMixin],
   data() {
     return {
       isMain: false,
@@ -49,48 +50,8 @@ export default {
   components: {
     ZulyLogoSVG
   },
-  computed: {
-    ...mapGetters({
-      isAuthenticated: 'login/isAuthenticated'
-    })
-  },
-  methods: {
-    ...mapActions({
-      LOGOUT: 'login/LOGOUT'
-    }),
-    resetStore() {
-      // Vuex 초기화
-      this.$store.commit('auth/RESET_STATE');
-      this.$store.commit('codes/RESET_STATE');
-      this.$store.commit('common/RESET_STATE');
-      this.$store.commit('faq/RESET_STATE');
-      this.$store.commit('login/RESET_STATE');
-      this.$store.commit('member/RESET_STATE');
-      this.$store.commit('notices/RESET_STATE');
-      this.$store.commit('payment/RESET_STATE');
-      this.$store.commit('signup/RESET_STATE');
-      this.$store.commit('subscriptions/RESET_STATE');
-      this.$store.commit('closet/RESET_STATE');
-    },
-    clickLogout() {
-      this.LOGOUT().then(() => {
-        if (!this.isAuthenticated) {
-          this.$dialog.alert('로그아웃 되었습니다.', {
-            okText: '확인',
-            customClass: 'zuly-alert',
-            backdropClose: true
-          });
-          document.cookie = `${
-            process.env.VUE_APP_TOKEN_NAME
-          }=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=${
-            process.env.VUE_APP_HOST
-          }`;
-          this.resetStore();
-          this.$router.push({ path: '/login' });
-        }
-      });
-    }
-  },
+  computed: {},
+  methods: {}
 };
 </script>
 

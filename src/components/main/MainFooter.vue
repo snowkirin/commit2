@@ -2,29 +2,28 @@
 <template>
   <footer
     class="footer"
-    :class="[CurrentRoute, {'is-login': isAuthenticated}]"
   >
     <div class="footer-top">
       <div class="footer-inner">
         <div class="footer-layer1">
-          <a
-            class="txt-tel"
-            href="tel:02-6929-3823"
-          >
-            T. 02-6929-3823
-          </a>
+          <a class="txt-tel" href="tel:02-6929-3823"> T. 02-6929-3823 </a>
           <div class="txt-operation">
             <p class="only-mobile">
-              평일 오전 10시 ~ 오후 5시<br/>
+              평일 오전 10시 ~ 오후 5시<br />
               점심 시간 오후 12시 30분 ~ 오후 1시 30분
             </p>
             <p class="not-mobile">
-              평일 오전 10시 ~ 오후 5시 ( 점심 시간 오후 12시 30분 ~ 오후 1시 30분 )
+              평일 오전 10시 ~ 오후 5시 ( 점심 시간 오후 12시 30분 ~ 오후 1시
+              30분 )
             </p>
           </div>
           <div class="tok-wrap">
-            <a href="http://pf.kakao.com/_mlJiC/chat" target="_blank" class="link-tok">
-              <img src="~@/assets/img/main/btn_question.png" alt="톡문의">
+            <a
+              href="http://pf.kakao.com/_mlJiC/chat"
+              target="_blank"
+              class="link-tok"
+            >
+              <img src="~@/assets/img/main/btn_question.png" alt="톡문의" />
             </a>
           </div>
         </div>
@@ -34,117 +33,99 @@
       <div class="footer-inner">
         <ul class="list-follow">
           <li>
-            <a href="https://www.youtube.com/watch?v=oRPTT363lMw" target="_blank">
-              <img src="~@/assets/img/ytlogo.png">
+            <a
+              href="https://www.youtube.com/watch?v=oRPTT363lMw"
+              target="_blank"
+            >
+              <img src="~@/assets/img/ytlogo.png" />
             </a>
           </li>
           <li>
             <a href="https://www.instagram.com/zuly_korea/" target="_blank">
-              <img src="~@/assets/img/iglogo.png">
+              <img src="~@/assets/img/iglogo.png" />
             </a>
           </li>
           <li v-if="false">
-            <a href="">
-              <img src="~@/assets/img/fblogo.png">
-            </a>
+            <a href=""> <img src="~@/assets/img/fblogo.png" /> </a>
           </li>
         </ul>
       </div>
-
     </div>
     <div class="footer-bottom">
       <div class="footer-inner">
         <div class="footer-layer2">
           <a href="#" @click.prevent="viewModal('use')">이용 약관</a>
-          <a href="#" @click.prevent="viewModal('private')">개인 정보 취급 방침</a>
+          <a href="#" @click.prevent="viewModal('private')"
+            >개인 정보 취급 방침</a
+          >
         </div>
         <div class="footer-layer3">
           <div class="txt-info only-mobile">
             <p>
-              법인명(상호) : 주식 회사 어니언 그라운드(<span class="lang-en">Onion Ground</span>)<br v-if="$mq==='sm'">
-              대표자(성명) : 김경규, 이시진<br v-if="$mq==='sm'">
-              개인정보보호책임자 : 황우진(<a class="lang-en" href="mailto:admin@onionground.com">admin@onionground.com</a>)<br v-if="$mq==='sm'">
-              사업자 등록 번호 : 729-81-00963 <br v-if="$mq==='sm'">서울 특별시 테헤란로 78길 14-6 동성빌딩 7층
+              법인명(상호) : 주식 회사 어니언 그라운드(<span class="lang-en"
+                >Onion Ground</span
+              >)<br v-if="$mq === 'sm'" />
+              대표자(성명) : 김경규, 이시진<br v-if="$mq === 'sm'" />
+              개인정보보호책임자 : 황우진(<a
+                class="lang-en"
+                href="mailto:admin@onionground.com"
+                >admin@onionground.com</a
+              >)<br v-if="$mq === 'sm'" />
+              사업자 등록 번호 : 729-81-00963 <br v-if="$mq === 'sm'" />서울
+              특별시 테헤란로 78길 14-6 동성빌딩 7층
             </p>
             <p>
-              입점 문의 및 마케팅 제휴 : <a class="lang-en" href="mailto:sjsj00@onionground.com">sjsj00@onionground.com</a><br v-if="$mq==='sm'">
-              기타 문의 : <a class="lang-en" href="mailto:admin@onionground.com">admin@onionground.com</a><br v-if="$mq==='sm'">
+              입점 문의 및 마케팅 제휴 :
+              <a class="lang-en" href="mailto:sjsj00@onionground.com"
+                >sjsj00@onionground.com</a
+              ><br v-if="$mq === 'sm'" />
+              기타 문의 :
+              <a class="lang-en" href="mailto:admin@onionground.com"
+                >admin@onionground.com</a
+              ><br v-if="$mq === 'sm'" />
               &copy; Onion Ground All Right RESERVED
             </p>
           </div>
           <div class="txt-info not-mobile">
-            법인명(상호) : 주식 회사 어니언 그라운드(Onion Ground) 대표자(성명) : 김경규, 이시진<br/>
-            개인정보보호책임자 : 황우진(<a class="en-font" href="mailto:admin@onionground.com">admin@onionground.com</a>) 사업자 등록 번호 : 729-81-00963서울 특별시 테헤란로 78길 14-6 동성빌딩 7층<br/>
-            입점 문의 및 마케팅 제휴 : <a class="lang-en" href="mailto:sjsj00@onionground.com">sjsj00@onionground.com</a> 기타 문의 : <a class="en-font" href="mailto:admin@onionground.com">admin@onionground.com</a> &copy; Onion Ground All Right RESERVED
+            법인명(상호) : 주식 회사 어니언 그라운드(Onion Ground) 대표자(성명)
+            : 김경규, 이시진<br />
+            개인정보보호책임자 : 황우진(<a
+              class="en-font"
+              href="mailto:admin@onionground.com"
+              >admin@onionground.com</a
+            >) 사업자 등록 번호 : 729-81-00963서울 특별시 테헤란로 78길 14-6
+            동성빌딩 7층<br />
+            입점 문의 및 마케팅 제휴 :
+            <a class="lang-en" href="mailto:sjsj00@onionground.com"
+              >sjsj00@onionground.com</a
+            >
+            기타 문의 :
+            <a class="en-font" href="mailto:admin@onionground.com"
+              >admin@onionground.com</a
+            >
+            &copy; Onion Ground All Right RESERVED
           </div>
         </div>
       </div>
     </div>
-    <sweet-modal
-      ref="private"
-      :enable-mobile-fullscreen="false"
-      :hide-close-button="true"
-    >
-      <CommonModal
-        modalTitle="개인 정보 관리 지침"
-        :modalContent="personalText"
-        modalContentType="html"
-        :modalCustomCloseFunc="closeModal"
-      />
-    </sweet-modal>
-    <sweet-modal
-      ref="use"
-      :enable-mobile-fullscreen="false"
-      :hide-close-button="true"
-    >
-      <CommonModal
-        modalTitle="서비스 약관"
-        :modalContent="termsText"
-        modalContentType="html"
-        :modalCustomCloseFunc="closeModal"
-      />
-    </sweet-modal>
   </footer>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import Info from '@/info';
-import CommonModal from '@/components/common/modal/CommonModal';
-
-
 export default {
   name: 'zuly-footer',
-  components: {
-    CommonModal,
-  },
+  components: {},
   watch: {
     CurrentRoute() {}
   },
   data() {
     return {
-      currentPath: '',
-      personalText: Info.Personal.text, // 개인정보취급방침
-      termsText: Info.Terms.text // 서비스 약관
+      currentPath: ''
     };
   },
-  computed: {
-    ...mapGetters({
-      CurrentRoute: 'common/CurrentRoute',
-      isAuthenticated: 'login/isAuthenticated'
-    })
-  },
   methods: {
-    viewModal(param) {
-      if (param === 'private') {
-        this.$refs.private.open();
-      } else if (param === 'use') {
-        this.$refs.use.open();
-      }
-    },
+    viewModal(param) {},
     closeModal() {
-      this.$refs.private.close();
-      this.$refs.use.close();
     }
   }
 };
@@ -316,7 +297,8 @@ export default {
     padding-top: 18px;
     padding-bottom: 18px;
     border-top: 1px solid #e8e8e8;
-    img, svg {
+    img,
+    svg {
       width: 24px;
     }
     .footer-inner {

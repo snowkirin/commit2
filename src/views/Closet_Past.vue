@@ -1,6 +1,87 @@
 <template>
   <div class="contents">
-    <div>
+    <div v-if="!PastDataExist">
+      <NotYet/>
+    </div>
+    <div v-else>
+      <div class="contents-header">
+        <h3>그 동안의 옷장을 확인하실 수 있습니다.</h3>
+      </div>
+      <div class="content mt-15">
+        <div class="past">
+          <div class="past-header">
+            <div class="index-wrap content-item">회차</div>
+            <div class="history-wrap content-item">옷장 내역</div>
+          </div>
+
+          <div class="past-body">
+            <!--<div v-if="!isPastData">
+              <div class="none"><p>과거의 옷장 내역이 없습니다.</p></div>
+            </div>-->
+            <template v-for="(data, idx) in PastData">
+              <div :key="idx" class="body-row">
+                <div class="past-content">
+                  <div class="index-wrap content-item">
+                    <span class="txt-index"
+                    >{{ PastData.length - idx
+                      }}{{ suffixNumber(PastData.length - idx) }}</span
+                    ><span class="txt-date">{{ data.subscription_date }}</span>
+                  </div>
+                  <div class="image-wrap content-item">
+                    <div class="list-image">
+                      <div
+                        v-for="(imgData, imgIdx) in data.products"
+                        :key="imgIdx"
+                        v-if="imgData.image_path !== null"
+                      >
+                        <img
+                          :src="$common.ZulyImage() + imgData.image_path"
+                          @click="clickProductDetails(imgData)"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-wrap content-item">
+                    <p class="txt-styling-title">{{ data.styling_title }}</p>
+                    <p class="txt-styling-tip">{{ data.styling_tip }}</p>
+                  </div>
+                  <div
+                    v-if="
+                      _.has(PastFeedBackData[idx], 'result') &&
+                        PastFeedBackData[idx].result
+                    "
+                    class="link-wrap content-item"
+                  >
+                    <a
+                      href="#"
+                      class="txt-link"
+                      @click="clickFeedbackShow(idx, $event)"
+                    >
+                      옷장 후기 입력하기
+                    </a>
+                  </div>
+                </div>
+                <div>
+                  <feedback-past
+                    style="display: none"
+                    :ref="'feedback' + idx"
+                    v-if="
+                      _.has(PastFeedBackData[idx], 'result') &&
+                        PastFeedBackData[idx].result
+                    "
+                    :feedbackData="PastFeedBackData[idx]"
+                    :subscriptionId="data.id"
+                    @hide="clickFeedbackHide(idx)"
+                  >
+                  </feedback-past>
+                </div>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--<div>
       <div class="contents-header">
         <h3>그 동안의 옷장을 확인하실 수 있습니다.</h3>
       </div>
@@ -15,13 +96,13 @@
             <div v-if="!isPastData">
               <div class="none"><p>과거의 옷장 내역이 없습니다.</p></div>
             </div>
-            <template v-else v-for="(data, idx) in PastResult">
+            <template v-else v-for="(data, idx) in PastData">
               <div :key="idx" class="body-row">
                 <div class="past-content">
                   <div class="index-wrap content-item">
                     <span class="txt-index"
-                      >{{ PastResult.length - idx
-                      }}{{ suffixNumber(PastResult.length - idx) }}</span
+                      >{{ PastData.length - idx
+                      }}{{ suffixNumber(PastData.length - idx) }}</span
                     ><span class="txt-date">{{ data.subscription_date }}</span>
                   </div>
                   <div class="image-wrap content-item">
@@ -77,7 +158,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -91,27 +172,24 @@ export default {
   name: 'Closet_Past',
   data() {
     return {
-      isPastData: false,
-      feedbackData: []
     };
   },
   components: {
+    NotYet: () => import('@/components/closet/Common/NotYet.vue'),
     FeedbackPast,
     ModalProductDetail
   },
   watch: {},
   computed: {
     ...mapGetters({
-      PastResult: 'subscriptions/PastResult',
-      PastIsShow: 'subscriptions/PastIsShow',
-      PastFeedbacks: 'subscriptions/PastFeedbacks',
+      PastData: 'closet/PastData',
+      PastDataExist: 'closet/PastDataExist',
+      PastFeedBackData: 'closet/PastFeedBackData'
     })
   },
   methods: {
     ...mapActions({
-      getPast: 'subscriptions/getPast',
-      getPastDetail: 'subscriptions/getPastDetail',
-      getPastFeedbacks: 'subscriptions/getPastFeedbacks',
+      FETCH_PAST_DATA: 'closet/FETCH_PAST_DATA'
     }),
     async clickProductDetails(param) {
       const modalConfig = {
@@ -170,25 +248,7 @@ export default {
     }
   },
   async created() {
-    await this.getPast().then(res => {
-      this.isPastData = res.data.result.length !== 0;
-    });
-    _.forEach(this.PastResult, (value, idx) => {
-      const formData = {
-        subscriptionId: value.id
-      };
-      this.getPastFeedbacks(formData)
-        .then(res => {
-          let _data = res.data;
-          _data.index = idx;
-          this.feedbackData.push(_data);
-        })
-        .then(() => {
-          this.feedbackData = _.chain(this.feedbackData)
-            .sortBy('index')
-            .value();
-        });
-    });
+    await this.FETCH_PAST_DATA();
   }
 };
 </script>

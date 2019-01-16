@@ -1,5 +1,6 @@
 <template>
   <div class="contents">
+    <CMS/>
     <!-- 데이터가 없다면 -->
     <div v-if="!TomorrowDataExist">
       <NotYet/>
@@ -25,13 +26,14 @@
 import { mapActions, mapGetters } from 'vuex';
 import ModalProductDetail from '@/components/common/modal/ModalProductDetail.vue';
 import Products from '@/components/closet/Tomorrow/Products.vue';
+import CMS from '@/components/closet/Tomorrow/CMS.vue';
 export default {
   name: 'Closet_Tomorrow',
   components: {
     NotYet: () => import('@/components/closet/Common/NotYet.vue'),
     ModalProductDetail,
-    Products
-    // Products: () => import('@/components/closet/Tomorrow/Products.vue')
+    Products,
+    CMS
   },
   data() {
     return {};
@@ -41,7 +43,7 @@ export default {
       TomorrowData: 'closet/TomorrowData',
       TomorrowDataExist: 'closet/TomorrowDataExist',
       TomorrowDirectState: 'closet/TomorrowDirectState',
-      User: 'login/User'
+      User: 'common/User'
     }),
     isShowButton() {
       // 선택 버튼은 스타일 지정 상태일때만 보여야 한다.
@@ -56,8 +58,6 @@ export default {
   mounted() {
     if (!this.TomorrowDirectState) {
       this.FETCH_TOMORROW_DATA();
-    } else {
-      console.log('직접 접근 상태입니다.');
     }
     window.mid = this.User.userId;
   },

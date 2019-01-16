@@ -27,7 +27,31 @@ const initialState = {
   DirectAccessFailure: {
     result: false,
     message: ''
-  }
+  },
+
+  /* [ 과거의 옷장 ] */
+  PastData: [],
+  PastDataExist: false,
+  PastFeedBackData: [],
+
+  /* [ 구독정보 ] */
+  SubscriptionData: {
+    coupons: [],
+    infors: {
+      return_date: '',
+      payment_date: '',
+      membership_name: '',
+      membership_price: 0
+    },
+    price_coupons: []
+  },
+
+  /* [ FAQ ] */
+  FaqData: {},
+  FaqTypes: {},
+
+  /* [ 공지사항 ]*/
+  NoticesData: {}
 };
 
 const state = Object.assign({}, initialState);
@@ -37,6 +61,7 @@ const mutations = {
       state[prop] = initialState[prop];
     }
   },
+  /* [내일의 옷장] */
   [types.SET_TOMORROW_DATA](state, payload) {
     // payload = Object
     state.TomorrowData = payload;
@@ -51,6 +76,7 @@ const mutations = {
   [types.SET_TOMORROW_DIRECT_STATE](state, payload) {
     state.TomorrowDirectState = payload;
   },
+  /* [현재의 옷장] */
   [types.SET_CURRENT_DATA](state, payload) {
     state.CurrentData = payload;
   },
@@ -66,6 +92,35 @@ const mutations = {
   [types.SET_CURRENT_FEEDBACK_DATA](state, payload) {
     state.CurrentFeedBackData = payload;
   },
+  /* [과거의 옷장] */
+  [types.SET_PAST_DATA](state, payload) {
+    state.PastData = payload;
+  },
+  [types.SET_PAST_DATA_EXIST](state, payload) {
+    state.PastDataExist = payload;
+  },
+  [types.SET_PAST_FEEDBACK_DATA](state, payload) {
+    state.PastFeedBackData = payload;
+  },
+  /* [구독 정보] */
+  [types.SET_SUBSCRIPTION_DATA](state, payload) {
+    state.SubscriptionData.infors = payload.infors;
+    state.SubscriptionData.coupons = payload.coupons;
+  },
+
+  /* [ FAQ ] */
+  [types.SET_FAQ_DATA](state, payload) {
+    state.FaqData = payload;
+  },
+  [types.SET_FAQ_TYPES](state, payload) {
+    state.FaqTypes = payload;
+  },
+
+  /* [ 공지사항 ] */
+  [types.SET_NOTICES_DATA](state, payload) {
+    state.NoticesData = payload;
+  },
+
   [types.SET_DIRECT_ACCESS_FAILURE](state, payload) {
     state.DirectAccessFailure = payload;
   }
@@ -80,10 +135,20 @@ const getters = {
   CurrentDataExist: state => state.CurrentDataExist,
   CurrentFeedBackState: state => state.CurrentFeedBackState,
   CurrentFeedBackDirectState: state => state.CurrentFeedBackDirectState,
-
   CurrentFeedBackData: state => state.CurrentFeedBackData,
 
-  DirectAccessFailure: state => state.DirectAccessFailure,
+  PastData: state => state.PastData,
+  PastDataExist: state => state.PastDataExist,
+  PastFeedBackData: state => state.PastFeedBackData,
+
+  SubscriptionData: state => state.SubscriptionData,
+
+  FaqData: state => state.FaqData,
+  FaqTypes: state => state.FaqTypes,
+
+  NoticesData: state => state.NoticesData,
+
+  DirectAccessFailure: state => state.DirectAccessFailure
 };
 
 export default {

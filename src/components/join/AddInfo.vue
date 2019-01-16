@@ -160,7 +160,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      User: 'login/User',
+      User: 'common/User',
       Options: 'common/Options'
     })
   },

@@ -137,8 +137,7 @@
               </div>
               <div v-show="phoneAuthData.showPhoneAuthArea" class="form-row">
                 <div class="grid-flex grid-fixed">
-                  <div
-                    class="column text-field">
+                  <div class="column text-field">
                     <input
                       type="text"
                       name="phoneAuthNumber"
@@ -158,7 +157,9 @@
                     </button>
                   </div>
                 </div>
-                <p class="txt-error" v-if="phoneAuthData.showPhoneAuthTimer">{{ phoneAuthData.msgPhoneAuthTimer }}</p>
+                <p class="txt-error" v-if="phoneAuthData.showPhoneAuthTimer">
+                  {{ phoneAuthData.msgPhoneAuthTimer }}
+                </p>
               </div>
             </div>
             <!-- 주소 -->
@@ -331,7 +332,7 @@
                   개인정보의 수집 및 이용에 대한 동의
                 </label>
                 <a href="#" class="txt-link" @click="viewModal('private')"
-                >자세히보기</a
+                  >자세히보기</a
                 >
               </div>
               <div class="custom-checkbox">
@@ -345,7 +346,7 @@
                   이용약관
                 </label>
                 <a href="#" class="txt-link" @click="viewModal('use')"
-                >자세히보기</a
+                  >자세히보기</a
                 >
               </div>
               <div class="custom-checkbox">
@@ -362,8 +363,13 @@
                 >
                   [선택] 마케팅 정보 수신 동의
                 </label>
-                <a href="#" class="txt-link" @click="viewModal('marketing')"
-                >자세히보기</a
+                <a
+                  href="#"
+                  class="txt-link"
+                  @click="viewModal('marketing')"
+                >
+                  자세히보기
+                </a
                 >
               </div>
             </div>
@@ -380,43 +386,6 @@
         </button>
       </div>
     </form>
-    <sweet-modal
-      ref="private"
-      :enable-mobile-fullscreen="false"
-      :hide-close-button="true"
-    >
-      <CommonModal
-        modalTitle="개인 정보 관리 지침"
-        :modalContent="personalText"
-        modalContentType="html"
-        :modalCustomCloseFunc="closeModal"
-      />
-    </sweet-modal>
-    <sweet-modal
-      ref="use"
-      :enable-mobile-fullscreen="false"
-      :hide-close-button="true"
-    >
-      <CommonModal
-        modalTitle="서비스 약관"
-        :modalContent="termsText"
-        modalContentType="html"
-        :modalCustomCloseFunc="closeModal"
-      />
-    </sweet-modal>
-
-    <sweet-modal
-      ref="marketing"
-      :enable-mobile-fullscreen="false"
-      :hide-close-button="true"
-    >
-      <CommonModal
-        modalTitle="서비스 약관"
-        :modalContent="marketingText"
-        modalContentType="html"
-        :modalCustomCloseFunc="closeModal"
-      />
-    </sweet-modal>
   </div>
 </template>
 <script>
@@ -424,7 +393,6 @@ import { mapGetters, mapActions } from 'vuex';
 import CodesAPI from '@/library/api/codes';
 import AuthAPI from '@/library/api/auth';
 import CommonModal from '@/components/common/modal/CommonModal';
-import Info from '@/info';
 import FlexList from '@/components/common/FlexList';
 
 export default {
@@ -445,9 +413,6 @@ export default {
         authNumber: null,
         isPhoneAuthComplete: false
       },
-      personalText: Info.Personal.text, // 개인정보취급방침
-      termsText: Info.Terms.text, // 서비스 약관
-      marketingText: Info.Marketing.text, // 마케팅 동의
       // 연령대 데이터 리스트
       ageData: [
         {
@@ -823,8 +788,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss" src="@/assets/css/join-style.scss">
-</style>
+<style scoped lang="scss" src="@/assets/css/join-style.scss"></style>
 <style scoped lang="scss">
 .contents {
   .content {

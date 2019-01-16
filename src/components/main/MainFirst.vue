@@ -1,7 +1,10 @@
 <template>
   <div class="contents">
-    <div class="content" :class="{ 'is-login': isAuthenticated }">
-      <div class="banner-wrap" v-if="isMainBanner">
+    <div
+      class="content"
+      :class="{ 'is-login': isAuthenticated }"
+    >
+      <div class="banner-wrap" v-if="false">
         <div class="center-align">
           <p>지금 가입하시면 <span class="txt-free">첫달 무료 ♥</span></p>
         </div>
@@ -9,6 +12,7 @@
           <CloseIconSVG />
         </a>
       </div>
+
       <div class="center-align">
         <div class="content-inner">
           <div class="logo-wrap" v-if="!isAuthenticated && this.$mq === 'sm'">
@@ -28,11 +32,6 @@
                     <router-link to="/login" class="link link-login"
                       >로그인</router-link
                     >
-                  </div>
-                  <div class="column only-mobile" v-stick-in-parent="stikyKit">
-                    <router-link to="/join" class="link link-sign-up">{{
-                      textJoin
-                    }}</router-link>
                   </div>
                   <div class="column not-mobile">
                     <router-link to="/join" class="link link-sign-up"
@@ -66,43 +65,21 @@ export default {
   },
   data() {
     return {
-      textJoin: '회원가입',
-      stikyKit: {
-        options: {
-          parent: '.container',
-          offset_top: 0
-        },
-        on: {
-          'sticky_kit:stick': e => {
-            e.target.classList.add('btn-sticky');
-            this.textJoin = '회원가입 (첫 달 무료)';
-          },
-          'sticky_kit:unstick': e => {
-            e.target.classList.remove('btn-sticky');
-            this.textJoin = '회원가입';
-          }
-        }
-      }
     };
   },
   computed: {
     ...mapGetters({
-      isAuthenticated: 'login/isAuthenticated',
-      isMainBanner: 'common/isMainBanner'
+      isAuthenticated: 'common/isAuthenticated',
     })
   },
   methods: {
     ...mapActions({
-      toggleMainBanner: 'common/toggleMainBanner'
     }),
     clickBannerHide(event) {
-      event.preventDefault();
-      this.toggleMainBanner(false);
     }
   },
   created() {
     if (this.isAuthenticated) {
-      this.toggleMainBanner(false);
     }
   },
   mounted() {

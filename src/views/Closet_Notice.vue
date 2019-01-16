@@ -1,7 +1,7 @@
 <template>
   <div class="contents">
     <div class="contents-header"><h3>줄라이의 소식을 확인해보세요.</h3></div>
-    <div class="content-form" v-if="_.isEmpty(Notices)">
+    <div class="content-form" v-if="_.isEmpty(NoticesData)">
       <div class="none">공지사항이 존재하지 않습니다.</div>
     </div>
     <div class="content content-border" v-else>
@@ -18,13 +18,13 @@
             <th class="date">등록일</th>
           </tr>
         </thead>
-        <tbody v-if="_.isEmpty(Notices.data)">
+        <tbody v-if="_.isEmpty(NoticesData.data)">
           <tr>
             <td colspan="3" class="txt-none">작성된 내역이 없습니다.</td>
           </tr>
         </tbody>
         <tbody v-else>
-          <template v-for="(data, idx) in Notices.data">
+          <template v-for="(data, idx) in NoticesData.data">
             <tr class="table-row" :key="'title' + idx">
               <td class="index">{{ data.id }}</td>
               <td class="title" @click="clickTitle(idx)">{{ data.title }}</td>
@@ -54,12 +54,12 @@ export default {
   name: 'Closet_Notice',
   computed: {
     ...mapGetters({
-      Notices: 'notices/Notices'
+      NoticesData: 'closet/NoticesData'
     })
   },
   methods: {
     ...mapActions({
-      getNotices: 'notices/getNotices'
+      FETCH_NOTICES_DATA: 'closet/FETCH_NOTICES_DATA'
     }),
     clickTitle(idx) {
       const ref = `content${idx}`;
@@ -72,8 +72,8 @@ export default {
     }
   },
   created() {
-    if (_.isEmpty(this.Notices)) {
-      this.getNotices();
+    if (_.isEmpty(this.NoticesData)) {
+      this.FETCH_NOTICES_DATA();
     }
   }
 };

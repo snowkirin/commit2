@@ -89,7 +89,7 @@ export default {
   name: 'Login',
   computed: {
     ...mapGetters({
-      isAuthenticated: 'login/isAuthenticated'
+      isAuthenticated: 'common/isAuthenticated'
     })
   },
   data() {
@@ -101,7 +101,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      LOGIN: 'login/LOGIN'
+      LOGIN: 'common/LOGIN'
     }),
     successLogin() {
       if (this.isAuthenticated) {

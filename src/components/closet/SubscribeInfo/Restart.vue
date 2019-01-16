@@ -223,7 +223,7 @@ export default {
       patchPayment: 'member/patchPayment',
       putSubscriptionRestart: 'subscriptions/putSubscriptionRestart',
       changeUserType: 'login/changeUserType',
-      doLogout: 'login/doLogout'
+      doLogout: 'common/doLogout'
     }),
     setMypageData() {
       this.currentCardName = this.Mypage.card_name;

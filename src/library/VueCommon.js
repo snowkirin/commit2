@@ -3,6 +3,9 @@ const VueCommon = {};
 VueCommon.install = Vue => {
   Vue.prototype.$common = {
     /* [ Function ] */
+    /**
+     * @return {string}
+     */
     IMAGEURL() {
       return process.env.VUE_APP_API_IMAGE_URL + 'medium/';
     },
@@ -10,6 +13,9 @@ VueCommon.install = Vue => {
       event.target.src = this.DEFAULT_IMAGE();
       event.target.style.height = height;
     },
+    /**
+     * @return {string}
+     */
     DEFAULT_IMAGE() {
       return `${require('@/assets/img/no-image.svg')}`;
     },
@@ -28,27 +34,13 @@ VueCommon.install = Vue => {
           imageSize = 'large/';
         }
       }
+      /** @namespace process.env.VUE_APP_API_IMAGE_URL */
       return process.env.VUE_APP_API_IMAGE_URL + imageSize;
     },
-    deviceCheck() {
-      const mobileKeyWords = [
-        'Android',
-        'iPhone',
-        'iPod',
-        'BlackBerry',
-        'Windows CE',
-        'SAMSUNG',
-        'LG',
-        'MOT',
-        'SonyEricsson'
-      ];
-      for (let i = 0; mobileKeyWords.length > i; i += 1) {
-        if (navigator.userAgent.match(mobileKeyWords[i]) !== null) {
-          return true;
-        }
-      }
-      return false;
-    },
+
+    /**
+     * @return {boolean}
+     */
     InputDataValidation(target, msg, focus, email = false) {
       if (!target) {
         alert(msg);

@@ -16,9 +16,9 @@ export default {
     };
   },
   computed: mapGetters({
-    User: 'login/User',
+    User: 'common/User',
     // FaqLoginCheck: 'common/FaqLoginCheck',
-    isAuthenticated: 'login/isAuthenticated'
+    isAuthenticated: 'common/isAuthenticated'
   }),
   methods: {},
   mounted() {

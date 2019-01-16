@@ -43,6 +43,10 @@ export default {
   GetTomorrowDirect(data) {
     return Http.get(`/subscriptions/tomorrow/${data}`);
   },
+  GetCMS(data) {
+    const config = data ? { params: { id: data } } : { withCredentials: true };
+    return Http.get('/member/banner', config);
+  },
   /* [ 현재의 옷장 ] */
   // 현재의 옷장 데이터 가져오기
   GetCurrent() {
@@ -85,5 +89,5 @@ export default {
     return Http.patch(`/subscriptions/updateSubscriptionReturnDate`, data, {
       withCredentials: true
     });
-  }
+  },
 };

@@ -2,14 +2,19 @@ import types from './mutation-types';
 import actions from './actions';
 
 const initialState = {
+  isAuthenticated: false, // Login Status
+  // 유저 정보
+  User: {
+    userId: '',
+    email: '',
+    displayName: '',
+    type: null,
+    inserted: ''
+  },
+  // 사이즈 정보
   Sizes: {},
-  Options: {},
-  phoneAuth: false,
-  phoneAuthKey: 0,
-  userId: '',
-  isMainBanner: true,
-  CurrentRoute: '',
-  isRestart: false
+  // 옵션 정보
+  Options: {}
 };
 const state = Object.assign({}, initialState);
 const mutations = {
@@ -22,40 +27,30 @@ const mutations = {
     state.Sizes = payload;
   },
   [types.SET_OPTIONS](state, payload) {
-    state.Options = payload
+    state.Options = payload;
   },
-  [types.PHONE_VERIFY](state, data) {
-    if (data.result) state.phoneAuthKey = data.authId;
-    else alert('이름 또는 휴대전화가 정확하지 않습니다.');
-  },
-  [types.PHONE_VERIFY_CHECK](state, data) {
-    if (data.result) {
-      state.phoneAuth = true;
-      state.userId = data.email;
+  [types.LOGIN_SUCCESS](state, data) {
+    state.isAuthenticated = true;
+    if (data) {
+      state.User.userId = data.userId;
+      state.User.email = data.email;
+      state.User.displayName = data.displayName;
+      state.User.type = data.type;
+      state.User.inserted = data.inserted;
     }
   },
-  [types.TOGGLE_MAIN_BANNER](state, data) {
-    state.isMainBanner = data;
+  [types.LOGOUT_SUCCESS](state) {
+    state.isAuthenticated = false;
   },
-  [types.CHECK_CURRENT_ROUTE](state, data) {
-    state.CurrentRoute = data;
-  },
-  [types.SUCCESS_RESTART](state) {
-    state.isRestart = true;
-  },
-  [types.RESET_RESTART](state) {
-    state.isRestart = false;
+  [types.CHANGE_USER_TYPE](state, data) {
+    state.User.type = data;
   }
 };
 const getters = {
+  isAuthenticated: state => state.isAuthenticated,
+  User: state => state.User,
   Sizes: state => state.Sizes,
-  Options: state => state.Options,
-
-  getPhoneAuth: state => state.phoneAuth,
-  getPhoneAuthKey: state => state.phoneAuthKey,
-  isMainBanner: state => state.isMainBanner,
-  CurrentRoute: state => state.CurrentRoute,
-  isRestart: state => state.isRestart
+  Options: state => state.Options
 };
 
 export default {
