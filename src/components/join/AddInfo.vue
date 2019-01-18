@@ -118,14 +118,17 @@
                 </li>
               </ul>
             </div>
-            <!-- 추가 요청사항-->
             <div class="row">
-              <p class="txt-form-title">[선택] 추가 요청사항</p>
+              <p class="txt-form-title">[선택] 신체 특징</p>
               <div class="textarea-required">
-                <textarea placeholder="신체적인 특징이나 싫어하는 스타일, 장식등 별도 요청사항을 적어주세요." v-model="memberStyle.requirement"></textarea>
+                <textarea placeholder="옷을 선택할 때 고려하는 신체 특징이 있다면 적어주세요." v-model="memberStyle.bodyMemo"></textarea>
               </div>
             </div>
             <div class="row">
+              <p class="txt-form-title">[선택] 피하고 싶은 스타일</p>
+              <div class="textarea-required">
+                <textarea placeholder="서비스 이용 시 반드시 피하고 싶은 색상, 무늬 등이 있으면 적어주세요." v-model="memberStyle.requirement"></textarea>
+              </div>
             </div>
           </div>
         </div>
@@ -156,7 +159,8 @@ export default {
         preferBrand: null,
         dressCode: null,
         requirement: null,
-        preferShop: null
+        preferShop: null,
+        bodyMemo: null
       },
       imageFile: {},
       previewImage: ''

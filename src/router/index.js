@@ -63,6 +63,11 @@ const router = new Router({
           name: 'Join_Preferred-Style'
         },
         {
+          path: 'dress-code',
+          component: () => import('@/components/join/DressCode'),
+          name: 'Join_Dress-Code'
+        },
+        {
           path: 'user-info',
           component: () => import('@/components/join/UserInfo'),
           name: 'Join_User-Info'

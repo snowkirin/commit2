@@ -682,7 +682,7 @@ export default {
       margin-top: 0;
     }
   }
-  .order-total-table {
+  .table-order-total {
     @include fontSize(16px);
     .txt-number {
       @include fontSize(22px);

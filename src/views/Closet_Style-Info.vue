@@ -185,8 +185,6 @@
                   </ul>
                 </div>
               </div>
-            </div>
-            <div class="column column-right">
               <div class="row">
                 <div class="form-title-wrap">
                   <p class=" txt-form-title">손이 가는 옷 색상이나 패턴</p>
@@ -224,6 +222,9 @@
                   </ul>
                 </div>
               </div>
+            </div>
+            <div class="column column-right">
+
               <!-- Brand -->
               <div class="row">
                 <div class="form-title-wrap">
@@ -250,7 +251,7 @@
                 </div>
               </div>
               <!-- Dress Code -->
-              <div class="row">
+              <!--<div class="row">
                 <div class="form-title-wrap">
                   <p class=" txt-form-title">
                     내가 주로 활동 하는 곳의 드레스 코드는?
@@ -267,7 +268,7 @@
                     <span class="text">{{ data.name }}</span>
                   </li>
                 </ul>
-              </div>
+              </div>-->
               <!-- 업로드 -->
               <div class="row">
                 <div class="form-title-wrap" style="position: relative;">
@@ -385,17 +386,164 @@
                   </div>
                 </div>
               </div>
+
+              <div class="row">
+                <div class="form-title-wrap">
+                  <p class="txt-form-title">
+                    블라우스/셔츠는 얼마나 자주 받고 싶으신가요?
+                  </p>
+                </div>
+                <div>
+                  <ul class="list-flex">
+                    <li
+                      v-for="(data, idx) in basicFrequency"
+                      :key="idx"
+                      class="item w-33 h-50 lang-en"
+                      :class="{ selected: data.code === styleData.blouseFrequency }"
+                      @click="clickRequired('blouseFrequency', data.code, $event)"
+                    >
+                      {{ data.name }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-title-wrap">
+                  <p class="txt-form-title">
+                    스커트는 얼마나 자주 받고 싶으신가요?
+                  </p>
+                </div>
+                <div>
+                  <ul class="list-flex">
+                    <li
+                      v-for="(data, idx) in basicFrequency"
+                      :key="idx"
+                      class="item w-33 h-50 lang-en"
+                      :class="{ selected: data.code === styleData.skirtFrequency }"
+                      @click="clickRequired('skirtFrequency', data.code, $event)"
+                    >
+                      {{ data.name }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-title-wrap">
+                  <p class="txt-form-title">팬츠는 얼마나 자주 받고 싶으신가요?</p>
+                </div>
+                <div>
+                  <ul class="list-flex">
+                    <li
+                      v-for="(data, idx) in basicFrequency"
+                      :key="idx"
+                      class="item w-33 h-50 lang-en"
+                      :class="{ selected: data.code === styleData.pantsFrequency }"
+                      @click="clickRequired('pantsFrequency', data.code, $event)"
+                    >
+                      {{ data.name }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-title-wrap">
+                  <p class="txt-form-title">
+                    데님 팬츠는 얼마나 자주 받고 싶으신가요?
+                  </p>
+                </div>
+                <div>
+                  <ul class="list-flex">
+                    <li
+                      v-for="(data, idx) in basicFrequency"
+                      :key="idx"
+                      class="item w-33 h-50 lang-en"
+                      :class="{ selected: data.code === styleData.denimFrequency }"
+                      @click="clickRequired('denimFrequency', data.code, $event)"
+                    >
+                      {{ data.name }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-title-wrap">
+                  <p class="txt-form-title">
+                    원피스는 얼마나 자주 받고 싶으신가요?
+                  </p>
+                </div>
+                <div>
+                  <ul class="list-flex">
+                    <li
+                      v-for="(data, idx) in basicFrequency"
+                      :key="idx"
+                      class="item w-33 h-50 lang-en"
+                      :class="{ selected: data.code === styleData.dressFrequency }"
+                      @click="clickRequired('dressFrequency', data.code, $event)"
+                    >
+                      {{ data.name }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-title-wrap">
+                  <p class="txt-form-title">
+                    아우터(코트, 자켓 등)는 얼마나 자주 받고 싶으신가요?
+                  </p>
+                </div>
+                <div>
+                  <ul class="list-flex">
+                    <li
+                      v-for="(data, idx) in basicFrequency"
+                      :key="idx"
+                      class="item w-33 h-50 lang-en"
+                      :class="{ selected: data.code === styleData.outerFrequency }"
+                      @click="clickRequired('outerFrequency', data.code, $event)"
+                    >
+                      {{ data.name }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-title-wrap">
+                  <p class="txt-form-title">
+                    평소 입는 스타일과 다른 스타일은 자주 시도하시나요?
+                  </p>
+                </div>
+                <div>
+                  <ul class="list-flex">
+                    <li
+                      v-for="(data, idx) in challengeFrequency"
+                      :key="idx"
+                      class="item w-100 h-50 lang-en"
+                      :class="{ selected: data.code === styleData.challengeFrequency }"
+                      @click="
+                    clickRequired('challengeFrequency', data.code, $event)
+                  "
+                    >
+                      {{ data.name }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
               <!-- 추가 요청사항 -->
               <div class="row">
                 <div class="form-title-wrap">
-                  <p class=" txt-form-title">추가 요청사항</p>
+                  <p class=" txt-form-title">신체 특징</p>
                 </div>
                 <div class="textarea-required">
                   <textarea
-                    placeholder="신체적인 특징이나 싫어하는 스타일, 장식등 별도 요청사항을 적어주세요."
-                    v-model="styleData.requirement"
+                    placeholder="옷을 선택할 때 고려하는 신체 특징이 있다면 적어주세요."
+                    v-model="styleData.bodyMemo"
                   >
                   </textarea>
+                </div>
+              </div>
+              <div class="row">
+                <p class="txt-form-title">피하고 싶은 스타일</p>
+                <div class="textarea-required">
+                  <textarea placeholder="서비스 이용 시 반드시 피하고 싶은 색상, 무늬 등이 있으면 적어주세요." v-model="styleData.requirement"></textarea>
                 </div>
               </div>
             </div>
@@ -447,7 +595,15 @@ export default {
         preferBrand: '',
         preferShop: '',
         dressCode: null,
-        requirement: ''
+        requirement: '',
+        bodyMemo: '',
+        blouseFrequency: null,
+        skirtFrequency: null,
+        pantsFrequency: null,
+        denimFrequency: null,
+        dressFrequency: null,
+        outerFrequency: null,
+        challengeFrequency: null,
       },
       bodyTypeText: '',
       imageFile: {},
@@ -457,7 +613,35 @@ export default {
         imagePath: '',
         imageWidth: null,
         imageHeight: null
-      }
+      },
+      basicFrequency: [
+        {
+          name: '자주',
+          code: 15601
+        },
+        {
+          name: '가끔씩',
+          code: 15602
+        },
+        {
+          name: '받지 않음',
+          code: 15603
+        }
+      ],
+      challengeFrequency: [
+        {
+          name: '최대한 자주, 새로운 스타일 변화를 즐겨요.',
+          code: 15601
+        },
+        {
+          name: '기분전환이 필요할때 가끔 다르게 입고 싶어요.',
+          code: 15602
+        },
+        {
+          name: '스타일의 큰 변화는 거의 시도하지 않아요.',
+          code: 15603
+        }
+      ],
     };
   },
   computed: {
@@ -634,6 +818,19 @@ export default {
       };
       reader.readAsDataURL(file);
     },
+    clickRequired(target, value, event) {
+      const eleTarget =
+        event.target.tagName === 'LI'
+          ? event.target
+          : event.target.closest('li');
+      if (!eleTarget.classList.contains('selected')) {
+        _.forEach(eleTarget.closest('ul').querySelectorAll('li'), value => {
+          value.classList.remove('selected');
+        });
+        eleTarget.classList.add('selected');
+        this.styleData[target] = value;
+      }
+    },
     clickComplete() {
       const $this = this;
       const formData = new FormData();
@@ -691,6 +888,7 @@ export default {
   async created() {
     await this.getMemberStyle().then(res => {
       if (res.data.result) {
+
         const memberStyle = this.MemberStyle;
         const circumSize = _.parseInt(memberStyle.bust_size); // 숫자만 가져오기
         const cupSize = _.trim(memberStyle.bust_size, circumSize); //
@@ -710,7 +908,16 @@ export default {
           preferBrand: memberStyle.prefer_brand,
           preferShop: memberStyle.prefer_shop,
           dressCode: memberStyle.dress_code,
-          requirement: memberStyle.etc
+          requirement: memberStyle.etc,
+          bodyMemo: memberStyle.body_memo,
+
+          blouseFrequency: memberStyle.blouse_frequency,
+          skirtFrequency: memberStyle.skirt_frequency,
+          pantsFrequency: memberStyle.pants_frequency,
+          denimFrequency: memberStyle.denim_frequency,
+          dressFrequency: memberStyle.dress_frequency,
+          outerFrequency: memberStyle.outer_frequency,
+          challengeFrequency: memberStyle.challenge_frequency,
         };
         this.getImageInfo = {
           imageName: memberStyle.image_name,

@@ -144,7 +144,7 @@ export default {
       this.preferredStyleData.selectSeq = _.toString(this.clickHistory);
       this.setJoin(this.preferredStyleData);
       this.$router.push({
-        path: '/join/user-info'
+        path: '/join/dress-code'
       });
     }
   },
