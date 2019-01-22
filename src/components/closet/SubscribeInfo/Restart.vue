@@ -12,10 +12,13 @@
           <div>
             <ul class="list-flex">
               <li
-                v-for="(data, idx) in FirstDeliveryDays"
+                v-for="(data, idx) in deliveryDateData"
                 :key="idx"
                 class="item w-20 h-50"
-                :class="[{'holy-day': data.is_holiday === 'Y'}, {'selected': data.solar_date === deliveryDate}]"
+                :class="[
+                  { 'holy-day': data.is_holiday === 'Y' },
+                  { selected: data.solar_date === deliveryDate }
+                ]"
                 style="flex-direction: column;"
                 :style="calcDate(data, idx)"
                 @click="clickDeliveryDate(data, $event)"
@@ -43,10 +46,13 @@
               <button
                 type="button"
                 class="btn h-50 btn-toggle-payment"
-                :class="[{'btn-primary': !isChangePayment}, {'btn-secondary': isChangePayment}]"
+                :class="[
+                  { 'btn-primary': !isChangePayment },
+                  { 'btn-secondary': isChangePayment }
+                ]"
                 @click="toggleChangePayment"
               >
-                {{txtChangePayment}}
+                {{ txtChangePayment }}
               </button>
             </div>
           </div>
@@ -56,27 +62,38 @@
               <div class="form-row">
                 <div class="grid-flex grid-fixed">
                   <div class="column">
-                    <label class="label-card" for="newCardNumber">카드번호</label>
+                    <label class="label-card" for="newCardNumber"
+                      >카드번호</label
+                    >
                     <div
                       class="text-field"
-                      :class="{'text-field-error': errors.has('payment.newCardNumber')}">
+                      :class="{
+                        'text-field-error': errors.has('payment.newCardNumber')
+                      }"
+                    >
                       <input
                         id="newCardNumber"
                         type="text"
                         placeholder="( - 없이, 15~16자리)"
                         name="newCardNumber"
                         maxlength="16"
-                        v-validate="{numeric: true, max: 16, min: 15}"
+                        v-validate="{ numeric: true, max: 16, min: 15 }"
                         data-vv-as="카드 번호"
                         v-model.trim="newCardNumber"
-                      >
+                      />
                     </div>
                   </div>
                   <div class="column w-23 o-3">
-                    <label class="label-card" for="newCardValidity">유효기간</label>
+                    <label class="label-card" for="newCardValidity"
+                      >유효기간</label
+                    >
                     <div
                       class="text-field"
-                      :class="{'text-field-error': errors.has('payment.newCardValidity')}"
+                      :class="{
+                        'text-field-error': errors.has(
+                          'payment.newCardValidity'
+                        )
+                      }"
                     >
                       <input
                         id="newCardValidity"
@@ -84,29 +101,36 @@
                         placeholder="MMYY"
                         maxlength="4"
                         name="newCardValidity"
-                        v-validate="{date_format: 'MMYY'}"
+                        v-validate="{ date_format: 'MMYY' }"
                         data-vv-as="카드 유효 기간"
                         v-model.trim="newCardValidity"
-                      >
+                      />
                     </div>
                   </div>
                 </div>
                 <p
                   class="txt-error"
-                  v-if="errors.has('payment.newCardNumber') || errors.has('payment.newCardValidity')"
+                  v-if="
+                    errors.has('payment.newCardNumber') ||
+                      errors.has('payment.newCardValidity')
+                  "
                 >
-                  {{errors.first('payment.newCardNumber')}}
-                  <br v-if="errors.has('payment.newCardNumber')"/>
-                  {{errors.first('payment.newCardValidity')}}
+                  {{ errors.first('payment.newCardNumber') }}
+                  <br v-if="errors.has('payment.newCardNumber')" />
+                  {{ errors.first('payment.newCardValidity') }}
                 </p>
               </div>
               <div class="form-row">
                 <div class="grid-flex grid-fixed">
                   <div class="column">
-                    <label class="label-card" for="newCardBirth">생년월일</label>
+                    <label class="label-card" for="newCardBirth"
+                      >생년월일</label
+                    >
                     <div
                       class="text-field"
-                      :class="{'text-field-error': errors.has('payment.newCardBirth')}"
+                      :class="{
+                        'text-field-error': errors.has('payment.newCardBirth')
+                      }"
                     >
                       <input
                         id="newCardBirth"
@@ -114,28 +138,35 @@
                         placeholder="YYMMDD"
                         maxlength="6"
                         name="newCardBirth"
-                        v-validate="{date_format: 'YYMMDD'}"
+                        v-validate="{ date_format: 'YYMMDD' }"
                         data-vv-as="생년월일"
                         v-model.trim="newCardBitrh"
-                      >
+                      />
                     </div>
                   </div>
 
                   <div class="column o-3">
-                    <label class="label-card" for="newCardPassword">카드 비밀번호</label>
+                    <label class="label-card" for="newCardPassword"
+                      >카드 비밀번호</label
+                    >
                     <div
                       class="text-field"
-                      :class="{'text-field-error': errors.has('payment.newCardPassword')}">
+                      :class="{
+                        'text-field-error': errors.has(
+                          'payment.newCardPassword'
+                        )
+                      }"
+                    >
                       <input
                         id="newCardPassword"
                         type="password"
                         placeholder="앞 두자리"
                         maxlength="2"
                         name="newCardPassword"
-                        v-validate="{digits: 2}"
+                        v-validate="{ digits: 2 }"
                         data-vv-as="비밀번호"
                         v-model.trim="newCardPassword"
-                      >
+                      />
                     </div>
                   </div>
 
@@ -152,9 +183,13 @@
                 </div>
                 <p
                   class="txt-error"
-                  v-if="errors.has('payment.newCardBirth') || errors.has('payment.newCardPassword')">
+                  v-if="
+                    errors.has('payment.newCardBirth') ||
+                      errors.has('payment.newCardPassword')
+                  "
+                >
                   {{ errors.first('payment.newCardBirth') }}
-                  <br v-show="errors.has('payment.newCardBirth')">
+                  <br v-show="errors.has('payment.newCardBirth')" />
                   {{ errors.first('payment.newCardPassword') }}
                 </p>
               </div>
@@ -163,8 +198,17 @@
         </div>
       </div>
       <div class="restart-button-wrap">
-        <button type="button" class="btn btn-secondary h-56" @click="clickBack">취소</button>
-        <button type="button" class="btn btn-primary h-56" :disabled="!restartValid" @click="clickSubscribe">구독 신청</button>
+        <button type="button" class="btn btn-secondary h-56" @click="clickBack">
+          취소
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary h-56"
+          :disabled="!restartValid"
+          @click="clickSubscribe"
+        >
+          구독 신청
+        </button>
       </div>
     </div>
   </div>
@@ -172,12 +216,16 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import CalendarAPI from '@/library/api/calendar';
+import MemberAPI from '@/library/api/member';
 
 export default {
   name: 'Restart',
   components: {},
   data() {
     return {
+      deliveryDateData: [],
+
       isChangePayment: false,
 
       currentCardName: '',
@@ -194,10 +242,13 @@ export default {
   },
   computed: {
     ...mapGetters({
-      isBillingKey: 'member/isBillingKey',
-      FirstDeliveryDays: 'codes/FirstDeliveryDays',
-      Mypage: 'member/Mypage',
-      isRestart: 'common/isRestart'
+      // 필요한 정보 가져오기
+      // 카드번호
+      // 배송날짜
+      // isBillingKey: 'member/isBillingKey',
+      // FirstDeliveryDays: 'codes/FirstDeliveryDays',
+      // Mypage: 'member/Mypage',
+      // isRestart: 'common/isRestart'
     }),
     calcCardNumber() {
       return this.currentCardNumber.substring(
@@ -217,17 +268,17 @@ export default {
   },
   methods: {
     ...mapActions({
-      checkBillingKey: 'member/checkBillingKey',
-      getFirstDeliveryDays: 'codes/getFirstDeliveryDays',
-      getMypage: 'member/getMypage',
-      patchPayment: 'member/patchPayment',
-      putSubscriptionRestart: 'subscriptions/putSubscriptionRestart',
-      changeUserType: 'login/changeUserType',
-      doLogout: 'common/doLogout'
+      // checkBillingKey: 'member/checkBillingKey',
+      // getFirstDeliveryDays: 'codes/getFirstDeliveryDays',
+      // getMypage: 'member/getMypage',
+      // patchPayment: 'member/patchPayment',
+      // putSubscriptionRestart: 'subscriptions/putSubscriptionRestart',
+      // changeUserType: 'login/changeUserType',
+      // doLogout: 'common/doLogout'
     }),
-    setMypageData() {
-      this.currentCardName = this.Mypage.card_name;
-      this.currentCardNumber = this.Mypage.card_number;
+    setMypageData(param) {
+      this.currentCardName = param.card_name;
+      this.currentCardNumber = param.card_number;
     },
     toggleChangePayment() {
       this.isChangePayment = !this.isChangePayment;
@@ -354,7 +405,6 @@ export default {
                 }
               );
               this.checkCardValid = false;
-
             }
           });
         } else {
@@ -366,19 +416,7 @@ export default {
         }
       });
     },
-    resetStore() {
-      this.$store.commit('auth/RESET_STATE');
-      this.$store.commit('codes/RESET_STATE');
-      this.$store.commit('common/RESET_STATE');
-      this.$store.commit('faq/RESET_STATE');
-      this.$store.commit('inquiries/RESET_STATE');
-      this.$store.commit('login/RESET_STATE');
-      this.$store.commit('member/RESET_STATE');
-      this.$store.commit('notices/RESET_STATE');
-      this.$store.commit('payment/RESET_STATE');
-      this.$store.commit('signup/RESET_STATE');
-      this.$store.commit('subscriptions/RESET_STATE');
-    },
+    resetStore() {},
     clickSubscribe() {
       const formData = {
         date: this.deliveryDate
@@ -418,35 +456,23 @@ export default {
     }
   },
   async created() {
-    if (!this.isRestart) {
-      this.$dialog
-        .alert('잘못된 경로로 들어오셨습니다.', {
-          okText: '확인',
-          customClass: 'zuly-alert',
-          backdropClose: true
-        })
-        .then(() => {
-          this.$router.push({
-            path: '/'
-          });
-        })
-        .catch(() => {
-          this.$router.push({
-            path: '/'
-          });
-        });
-    } else {
-      // 배송날짜
-      this.getFirstDeliveryDays();
-      // 카드정보를 가져오기 위한 Mystyle정보 가져오기
-      await this.getMypage();
-      this.setMypageData();
-    }
+    // 배송일 데이터 가져오기
+    CalendarAPI.GetFirstDeliveryDays().then(({ data }) => {
+      this.deliveryDateData = data.result;
+    });
+    // 카드 정보 가져오기
+    MemberAPI.GetMyPage().then(({ data }) => {
+      if (data.result) {
+        this.setMypageData(data.data);
+      } else {
+        // 개인정보를 가져 올 수 없음.
+        alert('정보를 가져올 수 없습니다. 잠시 후 다시 시도해 주세요.');
+      }
+    });
   }
 };
 </script>
-<style scoped lang="scss" src="@/assets/css/closet-style.scss">
-</style>
+<style scoped lang="scss" src="@/assets/css/closet-style.scss"></style>
 <style scoped lang="scss">
 .content {
   margin-top: 15px !important;

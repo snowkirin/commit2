@@ -46,4 +46,7 @@ export default {
       });
     });
   },
+  UPDATE_SUBSCRIPTION_STATUS(context, payload) {
+    context.commit(types.SET_SUBSCRIPTION_STATUS, payload);
+  },
 };

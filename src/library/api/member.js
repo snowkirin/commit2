@@ -256,9 +256,24 @@ export default {
         };
       });
   },
-  postCancel(data) {
+  // postCancel(data) {
+  //   return axios
+  //     .post(`${API_URL}/member/cancel`, data, {
+  //       withCredentials: true
+  //     })
+  //     .then(res => {
+  //       return res;
+  //     })
+  //     .catch(err => {
+  //       return {
+  //         ...err.response,
+  //         message: err.message
+  //       };
+  //     });
+  // },
+  getPaymentSubscribeCustomer() {
     return axios
-      .post(`${API_URL}/member/cancel`, data, {
+      .get(`${API_URL}/member/payment/subscribe-customer`, {
         withCredentials: true
       })
       .then(res => {
@@ -269,21 +284,6 @@ export default {
           ...err.response,
           message: err.message
         };
-      });
-  },
-  getPaymentSubscribeCustomer() {
-    return axios
-      .get(`${API_URL}/member/payment/subscribe-customer`, {
-        withCredentials: true
-      })
-      .then(res => {
-        return res
-      })
-      .catch(err => {
-        return {
-          ...err.response,
-          message: err.message
-        }
       });
   },
 
@@ -311,6 +311,17 @@ export default {
   PatchStyleInfo(data) {
     return Http.patch('/member/style', data, {
       withCredentials: true
-    })
+    });
+  },
+  PostCancel(data) {
+    return Http.post('/member/cancel', data, {
+      withCredentials: true
+    });
+  },
+
+  GetMyPage() {
+    return Http.get('/member/mypage', {
+      withCredentials: true
+    });
   }
 };

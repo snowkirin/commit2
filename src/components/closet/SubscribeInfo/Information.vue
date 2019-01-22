@@ -264,6 +264,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import CalendarAPI from '@/library/api/calendar';
+import MemberAPI from '@/library/api/member';
 export default {
   name: 'Information',
   data() {
@@ -338,9 +339,10 @@ export default {
       // successRestart: 'common/successRestart',
       // postCancel: 'login/postCancel', // 구독 중지 및 회원 탈퇴
       // changeUserType: 'login/changeUserType', // 유저 타입 변경,
-      // patchUpdateSubscriptionReturnDate:
+      // patchUpdateSubscription+ReturnDate:
       //   'subscriptions/patchUpdateSubscriptionReturnDate' // 배송일 변경
-      FETCH_SUBSCRIPTION_DATA: 'closet/FETCH_SUBSCRIPTION_DATA'
+      FETCH_SUBSCRIPTION_DATA: 'closet/FETCH_SUBSCRIPTION_DATA',
+      UPDATE_SUBSCRIPTION_STATUS: 'common/UPDATE_SUBSCRIPTION_STATUS'
     }),
 
     // 구독중지
@@ -360,14 +362,14 @@ export default {
           const formData = {
             reqType: 15101
           };
-          this.postCancel(formData).then(res => {
-            if (res.data.result) {
-              this.$dialog.alert('구독 중지되었습니다.', {
+          MemberAPI.PostCancel(formData).then(({ data }) => {
+            if (data.result) {
+              this.$dialog.alert(`${data.message}`, {
                 okText: '확인',
                 customClass: 'zuly-alert',
                 backdropClose: true
               });
-              this.changeUserType(14702);
+              this.UPDATE_SUBSCRIPTION_STATUS(14702);
             } else {
               this.$dialog.alert('통신 오류가 발생하였습니다.', {
                 okText: '확인',
@@ -380,7 +382,6 @@ export default {
     },
     // 구독 중지 상태일때 구독 재시작 버튼
     clickGoRestart() {
-      this.successRestart();
       this.$router.push({ path: '/closet/subscribe-info/restart' });
     },
     // 배송일 스타일 관련

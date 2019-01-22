@@ -42,7 +42,7 @@ const mutations = {
   [types.LOGOUT_SUCCESS](state) {
     state.isAuthenticated = false;
   },
-  [types.CHANGE_USER_TYPE](state, data) {
+  [types.SET_SUBSCRIPTION_STATUS](state, data) {
     state.User.type = data;
   }
 };
