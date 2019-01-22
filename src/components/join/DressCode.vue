@@ -44,7 +44,9 @@
           </div>
           <div class="row pantsFrequency">
             <div class="form-title-wrap">
-              <p class="txt-form-title">* 팬츠는 얼마나 자주 받고 싶으신가요?</p>
+              <p class="txt-form-title">
+                * 팬츠는 얼마나 자주 받고 싶으신가요?
+              </p>
             </div>
             <div>
               <ul class="list-flex">
@@ -119,7 +121,7 @@
           <div class="row challengeFrequency">
             <div class="form-title-wrap">
               <p class="txt-form-title">
-               * 평소 입는 스타일과 다른 스타일은 자주 시도하시나요?
+                * 평소 입는 스타일과 다른 스타일은 자주 시도하시나요?
               </p>
             </div>
             <div>
@@ -326,9 +328,9 @@
               </ul>
             </div>
           </div>
-          <div class="row">
+          <div class="row age">
             <div class="form-title-wrap">
-              <p class="txt-form-title">연령대</p>
+              <p class="txt-form-title">* 연령대</p>
             </div>
             <div>
               <ul class="list-flex">
@@ -509,7 +511,6 @@ export default {
       }
     },
     clickComplete() {
-
       let flag = false;
       // 필수값
       let objRequired = _.pick(this.joinData, [
@@ -522,6 +523,9 @@ export default {
         'challengeFrequency',
         'age'
       ]);
+
+      console.log(navigator.userAgent);
+
       _.forEach(objRequired, (value, key) => {
         if (!value) {
           this.$dialog.alert(`응답하지 않은 항목이 있습니다.`, {
@@ -529,9 +533,9 @@ export default {
             customClass: 'zuly-alert',
             backdropClose: true
           });
-          const bodyScrollTop = document.documentElement || document.body;
+
           let target = document.querySelector(`.${key}`);
-          bodyScrollTop.scrollTop = target.offsetTop;
+          window.scrollTo(0, target.offsetTop);
           flag = true;
           return false;
         } else {
