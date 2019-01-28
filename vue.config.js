@@ -2,7 +2,7 @@ const path = require("path");
 process.env.VUE_APP_VERSION = require("./package.json").version;
 
 module.exports = {
-  baseUrl: "/",
+  publicPath: "/",
   configureWebpack: {
     resolve: {
       extensions: [".js", ".vue", ".json"],
