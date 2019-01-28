@@ -1,0 +1,12 @@
+module.exports = {
+  "minify": true,
+  "options": [
+    "setClasses"
+  ],
+  "feature-detects": [
+    //"test/css/flexbox",
+    //"test/es6/promises",
+    //"test/serviceworker",
+    //"test/dom/hidden"
+  ]
+};

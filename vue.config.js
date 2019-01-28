@@ -1,36 +1,34 @@
+const path = require("path");
+process.env.VUE_APP_VERSION = require("./package.json").version;
+
 module.exports = {
-  lintOnSave: process.env.NODE_ENV !== 'production',
-  css: {
-    loaderOptions: {
-      sass: {
-        data: '@import "@/assets/css/variables.scss";'
+  baseUrl: "/",
+  configureWebpack: {
+    resolve: {
+      extensions: [".js", ".vue", ".json"],
+      alias: {
+        "~": path.resolve(__dirname, "src/"),
+        "@": path.resolve("src/"),
+        modernizr$: path.resolve(__dirname, ".modernizrrc")
       }
     }
   },
-  chainWebpack: config => {
-    const svgRule = config.module.rule('svg');
-    svgRule.uses.clear();
-    // add replacement loader(s)
-
-    svgRule
-      .oneOf('inline')
-      .resourceQuery(/inline/)
-      .use('vue-svg-loader')
-      .loader('vue-svg-loader')
-      .end()
-      .end()
-      .oneOf('external')
-      .use('file-loader')
-      .loader('file-loader')
-      .options({
-        name: 'assets/[name].[hash:8].[ext]'
-      });
-  },
-  pwa: {
-    workboxPluginMode: 'GenerateSW',
-    workboxOptions: {
-      skipWaiting: false,
-      offlineGoogleAnalytics : false
-    }
+  chainWebpack(config) {
+    config.module
+      .rule("vue")
+      .use("vue-loader")
+      .loader("vue-loader")
+      .tap(options => ({
+        ...options,
+        compilerOptions: {
+          ...options.compilerOptions,
+          preserveWhitespace: true
+        }
+      }));
+    config.module
+      .rule("modernizr")
+      .test(/\.modernizrrc$/)
+      .use("webpack-modernizr-loader")
+      .loader("webpack-modernizr-loader");
   }
 };
