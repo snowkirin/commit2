@@ -25,12 +25,5 @@ module.exports = {
       .options({
         name: 'assets/[name].[hash:8].[ext]'
       });
-  },
-  pwa: {
-    workboxPluginMode: 'GenerateSW',
-    workboxOptions: {
-      skipWaiting: false,
-      offlineGoogleAnalytics : false
-    }
   }
 };
