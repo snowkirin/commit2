@@ -1,0 +1,134 @@
+$baseFontSize: 15;
+$color-primary: #3d3d35;
+$color-secondary: #797979;
+$color-link: #566b9c;
+$color-white: #fff;
+$color-sienna: #f16458;
+$color-mine: #212121;
+$color-pomegranate: #ec4b1a;
+// 2018-08-16 New Color
+$color-pink-button: #d06774;
+$color-pink-main: #d16e7b;
+
+$font-primary: 'NotoSans', '맑은 고딕', 'Malgun Gothic', sans-serif;
+$font-secondary: 'Open Sans', 'NotoSans', '맑은 고딕', 'Malgun Gothic', sans-serif;
+
+@function parseInt($n) {
+  @return $n / ($n * 0 + 1);
+}
+@function rem($value) {
+  $root: $baseFontSize;
+  $val: parseInt($value);
+  $return: ();
+
+  @if unit($value) == "px" {
+    $return: append($return, ($val / $root + rem));
+  } @else {
+    $return: append($return, ($val * $root + px));
+  }
+
+  @return $return;
+}
+
+@mixin rem($property, $values) {
+  $px : ();
+  $rem: ();
+
+  $root: $baseFontSize;
+
+  @each $value in $values {
+    @if $value == 0 or $value == auto {
+      $px : append($px , $value);
+      $rem: append($rem, $value);
+    }
+
+    @else if type-of($value) == number {
+      $unit: unit($value);
+      $val: parseInt($value);
+
+      @if $unit == "px" {
+        $px : append($px,  $value);
+        $rem: append($rem, ($val / $root + rem));
+      }
+
+      @if $unit == "rem" {
+        $px : append($px,  ($val * $root + px));
+        $rem: append($rem, $value);
+      }
+    }
+
+    @else {
+      $px : append($px,  $value);
+      $rem: append($rem, $value);
+    }
+  }
+
+  @if $px == $rem {
+    #{$property}: $px;
+  } @else {
+    #{$property}: $px;
+    #{$property}: $rem;
+  }
+}
+@mixin fontSize($fontSize, $lang: ko, $activeRem: false) {
+  $val: parseInt($fontSize);
+  @if $activeRem {
+    @include rem(font-size, $fontSize);
+  } @else {
+    font-size: $val+px;
+  }
+  @if $lang == ko {
+    @if $val == 15 {
+      letter-spacing: -0.8px;
+    } @else {
+      letter-spacing: -(0.9 + (($val - 15) / 10))+px;
+    }
+    @if $val == 14 {
+      line-height: 21px;
+    } @else {
+      line-height: $val+8+px;
+    }
+  } @else {
+    font-family: $font-secondary;
+    @if $val == 15 {
+      line-height: 18px;
+    } @else {
+      line-height: $val+6+px;
+    }
+    letter-spacing: 0;
+  }
+}
+@mixin clearfix() {
+  &:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+}
+@mixin langEn() {
+  font-family: $font-secondary;
+  letter-spacing: 0 !important;
+}
+
+// Mixin for Media Query
+
+@mixin small-mobile {
+  @media (max-width: 374px) { @content;}
+}
+
+@mixin mobile {
+  // 0 ~ 767px
+  @media (max-width: 767px) { @content; }
+}
+@mixin mobile-tablet {
+  // 0 ~ 1079px
+  @media (max-width: 1079px) { @content; }
+}
+@mixin tablet {
+  // 768px ~
+  @media (min-width: 768px) { @content; }
+}
+@mixin desktop {
+  // 1080px ~
+  @media (min-width: 1080px) { @content; }
+}

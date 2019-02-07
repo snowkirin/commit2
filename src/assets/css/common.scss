@@ -1,0 +1,9 @@
+@import 'reset.scss';
+// Animate CSS
+@import '~animate.css/animate.css';
+@import '~material-design-icons/iconfont/material-icons.css';
+
+// 이미지 간격 없애기
+img {
+  vertical-align: top;
+}

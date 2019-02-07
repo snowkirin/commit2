@@ -2,6 +2,13 @@ const path = require("path");
 process.env.VUE_APP_VERSION = require("./package.json").version;
 
 module.exports = {
+  css: {
+    loaderOptions: {
+      sass: {
+        data: `@import "@/assets/css/variables.scss";`
+      }
+    }
+  },
   publicPath: "/",
   configureWebpack: {
     resolve: {
