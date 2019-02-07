@@ -246,7 +246,7 @@
                   ※ 현재 서울 전지역과 경기 일부 지역에 한하여 서비스를 제공하고
                   있습니다.
                   <a
-                    href="/pdf/shipping_area.pdf"
+                    href="/pdf/shipping.pdf"
                     target="_blank"
                     class="txt-link"
                     >(배송지역 보기)</a
