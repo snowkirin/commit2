@@ -4,7 +4,7 @@
       <h3>ABOUT</h3>
     </div>
     <div class="content">
-      <p class="txt-about-zuly">줄라이는 2주에 한 세트씩<br v-if="$mq === 'sm'"/> 옷을 보내드리고,<br v-if="$mq === 'sm'"/> 회수하는<br/>패션 구독 서비스</p>
+      <p class="txt-about-zuly">줄라이는 2주에 한 세트씩<br v-if="$mq === 'sm'"/> 옷을 경험하고,<br v-if="$mq === 'sm'"/> 마음에 들면 구매하는<br/>패션 구독 서비스</p>
       <hr>
       <p class="txt-bill-desc">결제는 구독 기간 동안 2회(4주)에 한 번씩<br v-if="$mq === 'sm'"/> 자동으로 이루어집니다.</p>
     </div>
