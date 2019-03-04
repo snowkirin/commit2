@@ -17,24 +17,43 @@ export default new Router({
       component: () => import("@/views/ProductView.vue")
     },
     {
-      path: "/preferred-style",
-      name: "preferred-style",
-      component: () => import("@/views/PreferredStyle.vue")
+      path: '/join',
+      redirect: '/join/size-info',
+      component: () => import('@/views/Join.vue'),
+      children: [
+        {
+          path: "size-info",
+          name: "size-info",
+          component: () => import("@/views/SizeInfo.vue")
+        },
+        {
+          path: "preferred-style",
+          name: "preferred-style",
+          component: () => import("@/views/PreferredStyle.vue")
+        },
+        {
+          path: "user-info",
+          name: "user-info",
+          component: () => import("@/views/UserInfo.vue")
+        },
+      ]
     },
     {
-      path: "/size-info",
-      name: "size-info",
-      component: () => import("@/views/SizeInfo.vue")
-    },
-    {
-      path: "/tomorrow",
-      name: "tomorrow",
-      component: () => import("@/views/Tomorrow.vue")
-    },
-    {
-      path: "/order-info",
-      name: "order-info",
-      component: () => import("@/views/OrderInfo.vue")
+      path: '/closet',
+      component: () => import('@/views/Closet.vue'),
+      redirect: '/closet/tomorrow',
+      children: [
+        {
+          path: "tomorrow",
+          name: "tomorrow",
+          component: () => import("@/views/Tomorrow.vue")
+        },
+        {
+          path: "history",
+          name: "history",
+          component: () => import("@/views/History.vue")
+        },
+      ]
     },
     {
       path: "/add-info",

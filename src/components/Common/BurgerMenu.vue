@@ -5,13 +5,21 @@
     right
     width="320"
   >
-    <a href="#" class="menu-item">
-      <i class="menu-icon material-icons">3d_rotation</i>
-      <span class="menu-text">회원 가입</span>
+    <router-link to="/" class="menu-text">메인</router-link>
+    <router-link to="/join" class="menu-text">회원 가입</router-link>
+    <router-link to="/closet" class="menu-text">옷장</router-link>
+
+
+    <!--<a href="#" class="menu-item">
+      &lt;!&ndash;<i class="menu-icon material-icons">3d_rotation</i>&ndash;&gt;
+      <span class="menu-text">회원 가입</span>activeIndex(oldVal,newVal) {
+    //   console.log(oldVal, newVal);
+    //   this.activeIndex = newVal;
+    // }
     </a>
     <a href="#" class="menu-item">
       <span class="menu-text">옷장</span>
-    </a>
+    </a>-->
   </Slide>
 </template>
 
@@ -42,16 +50,8 @@ export default {
   }
   .menu-icon {
   }
-  .menu-text {
-    white-space: nowrap;
-  }
 }
-
-/deep/ .bm-burger-bars {
-  background-color: #fff;
-  height: 3px;
-}
-/deep/ .bm-menu {
-  background-color: #fff;
+.menu-text {
+  white-space: nowrap;
 }
 </style>

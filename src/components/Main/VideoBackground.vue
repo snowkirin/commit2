@@ -1,7 +1,7 @@
 <template>
   <div class="video-wrapper">
     <vue-plyr ref="plyr" :crossorigin="true" :options="options" class="video">
-      <video src="@/assets/files/video-1080p.mp4"></video>
+      <!--<video src="@/assets/files/video-1080p.mp4"></video>-->
     </vue-plyr>
   </div>
 </template>

@@ -1,0 +1,105 @@
+<template>
+  <div>
+    <div class="hamburger" @click="openNav">
+      <div class="hamburger-box">
+        <div class="hamburger-inner">
+        </div>
+      </div>
+    </div>
+    <div class="nav-wrapper">
+      Open Nav
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "BurgerMenu",
+  components: {
+  },
+  methods: {
+    openNav(e) {
+      const body = document.body;
+
+      console.log(e);
+      body.classList.add('open-nav');
+    }
+  },
+  mounted() {
+    const body = document.body;
+    body.addEventListener('click', function() {
+      if (this.classList.contains('open-nav')) {
+        console.log('Hello World');
+      }
+       else {
+         console.log('Bad World');
+      }
+    })
+  }
+};
+</script>
+
+<style scoped lang="scss">
+  .hamburger {
+    left: 15px;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    position: fixed;
+    &-box {
+      width: 35px;
+      height: 25px;
+      display: inline-block;
+      position: relative;
+    }
+    &-inner {
+      width: 30px;
+      height: 3px;
+      background-color: #fff;
+      border-radius: 0;
+      position: absolute;
+      top: 0;
+      /*transition-property: -webkit-transform;
+      transition-property: transform;
+      transition-property: transform,-webkit-transform;
+      transition-duration: .15s;
+      transition-timing-function: ease;*/
+      &:before, &:after {
+        content: '';
+        display: block;
+        width: 35px;
+        height: 3px;
+        background-color: #fff;
+        border-radius: 0;
+        position: absolute;
+        /*transition-property: -webkit-transform;
+        transition-property: transform;
+        transition-property: transform,-webkit-transform;
+        transition-duration: .15s;
+        transition-timing-function: ease;*/
+      }
+      &:before {
+        width: 35px;
+        top: 11px;
+      }
+      &:after {
+        width: 20px;
+        top: 22px;
+      }
+    }
+  }
+  .nav-wrapper {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 0px;
+    bottom: 0;
+    background-color: #fff;
+    overflow: hidden;
+    z-index: 10;
+
+  }
+</style>

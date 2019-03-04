@@ -4,9 +4,9 @@ module.exports = {
     "setClasses"
   ],
   "feature-detects": [
-    //"test/css/flexbox",
-    //"test/es6/promises",
-    //"test/serviceworker",
-    //"test/dom/hidden"
+    "test/css/all",
+    "test/es6/promises",
+    "test/serviceworker",
+    "test/dom/hidden"
   ]
 };
