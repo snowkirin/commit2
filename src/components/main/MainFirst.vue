@@ -1,14 +1,14 @@
 <template>
   <div class="contents">
     <div class="content" :class="{ 'is-login': isAuthenticated }">
-      <div class="banner-wrap" v-if="isMainBanner">
+      <!--<div class="banner-wrap" v-if="isMainBanner">
         <div class="center-align">
           <p>지금 가입하시면 <span class="txt-free">첫달 50% 할인 ♥</span></p>
         </div>
         <a href="#" class="btn-close" @click="clickBannerHide">
           <CloseIconSVG />
         </a>
-      </div>
+      </div>-->
       <div class="center-align">
         <div class="content-inner">
           <div class="logo-wrap" v-if="!isAuthenticated && this.$mq === 'sm'">
@@ -34,11 +34,11 @@
                       textJoin
                     }}</router-link>
                   </div>-->
-                  <div class="column">
+                  <!--<div class="column">
                     <router-link to="/join" class="link link-sign-up"
                       >회원가입</router-link
                     >
-                  </div>
+                  </div>-->
                 </div>
               </div>
             </div>
@@ -46,6 +46,24 @@
         </div>
       </div>
       <div class="arrow-wrap"><ArrowIconSVG /></div>
+    </div>
+
+    <div class="closing-popup" v-if="!showPopup">
+      <div class="popup-title">
+        <h3>
+          서비스 중단 안내
+        </h3>
+      </div>
+      <div class="popup-content">
+        <p>2019년 3월을 끝으로 줄라이의 패션 구독 서비스가 종료됩니다.</p>
+        <br/>
+        <p>신규 서비스 준비를 위해 회원가입이 불가능한 점 고객님의 양해 바랍니다.</p>
+      </div>
+      <div class="modal-close">
+        <a class="btn-close" @click="showPopup = !showPopup">
+          <span class="icon-close"></span>
+        </a>
+      </div>
     </div>
   </div>
 </template>
@@ -82,7 +100,8 @@ export default {
             this.textJoin = '회원가입';
           }
         }
-      }
+      },
+      showPopup: false,
     };
   },
   computed: {
@@ -313,4 +332,65 @@ export default {
     }
   }
 }
+
+  .closing-popup {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid #3d3d35;
+    padding: 20px;
+    background-color: #fff;
+    width: 80%;
+    z-index: 10000;
+    .popup-title {
+      text-align: center;
+      font-size: 24px;
+
+    }
+    .popup-content {
+      margin-top: 20px;
+      line-height: 20px;
+    }
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      overflow: hidden;
+      z-index: 10;
+      .btn-close {
+        cursor: pointer;
+        display: block;
+        width: 30px;
+        height: 30px;
+      }
+      .icon-close {
+        display: block;
+        width: 25px;
+        height: 25px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        &::before,
+        &::after {
+          content: '';
+          display: block;
+          width: 100%;
+          height: 1px;
+          background-color: #333;
+          position: absolute;
+          transform-origin: 50% 50%;
+          top: 50%;
+          left: 0;
+        }
+        &::before {
+          transform: rotate(45deg);
+        }
+        &::after {
+          transform: rotate(-45deg);
+        }
+      }
+    };
+  }
 </style>
